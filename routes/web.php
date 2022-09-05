@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('dashboard');
-});
+Route::get('/', [Controllers\DashboardController::class, 'index'])->name('dashboard');
+Route::get('tax', [Controllers\Setup\TaxController::class, 'index'])->name('tax');
+Route::get('products', [Controllers\Products\ProductsController::class, 'index'])->name('products');

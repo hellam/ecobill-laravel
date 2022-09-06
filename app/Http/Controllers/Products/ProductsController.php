@@ -19,7 +19,7 @@ class ProductsController extends Controller
     {
         $products = [];
         $categories = [];
-        return view('products.index', compact('products', 'categories'));
+        return view('products.products', compact('products', 'categories'));
     }
 
     /**

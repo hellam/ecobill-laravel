@@ -24,3 +24,7 @@ Auth::routes();
     Route::get('tax', [Controllers\Setup\TaxController::class, 'index'])->name('tax');
     Route::get('products', [Controllers\Products\ProductsController::class, 'index'])->name('products');
 //});
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

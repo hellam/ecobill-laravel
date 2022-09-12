@@ -109,7 +109,9 @@
                             <div class="card-footer flex-wrap pt-0">
                                 <a href="#"
                                    class="btn btn-light btn-active-primary my-1 me-2">View Role</a>
-                                <button type="button" class="btn btn-light btn-active-light-primary my-1" data-kt-role-edit="kt_modal_edit_role_btn">Edit Role
+                                <button type="button" class="btn btn-light btn-active-light-primary my-1"
+                                        data-kt-role-edit="kt_modal_edit_role_btn"
+                                        data-kt-edit-url="{{route('user.setup.roles.edit', $role->id)}}">Edit Role
                                 </button>
                             </div>
                             <!--end::Card footer-->
@@ -278,7 +280,7 @@
             </div>
             <!--end::Modal - Add role-->
             <!--begin::Modal - Update role-->
-            <div class="modal fade" id="kt_modal_update_role" tabindex="-1" aria-hidden="true" data-kt-edit-url="{{route('user.setup.roles.edit')}}">
+            <div class="modal fade" id="kt_modal_update_role" tabindex="-1" aria-hidden="true">
                 <!--begin::Modal dialog-->
                 <div class="modal-dialog modal-dialog-centered mw-750px">
                     <!--begin::Modal content-->
@@ -309,8 +311,9 @@
                                 Please wait
                             </div>
                         </div>
-                        <!--end::Begin Loader-->
-                        <div class="modal-content">
+                        <!--begin::Form-->
+                        <form id="kt_modal_update_role_form" class="form" action="#">
+                            <!--begin::Scroll-->
                             <!--begin::Modal header-->
                             <div class="modal-header">
                                 <!--begin::Modal title-->
@@ -337,68 +340,63 @@
                             <!--end::Modal header-->
                             <!--begin::Modal body-->
                             <div class="modal-body scroll-y mx-5 my-7">
-                                <!--begin::Form-->
-                                <form id="kt_modal_update_role_form" class="form" action="#">
-                                    <!--begin::Scroll-->
-                                    <div class="d-flex flex-column scroll-y me-n7 pe-7"
-                                         id="kt_modal_update_role_scroll"
-                                         data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}"
-                                         data-kt-scroll-max-height="auto"
-                                         data-kt-scroll-dependencies="#kt_modal_update_role_header"
-                                         data-kt-scroll-wrappers="#kt_modal_update_role_scroll"
-                                         data-kt-scroll-offset="300px">
-                                        <!--begin::Input group-->
-                                        <div class="fv-row mb-10">
-                                            <!--begin::Label-->
-                                            <label class="fs-5 fw-bolder form-label mb-2">
-                                                <span class="required">Role name</span>
-                                            </label>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
-                                            <input class="form-control form-control-solid"
-                                                   placeholder="Enter a role name"
-                                                   name="role_name" value="Developer"/>
-                                            <!--end::Input-->
-                                        </div>
-                                        <!--end::Input group-->
-                                        <!--begin::Permissions-->
-                                        <div class="fv-row">
-                                            <!--begin::Label-->
-                                            <label class="fs-5 fw-bolder form-label mb-2">Role Permissions</label>
-                                            <!--end::Label-->
-                                            <!--begin::Table wrapper-->
-                                            <!--end::Table wrapper-->
-                                        </div>
-                                        <!--end::Permissions-->
+                                <div class="d-flex flex-column scroll-y me-n7 pe-7"
+                                     id="kt_modal_update_role_scroll"
+                                     data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}"
+                                     data-kt-scroll-max-height="auto"
+                                     data-kt-scroll-dependencies="#kt_modal_update_role_header"
+                                     data-kt-scroll-wrappers="#kt_modal_update_role_scroll"
+                                     data-kt-scroll-offset="300px">
+                                    <!--begin::Input group-->
+                                    <div class="fv-row mb-10">
+                                        <!--begin::Label-->
+                                        <label class="fs-5 fw-bolder form-label mb-2">
+                                            <span class="required">Role name</span>
+                                        </label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <input class="form-control form-control-solid"
+                                               placeholder="Enter a role name"
+                                               name="name"/>
+                                        <!--end::Input-->
                                     </div>
-                                    <!--end::Scroll-->
-                                    <!--begin::Actions-->
-                                    <div class="text-center pt-15">
-                                        <button type="reset" class="btn btn-light me-3"
-                                                id="kt_modal_update_role_cancel">
-                                            Discard
-                                        </button>
-                                        <button type="submit" class="btn btn-primary"
-                                                id="kt_modal_update_role_submit">
-                                            <span class="indicator-label">Submit</span>
-                                            <span class="indicator-progress">Please wait...
+                                    <!--end::Input group-->
+                                    <!--begin::Permissions-->
+                                    <div class="fv-row">
+                                        <!--begin::Label-->
+                                        <label class="fs-5 fw-bolder form-label mb-2">Role Permissions</label>
+                                        <!--end::Label-->
+                                        <!--begin::Table wrapper-->
+                                        <!--end::Table wrapper-->
+                                    </div>
+                                    <!--end::Permissions-->
+                                </div>
+                                <!--end::Scroll-->
+                                <!--begin::Actions-->
+                                <div class="text-center pt-15">
+                                    <button type="reset" class="btn btn-light me-3"
+                                            id="kt_modal_update_role_cancel">
+                                        Discard
+                                    </button>
+                                    <button type="submit" class="btn btn-primary"
+                                            id="kt_modal_update_role_submit">
+                                        <span class="indicator-label">Submit</span>
+                                        <span class="indicator-progress">Please wait...
 															<span
                                                                 class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                                        </button>
-                                    </div>
-                                    <!--end::Actions-->
-                                </form>
-                                <!--end::Form-->
+                                    </button>
+                                </div>
+                                <!--end::Actions-->
                             </div>
                             <!--end::Modal body-->
-                        </div>
-                        <!--end::Modal content-->
+                        </form>
+                        <!--end::Form-->
                     </div>
-                    <!--end::Modal dialog-->
+                    <!--end::Modal content-->
                 </div>
+                <!--begin::Modal dialog-->
             </div>
             <!--end::Modal - Update role-->
-            <!--end::Modals-->
         </div>
         <!--end::Post-->
     </div>

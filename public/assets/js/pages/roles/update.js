@@ -200,6 +200,70 @@ var KTUsersUpdatePermissions = function () {
                 $('#kt_modal_update_role_form').hide();//hide form
                 $('.loader_container').show();//show loader
                 $("#kt_modal_update_role").modal('show');//show modal
+
+                $.ajax({
+                    type: 'GET',
+                    url: edit_url,
+                    success: function (json) {
+                        var response = JSON.parse(json);
+                        if (response.status !== true) {
+                            Swal.fire({
+                                text: response.message,
+                                icon: "error",
+                                buttonsStyling: false,
+                                confirmButtonText: "Ok!",
+                                customClass: {
+                                    confirmButton: "btn btn-primary"
+                                }
+                            });
+
+                        } else {
+                            $('#kt_modal_update_tax_form').show({backdrop: 'static', keyboard: false});//show form
+                            var tax = JSON.parse(response.data);
+                            $("#kt_modal_update_tax_form input[name='name']").val(tax.name);
+                            $("#kt_modal_update_tax_form input[name='rate']").val(tax.rate);
+                            $("#kt_modal_update_tax_form textarea[name='description']").val(tax.description);
+                            $("#kt_modal_update_tax_form input[name='inactive']").val(tax.inactive)
+
+                            if (tax.inactive !== 1) {
+                                $("#kt_modal_update_tax_form input[id='inactive']").attr("checked", "checked");
+                            } else {
+                                $("#kt_modal_update_tax_form input[id='inactive']").removeAttr("checked")
+                            }
+
+                            //active/inactive
+                            $("#kt_modal_update_tax_form input[id='inactive']").on('change', function () {
+                                if ($(this).is(':checked'))
+                                    $("#kt_modal_update_tax_form input[name='inactive']").val(0)
+                                else {
+                                    $("#kt_modal_update_tax_form input[name='inactive']").val(1)
+                                }
+                            })
+
+
+                        }
+
+                        $('.loader_container').hide();//hide loader
+
+                    },
+                    error: function (xhr, desc, err) {
+                        Swal.fire({
+                            text: 'A network error occured. Please consult your network administrator.',
+                            icon: "error",
+                            buttonsStyling: false,
+                            confirmButtonText: "Ok!",
+                            customClass: {
+                                confirmButton: "btn btn-primary"
+                            }
+                        });
+
+                        submitButton.removeAttribute('data-kt-indicator');
+
+                        // Enable submit button after loading
+                        submitButton.disabled = false;
+
+                    }
+                });
             });
         });
 

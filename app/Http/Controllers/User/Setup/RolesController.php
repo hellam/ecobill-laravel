@@ -51,6 +51,6 @@ class RolesController extends Controller
         ]);
 
 
-        return success_web_processor(null, __('messages.msg_saved_success', ['attribute' => __('messages.transaction')]));
+        return success_web_processor(null, __('messages.msg_saved_success', ['attribute' => __('messages.role')]));
     }
 }

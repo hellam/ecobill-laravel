@@ -39,9 +39,9 @@ Route::group(['as' => 'user.'], function () {
             Route::controller(User\Setup\RolesController::class)->prefix('roles')->as('roles.')->group(function () {
                 Route::get('/', 'index')->name('list');
                 Route::post('/', 'create')->name('add');
-                Route::get('edit', 'edit')->name('edit');
-                Route::put('update', 'update')->name('update');
-                Route::delete('delete', 'destroy')->name('delete');
+                Route::get('edit/{id}', 'edit')->name('edit');
+                Route::put('update/{id}', 'update')->name('update');
+                Route::delete('delete/{id}', 'destroy')->name('delete');
             });
         });
     });

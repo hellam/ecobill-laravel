@@ -26,14 +26,14 @@ class RolesController extends Controller
     {
         $permission_groups = PermissionGroup::with('permissions')->get();
         $roles = Role::all();
-        return view('user.setup.roles', compact('permission_groups','roles'));
+        return view('user.setup.roles', compact('permission_groups', 'roles'));
     }
 
     public function create(Request $request): JsonResponse
     {
 
         $validator = Validator::make($request->all(), [
-            'name' => 'required|unique:'.Role::class.',name,NULL,id,client_ref,'.get_user_ref(),
+            'name' => 'required|unique:' . Role::class . ',name,NULL,id,client_ref,' . get_user_ref(),
             'permissions' => 'required|array',
         ]);
 
@@ -75,35 +75,23 @@ class RolesController extends Controller
      */
     public function update(Request $request, $id)
     {
-//        $validator = Validator::make($request->all(), [
-//            'f_name' => 'required',
-//            'l_name' => 'required',
-//            'address' => 'required',
-//            'country' => 'required',
-////            'company' => 'required',
-//            'email' => 'required|email:rfc,dns,spoof|unique:' . Contacts::class . ',email,' . $id . ',client_ref,' . Helpers::get_user_ref(),
-//            'phone' => 'required|min:13|max:13|unique:' . Contacts::class . ',phone,' . $id . ',client_ref,' . Helpers::get_user_ref(),
-//        ], [
-//            'f_name.required' => __('validation.required', ['attribute' => 'first name']),
-//            'l_name.required' => __('validation.required', ['attribute' => 'last name']),
-//        ]);
-//
-//        if ($validator->fails()) {
-//            return Helpers::error_web_processor(__('messages.field_correction'),
-//                200, Helpers::validation_error_processor($validator));
-//        }
-//
-//        $contact = Contacts::find($id);
-//        $contact->f_name = $request->f_name;
-//        $contact->l_name = $request->l_name;
-//        $contact->address = $request->address;
-//        $contact->branch = $request->company;
-//        $contact->country = $request->country;
-//        $contact->email = $request->email;
-//        $contact->phone = $request->phone;
-//        $contact->update();
-//
-//        return Helpers::success_web_processors_web_processor(null, __('messages.msg_updated_success', ['attribute' => __('messages.contact')]));
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|unique:' . Role::class . ',name,' . $id . ',id,client_ref,' . get_user_ref(),
+            'permissions' => 'required|array',
+        ]);
+
+        if ($validator->fails()) {
+            return error_web_processor(__('messages.field_correction'),
+                200, validation_error_processor($validator));
+        }
+        $request->permissions = implode(',', $request->permissions);
+
+        $role = Role::find($id);
+        $role->name = $request->name;
+        $role->permissions = $request->permissions;
+        $role->update();
+
+        return success_web_processor(null, __('messages.msg_updated_success', ['attribute' => __('messages.role')]));
     }
 
     /**
@@ -114,7 +102,7 @@ class RolesController extends Controller
     {
         $contact = Role::find($id);
         if (isset($contact)) {
-            $users= User::where('role_id', $id)->count();
+            $users = User::where('role_id', $id)->count();
             if ($users > 0) {
                 return error_web_processor(__('messages.msg_delete_not_allowed', ['attribute' => __('messages.role'), 'attribute1' => __('messages.users')]));
             }

@@ -244,7 +244,7 @@
             </div>
             <!--end:Menu item-->
             <!--begin:Menu item-->
-            <div data-kt-menu-trigger="click" class="menu-item menu-accordion @if(Route::is('user.tax'))hover show @endif">
+            <div data-kt-menu-trigger="click" class="menu-item menu-accordion @if(Route::is('user.tax') || Route::is('user.roles'))hover show @endif">
                 <!--begin:Menu link-->
                 <span class="menu-link">
 										<span class="menu-icon">
@@ -295,11 +295,11 @@
                     <!--begin:Menu item-->
                     <div class="menu-item">
                         <!--begin:Menu link-->
-                        <a class="menu-link" href="#">
+                        <a class="menu-link @if(Route::is('user.roles'))active @endif" href="{{route('user.roles')}}">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
-                            <span class="menu-title">{{__('messages.access_levels')}}</span>
+                            <span class="menu-title">{{__('messages.roles_permissions')}}</span>
                         </a>
                         <!--end:Menu link-->
                     </div>

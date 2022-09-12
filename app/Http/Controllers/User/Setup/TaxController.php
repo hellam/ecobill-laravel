@@ -18,7 +18,7 @@ class TaxController extends Controller
     public function index(): Factory|View|Application
     {
         $taxes = [];
-        return view('setup.tax', compact('taxes'));
+        return view('user.setup.tax', compact('taxes'));
     }
 
     /**

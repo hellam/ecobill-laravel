@@ -315,7 +315,7 @@
                 <!--end::Aside user-->
             </div>
             <!--end::Aside Toolbarl-->
-            @include('layout.user.partials.side-bar')
+            @include('layout.user.partials._side-bar')
             <!--begin::Footer-->
             <div class="aside-footer flex-column-auto py-5" id="kt_aside_footer">
                 <a href="../../demo8/dist/documentation/getting-started.html" class="btn btn-custom btn-primary w-100"
@@ -709,7 +709,15 @@
                 <!--end::Toolbar-->
             </div>
             <!--end::Header-->
+            <!--begin::Content-->
+            <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+                <!--begin::Post-->
+                <div class="post d-flex flex-column-fluid" id="kt_post">
             @yield('content')
+                </div>
+                <!--begin::Post-->
+            </div>
+            <!--end::Content-->
             <!--begin::Footer-->
             <div class="footer py-4 d-flex flex-lg-column" id="kt_footer">
                 <!--begin::Container-->

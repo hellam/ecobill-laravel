@@ -367,6 +367,20 @@
                                         <label class="fs-5 fw-bolder form-label mb-2">Role Permissions</label>
                                         <!--end::Label-->
                                         <!--begin::Table wrapper-->
+                                        <div class="table-responsive">
+                                            <!--begin::Table-->
+                                            <table class="table align-middle table-row-dashed fs-6 gy-5">
+                                                <!--begin::Table body-->
+                                                <tbody class="text-gray-600 fw-bold" id="table_update">
+                                                <!--begin::Table row-->
+
+{{--                                                <tr id="permissions"></tr>--}}
+                                                <!--end::Table row-->
+                                                </tbody>
+                                                <!--end::Table body-->
+                                            </table>
+                                            <!--end::Table-->
+                                        </div>
                                         <!--end::Table wrapper-->
                                     </div>
                                     <!--end::Permissions-->

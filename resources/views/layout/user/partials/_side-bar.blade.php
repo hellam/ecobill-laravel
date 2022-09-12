@@ -191,7 +191,7 @@
             <!--end:Menu item-->
             <!--begin:Menu item-->
             <div data-kt-menu-trigger="click"
-                 class="menu-item menu-accordion @if(Route::is('user.products'))hover show @endif">
+                 class="menu-item menu-accordion @if(Route::has('user.products*'))hover show @endif">
                 <!--begin:Menu link-->
                 <span class="menu-link">
 										<span class="menu-icon">
@@ -218,7 +218,7 @@
                     <!--begin:Menu item-->
                     <div class="menu-item">
                         <!--begin:Menu link-->
-                        <a class="menu-link @if(Route::is('user.products'))active @endif" href="{{route('user.products')}}">
+                        <a class="menu-link @if(Route::is('user.products.list'))active @endif" href="{{route('user.products.list')}}">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
@@ -244,7 +244,7 @@
             </div>
             <!--end:Menu item-->
             <!--begin:Menu item-->
-            <div data-kt-menu-trigger="click" class="menu-item menu-accordion @if(Route::is('user.tax') || Route::is('user.roles'))hover show @endif">
+            <div data-kt-menu-trigger="click" class="menu-item menu-accordion @if(Route::has('user.setup*'))hover show @endif">
                 <!--begin:Menu link-->
                 <span class="menu-link">
 										<span class="menu-icon">
@@ -295,7 +295,7 @@
                     <!--begin:Menu item-->
                     <div class="menu-item">
                         <!--begin:Menu link-->
-                        <a class="menu-link @if(Route::is('user.roles'))active @endif" href="{{route('user.roles')}}">
+                        <a class="menu-link @if(Route::is('user.setup.roles.list'))active @endif" href="{{route('user.setup.roles.list')}}">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
@@ -319,7 +319,7 @@
                     <!--begin:Menu item-->
                     <div class="menu-item">
                         <!--begin:Menu link-->
-                        <a class="menu-link @if(Route::is('user.tax'))active @endif" href="{{route('user.tax')}}">
+                        <a class="menu-link @if(Route::is('user.setup.tax.list'))active @endif" href="{{route('user.setup.tax.list')}}">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>

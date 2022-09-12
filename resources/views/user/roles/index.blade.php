@@ -162,7 +162,7 @@
                             <!--end::Modal title-->
                             <!--begin::Close-->
                             <div class="btn btn-icon btn-sm btn-active-icon-primary"
-                                 data-kt-roles-modal-action="close">
+                                 id="kt_modal_add_role_close">
                                 <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
                                 <span class="svg-icon svg-icon-1">
 														<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -180,9 +180,9 @@
                         </div>
                         <!--end::Modal header-->
                         <!--begin::Modal body-->
-                        <div class="modal-body scroll-y mx-lg-5 my-7">
+                        <div class="modal-body scroll-y mx-lg-5 my-7" id="kt_modal_add_role_modal">
                             <!--begin::Form-->
-                            <form id="kt_modal_add_role_form" class="form" action="#">
+                            <form id="kt_modal_add_role_form" class="form" action="#" data-kt-action="{{route('user.setup.roles.add')}}">
                                 <!--begin::Scroll-->
                                 <div class="d-flex flex-column scroll-y me-n7 pe-7"
                                      id="kt_modal_add_role_scroll"
@@ -220,26 +220,26 @@
                                                 <tbody class="text-gray-600 fw-bold">
                                                 <!--begin::Table row-->
                                                 @foreach($permission_groups as $permission_group)
+                                                    <!--begin::Permission-->
                                                     <tr>
                                                         <td class="text-gray-800">
-                                                            <!--begin::Parent Permission-->
                                                             <label
                                                                 class="fs-5 fw-bolder form-label mb-2">{{$permission_group->name}}</label>
+                                                            <!--begin::Checkbox-->
                                                             @foreach($permission_group->permissions as $permission)
-                                                                <!--begin::Checkbox-->
                                                                 <label
                                                                     class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20 mx-6">
                                                                     <input class="form-check-input" type="checkbox"
-                                                                           value="{{$permission->id}}"
+                                                                           value="{{$permission->code}}"
                                                                            name="permissions[]"/>
                                                                     <span
                                                                         class="form-check-label">{{$permission->name}}</span>
                                                                 </label>
                                                             @endforeach
                                                             <!--end::Checkbox-->
-                                                            <!--end::Parent Permission-->
                                                         </td>
                                                     </tr>
+                                                    <!--end::Permission-->
                                                 @endforeach
                                                 <!--end::Table row-->
                                                 </tbody>
@@ -255,11 +255,11 @@
                                 <!--begin::Actions-->
                                 <div class="text-center pt-15">
                                     <button type="reset" class="btn btn-light me-3"
-                                            data-kt-roles-modal-action="cancel">
+                                            id="kt_modal_add_role_cancel">
                                         Discard
                                     </button>
                                     <button type="submit" class="btn btn-primary"
-                                            data-kt-roles-modal-action="submit">
+                                            id="kt_modal_add_role_submit">
                                         <span class="indicator-label">Submit</span>
                                         <span class="indicator-progress">Please wait...
 															<span

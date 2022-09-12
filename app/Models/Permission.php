@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Created by Reliese Model.
+ */
+
 namespace App\Models;
 
 use Carbon\Carbon;
@@ -7,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Permission
- *
+ * 
  * @property int $id
  * @property string $name
  * @property string|null $parent_id

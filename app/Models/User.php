@@ -8,6 +8,7 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class User
@@ -42,14 +43,13 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property bool $inactive
+ * @property string|null $remember_token
  *
  * @package App\Models
  */
 class User extends Authenticatable
 {
 	protected $table = 'users';
-
-    protected $guard = 'user';
 
 	protected $casts = [
 		'role_id' => 'int',
@@ -65,7 +65,8 @@ class User extends Authenticatable
 	];
 
 	protected $hidden = [
-		'password'
+		'password',
+		'remember_token'
 	];
 
 	protected $fillable = [
@@ -95,6 +96,7 @@ class User extends Authenticatable
 		'def_print_destination',
 		'created_by',
 		'last_updated_by',
-		'inactive'
+		'inactive',
+		'remember_token'
 	];
 }

@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Created by Reliese Model.
+ */
+
 namespace App\Models;
 
 use Carbon\Carbon;
@@ -37,14 +41,13 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property bool $inactive
+ * @property string|null $remember_me
  *
  * @package App\Models
  */
 class Admin extends Authenticatable
 {
 	protected $table = 'admins';
-
-    protected $guard = 'admin';
 
 	protected $casts = [
 		'role_id' => 'int',
@@ -89,6 +92,7 @@ class Admin extends Authenticatable
 		'def_print_destination',
 		'created_by',
 		'last_updated_by',
-		'inactive'
+		'inactive',
+		'remember_me'
 	];
 }

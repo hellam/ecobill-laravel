@@ -51,6 +51,8 @@ return [
     'if_checked' => 'If checked, users with this permission will be able to view :attribute',
     'login' => 'Login',
     'msg_saved_success' => ':attribute saved successfully',
+    'msg_item_found' => ':attribute found',
+    'msg_item_not_found' => ':attribute not found',
     'not_found' => 'No :attribute Found',
     'new' => 'New',
     'name' => 'Name',

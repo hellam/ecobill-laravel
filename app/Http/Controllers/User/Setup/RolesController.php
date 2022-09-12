@@ -54,4 +54,17 @@ class RolesController extends Controller
 
         return success_web_processor(null, __('messages.msg_saved_success', ['attribute' => __('messages.role')]));
     }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     */
+    public function edit($id)
+    {
+        $contact = Role::find($id);
+        if (isset($contact)) {
+            return success_web_processor($contact, __('messages.msg_item_found', ['attribute' => __('messages.role')]));
+        }
+        return error_web_processor(trans('messages.msg_item_not_found', ['attribute' => __('messages.role')]));
+    }
 }

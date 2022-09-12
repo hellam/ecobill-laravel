@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User\Auth;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Yoeunes\Toastr\Facades\Toastr;
@@ -32,6 +33,10 @@ class LoginController extends Controller
 
         if (auth('user')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
             Toastr::success(trans('messages.login') . ' ' . trans('messages.successful'), trans('messages.welcome'), ["positionClass" => "toast-top-right"]);
+            try {
+                auth('user')->logoutOtherDevices($request->password);
+            } catch (AuthenticationException $e) {
+            }
             return redirect()->route('user.dashboard');
         }
 

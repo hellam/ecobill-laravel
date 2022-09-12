@@ -64,6 +64,7 @@
             <!--begin::Row-->
             <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-5 g-xl-9">
                 <!--begin::Col-->
+                @for
                 <div class="col-md-4">
                     <!--begin::Card-->
                     <div class="card card-flush h-md-100">

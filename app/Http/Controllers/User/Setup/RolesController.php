@@ -25,7 +25,7 @@ class RolesController extends Controller
     {
         $permission_groups = PermissionGroup::with('permissions')->get();
         $roles = Role::all();
-        return view('user.roles.index', compact('permission_groups','roles'));
+        return view('user.setup.roles', compact('permission_groups','roles'));
     }
 
     public function create(Request $request): JsonResponse

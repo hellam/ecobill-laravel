@@ -14,7 +14,7 @@ function reloadCaptcha(): JsonResponse
     return response()->json(['captcha'=> captcha_img('math')]);
 }
 function get_user_ref(){
-    return null;
+    return auth('user')->user()->uuid;
 }
 
 /**

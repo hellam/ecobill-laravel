@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User\Setup;
 
 use App\Http\Controllers\Controller;
 use App\Models\PermissionGroup;
+use App\Models\Role;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -11,6 +12,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use function App\CentralLogics\error_web_processor;
+use function App\CentralLogics\get_user_ref;
 use function App\CentralLogics\success_web_processor;
 use function App\CentralLogics\validation_error_processor;
 
@@ -29,7 +31,7 @@ class RolesController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'name' => 'required',
+            'name' => 'required|unique:'.Role::class.',name,NULL,id,client_ref,'.get_user_ref(),
             'permissions' => 'required|array',
         ]);
 
@@ -39,17 +41,14 @@ class RolesController extends Controller
                 200, validation_error_processor($validator));
         }
 
-//        Transactions::create([
-//            'owner_id' => $request->owner_id,
-//            'trx_id' => generateTrxId("SM"),
-//            'units' => doubleval(calculateUnits($request->amount)),
-//            'trx_type' => "sms_bundle",
-//            'trx_desc' => "Payment for SMS Bundle",
-//            'amount' => $request->amount,
-//            'pay_mode' => $request->pay_mode,
-//            'status' => "paid",
-//            'received_by' => auth('admin')->user()->username,
-//        ]);
+        $request->permissions = implode(',', $request->permissions);
+
+        Role::create([
+            'name' => $request->owner_id,
+            'permissions' => $request->permissions,
+            'client_ref' => get_user_ref(),
+            'created_by' => auth('user')->user()->username,
+        ]);
 
 
         return success_web_processor(null, __('messages.msg_saved_success', ['attribute' => __('messages.transaction')]));

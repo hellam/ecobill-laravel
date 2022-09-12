@@ -182,7 +182,8 @@
                         <!--begin::Modal body-->
                         <div class="modal-body scroll-y mx-lg-5 my-7">
                             <!--begin::Form-->
-                            <form id="kt_modal_add_role_form" class="form" action="#" data-kt-action="{{route('user.setup.roles.add')}}">
+                            <form id="kt_modal_add_role_form" class="form" action="#"
+                                  data-kt-action="{{route('user.setup.roles.add')}}">
                                 <!--begin::Scroll-->
                                 <div class="d-flex flex-column scroll-y me-n7 pe-7"
                                      id="kt_modal_add_role_scroll"
@@ -241,6 +242,7 @@
                                                     </tr>
                                                     <!--end::Permission-->
                                                 @endforeach
+                                                <tr id="permissions"></tr>
                                                 <!--end::Table row-->
                                                 </tbody>
                                                 <!--end::Table body-->

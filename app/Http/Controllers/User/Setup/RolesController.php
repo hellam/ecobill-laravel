@@ -69,9 +69,9 @@ class RolesController extends Controller
             $response['role'] = $role;
             $response['permissions'] = [];
 
-            $all_permissions = Permission::all();
+            $all_permissions = Permission::with('permission_group')->get();
             foreach($all_permissions as $permission){
-                $response['permissions'][] = ['code' => $permission->code, 'name' => $permission->name, 'checked' => in_array($permission->code, $permissions)];
+                $response['permissions'][] = ['group_name' => $permission->permission_group->name,'code' => $permission->code, 'name' => $permission->name, 'checked' => in_array($permission->code, $permissions)];
             }
             return success_web_processor($response, __('messages.msg_item_found', ['attribute' => __('messages.role')]));
         }

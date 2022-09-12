@@ -31,6 +31,96 @@
     <link href="{{asset('assets/plugins/global/plugins.bundle.css')}}" rel="stylesheet" type="text/css"/>
     <link href="{{asset('assets/css/style.bundle.css')}}" rel="stylesheet" type="text/css"/>
     <!--end::Global Stylesheets Bundle-->
+    <!-- Start: Loader -->
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+
+        .loader_container {
+            position: relative;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .loader_wrapper {
+            position: absolute;
+            top: -35px;
+            transform: scale(1.5);
+        }
+
+        .loader {
+            height: 25px;
+            width: 1px;
+            position: absolute;
+            animation: rotate 3.5s linear infinite;
+        }
+
+        .loader .dot {
+            top: 30px;
+            height: 7px;
+            width: 7px;
+            background: #cb2129;
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .text {
+            position: absolute;
+            bottom: -85px;
+            font-size: 25px;
+            font-weight: 400;
+            font-family: 'Poppins', sans-serif;
+            color: #cb2129;
+        }
+
+        @keyframes rotate {
+            30% {
+                transform: rotate(220deg);
+            }
+            40% {
+                transform: rotate(450deg);
+                opacity: 1;
+            }
+            75% {
+                transform: rotate(720deg);
+                opacity: 1;
+            }
+            76% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 0;
+                transform: rotate(0deg);
+            }
+        }
+
+        .loader:nth-child(1) {
+            animation-delay: 0.15s;
+        }
+
+        .loader:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+
+        .loader:nth-child(3) {
+            animation-delay: 0.45s;
+        }
+
+        .loader:nth-child(4) {
+            animation-delay: 0.6s;
+        }
+
+        .loader:nth-child(5) {
+            animation-delay: 0.75s;
+        }
+
+        .loader:nth-child(6) {
+            animation-delay: 0.9s;
+        }
+
+    </style>
+    <!-- End: Loader -->
+
     @stack('custom_styles')
 </head>
 <!--end::Head-->
@@ -669,7 +759,7 @@
             <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
                 <!--begin::Post-->
                 <div class="post d-flex flex-column-fluid" id="kt_post">
-            @yield('content')
+                    @yield('content')
                 </div>
                 <!--begin::Post-->
             </div>

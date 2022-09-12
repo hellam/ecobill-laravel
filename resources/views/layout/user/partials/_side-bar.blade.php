@@ -191,7 +191,7 @@
             <!--end:Menu item-->
             <!--begin:Menu item-->
             <div data-kt-menu-trigger="click"
-                 class="menu-item menu-accordion @if(Route::has('user.products*'))hover show @endif">
+                 class="menu-item menu-accordion @if(Route::is('user.products*'))hover show @endif">
                 <!--begin:Menu link-->
                 <span class="menu-link">
 										<span class="menu-icon">
@@ -244,7 +244,7 @@
             </div>
             <!--end:Menu item-->
             <!--begin:Menu item-->
-            <div data-kt-menu-trigger="click" class="menu-item menu-accordion @if(Route::has('user.setup*'))hover show @endif">
+            <div data-kt-menu-trigger="click" class="menu-item menu-accordion @if(Route::is('user.setup*'))hover show @endif">
                 <!--begin:Menu link-->
                 <span class="menu-link">
 										<span class="menu-icon">

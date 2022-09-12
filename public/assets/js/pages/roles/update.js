@@ -70,12 +70,12 @@ var KTUsersUpdatePermissions = function () {
                     }))
                 }))
             })(), (() => {
-                const t = e.querySelector("#kt_roles_select_all"), n = e.querySelectorAll('[type="checkbox"]');
-                t.addEventListener("change", (t => {
-                    n.forEach((e => {
-                        e.checked = t.target.checked
-                    }))
-                }))
+                // const t = e.querySelector("#kt_roles_select_all"), n = e.querySelectorAll('[type="checkbox"]');
+                // t.addEventListener("change", (t => {
+                //     n.forEach((e => {
+                //         e.checked = t.target.checked
+                //     }))
+                // }))
             })()
         }
     }

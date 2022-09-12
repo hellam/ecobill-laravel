@@ -301,7 +301,8 @@ var KTUsersUpdatePermissions = function () {
 
                         // Enable submit button after loading
                         submitButton.disabled = false;
-
+                        $("#kt_modal_update_role").modal('hide');//show modal
+                        $('.loader_container').hide();//hide loader
                     }
                 });
             });

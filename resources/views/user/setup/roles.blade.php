@@ -278,7 +278,7 @@
             </div>
             <!--end::Modal - Add role-->
             <!--begin::Modal - Update role-->
-            <div class="modal fade" id="kt_modal_update_role" tabindex="-1" aria-hidden="true" data-kt-edit-url="{{route('users.setup')}}">
+            <div class="modal fade" id="kt_modal_update_role" tabindex="-1" aria-hidden="true" data-kt-edit-url="{{route('users.setup.')}}">
                 <!--begin::Modal dialog-->
                 <div class="modal-dialog modal-dialog-centered mw-750px">
                     <!--begin::Modal content-->

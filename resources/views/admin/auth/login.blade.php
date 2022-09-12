@@ -1,4 +1,4 @@
-@extends('auth.layout.app')
+@extends('admin.auth.layout.app')
 @section('title', 'Login')
 @section('content')
     <!--begin::Body-->
@@ -8,12 +8,12 @@
             <!--begin::Content-->
             <div class="w-md-400px">
                 <!--begin::Form-->
-                <form class="form w-100" novalidate="novalidate" id="kt_sign_in_form"
-                      data-kt-redirect-url="#" action="#">
+                <form class="form w-100" action="{{route('admin.auth.login')}}" method="post">
+                    @csrf
                     <!--begin::Heading-->
                     <div class="text-center mb-11">
                         <!--begin::Title-->
-                        <h1 class="text-dark fw-bolder mb-3">Sign In</h1>
+                        <h1 class="text-dark fw-bolder mb-3">Sign In - Super Admin</h1>
                         <!--end::Title-->
                         <!--begin::Subtitle-->
                         <div class="text-gray-500 fw-semibold fs-6">Welcome Back</div>
@@ -36,6 +36,17 @@
                         <!--end::Password-->
                     </div>
                     <!--end::Input group=-->
+                    <div class="form-group mt-4 mb-4">
+                        <div class="captcha">
+                            <span>{!! captcha_img('math') !!}</span>
+                            <a type="button" class="btn btn-danger" id="btn_reload">
+                                &#x21bb;
+                            </a>
+                        </div>
+                    </div>
+                    <div class="form-group mb-4">
+                        <input id="captcha" type="text" class="form-control" placeholder="Enter Captcha" name="captcha">
+                    </div>
                     <!--begin::Wrapper-->
                     <div class="d-flex flex-stack flex-wrap gap-3 fs-base fw-semibold mb-8 mt-8">
                         <div>
@@ -49,11 +60,9 @@
                             </div>
                         </div>
                         <!--begin::Link-->
-                        @if (Route::has('password.request'))
-                            <a class="link-primary" href="{{ route('password.request') }}">
-                                {{ __('messages.forgot_password') }}
-                            </a>
-                        @endif
+                        <a class="link-primary" href="javascript:">
+                            {{ __('messages.forgot_password') }}
+                        </a>
                         <!--end::Link-->
                     </div>
                     <!--end::Wrapper-->
@@ -79,3 +88,29 @@
     </div>
     <!--end::Body-->
 @stop
+
+@push('custom_scripts')
+    <script type="text/javascript">
+        $('#btn_reload').click(function () {
+            const btn_reload = $('#btn_reload');
+            const loading = $('#loading1');
+
+            btn_reload.hide();
+            loading.show();
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: 'POST',
+                url: '{{route('user.captcha_reload')}}',
+                success: function (json) {
+                    $(".captcha span").html(json.captcha);
+
+                    btn_reload.show();
+                    loading.hide();
+                }
+            });
+        });
+
+    </script>
+@endpush

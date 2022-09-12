@@ -1,4 +1,4 @@
-@extends('layout.app')
+@extends('layout.admin.app')
 @section('title', 'EcoBill - The Game Changer')
 @section('page_title')
     <!--begin::Page title-->
@@ -33,7 +33,7 @@
         <!--end::Breadcrumb-->
     </div>
     <!--end::Page title-->
-@endsection
+@stop
 @section('content')
     <!--begin::Content-->
     <div class="content d-flex flex-column flex-column-fluid" id="kt_content">

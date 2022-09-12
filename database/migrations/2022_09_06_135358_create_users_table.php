@@ -17,6 +17,7 @@ class CreateUsersTable extends Migration
             $table->bigInteger('id', true);
             $table->string('username', 20)->unique('username');
             $table->string('password', 250);
+            $table->string('remember_token', 250);
             $table->string('uuid', 20);
             $table->timestamp('password_expiry_date')->nullable();
             $table->timestamp('account_expiry_date')->nullable();

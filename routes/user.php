@@ -32,5 +32,6 @@ Route::group(['as' => 'user.'], function () {
         Route::get('/', [User\DashboardController::class, 'index'])->name('dashboard');
         Route::get('tax', [User\Setup\TaxController::class, 'index'])->name('tax');
         Route::get('products', [User\Products\ProductsController::class, 'index'])->name('products');
+        Route::get('roles', [User\Roles\RolesController::class, 'index'])->name('roles');
     });
 });

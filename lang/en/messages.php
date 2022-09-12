@@ -25,15 +25,15 @@ return [
     //SideBar SubMenu
     'all_invoices' => 'All Invoices',
     'api' => 'API',
-    'access_levels' => 'Access Levels',
     'business_setup' => 'Business Setup',
     'menu_setup' => 'Menu Setup',
     'maker_checker' => 'Maker Checker',
     'new_invoice' => 'New Invoice',
     'receive_payment' => 'Receive Payment',
     'recurrent_invoices' => 'Recurrent Invoices',
-    'tax' => 'Tax',
+    'roles_permissions' => 'Roles & Permissions',
     'subscriptions' => 'Subscriptions',
+    'tax' => 'Tax',
     'users' => 'Users',
 
     //Other Messages
@@ -47,6 +47,7 @@ return [
     'default' => 'Default',
     'forgot_password' => 'Forgot Password?',
     'home' => 'Home',
+    'if_checked' => 'If checked, users with this permission will be able to view :attribute',
     'login' => 'Login',
     'not_found' => 'No :attribute Found',
     'new' => 'New',

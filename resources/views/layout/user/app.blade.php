@@ -665,7 +665,15 @@
                 <!--end::Toolbar-->
             </div>
             <!--end::Header-->
+            <!--begin::Content-->
+            <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+                <!--begin::Post-->
+                <div class="post d-flex flex-column-fluid" id="kt_post">
             @yield('content')
+                </div>
+                <!--begin::Post-->
+            </div>
+            <!--end::Content-->
             <!--begin::Footer-->
             <div class="footer py-4 d-flex flex-lg-column" id="kt_footer">
                 <!--begin::Container-->

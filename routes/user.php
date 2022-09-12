@@ -17,8 +17,8 @@ use function App\CentralLogics\reloadCaptcha;
 
 
 Route::group(['as' => 'user.'], function () {
-    Route::post('reload-captcha', function (){
-        return response()->json(['captcha'=> captcha_img('math')]);
+    Route::post('reload-captcha', function () {
+        return response()->json(['captcha' => captcha_img('math')]);
     })->name('captcha_reload');
     /* start authentication routes */
     Route::controller(User\Auth\LoginController::class)->prefix('auth')->as('auth.')->group(function () {
@@ -30,8 +30,15 @@ Route::group(['as' => 'user.'], function () {
 
     Route::group(['middleware' => ['user']], function () {
         Route::get('/', [User\DashboardController::class, 'index'])->name('dashboard');
-        Route::get('tax', [User\Setup\TaxController::class, 'index'])->name('tax');
-        Route::get('products', [User\Products\ProductsController::class, 'index'])->name('products');
-        Route::get('roles', [User\Roles\RolesController::class, 'index'])->name('roles');
+        Route::group(['as' => 'products.'], function () {
+            Route::get('list', [User\Products\ProductsController::class, 'index'])->name('products');
+        });
+        Route::group(['as' => 'setup.'], function () {
+            Route::get('tax', [User\Setup\TaxController::class, 'index'])->name('tax');
+            Route::controller(User\Roles\RolesController::class)->prefix('roles')->as('roles.')->group(function () {
+                Route::get('/', 'index')->name('list');
+                Route::post('/', 'create')->name('add');
+            });
+        });
     });
 });

@@ -10,10 +10,10 @@ use Illuminate\Contracts\View\View;
 class DashboardController extends Controller
 {
     /**
-     * @return Factory|View|Application
+     * @return View
      */
-    public function index(): Factory|View|Application
+    public function index(): View
     {
-        return view('dashboard');
+        return view('admin.dashboard');
     }
 }

@@ -31,7 +31,7 @@
     <link href="{{asset('assets/plugins/global/plugins.bundle.css')}}" rel="stylesheet" type="text/css"/>
     <link href="{{asset('assets/css/style.bundle.css')}}" rel="stylesheet" type="text/css"/>
     <!--end::Global Stylesheets Bundle-->
-    @yield('custom_styles')
+    @stack('custom_styles')
 </head>
 <!--end::Head-->
 <!--begin::Body-->
@@ -241,63 +241,19 @@
 														</span>English</a>
                                             </div>
                                             <!--end::Menu item-->
-                                            <!--begin::Menu item-->
-                                            <div class="menu-item px-3">
-                                                <a href="../../demo8/dist/account/settings.html"
-                                                   class="menu-link d-flex px-5">
-														<span class="symbol symbol-20px me-4">
-															<img class="rounded-1"
-                                                                 src="{{asset('assets/media/flags/spain.svg')}}"
-                                                                 alt=""/>
-														</span>Spanish</a>
-                                            </div>
-                                            <!--end::Menu item-->
-                                            <!--begin::Menu item-->
-                                            <div class="menu-item px-3">
-                                                <a href="../../demo8/dist/account/settings.html"
-                                                   class="menu-link d-flex px-5">
-														<span class="symbol symbol-20px me-4">
-															<img class="rounded-1"
-                                                                 src="{{asset('assets/media/flags/germany.svg')}}"
-                                                                 alt=""/>
-														</span>German</a>
-                                            </div>
-                                            <!--end::Menu item-->
-                                            <!--begin::Menu item-->
-                                            <div class="menu-item px-3">
-                                                <a href="../../demo8/dist/account/settings.html"
-                                                   class="menu-link d-flex px-5">
-														<span class="symbol symbol-20px me-4">
-															<img class="rounded-1"
-                                                                 src="{{asset('assets/media/flags/japan.svg')}}"
-                                                                 alt=""/>
-														</span>Japanese</a>
-                                            </div>
-                                            <!--end::Menu item-->
-                                            <!--begin::Menu item-->
-                                            <div class="menu-item px-3">
-                                                <a href="../../demo8/dist/account/settings.html"
-                                                   class="menu-link d-flex px-5">
-														<span class="symbol symbol-20px me-4">
-															<img class="rounded-1"
-                                                                 src="{{asset('assets/media/flags/france.svg')}}"
-                                                                 alt=""/>
-														</span>French</a>
-                                            </div>
-                                            <!--end::Menu item-->
                                         </div>
                                         <!--end::Menu sub-->
                                     </div>
                                     <!--end::Menu item-->
                                     <!--begin::Menu item-->
                                     <div class="menu-item px-5 my-1">
-                                        <a href="../../demo8/dist/account/settings.html" class="menu-link px-5">Account
+                                        <a href="#" class="menu-link px-5">Account
                                             Settings</a>
                                     </div>
                                     <!--end::Menu item-->
                                     <!--begin::Menu item-->
                                     <div class="menu-item px-5">
-                                        <a href="../../demo8/dist/authentication/flows/basic/sign-in.html"
+                                        <a href="{{route('admin.auth.logout')}}"
                                            class="menu-link px-5">Sign Out</a>
                                     </div>
                                     <!--end::Menu item-->
@@ -315,7 +271,7 @@
                 <!--end::Aside user-->
             </div>
             <!--end::Aside Toolbarl-->
-            @include('layout.partials.side-bar')
+            @include('layout.user.partials._side-bar')
             <!--begin::Footer-->
             <div class="aside-footer flex-column-auto py-5" id="kt_aside_footer">
                 <a href="../../demo8/dist/documentation/getting-started.html" class="btn btn-custom btn-primary w-100"
@@ -717,7 +673,8 @@
                     <!--begin::Copyright-->
                     <div class="text-dark order-2 order-md-1">
                         <span class="text-muted fw-semibold me-1">{{date('Y')}}©</span>
-                        <a href="https://shiva.co.ke" target="_blank" class="text-gray-800 text-hover-primary">Shiva Softwares</a>
+                        <a href="https://shiva.co.ke" target="_blank" class="text-gray-800 text-hover-primary">Shiva
+                            Softwares</a>
                     </div>
                     <!--end::Copyright-->
                     <!--begin::Menu-->

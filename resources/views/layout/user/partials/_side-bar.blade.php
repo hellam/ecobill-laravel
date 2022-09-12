@@ -10,9 +10,9 @@
             class="menu menu-column menu-title-gray-800 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-500"
             id="#kt_aside_menu" data-kt-menu="true">
             <!--begin:Menu item-->
-            <a href="{{route('dashboard')}}" class="menu-item">
+            <a href="{{route('user.dashboard')}}" class="menu-item">
                 <!--begin:Menu link-->
-                <span class="menu-link @if(Route::is('dashboard'))active @endif">
+                <span class="menu-link @if(Route::is('user.dashboard'))active @endif">
 										<span class="menu-icon">
 											<!--begin::Svg Icon | path: icons/duotune/communication/com005.svg-->
 											<span class="svg-icon svg-icon-2">
@@ -191,7 +191,7 @@
             <!--end:Menu item-->
             <!--begin:Menu item-->
             <div data-kt-menu-trigger="click"
-                 class="menu-item menu-accordion @if(Route::is('products'))hover show @endif">
+                 class="menu-item menu-accordion @if(Route::is('user.products'))hover show @endif">
                 <!--begin:Menu link-->
                 <span class="menu-link">
 										<span class="menu-icon">
@@ -218,7 +218,7 @@
                     <!--begin:Menu item-->
                     <div class="menu-item">
                         <!--begin:Menu link-->
-                        <a class="menu-link @if(Route::is('products'))active @endif" href="{{route('products')}}">
+                        <a class="menu-link @if(Route::is('user.products'))active @endif" href="{{route('user.products')}}">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
@@ -244,7 +244,7 @@
             </div>
             <!--end:Menu item-->
             <!--begin:Menu item-->
-            <div data-kt-menu-trigger="click" class="menu-item menu-accordion @if(Route::is('tax'))hover show @endif">
+            <div data-kt-menu-trigger="click" class="menu-item menu-accordion @if(Route::is('user.tax'))hover show @endif">
                 <!--begin:Menu link-->
                 <span class="menu-link">
 										<span class="menu-icon">
@@ -319,7 +319,7 @@
                     <!--begin:Menu item-->
                     <div class="menu-item">
                         <!--begin:Menu link-->
-                        <a class="menu-link @if(Route::is('tax'))active @endif" href="{{route('tax')}}">
+                        <a class="menu-link @if(Route::is('user.tax'))active @endif" href="{{route('user.tax')}}">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>

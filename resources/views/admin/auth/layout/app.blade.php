@@ -3,6 +3,7 @@
 <!--begin::Head-->
 <head>
     <title>{{__('messages.app_name')}} - @yield('title')</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta charset="utf-8"/>
     <meta name="description"
           content="The most advanced Bootstrap Admin Theme on Themeforest trusted by 100,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue, Asp.Net Core, Blazor, Django, Flask &amp; Laravel versions. Grab your copy now and get life-time updates for free."/>
@@ -97,8 +98,18 @@
 <script src="{{ asset('assets/js/scripts.bundle.js') }}"></script>
 <!--end::Global Javascript Bundle-->
 <!--begin::Custom Javascript(used by this page)-->
-<script src="{{ asset('assets/js/custom/authentication/sign-in/general.js') }}"></script>
+{{--<script src="{{ asset('assets/js/custom/authentication/sign-in/general.js') }}"></script>--}}
 <!--end::Custom Javascript-->
+@if ($errors->any())
+    <script>
+        @foreach($errors->all() as $error)
+        toastr.error('{{$error}}', Error, {
+            CloseButton: true,
+            ProgressBar: true
+        });
+        @endforeach
+    </script>
+@endif
 <!--end::Javascript-->
 @stack('custom_scripts')
 </body>

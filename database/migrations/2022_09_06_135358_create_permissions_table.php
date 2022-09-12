@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAccessLevelTable extends Migration
+class CreatePermissionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,10 @@ class CreateAccessLevelTable extends Migration
      */
     public function up()
     {
-        Schema::create('access_level', function (Blueprint $table) {
+        Schema::create('permissions', function (Blueprint $table) {
             $table->bigInteger('id', true);
             $table->string('name', 250);
-            $table->longText('sections')->nullable();
-            $table->longText('areas')->nullable();
-            $table->bigInteger('created_by')->nullable()->default(0);
-            $table->bigInteger('last_updated_by')->nullable()->default(0);
-            $table->boolean('inactive')->default(false);
+            $table->longText('parent_id')->nullable();
             $table->timestamps();
         });
     }
@@ -32,6 +28,6 @@ class CreateAccessLevelTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('access_level');
+        Schema::dropIfExists('permissions');
     }
 }

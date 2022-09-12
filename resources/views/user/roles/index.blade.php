@@ -202,7 +202,7 @@
                                         <!--begin::Input-->
                                         <input class="form-control form-control-solid"
                                                placeholder="Enter a role name"
-                                               name="role_name"/>
+                                               name="name"/>
                                         <!--end::Input-->
                                     </div>
                                     <!--end::Input group-->

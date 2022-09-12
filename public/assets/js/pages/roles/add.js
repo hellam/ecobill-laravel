@@ -49,14 +49,16 @@ var KTUsersAddRole = function () {
                         // Disable submit button whilst loading
                         submitButton.disabled = true;
 
-                        var str = $('#kt_modal_add_role_form').serializeArray();
+                        var str = $('#kt_modal_add_role_form').serialize();
                         $.ajax({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
                             type: 'POST',
-                            contentType: 'application/json',
                             url: form.getAttribute("data-kt-action"),
-                            data: JSON.stringify(str),
+                            data: str,
                             success: function (json) {
-                                var response = JSON.parse(json);
+                                var response = JSON.parse(JSON.stringify(json));
                                 if (response.status !== true) {
                                     var errors = response.data;
                                     for (const [key, value] of Object.entries(errors)) {

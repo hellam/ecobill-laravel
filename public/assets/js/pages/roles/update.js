@@ -222,9 +222,39 @@ var KTUsersUpdatePermissions = function () {
 
                         } else {
                             $('#kt_modal_update_role_form').show({backdrop: 'static', keyboard: false});//hide form
-                            var role = JSON.parse(JSON.stringify(response.data));
-                            console.log(role)
-                            $("#kt_modal_update_role_form input[name='name']").val(role.name);
+                            var data = JSON.parse(JSON.stringify(response.data));
+                            $("#kt_modal_update_role_form input[name='name']").val(data.role.name);
+                            console.log(data)
+                            let table_update = document.getElementById('table_update');
+                            let html = '';
+                            let group_name = ''
+                            data.permissions.forEach(permission => {
+                                html += `
+                                                    <!--begin::Permission-->
+                                                    <tr>
+                                                        <td class="text-gray-800">
+                                                            <label
+                                                                class="fs-5 fw-bolder form-label mb-2">${permission.name}</label>
+                                                            <!--begin::Checkbox-->
+<!--                                                            @foreach($permission_group->permissions as $permission)-->
+<!--                                                                <label-->
+<!--                                                                    class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20 mx-6">-->
+<!--                                                                    <input class="form-check-input" type="checkbox"-->
+<!--                                                                           value="{{$permission->code}}"-->
+<!--                                                                           name="permissions[]"/>-->
+<!--                                                                    <span-->
+<!--                                                                        class="form-check-label">{{$permission->name}}</span>-->
+<!--                                                                </label>-->
+<!--                                                            @endforeach-->
+                                                            <!--end::Checkbox-->
+                                                        </td>
+                                                    </tr>
+                                                    <!--end::Permission-->`;
+
+                                // group_name =
+                            })
+
+                            table_update.innerHTML = html;
                             // $("#kt_modal_update_tax_form input[name='rate']").val(tax.rate);
                             // $("#kt_modal_update_tax_form textarea[name='description']").val(tax.description);
                             // $("#kt_modal_update_tax_form input[name='inactive']").val(tax.inactive)

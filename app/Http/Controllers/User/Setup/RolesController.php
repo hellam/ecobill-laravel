@@ -73,7 +73,8 @@ class RolesController extends Controller
             foreach($all_permissions as $permission){
                 $response['permissions'][] = ['group_name' => $permission->permission_group->name,'code' => $permission->code, 'name' => $permission->name, 'checked' => in_array($permission->code, $permissions)];
             }
-            $response['permissions']->orderBy("group_name");
+            $price = array_column($response['permissions'], 'group_name');
+            array_multisort($price, SORT_DESC, $response['permissions']);
             return success_web_processor($response, __('messages.msg_item_found', ['attribute' => __('messages.role')]));
         }
         return error_web_processor(trans('messages.msg_item_not_found', ['attribute' => __('messages.role')]));

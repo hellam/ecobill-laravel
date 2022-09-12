@@ -197,15 +197,18 @@ var KTUsersUpdatePermissions = function () {
         editButton.forEach(d => {
             d.addEventListener('click', function (e) {
                 e.preventDefault();
+
                 $('#kt_modal_update_role_form').hide();//hide form
                 $('.loader_container').show();//show loader
                 $("#kt_modal_update_role").modal('show');//show modal
+
+                let edit_url = d.getAttribute('data-kt-edit-url');
 
                 $.ajax({
                     type: 'GET',
                     url: edit_url,
                     success: function (json) {
-                        var response = JSON.parse(json);
+                        var response = JSON.parse(JSON.stringify(json));
                         if (response.status !== true) {
                             Swal.fire({
                                 text: response.message,
@@ -218,27 +221,28 @@ var KTUsersUpdatePermissions = function () {
                             });
 
                         } else {
-                            $('#kt_modal_update_tax_form').show({backdrop: 'static', keyboard: false});//show form
-                            var tax = JSON.parse(response.data);
-                            $("#kt_modal_update_tax_form input[name='name']").val(tax.name);
-                            $("#kt_modal_update_tax_form input[name='rate']").val(tax.rate);
-                            $("#kt_modal_update_tax_form textarea[name='description']").val(tax.description);
-                            $("#kt_modal_update_tax_form input[name='inactive']").val(tax.inactive)
-
-                            if (tax.inactive !== 1) {
-                                $("#kt_modal_update_tax_form input[id='inactive']").attr("checked", "checked");
-                            } else {
-                                $("#kt_modal_update_tax_form input[id='inactive']").removeAttr("checked")
-                            }
-
-                            //active/inactive
-                            $("#kt_modal_update_tax_form input[id='inactive']").on('change', function () {
-                                if ($(this).is(':checked'))
-                                    $("#kt_modal_update_tax_form input[name='inactive']").val(0)
-                                else {
-                                    $("#kt_modal_update_tax_form input[name='inactive']").val(1)
-                                }
-                            })
+                            $('#kt_modal_update_role_form').show({backdrop: 'static', keyboard: false});//hide form
+                            var role = JSON.parse(JSON.stringify(response.data));
+                            console.log(role)
+                            $("#kt_modal_update_role_form input[name='name']").val(role.name);
+                            // $("#kt_modal_update_tax_form input[name='rate']").val(tax.rate);
+                            // $("#kt_modal_update_tax_form textarea[name='description']").val(tax.description);
+                            // $("#kt_modal_update_tax_form input[name='inactive']").val(tax.inactive)
+                            //
+                            // if (tax.inactive !== 1) {
+                            //     $("#kt_modal_update_tax_form input[id='inactive']").attr("checked", "checked");
+                            // } else {
+                            //     $("#kt_modal_update_tax_form input[id='inactive']").removeAttr("checked")
+                            // }
+                            //
+                            // //active/inactive
+                            // $("#kt_modal_update_tax_form input[id='inactive']").on('change', function () {
+                            //     if ($(this).is(':checked'))
+                            //         $("#kt_modal_update_tax_form input[name='inactive']").val(0)
+                            //     else {
+                            //         $("#kt_modal_update_tax_form input[name='inactive']").val(1)
+                            //     }
+                            // })
 
 
                         }

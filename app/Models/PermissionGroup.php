@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class PermissionGroup
@@ -22,4 +23,9 @@ class PermissionGroup extends Model
 	protected $fillable = [
 		'name'
 	];
+
+    public function permissions(): HasMany
+    {
+        return $this->hasMany(Permission::class, 'parent_id');
+    }
 }

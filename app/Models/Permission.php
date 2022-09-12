@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Permission
- * 
+ *
  * @property int $id
  * @property string $name
  * @property string|null $parent_id
@@ -25,6 +25,7 @@ class Permission extends Model
 	protected $table = 'permissions';
 
 	protected $fillable = [
+		'code',
 		'name',
 		'parent_id'
 	];

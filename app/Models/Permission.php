@@ -8,6 +8,7 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Class Permission
@@ -29,4 +30,10 @@ class Permission extends Model
 		'name',
 		'parent_id'
 	];
+
+
+    public function permission_group(): BelongsTo
+    {
+        return $this->belongsTo(PermissionGroup::class, 'parent_id');
+    }
 }

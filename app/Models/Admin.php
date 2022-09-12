@@ -1,21 +1,16 @@
 <?php
 
-/**
- * Created by Reliese Model.
- */
-
 namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
- * Class User
+ * Class Admin
  *
  * @property int $id
  * @property string $username
  * @property string $password
- * @property string $uuid
  * @property Carbon|null $password_expiry_date
  * @property Carbon|null $account_expiry_date
  * @property string $full_name
@@ -45,11 +40,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  *
  * @package App\Models
  */
-class User extends Authenticatable
+class Admin extends Authenticatable
 {
-	protected $table = 'users';
+	protected $table = 'admins';
 
-    protected $guard = 'user';
+    protected $guard = 'admin';
 
 	protected $casts = [
 		'role_id' => 'int',
@@ -71,7 +66,6 @@ class User extends Authenticatable
 	protected $fillable = [
 		'username',
 		'password',
-		'uuid',
 		'password_expiry_date',
 		'account_expiry_date',
 		'full_name',

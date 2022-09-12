@@ -1,7 +1,6 @@
 <?php
 
-use App\Http\Controllers;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,8 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::group(['middleware' => ['auth']], function () {
-    Route::get('/', function (){
-       return redirect()->route('user.auth.login');
+Route::group(['as' => 'client.'], function () {
+    /* start authentication routes */
+    Route::controller(User\Auth\LoginController::class)->prefix('auth')->as('auth.')->group(function () {
+        Route::get('login', 'index')->name('login');
+        Route::post('login', 'login');
+        Route::get('logout', 'logout')->name('logout');
     });
-//});
+    /* end authentication routes */
+
+});

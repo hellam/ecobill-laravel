@@ -1,9 +1,12 @@
 <?php
 
+/**
+ * Created by Reliese Model.
+ */
+
 namespace App\Models;
 
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
@@ -38,7 +41,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property bool $inactive
- * @property string|null $remember_token
+ * @property string|null $remember_me
  *
  * @package App\Models
  */
@@ -60,8 +63,7 @@ class Admin extends Authenticatable
 	];
 
 	protected $hidden = [
-		'password',
-		'remember_token'
+		'password'
 	];
 
 	protected $fillable = [
@@ -91,6 +93,6 @@ class Admin extends Authenticatable
 		'created_by',
 		'last_updated_by',
 		'inactive',
-		'remember_token'
+		'remember_me'
 	];
 }

@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\User;
 use Illuminate\Support\Facades\Route;
-use function App\CentralLogics\reloadCaptcha;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,12 +29,14 @@ Route::group(['as' => 'user.'], function () {
 
     Route::group(['middleware' => ['user']], function () {
         Route::get('/', [User\DashboardController::class, 'index'])->name('dashboard');
-        Route::group(['as' => 'products.'], function () {
-            Route::get('list', [User\Products\ProductsController::class, 'index'])->name('products');
+        Route::group(['prefix' => 'products', 'as' => 'products.'], function () {
+            Route::get('/', [User\Products\ProductsController::class, 'index'])->name('list');
         });
-        Route::group(['as' => 'setup.'], function () {
-            Route::get('tax', [User\Setup\TaxController::class, 'index'])->name('tax');
-            Route::controller(User\Roles\RolesController::class)->prefix('roles')->as('roles.')->group(function () {
+        Route::group(['prefix' => 'setup', 'as' => 'setup.'], function () {
+            Route::controller(User\Setup\TaxController::class)->prefix('tax')->as('tax.')->group(function () {
+                Route::get('/', 'index')->name('list');
+            });
+            Route::controller(User\Setup\RolesController::class)->prefix('roles')->as('roles.')->group(function () {
                 Route::get('/', 'index')->name('list');
                 Route::post('/', 'create')->name('add');
             });

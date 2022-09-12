@@ -49,6 +49,8 @@ class Admin extends Authenticatable
 {
 	protected $table = 'admins';
 
+    protected $guard = 'admin';
+
 	protected $casts = [
 		'role_id' => 'int',
 		'failed_login_attempts' => 'int',
@@ -63,7 +65,8 @@ class Admin extends Authenticatable
 	];
 
 	protected $hidden = [
-		'password'
+		'password',
+		'remember_token'
 	];
 
 	protected $fillable = [

@@ -120,6 +120,7 @@
                     <!--end::Card-->
                 </div>
                 <!--end::Col-->
+
                 <!--begin::Add new card-->
                 <div class="ol-md-4">
                     <!--begin::Card-->
@@ -146,6 +147,7 @@
                 <!--begin::Add new card-->
             </div>
             <!--end::Row-->
+
             <!--begin::Modals-->
             <!--begin::Modal - Add role-->
             <div class="modal fade" id="kt_modal_add_role" tabindex="-1" aria-hidden="true">
@@ -156,7 +158,7 @@
                         <!--begin::Modal header-->
                         <div class="modal-header">
                             <!--begin::Modal title-->
-                            <h2 class="fw-bolder">Add a Role</h2>
+                            <h2 class="fw-bolder">{{__('messages.add').' '.__('messages.role')}} </h2>
                             <!--end::Modal title-->
                             <!--begin::Close-->
                             <div class="btn btn-icon btn-sm btn-active-icon-primary"
@@ -193,7 +195,8 @@
                                     <div class="fv-row mb-10">
                                         <!--begin::Label-->
                                         <label class="fs-5 fw-bolder form-label mb-2">
-                                            <span class="required">Role name</span>
+                                            <span
+                                                class="required">{{__('messages.role').' '.__('messages.name')}}</span>
                                         </label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
@@ -206,7 +209,8 @@
                                     <!--begin::Permissions-->
                                     <div class="fv-row">
                                         <!--begin::Label-->
-                                        <label class="fs-5 fw-bolder form-label mb-2">Role Permissions</label>
+                                        <label
+                                            class="fs-5 fw-bolder form-label mb-2">{{__('messages.role').' '.__('messages.permissions')}}</label>
                                         <!--end::Label-->
                                         <!--begin::Table wrapper-->
                                         <div class="table-responsive">
@@ -215,38 +219,24 @@
                                                 <!--begin::Table body-->
                                                 <tbody class="text-gray-600 fw-bold">
                                                 <!--begin::Table row-->
-                                                @foreach($permissions as $permission)
+                                                @foreach($permission_groups as $permission_group)
                                                     <tr>
                                                         <td class="text-gray-800">
                                                             <!--begin::Parent Permission-->
-                                                            <!--begin::Checkbox-->
                                                             <label
-                                                                class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
-                                                                <input class="form-check-input" type="checkbox"
-                                                                       value="{{$permission->id}}"
-                                                                       name="permissions[]"/>
-                                                                <span
-                                                                    class="form-check-label">{{$permission->name}}</span>
-                                                            </label>
+                                                                class="fs-5 fw-bolder form-label mb-2">{{$permission_group->name}}</label>
+                                                            @foreach($permission_group->permissions as $permission)
+                                                                <!--begin::Checkbox-->
+                                                                <label
+                                                                    class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20 mx-6">
+                                                                    <input class="form-check-input" type="checkbox"
+                                                                           value="{{$permission->id}}"
+                                                                           name="permissions[]"/>
+                                                                    <span
+                                                                        class="form-check-label">{{$permission->name}}</span>
+                                                                </label>
+                                                            @endforeach
                                                             <!--end::Checkbox-->
-                                                            <!--begin::Body-->
-                                                            <div class="fs-6 ms-1">
-                                                                <!--begin::Text-->
-                                                                <div class="text-gray-600 fw-bold fs-6 ps-10">
-                                                                    <!--begin::Checkbox-->
-                                                                    {{--                                                                    <label th:each="sub: ${permission.get('sub')}"--}}
-                                                                    {{--                                                                           class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">--}}
-                                                                    {{--                                                                        <input class="form-check-input" type="checkbox"--}}
-                                                                    {{--                                                                               th:value="${sub.get('id')}"--}}
-                                                                    {{--                                                                               name="permissions[]"/>--}}
-                                                                    {{--                                                                        <span class="form-check-label"--}}
-                                                                    {{--                                                                              th:text="${sub.get('name')}"></span>--}}
-                                                                    {{--                                                                    </label>--}}
-                                                                    <!--end::Checkbox-->
-                                                                </div>
-                                                                <!--end::Text-->
-                                                            </div>
-                                                            <!--end::Body-->
                                                             <!--end::Parent Permission-->
                                                         </td>
                                                     </tr>

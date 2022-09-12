@@ -62,13 +62,21 @@ var KTUsersAddRole = function () {
                                 if (response.status !== true) {
                                     var errors = response.data;
                                     for (const [key, value] of Object.entries(errors)) {
-                                        // console.log(errors)
-                                        $('#err_' + key).remove();
-                                        $("input[name='" + key + "']")
-                                            .after('<small style="color: red;" id="err_' + key + '">' + value + '</small>')
-                                            .on('keyup', function (e) {
-                                                $('#err_' + key).remove();
-                                            })
+                                        // console.log(value)
+                                        $('#err_' + value.field).remove();
+                                        if ("input[name='" + value.field + "']") {
+                                            $("input[name='" + value.field + "']")
+                                                .after('<small style="color: red;" id="err_' + value.field + '">' + value.error + '</small>')
+                                                .on('keyup', function (e) {
+                                                    $('#err_' + value.field).remove();
+                                                })
+                                        }
+                                        if(value.field === 'permissions'){
+                                            $('#permissions').after('<small style="color: red;" id="err_' + value.field + '">' + value.error + '</small>')
+                                                .on('keyup', function (e) {
+                                                    $('#err_' + value.field).remove();
+                                                })
+                                        }
                                     }
 
                                     Swal.fire({

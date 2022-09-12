@@ -69,10 +69,11 @@ class RolesController extends Controller
             $response['role'] = $role;
             $response['permissions'] = [];
 
-            $all_permissions = Permission::with('permission_group')->get();
+            $all_permissions = Permission::with('permission_group')->orderBy('parent_id')->get();
             foreach($all_permissions as $permission){
                 $response['permissions'][] = ['group_name' => $permission->permission_group->name,'code' => $permission->code, 'name' => $permission->name, 'checked' => in_array($permission->code, $permissions)];
             }
+            $response['permissions']->orderBy("group_name");
             return success_web_processor($response, __('messages.msg_item_found', ['attribute' => __('messages.role')]));
         }
         return error_web_processor(trans('messages.msg_item_not_found', ['attribute' => __('messages.role')]));

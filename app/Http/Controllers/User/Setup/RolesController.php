@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User\Setup;
 
 use App\Http\Controllers\Controller;
+use App\Models\Permission;
 use App\Models\PermissionGroup;
 use App\Models\Role;
 use App\Models\User;
@@ -62,9 +63,17 @@ class RolesController extends Controller
      */
     public function edit($id)
     {
-        $contact = Role::find($id);
-        if (isset($contact)) {
-            return success_web_processor($contact, __('messages.msg_item_found', ['attribute' => __('messages.role')]));
+        $role = Role::find($id);
+        if (isset($role)) {
+            $permissions = explode(',',$role->permissions);
+            $response['role'] = $role;
+            $response['permissions'] = [];
+
+            $all_permissions = Permission::all();
+            foreach($all_permissions as $permission){
+                $response['permissions'] = ['code' => $permission->code, 'checked' => in_array($permission->code, $permissions)];
+            }
+            return success_web_processor($response, __('messages.msg_item_found', ['attribute' => __('messages.role')]));
         }
         return error_web_processor(trans('messages.msg_item_not_found', ['attribute' => __('messages.role')]));
     }

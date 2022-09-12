@@ -24,7 +24,8 @@ class RolesController extends Controller
     public function index(): Factory|View|Application
     {
         $permission_groups = PermissionGroup::with('permissions')->get();
-        return view('user.roles.index', compact('permission_groups'));
+        $roles = Role::all();
+        return view('user.roles.index', compact('permission_groups','roles'));
     }
 
     public function create(Request $request): JsonResponse

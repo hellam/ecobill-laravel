@@ -44,7 +44,7 @@ class RolesController extends Controller
         $request->permissions = implode(',', $request->permissions);
 
         Role::create([
-            'name' => $request->owner_id,
+            'name' => $request->name,
             'permissions' => $request->permissions,
             'client_ref' => get_user_ref(),
             'created_by' => auth('user')->user()->username,

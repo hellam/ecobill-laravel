@@ -69,7 +69,7 @@ return [
     'permissions' => 'Permissions',
     'search' => 'Search',
     'select' => 'Select',
-    'welcome' => 'Welcome!',
+    'welcome' => 'Welcome',
     'welcome_to_module' => 'Welcome to :attribute Module',
     'update' => 'Update',
 ];

@@ -32,7 +32,7 @@ class LoginController extends Controller
         );
 
         if (auth('user')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
-            Toastr::success(trans('messages.msg_login_success'), trans('messages.welcome'), ["positionClass" => "toast-top-right"]);
+            Toastr::success(trans('messages.msg_login_success'), trans('messages.welcome').'!', ["positionClass" => "toast-top-right"]);
             try {
                 auth('user')->logoutOtherDevices($request->password);
             } catch (AuthenticationException $e) {

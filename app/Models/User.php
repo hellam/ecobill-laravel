@@ -104,6 +104,6 @@ class User extends Authenticatable
 
     public function permissions()
     {
-        return Role::where('id', $this->role_id)->first()->permissions;
+        return explode(',', Role::where('id', $this->role_id)->first()->permissions);
     }
 }

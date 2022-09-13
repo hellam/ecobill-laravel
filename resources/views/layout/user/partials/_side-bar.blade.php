@@ -244,7 +244,7 @@
                 <!--end:Menu sub-->
             </div>
             <!--end:Menu item-->
-{{--            @if(auth('user')->)--}}
+            @if(auth('user')->permissions())
                 <!--begin:Menu item-->
                 <div data-kt-menu-trigger="click"
                      class="menu-item menu-accordion @if(Route::is('user.setup*'))hover show @endif">
@@ -361,7 +361,7 @@
                     <!--end:Menu sub-->
                 </div>
                 <!--end:Menu item-->
-{{--            @endif--}}
+            @endif
         </div>
         <!--end::Menu-->
     </div>

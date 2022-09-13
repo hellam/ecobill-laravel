@@ -102,7 +102,7 @@ class User extends Authenticatable
         'inactive'
     ];
 
-    public function userRoles()
+    public function permissions()
     {
         return Role::where('id', $this->role_id)->first()->permissions;
     }

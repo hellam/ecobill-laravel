@@ -59,6 +59,7 @@ return [
     'msg_login_success' => 'Login successful',
     'msg_item_found' => ':attribute found',
     'msg_item_not_found' => ':attribute not found',
+    'msg_kicked_out' => 'Someone logged in from another device',
     'msg_updated_success' => ':attribute updated successfully',
     'not_found' => 'No :attribute Found',
     'new' => 'New',

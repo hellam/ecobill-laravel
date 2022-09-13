@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 /**
  * Use AuthController if route name == login
  */
-Route::get('login', [User\Auth\LoginController::class, 'index'])->name('login');
+Route::get('login', [User\Auth\LoginController::class, 'index1'])->name('login');
 
 
 Route::group(['as' => 'user.'], function () {

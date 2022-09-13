@@ -49,7 +49,7 @@
 <body data-kt-name="metronic" id="kt_body" class="app-blank bgi-size-cover bgi-position-center bgi-no-repeat">
 <!--begin::Main-->
 <!--begin::Root-->
-<div class="d-flex flex-column flex-root hello">
+<div class="d-flex flex-column flex-root">
     <!--end::Page bg image-->
     <!--begin::Authentication - Signup Welcome Message -->
     <div class="d-flex flex-column flex-center flex-column-fluid">

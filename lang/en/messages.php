@@ -37,6 +37,7 @@ return [
     'users' => 'Users',
 
     //Other Messages
+    'access_denied' => 'Access Denied',
     'actions' => 'Actions',
     'add' => 'Add',
     'barcode' => 'Barcode',

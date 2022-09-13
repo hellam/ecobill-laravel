@@ -112,9 +112,8 @@ function getDateDifference($date1, $date2): string
 
 function check_permission($permission_code): bool
 {
-    $role = Role::find(auth('user')->user()->role_id);
-    if (isset($role)) {
-        $permissions = explode(',', $role->permissions);
+    $permissions = auth('user')->user()->permissions();
+    if (is_array($permissions)) {
         if (in_array($permission_code, $permissions))
             return true;
     }

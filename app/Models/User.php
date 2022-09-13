@@ -7,7 +7,9 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Reliese\Coders\Model\Relations\HasOne;
 
 /**
  * Class User
@@ -47,55 +49,61 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  */
 class User extends Authenticatable
 {
-	protected $table = 'users';
+    public function userRoles()
+    {
+        return Role::where('id', $this->role_id)->first()->permissions;
+    }
+
+    protected $table = 'users';
 
     protected $guard = 'user';
 
-	protected $casts = [
-		'role_id' => 'int',
-		'failed_login_attempts' => 'int',
-		'account_locked' => 'bool',
-		'transaction_days' => 'int',
-		'inactive' => 'bool'
-	];
+    protected $casts = [
+        'role_id' => 'int',
+        'failed_login_attempts' => 'int',
+        'account_locked' => 'bool',
+        'transaction_days' => 'int',
+        'inactive' => 'bool'
+    ];
 
-	protected $dates = [
-		'password_expiry_date',
-		'account_expiry_date'
-	];
+    protected $dates = [
+        'password_expiry_date',
+        'account_expiry_date'
+    ];
 
-	protected $hidden = [
-		'password',
+    protected $hidden = [
+        'password',
         'remember_token'
-	];
+    ];
 
-	protected $fillable = [
-		'username',
-		'password',
-		'uuid',
-		'password_expiry_date',
-		'account_expiry_date',
-		'full_name',
-		'role_id',
-		'phone',
-		'email',
-		'image',
-		'failed_login_attempts',
-		'account_locked',
-		'language',
-		'date_format',
-		'date_sep',
-		'tho_sep',
-		'dec_sep',
-		'prices_dec',
-		'qty_dec',
-		'rates_dec',
-		'theme',
-		'startup_tab',
-		'transaction_days',
-		'def_print_destination',
-		'created_by',
-		'last_updated_by',
-		'inactive'
-	];
+    protected $fillable = [
+        'username',
+        'password',
+        'uuid',
+        'password_expiry_date',
+        'account_expiry_date',
+        'full_name',
+        'role_id',
+        'phone',
+        'email',
+        'image',
+        'failed_login_attempts',
+        'account_locked',
+        'language',
+        'date_format',
+        'date_sep',
+        'tho_sep',
+        'dec_sep',
+        'prices_dec',
+        'qty_dec',
+        'rates_dec',
+        'theme',
+        'startup_tab',
+        'transaction_days',
+        'def_print_destination',
+        'created_by',
+        'last_updated_by',
+        'inactive'
+    ];
+
 }

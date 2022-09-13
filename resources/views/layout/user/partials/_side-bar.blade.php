@@ -244,7 +244,7 @@
                 <!--end:Menu sub-->
             </div>
             <!--end:Menu item-->
-            @if(auth('user')->permissions())
+            @if(count(array_intersect(auth('user')->user()->permissions(), [101,104])) == 2)
                 <!--begin:Menu item-->
                 <div data-kt-menu-trigger="click"
                      class="menu-item menu-accordion @if(Route::is('user.setup*'))hover show @endif">
@@ -369,6 +369,3 @@
 </div>
 <!--end::Aside menu-->
 
-<script>
-    console.log('{{Auth::user()->userRoles()}}')
-</script>

@@ -107,11 +107,13 @@
                             <!--end::Card body-->
                             <!--begin::Card footer-->
                             <div class="card-footer flex-wrap pt-0">
-                                <a href="#"
-                                   class="btn btn-light btn-active-primary my-1 me-2">View Role</a>
+                                <a href="#" data-kt-role-delete="kt_modal_delete_role_btn"
+                                   data-kt-delete-url="{{route('user.setup.roles.delete', $role->id)}}"
+                                   class="btn btn-light btn-active-primary my-1 me-2">Delete Role</a>
                                 <button type="button" class="btn btn-light btn-active-light-primary my-1"
                                         data-kt-role-edit="kt_modal_edit_role_btn"
-                                        data-kt-edit-url="{{route('user.setup.roles.edit', $role->id)}}">Edit Role
+                                        data-kt-edit-url="{{route('user.setup.roles.edit', $role->id)}}"
+                                        data-kt-update-url="{{route('user.setup.roles.update', $role->id)}}">Edit Role
                                 </button>
                             </div>
                             <!--end::Card footer-->
@@ -374,9 +376,10 @@
                                                 <tbody class="text-gray-600 fw-bold" id="table_update">
                                                 <!--begin::Table row-->
 
-{{--                                                <tr id="permissions"></tr>--}}
+
                                                 <!--end::Table row-->
                                                 </tbody>
+                                                <p id="permissions_update"></p>
                                                 <!--end::Table body-->
                                             </table>
                                             <!--end::Table-->

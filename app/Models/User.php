@@ -49,10 +49,6 @@ use Reliese\Coders\Model\Relations\HasOne;
  */
 class User extends Authenticatable
 {
-    public function userRoles()
-    {
-        return Role::where('id', $this->role_id)->first()->permissions;
-    }
 
     protected $table = 'users';
 
@@ -106,4 +102,8 @@ class User extends Authenticatable
         'inactive'
     ];
 
+    public function userRoles()
+    {
+        return Role::where('id', $this->role_id)->first()->permissions;
+    }
 }

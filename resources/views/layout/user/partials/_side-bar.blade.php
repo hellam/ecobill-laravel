@@ -218,7 +218,8 @@
                     <!--begin:Menu item-->
                     <div class="menu-item">
                         <!--begin:Menu link-->
-                        <a class="menu-link @if(Route::is('user.products.list'))active @endif" href="{{route('user.products.list')}}">
+                        <a class="menu-link @if(Route::is('user.products.list'))active @endif"
+                           href="{{route('user.products.list')}}">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
@@ -243,10 +244,12 @@
                 <!--end:Menu sub-->
             </div>
             <!--end:Menu item-->
-            <!--begin:Menu item-->
-            <div data-kt-menu-trigger="click" class="menu-item menu-accordion @if(Route::is('user.setup*'))hover show @endif">
-                <!--begin:Menu link-->
-                <span class="menu-link">
+{{--            @if(auth('user')->)--}}
+                <!--begin:Menu item-->
+                <div data-kt-menu-trigger="click"
+                     class="menu-item menu-accordion @if(Route::is('user.setup*'))hover show @endif">
+                    <!--begin:Menu link-->
+                    <span class="menu-link">
 										<span class="menu-icon">
 											<!--begin::Svg Icon | path: icons/duotune/abstract/abs048.svg-->
 											<span class="svg-icon svg-icon-2">
@@ -265,100 +268,107 @@
 										<span class="menu-title">{{__('messages.setup')}}</span>
 										<span class="menu-arrow"></span>
 									</span>
-                <!--end:Menu link-->
-                <!--begin:Menu sub-->
-                <div class="menu-sub menu-sub-accordion">
-                    <!--begin:Menu item-->
-                    <div class="menu-item">
-                        <!--begin:Menu link-->
-                        <a class="menu-link" href="#">
+                    <!--end:Menu link-->
+                    <!--begin:Menu sub-->
+                    <div class="menu-sub menu-sub-accordion">
+                        <!--begin:Menu item-->
+                        <div class="menu-item">
+                            <!--begin:Menu link-->
+                            <a class="menu-link" href="#">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
-                            <span class="menu-title">{{__('messages.business_setup')}}</span>
-                        </a>
-                        <!--end:Menu link-->
-                    </div>
-                    <!--end:Menu item-->
-                    <!--begin:Menu item-->
-                    <div class="menu-item">
-                        <!--begin:Menu link-->
-                        <a class="menu-link" href="#">
+                                <span class="menu-title">{{__('messages.business_setup')}}</span>
+                            </a>
+                            <!--end:Menu link-->
+                        </div>
+                        <!--end:Menu item-->
+                        <!--begin:Menu item-->
+                        <div class="menu-item">
+                            <!--begin:Menu link-->
+                            <a class="menu-link" href="#">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
-                            <span class="menu-title">{{__('messages.users')}}</span>
-                        </a>
-                        <!--end:Menu link-->
-                    </div>
-                    <!--end:Menu item-->
-                    <!--begin:Menu item-->
-                    <div class="menu-item">
-                        <!--begin:Menu link-->
-                        <a class="menu-link @if(Route::is('user.setup.roles.list'))active @endif" href="{{route('user.setup.roles.list')}}">
+                                <span class="menu-title">{{__('messages.users')}}</span>
+                            </a>
+                            <!--end:Menu link-->
+                        </div>
+                        <!--end:Menu item-->
+                        <!--begin:Menu item-->
+                        <div class="menu-item">
+                            <!--begin:Menu link-->
+                            <a class="menu-link @if(Route::is('user.setup.roles.list'))active @endif"
+                               href="{{route('user.setup.roles.list')}}">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
-                            <span class="menu-title">{{__('messages.roles_permissions')}}</span>
-                        </a>
-                        <!--end:Menu link-->
-                    </div>
-                    <!--end:Menu item-->
-                    <!--begin:Menu item-->
-                    <div class="menu-item">
-                        <!--begin:Menu link-->
-                        <a class="menu-link" href="#">
+                                <span class="menu-title">{{__('messages.roles_permissions')}}</span>
+                            </a>
+                            <!--end:Menu link-->
+                        </div>
+                        <!--end:Menu item-->
+                        <!--begin:Menu item-->
+                        <div class="menu-item">
+                            <!--begin:Menu link-->
+                            <a class="menu-link" href="#">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
-                            <span class="menu-title">{{__('messages.maker_checker')}}</span>
-                        </a>
-                        <!--end:Menu link-->
-                    </div>
-                    <!--end:Menu item-->
-                    <!--begin:Menu item-->
-                    <div class="menu-item">
-                        <!--begin:Menu link-->
-                        <a class="menu-link @if(Route::is('user.setup.tax.list'))active @endif" href="{{route('user.setup.tax.list')}}">
+                                <span class="menu-title">{{__('messages.maker_checker')}}</span>
+                            </a>
+                            <!--end:Menu link-->
+                        </div>
+                        <!--end:Menu item-->
+                        <!--begin:Menu item-->
+                        <div class="menu-item">
+                            <!--begin:Menu link-->
+                            <a class="menu-link @if(Route::is('user.setup.tax.list'))active @endif"
+                               href="{{route('user.setup.tax.list')}}">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
-                            <span class="menu-title">{{__('messages.tax')}}</span>
-                        </a>
-                        <!--end:Menu link-->
-                    </div>
-                    <!--end:Menu item-->
-                    <!--begin:Menu item-->
-                    <div class="menu-item">
-                        <!--begin:Menu link-->
-                        <a class="menu-link" href="#">
+                                <span class="menu-title">{{__('messages.tax')}}</span>
+                            </a>
+                            <!--end:Menu link-->
+                        </div>
+                        <!--end:Menu item-->
+                        <!--begin:Menu item-->
+                        <div class="menu-item">
+                            <!--begin:Menu link-->
+                            <a class="menu-link" href="#">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
-                            <span class="menu-title">{{__('messages.api')}}</span>
-                        </a>
-                        <!--end:Menu link-->
-                    </div>
-                    <!--end:Menu item-->
-                    <!--begin:Menu item-->
-                    <div class="menu-item">
-                        <!--begin:Menu link-->
-                        <a class="menu-link" href="#">
+                                <span class="menu-title">{{__('messages.api')}}</span>
+                            </a>
+                            <!--end:Menu link-->
+                        </div>
+                        <!--end:Menu item-->
+                        <!--begin:Menu item-->
+                        <div class="menu-item">
+                            <!--begin:Menu link-->
+                            <a class="menu-link" href="#">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
-                            <span class="menu-title">{{__('messages.menu_setup')}}</span>
-                        </a>
-                        <!--end:Menu link-->
+                                <span class="menu-title">{{__('messages.menu_setup')}}</span>
+                            </a>
+                            <!--end:Menu link-->
+                        </div>
+                        <!--end:Menu item-->
                     </div>
-                    <!--end:Menu item-->
+                    <!--end:Menu sub-->
                 </div>
-                <!--end:Menu sub-->
-            </div>
-            <!--end:Menu item-->
+                <!--end:Menu item-->
+{{--            @endif--}}
         </div>
         <!--end::Menu-->
     </div>
     <!--end::Aside Menu-->
 </div>
 <!--end::Aside menu-->
+
+<script>
+    console.log('{{Auth::user()->userRoles()}}')
+</script>

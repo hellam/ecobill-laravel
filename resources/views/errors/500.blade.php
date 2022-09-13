@@ -3,7 +3,7 @@
 <!--begin::Head-->
 <head>
     <base href="../../">
-    <title>{{__('messages.error_404')}}</title>
+    <title>{{__('messages.error_500')}}</title>
     <meta charset="utf-8"/>
     <meta name="description" content=""/>
     <meta name="keywords" content=""/>
@@ -22,39 +22,34 @@
     <link href="{{asset('assets/plugins/global/plugins.bundle.css')}}" rel="stylesheet" type="text/css"/>
     <link href="{{asset('assets/css/style.bundle.css')}}" rel="stylesheet" type="text/css"/>
     <!--end::Global Stylesheets Bundle-->
-</head>
-<!--end::Head-->
-<!--begin::Body-->
-<body data-kt-name="metronic" id="kt_body" class="app-blank bgi-size-cover bgi-position-center bgi-no-repeat">
-<!--begin::Theme mode setup on page load-->
-<script>if (document.documentElement) {
-        const defaultThemeMode = "system";
-        const name = document.body.getAttribute("data-kt-name");
-        let themeMode = localStorage.getItem("kt_" + (name !== null ? name + "_" : "") + "theme_mode_value");
-        if (themeMode === null) {
-            if (defaultThemeMode === "system") {
-                themeMode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-            } else {
-                themeMode = defaultThemeMode;
-            }
-        }
-        document.documentElement.setAttribute("data-theme", themeMode);
-    }</script>
-<!--end::Theme mode setup on page load-->
-<!--begin::Main-->
-<!--begin::Root-->
-<div class="d-flex flex-column flex-root">
     <!--begin::Page bg image-->
     <style>
-        body {
-            background-image: url({{asset('assets/media/auth/bg1.jpg')}});
-        }
-
         [data-theme="dark"] body {
             background-image: url({{asset('assets/media/auth/bg1-dark.jpg')}});
         }
     </style>
-    <!--end::Page bg image-->
+    <!--end::Page bg image--><!--begin::Theme mode setup on page load-->
+    <script>if (document.documentElement) {
+            const defaultThemeMode = "system";
+            const name = document.body.getAttribute("data-kt-name");
+            let themeMode = localStorage.getItem("kt_" + (name !== null ? name + "_" : "") + "theme_mode_value");
+            if (themeMode === null) {
+                if (defaultThemeMode === "system") {
+                    themeMode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+                } else {
+                    themeMode = defaultThemeMode;
+                }
+            }
+            document.documentElement.setAttribute("data-theme", themeMode);
+        }</script>
+    <!--end::Theme mode setup on page load-->
+</head>
+<!--end::Head-->
+<!--begin::Body-->
+<body data-kt-name="metronic" id="kt_body" class="app-blank bgi-size-cover bgi-position-center bgi-no-repeat">
+<!--begin::Main-->
+<!--begin::Root-->
+<div class="d-flex flex-column flex-root">
     <!--begin::Authentication - Signup Welcome Message -->
     <div class="d-flex flex-column flex-center flex-column-fluid">
         <!--begin::Content-->

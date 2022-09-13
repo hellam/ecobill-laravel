@@ -22,35 +22,34 @@
     <link href="{{asset('assets/plugins/global/plugins.bundle.css')}}" rel="stylesheet" type="text/css"/>
     <link href="{{asset('assets/css/style.bundle.css')}}" rel="stylesheet" type="text/css"/>
     <!--end::Global Stylesheets Bundle-->
-</head>
-<!--end::Head-->
-<!--begin::Body-->
-<body data-kt-name="metronic" id="kt_body" class="app-blank bgi-size-cover bgi-position-center bgi-no-repeat">
-<!--begin::Theme mode setup on page load-->
-<script>if (document.documentElement) {
-        const defaultThemeMode = "system";
-        const name = document.body.getAttribute("data-kt-name");
-        let themeMode = localStorage.getItem("kt_" + (name !== null ? name + "_" : "") + "theme_mode_value");
-        if (themeMode === null) {
-            if (defaultThemeMode === "system") {
-                themeMode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-            } else {
-                themeMode = defaultThemeMode;
-            }
-        }
-        document.documentElement.setAttribute("data-theme", themeMode);
-    }</script>
-<!--end::Theme mode setup on page load-->
-<!--begin::Main-->
-<!--begin::Root-->
-<div class="d-flex flex-column flex-root">
     <!--begin::Page bg image-->
     <style>
         [data-theme="dark"] body {
             background-image: url({{asset('assets/media/auth/bg1-dark.jpg')}});
         }
     </style>
-    <!--end::Page bg image-->
+    <!--end::Page bg image--><!--begin::Theme mode setup on page load-->
+    <script>if (document.documentElement) {
+            const defaultThemeMode = "system";
+            const name = document.body.getAttribute("data-kt-name");
+            let themeMode = localStorage.getItem("kt_" + (name !== null ? name + "_" : "") + "theme_mode_value");
+            if (themeMode === null) {
+                if (defaultThemeMode === "system") {
+                    themeMode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+                } else {
+                    themeMode = defaultThemeMode;
+                }
+            }
+            document.documentElement.setAttribute("data-theme", themeMode);
+        }</script>
+    <!--end::Theme mode setup on page load-->
+</head>
+<!--end::Head-->
+<!--begin::Body-->
+<body data-kt-name="metronic" id="kt_body" class="app-blank bgi-size-cover bgi-position-center bgi-no-repeat">
+<!--begin::Main-->
+<!--begin::Root-->
+<div class="d-flex flex-column flex-root">
     <!--begin::Authentication - Signup Welcome Message -->
     <div class="d-flex flex-column flex-center flex-column-fluid">
         <!--begin::Content-->
@@ -66,13 +65,16 @@
                     <!--end::Text-->
                     <!--begin::Illustration-->
                     <div class="mb-3">
-                        <img src="{{asset('assets/media/auth/404-error.png')}}" class="mw-100 mh-300px theme-light-show" alt=""/>
-                        <img src="{{asset('assets/media/auth/404-error-dark.png')}}" class="mw-100 mh-300px theme-dark-show" alt=""/>
+                        <img src="{{asset('assets/media/auth/404-error.png')}}" class="mw-100 mh-300px theme-light-show"
+                             alt=""/>
+                        <img src="{{asset('assets/media/auth/404-error-dark.png')}}"
+                             class="mw-100 mh-300px theme-dark-show" alt=""/>
                     </div>
                     <!--end::Illustration-->
                     <!--begin::Link-->
                     <div class="mb-0">
-                        <a href="@if(Auth::guard('admin')->check()){{route('admin.dashboard')}}@else {{route('user.dashboard')}}@endif" class="btn btn-sm btn-primary">Return Home</a>
+                        <a href="@if(Auth::guard('admin')->check()){{route('admin.dashboard')}}@else {{route('user.dashboard')}}@endif"
+                           class="btn btn-sm btn-primary">Return Home</a>
                     </div>
                     <!--end::Link-->
                 </div>

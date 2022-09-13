@@ -19,6 +19,11 @@ class LoginController extends Controller
     {
         return view('user.auth.login');
     }
+    public function index1(Request $request)
+    {
+        Toastr::warning(__('messages.msg_kicked_out'));
+        return view('user.auth.login');
+    }
 
     public function login(Request $request): RedirectResponse
     {

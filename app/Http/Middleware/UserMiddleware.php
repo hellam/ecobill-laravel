@@ -20,6 +20,7 @@ class UserMiddleware
         if (Auth::guard('user')->check()) {
             return $next($request);
         }
+
         return redirect()->route('user.auth.login');
     }
 }

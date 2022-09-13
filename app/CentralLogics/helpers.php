@@ -2,18 +2,22 @@
 
 namespace App\CentralLogics;
 
+use App\Models\Role;
 use DateTime;
 use Illuminate\Http\JsonResponse;
 
-function generateUniqueId($userId): string{
+function generateUniqueId($userId): string
+{
     return md5(uniqid($userId, true));
 }
 
 function reloadCaptcha(): JsonResponse
 {
-    return response()->json(['captcha'=> captcha_img('math')]);
+    return response()->json(['captcha' => captcha_img('math')]);
 }
-function get_user_ref(){
+
+function get_user_ref()
+{
     return auth('user')->user()->uuid;
 }
 
@@ -49,7 +53,7 @@ function success_web_processor($data, string $message = null, int $code = 200): 
  * @param $data
  * @return JsonResponse
  */
-function error_api_processor(string $message = null, int $code= 200, $data = null): JsonResponse
+function error_api_processor(string $message = null, int $code = 200, $data = null): JsonResponse
 {
     return response()->json([
         'status' => 'Error',
@@ -104,4 +108,16 @@ function getDateDifference($date1, $date2): string
         $time = $diffInMinutes . " Minutes ago";
 
     return $time;
+}
+
+function check_permission($permission_code): bool
+{
+    $role = Role::find(auth('user')->user()->role_id);
+    if (isset($role)) {
+        $permissions = explode(',', $role->permissions);
+        if (in_array($permission_code, $permissions))
+            return true;
+    }
+
+    return false;
 }

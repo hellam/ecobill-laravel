@@ -41,7 +41,7 @@ Route::group(['as' => 'user.'], function () {
                 Route::get('/', 'index')->name('list')->middleware('permission:102');
             });
             Route::controller(User\Setup\RolesController::class)->prefix('roles')->as('roles.')->group(function () {
-                Route::get('/', 'index')->name('list')->middleware('permission:103');
+                Route::get('/', 'index')->name('list')->middleware(['permission:103']);
                 Route::post('/', 'create')->name('add')->middleware('permission:104');
                 Route::get('edit/{id}', 'edit')->name('edit')->middleware('permission:105');
                 Route::put('update/{id}', 'update')->name('update')->middleware('permission:106');

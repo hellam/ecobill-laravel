@@ -32,7 +32,7 @@ Route::group(['as' => 'user.'], function () {
     /* end authentication routes */
 
     Route::group(['middleware' => ['user']], function () {
-        Route::get('/', [User\DashboardController::class, 'index'])->name('dashboard')->middleware('permission:100');
+        Route::get('/', [User\DashboardController::class, 'index'])->name('dashboard');
         Route::group(['prefix' => 'products', 'as' => 'products.'], function () {
             Route::get('/', [User\Products\ProductsController::class, 'index'])->middleware('permission:101')->name('list');
         });

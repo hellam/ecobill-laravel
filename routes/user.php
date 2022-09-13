@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+/**
+ * Use AuthController if route name == login
+ */
+Route::get('login', [User\Auth\LoginController::class, 'index'])->name('login');
 
 
 Route::group(['as' => 'user.'], function () {

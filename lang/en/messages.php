@@ -45,6 +45,7 @@ return [
     'cost' => 'Cost',
     'description' => 'Description',
     'default' => 'Default',
+    'error_404' => 'Page Not Found',
     'forgot_password' => 'Forgot Password?',
     'field_correction' => 'Sorry, looks like there are some errors detected, please check and try again.',
     'home' => 'Home',

@@ -26,8 +26,8 @@ class LoginController extends Controller
             'email' => 'required|email',
             'password' => 'required|min:6',
             'captcha' => 'required|captcha'
-        ],[
-            'captcha.captcha' => 'Invalid captcha'
+        ], [
+                'captcha.captcha' => 'Invalid captcha'
             ]
         );
 

@@ -53,6 +53,7 @@ return [
     'msg_delete_not_allowed' => 'Delete not allowed because :attribute has existing :attribute1',
     'msg_deleted_success' => ':attribute deleted successfully',
     'msg_saved_success' => ':attribute saved successfully',
+    'msg_login_success' => 'Login successful',
     'msg_item_found' => ':attribute found',
     'msg_item_not_found' => ':attribute not found',
     'msg_updated_success' => ':attribute updated successfully',

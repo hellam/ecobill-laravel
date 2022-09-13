@@ -6,6 +6,7 @@ use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\Authenticate;
 use App\Http\Middleware\ClientMiddleware;
 use App\Http\Middleware\RedirectIfAuthenticated;
+use App\Http\Middleware\PermissionMiddleware;
 use App\Http\Middleware\UserMiddleware;
 use App\Http\Middleware\ValidateSignature;
 use Illuminate\Auth\Middleware\AuthenticateWithBasicAuth;
@@ -75,6 +76,7 @@ class Kernel extends HttpKernel
         'client' => ClientMiddleware::class,
         'guest' => RedirectIfAuthenticated::class,
         'password.confirm' => RequirePassword::class,
+        'permission' => PermissionMiddleware::class,
         'signed' => ValidateSignature::class,
         'throttle' => ThrottleRequests::class,
         'user' => UserMiddleware::class,

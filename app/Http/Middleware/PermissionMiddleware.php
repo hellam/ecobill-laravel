@@ -19,7 +19,7 @@ class PermissionMiddleware
     public function handle(Request $request, Closure $next, $permission_code)
     {
         if (Auth::guard('user')->check()) {
-//            Toastr::success($permission_code);
+
             return $next($request);
         }
         return redirect()->route('user.auth.login');

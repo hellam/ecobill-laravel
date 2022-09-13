@@ -46,10 +46,6 @@
 <div class="d-flex flex-column flex-root">
     <!--begin::Page bg image-->
     <style>
-        body {
-            background-image: url({{asset('assets/media/auth/bg1.jpg')}});
-        }
-
         [data-theme="dark"] body {
             background-image: url({{asset('assets/media/auth/bg1-dark.jpg')}});
         }

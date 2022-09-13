@@ -3,7 +3,7 @@
 <!--begin::Head-->
 <head>
     <base href="../../">
-    <title>{{__('messages.error_404')}}</title>
+    <title>{{__('messages.error_500')}}</title>
     <meta charset="utf-8"/>
     <meta name="description" content=""/>
     <meta name="keywords" content=""/>
@@ -46,10 +46,6 @@
 <div class="d-flex flex-column flex-root">
     <!--begin::Page bg image-->
     <style>
-        body {
-            background-image: url({{asset('assets/media/auth/bg1.jpg')}});
-        }
-
         [data-theme="dark"] body {
             background-image: url({{asset('assets/media/auth/bg1-dark.jpg')}});
         }

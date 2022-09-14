@@ -54,7 +54,8 @@
             <!--begin::Content-->
             <div id="kt_general_security" class="collapse show">
                 <!--begin::Form-->
-                <form id="kt_general_security_form" class="form" data-kt-action="{{route('user.setup.roles.add')}}">
+                <form id="kt_general_security_form" class="form"
+                      data-kt-action="{{route('user.setup.security.update', 'general')}}">
                     <!--begin::Card body-->
                     <div class="card-body border-top p-9">
                         <!--begin::Input group-->
@@ -67,16 +68,26 @@
                             <div class="col-lg-8 fv-row">
                                 <select name="max_login" aria-label="Select" data-control="select2"
                                         class="form-select form-select-solid form-select-lg">
-                                    <option value="1" @if($security_configs->general_security[0] == 1)selected @endif>
+                                    <option value="1"
+                                            @if(json_decode($security_configs->general_security)[0] == 1)selected @endif>
                                         1
                                     </option>
                                     <option value="2"
-                                            @if(explode(',',$security_configs->general_security[0]) == 2)selected @endif>
+                                            @if(json_decode($security_configs->general_security)[0] == 2)selected @endif>
                                         2
                                     </option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
+                                    <option value="3"
+                                            @if(json_decode($security_configs->general_security)[0] == 3)selected @endif>
+                                        3
+                                    </option>
+                                    <option value="4"
+                                            @if(json_decode($security_configs->general_security)[0] == 4)selected @endif>
+                                        4
+                                    </option>
+                                    <option value="5"
+                                            @if(json_decode($security_configs->general_security)[0] == 5)selected @endif>
+                                        5
+                                    </option>
                                 </select>
                             </div>
                             <!--end::Col-->
@@ -92,8 +103,10 @@
                             <div class="col-lg-8 d-flex align-items-center">
                                 <div class="form-check form-check-solid form-switch fv-row">
                                     <input class="form-check-input w-45px h-30px" type="checkbox"
-                                           id="single_sign_checkbox"/>
-                                    <input type="hidden" id="first_time" name="single_sign" value="0"/>
+                                           id="single_sign_checkbox"
+                                           @if(json_decode($security_configs->general_security)[1] == 1)checked @endif/>
+                                    <input type="hidden" id="first_time" name="single_sign"
+                                           value="{{json_decode($security_configs->general_security)[1]}}"/>
                                 </div>
                             </div>
                             <!--begin::Label-->
@@ -136,7 +149,8 @@
             <!--begin::Content-->
             <div id="kt_password_policy" class="collapse show">
                 <!--begin::Form-->
-                <form id="kt_password_policy_form" class="form">
+                <form id="kt_password_policy_form" class="form"
+                      data-kt-action="{{route('user.setup.security.update', 'password_policy')}}">
                     <!--begin::Card body-->
                     <div class="card-body border-top p-9">
                         <!--begin::Input group-->
@@ -149,13 +163,34 @@
                             <div class="col-lg-8 fv-row">
                                 <select name="pass_expiry" aria-label="Select" data-control="select2"
                                         class="form-select form-select-solid form-select-lg">
-                                    <option value="0">{{__('messages.never')}}</option>
-                                    <option value="1">1 {{__('messages.day')}}</option>
-                                    <option value="7">1 {{__('messages.week')}}</option>
-                                    <option value="30">1 {{__('messages.month')}}</option>
-                                    <option value="90">3 {{__('messages.month').'s'}}</option>
-                                    <option value="180">6 {{__('messages.month').'s'}}</option>
-                                    <option value="360">1 {{__('messages.year')}}</option>
+                                    <option value="0"
+                                            @if(json_decode($security_configs->password_policy)[0] == 0)selected @endif>
+                                        {{__('messages.never')}}
+                                    </option>
+                                    <option value="1"
+                                            @if(json_decode($security_configs->password_policy)[0] == 1)selected @endif>
+                                        1 {{__('messages.day')}}
+                                    </option>
+                                    <option value="7"
+                                            @if(json_decode($security_configs->password_policy)[0] == 7)selected @endif>
+                                        1 {{__('messages.week')}}
+                                    </option>
+                                    <option value="30"
+                                            @if(json_decode($security_configs->password_policy)[0] == 30)selected @endif>
+                                        1 {{__('messages.month')}}
+                                    </option>
+                                    <option value="90"
+                                            @if(json_decode($security_configs->password_policy)[0] == 90)selected @endif>
+                                        3 {{__('messages.month').'s'}}
+                                    </option>
+                                    <option value="180"
+                                            @if(json_decode($security_configs->password_policy)[0] == 180)selected @endif>
+                                        6 {{__('messages.month').'s'}}
+                                    </option>
+                                    <option value="360"
+                                            @if(json_decode($security_configs->password_policy)[0] == 360)selected @endif>
+                                        1 {{__('messages.year')}}
+                                    </option>
                                 </select>
                             </div>
                             <!--end::Col-->
@@ -169,9 +204,37 @@
                             <!--end::Label-->
                             <!--begin::Col-->
                             <div class="col-lg-8 fv-row">
-                                <input type="text" name="min_length"
-                                       class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                                       placeholder="Minimum Password Length"/>
+                                <select name="min_length" aria-label="Select" data-control="select2"
+                                        class="form-select form-select-solid form-select-lg">
+                                    <option value="4"
+                                            @if(json_decode($security_configs->password_policy)[1] == 4)selected @endif>
+                                        4
+                                    </option>
+                                    <option value="6"
+                                            @if(json_decode($security_configs->password_policy)[1] == 6)selected @endif>
+                                        6
+                                    </option>
+                                    <option value="8"
+                                            @if(json_decode($security_configs->password_policy)[1] == 8)selected @endif>
+                                        8
+                                    </option>
+                                    <option value="10"
+                                            @if(json_decode($security_configs->password_policy)[1] == 10)selected @endif>
+                                        10
+                                    </option>
+                                    <option value="12"
+                                            @if(json_decode($security_configs->password_policy)[1] == 12)selected @endif>
+                                        12
+                                    </option>
+                                    <option value="14"
+                                            @if(json_decode($security_configs->password_policy)[0] == 14)selected @endif>
+                                        14
+                                    </option>
+                                    <option value="16"
+                                            @if(json_decode($security_configs->password_policy)[0] == 16)selected @endif>
+                                        16
+                                    </option>
+                                </select>
                             </div>
                             <!--end::Col-->
                         </div>
@@ -190,28 +253,32 @@
                                     <!--begin::Option-->
                                     <label class="form-check form-check-inline form-check-solid me-5">
                                         <input class="form-check-input" name="combination[]" type="checkbox"
-                                               value="1"/>
+                                               value="1"
+                                               @if(in_array(1,json_decode($security_configs->password_policy)[2]))checked @endif/>
                                         <span class="fw-semibold ps-2 fs-6">{{__('messages.digits')}}</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label class="form-check form-check-inline form-check-solid">
                                         <input class="form-check-input" name="combination[]" type="checkbox"
-                                               value="2"/>
+                                               value="2"
+                                               @if(in_array(2,json_decode($security_configs->password_policy)[2]))checked @endif/>
                                         <span class="fw-semibold ps-2 fs-6">{{__('messages.special_chars')}}</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label class="form-check form-check-inline form-check-solid">
                                         <input class="form-check-input" name="combination[]" type="checkbox"
-                                               value="3"/>
+                                               value="3"
+                                               @if(in_array(3,json_decode($security_configs->password_policy)[2]))checked @endif/>
                                         <span class="fw-semibold ps-2 fs-6">{{__('messages.uppercase')}}</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label class="form-check form-check-inline form-check-solid">
                                         <input class="form-check-input" name="combination[]" type="checkbox"
-                                               value="4"/>
+                                               value="4"
+                                               @if(in_array(4,json_decode($security_configs->password_policy)[2]))checked @endif/>
                                         <span class="fw-semibold ps-2 fs-6">{{__('messages.lowercase')}}</span>
                                     </label>
                                     <!--end::Option-->
@@ -234,11 +301,26 @@
                             <div class="col-lg-8 fv-row">
                                 <select name="pass_history" aria-label="Select" data-control="select2"
                                         class="form-select form-select-solid form-select-lg">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
+                                    <option value="1"
+                                            @if(json_decode($security_configs->password_policy)[3] == 1)selected @endif>
+                                        1
+                                    </option>
+                                    <option value="2"
+                                            @if(json_decode($security_configs->password_policy)[3] == 2)selected @endif>
+                                        2
+                                    </option>
+                                    <option value="3"
+                                            @if(json_decode($security_configs->password_policy)[3] == 3)selected @endif>
+                                        3
+                                    </option>
+                                    <option value="4"
+                                            @if(json_decode($security_configs->password_policy)[3] == 4)selected @endif>
+                                        4
+                                    </option>
+                                    <option value="5"
+                                            @if(json_decode($security_configs->password_policy)[3] == 5)selected @endif>
+                                        5
+                                    </option>
                                 </select>
                             </div>
                             <!--end::Col-->
@@ -254,8 +336,9 @@
                             <div class="col-lg-8 d-flex align-items-center">
                                 <div class="form-check form-check-solid form-switch fv-row">
                                     <input class="form-check-input w-45px h-30px" type="checkbox"
-                                           id="first_time_login"/>
-                                    <input type="hidden" name="first_time" value="0"/>
+                                           id="first_time_login"
+                                           @if(json_decode($security_configs->password_policy)[4] == 1)checked @endif/>
+                                    <input type="hidden" name="first_time" value="{{json_decode($security_configs->password_policy)[4]}}"/>
                                 </div>
                             </div>
                             <!--begin::Label-->

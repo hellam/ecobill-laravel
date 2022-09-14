@@ -16,14 +16,14 @@ const KTPasswordPolicy = function () {
                     'pass_expiry': {
                         validators: {
                             notEmpty: {
-                                message: 'Maximum login failed attempts is required'
+                                message: 'Password expiry is required'
                             }
                         }
                     },
                     'min_length': {
                         validators: {
                             notEmpty: {
-                                message: 'Maximum login failed attempts is required'
+                                message: 'Minimum password length is required'
                             }
                         }
                     },
@@ -61,77 +61,77 @@ const KTPasswordPolicy = function () {
                         submitButton.disabled = true;
 
                         const str = $('#kt_password_policy_form').serialize();
-                        // $.ajax({
-                        //     headers: {
-                        //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        //     },
-                        //     type: 'POST',
-                        //     url: form.getAttribute("data-kt-action"),
-                        //     data: str,
-                        //     success: function (json) {
-                        //         let response = JSON.parse(JSON.stringify(json));
-                        //         if (response.status !== true) {
-                        //             let errors = response.data;
-                        //             for (const [key, value] of Object.entries(errors)) {
-                        //                 $('#err_' + key).remove();
-                        //                 $("input[name='" + value.field + "']")
-                        //                     .after('<small style="color: red;" id="err_' + value.field + '">' + value.error + '</small>')
-                        //                     .on('keyup', function (e) {
-                        //                         $('#err_' + value.field).remove();
-                        //                     })
-                        //             }
-                        //
-                        //             Swal.fire({
-                        //                 text: response.message,
-                        //                 icon: "error",
-                        //                 buttonsStyling: false,
-                        //                 confirmButtonText: "Ok!",
-                        //                 customClass: {
-                        //                     confirmButton: "btn btn-primary"
-                        //                 }
-                        //             });
-                        //
-                        //         } else {
-                        //             Swal.fire({
-                        //                 text: response.message,
-                        //                 icon: "success",
-                        //                 buttonsStyling: false,
-                        //                 confirmButtonText: "Ok!",
-                        //                 customClass: {
-                        //                     confirmButton: "btn btn-primary"
-                        //                 }
-                        //             }).then(function (result) {
-                        //                 if (result.isConfirmed) {
-                        //                     // Reload
-                        //                     window.location.reload();
-                        //                 }
-                        //             });
-                        //         }
-                        //         submitButton.removeAttribute('data-kt-indicator');
-                        //
-                        //         // Enable submit button after loading
-                        //         submitButton.disabled = false;
-                        //
-                        //     },
-                        //     error: function (xhr, desc, err) {
-                        //         console.log(xhr)
-                        //         Swal.fire({
-                        //             text: 'A network error occured. Please consult your network administrator.',
-                        //             icon: "error",
-                        //             buttonsStyling: false,
-                        //             confirmButtonText: "Ok!",
-                        //             customClass: {
-                        //                 confirmButton: "btn btn-primary"
-                        //             }
-                        //         });
-                        //
-                        //         submitButton.removeAttribute('data-kt-indicator');
-                        //
-                        //         // Enable submit button after loading
-                        //         submitButton.disabled = false;
-                        //
-                        //     }
-                        // });
+                        $.ajax({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            type: 'POST',
+                            url: form.getAttribute("data-kt-action"),
+                            data: str,
+                            success: function (json) {
+                                let response = JSON.parse(JSON.stringify(json));
+                                if (response.status !== true) {
+                                    let errors = response.data;
+                                    for (const [key, value] of Object.entries(errors)) {
+                                        $('#err_' + key).remove();
+                                        $("input[name='" + value.field + "']")
+                                            .after('<small style="color: red;" id="err_' + value.field + '">' + value.error + '</small>')
+                                            .on('keyup', function (e) {
+                                                $('#err_' + value.field).remove();
+                                            })
+                                    }
+
+                                    Swal.fire({
+                                        text: response.message,
+                                        icon: "error",
+                                        buttonsStyling: false,
+                                        confirmButtonText: "Ok!",
+                                        customClass: {
+                                            confirmButton: "btn btn-primary"
+                                        }
+                                    });
+
+                                } else {
+                                    Swal.fire({
+                                        text: response.message,
+                                        icon: "success",
+                                        buttonsStyling: false,
+                                        confirmButtonText: "Ok!",
+                                        customClass: {
+                                            confirmButton: "btn btn-primary"
+                                        }
+                                    }).then(function (result) {
+                                        if (result.isConfirmed) {
+                                            // Reload
+                                            window.location.reload();
+                                        }
+                                    });
+                                }
+                                submitButton.removeAttribute('data-kt-indicator');
+
+                                // Enable submit button after loading
+                                submitButton.disabled = false;
+
+                            },
+                            error: function (xhr, desc, err) {
+                                console.log(xhr)
+                                Swal.fire({
+                                    text: 'A network error occured. Please consult your network administrator.',
+                                    icon: "error",
+                                    buttonsStyling: false,
+                                    confirmButtonText: "Ok!",
+                                    customClass: {
+                                        confirmButton: "btn btn-primary"
+                                    }
+                                });
+
+                                submitButton.removeAttribute('data-kt-indicator');
+
+                                // Enable submit button after loading
+                                submitButton.disabled = false;
+
+                            }
+                        });
                         console.log(str)
                     } else {
                         Swal.fire({

@@ -73,7 +73,7 @@ class SecurityController extends Controller
             $configs[] = $request->first_time;
 
             $sec_config = SecurityConfig::first();
-            $sec_config->general_security = $configs;
+            $sec_config->password_policy = $configs;
             $sec_config->update();
             return success_web_processor(null, __('messages.msg_updated_success', ['attribute' => __('messages.security')]));
         }

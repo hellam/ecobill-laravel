@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User\Setup;
 
 use App\Http\Controllers\Controller;
+use App\Models\AuditTrail;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -15,6 +16,7 @@ class SecurityController extends Controller
      */
     public function index(): Factory|View|Application
     {
-        return view('user.setup.security');
+        $audit_trail = AuditTrail::where('type', AUD_LOGON_EVENT)->get();
+        return view('user.setup.security', compact('audit_trail'));
     }
 }

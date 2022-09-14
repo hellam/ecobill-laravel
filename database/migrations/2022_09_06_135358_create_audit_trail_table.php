@@ -21,6 +21,7 @@ class CreateAuditTrailTable extends Migration
             $table->text('api_token')->nullable()->comment('API Key or Session ID');
             $table->text('description')->nullable();
             $table->text('model')->nullable();
+            $table->string("client_ref");
             $table->text('request_details')->comment('Request details');
             $table->string('ip_address', 45)->comment('ip address');
             $table->timestamps();

@@ -6,12 +6,14 @@
 
 namespace App\Models;
 
+use App\Scopes\UserScope;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class AuditTrail
- * 
+ *
  * @property int $id
  * @property int $type
  * @property int|null $trans_no
@@ -23,6 +25,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $ip_address
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ * @property string $client_ref
  *
  * @package App\Models
  */
@@ -48,6 +51,15 @@ class AuditTrail extends Model
 		'description',
 		'model',
 		'request_details',
-		'ip_address'
+		'ip_address',
+		'client_ref'
 	];
+
+
+    public static function booted()
+    {
+        if (Auth::guard('user')->check()){
+            static::addGlobalScope(new UserScope());
+        }
+    }
 }

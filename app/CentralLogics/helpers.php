@@ -134,6 +134,7 @@ function log_activity($type, $ip_address, $description, $request_details, $user 
             'model'=>$model,
             'request_details'=>$request_details,
             'ip_address'=>$ip_address,
+            'client_ref'=>get_user_ref(),
         ]);
     }catch (\Exception $e) {}
 }

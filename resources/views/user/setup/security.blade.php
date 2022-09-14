@@ -67,8 +67,13 @@
                             <div class="col-lg-8 fv-row">
                                 <select name="max_login" aria-label="Select" data-control="select2"
                                         class="form-select form-select-solid form-select-lg">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
+                                    <option value="1" @if($security_configs->general_security[0] == 1)selected @endif>
+                                        1
+                                    </option>
+                                    <option value="2"
+                                            @if(explode(',',$security_configs->general_security[0]) == 2)selected @endif>
+                                        2
+                                    </option>
                                     <option value="3">3</option>
                                     <option value="4">4</option>
                                     <option value="5">5</option>
@@ -367,16 +372,20 @@
                         <!--end::Thead-->
                         <!--begin::Tbody-->
                         <tbody class="fw-6 fw-semibold text-gray-600">
-                        @foreach($audit_trail as $audit)
+                        @forelse($audit_trail as $audit)
                             <tr>
                                 <td>
-{{--                                    <span class="badge badge-light-success fs-7 fw-bold">OK</span>--}}
+                                    {{--                                    <span class="badge badge-light-success fs-7 fw-bold">OK</span>--}}
                                     {{$audit->description}}
                                 </td>
                                 <td>{{$audit->ip_address}}</td>
                                 <td>{{\Carbon\Carbon::parse($audit->created_at)->format('d/m/Y H:i:s')}}</td>
                             </tr>
-                        @endforeach
+                        @empty
+                            <tr>
+                                <td colspan="3" class="text-center">No logon events found!</td>
+                            </tr>
+                        @endforelse
                         </tbody>
                         <!--end::Tbody-->
                     </table>

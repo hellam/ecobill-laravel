@@ -78,6 +78,7 @@ return [
     'month' => 'Month',
     'not_found' => 'No :attribute Found',
     'name' => 'Name',
+    'new' => 'New',
     'never' => 'Never',
     'order' => 'Order',
     'rate' => 'Rate',

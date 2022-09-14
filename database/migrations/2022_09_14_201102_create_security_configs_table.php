@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('client_ref');
             $table->longText('general_security')->default('[1,1]');
-            $table->longText('password_policy')->default('[0,4,[],1,1]');
+            $table->longText('password_policy')->default('[0,4,[1],1,1]');
             $table->timestamps();
         });
     }

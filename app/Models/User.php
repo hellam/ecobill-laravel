@@ -9,7 +9,9 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 use Reliese\Coders\Model\Relations\HasOne;
+use Yadahan\AuthenticationLog\AuthenticationLogable;
 
 /**
  * Class User
@@ -49,7 +51,7 @@ use Reliese\Coders\Model\Relations\HasOne;
  */
 class User extends Authenticatable
 {
-
+    use Notifiable, AuthenticationLogable;
     protected $table = 'users';
 
     protected $guard = 'user';

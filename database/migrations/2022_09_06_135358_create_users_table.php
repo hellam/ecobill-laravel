@@ -41,9 +41,10 @@ class CreateUsersTable extends Migration
             $table->smallInteger('transaction_days')->default(30);
             $table->string('def_print_destination')->nullable();
             $table->string('created_by',100)->nullable();
+            $table->string('two_factor',100)->nullable();
             $table->string('last_updated_by',100)->nullable();
-            $table->timestamps();
             $table->boolean('inactive')->default(false);
+            $table->timestamps();
         });
     }
 

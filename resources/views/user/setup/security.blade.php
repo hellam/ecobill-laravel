@@ -367,13 +367,16 @@
                         <!--end::Thead-->
                         <!--begin::Tbody-->
                         <tbody class="fw-6 fw-semibold text-gray-600">
-                        <tr>
-                            <td>
-                                <span class="badge badge-light-success fs-7 fw-bold">OK</span>
-                            </td>
-                            <td>236.125.56.78</td>
-                            <td>2 mins ago</td>
-                        </tr>
+                        @foreach($audit_trail as $audit)
+                            <tr>
+                                <td>
+{{--                                    <span class="badge badge-light-success fs-7 fw-bold">OK</span>--}}
+                                    {{$audit->description}}
+                                </td>
+                                <td>{{$audit->ip_address}}</td>
+                                <td>{{\Carbon\Carbon::parse($audit->created_at)->format('d/m/Y H:i:s')}}</td>
+                            </tr>
+                        @endforeach
                         </tbody>
                         <!--end::Tbody-->
                     </table>

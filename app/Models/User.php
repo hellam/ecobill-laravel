@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Created by Reliese Model.
- */
-
 namespace App\Models;
 
 use Carbon\Carbon;
@@ -40,6 +36,7 @@ use Illuminate\Notifications\Notifiable;
  * @property string|null $def_print_destination
  * @property string|null $created_by
  * @property string|null $last_updated_by
+ * @property string|null $two_factor
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property bool $inactive
@@ -98,6 +95,7 @@ class User extends Authenticatable
         'def_print_destination',
         'created_by',
         'last_updated_by',
+        'two_factor',
         'inactive'
     ];
 

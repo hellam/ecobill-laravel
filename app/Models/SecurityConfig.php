@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Created by Reliese Model.
+ */
+
 namespace App\Models;
 
 use App\Scopes\UserScope;
@@ -8,32 +12,30 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
 /**
- * Class Role
+ * Class SecurityConfig
  *
  * @property int $id
- * @property string $name
- * @property string $permissions
  * @property string $client_ref
- * @property string $created_by
+ * @property string $general_security
+ * @property string $password_policy
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  *
  * @package App\Models
  */
-class Role extends Model
+class SecurityConfig extends Model
 {
-	protected $table = 'roles';
+	protected $table = 'security_configs';
 
 	protected $fillable = [
-		'name',
-		'permissions',
 		'client_ref',
-		'created_by'
+		'general_security',
+		'password_policy'
 	];
 
     public static function booted()
     {
-        if (Auth::guard('user')->check()){
+        if (Auth::guard('user')->check()) {
             static::addGlobalScope(new UserScope());
         }
     }

@@ -16,7 +16,7 @@ class SecurityController extends Controller
      */
     public function index(): Factory|View|Application
     {
-        $audit_trail = AuditTrail::where('type', AUD_LOGON_EVENT)->get();
+        $audit_trail = AuditTrail::where('type', AUD_LOGON_EVENT)->orderBy('created_at','desc')->limit(5)->get();
         return view('user.setup.security', compact('audit_trail'));
     }
 }

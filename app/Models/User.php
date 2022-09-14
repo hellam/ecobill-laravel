@@ -101,7 +101,7 @@ class User extends Authenticatable
         'inactive'
     ];
 
-    public function permissions()
+    public function permissions(): array
     {
         return explode(',', Role::where('id', $this->role_id)->first()->permissions);
     }

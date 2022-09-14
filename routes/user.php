@@ -47,6 +47,9 @@ Route::group(['as' => 'user.'], function () {
                 Route::put('update/{id}', 'update')->name('update')->middleware('permission:106');
                 Route::delete('delete/{id}', 'destroy')->name('delete')->middleware('permission:107');
             });
+            Route::controller(User\Setup\SecurityController::class)->prefix('security')->as('security.')->group(function () {
+                Route::get('/', 'index')->name('all');
+            });
         });
     });
 });

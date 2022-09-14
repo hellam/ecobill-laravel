@@ -2,6 +2,7 @@
 
 namespace App\CentralLogics;
 
+use App\Models\AuditTrail;
 use App\Models\Role;
 use DateTime;
 use Illuminate\Http\JsonResponse;
@@ -119,4 +120,20 @@ function check_permission($permission_code): bool
     }
 
     return false;
+}
+
+function log_activity($type, $ip_address, $description, $request_details, $user = null, $trans_no = null, $api_token = null, $model = null): void
+{
+    try {
+        AuditTrail::create([
+            'type' => $type,
+            'trans_no' => $trans_no,
+            'user'=>$user,
+            'api_token'=>$api_token,
+            'description'=>$description,
+            'model'=>$model,
+            'request_details'=>$request_details,
+            'ip_address'=>$ip_address,
+        ]);
+    }catch (\Exception $e) {}
 }

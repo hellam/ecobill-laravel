@@ -7,6 +7,7 @@ use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Yoeunes\Toastr\Facades\Toastr;
+use function App\CentralLogics\log_activity;
 
 class LoginController extends Controller
 {
@@ -38,6 +39,13 @@ class LoginController extends Controller
 
         if (auth('user')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
             Toastr::success(trans('messages.msg_login_success'), trans('messages.welcome').'!', ["positionClass" => "toast-top-right"]);
+            log_activity(
+                AUD_LOGON_EVENT,
+                $request->getClientIp(),
+                trans('messages.msg_login_success'),
+                "",
+                auth('user')->id()
+            );
             try {
                 auth('user')->logoutOtherDevices($request->password);
             } catch (AuthenticationException $e) {

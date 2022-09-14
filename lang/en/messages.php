@@ -74,6 +74,7 @@ return [
     'msg_item_not_found' => ':attribute not found',
     'msg_kicked_out' => 'Someone logged in from another device',
     'msg_updated_success' => ':attribute updated successfully',
+    'msg_update_error' => 'Update Error',
     'min_length' => 'Minimum Length',
     'month' => 'Month',
     'not_found' => 'No :attribute Found',

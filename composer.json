@@ -11,6 +11,7 @@
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
         "mews/captcha": "^3.2",
+        "yadahan/laravel-authentication-log": "^1.5",
         "yoeunes/toastr": "^2.0"
     },
     "require-dev": {

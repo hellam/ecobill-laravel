@@ -20,6 +20,7 @@ class LoginController extends Controller
     {
         return view('user.auth.login');
     }
+
     public function index1(Request $request)
     {
         Toastr::warning(__('messages.msg_kicked_out'));
@@ -38,7 +39,7 @@ class LoginController extends Controller
         );
 
         if (auth('user')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
-            Toastr::success(trans('messages.msg_login_success'), trans('messages.welcome').'!', ["positionClass" => "toast-top-right"]);
+            Toastr::success(trans('messages.msg_login_success'), trans('messages.welcome') . '!', ["positionClass" => "toast-top-right"]);
             log_activity(
                 AUD_LOGON_EVENT,
                 $request->getClientIp(),
@@ -60,6 +61,14 @@ class LoginController extends Controller
 
     public function logout(Request $request)
     {
+        log_activity(
+            AUD_LOGON_EVENT,
+            $request->getClientIp(),
+            trans('messages.msg_logout_success'),
+            "",
+            auth('user')->id()
+        );
+
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         auth()->guard('user')->logout();

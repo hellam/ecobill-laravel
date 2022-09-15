@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -52,6 +53,14 @@ class LoginController extends Controller
             } catch (AuthenticationException $e) {
             }
             return redirect()->route('user.dashboard');
+        }elseif($user = User::where('email', $request->email)->first()) {
+            log_activity(
+                AUD_LOGON_EVENT,
+                $request->getClientIp(),
+                trans('messages.msg_login_success'),
+                "",
+                auth('user')->id()
+            );
         }
 
         return redirect()->back()->withInput($request->only('email', 'remember'))

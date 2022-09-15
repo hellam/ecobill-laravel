@@ -53,6 +53,7 @@ class LoginController extends Controller
                 'captcha.captcha' => 'Invalid captcha'
             ]
         );
+        $request->password = encrypt($request->password);
 
         if (auth('user')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
             Toastr::success(trans('messages.msg_login_success'), trans('messages.welcome') . '!', ["positionClass" => "toast-top-right"]);
@@ -80,6 +81,13 @@ class LoginController extends Controller
      */
     public function logout(Request $request): RedirectResponse
     {
+        log_activity(
+            AUD_LOGON_EVENT,
+            $request->getClientIp(),
+            trans('messages.msg_logout_success'),
+            "",
+            auth('user')->id()
+        );
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         auth()->guard('user')->logout();

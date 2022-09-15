@@ -4,6 +4,9 @@ namespace App\Http\Controllers\User\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Yoeunes\Toastr\Facades\Toastr;
@@ -16,16 +19,28 @@ class LoginController extends Controller
         $this->middleware('guest:user', ['except' => 'logout']);
     }
 
-    public function index()
+    /**
+     * @return Factory|View|Application
+     */
+    public function index(): Factory|View|Application
     {
         return view('user.auth.login');
     }
-    public function index1(Request $request)
+
+    /**
+     * @param Request $request
+     * @return Application|Factory|View
+     */
+    public function index1(Request $request): View|Factory|Application
     {
         Toastr::warning(__('messages.msg_kicked_out'));
         return view('user.auth.login');
     }
 
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     */
     public function login(Request $request): RedirectResponse
     {
         $request->validate([
@@ -57,13 +72,18 @@ class LoginController extends Controller
             ->withErrors([trans('auth.failed')]);
     }
 
-
-    public function logout(Request $request)
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function logout(Request $request): RedirectResponse
     {
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         auth()->guard('user')->logout();
         return redirect()->route('user.auth.login');
     }
+
+
 
 }

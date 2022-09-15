@@ -28,6 +28,7 @@ Route::group(['as' => 'user.'], function () {
         Route::get('login', 'index')->name('login');
         Route::post('login', 'login')->middleware('throttle:3');
         Route::get('logout', 'logout')->name('logout');
+        Route::get('new-password', 'new_password')->name('new_password');
     });
     /* end authentication routes */
 

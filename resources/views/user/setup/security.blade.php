@@ -338,7 +338,8 @@
                                     <input class="form-check-input w-45px h-30px" type="checkbox"
                                            id="first_time_login"
                                            @if(json_decode($security_configs->password_policy)[4] == 1)checked @endif/>
-                                    <input type="hidden" name="first_time" value="{{json_decode($security_configs->password_policy)[4]}}"/>
+                                    <input type="hidden" name="first_time"
+                                           value="{{json_decode($security_configs->password_policy)[4]}}"/>
                                 </div>
                             </div>
                             <!--begin::Label-->

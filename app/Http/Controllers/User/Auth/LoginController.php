@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\SecurityConfig;
 use App\Models\User;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Contracts\Foundation\Application;
@@ -67,14 +68,6 @@ class LoginController extends Controller
             } catch (AuthenticationException $e) {
             }
             return redirect()->route('user.dashboard');
-        }elseif($user = User::where('email', $request->email)->first()) {
-            log_activity(
-                AUD_LOGON_EVENT,
-                $request->getClientIp(),
-                trans('messages.msg_login_success'),
-                "",
-                auth('user')->id()
-            );
         }
 
         return redirect()->back()->withInput($request->only('email', 'remember'))
@@ -98,7 +91,9 @@ class LoginController extends Controller
      */
     public function new_password(): View|Factory|Application
     {
-        return view('user.auth.passwords.new_password');
+        $security_configs = SecurityConfig::first();
+        $security_array = json_decode($security_configs->password_policy,true);
+        return view('user.auth.passwords.new_password', compact('security_array'));
     }
 
 }

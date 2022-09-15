@@ -70,6 +70,7 @@ return [
     'msg_deleted_success' => ':attribute deleted successfully',
     'msg_saved_success' => ':attribute saved successfully',
     'msg_login_success' => 'Login successful',
+    'msg_logout_success' => 'Logout successful',
     'msg_item_found' => ':attribute found',
     'msg_item_not_found' => ':attribute not found',
     'msg_kicked_out' => 'Someone logged in from another device',

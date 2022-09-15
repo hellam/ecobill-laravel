@@ -37,6 +37,7 @@ use Illuminate\Notifications\Notifiable;
  * @property string|null $created_by
  * @property string|null $last_updated_by
  * @property string|null $two_factor
+ * @property int|null $first_time
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property bool $inactive
@@ -55,6 +56,7 @@ class User extends Authenticatable
         'failed_login_attempts' => 'int',
         'account_locked' => 'bool',
         'transaction_days' => 'int',
+        'first_time' => 'int',
         'inactive' => 'bool'
     ];
 
@@ -96,6 +98,7 @@ class User extends Authenticatable
         'created_by',
         'last_updated_by',
         'two_factor',
+        'first_time',
         'inactive'
     ];
 

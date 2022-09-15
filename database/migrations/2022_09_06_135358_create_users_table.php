@@ -42,6 +42,7 @@ class CreateUsersTable extends Migration
             $table->string('def_print_destination')->nullable();
             $table->string('created_by',100)->nullable();
             $table->string('two_factor',100)->nullable();
+            $table->tinyInteger('first_time',1)->default(0);
             $table->string('last_updated_by',100)->nullable();
             $table->boolean('inactive')->default(false);
             $table->timestamps();

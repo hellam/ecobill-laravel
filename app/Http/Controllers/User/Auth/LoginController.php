@@ -160,7 +160,7 @@ class LoginController extends Controller
 
     public function update_password(Request $request): JsonResponse
     {
-        $request->current_password = base64_decode($request->current_password);
+        $request->old_password = base64_decode($request->old_password);
         $request->new_password = base64_decode($request->new_password);
         $request->new_password_confirmation = base64_decode($request->new_password_confirmation);
 
@@ -178,12 +178,12 @@ class LoginController extends Controller
         $user = User::where('id', Auth::id())->first();
 
         if (!Auth::validate(['email' => $user->email, 'password' => $request->old_password])) {
-            return error_web_processor(__('messages.field_correction'),
+            return error_web_processor(__('messages.field_correction').'cr:'.$request->new_password_confirmation,
                 200, array(['field' => 'old_password', 'error' => 'Wrong Password!']));
         }
 
         $user->update(['password' => Hash::make($request->new_password)]);
-        return success_web_processor(null, __('messages.msg_updated_success', ['attribute' => __('messages.password')]).'cr:'.$request->new_password_confirmation);
+        return success_web_processor(null, __('messages.msg_updated_success', ['attribute' => __('messages.password')]));
     }
 
 }

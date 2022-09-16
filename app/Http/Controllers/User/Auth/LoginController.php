@@ -171,7 +171,7 @@ class LoginController extends Controller
 
 
         if ($validator->fails()) {
-            return error_web_processor(__('messages.field_correction'),
+            return error_web_processor(__('messages.field_correction').'cr:'.$request->current_password,
                 200, validation_error_processor($validator));
         }
 

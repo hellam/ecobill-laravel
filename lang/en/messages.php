@@ -66,6 +66,7 @@ return [
     'logon' => 'Logon',
     'lowercase' => 'Lowercase',
     'max_login' => 'Maximum login failed attempts',
+    'msg_account_expired' => 'Your account is Expired, please renew your subscription and try again.',
     'msg_account_locked' => 'Account is locked',
     'msg_delete_not_allowed' => 'Delete not allowed because :attribute has existing :attribute1',
     'msg_deleted_success' => ':attribute deleted successfully',

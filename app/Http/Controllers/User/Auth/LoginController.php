@@ -18,7 +18,7 @@ class LoginController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('guest:user', ['except' => 'logout']);
+        $this->middleware('guest:user', ['except' => ['logout','new_password']]);
     }
 
     /**
@@ -66,9 +66,11 @@ class LoginController extends Controller
             );
 
             //reset failed login attempts
-            $user = User::find(auth('user')->id());
-            $user->failed_login_attempts = 0;
-            $user->update();
+            if(auth('user')->user()->failed_login_attempts>0) {
+                $user = User::find(auth('user')->id());
+                $user->failed_login_attempts = 0;
+                $user->update();
+            }
 
             //check if SSO is enabled and apply
             try {

@@ -11,7 +11,7 @@
                 <form class="form w-100" action="{{route('user.auth.login')}}" method="post" id="kt_new_password__form"
                       autocomplete="off" data-kt-num-characters="{{$security_array[1]}}"
                       data-kt-redirect-url="{{route('user.dashboard')}}"
-                      data-kt-submit-url="{{route('user.dashboard')}}">
+                      data-kt-action="{{route('user.auth.update_password')}}">
                     @csrf
                     <!--begin::Heading-->
                     <div class="text-center mb-10">

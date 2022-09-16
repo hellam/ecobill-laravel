@@ -9,6 +9,7 @@ use Illuminate\Auth\AuthenticationException;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -157,7 +158,11 @@ class LoginController extends Controller
         return view('user.auth.passwords.new_password', compact('security_array'));
     }
 
-    public function update_password(Request $request)
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function update_password(Request $request): JsonResponse
     {
         $security_configs = SecurityConfig::first();
         $password_policy_array = json_decode($security_configs->password_policy, true);

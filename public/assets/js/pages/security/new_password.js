@@ -61,6 +61,7 @@ const KTAuthNewPassword = function () {
                         url: form.getAttribute("data-kt-action"),
                         data: str,
                         success: function (json) {
+                            console.log(form.getAttribute("data-kt-action"))
                             let response = JSON.parse(JSON.stringify(json));
                             if (response.status !== true) {
                                 let errors = response.data;
@@ -106,7 +107,6 @@ const KTAuthNewPassword = function () {
 
                         },
                         error: function (xhr, desc, err) {
-                            console.log(xhr)
                             Swal.fire({
                                 text: 'A network error occured. Please consult your network administrator.',
                                 icon: "error",

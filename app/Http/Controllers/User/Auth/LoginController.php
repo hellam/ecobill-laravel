@@ -18,7 +18,7 @@ class LoginController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('guest:user', ['except' => ['logout','new_password']]);
+        $this->middleware('guest:user')->except('logout', 'new_password');
     }
 
     /**
@@ -66,7 +66,7 @@ class LoginController extends Controller
             );
 
             //reset failed login attempts
-            if(auth('user')->user()->failed_login_attempts>0) {
+            if (auth('user')->user()->failed_login_attempts > 0) {
                 $user = User::find(auth('user')->id());
                 $user->failed_login_attempts = 0;
                 $user->update();
@@ -94,7 +94,7 @@ class LoginController extends Controller
                     $user->failed_login_attempts += 1; //increment failed login attempts counter
                     $msg = __('messages.msg_login_failed') . ', ' . trans('messages.msg_login_attempts_remaining', ['attribute' => $general_security_array[0] - $user->failed_login_attempts]);
                     $log_msg = __('messages.msg_login_failed');
-                    if($user->failed_login_attempts >= $general_security_array[0]){
+                    if ($user->failed_login_attempts >= $general_security_array[0]) {
                         $user->account_locked = 1;
                         $log_msg = $msg = __('messages.msg_account_locked');
                     }

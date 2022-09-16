@@ -3,7 +3,7 @@
 <!--begin::Head-->
 <head>
     <base href="">
-    <title>@yield('title')</title>
+    <title>@yield('title') - {{__('messages.app_name')}}</title>
     <meta charset="utf-8"/>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="description"
@@ -396,7 +396,7 @@
                     <!--begin::Logo-->
                     <a href="/">
                         <img alt="Logo" src="{{asset('assets/media/logos/ecobill-logo.png')}}"
-                             class="h-25px h-lg-25px"/>
+                             class="h-25px h-lg-40px"/>
                     </a>
                     <!--end::Logo-->
                     <!--begin::Aside minimize-->

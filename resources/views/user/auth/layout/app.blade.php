@@ -2,7 +2,7 @@
 <html lang="en">
 <!--begin::Head-->
 <head>
-    <title>{{__('messages.app_name')}} - @yield('title')</title>
+    <title>@yield('title') - {{__('messages.app_name')}}</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta charset="utf-8"/>
     <meta name="description"

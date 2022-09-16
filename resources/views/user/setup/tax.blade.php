@@ -1,5 +1,5 @@
 @extends('layout.user.app')
-@section('title', 'Taxes - EcoBill')
+@section('title', 'Taxes')
 @section('page_title')
     <!--begin::Page title-->
     <div class="page-title d-flex justify-content-center flex-column me-5">

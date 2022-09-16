@@ -5,7 +5,6 @@ namespace App\Http\Controllers\User\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\SecurityConfig;
 use App\Models\User;
-use Illuminate\Auth\AuthenticationException;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -25,7 +24,7 @@ class LoginController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('guest:user')->except('logout', 'new_password');
+        $this->middleware('guest:user')->except('logout', 'new_password', 'update_password');
     }
 
     /**

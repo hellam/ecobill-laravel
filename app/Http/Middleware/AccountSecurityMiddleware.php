@@ -29,8 +29,8 @@ class AccountSecurityMiddleware
                 self::logout($request);
                 return redirect()->route('user.auth.login')->withErrors([trans('messages.msg_account_locked')]);
             }
-            elseif (self::is_first_time()) {
-                return redirect()->route('user.security.new_password');
+            elseif (self::is_first_time()) {//ask user to change their password
+                return redirect()->route('user.auth.new_password');
             }
         }
 

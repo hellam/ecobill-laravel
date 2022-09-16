@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\SecurityConfig;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -17,6 +18,9 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\Password;
 use Yoeunes\Toastr\Facades\Toastr;
 use function App\CentralLogics\error_web_processor;
+use function App\CentralLogics\get_security_configs;
+use function App\CentralLogics\is_first_time;
+use function App\CentralLogics\is_password_expired;
 use function App\CentralLogics\log_activity;
 use function App\CentralLogics\password_validation_rule;
 use function App\CentralLogics\success_web_processor;
@@ -164,9 +168,11 @@ class LoginController extends Controller
         $request->new_password = base64_decode($request->new_password);
         $request->new_password_confirmation = base64_decode($request->new_password_confirmation);
 
+        $password_policy_array = json_decode(get_security_configs()->password_policy, true);
+
         $validator = Validator::make($request->all(), [
             'old_password' => 'required',
-            'new_password' => password_validation_rule(),
+            'new_password' => password_validation_rule($password_policy_array),
         ]);
 
 
@@ -178,11 +184,21 @@ class LoginController extends Controller
         $user = User::where('id', Auth::id())->first();
 
         if (!Auth::validate(['email' => $user->email, 'password' => $request->old_password])) {
-            return error_web_processor(__('messages.field_correction').'cr:'.$request->new_password_confirmation,
+            return error_web_processor(__('messages.field_correction') . 'cr:' . $request->new_password_confirmation,
                 200, array(['field' => 'old_password', 'error' => 'Wrong Password!']));
         }
-
-        $user->update(['password' => Hash::make($request->new_password)]);
+        //check with password history
+        $user->password = Hash::make($request->new_password);
+        if (is_first_time())
+            $user->first_time = 0;
+        if (is_password_expired()) {
+            if ($password_policy_array[0] == 0)
+                $user->password_expiry_date = null;
+            else{
+                $user->password_expiry_date = Carbon::now()->addDays($password_policy_array[0]);
+            }
+        }
+        $user->update();
         return success_web_processor(null, __('messages.msg_updated_success', ['attribute' => __('messages.password')]));
     }
 

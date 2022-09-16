@@ -4,8 +4,10 @@ namespace App\CentralLogics;
 
 use App\Models\AuditTrail;
 use App\Models\SecurityConfig;
+use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Password;
 
 function generateUniqueId($userId): string
@@ -18,11 +20,13 @@ function reloadCaptcha(): JsonResponse
     return response()->json(['captcha' => captcha_img('math')]);
 }
 
-function password_validation_rule(): array
+function get_security_configs()
 {
-    $security_configs = SecurityConfig::first();
-    $password_policy_array = json_decode($security_configs->password_policy, true);
+    return SecurityConfig::first();
+}
 
+function password_validation_rule($password_policy_array): array
+{
     $password = Password::min($password_policy_array[1]);
 
     if (in_array(1, $password_policy_array[2]))
@@ -168,4 +172,40 @@ function array_equal($a, $b): bool
         && count($a) == count($b)
         && array_diff($a, $b) === array_diff($b, $a)
     );
+}
+
+function is_account_locked(): bool
+{
+    if (Auth::guard('user')->user()->account_locked == 1)
+        return true;
+    return false;
+}
+
+function is_account_expired(): bool
+{
+    if (Auth::guard('user')->user()->account_expiry_date != null) {
+        $expiry_date = Carbon::parse(Auth::guard('user')->user()->account_expiry_date);
+        $now = Carbon::now();
+        if ($now > $expiry_date)
+            return true;
+    }
+    return false;
+}
+
+function is_first_time(): bool
+{
+    if (Auth::guard('user')->user()->first_time == 1)
+        return true;
+    return false;
+}
+
+function is_password_expired(): bool
+{
+    if (Auth::guard('user')->user()->password_expiry_date != null) {
+        $expiry_date = Carbon::parse(Auth::guard('user')->user()->password_expiry_date);
+        $now = Carbon::now();
+        if ($now > $expiry_date)
+            return true;
+    }
+    return false;
 }

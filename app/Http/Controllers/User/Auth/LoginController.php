@@ -11,8 +11,15 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rules\Password;
 use Yoeunes\Toastr\Facades\Toastr;
+use function App\CentralLogics\error_web_processor;
 use function App\CentralLogics\log_activity;
+use function App\CentralLogics\success_web_processor;
+use function App\CentralLogics\validation_error_processor;
 
 class LoginController extends Controller
 {
@@ -148,6 +155,48 @@ class LoginController extends Controller
         $security_configs = SecurityConfig::first();
         $security_array = json_decode($security_configs->password_policy, true);
         return view('user.auth.passwords.new_password', compact('security_array'));
+    }
+
+    public function update_password(Request $request)
+    {
+        $security_configs = SecurityConfig::first();
+        $password_policy_array = json_decode($security_configs->password_policy, true);
+        $pass_rule[] = Password::min($password_policy_array[1]);
+
+        $password = Password::min($password_policy_array[1]);
+        if (in_array(1, $password_policy_array[2])) {
+            $password->numbers();
+        }
+        if (in_array(2, $password_policy_array[2]))
+            $password->symbols();
+
+        if (in_array(3, $password_policy_array[2]) && in_array(4, $password_policy_array[2]))
+            $password->mixedCase();
+        elseif (in_array(3, $password_policy_array[2]) || in_array(4, $password_policy_array[2]))
+            $password->letters();
+
+        $pass_rule = ['required', 'confirmed', $password];
+
+        $validator = Validator::make($request->all(), [
+            'old_password' => 'required',
+            'new_password' => $pass_rule,
+        ]);
+
+
+        if ($validator->fails()) {
+            return error_web_processor(__('messages.field_correction'),
+                200, validation_error_processor($validator));
+        }
+
+        $user = User::where('id', Auth::id())->first();
+
+        if (!Auth::validate(['email' => $user->email, 'password' => $request->old_password])) {
+            return error_web_processor(__('messages.field_correction'),
+                200, array(['field' => 'old_password', 'error' => 'Wrong Password!']));
+        }
+
+        $user->update(['password' => Hash::make($request->new_password)]);
+        return success_web_processor(null, __('messages.msg_updated_success', ['attribute' => __('messages.password')]));
     }
 
 }

@@ -60,43 +60,7 @@
                         <!--begin::Hint-->
                         <div class="text-muted">
                             Use {{$security_array[1]}} or more characters with
-                            @if(count($security_array[2]) > 1)
-                                a mix of
-                                @if(\App\CentralLogics\array_equal([1,2], $security_array[2]))
-                                    digits & special characters.
-                                @elseif(\App\CentralLogics\array_equal([1,3], $security_array[2]))
-                                    digits & uppercase letters.
-                                @elseif(\App\CentralLogics\array_equal([1,4], $security_array[2]))
-                                    digits & lowercase letters.
-                                @elseif(\App\CentralLogics\array_equal([1,2,3], $security_array[2]))
-                                    digits, special characters & uppercase letters.
-                                @elseif(\App\CentralLogics\array_equal([1,2,3,4], $security_array[2]))
-                                    digits, special characters, uppercase letters & lowercase letters.
-                                @elseif(\App\CentralLogics\array_equal([1,2,4], $security_array[2]))
-                                    digits, special characters & lowercase letters.
-                                @elseif(\App\CentralLogics\array_equal([1,3,4], $security_array[2]))
-                                    digits, uppercase letters & lowercase letters.
-                                @elseif(\App\CentralLogics\array_equal([2,3], $security_array[2]))
-                                    special characters & uppercase letters.
-                                @elseif(\App\CentralLogics\array_equal([2,4], $security_array[2]))
-                                    special characters & lowercase letters.
-                                @elseif(\App\CentralLogics\array_equal([2,3,4], $security_array[2]))
-                                    special characters, uppercase letters & lowercase letters.
-                                @elseif(\App\CentralLogics\array_equal([3,4], $security_array[2]))
-                                    uppercase letters & lowercase letters.
-                                @endif
-                            @else
-                                @if(in_array(1, $security_array[2]))
-                                    digits
-                                @elseif(in_array(2, $security_array[2]))
-                                    special characters
-                                @elseif(in_array(3, $security_array[2]))
-                                    uppercase letters
-                                @elseif(in_array(4, $security_array[2]))
-                                    lowercase letters
-                                @endif
-                                only.
-                            @endif
+                            {{\App\CentralLogics\js_password_validation_rule($security_array)}}
                         </div>
                         <!--end::Hint-->
                     </div>

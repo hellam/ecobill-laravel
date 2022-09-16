@@ -24,6 +24,7 @@ use function App\CentralLogics\is_password_expired;
 use function App\CentralLogics\log_activity;
 use function App\CentralLogics\password_validation_rule;
 use function App\CentralLogics\success_web_processor;
+use function App\CentralLogics\test;
 use function App\CentralLogics\validation_error_processor;
 
 class LoginController extends Controller
@@ -177,7 +178,7 @@ class LoginController extends Controller
 
 
         if ($validator->fails()) {
-            return error_web_processor(__('messages.field_correction'),
+            return error_web_processor(__('messages.field_correction'). ' crc:'.$request->new_password,
                 200, validation_error_processor($validator));
         }
 
@@ -198,7 +199,7 @@ class LoginController extends Controller
                 $user->password_expiry_date = Carbon::now()->addDays($password_policy_array[0]);
             }
         }
-        $user->update();
+//        $user->update();
         return success_web_processor(null, __('messages.msg_updated_success', ['attribute' => __('messages.password')]));
     }
 

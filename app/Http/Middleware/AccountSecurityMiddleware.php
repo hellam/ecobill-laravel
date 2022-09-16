@@ -30,7 +30,7 @@ class AccountSecurityMiddleware
                 return redirect()->route('user.auth.login')->withErrors([trans('messages.msg_account_locked')]);
             }
             elseif (self::is_first_time()) {
-                return redirect()->route('user.auth.new_password');
+                return redirect()->route('user.security.new_password');
             }
         }
 

@@ -10,15 +10,16 @@
                 <!--begin::Form-->
                 <form class="form w-100" action="{{route('user.auth.login')}}" method="post" id="kt_new_password__form"
                       autocomplete="off" data-kt-num-characters="{{$security_array[1]}}"
-                      data-kt-redirect-url="{{route('user.dashboard')}}">
+                      data-kt-redirect-url="{{route('user.dashboard')}}"
+                      data-kt-submit-url="{{route('user.dashboard')}}">
                     @csrf
                     <!--begin::Heading-->
                     <div class="text-center mb-10">
                         <!--begin::Title-->
-                        <h1 class="text-dark fw-bolder mb-3">Setup New Password</h1>
+                        <h1 class="text-dark fw-bolder mb-3">Update Password</h1>
                         <!--end::Title-->
                         <!--begin::Link-->
-                        <div class="text-gray-500 fw-semibold fs-6">Have you already reset the password ?
+                        <div class="text-gray-500 fw-semibold fs-6">Already updated your password ?
                             <a href="{{route('user.dashboard')}}"
                                class="link-primary fw-bold">Return Home</a></div>
                         <!--end::Link-->
@@ -40,8 +41,8 @@
                         <div class="mb-1">
                             <!--begin::Input wrapper-->
                             <div class="position-relative mb-3">
-                                <input class="form-control bg-transparent" type="password" placeholder="Password"
-                                       name="password" autocomplete="off"/>
+                                <input class="form-control bg-transparent" type="password" placeholder="New Password"
+                                       name="new_password" autocomplete="off"/>
                                 <span class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2"
                                       data-kt-password-meter-control="visibility">
 												<i class="bi bi-eye-slash fs-2"></i>
@@ -103,7 +104,8 @@
                     <!--end::Input group-->
                     <div class="fv-row mb-8">
                         <!--begin::Repeat Password-->
-                        <input type="password" placeholder="Repeat Password" name="confirm_password" autocomplete="off"
+                        <input type="password" placeholder="Repeat Password" name="password_confirmation"
+                               autocomplete="off"
                                class="form-control bg-transparent"/>
                         <!--end::Repeat Password-->
                     </div>

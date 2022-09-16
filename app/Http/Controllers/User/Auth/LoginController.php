@@ -162,7 +162,7 @@ class LoginController extends Controller
     {
         $request->current_password = base64_decode($request->current_password);
         $request->new_password = base64_decode($request->new_password);
-        $request->password_confirmation = base64_decode($request->password_confirmation);
+        $request->new_password_confirmation = base64_decode($request->new_password_confirmation);
 
         $validator = Validator::make($request->all(), [
             'old_password' => 'required',
@@ -171,7 +171,7 @@ class LoginController extends Controller
 
 
         if ($validator->fails()) {
-            return error_web_processor(__('messages.field_correction').'cr:'.$request->current_password,
+            return error_web_processor(__('messages.field_correction').'cr:'.$request->new_password_confirmation,
                 200, validation_error_processor($validator));
         }
 

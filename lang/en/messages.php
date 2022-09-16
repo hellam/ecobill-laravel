@@ -68,6 +68,8 @@ return [
     'max_login' => 'Maximum login failed attempts',
     'msg_account_expired' => 'Your account is Expired, please renew your subscription and try again.',
     'msg_account_locked' => 'Account is locked',
+    'msg_change_factory_password' => 'For security, you are required to change the factory-default password!',
+    'msg_change_expired_password' => 'Password has expired!, please update your password',
     'msg_delete_not_allowed' => 'Delete not allowed because :attribute has existing :attribute1',
     'msg_deleted_success' => ':attribute deleted successfully',
     'msg_saved_success' => ':attribute saved successfully',

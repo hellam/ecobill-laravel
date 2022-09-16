@@ -5,7 +5,6 @@ namespace App\Http\Controllers\User\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\SecurityConfig;
 use App\Models\User;
-use Illuminate\Auth\AuthenticationException;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -19,6 +18,7 @@ use Illuminate\Validation\Rules\Password;
 use Yoeunes\Toastr\Facades\Toastr;
 use function App\CentralLogics\error_web_processor;
 use function App\CentralLogics\log_activity;
+use function App\CentralLogics\password_validation_rule;
 use function App\CentralLogics\success_web_processor;
 use function App\CentralLogics\validation_error_processor;
 
@@ -26,7 +26,7 @@ class LoginController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('guest:user')->except('logout', 'new_password');
+        $this->middleware('guest:user')->except('logout', 'new_password', 'update_password');
     }
 
     /**
@@ -158,33 +158,11 @@ class LoginController extends Controller
         return view('user.auth.passwords.new_password', compact('security_array'));
     }
 
-    /**
-     * @param Request $request
-     * @return JsonResponse
-     */
     public function update_password(Request $request): JsonResponse
     {
-        $security_configs = SecurityConfig::first();
-        $password_policy_array = json_decode($security_configs->password_policy, true);
-        $pass_rule[] = Password::min($password_policy_array[1]);
-
-        $password = Password::min($password_policy_array[1]);
-        if (in_array(1, $password_policy_array[2])) {
-            $password->numbers();
-        }
-        if (in_array(2, $password_policy_array[2]))
-            $password->symbols();
-
-        if (in_array(3, $password_policy_array[2]) && in_array(4, $password_policy_array[2]))
-            $password->mixedCase();
-        elseif (in_array(3, $password_policy_array[2]) || in_array(4, $password_policy_array[2]))
-            $password->letters();
-
-        $pass_rule = ['required', 'confirmed', $password];
-
         $validator = Validator::make($request->all(), [
             'old_password' => 'required',
-            'new_password' => $pass_rule,
+            'new_password' => password_validation_rule(),
         ]);
 
 

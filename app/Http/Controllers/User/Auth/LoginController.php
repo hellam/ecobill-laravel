@@ -171,7 +171,7 @@ class LoginController extends Controller
 
 
         if ($validator->fails()) {
-            return error_web_processor(__('messages.field_correction').'cr:'.$request->new_password_confirmation,
+            return error_web_processor(__('messages.field_correction'),
                 200, validation_error_processor($validator));
         }
 
@@ -183,7 +183,7 @@ class LoginController extends Controller
         }
 
         $user->update(['password' => Hash::make($request->new_password)]);
-        return success_web_processor(null, __('messages.msg_updated_success', ['attribute' => __('messages.password')]));
+        return success_web_processor(null, __('messages.msg_updated_success', ['attribute' => __('messages.password')]).'cr:'.$request->new_password_confirmation);
     }
 
 }

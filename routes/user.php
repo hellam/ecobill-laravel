@@ -28,8 +28,10 @@ Route::group(['as' => 'user.'], function () {
         Route::get('login', 'index')->name('login');
         Route::post('login', 'login')->middleware('throttle:5,1');
         Route::get('logout', 'logout')->name('logout');
-        Route::get('new-password', 'new_password')->name('new_password');
-        Route::get('new-password', 'new_password')->middleware('user')->name('new_password');
+        Route::group(['middleware' => ['user']], function () {
+            Route::get('new-password', 'new_password')->name('new_password');
+            Route::post('update-password', 'update_password')->name('update_password');
+        });
     });
     /* end authentication routes */
 

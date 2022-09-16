@@ -73,12 +73,21 @@ const KTPasswordPolicy = function () {
                                 if (response.status !== true) {
                                     let errors = response.data;
                                     for (const [key, value] of Object.entries(errors)) {
-                                        $('#err_' + key).remove();
-                                        $("input[name='" + value.field + "']")
-                                            .after('<small style="color: red;" id="err_' + value.field + '">' + value.error + '</small>')
-                                            .on('keyup', function (e) {
-                                                $('#err_' + value.field).remove();
-                                            })
+                                        $('#err_' + value.field).remove();
+                                        if ($("input[name='" + value.field + "']")) {
+                                            $("input[name='" + value.field + "']")
+                                                .after('<small style="color: red;" id="err_' + value.field + '">' + value.error + '</small>')
+                                                .on('keyup', function (e) {
+                                                    $('#err_' + value.field).remove();
+                                                })
+                                        }
+                                        if (value.field === 'combination') {
+                                            $('#combination_span')
+                                                .after('<small style="color: red;" id="err_' + value.field + '">' + value.error + '</small>')
+                                                .on('keyup', function (e) {
+                                                    $('#err_' + value.field).remove();
+                                                })
+                                        }
                                     }
 
                                     Swal.fire({

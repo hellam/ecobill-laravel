@@ -283,6 +283,7 @@
                                     </label>
                                     <!--end::Option-->
                                 </div>
+                                <span id="combination_span"></span>
                                 <!--end::Options-->
                             </div>
                             <!--end::Col-->

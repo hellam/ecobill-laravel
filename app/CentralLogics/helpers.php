@@ -128,13 +128,24 @@ function log_activity($type, $ip_address, $description, $request_details, $user 
         AuditTrail::create([
             'type' => $type,
             'trans_no' => $trans_no,
-            'user'=>$user,
-            'api_token'=>$api_token,
-            'description'=>$description,
-            'model'=>$model,
-            'request_details'=>$request_details,
-            'ip_address'=>$ip_address,
-            'client_ref'=>get_user_ref(),
+            'user' => $user,
+            'api_token' => $api_token,
+            'description' => $description,
+            'model' => $model,
+            'request_details' => $request_details,
+            'ip_address' => $ip_address,
+            'client_ref' => get_user_ref(),
         ]);
-    }catch (\Exception $e) {}
+    } catch (\Exception $e) {
+    }
+}
+
+function array_equal($a, $b): bool
+{
+    return (
+        is_array($a)
+        && is_array($b)
+        && count($a) == count($b)
+        && array_diff($a, $b) === array_diff($b, $a)
+    );
 }

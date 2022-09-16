@@ -19,7 +19,7 @@ const KTAuthNewPassword = function () {
                         },
                     }
                 },
-                password_confirmation: {
+                new_password_confirmation: {
                     validators: {
                         notEmpty: {message: "The password confirmation is required"},
                         identical: {
@@ -47,10 +47,6 @@ const KTAuthNewPassword = function () {
                 if (status === 'Valid') {
                     submitButton.setAttribute("data-kt-indicator", "on")
                     submitButton.disabled = !0
-                    form.querySelector('[name="old_password"]').value = btoa(form.querySelector('[name="old_password"]').value);
-                    form.querySelector('[name="new_password"]').value = btoa(form.querySelector('[name="new_password"]').value);
-                    form.querySelector('[name="password_confirmation"]').value = btoa(form.querySelector('[name="password_confirmation"]').value);
-
                     const str = $('#kt_new_password__form').serialize();
 
                     $.ajax({
@@ -59,7 +55,11 @@ const KTAuthNewPassword = function () {
                         },
                         type: 'POST',
                         url: form.getAttribute("data-kt-action"),
-                        data: str,
+                        data: {
+                            old_password: btoa(form.querySelector('[name="old_password"]').value),
+                            new_password: btoa(form.querySelector('[name="new_password"]').value),
+                            new_password_confirmation: btoa(form.querySelector('[name="new_password_confirmation"]').value),
+                        },
                         success: function (json) {
                             let response = JSON.parse(JSON.stringify(json));
                             if (response.status !== true) {

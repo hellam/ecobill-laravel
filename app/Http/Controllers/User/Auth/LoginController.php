@@ -160,7 +160,6 @@ class LoginController extends Controller
 
     public function update_password(Request $request): JsonResponse
     {
-
         $request->current_password = base64_decode($request->current_password);
         $request->new_password = base64_decode($request->new_password);
         $request->password_confirmation = base64_decode($request->password_confirmation);

@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\AccountSecurityMiddleware;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\Authenticate;
 use App\Http\Middleware\ClientMiddleware;
@@ -68,6 +69,7 @@ class Kernel extends HttpKernel
      * @var array<string, class-string|string>
      */
     protected $routeMiddleware = [
+        'acc.security' => AccountSecurityMiddleware::class,
         'admin' => AdminMiddleware::class,
         'auth' => Authenticate::class,
         'auth.basic' => AuthenticateWithBasicAuth::class,

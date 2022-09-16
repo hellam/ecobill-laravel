@@ -53,10 +53,10 @@ class LoginController extends Controller
                 'captcha.captcha' => 'Invalid captcha'
             ]
         );
-        $request->password = encrypt($request->password);
 
         if (auth('user')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
             Toastr::success(trans('messages.msg_login_success'), trans('messages.welcome') . '!', ["positionClass" => "toast-top-right"]);
+            //log success login action
             log_activity(
                 AUD_LOGON_EVENT,
                 $request->getClientIp(),
@@ -64,11 +64,55 @@ class LoginController extends Controller
                 "",
                 auth('user')->id()
             );
+
+            //reset failed login attempts
+            $user = User::find(auth('user')->id());
+            $user->failed_login_attempts = 0;
+            $user->update();
+
+            //check if SSO is enabled and apply
             try {
-                auth('user')->logoutOtherDevices($request->password);
-            } catch (AuthenticationException $e) {
+                $security_configs = SecurityConfig::first();
+                $general_security_array = json_decode($security_configs->general_security, true);
+
+                if ($general_security_array[1] == 1)
+                    auth('user')->logoutOtherDevices($request->password);
+            } catch (\Exception $e) {
             }
+
+            //redirect authenticated user
             return redirect()->route('user.dashboard');
+        } elseif ($user = User::where('email', $request->email)->first()) {
+            try {
+                $security_configs = SecurityConfig::where('client_ref', $user->uuid)->first();
+
+                $general_security_array = json_decode($security_configs->general_security, true);
+
+                if ($user->failed_login_attempts < $general_security_array[0]) {//check if failed attempts are allowed
+                    $user->failed_login_attempts += 1; //increment failed login attempts counter
+                    $msg = __('messages.msg_login_failed') . ', ' . trans('messages.msg_login_attempts_remaining', ['attribute' => $general_security_array[0] - $user->failed_login_attempts]);
+                    $log_msg = __('messages.msg_login_failed');
+                    if($user->failed_login_attempts >= $general_security_array[0]){
+                        $user->account_locked = 1;
+                        $log_msg = $msg = __('messages.msg_account_locked');
+                    }
+                    $user->update();
+                    log_activity(
+                        AUD_LOGON_EVENT,
+                        $request->getClientIp(),
+                        $log_msg,
+                        "",
+                        $user->id
+                    );
+                    return redirect()->back()->withInput($request->only('email', 'remember'))
+                        ->withErrors([$msg]);
+                } elseif ($user->account_locked == 1) {//account locked
+                    return redirect()->back()->withInput($request->only('email', 'remember'))
+                        ->withErrors([__('messages.msg_account_locked')]);
+                }
+                $user = null;
+            } catch (\Exception $e) {
+            }
         }
 
         return redirect()->back()->withInput($request->only('email', 'remember'))
@@ -100,7 +144,7 @@ class LoginController extends Controller
     public function new_password(): View|Factory|Application
     {
         $security_configs = SecurityConfig::first();
-        $security_array = json_decode($security_configs->password_policy,true);
+        $security_array = json_decode($security_configs->password_policy, true);
         return view('user.auth.passwords.new_password', compact('security_array'));
     }
 

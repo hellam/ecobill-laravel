@@ -26,13 +26,13 @@ Route::group(['as' => 'user.'], function () {
     /* start authentication routes */
     Route::controller(User\Auth\LoginController::class)->prefix('auth')->as('auth.')->group(function () {
         Route::get('login', 'index')->name('login');
-        Route::post('login', 'login')->middleware('throttle:3');
+        Route::post('login', 'login')->middleware('throttle:5,1');
         Route::get('logout', 'logout')->name('logout');
         Route::get('new-password', 'new_password')->name('new_password');
     });
     /* end authentication routes */
 
-    Route::group(['middleware' => ['user']], function () {
+    Route::group(['middleware' => ['user','acc.security']], function () {
         Route::get('/', [User\DashboardController::class, 'index'])->name('dashboard');
         Route::group(['prefix' => 'products', 'as' => 'products.'], function () {
             Route::get('/', [User\Products\ProductsController::class, 'index'])->middleware('permission:101')->name('list');

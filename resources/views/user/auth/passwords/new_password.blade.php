@@ -104,7 +104,7 @@
                     <!--end::Input group-->
                     <div class="fv-row mb-8">
                         <!--begin::Repeat Password-->
-                        <input type="password" placeholder="Repeat Password" name="password_confirmation"
+                        <input type="password" placeholder="Repeat Password" name="new_password_confirmation"
                                autocomplete="off"
                                class="form-control bg-transparent"/>
                         <!--end::Repeat Password-->

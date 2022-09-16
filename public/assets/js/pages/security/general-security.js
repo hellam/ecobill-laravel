@@ -59,7 +59,7 @@ const KTGeneralSecurity = function () {
                                 if (response.status !== true) {
                                     let errors = response.data;
                                     for (const [key, value] of Object.entries(errors)) {
-                                        $('#err_' + key).remove();
+                                        $('#err_' + value.field).remove();
                                         $("input[name='" + value.field + "']")
                                             .after('<small style="color: red;" id="err_' + value.field + '">' + value.error + '</small>')
                                             .on('keyup', function (e) {

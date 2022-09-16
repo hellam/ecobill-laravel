@@ -3,9 +3,10 @@
 namespace App\CentralLogics;
 
 use App\Models\AuditTrail;
-use App\Models\Role;
+use App\Models\SecurityConfig;
 use DateTime;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Validation\Rules\Password;
 
 function generateUniqueId($userId): string
 {
@@ -15,6 +16,25 @@ function generateUniqueId($userId): string
 function reloadCaptcha(): JsonResponse
 {
     return response()->json(['captcha' => captcha_img('math')]);
+}
+
+function password_validation_rule(): array
+{
+    $security_configs = SecurityConfig::first();
+    $password_policy_array = json_decode($security_configs->password_policy, true);
+
+    $password = Password::min($password_policy_array[1]);
+
+    if (in_array(1, $password_policy_array[2]))
+        $password->numbers();
+    if (in_array(2, $password_policy_array[2]))
+        $password->symbols();
+    if (in_array(3, $password_policy_array[2]) && in_array(4, $password_policy_array[2]))
+        $password->mixedCase();
+    elseif (in_array(3, $password_policy_array[2]) || in_array(4, $password_policy_array[2]))
+        $password->letters();
+
+    return ['required', 'confirmed', $password];
 }
 
 function get_user_ref()

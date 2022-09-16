@@ -175,19 +175,19 @@
                                             @if(json_decode($security_configs->password_policy)[0] == 7)selected @endif>
                                         1 {{__('messages.week')}}
                                     </option>
-                                    <option value="30"
+                                    <option value="28"
                                             @if(json_decode($security_configs->password_policy)[0] == 30)selected @endif>
                                         1 {{__('messages.month')}}
                                     </option>
-                                    <option value="90"
+                                    <option value="84"
                                             @if(json_decode($security_configs->password_policy)[0] == 90)selected @endif>
                                         3 {{__('messages.month').'s'}}
                                     </option>
-                                    <option value="180"
+                                    <option value="168"
                                             @if(json_decode($security_configs->password_policy)[0] == 180)selected @endif>
                                         6 {{__('messages.month').'s'}}
                                     </option>
-                                    <option value="360"
+                                    <option value="365"
                                             @if(json_decode($security_configs->password_policy)[0] == 360)selected @endif>
                                         1 {{__('messages.year')}}
                                     </option>

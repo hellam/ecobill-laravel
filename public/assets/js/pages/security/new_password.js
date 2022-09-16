@@ -95,7 +95,7 @@ const KTAuthNewPassword = function () {
                                 }).then(function (result) {
                                     if (result.isConfirmed) {
                                         // Reload
-                                        window.location.reload();
+                                        window.location.href = form.getAttribute('data-kt-redirect-url');
                                     }
                                 });
                             }

@@ -54,7 +54,7 @@ class SecurityController extends Controller
             $validator = Validator::make($request->all(), [
                 'pass_expiry' => 'required',
                 'min_length' => 'required',
-                'combination' => 'required|array',
+                'strength' => 'required',
                 'pass_history' => 'required',
                 'first_time' => 'required',
             ]);
@@ -68,7 +68,7 @@ class SecurityController extends Controller
 
             $configs[] = $request->pass_expiry;
             $configs[] = $request->min_length;
-            $configs[] = $request->combination;
+            $configs[] = $request->strength;
             $configs[] = $request->pass_history;
             $configs[] = $request->first_time;
 

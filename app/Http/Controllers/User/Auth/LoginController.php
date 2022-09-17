@@ -24,7 +24,6 @@ use function App\CentralLogics\is_password_expired;
 use function App\CentralLogics\log_activity;
 use function App\CentralLogics\password_validation_rule;
 use function App\CentralLogics\success_web_processor;
-use function App\CentralLogics\test;
 use function App\CentralLogics\validation_error_processor;
 
 class LoginController extends Controller
@@ -165,37 +164,38 @@ class LoginController extends Controller
 
     public function update_password(Request $request): JsonResponse
     {
-        $request->old_password = base64_decode($request->old_password);
-        $request->new_password = base64_decode($request->new_password);
-        $request->new_password_confirmation = base64_decode($request->new_password_confirmation);
-
         $password_policy_array = json_decode(get_security_configs()->password_policy, true);
 
-        $validator = Validator::make($request->all(), [
+        $array = [
+            'old_password' => base64_decode($request->old_password),
+            'new_password' => base64_decode($request->new_password),
+            'new_password_confirmation' => base64_decode($request->new_password_confirmation)
+        ];
+        $validator = Validator::make($array, [
             'old_password' => 'required',
             'new_password' => password_validation_rule($password_policy_array),
         ]);
 
 
         if ($validator->fails()) {
-            return error_web_processor(__('messages.field_correction'). ' crc:'.$request->new_password,
+            return error_web_processor(__('messages.field_correction'),
                 200, validation_error_processor($validator));
         }
 
         $user = User::where('id', Auth::id())->first();
 
-        if (!Auth::validate(['email' => $user->email, 'password' => $request->old_password])) {
-            return error_web_processor(__('messages.field_correction') . 'cr:' . $request->new_password_confirmation,
+        if (!Auth::validate(['email' => $user->email, 'password' => $array['old_password']])) {
+            return error_web_processor(__('messages.field_correction') . 'cr:' . $array['new_password_confirmation'],
                 200, array(['field' => 'old_password', 'error' => 'Wrong Password!']));
         }
         //check with password history
-        $user->password = Hash::make($request->new_password);
+        $user->password = Hash::make($array['new_password']);
         if (is_first_time())
             $user->first_time = 0;
         if (is_password_expired()) {
             if ($password_policy_array[0] == 0)
                 $user->password_expiry_date = null;
-            else{
+            else {
                 $user->password_expiry_date = Carbon::now()->addDays($password_policy_array[0]);
             }
         }

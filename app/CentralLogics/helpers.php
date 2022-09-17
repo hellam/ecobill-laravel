@@ -34,46 +34,26 @@ function test($password_policy_array)
 function password_validation_rule($password_policy_array): array
 {
     $password = Password::min($password_policy_array[1]);
-    if (in_array(1, $password_policy_array[2]))
-        $password = $password->numbers();
-    if (in_array(2, $password_policy_array[2]))
-        $password = $password->symbols();
-    if (in_array(3, $password_policy_array[2]) && in_array(4, $password_policy_array[2]))
-        $password = $password->mixedCase();
-    elseif (in_array(3, $password_policy_array[2]) || in_array(4, $password_policy_array[2]))
-        $password = $password->letters();
-
-    return ['required', 'confirmed', $password];
-}
-
-function js_password_validation_rule($password_policy_array)
-{
-    $rules = array();
-    if (in_array(1, $password_policy_array[2]))
-        $rules[] = 'digits';
-    if (in_array(2, $password_policy_array[2]))
-        $rules[] = 'special characters';
-    if (in_array(3, $password_policy_array[2]) && in_array(4, $password_policy_array[2])) {
-        $rules[] = 'uppercase letters';
-        $rules[] = 'lowercase letters';
-    } elseif (in_array(3, $password_policy_array[2]) || in_array(4, $password_policy_array[2])) {
-        if (in_array(3, $password_policy_array[2]))
-            $rules[] = 'uppercase letters';
-        else
-            $rules[] = 'lowercase letters';
+    if ($password_policy_array[2] == 1) {
+        $password = $password->letters()->numbers();
+    } elseif ($password_policy_array[2] == 2) {
+        $password = $password->letters()
+            ->numbers()
+            ->mixedCase()
+            ->symbols()
+            ->uncompromised();
     }
 
-    $output = '';
-    for ($i = 0; $i < count($rules); $i++) {
-        if (count($rules) > 1) {
-            if($i==0)
-                $output .= ' a mix of ';
-            if ($i == (count($rules) - 1))//last item
-                $output .= ' & ' . $rules[$i].'.';
-            else
-                $output .= $rules[$i].',';
-        } else
-            $output .= $rules[$i].' only.';
+    return ['required', $password];
+}
+
+function js_password_validation_rule($password_policy_array): string
+{
+    $output = 'a mix of ';
+    if ($password_policy_array == 1) {
+        $output .= 'digits and letters.';
+    } elseif ($password_policy_array == 2) {
+        $output .= 'digits, letters, special characters & not a common password.';
     }
     return $output;
 }

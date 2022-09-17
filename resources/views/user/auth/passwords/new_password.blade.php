@@ -60,7 +60,7 @@
                         <!--begin::Hint-->
                         <div class="text-muted">
                             Use {{$security_array[1]}} or more characters with
-                            {{\App\CentralLogics\js_password_validation_rule($security_array)}}
+                            {{\App\CentralLogics\js_password_validation_rule($security_array[2])}}
                         </div>
                         <!--end::Hint-->
                     </div>

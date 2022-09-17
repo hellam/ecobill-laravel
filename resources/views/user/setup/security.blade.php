@@ -243,7 +243,7 @@
                         <div class="row mb-6">
                             <!--begin::Label-->
                             <label class="col-lg-4 col-form-label fw-semibold fs-6">
-                                <span class="required">{{__('messages.password').' '.__('messages.combination')}}</span>
+                                <span class="required">{{__('messages.password').' '.__('messages.strength')}}</span>
                             </label>
                             <!--end::Label-->
                             <!--begin::Col-->
@@ -252,34 +252,18 @@
                                 <div class="d-flex align-items-center mt-3">
                                     <!--begin::Option-->
                                     <label class="form-check form-check-inline form-check-solid me-5">
-                                        <input class="form-check-input" name="combination[]" type="checkbox"
+                                        <input class="form-check-input" name="strength" type="radio"
                                                value="1"
-                                               @if(in_array(1,json_decode($security_configs->password_policy)[2]))checked @endif/>
-                                        <span class="fw-semibold ps-2 fs-6">{{__('messages.digits')}}</span>
+                                               @if(json_decode($security_configs->password_policy)[2] == 1)checked @endif/>
+                                        <span class="fw-semibold ps-2 fs-6">{{__('messages.medium').' '.__('messages.password')}}</span>
                                     </label>
                                     <!--end::Option-->
                                     <!--begin::Option-->
                                     <label class="form-check form-check-inline form-check-solid">
-                                        <input class="form-check-input" name="combination[]" type="checkbox"
+                                        <input class="form-check-input" name="strength" type="radio"
                                                value="2"
-                                               @if(in_array(2,json_decode($security_configs->password_policy)[2]))checked @endif/>
-                                        <span class="fw-semibold ps-2 fs-6">{{__('messages.special_chars')}}</span>
-                                    </label>
-                                    <!--end::Option-->
-                                    <!--begin::Option-->
-                                    <label class="form-check form-check-inline form-check-solid">
-                                        <input class="form-check-input" name="combination[]" type="checkbox"
-                                               value="3"
-                                               @if(in_array(3,json_decode($security_configs->password_policy)[2]))checked @endif/>
-                                        <span class="fw-semibold ps-2 fs-6">{{__('messages.uppercase')}}</span>
-                                    </label>
-                                    <!--end::Option-->
-                                    <!--begin::Option-->
-                                    <label class="form-check form-check-inline form-check-solid">
-                                        <input class="form-check-input" name="combination[]" type="checkbox"
-                                               value="4"
-                                               @if(in_array(4,json_decode($security_configs->password_policy)[2]))checked @endif/>
-                                        <span class="fw-semibold ps-2 fs-6">{{__('messages.lowercase')}}</span>
+                                               @if(json_decode($security_configs->password_policy)[2] == 2)checked @endif/>
+                                        <span class="fw-semibold ps-2 fs-6">{{__('messages.strong').' '.__('messages.password')}}</span>
                                     </label>
                                     <!--end::Option-->
                                 </div>

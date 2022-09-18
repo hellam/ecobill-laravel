@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use App\Scopes\UserTableScope;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class User
@@ -101,6 +103,14 @@ class User extends Authenticatable
         'first_time',
         'inactive'
     ];
+
+
+    public static function booted()
+    {
+        if (Auth::guard('user')->check()){
+            static::addGlobalScope(new UserTableScope());
+        }
+    }
 
     public function permissions(): array
     {

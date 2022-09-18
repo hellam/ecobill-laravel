@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
@@ -21,9 +22,9 @@ class AuditTrailController extends Controller
     }
 
     //Data table API
-    public function dt_api(Request $request)
+    public function dt_api(Request $request): JsonResponse
     {
-        $audit_trail = AuditTrail::orderBy('created_at');
+        $audit_trail = AuditTrail::select('type','user','api','created_at','description')->orderBy('created_at');
         return (new DataTables)->eloquent($audit_trail)
             // ->addIndexColumn()
             ->editColumn('type', function ($row) {

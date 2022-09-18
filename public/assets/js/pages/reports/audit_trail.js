@@ -53,33 +53,55 @@ const KTAuditTrailServerSide = function () {
         });
     };
 
-    // Filter Datatable
-    var handleFilterDatatable = () => {
-        // Select filter options
-        filterPayment = document.querySelectorAll('[data-kt-tax-table-filter="payment_type"] [name="payment_type"]');
-        const filterButton = document.querySelector('[data-kt-tax-table-filter="filter"]');
+    const start = moment().subtract(29, "days");
+    const end = moment();
 
-        // Filter datatable on submit
-        filterButton.addEventListener('click', function () {
-            // Get filter values
-            let paymentValue = '';
-
-            // Get payment value
-            filterPayment.forEach(r => {
-                if (r.checked) {
-                    paymentValue = r.value;
-                }
-
-                // Reset payment value if "All" is selected
-                if (paymentValue === 'all') {
-                    paymentValue = '';
-                }
-            });
-
-            // Filter datatable --- official docs reference: https://datatables.net/reference/api/search()
-            dt.search(paymentValue).draw();
-        });
+    function cb(start, end) {
+        $("#kt_date_range_picker").html(start.format("MMMM D, YYYY") + " - " + end.format("MMMM D, YYYY"));
     }
+
+    $("#kt_date_range_picker").daterangepicker({
+        startDate: start,
+        endDate: end,
+        ranges: {
+            "Today": [moment(), moment()],
+            "Yesterday": [moment().subtract(1, "days"), moment().subtract(1, "days")],
+            "Last 7 Days": [moment().subtract(6, "days"), moment()],
+            "Last 30 Days": [moment().subtract(29, "days"), moment()],
+            "This Month": [moment().startOf("month"), moment().endOf("month")],
+            "Last Month": [moment().subtract(1, "month").startOf("month"), moment().subtract(1, "month").endOf("month")]
+        }
+    }, cb);
+
+    console.log(start, end);
+
+    // Filter Datatable
+    // var handleFilterDatatable = () => {
+    //     // Select filter options
+    //     filterPayment = document.querySelectorAll('[data-kt-tax-table-filter="payment_type"] [name="payment_type"]');
+    //     const filterButton = document.querySelector('[data-kt-tax-table-filter="filter"]');
+    //
+    //     // Filter datatable on submit
+    //     filterButton.addEventListener('click', function () {
+    //         // Get filter values
+    //         let paymentValue = '';
+    //
+    //         // Get payment value
+    //         filterPayment.forEach(r => {
+    //             if (r.checked) {
+    //                 paymentValue = r.value;
+    //             }
+    //
+    //             // Reset payment value if "All" is selected
+    //             if (paymentValue === 'all') {
+    //                 paymentValue = '';
+    //             }
+    //         });
+    //
+    //         // Filter datatable --- official docs reference: https://datatables.net/reference/api/search()
+    //         dt.search(paymentValue).draw();
+    //     });
+    // }
 
     // Public methods
     return {
@@ -89,7 +111,7 @@ const KTAuditTrailServerSide = function () {
                 initDatatable();
                 dt.search('').draw();
                 handleSearchDatatable();
-                handleFilterDatatable();
+                // handleFilterDatatable();
             }
         }
     }

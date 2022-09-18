@@ -72,7 +72,8 @@
                         <div class="d-flex justify-content-end" data-kt-audit-trail-table-toolbar="base">
                             <!--begin::Filter-->
                             <button type="button" class="btn btn-light-primary me-3"
-                                    data-kt-menu-trigger="click"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#kt_modal_filter_audits"
                                     data-kt-menu-placement="bottom-end">
                                 <!--begin::Svg Icon | path: icons/duotune/general/gen031.svg-->
                                 <span class="svg-icon svg-icon-2">
@@ -85,99 +86,6 @@
 												</span>
                                 <!--end::Svg Icon-->Filter
                             </button>
-                            <!--begin::Menu 1-->
-                            <div class="menu menu-sub menu-sub-dropdown w-300px w-md-325px" data-kt-menu="true"
-                                 id="kt-toolbar-filter">
-                                <!--begin::Header-->
-                                <div class="px-7 py-5">
-                                    <div class="fs-4 text-dark fw-bolder">Filter Options</div>
-                                </div>
-                                <!--end::Header-->
-                                <!--begin::Separator-->
-                                <div class="separator border-gray-200"></div>
-                                <!--end::Separator-->
-                                <!--begin::Content-->
-                                <div class="px-7 py-5">
-                                    <!--begin::Input group-->
-                                    <div class="mb-10">
-                                        <!--begin::Label-->
-                                        <label class="form-label fs-5 fw-bold mb-3">User:</label>
-                                        <!--end::Label-->
-                                        <!--begin::Input-->
-                                        <select class="form-select form-select-solid fw-bolder"
-                                                data-kt-select2="true"
-                                                data-placeholder="Select user" data-allow-clear="true"
-                                                data-kt-audit-trail-table-filter="month"
-                                                data-dropdown-parent="#kt-toolbar-filter">
-                                            <option></option>
-                                            <option value="aug">August</option>
-                                            <option value="sep">September</option>
-                                            <option value="oct">October</option>
-                                            <option value="nov">November</option>
-                                            <option value="dec">December</option>
-                                        </select>
-                                        <!--end::Input-->
-                                    </div>
-                                    <!--end::Input group-->
-                                    <!--begin::Input group-->
-                                    <div class="mb-10">
-                                        <!--begin::Label-->
-                                        <label class="form-label fs-5 fw-bold mb-3">Payment Type:</label>
-                                        <!--end::Label-->
-                                        <!--begin::Options-->
-                                        <div class="d-flex flex-column flex-wrap fw-bold"
-                                             data-kt-audit-trail-table-filter="payment_type">
-                                            <!--begin::Option-->
-                                            <label
-                                                class="form-check form-check-sm form-check-custom form-check-solid mb-3 me-5">
-                                                <input class="form-check-input" type="radio" name="payment_type"
-                                                       value="all" checked="checked"/>
-                                                <span class="form-check-label text-gray-600">All</span>
-                                            </label>
-                                            <!--end::Option-->
-                                            <!--begin::Option-->
-                                            <label
-                                                class="form-check form-check-sm form-check-custom form-check-solid mb-3 me-5">
-                                                <input class="form-check-input" type="radio" name="payment_type"
-                                                       value="visa"/>
-                                                <span class="form-check-label text-gray-600">Visa</span>
-                                            </label>
-                                            <!--end::Option-->
-                                            <!--begin::Option-->
-                                            <label
-                                                class="form-check form-check-sm form-check-custom form-check-solid mb-3">
-                                                <input class="form-check-input" type="radio" name="payment_type"
-                                                       value="mastercard"/>
-                                                <span class="form-check-label text-gray-600">Mastercard</span>
-                                            </label>
-                                            <!--end::Option-->
-                                            <!--begin::Option-->
-                                            <label
-                                                class="form-check form-check-sm form-check-custom form-check-solid">
-                                                <input class="form-check-input" type="radio" name="payment_type"
-                                                       value="american_express"/>
-                                                <span class="form-check-label text-gray-600">American Express</span>
-                                            </label>
-                                            <!--end::Option-->
-                                        </div>
-                                        <!--end::Options-->
-                                    </div>
-                                    <!--end::Input group-->
-                                    <!--begin::Actions-->
-                                    <div class="d-flex justify-content-end">
-                                        <button type="reset" class="btn btn-light btn-active-light-primary me-2"
-                                                data-kt-menu-dismiss="true" data-kt-audit-trail-table-filter="reset">
-                                            Reset
-                                        </button>
-                                        <button type="submit" class="btn btn-primary" data-kt-menu-dismiss="true"
-                                                data-kt-audit-trail-table-filter="filter">Apply
-                                        </button>
-                                    </div>
-                                    <!--end::Actions-->
-                                </div>
-                                <!--end::Content-->
-                            </div>
-                            <!--end::Menu 1-->
                             <!--end::Filter-->
                         </div>
                         <!--end::Toolbar-->
@@ -246,6 +154,149 @@
             @endif
         </div>
         <!--end::Card-->
+
+        <!--begin::Modal - Filter -->
+        <div class="modal fade" id="kt_modal_filter_audits" tabindex="-1">
+            <!--begin::Modal dialog-->
+            <div class="modal-dialog modal-dialog-centered mw-650px">
+                <!--begin::Modal content-->
+                <div class="modal-content">
+                    <!--begin::Modal header-->
+                    <div class="modal-header" id="kt_modal_filter_audits_header">
+                        <!--begin::Modal title-->
+                        <h2 class="fw-bolder">{{__('messages.apply').' '.__('messages.filter')}}</h2>
+                        <!--end::Modal title-->
+                        <!--begin::Close-->
+                        <div id="kt_modal_filter_audits_close"
+                             class="btn btn-icon btn-sm btn-active-icon-primary">
+                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                            <span class="svg-icon svg-icon-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                     height="24" viewBox="0 0 24 24" fill="none">
+                                    <rect opacity="0.5" x="6" y="17.3137" width="16"
+                                          height="2" rx="1"
+                                          transform="rotate(-45 6 17.3137)"
+                                          fill="currentColor"/>
+                                    <rect x="7.41422" y="6" width="16" height="2" rx="1"
+                                          transform="rotate(45 7.41422 6)"
+                                          fill="currentColor"/>
+                                </svg>
+                            </span>
+                            <!--end::Svg Icon-->
+                        </div>
+                        <!--end::Close-->
+                    </div>
+                    <!--end::Modal header-->
+                    <!--begin::Modal body-->
+                    <div class="modal-body py-10 px-lg-17">
+                        <!--begin::Scroll-->
+                        <div class="scroll-y me-n7 pe-7" id="kt_modal_filter_audits_scroll" data-kt-scroll="true"
+                             data-kt-scroll-activate="{default: false, lg: true}"
+                             data-kt-scroll-max-height="auto"
+                             data-kt-scroll-dependencies="#kt_modal_filter_audits_header"
+                             data-kt-scroll-wrappers="#kt_modal_filter_audits_scroll"
+                             data-kt-scroll-offset="300px">
+                            <!--begin::Input group-->
+                            <div class="row mb-6">
+                                <!--begin::Label-->
+                                <label class="col-form-label fw-semibold fs-6">
+                                    <span>{{__('messages.date').' '.__('messages.range')}}</span>
+                                    <input class="form-control form-control-solid" id="kt_date_range_picker"/>
+                                </label>
+                                <!--end::Label-->
+                            </div>
+                            <!--end::Input group-->
+                            <!--begin::Input group-->
+                            <div class="row g-9 mb-7">
+                                <!--begin::Col-->
+                                <div class="col-md-6 fv-row">
+                                    <!--begin::Label-->
+                                    <label
+                                        class="fs-6 fw-bold mb-2">{{__('messages.user')}}</label>
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                    <select class="form-select form-select-solid fw-bolder"
+                                            data-kt-select2="true"
+                                            data-placeholder="Select user" data-allow-clear="true"
+                                            data-kt-audit-trail-table-filter="user"
+                                            data-dropdown-parent="#kt_modal_filter_audits">
+                                        <option></option>
+                                        @foreach($users as $user)
+                                            <option value="{{$user->id}}">{{$user->username}}</option>
+                                        @endforeach
+                                    </select>
+                                    <!--end::Input-->
+                                </div>
+                                <!--end::Col-->
+                                <!--begin::Col-->
+                                <div class="col-md-6 fv-row">
+                                    <!--begin::Label-->
+                                    <label
+                                        class="fs-6 fw-bold mb-2">{{__('messages.type')}}</label>
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                    <select class="form-select form-select-solid fw-bolder"
+                                            data-kt-select2="true"
+                                            data-placeholder="Select type" data-allow-clear="true"
+                                            data-kt-audit-trail-table-filter="type"
+                                            data-dropdown-parent="#kt_modal_filter_audits">
+                                        <option></option>
+                                        @foreach(TRX_TYPES as $key => $value)
+                                            <option value="{{$key}}">{{$value}}</option>
+                                        @endforeach
+                                    </select>
+                                    <!--end::Input-->
+                                </div>
+                                <!--end::Col-->
+                            </div>
+                            <!--end::Input group-->
+                            <!--begin::Input group-->
+                            <div class="row g-9 mb-7">
+
+                                <!--begin::Col-->
+                                <div class="col-md-6 fv-row">
+                                    <!--begin::Label-->
+                                    <label
+                                        class="fs-6 fw-bold mb-2">{{__('messages.type')}}</label>
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                    <select class="form-select form-select-solid fw-bolder"
+                                            data-kt-select2="true"
+                                            data-placeholder="Select request type" data-allow-clear="true"
+                                            data-kt-audit-trail-table-filter="type"
+                                            data-dropdown-parent="#kt_modal_filter_audits">
+                                        <option></option>
+                                        <option value="web">Web</option>
+                                        <option value="web">API</option>
+                                    </select>
+                                    <!--end::Input-->
+                                </div>
+                                <!--end::Col-->
+                            </div>
+                            <!--end::Input group-->
+                        </div>
+                        <!--end::Scroll-->
+                    </div>
+                    <!--end::Modal body-->
+                    <!--begin::Modal footer-->
+                    <div class="modal-footer flex-center">
+                        <!--begin::Button-->
+                        <button type="reset" id="kt_modal_filter_audits_cancel" class="btn btn-light me-3">
+                            Discard
+                        </button>
+                        <!--end::Button-->
+                        <!--begin::Button-->
+                        <button type="submit" id="kt_modal_filter_audits_apply" class="btn btn-primary">
+                            Apply
+                        </button>
+                        <!--end::Button-->
+                    </div>
+                    <!--end::Modal footer-->
+                </div>
+            </div>
+        </div>
+        <!--end::Modal - Taxes - Edit-->
+
     </div>
     <!--end::Container-->
 @stop

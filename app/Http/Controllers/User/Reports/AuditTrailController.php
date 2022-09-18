@@ -28,7 +28,7 @@ class AuditTrailController extends Controller
         return (new DataTables)->eloquent($audit_trail)
             // ->addIndexColumn()
             ->editColumn('type', function ($row) {
-                return ${'AUD_'.$row->type};
+                return constant('AUD_'.$row->type);
             })->addColumn('request_type', function ($row) {
                 return $row->api==null ? 'Web' : 'API';
             })->editColumn('user', function ($row) {

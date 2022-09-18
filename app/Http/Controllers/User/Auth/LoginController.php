@@ -171,6 +171,7 @@ class LoginController extends Controller
             'new_password' => base64_decode($request->new_password),
             'new_password_confirmation' => base64_decode($request->new_password_confirmation)
         ];
+
         $validator = Validator::make($array, [
             'old_password' => 'required',
             'new_password' => password_validation_rule($password_policy_array),

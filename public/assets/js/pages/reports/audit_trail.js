@@ -19,12 +19,11 @@ const KTAuditTrailServerSide = function () {
                 url: td.getAttribute('data-kt-dt_api'),
             },
             columns: [
-                {data: 'id', name: 'status'},
-                {data: 'trx_id'},
-                {data: 'amount'},
-                {data: 'trx_desc'},
-                {data: 'pay_mode'},
+                {data: 'type'},
+                {data: 'user'},
+                {data: 'request_type'},
                 {data: 'created_at'},
+                {data: 'description'},
             ],
             columnDefs: [
                 {

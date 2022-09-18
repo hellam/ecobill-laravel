@@ -206,10 +206,6 @@
                             <div class="col-lg-8 fv-row">
                                 <select name="min_length" aria-label="Select" data-control="select2"
                                         class="form-select form-select-solid form-select-lg">
-                                    <option value="4"
-                                            @if(json_decode($security_configs->password_policy)[1] == 4)selected @endif>
-                                        4
-                                    </option>
                                     <option value="6"
                                             @if(json_decode($security_configs->password_policy)[1] == 6)selected @endif>
                                         6

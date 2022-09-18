@@ -106,7 +106,6 @@ const KTAuthNewPassword = function () {
 
                         },
                         error: function (xhr, desc, err) {
-                            console.log(xhr)
                             Swal.fire({
                                 text: 'A network error occured. Please consult your network administrator.',
                                 icon: "error",

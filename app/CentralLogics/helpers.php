@@ -28,15 +28,16 @@ function get_security_configs()
     return SecurityConfig::first();
 }
 
-function check_password_re_use($password, $password_policy_array): bool
+function check_password_re_use($password): bool
 {
-    $password_history = PasswordHistory::where(['user_id' => auth('user')->id()])->limit($password_policy_array[3])->get();
+    $password_policy_array = json_decode(get_security_configs()->password_policy, true);
+    $password_history = PasswordHistory::where(['user_id' => auth('user')->id()])->limit($password_policy_array[3])->orderBy('created_at','DESC')->get();
     foreach ($password_history as $pass_history) {
         if (Hash::check($password, $pass_history->password)) {
-            return true;
+            return false;
         }
     }
-    return false;
+    return true;
 }
 
 function password_validation_rule($password_policy_array): array
@@ -52,7 +53,7 @@ function password_validation_rule($password_policy_array): array
             ->uncompromised();
     }
 
-    return ['required', 'confirmed', $password, new PasswordHistoryRule($password_policy_array)];
+    return ['required', 'confirmed', $password, new PasswordHistoryRule($password_policy_array[3])];
 }
 
 function js_password_validation_rule($password_policy_array): string

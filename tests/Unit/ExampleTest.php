@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Rules\PasswordHistoryRule;
 use PHPUnit\Framework\TestCase;
 
 class ExampleTest extends TestCase

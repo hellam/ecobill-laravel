@@ -13,11 +13,11 @@ class PasswordHistoryRule implements Rule
      *
      * @return void
      */
-    private array $password_policy_array;
+    private int $min_history;
 
-    public function __construct($password_policy_array)
+    public function __construct($min_history)
     {
-        $this->password_policy_array = $password_policy_array;
+        $this->min_history = $min_history;
     }
 
     /**
@@ -29,7 +29,7 @@ class PasswordHistoryRule implements Rule
      */
     public function passes($attribute, $value)
     {
-        return check_password_re_use($value, $this->password_policy_array);
+        return check_password_re_use($value);
     }
 
     /**
@@ -39,6 +39,6 @@ class PasswordHistoryRule implements Rule
      */
     public function message()
     {
-        return ':attribute unique password(s) must be used before re-use of old password.';
+        return $this->min_history.' unique password(s) must be used before re-use of old password.';
     }
 }

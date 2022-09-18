@@ -18,7 +18,8 @@ class AuditTrailController extends Controller
     public function index(): Factory|View|Application
     {
         $audit_trail_count = AuditTrail::count() ?? 0;
-        return view('user.reports.audit_trail', compact('audit_trail_count'));
+        $users = User::all();
+        return view('user.reports.audit_trail', compact('audit_trail_count', 'users'));
     }
 
     //Data table API

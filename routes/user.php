@@ -60,6 +60,7 @@ Route::group(['as' => 'user.'], function () {
         Route::group(['prefix' => 'reports', 'as' => 'reports.'], function () {
             Route::controller(User\Reports\AuditTrailController::class)->prefix('audit-trail')->as('audit_trail.')->group(function () {
                 Route::get('/', 'index')->name('list')->middleware('permission:102');
+                Route::get('/dt_api', 'dt_api')->name('dt_api')->middleware('permission:102');
             });
         });
     });

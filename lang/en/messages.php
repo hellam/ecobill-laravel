@@ -21,10 +21,12 @@ return [
     'dashboard' => 'Dashboard',
     'products' => 'Products',
     'setup' => 'Setup',
+    'reports' => 'Reports',
 
     //SideBar SubMenu
     'all_invoices' => 'All Invoices',
     'api' => 'API',
+    'audit_trail' => 'Audit Trail',
     'business_setup' => 'Business Setup',
     'menu_setup' => 'Menu Setup',
     'maker_checker' => 'Maker Checker',

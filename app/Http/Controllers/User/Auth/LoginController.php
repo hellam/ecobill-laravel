@@ -43,12 +43,12 @@ class LoginController extends Controller
 
     /**
      * @param Request $request
-     * @return Application|Factory|View
+     * @return RedirectResponse
      */
-    public function index1(Request $request): View|Factory|Application
+    public function index1(Request $request)
     {
         Toastr::warning(__('messages.msg_kicked_out'));
-        return view('user.auth.login');
+        return redirect()->route('user.auth.login');
     }
 
     /**
@@ -186,7 +186,7 @@ class LoginController extends Controller
         $user = User::where('id', Auth::id())->first();
 
         if (!Auth::validate(['email' => $user->email, 'password' => $array['old_password']])) {
-            return error_web_processor(__('messages.field_correction') . 'cr:' . $array['new_password_confirmation'],
+            return error_web_processor(__('messages.field_correction'),
                 200, array(['field' => 'old_password', 'error' => 'Wrong Password!']));
         }
         //check with password history

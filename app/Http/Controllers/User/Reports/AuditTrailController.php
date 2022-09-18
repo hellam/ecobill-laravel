@@ -24,13 +24,13 @@ class AuditTrailController extends Controller
     //Data table API
     public function dt_api(Request $request): JsonResponse
     {
-        $audit_trail = AuditTrail::select('type','user','api_token','created_at','description')->orderBy('created_at');
+        $audit_trail = AuditTrail::select('type', 'user', 'api_token', 'created_at', 'description')->orderBy('created_at');
         return (new DataTables)->eloquent($audit_trail)
-            // ->addIndexColumn()
+            ->addIndexColumn()
             ->editColumn('type', function ($row) {
-                return constant('AUD_'.$row->type);
+                return constant('AUD_' . $row->type);
             })->addColumn('request_type', function ($row) {
-                return $row->api_token==null ? 'Web' : 'API';
+                return $row->api_token == null ? 'Web' : 'API';
             })->editColumn('user', function ($row) {
                 return User::where('id', $row->user)->first()->username;
             })->editColumn('created_at', function ($row) {

@@ -39,6 +39,6 @@ class PasswordHistoryRule implements Rule
      */
     public function message()
     {
-        return $this->min_history.' unique password(s) must be used before re-use of old password.';
+        return 'Password same as previously used passwords, '.$this->min_history.' unique password(s) must be used before re-use of old password.';
     }
 }

@@ -30,7 +30,7 @@ class AuditTrailController extends Controller
             ->editColumn('type', function ($row) {
                 return constant('AUD_'.$row->type);
             })->addColumn('request_type', function ($row) {
-                return $row->api==null ? 'Web' : 'API';
+                return $row->api_token==null ? 'Web' : 'API';
             })->editColumn('user', function ($row) {
                 return User::where('id', $row->user)->first()->username;
             })->editColumn('created_at', function ($row) {

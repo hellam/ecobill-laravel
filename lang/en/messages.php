@@ -83,6 +83,7 @@ return [
     'msg_item_found' => ':attribute found',
     'msg_item_not_found' => ':attribute not found',
     'msg_kicked_out' => 'Someone logged in from another device',
+    'msg_password_updated' => 'Password updated successfully',
     'msg_updated_success' => ':attribute updated successfully',
     'msg_update_error' => 'Update Error',
     'min_length' => 'Minimum Length',

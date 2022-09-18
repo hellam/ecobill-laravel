@@ -37,16 +37,17 @@
 @section('content')
     <!--begin::Container-->
     <div id="kt_content_container" class="container-xxl">
-        <!--begin::Row-->
-        @if($audit_trail_count)
-            <!--begin::Card header-->
-            <div class="card-header border-0 pt-6">
-                <!--begin::Card title-->
-                <div class="card-title">
-                    <!--begin::Search-->
-                    <div class="d-flex align-items-center position-relative my-1">
-                        <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
-                        <span class="svg-icon svg-icon-1 position-absolute ms-6">
+        <!--begin::Card-->
+        <div class="card">
+            @if($audit_trail_count)
+                <!--begin::Card header-->
+                <div class="card-header border-0 pt-6">
+                    <!--begin::Card title-->
+                    <div class="card-title">
+                        <!--begin::Search-->
+                        <div class="d-flex align-items-center position-relative my-1">
+                            <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
+                            <span class="svg-icon svg-icon-1 position-absolute ms-6">
 													<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                          viewBox="0 0 24 24" fill="none">
 														<rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546"
@@ -57,24 +58,24 @@
                                                             fill="currentColor"/>
 													</svg>
 												</span>
-                        <!--end::Svg Icon-->
-                        <input type="text" data-kt-audit-trail-table-filter="search"
-                               class="form-control form-control-solid w-250px ps-15"
-                               placeholder="{{__('messages.search')}}"/>
+                            <!--end::Svg Icon-->
+                            <input type="text" data-kt-audit-trail-table-filter="search"
+                                   class="form-control form-control-solid w-250px ps-15"
+                                   placeholder="{{__('messages.search').' '.__('messages.narration')}}"/>
+                        </div>
+                        <!--end::Search-->
                     </div>
-                    <!--end::Search-->
-                </div>
-                <!--begin::Card title-->
-                <!--begin::Card toolbar-->
-                <div class="card-toolbar">
-                    <!--begin::Toolbar-->
-                    <div class="d-flex justify-content-end" data-kt-audit-trail-table-toolbar="base">
-                        <!--begin::Filter-->
-                        <button type="button" class="invisible btn btn-light-primary me-3"
-                                data-kt-menu-trigger="click"
-                                data-kt-menu-placement="bottom-end">
-                            <!--begin::Svg Icon | path: icons/duotune/general/gen031.svg-->
-                            <span class="svg-icon svg-icon-2">
+                    <!--begin::Card title-->
+                    <!--begin::Card toolbar-->
+                    <div class="card-toolbar">
+                        <!--begin::Toolbar-->
+                        <div class="d-flex justify-content-end" data-kt-audit-trail-table-toolbar="base">
+                            <!--begin::Filter-->
+                            <button type="button" class="btn btn-light-primary me-3"
+                                    data-kt-menu-trigger="click"
+                                    data-kt-menu-placement="bottom-end">
+                                <!--begin::Svg Icon | path: icons/duotune/general/gen031.svg-->
+                                <span class="svg-icon svg-icon-2">
 													<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                          viewBox="0 0 24 24" fill="none">
 														<path
@@ -82,168 +83,169 @@
                                                             fill="currentColor"/>
 													</svg>
 												</span>
-                            <!--end::Svg Icon-->Filter
-                        </button>
-                        <!--begin::Menu 1-->
-                        <div class="menu menu-sub menu-sub-dropdown w-300px w-md-325px" data-kt-menu="true"
-                             id="kt-toolbar-filter">
-                            <!--begin::Header-->
-                            <div class="px-7 py-5">
-                                <div class="fs-4 text-dark fw-bolder">Filter Options</div>
-                            </div>
-                            <!--end::Header-->
-                            <!--begin::Separator-->
-                            <div class="separator border-gray-200"></div>
-                            <!--end::Separator-->
-                            <!--begin::Content-->
-                            <div class="px-7 py-5">
-                                <!--begin::Input group-->
-                                <div class="mb-10">
-                                    <!--begin::Label-->
-                                    <label class="form-label fs-5 fw-bold mb-3">Month:</label>
-                                    <!--end::Label-->
-                                    <!--begin::Input-->
-                                    <select class="form-select form-select-solid fw-bolder"
-                                            data-kt-select2="true"
-                                            data-placeholder="Select option" data-allow-clear="true"
-                                            data-kt-audit-trail-table-filter="month"
-                                            data-dropdown-parent="#kt-toolbar-filter">
-                                        <option></option>
-                                        <option value="aug">August</option>
-                                        <option value="sep">September</option>
-                                        <option value="oct">October</option>
-                                        <option value="nov">November</option>
-                                        <option value="dec">December</option>
-                                    </select>
-                                    <!--end::Input-->
+                                <!--end::Svg Icon-->Filter
+                            </button>
+                            <!--begin::Menu 1-->
+                            <div class="menu menu-sub menu-sub-dropdown w-300px w-md-325px" data-kt-menu="true"
+                                 id="kt-toolbar-filter">
+                                <!--begin::Header-->
+                                <div class="px-7 py-5">
+                                    <div class="fs-4 text-dark fw-bolder">Filter Options</div>
                                 </div>
-                                <!--end::Input group-->
-                                <!--begin::Input group-->
-                                <div class="mb-10">
-                                    <!--begin::Label-->
-                                    <label class="form-label fs-5 fw-bold mb-3">Payment Type:</label>
-                                    <!--end::Label-->
-                                    <!--begin::Options-->
-                                    <div class="d-flex flex-column flex-wrap fw-bold"
-                                         data-kt-audit-trail-table-filter="payment_type">
-                                        <!--begin::Option-->
-                                        <label
-                                            class="form-check form-check-sm form-check-custom form-check-solid mb-3 me-5">
-                                            <input class="form-check-input" type="radio" name="payment_type"
-                                                   value="all" checked="checked"/>
-                                            <span class="form-check-label text-gray-600">All</span>
-                                        </label>
-                                        <!--end::Option-->
-                                        <!--begin::Option-->
-                                        <label
-                                            class="form-check form-check-sm form-check-custom form-check-solid mb-3 me-5">
-                                            <input class="form-check-input" type="radio" name="payment_type"
-                                                   value="visa"/>
-                                            <span class="form-check-label text-gray-600">Visa</span>
-                                        </label>
-                                        <!--end::Option-->
-                                        <!--begin::Option-->
-                                        <label
-                                            class="form-check form-check-sm form-check-custom form-check-solid mb-3">
-                                            <input class="form-check-input" type="radio" name="payment_type"
-                                                   value="mastercard"/>
-                                            <span class="form-check-label text-gray-600">Mastercard</span>
-                                        </label>
-                                        <!--end::Option-->
-                                        <!--begin::Option-->
-                                        <label
-                                            class="form-check form-check-sm form-check-custom form-check-solid">
-                                            <input class="form-check-input" type="radio" name="payment_type"
-                                                   value="american_express"/>
-                                            <span class="form-check-label text-gray-600">American Express</span>
-                                        </label>
-                                        <!--end::Option-->
+                                <!--end::Header-->
+                                <!--begin::Separator-->
+                                <div class="separator border-gray-200"></div>
+                                <!--end::Separator-->
+                                <!--begin::Content-->
+                                <div class="px-7 py-5">
+                                    <!--begin::Input group-->
+                                    <div class="mb-10">
+                                        <!--begin::Label-->
+                                        <label class="form-label fs-5 fw-bold mb-3">User:</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <select class="form-select form-select-solid fw-bolder"
+                                                data-kt-select2="true"
+                                                data-placeholder="Select user" data-allow-clear="true"
+                                                data-kt-audit-trail-table-filter="month"
+                                                data-dropdown-parent="#kt-toolbar-filter">
+                                            <option></option>
+                                            <option value="aug">August</option>
+                                            <option value="sep">September</option>
+                                            <option value="oct">October</option>
+                                            <option value="nov">November</option>
+                                            <option value="dec">December</option>
+                                        </select>
+                                        <!--end::Input-->
                                     </div>
-                                    <!--end::Options-->
+                                    <!--end::Input group-->
+                                    <!--begin::Input group-->
+                                    <div class="mb-10">
+                                        <!--begin::Label-->
+                                        <label class="form-label fs-5 fw-bold mb-3">Payment Type:</label>
+                                        <!--end::Label-->
+                                        <!--begin::Options-->
+                                        <div class="d-flex flex-column flex-wrap fw-bold"
+                                             data-kt-audit-trail-table-filter="payment_type">
+                                            <!--begin::Option-->
+                                            <label
+                                                class="form-check form-check-sm form-check-custom form-check-solid mb-3 me-5">
+                                                <input class="form-check-input" type="radio" name="payment_type"
+                                                       value="all" checked="checked"/>
+                                                <span class="form-check-label text-gray-600">All</span>
+                                            </label>
+                                            <!--end::Option-->
+                                            <!--begin::Option-->
+                                            <label
+                                                class="form-check form-check-sm form-check-custom form-check-solid mb-3 me-5">
+                                                <input class="form-check-input" type="radio" name="payment_type"
+                                                       value="visa"/>
+                                                <span class="form-check-label text-gray-600">Visa</span>
+                                            </label>
+                                            <!--end::Option-->
+                                            <!--begin::Option-->
+                                            <label
+                                                class="form-check form-check-sm form-check-custom form-check-solid mb-3">
+                                                <input class="form-check-input" type="radio" name="payment_type"
+                                                       value="mastercard"/>
+                                                <span class="form-check-label text-gray-600">Mastercard</span>
+                                            </label>
+                                            <!--end::Option-->
+                                            <!--begin::Option-->
+                                            <label
+                                                class="form-check form-check-sm form-check-custom form-check-solid">
+                                                <input class="form-check-input" type="radio" name="payment_type"
+                                                       value="american_express"/>
+                                                <span class="form-check-label text-gray-600">American Express</span>
+                                            </label>
+                                            <!--end::Option-->
+                                        </div>
+                                        <!--end::Options-->
+                                    </div>
+                                    <!--end::Input group-->
+                                    <!--begin::Actions-->
+                                    <div class="d-flex justify-content-end">
+                                        <button type="reset" class="btn btn-light btn-active-light-primary me-2"
+                                                data-kt-menu-dismiss="true" data-kt-audit-trail-table-filter="reset">
+                                            Reset
+                                        </button>
+                                        <button type="submit" class="btn btn-primary" data-kt-menu-dismiss="true"
+                                                data-kt-audit-trail-table-filter="filter">Apply
+                                        </button>
+                                    </div>
+                                    <!--end::Actions-->
                                 </div>
-                                <!--end::Input group-->
-                                <!--begin::Actions-->
-                                <div class="d-flex justify-content-end">
-                                    <button type="reset" class="btn btn-light btn-active-light-primary me-2"
-                                            data-kt-menu-dismiss="true" data-kt-audit-trail-table-filter="reset">
-                                        Reset
-                                    </button>
-                                    <button type="submit" class="btn btn-primary" data-kt-menu-dismiss="true"
-                                            data-kt-audit-trail-table-filter="filter">Apply
-                                    </button>
-                                </div>
-                                <!--end::Actions-->
+                                <!--end::Content-->
                             </div>
-                            <!--end::Content-->
+                            <!--end::Menu 1-->
+                            <!--end::Filter-->
                         </div>
-                        <!--end::Menu 1-->
-                        <!--end::Filter-->
-                    </div>
-                    <!--end::Toolbar-->
-                    <!--begin::Group actions-->
-                    <div class="d-flex justify-content-end align-items-center d-none"
-                         data-kt-audit-trail-table-toolbar="selected">
-                        <div class="fw-bolder me-5">
-                            <span class="me-2" data-kt-audit-trail-table-select="selected_count"></span>Selected
+                        <!--end::Toolbar-->
+                        <!--begin::Group actions-->
+                        <div class="d-flex justify-content-end align-items-center d-none"
+                             data-kt-audit-trail-table-toolbar="selected">
+                            <div class="fw-bolder me-5">
+                                <span class="me-2" data-kt-audit-trail-table-select="selected_count"></span>Selected
+                            </div>
+                            <button type="button" class="btn btn-danger"
+                                    data-kt-audit-trail-table-select="delete_selected">Delete Selected
+                            </button>
                         </div>
-                        <button type="button" class="btn btn-danger"
-                                data-kt-audit-trail-table-select="delete_selected">Delete Selected
-                        </button>
+                        <!--end::Group actions-->
                     </div>
-                    <!--end::Group actions-->
+                    <!--end::Card toolbar-->
                 </div>
-                <!--end::Card toolbar-->
-            </div>
-            <!--end::Card header-->
-            <!--begin::Card body-->
-            <div class="card-body pt-0">
-                <!--begin::Table-->
-                <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_audits_table"
-                       data-kt-dt_api="{{route('user.reports.audit_trail.dt_api')}}">
-                    <!--begin::Table head-->
-                    <thead>
-                    <!--begin::Table row-->
-                    <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
-                        <th class="min-w-125px">#</th>
-                        <th class="min-w-125px">{{__('messages.trx_type')}}</th>
-                        <th class="min-w-125px">{{__('messages.user')}}</th>
-                        <th class="min-w-125px">{{__('messages.request_type')}}</th>
-                        <th class="min-w-70px">{{__('messages.date')}}</th>
-                        <th class="min-w-70px">{{__('messages.narration')}}</th>
-                    </tr>
-                    <!--end::Table row-->
-                    </thead>
-                    <!--end::Table head-->
-                    <!--begin::Table body-->
-                    <tbody class="fw-bold text-gray-600"></tbody>
-                    <!--end::Table body-->
-                </table>
-                <!--end::Table-->
-            </div>
-            <!--end::Card body-->
-        @else
-            <!--begin::No Audit Trails Wrapper-->
-            <div class="card-px text-center py-20 my-10">
-                <!--begin::Title-->
-                <h2 class="fs-2x fw-bolder mb-10">{{__('messages.welcome_to_module',['attribute'=>__('messages.audit_trail')])}}</h2>
-                <!--end::Title-->
-
-                <!--begin::Description-->
-                <p class="text-gray-400 fs-4 fw-bold mb-10">
-                    {{__('messages.not_found',['attribute'=>__('messages.audit_trail')])}}
-                </p>
-                <!--end::Description-->
-
-                <!--begin::Illustration-->
-                <div class="text-center px-4">
-                    <img class="mw-100 mh-300px" alt=""
-                         src="{{asset('assets/media/illustrations/sketchy-1/2_.png')}}"/>
+                <!--end::Card header-->
+                <!--begin::Card body-->
+                <div class="card-body pt-0">
+                    <!--begin::Table-->
+                    <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_audits_table"
+                           data-kt-dt_api="{{route('user.reports.audit_trail.dt_api')}}">
+                        <!--begin::Table head-->
+                        <thead>
+                        <!--begin::Table row-->
+                        <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
+                            <th class="min-w-125px">#</th>
+                            <th class="min-w-125px">{{__('messages.trx_type')}}</th>
+                            <th class="min-w-125px">{{__('messages.user')}}</th>
+                            <th class="min-w-125px">{{__('messages.request_type')}}</th>
+                            <th class="min-w-70px">{{__('messages.date')}}</th>
+                            <th class="min-w-70px">{{__('messages.narration')}}</th>
+                        </tr>
+                        <!--end::Table row-->
+                        </thead>
+                        <!--end::Table head-->
+                        <!--begin::Table body-->
+                        <tbody class="fw-bold text-gray-600"></tbody>
+                        <!--end::Table body-->
+                    </table>
+                    <!--end::Table-->
                 </div>
-                <!--end::Illustration-->
-            </div>
-            <!--end::No Audit Trails Wrapper-->
-        @endif
-        <!--end::Row-->
+                <!--end::Card body-->
+            @else
+                <!--begin::No Audit Trails Wrapper-->
+                <div class="card-px text-center py-20 my-10">
+                    <!--begin::Title-->
+                    <h2 class="fs-2x fw-bolder mb-10">{{__('messages.welcome_to_module',['attribute'=>__('messages.audit_trail')])}}</h2>
+                    <!--end::Title-->
+
+                    <!--begin::Description-->
+                    <p class="text-gray-400 fs-4 fw-bold mb-10">
+                        {{__('messages.not_found',['attribute'=>__('messages.audit_trail')])}}
+                    </p>
+                    <!--end::Description-->
+
+                    <!--begin::Illustration-->
+                    <div class="text-center px-4">
+                        <img class="mw-100 mh-300px" alt=""
+                             src="{{asset('assets/media/illustrations/sketchy-1/2_.png')}}"/>
+                    </div>
+                    <!--end::Illustration-->
+                </div>
+                <!--end::No Audit Trails Wrapper-->
+            @endif
+        </div>
+        <!--end::Card-->
     </div>
     <!--end::Container-->
 @stop

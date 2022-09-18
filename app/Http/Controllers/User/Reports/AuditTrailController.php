@@ -42,6 +42,12 @@ class AuditTrailController extends Controller
                     $query->where('api_token', null);
                 else
                     $query->where('api_token', '!=', null);
+            })->filterColumn('from', function ($query, $keyword) {
+                $from = Carbon::parse($keyword)->format('d-m-Y');
+                $query->whereDate('created_at','>=', $from);
+            })->filterColumn('to', function ($query, $keyword) {
+                $to= Carbon::parse($keyword)->format('d-m-Y');
+                $query->whereDate('created_at','<=', $to);
             })
             ->make(true);
     }

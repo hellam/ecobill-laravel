@@ -3,11 +3,14 @@
 namespace App\CentralLogics;
 
 use App\Models\AuditTrail;
+use App\Models\PasswordHistory;
 use App\Models\SecurityConfig;
+use App\Rules\PasswordHistoryRule;
 use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
 
 function generateUniqueId($userId): string
@@ -25,10 +28,15 @@ function get_security_configs()
     return SecurityConfig::first();
 }
 
-function test($password_policy_array)
+function check_password_re_use($password, $password_policy_array): bool
 {
-
-
+    $password_history = PasswordHistory::where(['user_id' => auth('user')->id()])->limit($password_policy_array[3])->get();
+    foreach ($password_history as $pass_history) {
+        if (Hash::check($password, $pass_history->password)) {
+            return true;
+        }
+    }
+    return false;
 }
 
 function password_validation_rule($password_policy_array): array
@@ -44,7 +52,7 @@ function password_validation_rule($password_policy_array): array
             ->uncompromised();
     }
 
-    return ['required', $password];
+    return ['required', 'confirmed', $password, new PasswordHistoryRule($password_policy_array)];
 }
 
 function js_password_validation_rule($password_policy_array): string

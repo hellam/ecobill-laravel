@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\PasswordHistory;
 use App\Models\SecurityConfig;
 use App\Models\User;
 use Carbon\Carbon;
@@ -201,8 +202,23 @@ class LoginController extends Controller
             }
         }
         $user->update();
+
+        PasswordHistory::create([
+            'user_id' => $user->id,
+            'password' => $user->password,
+            'created_by' => $user->id,
+            'last_updated_by' => $user->id,
+        ]);
+
+        log_activity(
+            AUD_ACCOUNT_MANAGEMENT,
+            $request->getClientIp(),
+            trans('messages.msg_password_updated'),
+            "",
+            auth('user')->id()
+        );
         auth()->guard('user')->login($user);
-        return success_web_processor(null, __('messages.msg_updated_success', ['attribute' => __('messages.password')]));
+        return success_web_processor(null, __('messages.msg_password_updated', ['attribute' => __('messages.password')]));
     }
 
 }

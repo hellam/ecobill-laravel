@@ -66,7 +66,7 @@ const KTAuditTrailServerSide = function () {
     return {
         init: function () {
 
-            if ($('#kt_transactions_table').length) {
+            if ($('#kt_audits_table').length) {
                 initDatatable();
                 dt.search('').draw();
                 handleSearchDatatable();

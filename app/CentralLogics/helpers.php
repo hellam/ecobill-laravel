@@ -244,5 +244,5 @@ function checkif_has_any_permission($start, $end)
     foreach ($permissions as $permission) {
         if ($permission >= $start && $permission <= $end) $result[] = $permission;
     }
-    return count($result);
+    return count($result) > 0;
 }

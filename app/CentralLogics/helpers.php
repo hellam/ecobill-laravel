@@ -31,7 +31,7 @@ function get_security_configs()
 function check_password_re_use($password): bool
 {
     $password_policy_array = json_decode(get_security_configs()->password_policy, true);
-    $password_history = PasswordHistory::where(['user_id' => auth('user')->id()])->limit($password_policy_array[3])->orderBy('created_at','DESC')->get();
+    $password_history = PasswordHistory::where(['user_id' => auth('user')->id()])->limit($password_policy_array[3])->orderBy('created_at', 'DESC')->get();
     foreach ($password_history as $pass_history) {
         if (Hash::check($password, $pass_history->password)) {
             return false;
@@ -234,4 +234,15 @@ function is_password_expired(): bool
             return true;
     }
     return false;
+}
+
+function checkif_has_any_permission($start, $end)
+{
+    $permissions = auth('user')->user()->permissions();
+    $result = [];
+
+    foreach ($permissions as $permission) {
+        if ($permission >= $start && $permission <= $end) $result[] = $permission;
+    }
+    return count($result);
 }

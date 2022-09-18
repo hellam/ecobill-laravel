@@ -12,6 +12,7 @@ class AuditTrailController extends Controller
 {
     public function index(): Factory|View|Application
     {
-        return view('user.reports.audit_trail');
+        $audit_trails = [];
+        return view('user.reports.audit_trail', compact('audit_trails'));
     }
 }

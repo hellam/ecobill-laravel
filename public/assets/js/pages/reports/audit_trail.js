@@ -19,6 +19,7 @@ const KTAuditTrailServerSide = function () {
                 url: td.getAttribute('data-kt-dt_api'),
             },
             columns: [
+                {data: 'DT_RowIndex'},
                 {data: 'type'},
                 {data: 'user'},
                 {data: 'request_type'},
@@ -28,16 +29,7 @@ const KTAuditTrailServerSide = function () {
             columnDefs: [
                 {
                     targets: 0,
-                    orderable: false,
-                    render: function (data, type, full, meta) {
-                        return meta.row + 1;
-                    }
-                }, {
-                    targets: 2,
-                    orderable: true,
-                    render: function (data, row) {
-                        return decodeHtml(data);
-                    }
+                    orderable: false
                 }
             ],
             // Add data-filter attribute

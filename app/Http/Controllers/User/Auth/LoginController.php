@@ -201,6 +201,7 @@ class LoginController extends Controller
             }
         }
         $user->update();
+        auth()->guard('user')->login($user);
         return success_web_processor(null, __('messages.msg_updated_success', ['attribute' => __('messages.password')]));
     }
 

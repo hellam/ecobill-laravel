@@ -72,7 +72,7 @@
                             <div class="card-header">
                                 <!--begin::Card title-->
                                 <div class="card-title">
-                                    <h2>{{$role->name}}</h2>
+                                    <h2>{{$role->name ?? ''}}</h2>
                                 </div>
                                 <!--end::Card title-->
                             </div>
@@ -90,7 +90,7 @@
                                         @php($perm = \App\Models\Permission::where('code', $permission)->first())
                                         @php($counter += 1)
                                         <div class="d-flex align-items-center py-2">
-                                            <span class="bullet bg-primary me-3"></span>{{$perm->name}}
+                                            <span class="bullet bg-primary me-3"></span>{{$perm->name ?? ''}}
                                         </div>
                                         @break($counter==5)
                                     @endforeach

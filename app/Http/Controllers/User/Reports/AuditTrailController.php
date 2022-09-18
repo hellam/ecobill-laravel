@@ -35,6 +35,9 @@ class AuditTrailController extends Controller
                 return User::where('id', $row->user)->first()->username;
             })->editColumn('created_at', function ($row) {
                 return Carbon::parse($row->created_at)->format('Y/m/d H:i:s');
+            })->filterColumn('user', function ($query, $keyword) {
+                $keywords = trim($keyword);
+                $query->whereRaw("CONCAT(f_name, ' ', l_name) like ?", ["%{$keywords}%"]);
             })
             ->make(true);
     }

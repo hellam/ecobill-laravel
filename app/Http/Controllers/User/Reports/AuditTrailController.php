@@ -25,7 +25,7 @@ class AuditTrailController extends Controller
     //Data table API
     public function dt_api(Request $request): JsonResponse
     {
-        $audit_trail = AuditTrail::select('type', 'user', 'api_token', 'created_at', 'description')->orderBy('created_at','desc');
+        $audit_trail = AuditTrail::select('type', 'user', 'api_token', 'created_at', 'description')->orderBy('created_at', 'desc');
         return (new DataTables)->eloquent($audit_trail)
             ->addIndexColumn('id')
             ->editColumn('type', function ($row) {
@@ -36,9 +36,18 @@ class AuditTrailController extends Controller
                 return User::where('id', $row->user)->first()->username;
             })->editColumn('created_at', function ($row) {
                 return Carbon::parse($row->created_at)->format('Y/m/d H:i:s');
-            })->filterColumn('user', function ($query, $keyword) {
+            })->filterColumn('request_type', function ($query, $keyword) {
                 $keywords = trim($keyword);
-                $query->whereRaw("CONCAT(f_name, ' ', l_name) like ?", ["%{$keywords}%"]);
+                if ($keywords == 'web')
+                    $query->where('api_token', null);
+                else
+                    $query->where('api_token', '!=', null);
+            })->filterColumn('from', function ($query, $keyword) {
+                $from = Carbon::parse($keyword)->format('d-m-Y');
+                $query->whereDate('created_at','>=', $from);
+            })->filterColumn('to', function ($query, $keyword) {
+                $to= Carbon::parse($keyword)->format('d-m-Y');
+                $query->whereDate('created_at','<=', $to);
             })
             ->make(true);
     }

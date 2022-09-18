@@ -199,7 +199,7 @@ class LoginController extends Controller
                 $user->password_expiry_date = Carbon::now()->addDays($password_policy_array[0]);
             }
         }
-//        $user->update();
+        $user->update();
         return success_web_processor(null, __('messages.msg_updated_success', ['attribute' => __('messages.password')]));
     }
 

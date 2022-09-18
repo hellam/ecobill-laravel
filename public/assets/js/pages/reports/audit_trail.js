@@ -10,16 +10,15 @@ const KTAuditTrailServerSide = function () {
     const initDatatable = function () {
         let td = document.querySelector('#kt_audits_table')
         dt = $("#kt_audits_table").DataTable({
-            searchDelay: 500,
+            // searchDelay: 500,
             processing: true,
             serverSide: true,
-            // order: [[1, 'desc']],
             stateSave: true,
             ajax: {
                 url: td.getAttribute('data-kt-dt_api'),
             },
             columns: [
-                {data: 'DT_RowIndex'},
+                {data: 'DT_RowIndex', name: 'id'},
                 {data: 'type'},
                 {data: 'user'},
                 {data: 'request_type'},
@@ -47,10 +46,38 @@ const KTAuditTrailServerSide = function () {
     };
 
     // Search Datatable --- official docs reference: https://datatables.net/reference/api/search()
-    var handleSearchDatatable = function () {
-        const filterSearch = document.querySelector('[data-kt-outbox-table-filter="search"]');
+    const handleSearchDatatable = function () {
+        const filterSearch = document.querySelector('[data-kt-audit-trail-table-filter="search"]');
         filterSearch.addEventListener('keyup', function (e) {
             dt.search(e.target.value).draw();
+        });
+    };
+
+    // Filter Datatable
+    var handleFilterDatatable = () => {
+        // Select filter options
+        filterPayment = document.querySelectorAll('[data-kt-tax-table-filter="payment_type"] [name="payment_type"]');
+        const filterButton = document.querySelector('[data-kt-tax-table-filter="filter"]');
+
+        // Filter datatable on submit
+        filterButton.addEventListener('click', function () {
+            // Get filter values
+            let paymentValue = '';
+
+            // Get payment value
+            filterPayment.forEach(r => {
+                if (r.checked) {
+                    paymentValue = r.value;
+                }
+
+                // Reset payment value if "All" is selected
+                if (paymentValue === 'all') {
+                    paymentValue = '';
+                }
+            });
+
+            // Filter datatable --- official docs reference: https://datatables.net/reference/api/search()
+            dt.search(paymentValue).draw();
         });
     }
 
@@ -62,6 +89,7 @@ const KTAuditTrailServerSide = function () {
                 initDatatable();
                 dt.search('').draw();
                 handleSearchDatatable();
+                handleFilterDatatable();
             }
         }
     }

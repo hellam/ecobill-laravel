@@ -58,7 +58,7 @@ Route::group(['as' => 'user.'], function () {
         });
 
         Route::group(['prefix' => 'reports', 'as' => 'reports.'], function () {
-            Route::controller(User\Reports\ReportsController::class)->prefix('audit-trail')->as('audit_trail.')->group(function () {
+            Route::controller(User\Reports\AuiditTrailController::class)->prefix('audit-trail')->as('audit_trail.')->group(function () {
                 Route::get('/', 'index')->name('list')->middleware('permission:102');
             });
         });

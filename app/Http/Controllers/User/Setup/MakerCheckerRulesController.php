@@ -22,7 +22,7 @@ class MakerCheckerRulesController extends Controller
      */
     public function index(): Factory|View|Application
     {
-        return view('user.setup.maker_checker');
+        return view('user.setup.maker_checker_rules');
     }
     //Data table API
     public function dt_api(Request $request): JsonResponse

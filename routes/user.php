@@ -65,6 +65,10 @@ Route::group(['as' => 'user.'], function () {
                 Route::get('/', 'index')->name('all')->middleware('permission:704');
                 Route::post('update/{type}', 'update')->name('update')->middleware('permission:7041');
             });
+
+            Route::controller(User\Setup\MakerCheckerController::class)->prefix('maker-checker')->as('maker_checker.')->group(function () {
+                Route::get('/', 'index')->name('all')->middleware('permission:705');
+            });
         });
     });
 });

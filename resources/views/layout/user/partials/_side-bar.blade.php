@@ -358,7 +358,7 @@
                         <!--begin:Menu item-->
                         <div class="menu-item">
                             <!--begin:Menu link-->
-                            <a class="menu-link" href="{{route('user.setup.maker_checker')}}">
+                            <a class="menu-link @if(Route::is('user.setup.maker_checker.all'))active @endif" href="{{route('user.setup.maker_checker.all')}}">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>

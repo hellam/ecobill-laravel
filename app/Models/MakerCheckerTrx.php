@@ -6,12 +6,14 @@
 
 namespace App\Models;
 
+use App\Scopes\UserScope;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class MakerCheckerTrx
- * 
+ *
  * @property int $id
  * @property int $mc_type
  * @property int $trx_type
@@ -54,4 +56,13 @@ class MakerCheckerTrx extends Model
 		'client_ref',
 		'description'
 	];
+
+
+
+    public static function booted()
+    {
+        if (Auth::guard('user')->check()){
+            static::addGlobalScope(new UserScope());
+        }
+    }
 }

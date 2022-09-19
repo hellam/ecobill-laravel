@@ -296,7 +296,6 @@
             </div>
         </div>
         <!--end::Modal - Taxes - Edit-->
-
     </div>
     <!--end::Container-->
 @stop

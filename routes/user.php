@@ -52,6 +52,7 @@ Route::group(['as' => 'user.'], function () {
             Route::controller(User\Setup\TaxController::class)->prefix('tax')->as('tax.')->group(function () {
                 Route::get('/', 'index')->name('list')->middleware('permission:701');
             });
+
             Route::controller(User\Setup\RolesController::class)->prefix('roles')->as('roles.')->group(function () {
                 Route::get('/', 'index')->name('list')->middleware(['permission:702']);
                 Route::get('edit/{id}', 'edit')->name('edit')->middleware('permission:7021');
@@ -59,6 +60,7 @@ Route::group(['as' => 'user.'], function () {
                 Route::delete('delete/{id}', 'destroy')->name('delete')->middleware('permission:7022');
                 Route::post('/', 'create')->name('add')->middleware('permission:703');
             });
+
             Route::controller(User\Setup\SecurityController::class)->prefix('security')->as('security.')->group(function () {
                 Route::get('/', 'index')->name('all')->middleware('permission:704');
                 Route::post('update/{type}', 'update')->name('update')->middleware('permission:7041');

@@ -343,6 +343,12 @@
                                     <!--end::Menu item-->
                                     <!--begin::Menu item-->
                                     <div class="menu-item px-5">
+                                        <a href="{{route('user.auth.new_password')}}"
+                                           class="menu-link px-5">Change Password</a>
+                                    </div>
+                                    <!--end::Menu item-->
+                                    <!--begin::Menu item-->
+                                    <div class="menu-item px-5">
                                         <a href="{{route('user.auth.logout')}}"
                                            class="menu-link px-5">Sign Out</a>
                                     </div>

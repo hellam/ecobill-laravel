@@ -53,7 +53,7 @@ const KTAuditTrailServerSide = function () {
         });
     };
 
-    const start = moment().subtract(29, "days");
+    const start = moment();
     const end = moment();
 
     function cb(start, end) {

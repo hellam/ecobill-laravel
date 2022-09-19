@@ -13,7 +13,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
-class MakerCheckerController extends Controller
+class MakerCheckerTrxController extends Controller
 {
     /**
      * @return Factory|View|Application
@@ -27,7 +27,7 @@ class MakerCheckerController extends Controller
     {
         $audit_trail = MakerCheckerTrx::orderBy('created_at', 'desc');
         return (new DataTables)->eloquent($audit_trail)
-            ->addIndexColumn('id')
+            ->addIndexColumn()
             ->editColumn('trx_type', function ($row) {
                 return constant('AUD_' . $row->trx_type);
             })->addColumn('status', function ($row) {

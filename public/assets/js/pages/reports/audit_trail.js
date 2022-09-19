@@ -73,8 +73,6 @@ const KTAuditTrailServerSide = function () {
         }
     }, cb);
 
-    console.log(start, end);
-
     // Filter Datatable
     // var handleFilterDatatable = () => {
     //     // Select filter options

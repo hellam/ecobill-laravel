@@ -313,12 +313,12 @@
                         <!--begin:Menu item-->
                         <div class="menu-item">
                             <!--begin:Menu link-->
-                            <a class="menu-link @if(Route::is('user.setup.maker_checker_rules.all'))active @endif"
-                               href="{{route('user.setup.maker_checker_rules.all')}}">
+                            <a class="menu-link @if(Route::is('user.setup.maker_checker.all'))active @endif"
+                               href="{{route('user.setup.maker_checker.all')}}">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
-                                <span class="menu-title">{{__('messages.maker_checker_rules')}}</span>
+                                <span class="menu-title">{{__('messages.maker_checker')}}</span>
                             </a>
                             <!--end:Menu link-->
                         </div>

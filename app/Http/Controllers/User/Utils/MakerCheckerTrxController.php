@@ -20,7 +20,7 @@ class MakerCheckerTrxController extends Controller
      */
     public function index(): Factory|View|Application
     {
-        return view('user.setup.maker_checker_rules');
+        return view('user.utils.maker_checker');
     }
     //Data table API
     public function dt_api(Request $request): JsonResponse

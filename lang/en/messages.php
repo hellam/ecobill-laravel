@@ -31,6 +31,7 @@ return [
     'business_setup' => 'Business Setup',
     'menu_setup' => 'Menu Setup',
     'maker_checker' => 'Maker Checker',
+    'maker_checker_rule' => 'Maker Checker Rule',
     'maker_checker_rules' => 'Maker Checker Rules',
     'new_invoice' => 'New Invoice',
     'receive_payment' => 'Receive Payment',

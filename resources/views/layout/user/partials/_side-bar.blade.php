@@ -245,7 +245,7 @@
             </div>
             <!--end:Menu item-->
 
-            @if(count(array_intersect(auth('user')->user()->permissions(), [101,104])) == 2)
+            @if(\App\CentralLogics\checkif_has_any_permission(600,650))
                 <!--begin:Menu item-->
                 <div data-kt-menu-trigger="click"
                      class="menu-item menu-accordion @if(Route::is('user.reports*'))hover show @endif">
@@ -291,7 +291,7 @@
                 <!--end:Menu item-->
             @endif
 
-            @if(count(array_intersect(auth('user')->user()->permissions(), [101,104])) == 2)
+            @if(\App\CentralLogics\checkif_has_any_permission(700,799))
                 <!--begin:Menu item-->
                 <div data-kt-menu-trigger="click"
                      class="menu-item menu-accordion @if(Route::is('user.setup*'))hover show @endif">

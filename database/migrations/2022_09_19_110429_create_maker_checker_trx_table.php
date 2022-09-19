@@ -19,11 +19,12 @@ return new class extends Migration
             $table->tinyInteger('trx_type');
             $table->string('status',20)->default('pending');
             $table->longText('txt_data')->nullable();
-            $table->string('file_data',255);
+            $table->string('file_data',255)->nullable();
+            $table->string('description',255)->nullable();
             $table->string('url',255);
             $table->bigInteger('maker');
-            $table->bigInteger('checker1');
-            $table->bigInteger('checker2');
+            $table->bigInteger('checker1')->nullable();
+            $table->bigInteger('checker2')->nullable();
             $table->string('client_ref',255);
             $table->timestamps();
         });

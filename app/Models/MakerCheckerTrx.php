@@ -1,15 +1,17 @@
 <?php
 
+/**
+ * Created by Reliese Model.
+ */
+
 namespace App\Models;
 
-use App\Scopes\UserScope;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Auth;
 
 /**
  * Class MakerCheckerTrx
- *
+ * 
  * @property int $id
  * @property int $mc_type
  * @property int $trx_type
@@ -23,6 +25,7 @@ use Illuminate\Support\Facades\Auth;
  * @property string $client_ref
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ * @property string|null $description
  *
  * @package App\Models
  */
@@ -48,14 +51,7 @@ class MakerCheckerTrx extends Model
 		'maker',
 		'checker1',
 		'checker2',
-		'client_ref'
+		'client_ref',
+		'description'
 	];
-
-
-    public static function booted()
-    {
-        if (Auth::guard('user')->check()){
-            static::addGlobalScope(new UserScope());
-        }
-    }
 }

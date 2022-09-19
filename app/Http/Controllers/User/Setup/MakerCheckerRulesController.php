@@ -60,14 +60,13 @@ class MakerCheckerRulesController extends Controller
         }
 
         MakerCheckerRule::create([
-            'name' => $request->name,
-            'permissions' => $request->permissions,
+            'maker_type' => $request->maker_type,
+            'permission_code' => $request->action,
             'client_ref' => get_user_ref(),
             'created_by' => auth('user')->user()->username,
         ]);
 
-
-        return success_web_processor(null, __('messages.msg_saved_success', ['attribute' => __('messages.role')]));
+        return success_web_processor(null, __('messages.msg_saved_success', ['attribute' => __('messages.maker_checker')]));
     }
 
 

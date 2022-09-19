@@ -36,7 +36,7 @@ class MakerCheckerRulesController extends Controller
         return (new DataTables)->eloquent($audit_trail)
             ->addIndexColumn()
             ->editColumn('maker_type', function ($row) {
-                return $row->status==0 ? 'Single Maker Checker' : 'Double Maker Checker';
+                return $row->status == 0 ? 'Single Maker Checker' : 'Double Maker Checker';
             })->editColumn('permission_code', function ($row) {
                 return Permission::where('code', $row->permission_code)->first()->name;
             })->editColumn('created_at', function ($row) {

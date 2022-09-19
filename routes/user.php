@@ -66,7 +66,7 @@ Route::group(['as' => 'user.'], function () {
                 Route::post('update/{type}', 'update')->name('update')->middleware('permission:7041');
             });
 
-            Route::controller(User\Setup\MakerCheckerTrxController::class)->prefix('maker-checker')->as('maker_checker.')->group(function () {
+            Route::controller(User\Setup\MakerCheckerRulesController::class)->prefix('maker-checker')->as('maker_checker.')->group(function () {
                 Route::get('/', 'index')->name('all')->middleware('permission:705');
                 Route::get('/dt_api', 'dt_api')->name('dt_api')->middleware('permission:705');
             });

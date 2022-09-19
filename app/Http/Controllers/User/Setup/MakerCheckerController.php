@@ -15,7 +15,6 @@ class MakerCheckerController extends Controller
      */
     public function index(): Factory|View|Application
     {
-        $maker_count = MakerCheckerTrx::count() ?? 0;
-        return view('user.setup.maker_checker', compact('maker_count'));
+        return view('user.setup.maker_checker');
     }
 }

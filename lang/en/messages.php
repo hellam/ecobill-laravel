@@ -22,6 +22,7 @@ return [
     'products' => 'Products',
     'setup' => 'Setup',
     'reports' => 'Reports',
+    'utils' => 'Utils',
 
     //SideBar SubMenu
     'all_invoices' => 'All Invoices',
@@ -30,6 +31,7 @@ return [
     'business_setup' => 'Business Setup',
     'menu_setup' => 'Menu Setup',
     'maker_checker' => 'Maker Checker',
+    'maker_checker_rules' => 'Maker Checker Rules',
     'new_invoice' => 'New Invoice',
     'receive_payment' => 'Receive Payment',
     'recurrent_invoices' => 'Recurrent Invoices',

@@ -68,6 +68,7 @@ Route::group(['as' => 'user.'], function () {
 
             Route::controller(User\Setup\MakerCheckerController::class)->prefix('maker-checker')->as('maker_checker.')->group(function () {
                 Route::get('/', 'index')->name('all')->middleware('permission:705');
+                Route::get('/dt_api', 'dt_api')->name('dt_api')->middleware('permission:705');
             });
         });
     });

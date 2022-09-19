@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Created by Reliese Model.
+ */
+
 namespace App\Models;
 
 use App\Scopes\UserScope;
@@ -13,6 +17,7 @@ use Illuminate\Support\Facades\Auth;
  * @property int $id
  * @property string $permission_code
  * @property int $maker_type
+ * @property string $created_by
  * @property string $client_ref
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
@@ -30,9 +35,9 @@ class MakerCheckerRule extends Model
 	protected $fillable = [
 		'permission_code',
 		'maker_type',
+		'created_by',
 		'client_ref'
 	];
-
 
     public static function booted()
     {

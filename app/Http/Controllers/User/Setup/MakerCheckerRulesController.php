@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\User\Setup;
 
 use App\Http\Controllers\Controller;
+use App\Models\MakerCheckerRule;
 use App\Models\MakerCheckerTrx;
+use App\Models\Permission;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
@@ -25,18 +27,13 @@ class MakerCheckerRulesController extends Controller
     //Data table API
     public function dt_api(Request $request): JsonResponse
     {
-        $audit_trail = MakerCheckerTrx::orderBy('created_at', 'desc');
+        $audit_trail = MakerCheckerRule::orderBy('created_at', 'desc');
         return (new DataTables)->eloquent($audit_trail)
             ->addIndexColumn()
-            ->editColumn('trx_type', function ($row) {
-                return constant('AUD_' . $row->trx_type);
-            })->addColumn('status', function ($row) {
-                if ($row->status=='pending')
-                    return '<div class="badge badge-light-warning">Pending Approval</div>';
-                else
-                    return '<div class="badge badge-light-danger">'.$row->status.'</div>';
-            })->editColumn('maker', function ($row) {
-                return User::where('id', $row->maker)->first()->username;
+            ->editColumn('maker_type', function ($row) {
+                return $row->status==0 ? 'Single Maker Checker' : 'Double Maker Checker';
+            })->editColumn('permission_code', function ($row) {
+                return Permission::where('code', $row->permission_code)->first()->name;
             })->editColumn('created_at', function ($row) {
                 return Carbon::parse($row->created_at)->format('Y/m/d H:i:s');
             })

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\User\Setup;
+namespace App\Http\Controllers\User\Utils;
 
 use App\Http\Controllers\Controller;
 use App\Models\MakerCheckerTrx;

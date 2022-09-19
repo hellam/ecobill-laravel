@@ -4,9 +4,7 @@ namespace App\Http\Controllers\User\Setup;
 
 use App\Http\Controllers\Controller;
 use App\Models\MakerCheckerRule;
-use App\Models\MakerCheckerTrx;
 use App\Models\Permission;
-use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -30,6 +28,7 @@ class MakerCheckerRulesController extends Controller
         $maker_checker_count = MakerCheckerRule::count();
         return view('user.setup.maker_checker', compact('maker_checker_count'));
     }
+
     //Data table API
     public function dt_api(Request $request): JsonResponse
     {
@@ -37,7 +36,7 @@ class MakerCheckerRulesController extends Controller
         return (new DataTables)->eloquent($audit_trail)
             ->addIndexColumn()
             ->editColumn('maker_type', function ($row) {
-                return $row->status==0 ? 'Single Maker Checker' : 'Double Maker Checker';
+                return $row->status == 0 ? 'Single Maker Checker' : 'Double Maker Checker';
             })->editColumn('permission_code', function ($row) {
                 return Permission::where('code', $row->permission_code)->first()->name;
             })->editColumn('created_at', function ($row) {

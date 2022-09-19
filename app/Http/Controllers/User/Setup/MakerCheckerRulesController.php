@@ -34,6 +34,8 @@ class MakerCheckerRulesController extends Controller
                 return $row->status==0 ? 'Single Maker Checker' : 'Double Maker Checker';
             })->editColumn('permission_code', function ($row) {
                 return Permission::where('code', $row->permission_code)->first()->name;
+            })->editColumn('created_by', function ($row) {
+                return User::where('id', $row->created_by)->first()->username;
             })->editColumn('created_at', function ($row) {
                 return Carbon::parse($row->created_at)->format('Y/m/d H:i:s');
             })

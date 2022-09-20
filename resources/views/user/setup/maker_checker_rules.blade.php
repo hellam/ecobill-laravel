@@ -128,7 +128,7 @@
                         <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
                             <th class="min-w-50px">#</th>
                             <th class="min-w-125px">{{__('messages.type')}}</th>
-                            <th class="min-w-125px">{{__('messages.action')}}</th>
+                            <th class="min-w-125px">{{__('messages.activity')}}</th>
                             <th class="min-w-125px">{{__('messages.created_by')}}</th>
                             <th class="min-w-70px">{{__('messages.date')}}</th>
                             <th class="text-end min-w-70px">{{__('messages.actions')}}</th>
@@ -228,28 +228,27 @@
                                     <div class="col-md-6 fv-row">
                                         <!--begin::Label-->
                                         <label
-                                            class="required fs-6 fw-bold mb-2">{{__('messages.permission')}}</label>
+                                            class="required fs-6 fw-bold mb-2">{{__('messages.activity')}}</label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
                                         <select class="form-select form-select-solid fw-bolder"
                                                 data-kt-select2="true"
                                                 name="action"
                                                 id="permissions_select"
-                                                data-placeholder="Select Permission" data-allow-clear="true"
-                                                data-kt-audit-trail-table-filter="type"
+                                                data-placeholder="Select Permission"
+                                                data-allow-clear="true"
                                                 data-dropdown-parent="#kt_modal_add_rule">
                                             <option></option>
                                             @foreach($permissions as $permission)
                                                 <option value="{{$permission->code}}">{{$permission->name}}</option>
                                             @endforeach
-                                            <option></option>
                                         </select>
                                         <span id="action"></span>
                                         <!--end::Input-->
                                     </div>
                                     <!--end::Col-->
                                     <!--begin::Col-->
-                                    <div class="col-md-6 fv-row" id="maker_type">
+                                    <div class="col-md-6 fv-row" id="maker_type2">
                                         <!--begin::Label-->
                                         <label
                                             class="required fs-6 fw-bold mb-2">{{__('messages.type')}}</label>
@@ -309,6 +308,31 @@
             <div class="modal-dialog modal-dialog-centered mw-650px">
                 <!--begin::Modal content-->
                 <div class="modal-content">
+                    <div class="loader_container">
+                        <div class="loader_wrapper">
+                            <div class="loader">
+                                <div class="dot"></div>
+                            </div>
+                            <div class="loader">
+                                <div class="dot"></div>
+                            </div>
+                            <div class="loader">
+                                <div class="dot"></div>
+                            </div>
+                            <div class="loader">
+                                <div class="dot"></div>
+                            </div>
+                            <div class="loader">
+                                <div class="dot"></div>
+                            </div>
+                            <div class="loader">
+                                <div class="dot"></div>
+                            </div>
+                        </div>
+                        <div class="text">
+                            Please wait
+                        </div>
+                    </div>
                     <!--begin::Form-->
                     <form class="form" action="#" id="kt_modal_update_rule_form"
                           data-kt-action="{{route('user.setup.maker_checker_rules.create')}}"
@@ -316,7 +340,7 @@
                         <!--begin::Modal header-->
                         <div class="modal-header" id="kt_modal_update_rule_header">
                             <!--begin::Modal title-->
-                            <h2 class="fw-bolder">{{__('messages.new').' '.__('messages.maker_checker_rule')}}</h2>
+                            <h2 class="fw-bolder">{{__('messages.edit').' '.__('messages.maker_checker_rule')}}</h2>
                             <!--end::Modal title-->
                             <!--begin::Close-->
                             <div id="kt_modal_update_rule_close"
@@ -354,23 +378,22 @@
                                     <div class="col-md-6 fv-row">
                                         <!--begin::Label-->
                                         <label
-                                            class="required fs-6 fw-bold mb-2">{{__('messages.permission')}}</label>
+                                            class="required fs-6 fw-bold mb-2">{{__('messages.activity')}}</label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
                                         <select class="form-select form-select-solid fw-bolder"
                                                 data-kt-select2="true"
                                                 name="action"
-                                                id="permissions_select"
-                                                data-placeholder="Select Permission" data-allow-clear="true"
-                                                data-kt-audit-trail-table-filter="type"
+                                                id="permissions_edit_select"
+                                                data-placeholder="Select Permission"
+                                                data-allow-clear="true"
                                                 data-dropdown-parent="#kt_modal_update_rule">
                                             <option></option>
                                             @foreach($permissions as $permission)
                                                 <option value="{{$permission->code}}">{{$permission->name}}</option>
                                             @endforeach
-                                            <option></option>
                                         </select>
-                                        <span id="action"></span>
+                                        <span id="action_update"></span>
                                         <!--end::Input-->
                                     </div>
                                     <!--end::Col-->
@@ -385,7 +408,7 @@
                                             <!--begin::Option-->
                                             <label class="form-check form-check-inline form-check-solid me-5">
                                                 <input class="form-check-input" name="maker_type" type="radio"
-                                                       value="0" checked id="maker_type1"/>
+                                                       value="0"/>
                                                 <span class="fw-semibold ps-2 fs-6">{{__('messages.single')}}</span>
                                             </label>
                                             <!--end::Option-->
@@ -434,5 +457,7 @@
 @stop
 
 @push('custom_scripts')
-    <script src="{{ asset('assets/js/pages/maker_checker/maker_checker_rules.js') }}"></script>
+    <script src="{{ asset('assets/js/pages/maker_checker/mcr/list.js') }}"></script>
+    <script src="{{ asset('assets/js/pages/maker_checker/mcr/add.js') }}"></script>
+    <script src="{{ asset('assets/js/pages/maker_checker/mcr/update.js') }}"></script>
 @endpush

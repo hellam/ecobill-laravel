@@ -34,7 +34,17 @@ const KTMakerCheckerRulesServerSide = function () {
             columnDefs: [
                 {
                     targets: 0,
-                    orderable: false
+                    orderable: false,
+                    render: function (data, type, row) {
+                        var response = JSON.parse(row.data);
+                        return `
+                            <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                <input class="form-check-input" type="checkbox" value="${response.id}" />
+                                <input type="hidden" class="edit_url" value="${response.edit_url}" />
+                                <input type="hidden" class="update_url" value="${response.update_url}" />
+                                <input type="hidden" class="delete_url" value="${response.delete_url}" />
+                            </div>`;
+                    }
                 }
             ],
             // Add data-filter attribute

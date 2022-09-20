@@ -236,6 +236,10 @@ function is_password_expired(): bool
     return false;
 }
 
+function requires_maker_checker(): bool{
+
+}
+
 function checkif_has_any_permission($start, $end)
 {
     $permissions = auth('user')->user()->permissions();

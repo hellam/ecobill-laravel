@@ -37,9 +37,9 @@ class MakerCheckerRulesController extends Controller
         return (new DataTables)->eloquent($audit_trail)
             ->addIndexColumn()
             ->addColumn('id', function ($row) {
-                return ["id" => $row->id, "edit_url" => route('user.setup.maker-checker-rules.edit', [$row->id]),
-                    "update_url" => route('user.setup.maker-checker-rules.update', [$row->id]),
-                    "delete_url" => route('user.setup.maker-checker-rules.delete', [$row->id])];
+                return ["id" => $row->id, "edit_url" => route('user.setup.maker_checker_rules.edit', [$row->id]),
+                    "update_url" => route('user.setup.maker_checker_rules.update', [$row->id]),
+                    "delete_url" => route('user.setup.maker_checker_rules.delete', [$row->id])];
             })->editColumn('maker_type', function ($row) {
                 return $row->status == 0 ? 'Single Maker Checker' : 'Double Maker Checker';
             })->editColumn('permission_code', function ($row) {

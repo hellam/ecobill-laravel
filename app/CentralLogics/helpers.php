@@ -3,6 +3,7 @@
 namespace App\CentralLogics;
 
 use App\Models\AuditTrail;
+use App\Models\MakerCheckerRule;
 use App\Models\PasswordHistory;
 use App\Models\SecurityConfig;
 use App\Rules\PasswordHistoryRule;
@@ -236,8 +237,12 @@ function is_password_expired(): bool
     return false;
 }
 
-function requires_maker_checker(): bool{
-
+function requires_maker_checker($permission_code): ?int
+{
+    $maker_checker_rule = MakerCheckerRule::where('permission_code', $permission_code)->first();
+    if ($maker_checker_rule)
+        return $maker_checker_rule->maker_type;
+    return null;
 }
 
 function checkif_has_any_permission($start, $end)

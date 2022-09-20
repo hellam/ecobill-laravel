@@ -42,6 +42,8 @@ class MakerCheckerRulesController extends Controller
                     "delete_url" => route('user.setup.maker_checker_rules.delete', [$row->id])];
             })->editColumn('maker_type', function ($row) {
                 return $row->status == 0 ? 'Single Maker Checker' : 'Double Maker Checker';
+            })->editColumn('inactive', function ($row) {
+                return $row->inactive == 0 ? 'Active' : 'Inactive';
             })->editColumn('permission_code', function ($row) {
                 return Permission::where('code', $row->permission_code)->first()->name;
             })->editColumn('created_at', function ($row) {

@@ -23,6 +23,7 @@ const KTMakerCheckerRulesServerSide = function () {
                 {data: 'maker_type'},
                 {data: 'permission_code'},
                 {data: 'created_by'},
+                {data: 'status', name: 'inactive'},
                 {data: 'created_at'},
                 {data: 'actions'},
             ],
@@ -79,7 +80,13 @@ const KTMakerCheckerRulesServerSide = function () {
                             <!--end::Menu-->
                         `;
                     },
-                },
+                }, {
+                    targets: -3,
+                    orderable: true,
+                    render: function (data, row) {
+                        return decodeHtml(data);
+                    }
+                }
             ],
             // Add data-filter attribute
             createdRow: function (row, data, dataIndex) {

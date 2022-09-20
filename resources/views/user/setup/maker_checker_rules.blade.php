@@ -130,6 +130,7 @@
                             <th class="min-w-125px">{{__('messages.type')}}</th>
                             <th class="min-w-125px">{{__('messages.activity')}}</th>
                             <th class="min-w-125px">{{__('messages.created_by')}}</th>
+                            <th class="min-w-60px">{{__('messages.status')}}</th>
                             <th class="min-w-70px">{{__('messages.date')}}</th>
                             <th class="text-end min-w-70px">{{__('messages.actions')}}</th>
                         </tr>

@@ -46,6 +46,7 @@ return [
     //Other Messages
     'access_denied' => 'Access Denied',
     'actions' => 'Actions',
+    'activity' => 'Activity',
     'add' => 'Add',
     'apply' => 'Apply',
     'action' => 'Action',
@@ -61,6 +62,7 @@ return [
     'default' => 'Default',
     'digits' => 'Digits',
     'double' => 'Double',
+    'edit' => 'Edit',
     'error_404' => 'Page Not Found!',
     'error_500' => 'Something went wrong!',
     'error_429' => 'Too Many Attempts1',

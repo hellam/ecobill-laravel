@@ -237,12 +237,12 @@ function is_password_expired(): bool
     return false;
 }
 
-function requires_maker_checker($permission_code): ?int
+function requires_maker_checker($permission_code): mixed
 {
     $maker_checker_rule = MakerCheckerRule::where('permission_code', $permission_code)->first();
     if ($maker_checker_rule)
         return $maker_checker_rule->maker_type;
-    return null;
+    return 'na';
 }
 
 function checkif_has_any_permission($start, $end)

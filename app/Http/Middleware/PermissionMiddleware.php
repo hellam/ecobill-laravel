@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yoeunes\Toastr\Facades\Toastr;
 use function App\CentralLogics\check_permission;
+use function App\CentralLogics\error_web_processor;
 use function App\CentralLogics\requires_maker_checker;
 
 class PermissionMiddleware
@@ -21,9 +22,8 @@ class PermissionMiddleware
     public function handle(Request $request, Closure $next, $permission_code)
     {
         if (Auth::guard('user')->check() && check_permission($permission_code)) {
-            if ($request->getMethod() !="GET" && requires_maker_checker($permission_code)) {
-                Toastr::warning("Maker Checker required");
-                return back();
+            if (!$request->isMethod("GET") && requires_maker_checker($permission_code) != 'na') {
+                return error_web_processor("Maker Checker required :" . requires_maker_checker($permission_code), 200, []);
             }
             return $next($request);
         }

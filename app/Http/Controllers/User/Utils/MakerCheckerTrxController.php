@@ -42,4 +42,8 @@ class MakerCheckerTrxController extends Controller
             })
             ->make(true);
     }
+
+    public function create(Request $request){
+
+    }
 }

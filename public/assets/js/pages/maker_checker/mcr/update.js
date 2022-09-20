@@ -58,6 +58,7 @@ const KTMakerCheckerRulesUpdate = function () {
                         submitButton.disabled = true;
 
                         const str = $('#kt_modal_update_rule_form').serialize();
+                        console.log(str)
                         $.ajax({
                             headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

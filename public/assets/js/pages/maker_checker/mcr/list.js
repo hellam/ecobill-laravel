@@ -100,6 +100,7 @@ const KTMakerCheckerRulesServerSide = function () {
         dt.on('draw', function () {
             KTMenu.createInstances();
             handleUpdateRows();
+            handleDeleteRows();
         });
     };
 
@@ -150,6 +151,21 @@ const KTMakerCheckerRulesServerSide = function () {
 
                             $("#kt_modal_update_rule_form select[name='action']").val(rule.permission_code).trigger('change');
                             $("#kt_modal_update_rule_form").find('input[value="' + rule.maker_type + '"]').prop('checked', true);
+                            $("#kt_modal_update_rule_form input[name='inactive']").val(rule.inactive);
+                            if (rule.inactive === 0) {
+                                $("#kt_modal_update_rule_form input[id='inactive']").prop("checked", true);
+                            } else {
+                                $("#kt_modal_update_rule_form input[id='inactive']").prop("checked", false)
+                            }
+
+                            //active/inactive
+                            $("#kt_modal_update_rule_form input[id='inactive']").on('change', function () {
+                                if ($(this).is(':checked'))
+                                    $("#kt_modal_update_rule_form input[name='inactive']").val(0)
+                                else {
+                                    $("#kt_modal_update_rule_form input[name='inactive']").val(1)
+                                }
+                            })
                         }
 
                         $('.loader_container').hide();//hide loader
@@ -174,6 +190,107 @@ const KTMakerCheckerRulesServerSide = function () {
         });
 
     };
+
+    // Delete customer
+    var handleDeleteRows = () => {
+        // Select all delete buttons
+        const deleteButtons = document.querySelectorAll('[data-kt-rule-table-actions="delete_row"]');
+
+        deleteButtons.forEach(d => {
+            // Delete button on click
+            d.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                // Select parent row
+                const parent = e.target.closest('tr');
+
+                // Get customer name
+                const productName = parent.querySelectorAll('td')[1].innerText;
+                const delete_url = parent.querySelector("input[class='delete_url']").value;
+
+                // SweetAlert2 pop up --- official docs reference: https://sweetalert2.github.io/
+                Swal.fire({
+                    text: "Are you sure you want to delete this rule? This is not reversible!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    buttonsStyling: false,
+                    confirmButtonText: "Yes, delete!",
+                    cancelButtonText: "No, cancel",
+                    customClass: {
+                        confirmButton: "btn fw-bold btn-danger",
+                        cancelButton: "btn fw-bold btn-active-light-primary"
+                    }
+                }).then(function (result) {
+                    if (result.value) {
+                        Swal.fire({
+                            text: "Deleting rule",
+                            icon: "info",
+                            allowOutsideClick: false,
+                            buttonsStyling: false,
+                            showConfirmButton: false,
+                        })
+                        $.ajax({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            type: 'DELETE',
+                            url: delete_url,
+                            success: function (json) {
+                                var response = json;
+                                if (response.status !== true) {
+                                    Swal.fire({
+                                        text: response.message,
+                                        icon: "error",
+                                        buttonsStyling: false,
+                                        confirmButtonText: "Ok!",
+                                        customClass: {
+                                            confirmButton: "btn btn-primary"
+                                        }
+                                    });
+
+                                } else {
+                                    Swal.fire({
+                                        text: "Rule deleted Successfully!.",
+                                        icon: "success",
+                                        buttonsStyling: false,
+                                        confirmButtonText: "Ok, got it!",
+                                        customClass: {
+                                            confirmButton: "btn fw-bold btn-primary",
+                                        }
+                                    }).then(function () {
+                                        // delete row data from server and re-draw datatable
+                                        dt.draw();
+                                    });
+                                }
+
+                            },
+                            error: function (xhr, desc, err) {
+                                Swal.fire({
+                                    text: 'A network error occured. Please consult your network administrator.',
+                                    icon: "error",
+                                    buttonsStyling: false,
+                                    confirmButtonText: "Ok!",
+                                    customClass: {
+                                        confirmButton: "btn btn-primary"
+                                    }
+                                });
+                            }
+                        });
+                    } else if (result.dismiss === 'cancel') {
+                        Swal.fire({
+                            text: "Rule was not deleted.",
+                            icon: "error",
+                            buttonsStyling: false,
+                            confirmButtonText: "Ok, got it!",
+                            customClass: {
+                                confirmButton: "btn fw-bold btn-primary",
+                            }
+                        });
+                    }
+                });
+            })
+        });
+    }
 
     // const start = moment();
     // const end = moment();
@@ -233,6 +350,7 @@ const KTMakerCheckerRulesServerSide = function () {
                 initDatatable();
                 dt.search('').draw();
                 handleUpdateRows();
+                handleDeleteRows();
             }
         }
     }

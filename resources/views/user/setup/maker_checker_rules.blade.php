@@ -417,7 +417,7 @@
                                             <label class="form-check form-check-inline form-check-solid">
                                                 <input class="form-check-input" name="maker_type" type="radio"
                                                        value="1"/>
-                                                <span class="fw-semibold ps-2 fs-6">{{__('messages.double')}}</span>
+                                                <span class="fw-semibold ps-2 fs-6 required">{{__('messages.double')}}</span>
                                             </label>
                                             <!--end::Option-->
                                         </div>
@@ -425,6 +425,13 @@
                                     <!--end::Col-->
                                 </div>
                                 <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <label class="form-check form-switch form-check-custom form-check-solid">
+                                    <span class="fw-semibold ps-2 fs-6">Active</span>
+                                    <input class="form-check-input mx-4" type="checkbox" id="inactive"/>
+                                    <input type="hidden" name="inactive"/>
+                                </label>
+                                <!--begin::Input group-->
                             </div>
                             <!--end::Scroll-->
                         </div>

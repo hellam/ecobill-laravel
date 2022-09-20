@@ -19,6 +19,7 @@ return new class extends Migration
             $table->tinyInteger('maker_type')->default(0)->comment('0-Single,1-Double');
             $table->string('created_by',255);
             $table->string('client_ref',255);
+            $table->tinyInteger('inactive')->default(0);
             $table->timestamps();
         });
     }

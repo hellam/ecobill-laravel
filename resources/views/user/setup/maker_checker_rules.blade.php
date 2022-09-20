@@ -235,6 +235,10 @@
                                                 data-kt-audit-trail-table-filter="type"
                                                 data-dropdown-parent="#kt_modal_permissions_select">
                                             <option></option>
+                                            @foreach($permissions as $permission)
+                                                <option value="{{$permission->code}}">{{$permission->name}}</option>
+                                            @endforeach
+                                            <option></option>
                                         </select>
                                         <!--end::Input-->
                                     </div>

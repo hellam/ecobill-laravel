@@ -83,8 +83,8 @@ const KTMakerCheckerRulesServerSide = function () {
                 }, {
                     targets: -3,
                     orderable: true,
-                    render: function (data, row) {
-                        return decodeHtml(data);
+                    render: function (data, type, row) {
+                        return decodeHtml(row.inactive);
                     }
                 }
             ],

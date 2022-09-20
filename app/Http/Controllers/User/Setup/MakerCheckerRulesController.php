@@ -94,7 +94,7 @@ class MakerCheckerRulesController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'action' => 'required|unique:' . MakerCheckerRule::class . ',permission_code,NULL,id,client_ref,' . get_user_ref(),
+            'action' => 'required|unique:' . MakerCheckerRule::class . ',permission_code,' . $id . ',id,client_ref,' . get_user_ref(),
             'maker_type' => 'required|in:0,1',
             'inactive' => 'required|in:0,1',
         ]);
@@ -126,7 +126,6 @@ class MakerCheckerRulesController extends Controller
         }
         return error_web_processor(__('messages.msg_item_not_found', ['attribute' => __('messages.maker_checker_rule')]));
     }
-
 
 
 }

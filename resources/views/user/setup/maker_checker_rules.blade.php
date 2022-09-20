@@ -131,6 +131,7 @@
                             <th class="min-w-125px">{{__('messages.action')}}</th>
                             <th class="min-w-125px">{{__('messages.created_by')}}</th>
                             <th class="min-w-70px">{{__('messages.date')}}</th>
+                            <th class="text-end min-w-70px">{{__('messages.actions')}}</th>
                         </tr>
                         <!--end::Table row-->
                         </thead>
@@ -157,7 +158,7 @@
 
                     <!--begin::Action-->
                     <button data-bs-toggle="modal"
-                            data-bs-target="#kt_modal_add_tax"
+                            data-bs-target="#kt_modal_add_rule"
                             class="btn btn-primary">{{__('messages.add',['attribute'=>__('messages.rule')])}}
                     </button>
                     <!--end::Action-->
@@ -175,7 +176,7 @@
         <!--end::Card-->
 
         <!--begin::Modals-->
-        <!--begin::Modal - Taxes - Add-->
+        <!--begin::Modal Rule - Add-->
         <div class="modal fade" id="kt_modal_add_rule" tabindex="-1" aria-hidden="true" data-backdrop='static'
              data-keyboard='false'>
             <!--begin::Modal dialog-->
@@ -183,7 +184,9 @@
                 <!--begin::Modal content-->
                 <div class="modal-content">
                     <!--begin::Form-->
-                    <form class="form" action="#" id="kt_modal_add_rule_form" data-kt-action="#" data-kt-redirect="">
+                    <form class="form" action="#" id="kt_modal_add_rule_form"
+                          data-kt-action="{{route('user.setup.maker_checker_rules.create')}}"
+                          data-kt-redirect="{{route('user.setup.maker_checker_rules.all')}}">
                         <!--begin::Modal header-->
                         <div class="modal-header" id="kt_modal_add_rule_header">
                             <!--begin::Modal title-->
@@ -231,20 +234,22 @@
                                         <select class="form-select form-select-solid fw-bolder"
                                                 data-kt-select2="true"
                                                 name="action"
+                                                id="permissions_select"
                                                 data-placeholder="Select Permission" data-allow-clear="true"
                                                 data-kt-audit-trail-table-filter="type"
-                                                data-dropdown-parent="#kt_modal_permissions_select">
+                                                data-dropdown-parent="#kt_modal_add_rule">
                                             <option></option>
                                             @foreach($permissions as $permission)
                                                 <option value="{{$permission->code}}">{{$permission->name}}</option>
                                             @endforeach
                                             <option></option>
                                         </select>
+                                        <span id="action"></span>
                                         <!--end::Input-->
                                     </div>
                                     <!--end::Col-->
                                     <!--begin::Col-->
-                                    <div class="col-md-6 fv-row">
+                                    <div class="col-md-6 fv-row" id="maker_type">
                                         <!--begin::Label-->
                                         <label
                                             class="required fs-6 fw-bold mb-2">{{__('messages.type')}}</label>
@@ -254,7 +259,7 @@
                                             <!--begin::Option-->
                                             <label class="form-check form-check-inline form-check-solid me-5">
                                                 <input class="form-check-input" name="maker_type" type="radio"
-                                                       value="0" checked/>
+                                                       value="0" checked id="maker_type1"/>
                                                 <span class="fw-semibold ps-2 fs-6">{{__('messages.single')}}</span>
                                             </label>
                                             <!--end::Option-->
@@ -296,7 +301,7 @@
                 </div>
             </div>
         </div>
-        <!--end::Modal - Taxes - Add-->
+        <!--end::Modal Rule - Add-->
         <!--end::Modals-->
     </div>
     <!--end::Container-->

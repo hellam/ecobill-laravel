@@ -68,6 +68,7 @@ Route::group(['as' => 'user.'], function () {
 
             Route::controller(User\Setup\MakerCheckerRulesController::class)->prefix('maker-checker-rules')->as('maker_checker_rules.')->group(function () {
                 Route::get('/', 'index')->name('all')->middleware('permission:705');
+                Route::post('/', 'create')->name('create')->middleware('permission:705');
                 Route::get('/dt_api', 'dt_api')->name('dt_api')->middleware('permission:705');
                 Route::get('edit/{id}', 'edit')->name('edit')->middleware('permission:7051');
                 Route::put('update/{id}', 'update')->name('update')->middleware('permission:7051');

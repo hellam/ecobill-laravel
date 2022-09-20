@@ -20,8 +20,10 @@ class PermissionMiddleware
     public function handle(Request $request, Closure $next, $permission_code)
     {
         if (Auth::guard('user')->check() && check_permission($permission_code)) {
+
             return $next($request);
         }
+
         Toastr::warning(__('messages.access_denied'));
         return back();
     }

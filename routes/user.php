@@ -74,6 +74,9 @@ Route::group(['as' => 'user.'], function () {
             Route::controller(User\Utils\MakerCheckerTrxController::class)->prefix('maker-checker')->as('maker_checker.')->group(function () {
                 Route::get('/', 'index')->name('all')->middleware('permission:705');
                 Route::get('/dt_api', 'dt_api')->name('dt_api')->middleware('permission:705');
+                Route::get('edit/{id}', 'edit')->name('edit')->middleware('permission:7051');
+                Route::put('update/{id}', 'update')->name('update')->middleware('permission:7051');
+                Route::delete('delete/{id}', 'destroy')->name('delete')->middleware('permission:7052');
             });
         });
     });

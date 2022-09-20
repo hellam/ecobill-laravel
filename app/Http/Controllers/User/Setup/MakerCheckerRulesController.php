@@ -36,7 +36,11 @@ class MakerCheckerRulesController extends Controller
         $audit_trail = MakerCheckerRule::orderBy('created_at', 'desc');
         return (new DataTables)->eloquent($audit_trail)
             ->addIndexColumn()
-            ->editColumn('maker_type', function ($row) {
+            ->addColumn('id', function ($row) {
+                return ["id" => $row->id, "edit_url" => route('user.messaging.contact.edit', [$row->id]),
+                    "update_url" => route('user.messaging.contact.update', [$row->id]),
+                    "delete_url" => route('user.messaging.contact.delete', [$row->id])];
+            })->editColumn('maker_type', function ($row) {
                 return $row->status == 0 ? 'Single Maker Checker' : 'Double Maker Checker';
             })->editColumn('permission_code', function ($row) {
                 return Permission::where('code', $row->permission_code)->first()->name;

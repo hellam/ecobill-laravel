@@ -52,7 +52,7 @@ class MakerCheckerTrxController extends Controller
             'mc_type' => $mc_type,
             'trx_type' => '',
             'status' => 'pending',
-            'trx_data' => json_encode($request->all()),
+            'txt_data' => json_encode(Request()->all()),
             'file_data' => $request->getMethod(),
             'url' => url()->full(),
             'description' => '',

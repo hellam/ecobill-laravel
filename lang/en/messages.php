@@ -126,6 +126,7 @@ return [
     'single_sign_on' => 'Single sign on',
     'single' => 'Single',
     'special_chars' => 'Special Characters',
+    'status' => 'Status',
     'strength' => 'Strength',
     'strong' => 'Strong',
     'to' => 'To',

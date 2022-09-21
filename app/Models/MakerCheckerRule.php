@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Scopes\UserScope;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\Auth;
 
 /**
@@ -37,6 +38,11 @@ class MakerCheckerRule extends Model
 		'client_ref',
 		'inactive'
 	];
+
+    public function permission(): BelongsTo
+    {
+        return $this->belongsTo(Permission::class, 'permission_code', 'code');
+    }
 
     public static function booted()
     {

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User\Setup;
 
+use App\CentralLogics\UserValidators;
 use App\Http\Controllers\Controller;
 use App\Models\MakerCheckerRule;
 use App\Models\Permission;
@@ -11,12 +12,10 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\DataTables;
 use function App\CentralLogics\error_web_processor;
 use function App\CentralLogics\get_user_ref;
 use function App\CentralLogics\success_web_processor;
-use function App\CentralLogics\validation_error_processor;
 
 class MakerCheckerRulesController extends Controller
 {
@@ -54,15 +53,10 @@ class MakerCheckerRulesController extends Controller
 
     public function create(Request $request): JsonResponse
     {
+        $validator = UserValidators::makerCheckerRuleCreateValidation($request);
 
-        $validator = Validator::make($request->all(), [
-            'action' => 'required|unique:' . MakerCheckerRule::class . ',permission_code,NULL,id,client_ref,' . get_user_ref(),
-            'maker_type' => 'required|in:0,1',
-        ]);
-
-        if ($validator->fails()) {
-            return error_web_processor(__('messages.field_correction'),
-                200, validation_error_processor($validator));
+        if ($validator != '') {
+            return $validator;
         }
 
         MakerCheckerRule::create([
@@ -94,16 +88,10 @@ class MakerCheckerRulesController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validator = UserValidators::makerCheckerRuleUpdateValidation($request, $id);
 
-        $validator = Validator::make($request->all(), [
-            'action' => 'required|unique:' . MakerCheckerRule::class . ',permission_code,' . $id . ',id,client_ref,' . get_user_ref(),
-            'maker_type' => 'required|in:0,1',
-            'inactive' => 'required|in:0,1',
-        ]);
-
-        if ($validator->fails()) {
-            return error_web_processor(__('messages.field_correction'),
-                200, validation_error_processor($validator));
+        if ($validator != '') {
+            return $validator;
         }
 
         $rule = MakerCheckerRule::find($id);

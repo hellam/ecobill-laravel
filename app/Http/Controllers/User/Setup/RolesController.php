@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User\Setup;
 
+use App\CentralLogics\UserValidators;
 use App\Http\Controllers\Controller;
 use App\Models\Permission;
 use App\Models\PermissionGroup;
@@ -33,15 +34,10 @@ class RolesController extends Controller
     public function create(Request $request): JsonResponse
     {
 
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|unique:' . Role::class . ',name,NULL,id,client_ref,' . get_user_ref(),
-            'permissions' => 'required|array',
-        ]);
+        $validator = UserValidators::rolesCreateValidation($request);
 
-
-        if ($validator->fails()) {
-            return error_web_processor(__('messages.field_correction'),
-                200, validation_error_processor($validator));
+        if ($validator != '') {
+            return $validator;
         }
 
         $request->permissions = implode(',', $request->permissions);
@@ -65,13 +61,13 @@ class RolesController extends Controller
     {
         $role = Role::find($id);
         if (isset($role)) {
-            $permissions = explode(',',$role->permissions);
+            $permissions = explode(',', $role->permissions);
             $response['role'] = $role;
             $response['permissions'] = [];
 
             $all_permissions = Permission::with('permission_group')->orderBy('parent_id')->get();
-            foreach($all_permissions as $permission){
-                $response['permissions'][] = ['group_name' => $permission->permission_group->name,'code' => $permission->code, 'name' => $permission->name, 'checked' => in_array($permission->code, $permissions)];
+            foreach ($all_permissions as $permission) {
+                $response['permissions'][] = ['group_name' => $permission->permission_group->name, 'code' => $permission->code, 'name' => $permission->name, 'checked' => in_array($permission->code, $permissions)];
             }
             $price = array_column($response['permissions'], 'group_name');
             array_multisort($price, SORT_ASC, $response['permissions']);
@@ -86,22 +82,19 @@ class RolesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|unique:' . Role::class . ',name,' . $id . ',id,client_ref,' . get_user_ref(),
-            'permissions' => 'required|array',
-        ]);
+        $validator = UserValidators::rolesUpdateValidation($request, $id);
 
-        if ($validator->fails()) {
-            return error_web_processor(__('messages.field_correction'),
-                200, validation_error_processor($validator));
+        if ($validator != '') {
+            return $validator;
         }
-        $request->permissions = implode(',', $request->permissions);
 
-        $role = Role::find($id);
-        $role->name = $request->name;
-        $role->permissions = $request->permissions;
-        $role->update();
-
+//        $request->permissions = implode(',', $request->permissions);
+//
+//        $role = Role::find($id);
+//        $role->name = $request->name;
+//        $role->permissions = $request->permissions;
+//        $role->update();
+//
         return success_web_processor(null, __('messages.msg_updated_success', ['attribute' => __('messages.role')]));
     }
 

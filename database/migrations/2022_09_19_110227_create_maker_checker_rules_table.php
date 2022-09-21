@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('maker_checker_rules', function (Blueprint $table) {
             $table->id();
             $table->string('permission_code',255);
+            $table->string('maker_validator_function',255)->nullable();
             $table->tinyInteger('maker_type')->default(0)->comment('0-Single,1-Double');
             $table->string('created_by',255);
             $table->string('client_ref',255);

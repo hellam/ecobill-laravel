@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User\Setup;
 
+use App\CentralLogics\UserValidators;
 use App\Http\Controllers\Controller;
 use App\Models\AuditTrail;
 use App\Models\SecurityConfig;
@@ -9,10 +10,8 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use function App\CentralLogics\error_web_processor;
 use function App\CentralLogics\success_web_processor;
-use function App\CentralLogics\validation_error_processor;
 
 class SecurityController extends Controller
 {
@@ -32,17 +31,13 @@ class SecurityController extends Controller
      */
     public function update(Request $request, $type)
     {
+        $validator = UserValidators::securityUpateValidation($request, $type);
+
+        if ($validator != '') {
+            return $validator;
+        }
+
         if ($type == 'general') {
-            $validator = Validator::make($request->all(), [
-                'max_login' => 'required',
-                'single_sign' => 'required',
-            ]);
-
-            if ($validator->fails()) {
-                return error_web_processor(__('messages.field_correction'),
-                    200, validation_error_processor($validator));
-            }
-
             $configs[] = $request->max_login;
             $configs[] = $request->single_sign;
 
@@ -51,20 +46,6 @@ class SecurityController extends Controller
             $sec_config->update();
             return success_web_processor(null, __('messages.msg_updated_success', ['attribute' => __('messages.security')]));
         } elseif ($type == 'password_policy') {
-            $validator = Validator::make($request->all(), [
-                'pass_expiry' => 'required',
-                'min_length' => 'required',
-                'strength' => 'required',
-                'pass_history' => 'required',
-                'first_time' => 'required',
-            ]);
-
-
-            if ($validator->fails()) {
-                return error_web_processor(__('messages.field_correction'),
-                    200, validation_error_processor($validator));
-            }
-
 
             $configs[] = $request->pass_expiry;
             $configs[] = $request->min_length;

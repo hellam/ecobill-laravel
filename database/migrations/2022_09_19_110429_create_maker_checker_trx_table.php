@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('maker_checker_trx', function (Blueprint $table) {
             $table->id();
             $table->tinyInteger('mc_type')->default(0)->comment('0-Single,1-Double');
-            $table->tinyInteger('trx_type');
+            $table->string('trx_type',255)->nullable();
             $table->string('status',20)->default('pending');
             $table->longText('txt_data')->nullable();
             $table->string('file_data',255)->nullable();

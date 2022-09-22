@@ -82,5 +82,6 @@ Route::group(['as' => 'user.'], function () {
                 Route::get('/dt_api', 'dt_api')->name('dt_api')->middleware('permission:706');
             });
         });
+
     });
 });

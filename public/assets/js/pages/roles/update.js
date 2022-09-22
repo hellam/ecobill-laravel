@@ -341,7 +341,7 @@ var KTUsersUpdatePermissions = function () {
 
                                 } else {
                                     Swal.fire({
-                                        text: "You have deleted " + roleName + "!.",
+                                        text: response.message,
                                         icon: "success",
                                         buttonsStyling: false,
                                         confirmButtonText: "Ok, got it!",

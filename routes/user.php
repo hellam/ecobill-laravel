@@ -55,24 +55,24 @@ Route::group(['as' => 'user.'], function () {
 
             Route::controller(User\Setup\RolesController::class)->prefix('roles')->as('roles.')->group(function () {
                 Route::get('/', 'index')->name('list')->middleware(['permission:702']);
-                Route::get('edit/{id}', 'edit')->name('edit')->middleware('permission:7021');
-                Route::put('update/{id}', 'update')->name('update')->middleware('permission:7021');
-                Route::delete('delete/{id}', 'destroy')->name('delete')->middleware('permission:7022');
+                Route::get('edit/{id}', 'edit')->name('edit')->middleware('permission:7021')->whereNumber('id');
+                Route::put('update/{id}', 'update')->name('update')->middleware('permission:7021')->whereNumber('id');
+                Route::delete('delete/{id}', 'destroy')->name('delete')->middleware('permission:7022')->whereNumber('id');
                 Route::post('/', 'create')->name('add')->middleware('permission:703');
             });
 
             Route::controller(User\Setup\SecurityController::class)->prefix('security')->as('security.')->group(function () {
                 Route::get('/', 'index')->name('all')->middleware('permission:704');
-                Route::post('update/{type}', 'update')->name('update')->middleware('permission:7041');
+                Route::post('update/{type}', 'update')->name('update')->middleware('permission:7041')->whereIn('type', ['password_policy', 'general']);
             });
 
             Route::controller(User\Setup\MakerCheckerRulesController::class)->prefix('maker-checker-rules')->as('maker_checker_rules.')->group(function () {
                 Route::get('/', 'index')->name('all')->middleware('permission:705');
                 Route::post('/', 'create')->name('create')->middleware('permission:705');
                 Route::get('/dt_api', 'dt_api')->name('dt_api')->middleware('permission:705');
-                Route::get('edit/{id}', 'edit')->name('edit')->middleware('permission:7051');
-                Route::put('update/{id}', 'update')->name('update')->middleware('permission:7051');
-                Route::delete('delete/{id}', 'destroy')->name('delete')->middleware('permission:7052');
+                Route::get('edit/{id}', 'edit')->name('edit')->middleware('permission:7051')->whereNumber('id');
+                Route::put('update/{id}', 'update')->name('update')->middleware('permission:7051')->whereNumber('id');
+                Route::delete('delete/{id}', 'destroy')->name('delete')->middleware('permission:7052')->whereNumber('id');
             });
 
             Route::controller(User\Utils\MakerCheckerTrxController::class)->prefix('maker-checker')->as('maker_checker.')->group(function () {

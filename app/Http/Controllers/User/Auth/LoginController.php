@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User\Auth;
 
+use App\CentralLogics\UserValidators;
 use App\Http\Controllers\Controller;
 use App\Models\PasswordHistory;
 use App\Models\SecurityConfig;
@@ -15,15 +16,12 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rules\Password;
 use Yoeunes\Toastr\Facades\Toastr;
 use function App\CentralLogics\error_web_processor;
 use function App\CentralLogics\get_security_configs;
 use function App\CentralLogics\is_first_time;
 use function App\CentralLogics\is_password_expired;
 use function App\CentralLogics\log_activity;
-use function App\CentralLogics\password_validation_rule;
 use function App\CentralLogics\success_web_processor;
 use function App\CentralLogics\validation_error_processor;
 
@@ -165,33 +163,17 @@ class LoginController extends Controller
 
     public function update_password(Request $request): JsonResponse
     {
-        $password_policy_array = json_decode(get_security_configs()->password_policy, true);
 
-        $array = [
-            'old_password' => base64_decode($request->old_password),
-            'new_password' => base64_decode($request->new_password),
-            'new_password_confirmation' => base64_decode($request->new_password_confirmation)
-        ];
+        $validator = UserValidators::passwordUpdateValidation($request);
 
-        $validator = Validator::make($array, [
-            'old_password' => 'required',
-            'new_password' => password_validation_rule($password_policy_array),
-        ]);
-
-
-        if ($validator->fails()) {
-            return error_web_processor(__('messages.field_correction'),
-                200, validation_error_processor($validator));
+        if ($validator != '') {
+            return $validator;
         }
 
         $user = User::where('id', Auth::id())->first();
+        $password_policy_array = json_decode(get_security_configs()->password_policy, true);
 
-        if (!Auth::validate(['email' => $user->email, 'password' => $array['old_password']])) {
-            return error_web_processor(__('messages.field_correction'),
-                200, array(['field' => 'old_password', 'error' => 'Wrong Password!']));
-        }
-        //check with password history
-        $user->password = Hash::make($array['new_password']);
+        $user->password = Hash::make(base64_decode($request->new_password));
         if (is_first_time())
             $user->first_time = 0;
         if (is_password_expired()) {

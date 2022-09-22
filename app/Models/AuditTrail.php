@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Auth;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property string $client_ref
+ * @property int $branch_id
  *
  * @package App\Models
  */
@@ -47,7 +48,8 @@ class AuditTrail extends Model
 		'model',
 		'request_details',
 		'ip_address',
-		'client_ref'
+		'client_ref',
+		'branch_id'
 	];
 
 

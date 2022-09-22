@@ -26,6 +26,7 @@ return new class extends Migration
             $table->bigInteger('checker1')->nullable();
             $table->bigInteger('checker2')->nullable();
             $table->string('client_ref',255);
+            $table->bigInteger('branch_id');
             $table->timestamps();
         });
     }

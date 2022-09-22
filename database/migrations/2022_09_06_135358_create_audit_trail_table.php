@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string("client_ref");
             $table->text('request_details')->comment('Request details');
             $table->string('ip_address', 45)->comment('ip address');
+            $table->bigInteger('branch_id');
             $table->timestamps();
         });
     }

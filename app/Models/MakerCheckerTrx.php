@@ -28,6 +28,7 @@ use Illuminate\Support\Facades\Auth;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property string|null $description
+ * @property int $branch_id
  *
  * @package App\Models
  */
@@ -53,7 +54,8 @@ class MakerCheckerTrx extends Model
 		'checker1',
 		'checker2',
 		'client_ref',
-		'description'
+		'description',
+        'branch_id'
 	];
 
 

@@ -81,6 +81,7 @@ return [
     'login' => 'Login',
     'logon' => 'Logon',
     'lowercase' => 'Lowercase',
+    'maker' => 'Maker',
     'max_login' => 'Maximum login failed attempts',
     'medium' => 'Medium',
     'msg_account_expired' => 'Your account is Expired, please renew your subscription and try again.',

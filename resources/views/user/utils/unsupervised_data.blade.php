@@ -138,6 +138,7 @@
                         <th class="min-w-125px">{{__('messages.trx_type')}}</th>
                         <th class="min-w-125px">{{__('messages.data')}}</th>
                         <th class="min-w-125px">{{__('messages.maker')}}</th>
+                        <th class="min-w-70px">{{__('messages.description')}}</th>
                         <th class="min-w-70px">{{__('messages.date')}}</th>
                         <th class="min-w-70px">{{__('messages.actions')}}</th>
                     </tr>

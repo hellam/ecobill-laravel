@@ -3,7 +3,7 @@
 // Class definition
 const KTUnsupervisedData = function () {
 // Shared variables
-    let table, dt;
+    let table, dt, approveButtons;
 
     // Private functions
     const initDatatable = function () {
@@ -21,13 +21,25 @@ const KTUnsupervisedData = function () {
                 {data: 'trx_type'},
                 {data: 'txt_data'},
                 {data: 'maker'},
+                {data: 'description'},
                 {data: 'created_at'},
                 {data: 'actions'},
             ],
             columnDefs: [
                 {
+                    targets: 0,
+                    orderable: false,
+                    render: function (data, type, row) {
+                        return `
+                            <div>
+                                <input type="hidden" class="action_url" value="${row.url}" />
+                                <input type="hidden" class="method_type" value="${row.method}" />
+                                <input type="hidden" class="data" value="${row.txt_data}" />
+                            </div>`;
+                    }
+                },
+                {
                     targets: -1,
-                    data: 'action',
                     orderable: false,
                     searchable: false,
                     className: 'text-end',
@@ -48,16 +60,16 @@ const KTUnsupervisedData = function () {
                             <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4" data-kt-menu="true">
                                 <!--begin::Menu item-->
                                 <div class="menu-item px-3">
-                                    <a href="#" class="menu-link px-3 test" data-kt-rule-table-actions="edit_row">
-                                        Edit
+                                    <a href="#" class="menu-link px-3 test" data-kt-unsupervised-table-actions="approve_row">
+                                        Approve
                                     </a>
                                 </div>
                                 <!--end::Menu item-->
 
                                 <!--begin::Menu item-->
                                 <div class="menu-item px-3">
-                                    <a href="#" class="menu-link px-3 test" data-kt-rule-table-actions="delete_row">
-                                        Delete
+                                    <a href="#" class="menu-link px-3 test" data-kt-unsupervised-table-actions="reject_row">
+                                        Reject
                                     </a>
                                 </div>
                                 <!--end::Menu item-->
@@ -82,6 +94,65 @@ const KTUnsupervisedData = function () {
     };
 
     //Start Methods here
+    //Edit Button
+    const handleApproveRows = function () {
+        // Select all delete buttons
+        const approveButtons = document.querySelectorAll('[data-kt-unsupervised-table-actions="approve_row"]');
+
+        // Make the DIV element draggable:
+        const element = document.querySelector('#kt_modal_unsupervised_data');
+        dragElement(element);
+        approveButtons.forEach(d => {
+            // edit button on click
+            d.addEventListener('click', function (e) {
+                e.preventDefault();
+                // Select parent row
+                const parent = e.target.closest('tr');
+
+                // Get rule name
+                const action_url = parent.querySelector("input[class='action_url']").value;
+                const method = parent.querySelector("input[class='method_type']").value;
+                const data = parent.querySelector("input[class='method_type']").value;
+                $.ajax({
+                    type: method,
+                    url: action_url,
+                    data: data,
+                    success: function (json) {
+                        var response = JSON.parse(JSON.stringify(json));
+                        if (response.status !== true) {
+                            Swal.fire({
+                                text: response.message,
+                                icon: "error",
+                                buttonsStyling: false,
+                                confirmButtonText: "Ok!",
+                                customClass: {
+                                    confirmButton: "btn btn-primary"
+                                }
+                            });
+                        } else {
+
+                        }
+
+                    },
+                    error: function (xhr, desc, err) {
+                        Swal.fire({
+                            text: 'A network error occured. Please consult your network administrator.',
+                            icon: "error",
+                            buttonsStyling: false,
+                            confirmButtonText: "Ok!",
+                            customClass: {
+                                confirmButton: "btn btn-primary"
+                            }
+                        });
+
+                    }
+                });
+
+
+            })
+        });
+
+    };
     //End Methods here
     return {
         init: function () {

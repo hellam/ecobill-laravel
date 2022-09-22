@@ -4,6 +4,7 @@ namespace App\CentralLogics;
 
 use App\Http\Controllers\Controller;
 use App\Models\MakerCheckerRule;
+use App\Models\MakerCheckerTrx;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,6 +28,13 @@ class UserValidators
             'action' => 'required|unique:' . MakerCheckerRule::class . ',permission_code,' . $id . ',id,client_ref,' . get_user_ref(),
             'maker_type' => 'required|in:0,1',
             'inactive' => 'required|in:0,1',
+        ]);
+    }
+
+    public static function makerCheckerTrxCreateValidation(Request $request)
+    {
+        return self::ValidatorMake(['txt_data'=>json_encode($request->all()),'url'=>url()->full(),'method'=>$request->getMethod()], [
+            'method' => 'unique:' . MakerCheckerTrx::class . ',method,NULL,id,url,' . url()->full().',txt_data,'.json_encode($request->all()),
         ]);
     }
 

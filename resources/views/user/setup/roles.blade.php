@@ -221,6 +221,7 @@
                                             <table class="table align-middle table-row-dashed fs-6 gy-5">
                                                 <!--begin::Table body-->
                                                 <tbody class="text-gray-600 fw-bold">
+                                                <tr id="permissions"></tr>
                                                 <!--begin::Table row-->
                                                 @foreach($permission_groups as $permission_group)
                                                     <!--begin::Permission-->
@@ -244,7 +245,6 @@
                                                     </tr>
                                                     <!--end::Permission-->
                                                 @endforeach
-                                                <tr id="permissions"></tr>
                                                 <!--end::Table row-->
                                                 </tbody>
                                                 <!--end::Table body-->
@@ -375,11 +375,11 @@
                                                 <!--begin::Table body-->
                                                 <tbody class="text-gray-600 fw-bold" id="table_update">
                                                 <!--begin::Table row-->
+                                                <tr id="permissions_update"></tr>
 
 
                                                 <!--end::Table row-->
                                                 </tbody>
-                                                <p id="permissions_update"></p>
                                                 <!--end::Table body-->
                                             </table>
                                             <!--end::Table-->

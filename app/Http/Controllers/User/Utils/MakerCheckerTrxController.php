@@ -61,7 +61,7 @@ class MakerCheckerTrxController extends Controller
 
         MakerCheckerTrx::create([
             'mc_type' => $mc_type,
-            'trx_type' => '',
+            'trx_type' => ST_POLICY_CHANGE,
             'status' => 'pending',
             'txt_data' => json_encode($request->all()),
             'method' => $request->getMethod(),

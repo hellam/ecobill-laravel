@@ -31,13 +31,6 @@ class UserValidators
         ]);
     }
 
-    public static function makerCheckerTrxCreateValidation(Request $request)
-    {
-        return self::ValidatorMake(['txt_data'=>json_encode($request->all()),'url'=>url()->full(),'method'=>$request->getMethod()], [
-            'method' => 'unique:' . MakerCheckerTrx::class . ',method,NULL,id,url,' . url()->full().',txt_data,'.json_encode($request->all()),
-        ]);
-    }
-
     public static function rolesUpdateValidation(Request $request)
     {
         $id = Route::current()->id;

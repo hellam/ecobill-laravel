@@ -114,7 +114,7 @@ function error_api_processor(string $message = null, int $code = 200, $data = nu
     ], $code);
 }
 
-function error_web_processor(string $message = null, int $code = 200, $data = null): JsonResponse
+function error_web_processor(string $message = null, int $code = 200, $data = []): JsonResponse
 {
     return response()->json([
         'status' => false,

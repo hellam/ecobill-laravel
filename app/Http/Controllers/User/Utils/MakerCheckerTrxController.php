@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\User\Utils;
 
-use App\CentralLogics\UserValidators;
 use App\Http\Controllers\Controller;
 use App\Models\MakerCheckerTrx;
 use App\Models\User;
@@ -50,9 +49,13 @@ class MakerCheckerTrxController extends Controller
 
     public static function create(Request $request, $mc_type)
     {
-        $validator = UserValidators::makerCheckerTrxCreateValidation($request);
+        $maker_trx = MakerCheckerTrx::where([
+            'txt_data'=>json_encode($request->all()),
+            'url'=>url()->full(),
+            'method'=>$request->getMethod(),
+            ])->first();
 
-        if ($validator != '') {
+        if ($maker_trx) {
             return error_web_processor('Similar data already submitted for approval');
         }
 

@@ -33,7 +33,7 @@ class MakerCheckerTrxController extends Controller
         return (new DataTables)->eloquent($audit_trail)
             ->addIndexColumn()
             ->editColumn('trx_type', function ($row) {
-                return $row->trx_type != '' ? constant($row->trx_type) : '';
+                return constant($row->trx_type);
             })->addColumn('status', function ($row) {
                 if ($row->status == 'pending')
                     return '<div class="badge badge-light-warning">Pending Approval</div>';

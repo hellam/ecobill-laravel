@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
  * Class AuditTrail
  *
  * @property int $id
- * @property int $type
+ * @property string $type
  * @property int|null $trans_no
  * @property int|null $user
  * @property string|null $api_token
@@ -30,7 +30,6 @@ class AuditTrail extends Model
 	protected $table = 'audit_trail';
 
 	protected $casts = [
-		'type' => 'int',
 		'trans_no' => 'int',
 		'user' => 'int'
 	];

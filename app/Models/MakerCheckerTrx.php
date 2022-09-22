@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Auth;
  *
  * @property int $id
  * @property int $mc_type
- * @property int $trx_type
+ * @property string $trx_type
  * @property string $status
  * @property string|null $txt_data
  * @property string $method
@@ -37,7 +37,6 @@ class MakerCheckerTrx extends Model
 
 	protected $casts = [
 		'mc_type' => 'int',
-		'trx_type' => 'int',
 		'maker' => 'int',
 		'checker1' => 'int',
 		'checker2' => 'int'

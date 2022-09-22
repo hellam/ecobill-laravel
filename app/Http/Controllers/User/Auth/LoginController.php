@@ -110,6 +110,7 @@ class LoginController extends Controller
                         $log_msg = $msg = __('messages.msg_account_locked');
                     }
                     $user->update();
+
                     log_activity(
                         ST_LOGON_EVENT,
                         $request->getClientIp(),
@@ -117,6 +118,7 @@ class LoginController extends Controller
                         "",
                         $user->id
                     );
+
                     return redirect()->back()->withInput($request->only('email', 'remember'))
                         ->withErrors([$msg]);
                 } elseif ($user->account_locked == 1) {//account locked

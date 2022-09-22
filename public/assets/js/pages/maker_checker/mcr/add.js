@@ -20,7 +20,7 @@ const KTMakerCheckerRulesAdd = function () {
                     action: {
                         validators: {
                             notEmpty: {
-                                message: "Permission is required"
+                                message: "Action is required"
                             }
                         }
                     },

@@ -23,7 +23,7 @@ class MakerCheckerTrxController extends Controller
      */
     public function index(): Factory|View|Application
     {
-        return view('user.utils.maker_checker');
+        return view('user.utils.unsupervised_data');
     }
 
     //Data table API

@@ -12,6 +12,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
+use function App\CentralLogics\error_web_processor;
 use function App\CentralLogics\get_user_ref;
 use function App\CentralLogics\success_web_processor;
 
@@ -48,13 +49,21 @@ class MakerCheckerTrxController extends Controller
 
     public static function create(Request $request, $mc_type)
     {
+        $maker_trx = MakerCheckerTrx::where([
+            'txt_data'=>json_encode($request->all()),
+            'url'=>url()->full(),
+            'method'=>$request->getMethod(),
+            ])->first();
 
+        if ($maker_trx) {
+            return error_web_processor('Similar data already submitted for approval');
+        }
 
         MakerCheckerTrx::create([
             'mc_type' => $mc_type,
             'trx_type' => '',
             'status' => 'pending',
-            'txt_data' => json_encode(Request()->all()),
+            'txt_data' => json_encode($request->all()),
             'method' => $request->getMethod(),
             'url' => url()->full(),
             'description' => '',

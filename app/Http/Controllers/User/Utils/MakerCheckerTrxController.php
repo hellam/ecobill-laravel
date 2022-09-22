@@ -34,11 +34,6 @@ class MakerCheckerTrxController extends Controller
             ->addIndexColumn()
             ->editColumn('trx_type', function ($row) {
                 return constant($row->trx_type);
-            })->addColumn('status', function ($row) {
-                if ($row->status == 'pending')
-                    return '<div class="badge badge-light-warning">Pending Approval</div>';
-                else
-                    return '<div class="badge badge-light-danger">' . $row->status . '</div>';
             })->editColumn('maker', function ($row) {
                 return User::where('id', $row->maker)->first()->username;
             })->editColumn('created_at', function ($row) {

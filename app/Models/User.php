@@ -49,6 +49,7 @@ use Illuminate\Support\Facades\Auth;
 class User extends Authenticatable
 {
     use Notifiable;
+
     protected $table = 'users';
 
     protected $guard = 'user';
@@ -107,7 +108,7 @@ class User extends Authenticatable
 
     public static function booted()
     {
-        if (Auth::guard('user')->check()){
+        if (Auth::guard('user')->check()) {
             static::addGlobalScope(new UserTableScope());
         }
     }
@@ -116,4 +117,9 @@ class User extends Authenticatable
     {
         return explode(',', Role::where('id', $this->role_id)->first()->permissions);
     }
+
+//    public function user_branches()
+//    {
+//        return $this->belongsToMany(Branch::class, BranchUser::class, 'user_id', 'branch_id');
+//    }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\User;
+use App\Models\User as Users;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -84,4 +85,10 @@ Route::group(['as' => 'user.'], function () {
         });
 
     });
+});
+
+Route::get('/user-branches', function (){
+    return response()->json([
+        'user_details' => Users::with('user_branches')->where('id', 1)->first()
+    ]);
 });

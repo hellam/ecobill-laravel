@@ -88,12 +88,12 @@ class RolesController extends Controller
             return $validator;
         }
 
-//        $request->permissions = implode(',', $request->permissions);
-//
-//        $role = Role::find($id);
-//        $role->name = $request->name;
-//        $role->permissions = $request->permissions;
-//        $role->update();
+        $request->permissions = implode(',', $request->permissions);
+
+        $role = Role::find($id);
+        $role->name = $request->name;
+        $role->permissions = $request->permissions;
+        $role->update();
 //
         return success_web_processor(null, __('messages.msg_updated_success', ['attribute' => __('messages.role')]));
     }

@@ -40,7 +40,7 @@ class MakerCheckerRulesController extends Controller
                     "update_url" => route('user.setup.maker_checker_rules.update', [$row->id]),
                     "delete_url" => route('user.setup.maker_checker_rules.delete', [$row->id])];
             })->editColumn('maker_type', function ($row) {
-                return $row->status == 0 ? 'Single Maker Checker' : 'Double Maker Checker';
+                return $row->maker_type == 0 ? 'Single Maker Checker' : 'Double Maker Checker';
             })->editColumn('inactive', function ($row) {
                 return $row->inactive == 0 ? '<div class="badge badge-sm badge-light-success">Active</div>' : '<div class="badge badge-sm badge-light-danger">Inactive</div>';
             })->editColumn('permission_code', function ($row) {

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('trx_type',255)->nullable();
             $table->string('status',20)->default('pending');
             $table->longText('txt_data')->nullable();
-            $table->string('file_data',255)->nullable();
+            $table->string('method',10)->nullable();
             $table->string('description',255)->nullable();
             $table->string('url',255);
             $table->bigInteger('maker');

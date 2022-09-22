@@ -48,12 +48,14 @@ class MakerCheckerTrxController extends Controller
 
     public static function create(Request $request, $mc_type)
     {
+
+
         MakerCheckerTrx::create([
             'mc_type' => $mc_type,
             'trx_type' => '',
             'status' => 'pending',
             'txt_data' => json_encode(Request()->all()),
-            'file_data' => $request->getMethod(),
+            'method' => $request->getMethod(),
             'url' => url()->full(),
             'description' => '',
             'maker' => auth('user')->id(),

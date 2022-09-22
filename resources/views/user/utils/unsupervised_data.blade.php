@@ -129,7 +129,7 @@
             <div class="card-body pt-0">
                 <!--begin::Table-->
                 <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_maker_unsupervised_table"
-                       data-kt-dt_api="{{route('user.reports.audit_trail.dt_api')}}">
+                       data-kt-dt_api="{{route('user.utils.unsupervised_data.dt_api')}}">
                     <!--begin::Table head-->
                     <thead>
                     <!--begin::Table row-->
@@ -137,7 +137,9 @@
                         <th class="min-w-125px">#</th>
                         <th class="min-w-125px">{{__('messages.trx_type')}}</th>
                         <th class="min-w-125px">{{__('messages.data')}}</th>
+                        <th class="min-w-125px">{{__('messages.maker')}}</th>
                         <th class="min-w-70px">{{__('messages.date')}}</th>
+                        <th class="min-w-70px">{{__('messages.actions')}}</th>
                     </tr>
                     <!--end::Table row-->
                     </thead>

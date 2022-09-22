@@ -3,12 +3,12 @@
 // Class definition
 const KTUnsupervisedData = function () {
 // Shared variables
-    let table, dt, form;
+    let table, dt;
 
     // Private functions
     const initDatatable = function () {
-        let td = document.querySelector('#kt_maker_checker_rules_table')
-        dt = $("#kt_maker_checker_rules_table").DataTable({
+        let td = document.querySelector('#kt_maker_unsupervised_table')
+        dt = $("#kt_maker_unsupervised_table").DataTable({
             // searchDelay: 500,
             processing: true,
             serverSide: true,
@@ -17,29 +17,15 @@ const KTUnsupervisedData = function () {
                 url: td.getAttribute('data-kt-dt_api'),
             },
             columns: [
-                {data: 'DT_RowIndex', name: 'id'},
-                {data: 'maker_type'},
-                {data: 'permission_code'},
-                {data: 'created_by'},
-                {data: 'status', name: 'inactive'},
+                {data: 'DT_RowIndex'},
+                {data: 'trx_type'},
+                {data: 'txt_data'},
+                {data: 'maker'},
                 {data: 'created_at'},
                 {data: 'actions'},
             ],
             columnDefs: [
                 {
-                    targets: 0,
-                    orderable: false,
-                    render: function (data, type, row) {
-                        var response = row.id;
-                        return `
-                            <div>
-                                <p>${response.id}</p>
-                                <input type="hidden" class="edit_url" value="${response.edit_url}" />
-                                <input type="hidden" class="update_url" value="${response.update_url}" />
-                                <input type="hidden" class="delete_url" value="${response.delete_url}" />
-                            </div>`;
-                    }
-                }, {
                     targets: -1,
                     data: 'action',
                     orderable: false,
@@ -79,12 +65,6 @@ const KTUnsupervisedData = function () {
                             <!--end::Menu-->
                         `;
                     },
-                }, {
-                    targets: -3,
-                    orderable: true,
-                    render: function (data, type, row) {
-                        return decodeHtml(row.inactive);
-                    }
                 }
             ],
             // Add data-filter attribute

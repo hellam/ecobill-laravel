@@ -458,7 +458,7 @@
 @stop
 
 @push('custom_scripts')
-    <script src="{{ asset('assets/js/pages/maker_checker/mcr/list.js') }}"></script>
-    <script src="{{ asset('assets/js/pages/maker_checker/mcr/add.js') }}"></script>
-    <script src="{{ asset('assets/js/pages/maker_checker/mcr/update.js') }}"></script>
+    <script src="{{ asset('assets/js/pages/maker_checker/list.js') }}"></script>
+    <script src="{{ asset('assets/js/pages/maker_checker/add.js') }}"></script>
+    <script src="{{ asset('assets/js/pages/maker_checker/update.js') }}"></script>
 @endpush

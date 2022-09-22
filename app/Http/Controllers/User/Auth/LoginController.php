@@ -69,7 +69,7 @@ class LoginController extends Controller
             Toastr::success(trans('messages.msg_login_success'), trans('messages.welcome') . '!', ["positionClass" => "toast-top-right"]);
             //log success login action
             log_activity(
-                AUD_LOGON_EVENT,
+                ST_LOGON_EVENT,
                 $request->getClientIp(),
                 trans('messages.msg_login_success'),
                 "",
@@ -111,7 +111,7 @@ class LoginController extends Controller
                     }
                     $user->update();
                     log_activity(
-                        AUD_LOGON_EVENT,
+                        ST_LOGON_EVENT,
                         $request->getClientIp(),
                         $log_msg,
                         "",
@@ -139,7 +139,7 @@ class LoginController extends Controller
     public function logout(Request $request): RedirectResponse
     {
         log_activity(
-            AUD_LOGON_EVENT,
+            ST_LOGON_EVENT,
             $request->getClientIp(),
             trans('messages.msg_logout_success'),
             "",
@@ -193,7 +193,7 @@ class LoginController extends Controller
         ]);
 
         log_activity(
-            AUD_ACCOUNT_MANAGEMENT,
+            ST_ACCOUNT_MANAGEMENT,
             $request->getClientIp(),
             trans('messages.msg_password_updated'),
             "",

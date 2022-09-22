@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('audit_trail', function (Blueprint $table) {
             $table->bigInteger('id', true);
-            $table->bigInteger('type');
+            $table->string('type',255);
             $table->bigInteger('trans_no')->nullable();
             $table->bigInteger('user')->nullable()->default(0);
             $table->text('api_token')->nullable()->comment('API Key or Session ID');

@@ -29,7 +29,7 @@ class AuditTrailController extends Controller
         return (new DataTables)->eloquent($audit_trail)
             ->addIndexColumn('id')
             ->editColumn('type', function ($row) {
-                return constant('AUD_' . $row->type);
+                return $row->type != '' ? constant($row->type) : '';
             })->addColumn('request_type', function ($row) {
                 return $row->api_token == null ? 'Web' : 'API';
             })->editColumn('user', function ($row) {
@@ -44,10 +44,10 @@ class AuditTrailController extends Controller
                     $query->where('api_token', '!=', null);
             })->filterColumn('from', function ($query, $keyword) {
                 $from = Carbon::parse($keyword)->format('d-m-Y');
-                $query->whereDate('created_at','>=', $from);
+                $query->whereDate('created_at', '>=', $from);
             })->filterColumn('to', function ($query, $keyword) {
-                $to= Carbon::parse($keyword)->format('d-m-Y');
-                $query->whereDate('created_at','<=', $to);
+                $to = Carbon::parse($keyword)->format('d-m-Y');
+                $query->whereDate('created_at', '<=', $to);
             })
             ->make(true);
     }

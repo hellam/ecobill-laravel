@@ -2,10 +2,8 @@
 
 // Class definition
 const KTMakerCheckerRulesServerSide = function () {
-    // Shared variables
-    let table;
-    let dt;
-    let form, closeButton, cancelButton, modal, submitButton;
+// Shared variables
+    let table, dt, form;
 
     // Private functions
     const initDatatable = function () {
@@ -45,6 +43,7 @@ const KTMakerCheckerRulesServerSide = function () {
                     targets: -1,
                     data: 'action',
                     orderable: false,
+                    searchable: false,
                     className: 'text-end',
                     render: function (data, type, row) {
                         return `
@@ -104,95 +103,8 @@ const KTMakerCheckerRulesServerSide = function () {
         });
     };
 
-    //Edit Button
-    const handleUpdateRows = function () {
-        // Select all delete buttons
-        const editButtons = document.querySelectorAll('[data-kt-rule-table-actions="edit_row"]');
-
-        // Make the DIV element draggable:
-        const element = document.querySelector('#kt_modal_update_rule');
-        dragElement(element);
-        editButtons.forEach(d => {
-            // edit button on click
-            d.addEventListener('click', function (e) {
-                e.preventDefault();
-
-                $('#kt_modal_update_rule_form').hide();//hide form
-                $('.loader_container').show();//show loader
-                $("#kt_modal_update_rule").modal('show');//show modal
-                // Select parent row
-                const parent = e.target.closest('tr');
-
-                // Get rule name
-                const update_url = parent.querySelector("input[class='update_url']").value;
-                const edit_url = parent.querySelector("input[class='edit_url']").value;
-                form.setAttribute("data-kt-action", update_url);
-
-                $.ajax({
-                    type: 'GET',
-                    url: edit_url,
-                    success: function (json) {
-                        var response = JSON.parse(JSON.stringify(json));
-                        if (response.status !== true) {
-                            Swal.fire({
-                                text: response.message,
-                                icon: "error",
-                                buttonsStyling: false,
-                                confirmButtonText: "Ok!",
-                                customClass: {
-                                    confirmButton: "btn btn-primary"
-                                }
-                            });
-
-                        } else {
-
-                            $('#kt_modal_update_rule_form').show({backdrop: 'static', keyboard: false});//show form
-                            const rule = response.data;
-
-                            $("#kt_modal_update_rule_form select[name='action']").val(rule.permission_code).trigger('change');
-                            $("#kt_modal_update_rule_form").find('input[value="' + rule.maker_type + '"]').prop('checked', true);
-                            $("#kt_modal_update_rule_form input[name='inactive']").val(rule.inactive);
-                            if (rule.inactive === 0) {
-                                $("#kt_modal_update_rule_form input[id='inactive']").prop("checked", true);
-                            } else {
-                                $("#kt_modal_update_rule_form input[id='inactive']").prop("checked", false)
-                            }
-
-                            //active/inactive
-                            $("#kt_modal_update_rule_form input[id='inactive']").on('change', function () {
-                                if ($(this).is(':checked'))
-                                    $("#kt_modal_update_rule_form input[name='inactive']").val(0)
-                                else {
-                                    $("#kt_modal_update_rule_form input[name='inactive']").val(1)
-                                }
-                            })
-                        }
-
-                        $('.loader_container').hide();//hide loader
-
-                    },
-                    error: function (xhr, desc, err) {
-                        Swal.fire({
-                            text: 'A network error occured. Please consult your network administrator.',
-                            icon: "error",
-                            buttonsStyling: false,
-                            confirmButtonText: "Ok!",
-                            customClass: {
-                                confirmButton: "btn btn-primary"
-                            }
-                        });
-
-                    }
-                });
-
-
-            })
-        });
-
-    };
-
-    // Delete customer
-    var handleDeleteRows = () => {
+    // Delete Rule
+    const handleDeleteRows = () => {
         // Select all delete buttons
         const deleteButtons = document.querySelectorAll('[data-kt-rule-table-actions="delete_row"]');
 
@@ -290,55 +202,131 @@ const KTMakerCheckerRulesServerSide = function () {
                 });
             })
         });
+    };
+
+    //Edit Button
+    const handleUpdateRows = function () {
+        // Select all delete buttons
+        const editButtons = document.querySelectorAll('[data-kt-rule-table-actions="edit_row"]');
+
+        // Make the DIV element draggable:
+        const element = document.querySelector('#kt_modal_update_rule');
+        dragElement(element);
+        editButtons.forEach(d => {
+            // edit button on click
+            d.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                $('#kt_modal_update_rule_form').hide();//hide form
+                $('.loader_container').show();//show loader
+                $("#kt_modal_update_rule").modal('show');//show modal
+                // Select parent row
+                const parent = e.target.closest('tr');
+
+                // Get rule name
+                const update_url = parent.querySelector("input[class='update_url']").value;
+                const edit_url = parent.querySelector("input[class='edit_url']").value;
+                form.setAttribute("data-kt-action", update_url);
+
+                $.ajax({
+                    type: 'GET',
+                    url: edit_url,
+                    success: function (json) {
+                        var response = JSON.parse(JSON.stringify(json));
+                        if (response.status !== true) {
+                            Swal.fire({
+                                text: response.message,
+                                icon: "error",
+                                buttonsStyling: false,
+                                confirmButtonText: "Ok!",
+                                customClass: {
+                                    confirmButton: "btn btn-primary"
+                                }
+                            });
+
+                        } else {
+
+                            $('#kt_modal_update_rule_form').show({backdrop: 'static', keyboard: false});//show form
+                            const rule = response.data;
+
+                            $("#kt_modal_update_rule_form select[name='action']").val(rule.permission_code).trigger('change');
+                            $("#kt_modal_update_rule_form").find('input[value="' + rule.maker_type + '"]').prop('checked', true);
+                            $("#kt_modal_update_rule_form input[name='inactive']").val(rule.inactive);
+                            if (rule.inactive === 0) {
+                                $("#kt_modal_update_rule_form input[id='inactive']").prop("checked", true);
+                            } else {
+                                $("#kt_modal_update_rule_form input[id='inactive']").prop("checked", false)
+                            }
+
+                            //active/inactive
+                            $("#kt_modal_update_rule_form input[id='inactive']").on('change', function () {
+                                if ($(this).is(':checked'))
+                                    $("#kt_modal_update_rule_form input[name='inactive']").val(0)
+                                else {
+                                    $("#kt_modal_update_rule_form input[name='inactive']").val(1)
+                                }
+                            })
+                        }
+
+                        $('.loader_container').hide();//hide loader
+
+                    },
+                    error: function (xhr, desc, err) {
+                        Swal.fire({
+                            text: 'A network error occured. Please consult your network administrator.',
+                            icon: "error",
+                            buttonsStyling: false,
+                            confirmButtonText: "Ok!",
+                            customClass: {
+                                confirmButton: "btn btn-primary"
+                            }
+                        });
+
+                    }
+                });
+
+
+            })
+        });
+
+    };
+
+    //handleFilter
+    const handleFilter = function () {
+        let start, end = '';
+        const rangeInput = '#kt_date_range_picker';
+
+        $(rangeInput).daterangepicker({
+            startDate: moment(),
+            endDate: moment(),
+            autoUpdateInput: false,
+            ranges: {
+                "Today": [moment(), moment()],
+                "Yesterday": [moment().subtract(1, "days"), moment().subtract(1, "days")],
+                "Last 7 Days": [moment().subtract(6, "days"), moment()],
+                "Last 30 Days": [moment().subtract(29, "days"), moment()],
+                "This Month": [moment().startOf("month"), moment().endOf("month")],
+                "Last Month": [moment().subtract(1, "month").startOf("month"), moment().subtract(1, "month").endOf("month")]
+            }
+        });
+
+        $(rangeInput).on('apply.daterangepicker', function (ev, picker) {
+            start = picker.startDate.format('YYYY-MM-DD');
+            end = picker.endDate.format('YYYY-MM-DD')
+            $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+        });
+
+        // $(rangeInput).on('cancel.daterangepicker', function(ev, picker) {
+        //     $(this).val('');
+        // });
+        let filterButton = document.querySelector('#kt_filter_btn');
+
+        filterButton.addEventListener('click', function () {
+            dt.search(start, end, "ibrah").draw();
+        });
+
+
     }
-
-    // const start = moment();
-    // const end = moment();
-    //
-    // function cb(start, end) {
-    //     $("#kt_date_range_picker").html(start.format("MMMM D, YYYY") + " - " + end.format("MMMM D, YYYY"));
-    // }
-    //
-    // $("#kt_date_range_picker").daterangepicker({
-    //     startDate: start,
-    //     endDate: end,
-    //     ranges: {
-    //         "Today": [moment(), moment()],
-    //         "Yesterday": [moment().subtract(1, "days"), moment().subtract(1, "days")],
-    //         "Last 7 Days": [moment().subtract(6, "days"), moment()],
-    //         "Last 30 Days": [moment().subtract(29, "days"), moment()],
-    //         "This Month": [moment().startOf("month"), moment().endOf("month")],
-    //         "Last Month": [moment().subtract(1, "month").startOf("month"), moment().subtract(1, "month").endOf("month")]
-    //     }
-    // }, cb);
-
-    // Filter Datatable
-    // var handleFilterDatatable = () => {
-    //     // Select filter options
-    //     filterPayment = document.querySelectorAll('[data-kt-tax-table-filter="payment_type"] [name="payment_type"]');
-    //     const filterButton = document.querySelector('[data-kt-tax-table-filter="filter"]');
-    //
-    //     // Filter datatable on submit
-    //     filterButton.addEventListener('click', function () {
-    //         // Get filter values
-    //         let paymentValue = '';
-    //
-    //         // Get payment value
-    //         filterPayment.forEach(r => {
-    //             if (r.checked) {
-    //                 paymentValue = r.value;
-    //             }
-    //
-    //             // Reset payment value if "All" is selected
-    //             if (paymentValue === 'all') {
-    //                 paymentValue = '';
-    //             }
-    //         });
-    //
-    //         // Filter datatable --- official docs reference: https://datatables.net/reference/api/search()
-    //         dt.search(paymentValue).draw();
-    //     });
-    // }
 
     // Public methods
     return {
@@ -351,6 +339,7 @@ const KTMakerCheckerRulesServerSide = function () {
                 dt.search('').draw();
                 handleUpdateRows();
                 handleDeleteRows();
+                handleFilter();
             }
         }
     }

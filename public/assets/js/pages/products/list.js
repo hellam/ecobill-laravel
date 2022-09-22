@@ -1,7 +1,7 @@
 "use strict";
 
 // Class definition
-var MUBDatatablesServerSide = function () {
+const MUBDatatablesServerSide = function () {
     // Shared variables
     var table;
     var dt;
@@ -9,7 +9,7 @@ var MUBDatatablesServerSide = function () {
     var form;
 
     // Private functions
-    var initDatatable = function () {
+    const initDatatable = function () {
         let td = document.querySelector('#kt_products_table')
         dt = $("#kt_products_table").DataTable({
             searchDelay: 500,
@@ -110,9 +110,10 @@ var MUBDatatablesServerSide = function () {
             toggleToolbars();
             handleDeleteRows();
             handleUpdateRows();
+            handleFilter();
             KTMenu.createInstances();
         });
-    }
+    };
 
     // Search Datatable --- official docs reference: https://datatables.net/reference/api/search()
     var handleSearchDatatable = function () {

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User\Setup;
 use App\Http\Controllers\Controller;
 use App\Models\MakerCheckerRule;
 use App\Models\Permission;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -27,7 +28,8 @@ class MakerCheckerRulesController extends Controller
     {
         $maker_checker_rules_count = MakerCheckerRule::count();
         $permissions = Permission::all();
-        return view('user.setup.maker_checker_rules', compact('maker_checker_rules_count', 'permissions'));
+        $users = User::all();
+        return view('user.setup.maker_checker_rules', compact('maker_checker_rules_count', 'permissions', 'users'));
     }
 
     //Data table API

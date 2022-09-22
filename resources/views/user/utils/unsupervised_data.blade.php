@@ -1,10 +1,10 @@
 @extends('layout.user.app')
-@section('title', 'Maker Checker')
+@section('title', 'Unsupervised Data')
 @section('page_title')
     <!--begin::Page title-->
     <div class="page-title d-flex justify-content-center flex-column me-5">
         <!--begin::Title-->
-        <h1 class="d-flex flex-column text-dark fw-bold fs-3 mb-0">{{__('messages.maker_checker_rules')}}</h1>
+        <h1 class="d-flex flex-column text-dark fw-bold fs-3 mb-0">{{__('messages.unsupervised_data')}}</h1>
         <!--end::Title-->
         <!--begin::Breadcrumb-->
         <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 pt-1">
@@ -19,7 +19,7 @@
             </li>
             <!--end::Item-->
             <!--begin::Item-->
-            <li class="breadcrumb-item text-muted">{{__('messages.setup')}}</li>
+            <li class="breadcrumb-item text-muted">{{__('messages.utils')}}</li>
             <!--end::Item-->
             <!--begin::Item-->
             <li class="breadcrumb-item">
@@ -27,7 +27,7 @@
             </li>
             <!--end::Item-->
             <!--begin::Item-->
-            <li class="breadcrumb-item text-dark">{{__('messages.maker_checker_rules')}}</li>
+            <li class="breadcrumb-item text-dark">{{__('messages.unsupervised_data')}}</li>
             <!--end::Item-->
         </ul>
         <!--end::Breadcrumb-->
@@ -43,7 +43,7 @@
             <div class="page-title d-flex flex-column py-1">
                 <!--begin::Title-->
                 <h1 class="d-flex align-items-center my-1">
-                    <span class="text-dark fw-bolder fs-1">{{__('messages.maker_checker_rules')}}</span>
+                    <span class="text-dark fw-bolder fs-1">{{__('messages.unsupervised_data')}}</span>
                 </h1>
                 <!--end::Title-->
             </div>
@@ -69,16 +69,16 @@
                     <div class="d-flex align-items-center position-relative my-1">
                         <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
                         <span class="svg-icon svg-icon-1 position-absolute ms-6">
-													<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                         viewBox="0 0 24 24" fill="none">
-														<rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546"
-                                                              height="2" rx="1" transform="rotate(45 17.0365 15.1223)"
-                                                              fill="currentColor"/>
-														<path
-                                                            d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
-                                                            fill="currentColor"/>
-													</svg>
-												</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                 viewBox="0 0 24 24" fill="none">
+                                <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546"
+                                      height="2" rx="1" transform="rotate(45 17.0365 15.1223)"
+                                      fill="currentColor"/>
+                                <path
+                                    d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
+                                    fill="currentColor"/>
+                            </svg>
+                        </span>
                         <!--end::Svg Icon-->
                         <input type="text" data-kt-audit-trail-table-filter="search"
                                class="form-control form-control-solid w-250px ps-15"
@@ -136,10 +136,8 @@
                     <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
                         <th class="min-w-125px">#</th>
                         <th class="min-w-125px">{{__('messages.trx_type')}}</th>
-                        <th class="min-w-125px">{{__('messages.user')}}</th>
-                        <th class="min-w-125px">{{__('messages.request_type')}}</th>
+                        <th class="min-w-125px">{{__('messages.data')}}</th>
                         <th class="min-w-70px">{{__('messages.date')}}</th>
-                        <th class="min-w-70px">{{__('messages.narration')}}</th>
                     </tr>
                     <!--end::Table row-->
                     </thead>
@@ -156,3 +154,7 @@
     </div>
     <!--end::Container-->
 @stop
+
+@push('custom_scripts')
+    <script src="{{ asset('assets/js/pages/unsupervised/list.js') }}"></script>
+@endpush

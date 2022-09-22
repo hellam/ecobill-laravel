@@ -74,8 +74,10 @@ Route::group(['as' => 'user.'], function () {
                 Route::put('update/{id}', 'update')->name('update')->middleware('permission:7051')->whereNumber('id');
                 Route::delete('delete/{id}', 'destroy')->name('delete')->middleware('permission:7052')->whereNumber('id');
             });
+        });
 
-            Route::controller(User\Utils\MakerCheckerTrxController::class)->prefix('maker-checker')->as('maker_checker.')->group(function () {
+        Route::group(['prefix' => 'utils', 'as' => 'utils.'], function () {
+            Route::controller(User\Utils\MakerCheckerTrxController::class)->prefix('unsupervised-data')->as('unsupervised_data.')->group(function () {
                 Route::get('/', 'index')->name('all')->middleware('permission:706');
                 Route::get('/dt_api', 'dt_api')->name('dt_api')->middleware('permission:706');
             });

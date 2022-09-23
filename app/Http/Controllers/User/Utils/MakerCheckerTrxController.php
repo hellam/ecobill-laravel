@@ -41,7 +41,7 @@ class MakerCheckerTrxController extends Controller
             })->make(true);
     }
 
-    public static function create(Request $request, $mc_type)
+    public static function create(Request $request, $mc_type,$module =null)
     {
         $maker_trx = MakerCheckerTrx::where([
             'txt_data'=>json_encode($request->all()),
@@ -59,6 +59,7 @@ class MakerCheckerTrxController extends Controller
             'status' => 'pending',
             'txt_data' => json_encode($request->except(['remarks'])),
             'method' => $request->getMethod(),
+            'module' => $module,
             'url' => url()->full(),
             'description' => $request->remarks,
             'maker' => auth('user')->id(),

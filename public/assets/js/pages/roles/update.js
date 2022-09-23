@@ -329,7 +329,7 @@ var KTUsersUpdatePermissions = function () {
             })
         });
 
-        function submitData(deleteURL, roleName, data=null) {
+        function submitData(deleteURL, roleName) {
             Swal.fire({
                 text: "Deleting " + roleName,
                 icon: "info",
@@ -370,14 +370,13 @@ var KTUsersUpdatePermissions = function () {
                             window.location.reload();
                         });
                     }
-
                 },
                 statusCode: {
                     203: function () {
                         Swal.fire({
                             text: "Please provide remarks",
                             icon: "info",
-                            input: 'text',
+                            input: 'textarea',
                             inputAttributes: {
                                 autocapitalize: 'off'
                             },
@@ -396,7 +395,7 @@ var KTUsersUpdatePermissions = function () {
                             if (result.isConfirmed) {
                                 //data.add('remarks', result.value);
                                 // alert(result.value)
-                                submitData(deleteURL, roleName, data=null)
+                                submitData(deleteURL + "?remarks=" + result.value, roleName)
                             }
                         });
                     }
@@ -414,7 +413,6 @@ var KTUsersUpdatePermissions = function () {
                 }
             });
         }
-
     }
 
     return {

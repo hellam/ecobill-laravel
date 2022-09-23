@@ -67,7 +67,7 @@
                             <!--begin::Select2-->
                             <select class="form-select form-select-solid"
                                     data-kt-select2="true"
-                                    data-placeholder="Select Activity"
+                                    data-placeholder="Select Event"
                                     data-kt-ecommerce-product-filter="status">
                                 <option></option>
                                 @foreach($permissions as $permission)
@@ -120,7 +120,7 @@
                         <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
                             <th class="min-w-50px">#</th>
                             <th class="min-w-125px">{{__('messages.type')}}</th>
-                            <th class="min-w-125px">{{__('messages.activity')}}</th>
+                            <th class="min-w-125px">{{__('messages.event')}}</th>
                             <th class="min-w-125px">{{__('messages.created_by')}}</th>
                             <th class="min-w-60px">{{__('messages.status')}}</th>
                             <th class="min-w-70px">{{__('messages.date')}}</th>

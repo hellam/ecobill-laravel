@@ -26,7 +26,7 @@ class MakerCheckerRulesController extends Controller
     public function index(): Factory|View|Application
     {
         $maker_checker_rules_count = MakerCheckerRule::count();
-        $permissions = Permission::all();
+        $permissions = Permission::where('requires_maker_checker', true)->get();
         $users = User::all();
         return view('user.setup.maker_checker_rules', compact('maker_checker_rules_count', 'permissions', 'users'));
     }

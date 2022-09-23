@@ -38,8 +38,7 @@ class MakerCheckerTrxController extends Controller
                 return User::where('id', $row->maker)->first()->username;
             })->editColumn('created_at', function ($row) {
                 return Carbon::parse($row->created_at)->format('Y/m/d H:i:s');
-            })
-            ->make(true);
+            })->make(true);
     }
 
     public static function create(Request $request, $mc_type)
@@ -51,21 +50,21 @@ class MakerCheckerTrxController extends Controller
             ])->first();
 
         if ($maker_trx) {
-            return error_web_processor('Similar data already submitted for approval');
+            return error_web_processor(__('messages.msg_similar_data_exists'));
         }
 
         MakerCheckerTrx::create([
             'mc_type' => $mc_type,
             'trx_type' => ST_POLICY_CHANGE,
             'status' => 'pending',
-            'txt_data' => json_encode($request->all()),
+            'txt_data' => json_encode($request->except(['remarks'])),
             'method' => $request->getMethod(),
             'url' => url()->full(),
-            'description' => '',
+            'description' => $request->remarks,
             'maker' => auth('user')->id(),
             'client_ref' => get_user_ref()
         ]);
 
-        return success_web_processor(null, "Data forwarded successfully for Approval");
+        return success_web_processor(null, __('messages.msg_data_submitted_4_supervision'));
     }
 }

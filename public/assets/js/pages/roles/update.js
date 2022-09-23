@@ -313,60 +313,7 @@ var KTUsersUpdatePermissions = function () {
                     }
                 }).then(function (result) {
                     if (result.value) {
-                        Swal.fire({
-                            text: "Deleting " + roleName,
-                            icon: "info",
-                            allowOutsideClick: false,
-                            buttonsStyling: false,
-                            showConfirmButton: false,
-                        })
-                        $.ajax({
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            },
-                            type: 'DELETE',
-                            url: deleteURL,
-                            success: function (json) {
-                                var response = JSON.parse(JSON.stringify(json));
-                                if (response.status !== true) {
-                                    Swal.fire({
-                                        text: response.message,
-                                        icon: "error",
-                                        buttonsStyling: false,
-                                        confirmButtonText: "Ok!",
-                                        customClass: {
-                                            confirmButton: "btn btn-primary"
-                                        }
-                                    });
-
-                                } else {
-                                    Swal.fire({
-                                        text: response.message,
-                                        icon: "success",
-                                        buttonsStyling: false,
-                                        confirmButtonText: "Ok, got it!",
-                                        customClass: {
-                                            confirmButton: "btn fw-bold btn-primary",
-                                        }
-                                    }).then(function () {
-                                        // delete row data from server and re-draw datatable
-                                        window.location.reload();
-                                    });
-                                }
-
-                            },
-                            error: function (xhr, desc, err) {
-                                Swal.fire({
-                                    text: 'A network error occured. Please consult your network administrator.',
-                                    icon: "error",
-                                    buttonsStyling: false,
-                                    confirmButtonText: "Ok!",
-                                    customClass: {
-                                        confirmButton: "btn btn-primary"
-                                    }
-                                });
-                            }
-                        });
+                        submitData(deleteURL, roleName)
                     } else if (result.dismiss === 'cancel') {
                         Swal.fire({
                             text: roleName + " was not deleted.",
@@ -381,6 +328,92 @@ var KTUsersUpdatePermissions = function () {
                 });
             })
         });
+
+        function submitData(deleteURL, roleName, data=null) {
+            Swal.fire({
+                text: "Deleting " + roleName,
+                icon: "info",
+                allowOutsideClick: false,
+                buttonsStyling: false,
+                showConfirmButton: false,
+            })
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: 'DELETE',
+                url: deleteURL,
+                success: function (json) {
+                    var response = JSON.parse(JSON.stringify(json));
+                    if (response.status !== true) {
+                        Swal.fire({
+                            text: response.message,
+                            icon: "error",
+                            buttonsStyling: false,
+                            confirmButtonText: "Ok!",
+                            customClass: {
+                                confirmButton: "btn btn-primary"
+                            }
+                        });
+
+                    } else {
+                        Swal.fire({
+                            text: response.message,
+                            icon: "success",
+                            buttonsStyling: false,
+                            confirmButtonText: "Ok, got it!",
+                            customClass: {
+                                confirmButton: "btn fw-bold btn-primary",
+                            }
+                        }).then(function () {
+                            // delete row data from server and re-draw datatable
+                            window.location.reload();
+                        });
+                    }
+
+                },
+                statusCode: {
+                    203: function () {
+                        Swal.fire({
+                            text: "Please provide remarks",
+                            icon: "info",
+                            input: 'text',
+                            inputAttributes: {
+                                autocapitalize: 'off'
+                            },
+                            allowOutsideClick: false,
+                            showCancelButton: true,
+                            buttonsStyling: false,
+                            confirmButtonText: "Submit",
+                            cancelButtonText: "Cancel",
+                            showLoaderOnConfirm: true,
+                            customClass: {
+                                confirmButton: "btn fw-bold btn-danger",
+                                cancelButton: "btn fw-bold btn-active-light-primary"
+                            }
+                        }).then(function (result) {
+                            // delete row data from server and re-draw datatable
+                            if (result.isConfirmed) {
+                                //data.add('remarks', result.value);
+                                // alert(result.value)
+                                submitData(deleteURL, roleName, data=null)
+                            }
+                        });
+                    }
+                },
+                error: function (xhr, desc, err) {
+                    Swal.fire({
+                        text: 'A network error occured. Please consult your network administrator.',
+                        icon: "error",
+                        buttonsStyling: false,
+                        confirmButtonText: "Ok!",
+                        customClass: {
+                            confirmButton: "btn btn-primary"
+                        }
+                    });
+                }
+            });
+        }
 
     }
 

@@ -29,7 +29,8 @@ class MakerCheckerTrxController extends Controller
     //Data table API
     public function dt_api(Request $request): JsonResponse
     {
-        $audit_trail = MakerCheckerTrx::where('maker','!=',auth('user')->id())->orderBy('created_at', 'desc');
+        $audit_trail = MakerCheckerTrx::orderBy('created_at', 'desc');
+        //TODO: where('maker','!=',auth('user')->id())->
         return (new DataTables)->eloquent($audit_trail)
             ->addIndexColumn()
             ->editColumn('method', function ($row) {

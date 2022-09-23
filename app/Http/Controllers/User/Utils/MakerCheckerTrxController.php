@@ -46,7 +46,8 @@ class MakerCheckerTrxController extends Controller
                     return 'Delete';
                 return '';
             })->editColumn('trx_type', function ($row) {
-                return $row->trx_type == '' ? '' : constant($row->trx_type);
+                return ["trx_type" => $row->trx_type == '' ? '' : constant($row->trx_type),
+                    "html_data" => "Test HTML Data"];
             })
             ->editColumn('maker', function ($row) {
                 return User::where('id', $row->maker)->first()->username;
@@ -55,7 +56,7 @@ class MakerCheckerTrxController extends Controller
             })->make(true);
     }
 
-    public static function create(Request $request, $mc_type, $module,$trx_type)
+    public static function create(Request $request, $mc_type, $module, $trx_type)
     {
         $maker_trx = MakerCheckerTrx::where([
             'txt_data' => json_encode($request->all()),

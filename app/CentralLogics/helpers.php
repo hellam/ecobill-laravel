@@ -7,11 +7,13 @@ use App\Models\MakerCheckerRule;
 use App\Models\PasswordHistory;
 use App\Models\SecurityConfig;
 use App\Rules\PasswordHistoryRule;
+use Illuminate\Http\Request;
 use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Validation\Rules\Password;
 
 function generateUniqueId($userId): string
@@ -262,8 +264,40 @@ function checkif_has_any_permission($start, $end)
     return count($result) > 0;
 }
 
-function decode_form_data($txt_data, $trx_type)
+function decode_form_data($data, $trx_type, $method)
 {
-    return $txt_data;
+    if ($method == 'DELETE') {
+        $id = $data['parameters']['id'];
+        $edit_route = str_replace('delete', 'edit', $data['route']);
+        $request = Request::create(route($edit_route, ['id' => $id]), 'GET', [
+//            'name'=>Input::get('email'),
+//            'password'=>Input::get('password')
+        ]);
+
+        $response = app()->handle($request);
+        $data = json_decode($response->getContent(), true)['data'];
+
+        $output = '<style>
+           table,th,td,tr {
+                border-top: 1px solid black;;
+                border-collapse: collapse;
+            }
+        </style>';
+        $output .= '<table>';
+        $output .= '<tr>';
+        $output .= '<th>Fields</th>';
+        $output .= '<th>Data</th>';
+        $output .= '</tr>';
+        foreach ($data as $key => $value) {
+            $output .= '<tr>';
+            $output .= '<td>' . $key . '</td>';
+            $output .= '<td>' . json_encode($value) . '</td>';
+            $output .= '</tr>';
+        }
+        $output .= '</table>';
+
+        return $output;
+    }
+    return $data;
 
 }

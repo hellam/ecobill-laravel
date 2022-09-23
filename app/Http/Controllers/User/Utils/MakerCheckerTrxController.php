@@ -48,7 +48,7 @@ class MakerCheckerTrxController extends Controller
                 return 'UNKNOWN';
             })->editColumn('trx_type', function ($row) {
                 return ["trx_type" => $row->trx_type == '' ? '' : constant($row->trx_type),
-                    "html_data" => decode_form_data($row->txt_data,$row->trx_type)];
+                    "html_data" => decode_form_data(json_decode($row->txt_data, true),$row->trx_type,$row->method)];
             })->editColumn('maker', function ($row) {
                 return User::where('id', $row->maker)->first()->username;
             })->editColumn('created_at', function ($row) {
@@ -58,13 +58,16 @@ class MakerCheckerTrxController extends Controller
 
     public static function create(Request $request, $mc_type, $module, $trx_type)
     {
+
+        $r_body['inputs'] = $request->except('remarks');
+        $r_body['parameters'] = $request->route()->parameters();
+        $r_body['route'] = $request->route()->getName();
+
         $maker_trx = MakerCheckerTrx::where([
-            'txt_data' => json_encode($request->all()),
-            'url' => url()->full(),
+            'txt_data' => json_encode($r_body),
+            'url' => $request->path(),
             'method' => $request->getMethod(),
         ])->first();
-
-        $r_body = serialize($request->headers->all());
 
         if ($maker_trx) {
             return error_web_processor(__('messages.msg_similar_data_exists'));
@@ -74,10 +77,10 @@ class MakerCheckerTrxController extends Controller
             'mc_type' => $mc_type,
             'trx_type' => $trx_type,
             'status' => 'pending',
-            'txt_data' => $r_body,
+            'txt_data' => json_encode($r_body),
             'method' => $request->getMethod(),
             'module' => $module,
-            'url' => url()->full(),
+            'url' => $request->path(),
             'description' => $request->remarks,
             'maker' => auth('user')->id(),
             'client_ref' => get_user_ref()

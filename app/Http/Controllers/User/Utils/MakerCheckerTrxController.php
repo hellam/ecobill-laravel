@@ -32,22 +32,28 @@ class MakerCheckerTrxController extends Controller
         $audit_trail = MakerCheckerTrx::orderBy('created_at', 'desc');
         return (new DataTables)->eloquent($audit_trail)
             ->addIndexColumn()
-            ->editColumn('trx_type', function ($row) {
-                return constant($row->trx_type);
-            })->editColumn('maker', function ($row) {
+            ->editColumn('method', function ($row) {
+                if ($row->method == 'POST')
+                    return 'Create';
+                else if ($row->method == 'PUT')
+                    return 'Update';
+                else if ($row->method == 'DELETE')
+                    return 'Delete';
+            })
+            ->editColumn('maker', function ($row) {
                 return User::where('id', $row->maker)->first()->username;
             })->editColumn('created_at', function ($row) {
                 return Carbon::parse($row->created_at)->format('Y/m/d H:i:s');
             })->make(true);
     }
 
-    public static function create(Request $request, $mc_type,$module =null)
+    public static function create(Request $request, $mc_type, $module = null)
     {
         $maker_trx = MakerCheckerTrx::where([
-            'txt_data'=>json_encode($request->all()),
-            'url'=>url()->full(),
-            'method'=>$request->getMethod(),
-            ])->first();
+            'txt_data' => json_encode($request->all()),
+            'url' => url()->full(),
+            'method' => $request->getMethod(),
+        ])->first();
 
         if ($maker_trx) {
             return error_web_processor(__('messages.msg_similar_data_exists'));
@@ -55,7 +61,7 @@ class MakerCheckerTrxController extends Controller
 
         MakerCheckerTrx::create([
             'mc_type' => $mc_type,
-            'trx_type' => ST_POLICY_CHANGE,
+            'trx_type' => '',
             'status' => 'pending',
             'txt_data' => json_encode($request->except(['remarks'])),
             'method' => $request->getMethod(),

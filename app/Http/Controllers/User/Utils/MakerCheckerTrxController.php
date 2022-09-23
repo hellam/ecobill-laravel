@@ -12,6 +12,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
+use function App\CentralLogics\decode_form_data;
 use function App\CentralLogics\error_web_processor;
 use function App\CentralLogics\get_user_ref;
 use function App\CentralLogics\success_web_processor;
@@ -44,12 +45,11 @@ class MakerCheckerTrxController extends Controller
                     return 'Update';
                 else if ($row->method == 'DELETE')
                     return 'Delete';
-                return '';
+                return 'UNKNOWN';
             })->editColumn('trx_type', function ($row) {
                 return ["trx_type" => $row->trx_type == '' ? '' : constant($row->trx_type),
-                    "html_data" => "Test HTML Data"];
-            })
-            ->editColumn('maker', function ($row) {
+                    "html_data" => decode_form_data($row->txt_data,$row->trx_type)];
+            })->editColumn('maker', function ($row) {
                 return User::where('id', $row->maker)->first()->username;
             })->editColumn('created_at', function ($row) {
                 return Carbon::parse($row->created_at)->format('Y/m/d H:i:s');
@@ -64,6 +64,8 @@ class MakerCheckerTrxController extends Controller
             'method' => $request->getMethod(),
         ])->first();
 
+        $r_body = serialize($request->headers->all());
+
         if ($maker_trx) {
             return error_web_processor(__('messages.msg_similar_data_exists'));
         }
@@ -72,7 +74,7 @@ class MakerCheckerTrxController extends Controller
             'mc_type' => $mc_type,
             'trx_type' => $trx_type,
             'status' => 'pending',
-            'txt_data' => json_encode($request->except(['remarks'])),
+            'txt_data' => $r_body,
             'method' => $request->getMethod(),
             'module' => $module,
             'url' => url()->full(),

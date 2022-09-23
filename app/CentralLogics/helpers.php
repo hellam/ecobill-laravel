@@ -240,7 +240,7 @@ function is_password_expired(): bool
 function requires_maker_checker($permission_code): string|array
 {
     $maker_checker_rule = MakerCheckerRule::with('permission')
-        ->where(['permission_code'=> $permission_code,'inactive'=>0])
+        ->where(['permission_code' => $permission_code, 'inactive' => 0])
         ->first();
 
     if ($maker_checker_rule)
@@ -262,6 +262,8 @@ function checkif_has_any_permission($start, $end)
     return count($result) > 0;
 }
 
-function choose_validator(){
+function decode_form_data($txt_data, $trx_type)
+{
+    return $txt_data;
 
 }

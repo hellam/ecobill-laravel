@@ -29,6 +29,21 @@ define('ST_DELIVERY_NOTE', "ST_122");
 define('ST_QUOTATION', "ST_123");
 define('ST_CREDIT_NOTE', "ST_124");
 
+#SETUP
+define('ST_130', "Business Setup");
+define('ST_131', "Role Setup");
+define('ST_132', "Maker Checker Rule Setup");
+define('ST_133', "Tax Setup");
+define('ST_134', "API Setup");
+define('ST_135', "Security Policy Setup");
+//<-->
+define('ST_BUSINESS_SETUP', "ST_130");
+define('ST_ROLE_SETUP', "ST_131");
+define('ST_MAKER_CHECKER_RULE_SETUP', "ST_132");
+define('ST_TAX_SETUP', "ST_133");
+define('ST_API_SETUP', "ST_134");
+define('ST_SECURITY_POLICY_SETUP', "ST_135");
+
 #AUDIT
 define('ST_301', "Account Management");
 define('ST_302', "Logon Events");

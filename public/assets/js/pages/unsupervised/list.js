@@ -175,8 +175,8 @@ const KTUnsupervisedData = function () {
         const viewButtons = document.querySelectorAll('[data-kt-unsupervised-table-actions="view_row"]');
 
         // Make the DIV element draggable:
-        const element = document.querySelector('#kt_modal_unsupervised_data');
-        dragElement(element);
+        // const element = document.querySelector('#kt_modal_unsupervised_data');
+        // dragElement(element);
         viewButtons.forEach(d => {
             // edit button on click
             d.addEventListener('click', function (e) {

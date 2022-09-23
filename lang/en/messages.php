@@ -102,6 +102,7 @@ return [
     'msg_password_updated' => 'Password updated successfully',
     'msg_remarks_required' => 'Remarks required',
     'msg_similar_data_exists' => 'Similar data already submitted for Supervision',
+    'msg_trx_not_found' => 'Unsupervised transaction not found',
     'msg_updated_success' => ':attribute updated successfully',
     'msg_update_error' => 'Update Error',
     'min_length' => 'Minimum Length',

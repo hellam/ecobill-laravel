@@ -32,7 +32,8 @@
         },
         "files": [
             "app/CentralLogics/helpers.php",
-            "app/CentralLogics/AppConstants.php"
+            "app/CentralLogics/AppConstants.php",
+            "app/CentralLogics/unsupervised_data_format.php"
         ]
     },
     "autoload-dev": {

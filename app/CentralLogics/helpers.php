@@ -13,7 +13,6 @@ use DateTime;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Validation\Rules\Password;
 
 function generateUniqueId($userId): string
@@ -275,28 +274,12 @@ function decode_form_data($data, $trx_type, $method)
         ]);
 
         $response = app()->handle($request);
-        $data = json_decode($response->getContent(), true)['data'];
+        $response_data = json_decode($response->getContent(), true)['data'];
 
-        $output = '<style>
-           table,th,td,tr {
-                border-top: 1px solid black;;
-                border-collapse: collapse;
-            }
-        </style>';
-        $output .= '<table>';
-        $output .= '<tr>';
-        $output .= '<th>Fields</th>';
-        $output .= '<th>Data</th>';
-        $output .= '</tr>';
-        foreach ($data as $key => $value) {
-            $output .= '<tr>';
-            $output .= '<td>' . $key . '</td>';
-            $output .= '<td>' . json_encode($value) . '</td>';
-            $output .= '</tr>';
-        }
-        $output .= '</table>';
+        return format_delete_data($response_data, $data['route']);
+    } elseif ($method == 'POST') {
 
-        return $output;
+        return format_post_data($data['inputs'], $data['route']);
     }
     return $data;
 

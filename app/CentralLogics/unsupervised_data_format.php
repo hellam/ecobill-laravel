@@ -1,5 +1,6 @@
 <?php
-function format_delete_data($data, $route)
+namespace App\CentralLogics;
+function format_delete_data($data, $route): string
 {
     switch ($route) {
         case 'user.setup.roles.delete':
@@ -33,7 +34,7 @@ function format_delete_data($data, $route)
     return $output;
 }
 
-function format_post_data($data, $route)
+function format_post_data($data, $route): string
 {
     switch ($route) {
         case 'user.setup.roles.add':

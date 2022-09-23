@@ -41,6 +41,8 @@ const KTUnsupervisedData = function () {
                             <div>
                                 ${row.trx_type.trx_type}
                                 <input type="hidden" class="data" value="${row.trx_type.html_data}" />
+                                <input type="hidden" class="update_url" value="${row.trx_type.update_url}" />
+                                <input type="hidden" class="method" value="${row.method}" />
                             </div>`;
                     }
                 },
@@ -105,6 +107,7 @@ const KTUnsupervisedData = function () {
         dt.on('draw', function () {
             KTMenu.createInstances();
             handleViewDetails();
+            handleApproveRows();
         });
     };
 
@@ -114,9 +117,7 @@ const KTUnsupervisedData = function () {
         // Select all delete buttons
         const approveButtons = document.querySelectorAll('[data-kt-unsupervised-table-actions="approve_row"]');
 
-        // Make the DIV element draggable:
-        const element = document.querySelector('#kt_modal_unsupervised_data');
-        dragElement(element);
+        // dragElement(element);
         approveButtons.forEach(d => {
             // edit button on click
             d.addEventListener('click', function (e) {
@@ -125,13 +126,13 @@ const KTUnsupervisedData = function () {
                 const parent = e.target.closest('tr');
 
                 // Get rule name
-                const action_url = parent.querySelector("input[class='action_url']").value;
-                const method = parent.querySelector("input[class='method_type']").value;
-                const data = parent.querySelector("input[class='method_type']").value;
+                const action_url = parent.querySelector("input[class='update_url']").value;
                 $.ajax({
-                    type: method,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type: "POST",
                     url: action_url,
-                    data: data,
                     success: function (json) {
                         var response = JSON.parse(JSON.stringify(json));
                         if (response.status !== true) {
@@ -184,7 +185,7 @@ const KTUnsupervisedData = function () {
 
                 const parent = e.target.closest('tr');
                 const data = parent.querySelector("input[class='data']").value;
-                $('#kt_modal_unsupervised_data_scroll').html(data)
+                $('#data').html(data)
                 $("#kt_modal_unsupervised_data").modal('show');//show modal
 
             })
@@ -198,6 +199,7 @@ const KTUnsupervisedData = function () {
                 initDatatable();
                 dt.search('').draw();
                 handleViewDetails();
+                handleApproveRows()
             }
         }
     }

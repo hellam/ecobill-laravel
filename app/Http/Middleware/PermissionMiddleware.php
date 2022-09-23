@@ -24,7 +24,7 @@ class PermissionMiddleware
      * @param $permission_code
      * @return mixed
      */
-    public function handle(Request $request, Closure $next, $permission_code)
+    public function handle(Request $request, Closure $next, $permission_code,$trx_type='')
     {
         if (Auth::guard('user')->check() && check_permission($permission_code)) {
             $maker_checker = requires_maker_checker($permission_code);
@@ -40,7 +40,13 @@ class PermissionMiddleware
                         return $validator;
                     }
                 }
-                return app()->call([MakerCheckerTrxController::class, 'create'], ['mc_type' => $maker_checker[0],'module'=>$maker_checker[2]]);
+                return app()
+                    ->call([MakerCheckerTrxController::class, 'create'],
+                    [
+                        'mc_type' => $maker_checker[0],
+                        'module'=>$maker_checker[2],
+                        'trx_type' => $trx_type,
+                    ]);
             }
             return $next($request);
         }

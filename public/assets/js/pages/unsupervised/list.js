@@ -61,7 +61,7 @@ const KTUnsupervisedData = function () {
                             <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4" data-kt-menu="true">
                                 <!--begin::Menu item-->
                                 <div class="menu-item px-3">
-                                    <a href="#" class="menu-link px-3 test" data-kt-unsupervised-table-actions="approve_row">
+                                    <a href="#" class="menu-link px-3" data-kt-unsupervised-table-actions="view_row">
                                         View Details
                                     </a>
                                 </div>
@@ -69,7 +69,7 @@ const KTUnsupervisedData = function () {
 
                                 <!--begin::Menu item-->
                                 <div class="menu-item px-3">
-                                    <a href="#" class="menu-link px-3 test" data-kt-unsupervised-table-actions="approve_row">
+                                    <a href="#" class="menu-link px-3" data-kt-unsupervised-table-actions="approve_row">
                                         Approve
                                     </a>
                                 </div>
@@ -77,7 +77,7 @@ const KTUnsupervisedData = function () {
 
                                 <!--begin::Menu item-->
                                 <div class="menu-item px-3">
-                                    <a href="#" class="menu-link px-3 test" data-kt-unsupervised-table-actions="reject_row">
+                                    <a href="#" class="menu-link px-3" data-kt-unsupervised-table-actions="reject_row">
                                         Reject
                                     </a>
                                 </div>
@@ -99,11 +99,12 @@ const KTUnsupervisedData = function () {
         // Re-init functions on every table re-draw -- more info: https://datatables.net/reference/event/draw
         dt.on('draw', function () {
             KTMenu.createInstances();
+            handleViewDetails();
         });
     };
 
     //Start Methods here
-    //Edit Button
+    //Approve Button
     const handleApproveRows = function () {
         // Select all delete buttons
         const approveButtons = document.querySelectorAll('[data-kt-unsupervised-table-actions="approve_row"]');
@@ -162,12 +163,36 @@ const KTUnsupervisedData = function () {
         });
 
     };
+
+    //View Details Button
+    const handleViewDetails = function () {
+        // Select all delete buttons
+        const viewButtons = document.querySelectorAll('[data-kt-unsupervised-table-actions="view_row"]');
+
+        // Make the DIV element draggable:
+        const element = document.querySelector('#kt_modal_unsupervised_data');
+        dragElement(element);
+        viewButtons.forEach(d => {
+            // edit button on click
+            d.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const parent = e.target.closest('tr');
+                const data = parent.querySelector("input[class='data']").value;
+                $('#kt_modal_unsupervised_data_scroll').html(data)
+                element.modal('show');//show modal
+
+            })
+        });
+
+    };
     //End Methods here
     return {
         init: function () {
             if ($('#kt_maker_unsupervised_table').length) {
                 initDatatable();
                 dt.search('').draw();
+                handleViewDetails();
             }
         }
     }

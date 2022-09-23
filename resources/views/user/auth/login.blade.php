@@ -36,17 +36,20 @@
                         <!--end::Password-->
                     </div>
                     <!--end::Input group=-->
-                    <div class="form-group mt-4 mb-4">
-                        <div class="captcha">
-                            <span>{!! captcha_img('math') !!}</span>
-                            <a type="button" class="btn btn-danger" id="btn_reload">
-                                &#x21bb;
-                            </a>
+                    @if(env('APP_ENV') == 'production')
+                        <div class="form-group mt-4 mb-4">
+                            <div class="captcha">
+                                <span>{!! captcha_img('math') !!}</span>
+                                <a type="button" class="btn btn-danger" id="btn_reload">
+                                    &#x21bb;
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group mb-4">
-                        <input id="captcha" type="text" class="form-control" placeholder="Enter Captcha" name="captcha">
-                    </div>
+                        <div class="form-group mb-4">
+                            <input id="captcha" type="text" class="form-control" placeholder="Enter Captcha"
+                                   name="captcha">
+                        </div>
+                    @endif
                     <!--begin::Wrapper-->
                     <div class="d-flex flex-stack flex-wrap gap-3 fs-base fw-semibold mb-8 mt-8">
                         <div>

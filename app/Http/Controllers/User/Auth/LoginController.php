@@ -56,14 +56,21 @@ class LoginController extends Controller
      */
     public function login(Request $request): RedirectResponse
     {
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required|min:6',
-            'captcha' => 'required|captcha'
-        ], [
-                'captcha.captcha' => 'Invalid captcha'
-            ]
-        );
+        if (env('APP_ENV') == 'production')
+            $request->validate([
+                'email' => 'required|email',
+                'password' => 'required|min:6',
+                'captcha' => 'required|captcha'
+            ],
+                [
+                    'captcha.captcha' => 'Invalid captcha'
+                ]
+            );
+        else
+            $request->validate([
+                'email' => 'required|email',
+                'password' => 'required|min:6',
+            ]);
 
         if (auth('user')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
             Toastr::success(trans('messages.msg_login_success'), trans('messages.welcome') . '!', ["positionClass" => "toast-top-right"]);

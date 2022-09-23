@@ -1,12 +1,7 @@
 "use strict";
 
 var KTUsersAddRole = function () {
-    var submitButton;
-    var cancelButton;
-    var closeButton;
-    var validator;
-    var form;
-    var modal;
+    let submitButton, cancelButton, closeButton, validator, form, modal;
 
     // Init form inputs
     var handleForm = function () {
@@ -15,13 +10,20 @@ var KTUsersAddRole = function () {
             form,
             {
                 fields: {
-                    role_name: {
+                    name: {
                         validators: {
                             notEmpty: {
                                 message: "Role name is required"
                             }
                         }
-                    }
+                    },
+                    'permissions[]': {
+                        validators: {
+                            notEmpty: {
+                                message: 'Please select at least one permission'
+                            }
+                        }
+                    },
                 },
                 plugins: {
                     trigger: new FormValidation.plugins.Trigger,
@@ -49,7 +51,8 @@ var KTUsersAddRole = function () {
                         // Disable submit button whilst loading
                         submitButton.disabled = true;
 
-                        submitData();
+                        var str = $('#kt_modal_add_role_form').serialize();
+                        submitData(str);
                     } else {
                         Swal.fire({
                             text: "Sorry, looks like there are some errors detected, please try again.",
@@ -111,8 +114,7 @@ var KTUsersAddRole = function () {
 
     }
 
-    function submitData(){
-        var str = $('#kt_modal_add_role_form').serialize();
+    function submitData(str) {
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -134,7 +136,7 @@ var KTUsersAddRole = function () {
                                     $('#err_' + value.field).remove();
                                 })
                         }
-                        if(value.field === 'permissions'){
+                        if (value.field === 'permissions') {
                             $('#permissions').after('<small style="color: red;" id="err_' + value.field + '">' + value.error + '</small>')
                                 .on('keyup', function (e) {
                                     $('#err_' + value.field).remove();
@@ -181,7 +183,7 @@ var KTUsersAddRole = function () {
             },
             statusCode: {
                 203: function () {
-                    $(document).off('focusin.modal');
+                    modal.hide()//hide modal
                     Swal.fire({
                         text: "Please provide remarks",
                         icon: "info",
@@ -194,7 +196,7 @@ var KTUsersAddRole = function () {
                         buttonsStyling: false,
                         confirmButtonText: "Submit",
                         cancelButtonText: "Cancel",
-                        showLoaderOnConfirm: true,
+                        // showLoaderOnConfirm: true,
                         customClass: {
                             confirmButton: "btn fw-bold btn-danger",
                             cancelButton: "btn fw-bold btn-active-light-primary"
@@ -204,13 +206,18 @@ var KTUsersAddRole = function () {
                         if (result.isConfirmed) {
                             //data.add('remarks', result.value);
                             // alert(result.value)
-                            submitData()
+                            modal.show()//show modal
+                            // console.log(str)
+                            // if (result.value)
+                            str = str + "&remarks=" + result.value
+                            submitData(str)
+                        } else {
+                            form.reset(); // Reset form
                         }
                     });
                 }
             },
             error: function (xhr, desc, err) {
-                console.log(xhr)
                 Swal.fire({
                     text: 'A network error occured. Please consult your network administrator.',
                     icon: "error",

@@ -18,11 +18,10 @@ const KTUnsupervisedData = function () {
             },
             columns: [
                 {data: 'DT_RowIndex'},
-                {data: 'trx_type'},
-                {data: 'txt_data'},
                 {data: 'maker'},
+                {data: 'module'},
+                {data: 'method'},
                 {data: 'description'},
-                {data: 'created_at'},
                 {data: 'actions'},
             ],
             columnDefs: [
@@ -32,6 +31,7 @@ const KTUnsupervisedData = function () {
                     render: function (data, type, row) {
                         return `
                             <div>
+                            <p>${row.DT_RowIndex}</p>
                                 <input type="hidden" class="action_url" value="${row.url}" />
                                 <input type="hidden" class="method_type" value="${row.method}" />
                                 <input type="hidden" class="data" value="${row.txt_data}" />
@@ -58,6 +58,14 @@ const KTUnsupervisedData = function () {
                             </a>
                             <!--begin::Menu-->
                             <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4" data-kt-menu="true">
+                                <!--begin::Menu item-->
+                                <div class="menu-item px-3">
+                                    <a href="#" class="menu-link px-3 test" data-kt-unsupervised-table-actions="approve_row">
+                                        View
+                                    </a>
+                                </div>
+                                <!--end::Menu item-->
+
                                 <!--begin::Menu item-->
                                 <div class="menu-item px-3">
                                     <a href="#" class="menu-link px-3 test" data-kt-unsupervised-table-actions="approve_row">

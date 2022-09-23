@@ -134,12 +134,11 @@
                     <thead>
                     <!--begin::Table row-->
                     <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
-                        <th class="min-w-125px">#</th>
-                        <th class="min-w-125px">{{__('messages.trx_type')}}</th>
-                        <th class="min-w-125px">{{__('messages.data')}}</th>
-                        <th class="min-w-125px">{{__('messages.maker')}}</th>
-                        <th class="min-w-70px">{{__('messages.description')}}</th>
-                        <th class="min-w-70px">{{__('messages.date')}}</th>
+                        <th class="min-w-50px">#</th>
+                        <th class="min-w-125px">{{__('messages.operator')}}</th>
+                        <th class="min-w-125px">{{__('messages.module')}}</th>
+                        <th class="min-w-125px">{{__('messages.event')}}</th>
+                        <th class="min-w-70px">{{__('messages.remarks')}}</th>
                         <th class="min-w-70px">{{__('messages.actions')}}</th>
                     </tr>
                     <!--end::Table row-->

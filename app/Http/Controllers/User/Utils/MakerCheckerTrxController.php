@@ -29,7 +29,7 @@ class MakerCheckerTrxController extends Controller
     //Data table API
     public function dt_api(Request $request): JsonResponse
     {
-        $audit_trail = MakerCheckerTrx::orderBy('created_at', 'desc');
+        $audit_trail = MakerCheckerTrx::where('maker','!=',auth('user')->id())->orderBy('created_at', 'desc');
         return (new DataTables)->eloquent($audit_trail)
             ->addIndexColumn()
             ->editColumn('method', function ($row) {
@@ -39,6 +39,9 @@ class MakerCheckerTrxController extends Controller
                     return 'Update';
                 else if ($row->method == 'DELETE')
                     return 'Delete';
+                return '';
+            })->editColumn('trx_type', function ($row) {
+                return constant($row->trx_type);
             })
             ->editColumn('maker', function ($row) {
                 return User::where('id', $row->maker)->first()->username;
@@ -47,7 +50,7 @@ class MakerCheckerTrxController extends Controller
             })->make(true);
     }
 
-    public static function create(Request $request, $mc_type, $module = null)
+    public static function create(Request $request, $mc_type, $module)
     {
         $maker_trx = MakerCheckerTrx::where([
             'txt_data' => json_encode($request->all()),

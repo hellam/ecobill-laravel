@@ -239,7 +239,10 @@ function is_password_expired(): bool
 
 function requires_maker_checker($permission_code): string|array
 {
-    $maker_checker_rule = MakerCheckerRule::with('permission')->where('permission_code', $permission_code)->first();
+    $maker_checker_rule = MakerCheckerRule::with('permission')
+        ->where(['permission_code'=> $permission_code,'inactive'=>0])
+        ->first();
+
     if ($maker_checker_rule)
         return [
             $maker_checker_rule->maker_type,

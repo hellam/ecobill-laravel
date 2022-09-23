@@ -30,12 +30,17 @@ const KTUnsupervisedData = function () {
                     targets: 0,
                     orderable: false,
                     render: function (data, type, row) {
-                        return `
+                        return row.DT_RowIndex;
+                    }
+                },
+                {
+                    targets: 3,
+                    orderable: false,
+                    render: function (data, type, row) {
+                        return  `
                             <div>
-                            <p>${row.DT_RowIndex}</p>
-                                <input type="hidden" class="action_url" value="${row.url}" />
-                                <input type="hidden" class="method_type" value="${row.method}" />
-                                <input type="hidden" class="data" value="${row.txt_data}" />
+                                ${row.trx_type.trx_type}
+                                <input type="hidden" class="data" value="${row.trx_type.html_data}" />
                             </div>`;
                     }
                 },
@@ -180,7 +185,7 @@ const KTUnsupervisedData = function () {
                 const parent = e.target.closest('tr');
                 const data = parent.querySelector("input[class='data']").value;
                 $('#kt_modal_unsupervised_data_scroll').html(data)
-                element.modal('show');//show modal
+                $("#kt_modal_unsupervised_data").modal('show');//show modal
 
             })
         });

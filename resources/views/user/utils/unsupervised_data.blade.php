@@ -137,6 +137,7 @@
                         <th class="min-w-50px">#</th>
                         <th class="min-w-125px">{{__('messages.operator')}}</th>
                         <th class="min-w-125px">{{__('messages.module')}}</th>
+                        <th class="min-w-125px">{{__('messages.type')}}</th>
                         <th class="min-w-125px">{{__('messages.event')}}</th>
                         <th class="min-w-70px">{{__('messages.remarks')}}</th>
                         <th class="min-w-70px">{{__('messages.actions')}}</th>

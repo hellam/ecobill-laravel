@@ -20,6 +20,7 @@ const KTUnsupervisedData = function () {
                 {data: 'DT_RowIndex'},
                 {data: 'maker'},
                 {data: 'module'},
+                {data: 'trx_type'},
                 {data: 'method'},
                 {data: 'description'},
                 {data: 'actions'},

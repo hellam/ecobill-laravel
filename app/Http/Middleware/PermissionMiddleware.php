@@ -40,7 +40,7 @@ class PermissionMiddleware
                         return $validator;
                     }
                 }
-                return app()->call([MakerCheckerTrxController::class, 'create'], ['mc_type' => $maker_checker[0]]);
+                return app()->call([MakerCheckerTrxController::class, 'create'], ['mc_type' => $maker_checker[0],'module'=>$maker_checker[2]]);
             }
             return $next($request);
         }

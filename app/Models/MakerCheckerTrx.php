@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Auth;
  * @property string $status
  * @property string|null $txt_data
  * @property string $method
+ * @property string $module
  * @property string $url
  * @property int $maker
  * @property int $checker1
@@ -49,6 +50,7 @@ class MakerCheckerTrx extends Model
 		'status',
 		'txt_data',
 		'method',
+		'module',
 		'url',
 		'maker',
 		'checker1',

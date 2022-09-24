@@ -26,7 +26,7 @@ class BranchController extends Controller
      */
     public function index(): Factory|View|Application
     {
-        $branches_count = auth('user')->user()->user_branches ?? [];
+        $branches_count = count(auth('user')->user()->user_branches) ?? [];
         return view('user.setup.branches', compact('branches_count'));
     }
 

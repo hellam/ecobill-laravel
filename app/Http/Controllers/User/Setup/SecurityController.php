@@ -29,7 +29,7 @@ class SecurityController extends Controller
      * Update the specified resource in storage.
      *
      */
-    public function create(Request $request, $type)
+    public function update(Request $request, $type)
     {
         $validator = UserValidators::securityUpdateValidation($request);
 

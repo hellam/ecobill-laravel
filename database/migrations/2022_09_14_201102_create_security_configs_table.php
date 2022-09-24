@@ -18,6 +18,10 @@ return new class extends Migration
             $table->string('client_ref');
             $table->longText('general_security')->default('[1,1]');
             $table->longText('password_policy')->default('[0,4,[1],1,1]');
+            $table->string('created_by',100)->nullable();
+            $table->string('updated_by',100)->nullable();
+            $table->string('supervised_by',100)->nullable();
+            $table->timestamp('supervised_at')->nullable();
             $table->timestamps();
         });
     }

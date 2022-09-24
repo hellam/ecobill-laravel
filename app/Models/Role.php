@@ -15,25 +15,31 @@ use Illuminate\Support\Facades\Auth;
  * @property string $permissions
  * @property string $client_ref
  * @property string $created_by
+ * @property string $supervised_by
+ * @property string $updated_by
  * @property Carbon|null $created_at
+ * @property Carbon|null $supervised_at
  * @property Carbon|null $updated_at
  *
  * @package App\Models
  */
 class Role extends Model
 {
-	protected $table = 'roles';
+    protected $table = 'roles';
 
-	protected $fillable = [
-		'name',
-		'permissions',
-		'client_ref',
-		'created_by'
-	];
+    protected $fillable = [
+        'name',
+        'permissions',
+        'client_ref',
+        'created_by',
+        'updated_by',
+        'supervised_by',
+        'supervised_at',
+    ];
 
     public static function booted()
     {
-        if (Auth::guard('user')->check()){
+        if (Auth::guard('user')->check()) {
             static::addGlobalScope(new UserScope());
         }
     }

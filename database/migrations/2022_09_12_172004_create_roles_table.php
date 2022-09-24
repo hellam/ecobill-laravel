@@ -18,7 +18,10 @@ return new class extends Migration
             $table->string("name");
             $table->string("permissions");
             $table->string("client_ref");
-            $table->string("created_by");
+            $table->string("created_by",100)->nullable();
+            $table->string("updated_by",100)->nullable();
+            $table->string('supervised_by',100)->nullable();
+            $table->timestamp('supervised_at')->nullable();
             $table->timestamps();
         });
     }

@@ -15,8 +15,11 @@ use Illuminate\Support\Facades\Auth;
  * @property string $permission_code
  * @property int $maker_type
  * @property string $created_by
+ * @property string $updated_by
+ * @property string $supervised_by
  * @property string $client_ref
  * @property Carbon|null $created_at
+ * @property Carbon|null $supervised_at
  * @property Carbon|null $updated_at
  * @property int|null $inactive
  *
@@ -36,6 +39,10 @@ class MakerCheckerRule extends Model
 		'maker_type',
 		'created_by',
 		'client_ref',
+        'created_by',
+        'updated_by',
+        'supervised_by',
+        'supervised_at',
 		'inactive'
 	];
 

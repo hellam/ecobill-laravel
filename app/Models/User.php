@@ -37,10 +37,12 @@ use Illuminate\Support\Facades\Auth;
  * @property int $transaction_days
  * @property string|null $def_print_destination
  * @property string|null $created_by
- * @property string|null $last_updated_by
+ * @property string|null $supervised_by
+ * @property string|null $updated_by
  * @property string|null $two_factor
  * @property int|null $first_time
  * @property Carbon|null $created_at
+ * @property Carbon|null $supervised_at
  * @property Carbon|null $updated_at
  * @property bool $inactive
  *
@@ -99,7 +101,9 @@ class User extends Authenticatable
         'transaction_days',
         'def_print_destination',
         'created_by',
-        'last_updated_by',
+        'updated_by',
+        'supervised_by',
+        'supervised_at',
         'two_factor',
         'first_time',
         'inactive'

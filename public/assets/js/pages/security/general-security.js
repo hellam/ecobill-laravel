@@ -78,7 +78,7 @@ const KTGeneralSecurity = function () {
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            type: 'POST',
+            type: 'PUT',
             url: form.getAttribute("data-kt-action"),
             data: str,
             success: function (json) {

@@ -37,6 +37,53 @@
 @section('content')
     <!--begin::Container-->
     <div id="kt_content_container" class="container-xxl">
+        <!--begin::Toolbar-->
+        <div class="toolbar d-lg-flex flex-end flex-wrap mb-5 mb-lg-7" id="kt_toolbar">
+            <!--begin::Actions-->
+            <div class="d-flex align-items-center py-1">
+                <!--begin::Button-->
+                <a href="#" class="btn btn-flex btn-sm btn-primary fw-bolder border-0 fs-6 h-40px"
+                   data-bs-toggle="modal" data-bs-target="#kt_modal_add_rule"
+                   id="kt_toolbar_primary_button">{{__('messages.add').' '.__('messages.new')}}</a>
+                <!--end::Button-->
+            </div>
+            <!--end::Actions-->
+        </div>
+        <!--end::Toolbar-->
+        <!--begin::Card-->
+        <div class="card">
+            @if($branches_count)
+            @else
+                <!--begin::No Branches Wrapper-->
+                <div class="card-px text-center py-20 my-10">
+                    <!--begin::Title-->
+                    <h2 class="fs-2x fw-bolder mb-10">{{__('messages.welcome_to_module',['attribute'=>__('messages.branches')])}}</h2>
+                    <!--end::Title-->
+
+                    <!--begin::Description-->
+                    <p class="text-gray-400 fs-4 fw-bold mb-10">
+                        {{__('messages.not_found',['attribute'=>__('messages.branches')])}}
+                    </p>
+                    <!--end::Description-->
+
+                    <!--begin::Action-->
+                    <button data-bs-toggle="modal"
+                            data-bs-target="#kt_modal_add_rule"
+                            class="btn btn-primary">{{__('messages.add',['attribute'=>__('messages.branch')])}}
+                    </button>
+                    <!--end::Action-->
+
+                    <!--begin::Illustration-->
+                    <div class="text-center px-4">
+                        <img class="mw-100 mh-300px" alt=""
+                             src="{{asset('assets/media/illustrations/sketchy-1/2_.png')}}"/>
+                    </div>
+                    <!--end::Illustration-->
+                </div>
+                <!--end::No Branches Wrapper-->
+            @endif
+        </div>
+        <!--end::Card-->
     </div>
     <!--end::Container-->
 @stop

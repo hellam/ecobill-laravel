@@ -52,7 +52,7 @@ const KTAuthNewPassword = function () {
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
-                        type: 'POST',
+                        type: 'PUT',
                         url: form.getAttribute("data-kt-action"),
                         data: {
                             old_password: btoa(form.querySelector('[name="old_password"]').value),

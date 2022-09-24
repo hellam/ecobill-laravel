@@ -30,6 +30,7 @@ return [
     'audit_trail' => 'Audit Trail',
     'business_setup' => 'Business Setup',
     'branches' => 'Branches',
+    'branch' => 'Branch',
     'menu_setup' => 'Menu Setup',
     'unsupervised_data' => 'Unsupervised Data',
     'maker_checker' => 'Maker Checker',

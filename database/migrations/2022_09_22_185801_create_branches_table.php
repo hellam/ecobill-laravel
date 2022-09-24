@@ -18,10 +18,10 @@ return new class extends Migration {
             $table->longText('address');
             $table->string('phone', 30);
             $table->string('email', 100);
-            $table->string('bcc_email', 100);
-            $table->string('tax_no', 100)->unique();
+            $table->string('bcc_email', 100)->nullable();
+            $table->string('tax_no', 100);
             $table->string('default_currency', 30);
-            $table->string('logo', 255);
+            $table->string('logo', 255)->nullable();
             $table->string('timezone', 100);
             $table->string('fiscal_year', 50);
             $table->string('tax_period', 50);

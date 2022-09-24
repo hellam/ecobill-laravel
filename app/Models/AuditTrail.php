@@ -58,5 +58,6 @@ class AuditTrail extends Model
         if (Auth::guard('user')->check()){
             static::addGlobalScope(new UserScope());
         }
+
     }
 }

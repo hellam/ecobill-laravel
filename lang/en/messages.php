@@ -89,6 +89,7 @@ return [
     'msg_change_factory_password' => 'For security, you are required to change the factory-default password!',
     'msg_change_expired_password' => 'Password has expired!, please update your password',
     'msg_data_submitted_4_supervision' => 'Data saved and forwarded for Supervision',
+    'msg_data_rejected' => 'Data Rejected',
     'msg_delete_not_allowed' => 'Delete not allowed because :attribute has existing :attribute1',
     'msg_deleted_success' => ':attribute deleted successfully',
     'msg_saved_success' => ':attribute saved successfully',

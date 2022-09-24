@@ -37,12 +37,12 @@ const KTUnsupervisedData = function () {
                     targets: 3,
                     orderable: false,
                     render: function (data, type, row) {
-                        return  `
+                        return `
                             <div>
                                 ${row.trx_type.trx_type}
                                 <input type="hidden" class="data" value="${row.trx_type.html_data}" />
-                                <input type="hidden" class="update_url" value="${row.trx_type.update_url}" />
-                                <input type="hidden" class="method" value="${row.method}" />
+                                <input type="hidden" class="approve_url" value="${row.trx_type.approve_url}" />
+                                <input type="hidden" class="reject_url" value="${row.trx_type.reject_url}" />
                             </div>`;
                     }
                 },
@@ -107,64 +107,106 @@ const KTUnsupervisedData = function () {
         dt.on('draw', function () {
             KTMenu.createInstances();
             handleViewDetails();
-            handleApproveRows();
+            handleApproveReject();
         });
     };
 
     //Start Methods here
     //Approve Button
-    const handleApproveRows = function () {
+    const handleApproveReject = function () {
         // Select all delete buttons
-        const approveButtons = document.querySelectorAll('[data-kt-unsupervised-table-actions="approve_row"]');
+        const actionButtons = document.querySelectorAll('[data-kt-unsupervised-table-actions="approve_row"], [data-kt-unsupervised-table-actions="reject_row"]');
 
         // dragElement(element);
-        approveButtons.forEach(d => {
+        actionButtons.forEach(d => {
             // edit button on click
             d.addEventListener('click', function (e) {
                 e.preventDefault();
                 // Select parent row
                 const parent = e.target.closest('tr');
+                let action_url, action;
 
                 // Get rule name
-                const action_url = parent.querySelector("input[class='update_url']").value;
-                $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    type: "POST",
-                    url: action_url,
-                    success: function (json) {
-                        var response = JSON.parse(JSON.stringify(json));
-                        if (response.status !== true) {
-                            Swal.fire({
-                                text: response.message,
-                                icon: "error",
-                                buttonsStyling: false,
-                                confirmButtonText: "Ok!",
-                                customClass: {
-                                    confirmButton: "btn btn-primary"
-                                }
-                            });
-                        } else {
+                if ($(this).attr('data-kt-unsupervised-table-actions') === 'approve_row') {
+                    action = 'approve';
+                    action_url = parent.querySelector("input[class='approve_url']").value;
+                } else if ($(this).attr('data-kt-unsupervised-table-actions') === 'reject_row') {
+                    action = 'reject';
+                    action_url = parent.querySelector("input[class='reject_url']").value;
+                }
 
-                        }
-
-                    },
-                    error: function (xhr, desc, err) {
+                Swal.fire({
+                    text: "Are you sure you want to "+action+" this?",
+                    icon: "warning",
+                    showCancelButton: true,
+                    buttonsStyling: false,
+                    confirmButtonText: "Yes, approve!",
+                    cancelButtonText: "No, cancel",
+                    customClass: {
+                        confirmButton: "btn fw-bold btn-danger",
+                        cancelButton: "btn fw-bold btn-active-light-primary"
+                    }
+                }).then(function (result) {
+                    if (result.value) {
                         Swal.fire({
-                            text: 'A network error occured. Please consult your network administrator.',
-                            icon: "error",
+                            text: "Submitting",
+                            icon: "info",
+                            allowOutsideClick: false,
                             buttonsStyling: false,
-                            confirmButtonText: "Ok!",
-                            customClass: {
-                                confirmButton: "btn btn-primary"
+                            showConfirmButton: false,
+                        })
+                        $.ajax({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            type: "POST",
+                            url: action_url,
+                            success: function (json) {
+                                const response = JSON.parse(JSON.stringify(json));
+                                if (response.status !== true) {
+                                    Swal.fire({
+                                        text: response.message,
+                                        icon: "error",
+                                        buttonsStyling: false,
+                                        confirmButtonText: "Ok!",
+                                        customClass: {
+                                            confirmButton: "btn btn-primary"
+                                        }
+                                    });
+                                } else {
+                                    Swal.fire({
+                                        text: response.message,
+                                        icon: "success",
+                                        buttonsStyling: false,
+                                        confirmButtonText: "Ok!",
+                                        customClass: {
+                                            confirmButton: "btn btn-primary"
+                                        }
+                                    }).then(function (result) {
+                                        if (result.isConfirmed) {
+                                            if ($('#kt_maker_unsupervised_table').length) {
+                                                $("#kt_maker_unsupervised_table").DataTable().ajax.reload();
+                                            }
+                                        }
+                                    });
+                                }
+
+                            },
+                            error: function (xhr, desc, err) {
+                                Swal.fire({
+                                    text: 'A network error occured. Please consult your network administrator.',
+                                    icon: "error",
+                                    buttonsStyling: false,
+                                    confirmButtonText: "Ok!",
+                                    customClass: {
+                                        confirmButton: "btn btn-primary"
+                                    }
+                                });
+
                             }
                         });
-
                     }
-                });
-
-
+                })
             })
         });
 
@@ -199,7 +241,7 @@ const KTUnsupervisedData = function () {
                 initDatatable();
                 dt.search('').draw();
                 handleViewDetails();
-                handleApproveRows()
+                handleApproveReject()
             }
         }
     }

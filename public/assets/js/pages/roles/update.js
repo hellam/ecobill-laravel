@@ -110,7 +110,7 @@ var KTUsersUpdatePermissions = function () {
                         $('.loader_container').hide();//hide loader
 
                     },
-                    error: function () {
+                    error: function (xhr, desc, err) {
                         Swal.fire({
                             text: 'A network error occured. Please consult your network administrator.',
                             icon: "error",
@@ -147,7 +147,7 @@ var KTUsersUpdatePermissions = function () {
                         updateButton.disabled = true;
 
                         var str = $('#kt_modal_update_role_form').serialize();
-                        submitData(str);
+                        submitUpdate(str)
                     } else {
                         Swal.fire({
                             text: "Sorry, looks like there are some errors detected, please try again.",
@@ -245,7 +245,92 @@ var KTUsersUpdatePermissions = function () {
             })
         });
 
-        function submitData(str) {
+        function submitData(deleteURL, roleName) {
+            Swal.fire({
+                text: "Deleting " + roleName,
+                icon: "info",
+                allowOutsideClick: false,
+                buttonsStyling: false,
+                showConfirmButton: false,
+            })
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: 'DELETE',
+                url: deleteURL,
+                success: function (json) {
+                    var response = JSON.parse(JSON.stringify(json));
+                    if (response.status !== true) {
+                        Swal.fire({
+                            text: response.message,
+                            icon: "error",
+                            buttonsStyling: false,
+                            confirmButtonText: "Ok!",
+                            customClass: {
+                                confirmButton: "btn btn-primary"
+                            }
+                        });
+
+                    } else {
+                        Swal.fire({
+                            text: response.message,
+                            icon: "success",
+                            buttonsStyling: false,
+                            confirmButtonText: "Ok, got it!",
+                            customClass: {
+                                confirmButton: "btn fw-bold btn-primary",
+                            }
+                        }).then(function () {
+                            // delete row data from server and re-draw datatable
+                            window.location.reload();
+                        });
+                    }
+                },
+                statusCode: {
+                    203: function () {
+                        Swal.fire({
+                            text: "Please provide remarks",
+                            icon: "info",
+                            input: 'textarea',
+                            inputAttributes: {
+                                autocapitalize: 'off'
+                            },
+                            allowOutsideClick: false,
+                            showCancelButton: true,
+                            buttonsStyling: false,
+                            confirmButtonText: "Submit",
+                            cancelButtonText: "Cancel",
+                            showLoaderOnConfirm: true,
+                            customClass: {
+                                confirmButton: "btn fw-bold btn-danger",
+                                cancelButton: "btn fw-bold btn-active-light-primary"
+                            }
+                        }).then(function (result) {
+                            // delete row data from server and re-draw datatable
+                            if (result.isConfirmed) {
+                                //data.add('remarks', result.value);
+                                // alert(result.value)
+                                submitData(deleteURL + "?remarks=" + result.value, roleName)
+                            }
+                        });
+                    }
+                },
+                error: function (xhr, desc, err) {
+                    Swal.fire({
+                        text: 'A network error occured. Please consult your network administrator.',
+                        icon: "error",
+                        buttonsStyling: false,
+                        confirmButtonText: "Ok!",
+                        customClass: {
+                            confirmButton: "btn btn-primary"
+                        }
+                    });
+                }
+            });
+        }
+
+        function submitUpdate(str) {
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -258,17 +343,18 @@ var KTUsersUpdatePermissions = function () {
                     if (response.status !== true) {
                         var errors = response.data;
                         for (const [key, value] of Object.entries(errors)) {
+                            // console.log(value)
                             $('#err_' + value.field).remove();
                             if ("input[name='" + value.field + "']") {
                                 $("input[name='" + value.field + "']")
                                     .after('<small style="color: red;" id="err_' + value.field + '">' + value.error + '</small>')
-                                    .on('keyup', function () {
+                                    .on('keyup', function (e) {
                                         $('#err_' + value.field).remove();
                                     })
                             }
                             if (value.field === 'permissions') {
                                 $('#permissions_update').after('<small style="color: red;" id="err_' + value.field + '">' + value.error + '</small>')
-                                    .on('keyup', function () {
+                                    .on('keyup', function (e) {
                                         $('#err_' + value.field).remove();
                                     })
                             }
@@ -326,7 +412,7 @@ var KTUsersUpdatePermissions = function () {
                             buttonsStyling: false,
                             confirmButtonText: "Submit",
                             cancelButtonText: "Cancel",
-                            // showLoaderOnConfirm: true,
+                            showLoaderOnConfirm: true,
                             customClass: {
                                 confirmButton: "btn fw-bold btn-danger",
                                 cancelButton: "btn fw-bold btn-active-light-primary"
@@ -334,20 +420,16 @@ var KTUsersUpdatePermissions = function () {
                         }).then(function (result) {
                             // delete row data from server and re-draw datatable
                             if (result.isConfirmed) {
-                                //data.add('remarks', result.value);
-                                // alert(result.value)
                                 modal.show()//show modal
-                                // console.log(str)
-                                // if (result.value)
                                 str = str + "&remarks=" + result.value
-                                submitData(str)
+                                submitUpdate(str)
                             } else {
                                 form.reset(); // Reset form
                             }
                         });
                     }
                 },
-                error: function (xhr) {
+                error: function (xhr, desc, err) {
                     console.log(xhr)
                     Swal.fire({
                         text: 'A network error occured. Please consult your network administrator.',

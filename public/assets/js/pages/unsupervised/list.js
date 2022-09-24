@@ -202,7 +202,6 @@ const KTUnsupervisedData = function () {
                                         confirmButton: "btn btn-primary"
                                     }
                                 });
-
                             }
                         });
                     }

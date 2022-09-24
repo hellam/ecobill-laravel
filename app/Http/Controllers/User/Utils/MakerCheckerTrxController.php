@@ -50,7 +50,8 @@ class MakerCheckerTrxController extends Controller
             })->editColumn('trx_type', function ($row) {
                 return ["trx_type" => $row->trx_type == '' ? '' : constant($row->trx_type),
 //                    "html_data" => decode_form_data(json_decode($row->txt_data, true), $row->trx_type, $row->method),
-                    "update_url" => route('user.utils.unsupervised_data.update', [$row->id])
+                    "approve_url" => route('user.utils.unsupervised_data.update', [$row->id,'approve']),
+                    "reject_url" => route('user.utils.unsupervised_data.update', [$row->id,'reject']),
                 ];
             })->editColumn('maker', function ($row) {
                 return User::where('id', $row->maker)->first()->username;

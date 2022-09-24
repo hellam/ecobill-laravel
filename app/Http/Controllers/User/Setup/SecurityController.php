@@ -31,7 +31,7 @@ class SecurityController extends Controller
      */
     public function create(Request $request, $type)
     {
-        $validator = UserValidators::securityUpdateValidation($request, $type);
+        $validator = UserValidators::securityUpdateValidation($request);
 
         if ($validator != '') {
             return $validator;

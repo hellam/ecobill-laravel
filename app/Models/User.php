@@ -118,8 +118,8 @@ class User extends Authenticatable
         return explode(',', Role::where('id', $this->role_id)->first()->permissions);
     }
 
-//    public function user_branches()
-//    {
-//        return $this->belongsToMany(Branch::class, BranchUser::class, 'user_id', 'branch_id');
-//    }
+    public function user_branches()
+    {
+        return $this->belongsToMany(Branch::class, BranchUser::class, 'user_id', 'branch_id');
+    }
 }

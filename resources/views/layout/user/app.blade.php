@@ -489,9 +489,6 @@
                             <!--end::Action wrapper-->
                             <!--begin::Action wrapper-->
                             <div class="d-flex align-items-center">
-                                <!--begin::Label-->
-                                <span class="fs-7 text-gray-700 fw-bold pe-3 d-none d-xxl-block">Quick Tools:</span>
-                                <!--end::Label-->
                                 <!--begin::Actions-->
                                 <div class="d-flex">
                                     <!--begin::Action-->

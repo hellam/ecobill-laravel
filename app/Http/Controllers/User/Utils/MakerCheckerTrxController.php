@@ -66,7 +66,7 @@ class MakerCheckerTrxController extends Controller
         $r_body['inputs'] = $request->except('remarks');
         $r_body['parameters'] = $request->route()->parameters();
         $r_body['route'] = $request->route()->getName();
-        $r_body['ctr'] = $request->route()->getControllerClass();
+        $r_body['action'] = $request->route()->getAction()['controller'];
 
         $maker_trx = MakerCheckerTrx::where([
             'txt_data' => json_encode($r_body),
@@ -113,16 +113,9 @@ class MakerCheckerTrxController extends Controller
             $request->merge($data['inputs']);
             foreach ($data['parameters'] as $key => $value)
                 $request->route()->setParameter($key, $value);
-            $fn = '';
-            if ($maker_checker_trx->method == 'POST')
-                $fn = 'create';
-            else if ($maker_checker_trx->method == 'PUT')
-                $fn = 'update';
-            else if ($maker_checker_trx->method == 'DELETE')
-                $fn = 'destroy';
 
             //submit request to controller to create/update/delete data
-            $response = app()->call($data['ctr'] . '@' . $fn, $data['parameters']);
+            $response = app()->call($data['action'], $data['parameters']);
 
             //submit request to url
             $response_data = json_decode($response->getContent(), true);

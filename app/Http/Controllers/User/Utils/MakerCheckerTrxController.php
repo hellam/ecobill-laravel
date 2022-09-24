@@ -50,8 +50,8 @@ class MakerCheckerTrxController extends Controller
             })->editColumn('trx_type', function ($row) {
                 return ["trx_type" => $row->trx_type == '' ? '' : constant($row->trx_type),
 //                    "html_data" => decode_form_data(json_decode($row->txt_data, true), $row->trx_type, $row->method),
-                    "approve_url" => route('user.utils.unsupervised_data.update', [$row->id,'approve']),
-                    "reject_url" => route('user.utils.unsupervised_data.update', [$row->id,'reject']),
+                    "approve_url" => route('user.utils.unsupervised_data.update', [$row->id, 'approve']),
+                    "reject_url" => route('user.utils.unsupervised_data.update', [$row->id, 'reject']),
                 ];
             })->editColumn('maker', function ($row) {
                 return User::where('id', $row->maker)->first()->username;
@@ -94,7 +94,7 @@ class MakerCheckerTrxController extends Controller
         return success_web_processor(null, __('messages.msg_data_submitted_4_supervision'));
     }
 
-    public static function update(Request $request, $id,$action)
+    public static function update(Request $request, $id, $action)
     {
         $maker_checker_trx = MakerCheckerTrx::find($id);
 
@@ -104,13 +104,11 @@ class MakerCheckerTrxController extends Controller
 
         if ($action == 'reject') {
             $maker_checker_trx->delete();
-            return success_web_processor(null, __('messages.msg_data_submitted_4_supervision'));
+            return success_web_processor(null, __('messages.msg_data_rejected'));
         }
 
         if ($maker_checker_trx->mc_type == 0 || $maker_checker_trx->checker1 != null) {//push and delete
             $data = json_decode($maker_checker_trx->txt_data, true);
-//            $url = $maker_checker_trx->url;
-//            $url = app()->make('url')->to('/').'/'.$url;
 
             $request->merge($data['inputs']);
             $fn = '';
@@ -122,7 +120,7 @@ class MakerCheckerTrxController extends Controller
                 $fn = 'destroy';
 
             //submit request to controller to create/update/delete data
-            $response = app()->call($data['ctr'].'@'.$fn, $data['parameters']);
+            $response = app()->call($data['ctr'] . '@' . $fn, $data['parameters']);
 
             //submit request to url
             $response_data = json_decode($response->getContent(), true);

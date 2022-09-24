@@ -26,9 +26,8 @@ class BranchController extends Controller
      */
     public function index(): Factory|View|Application
     {
-        $permission_groups = PermissionGroup::with('permissions')->get();
-        $roles = Role::all();
-        return view('user.setup.roles', compact('permission_groups', 'roles'));
+        $branches = auth('user')->user()->user_branches ?? [];
+        return view('user.setup.branches', compact('branches'));
     }
 
     public function create(Request $request): JsonResponse

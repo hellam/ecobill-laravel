@@ -56,33 +56,33 @@ Route::group(['as' => 'user.'], function () {
 
             Route::controller(User\Setup\RolesController::class)->prefix('roles')->as('roles.')->group(function () {
                 Route::get('/', 'index')->name('list')->middleware(['permission:702']);
+                Route::post('/', 'create')->name('add')->middleware('permission:7020,'.ST_ROLE_SETUP);
                 Route::get('edit/{id}', 'edit')->name('edit')->middleware('permission:7021')->whereNumber('id');
                 Route::put('update/{id}', 'update')->name('update')->middleware('permission:7021,'.ST_ROLE_SETUP)->whereNumber('id');
                 Route::delete('delete/{id}', 'destroy')->name('delete')->middleware('permission:7022,'.ST_ROLE_SETUP)->whereNumber('id');
-                Route::post('/', 'create')->name('add')->middleware('permission:703,'.ST_ROLE_SETUP);
             });
 
             Route::controller(User\Setup\SecurityController::class)->prefix('security')->as('security.')->group(function () {
-                Route::get('/', 'index')->name('all')->middleware('permission:704');
-                Route::post('update/{type}', 'update')->name('update')->middleware('permission:7041,'.ST_SECURITY_POLICY_SETUP)->whereIn('type', ['password_policy', 'general']);
+                Route::get('/', 'index')->name('all')->middleware('permission:703');
+                Route::post('update/{type}', 'update')->name('update')->middleware('permission:7031,'.ST_SECURITY_POLICY_SETUP)->whereIn('type', ['password_policy', 'general']);
             });
 
             Route::controller(User\Setup\MakerCheckerRulesController::class)->prefix('maker-checker-rules')->as('maker_checker_rules.')->group(function () {
-                Route::get('/', 'index')->name('all')->middleware('permission:705');
-                Route::post('/', 'create')->name('create')->middleware('permission:705,'.ST_MAKER_CHECKER_RULE_SETUP);
-                Route::get('/dt_api', 'dt_api')->name('dt_api')->middleware('permission:705');
-                Route::get('edit/{id}', 'edit')->name('edit')->middleware('permission:7051')->whereNumber('id');
-                Route::put('update/{id}', 'update')->name('update')->middleware('permission:7051,'.ST_MAKER_CHECKER_RULE_SETUP)->whereNumber('id');
-                Route::delete('delete/{id}', 'destroy')->name('delete')->middleware('permission:7052,'.ST_MAKER_CHECKER_RULE_SETUP)->whereNumber('id');
+                Route::get('/', 'index')->name('all')->middleware('permission:704');
+                Route::get('/dt_api', 'dt_api')->name('dt_api')->middleware('permission:704');
+                Route::post('/', 'create')->name('create')->middleware('permission:7040,'.ST_MAKER_CHECKER_RULE_SETUP);
+                Route::get('edit/{id}', 'edit')->name('edit')->middleware('permission:7041')->whereNumber('id');
+                Route::put('update/{id}', 'update')->name('update')->middleware('permission:7041,'.ST_MAKER_CHECKER_RULE_SETUP)->whereNumber('id');
+                Route::delete('delete/{id}', 'destroy')->name('delete')->middleware('permission:7042,'.ST_MAKER_CHECKER_RULE_SETUP)->whereNumber('id');
             });
 
             Route::controller(User\Setup\BranchController::class)->prefix('branches')->as('branches.')->group(function () {
-                Route::get('/', 'index')->name('all')->middleware('permission:706');
-                Route::post('/', 'create')->name('create')->middleware('permission:706,'.ST_MAKER_CHECKER_RULE_SETUP);
-                Route::get('/dt_api', 'dt_api')->name('dt_api')->middleware('permission:706');
-                Route::get('edit/{id}', 'edit')->name('edit')->middleware('permission:7071')->whereNumber('id');
-                Route::put('update/{id}', 'update')->name('update')->middleware('permission:7071,'.ST_MAKER_CHECKER_RULE_SETUP)->whereNumber('id');
-                Route::delete('delete/{id}', 'destroy')->name('delete')->middleware('permission:7072,'.ST_MAKER_CHECKER_RULE_SETUP)->whereNumber('id');
+                Route::get('/', 'index')->name('all')->middleware('permission:705');
+                Route::get('/dt_api', 'dt_api')->name('dt_api')->middleware('permission:705');
+                Route::post('/', 'create')->name('create')->middleware('permission:7050,'.ST_MAKER_CHECKER_RULE_SETUP);
+                Route::get('edit/{id}', 'edit')->name('edit')->middleware('permission:7051')->whereNumber('id');
+                Route::put('update/{id}', 'update')->name('update')->middleware('permission:7051,'.ST_MAKER_CHECKER_RULE_SETUP)->whereNumber('id');
+                Route::delete('delete/{id}', 'destroy')->name('delete')->middleware('permission:7052,'.ST_MAKER_CHECKER_RULE_SETUP)->whereNumber('id');
             });
         });
 
@@ -90,7 +90,7 @@ Route::group(['as' => 'user.'], function () {
             Route::controller(User\Utils\MakerCheckerTrxController::class)->prefix('unsupervised-data')->as('unsupervised_data.')->group(function () {
                 Route::get('/', 'index')->name('all')->middleware('permission:801');
                 Route::get('/dt_api', 'dt_api')->name('dt_api')->middleware('permission:801');
-                Route::post('/update/{id}/{action}', 'update')->name('update')->middleware('permission:802');
+                Route::post('/update/{id}/{action}', 'update')->name('update')->middleware('permission:8011');
             });
         });
 

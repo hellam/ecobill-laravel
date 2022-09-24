@@ -111,6 +111,8 @@ class MakerCheckerTrxController extends Controller
             $data = json_decode($maker_checker_trx->txt_data, true);
 
             $request->merge($data['inputs']);
+            foreach ($data['parameters'] as $key => $value)
+                $request->route()->setParameter($key, $value);
             $fn = '';
             if ($maker_checker_trx->method == 'POST')
                 $fn = 'create';

@@ -48,7 +48,7 @@ class UserValidators
         ]);
     }
 
-    public static function securityUpateValidation(Request $request)
+    public static function securityUpdateValidation(Request $request)
     {
         $type = Route::current()->type;
         $rules = [

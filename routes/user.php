@@ -64,7 +64,7 @@ Route::group(['as' => 'user.'], function () {
 
             Route::controller(User\Setup\SecurityController::class)->prefix('security')->as('security.')->group(function () {
                 Route::get('/', 'index')->name('all')->middleware('permission:703');
-                Route::post('update/{type}', 'update')->name('update')->middleware('permission:7031,'.ST_SECURITY_POLICY_SETUP)->whereIn('type', ['password_policy', 'general']);
+                Route::post('update/{type}', 'create')->name('update')->middleware('permission:7031,'.ST_SECURITY_POLICY_SETUP)->whereIn('type', ['password_policy', 'general']);
             });
 
             Route::controller(User\Setup\MakerCheckerRulesController::class)->prefix('maker-checker-rules')->as('maker_checker_rules.')->group(function () {

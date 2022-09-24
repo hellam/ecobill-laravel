@@ -47,7 +47,6 @@ const KTAuthNewPassword = function () {
                 if (status === 'Valid') {
                     submitButton.setAttribute("data-kt-indicator", "on")
                     submitButton.disabled = !0
-                    const str = $('#kt_new_password__form').serialize();
 
                     $.ajax({
                         headers: {

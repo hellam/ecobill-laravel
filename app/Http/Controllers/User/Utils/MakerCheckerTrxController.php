@@ -102,6 +102,11 @@ class MakerCheckerTrxController extends Controller
             return error_web_processor(__('messages.msg_trx_not_found'));
         }
 
+        if ($action == 'reject') {
+            $maker_checker_trx->delete();
+            return success_web_processor(null, __('messages.msg_data_submitted_4_supervision'));
+        }
+
         if ($maker_checker_trx->mc_type == 0 || $maker_checker_trx->checker1 != null) {//push and delete
             $data = json_decode($maker_checker_trx->txt_data, true);
 //            $url = $maker_checker_trx->url;

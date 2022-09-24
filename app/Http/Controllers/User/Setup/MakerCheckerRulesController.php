@@ -16,6 +16,9 @@ use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use function App\CentralLogics\error_web_processor;
 use function App\CentralLogics\get_user_ref;
+use function App\CentralLogics\log_activity;
+use function App\CentralLogics\set_create_parameters;
+use function App\CentralLogics\set_update_parameters;
 use function App\CentralLogics\success_web_processor;
 
 class MakerCheckerRulesController extends Controller
@@ -53,22 +56,37 @@ class MakerCheckerRulesController extends Controller
             ->make(true);
     }
 
-    public function create(Request $request): JsonResponse
+    public function create(Request $request, $created_at = null, $created_by = null,
+                                   $supervised_by = null, $supervised_at = null): JsonResponse
     {
         $validator = UserValidators::makerCheckerRuleCreateValidation($request);
 
         if ($validator != '') {
             return $validator;
         }
-
-        MakerCheckerRule::create([
+        $post_data = [
             'maker_type' => $request->maker_type,
             'permission_code' => $request->action,
-            'client_ref' => get_user_ref(),
-            'created_by' => auth('user')->user()->username,
-        ]);
+            'client_ref' => get_user_ref()
+        ];
+        $post_data = array_merge($post_data, set_create_parameters($created_at, $created_by, $supervised_by, $supervised_at));
 
-        return success_web_processor(null, __('messages.msg_saved_success', ['attribute' => __('messages.maker_checker_rule')]));
+        $rule = MakerCheckerRule::create($post_data);
+
+        if ($created_at == null) {
+            //if not supervised, log data from create request
+            //Creator log
+            log_activity(
+                ST_MAKER_CHECKER_RULE_SETUP,
+                $request->getClientIp(),
+                'Create Role',
+                json_encode($post_data),
+                auth('user')->id(),
+                $rule->id
+            );
+        }
+
+        return success_web_processor(['id' => $rule->id], __('messages.msg_saved_success', ['attribute' => __('messages.maker_checker_rule')]));
     }
 
     /**
@@ -90,13 +108,19 @@ class MakerCheckerRulesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validator = UserValidators::makerCheckerRuleUpdateValidation($request, $id);
+        $validator = UserValidators::makerCheckerRuleUpdateValidation($request, $id, $created_at = null, $created_by = null,
+            $supervised_by = null, $supervised_at = null);
 
         if ($validator != '') {
             return $validator;
         }
 
         $rule = MakerCheckerRule::find($id);
+
+        //set parameters
+        $rule = set_update_parameters($rule, $created_at, $created_by,
+            $supervised_by, $supervised_at);
+
         $rule->maker_type = $request->maker_type;
         $rule->permission_code = $request->action;
         $rule->inactive = $request->inactive;

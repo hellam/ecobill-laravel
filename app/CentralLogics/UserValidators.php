@@ -2,9 +2,7 @@
 
 namespace App\CentralLogics;
 
-use App\Http\Controllers\Controller;
 use App\Models\MakerCheckerRule;
-use App\Models\MakerCheckerTrx;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

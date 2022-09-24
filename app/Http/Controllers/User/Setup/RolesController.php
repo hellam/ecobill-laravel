@@ -16,6 +16,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use function App\CentralLogics\error_web_processor;
 use function App\CentralLogics\get_user_ref;
+use function App\CentralLogics\log_activity;
+use function App\CentralLogics\set_create_parameters;
+use function App\CentralLogics\set_update_parameters;
 use function App\CentralLogics\success_web_processor;
 use function App\CentralLogics\validation_error_processor;
 
@@ -31,7 +34,8 @@ class RolesController extends Controller
         return view('user.setup.roles', compact('permission_groups', 'roles'));
     }
 
-    public function create(Request $request): JsonResponse
+    public function create(Request $request, $created_at = null, $created_by = null,
+                                   $supervised_by = null, $supervised_at = null): JsonResponse
     {
 
         $validator = UserValidators::rolesCreateValidation($request);
@@ -42,15 +46,31 @@ class RolesController extends Controller
 
         $request->permissions = implode(',', $request->permissions);
 
-        Role::create([
+        $post_data = [
             'name' => $request->name,
             'permissions' => $request->permissions,
-            'client_ref' => get_user_ref(),
-            'created_by' => auth('user')->user()->username,
-        ]);
+            'client_ref' => get_user_ref()
+        ];
 
+        //set_create_parameters($created_at, $created_by, ...)
+        $post_data = array_merge($post_data, set_create_parameters($created_at, $created_by, $supervised_by, $supervised_at));
 
-        return success_web_processor(null, __('messages.msg_saved_success', ['attribute' => __('messages.role')]));
+        $role = Role::create($post_data);
+
+        if ($created_at == null) {
+            //if not supervised, log data from create request
+            //Creator log
+            log_activity(
+                ST_ROLE_SETUP,
+                $request->getClientIp(),
+                'Create Role',
+                json_encode($post_data),
+                auth('user')->id(),
+                $role->id
+            );
+        }
+
+        return success_web_processor(['id' => $role->id], __('messages.msg_saved_success', ['attribute' => __('messages.role')]));
     }
 
     /**
@@ -80,7 +100,8 @@ class RolesController extends Controller
      * Update the specified resource in storage.
      *
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id, $created_at = null, $created_by = null,
+                                   $supervised_by = null, $supervised_at = null)
     {
         $validator = UserValidators::rolesUpdateValidation($request, $id);
 
@@ -88,9 +109,13 @@ class RolesController extends Controller
             return $validator;
         }
 
+        $role = Role::find($id);
+        //set parameters
+        $role = set_update_parameters($role, $created_at, $created_by,
+            $supervised_by, $supervised_at);
+
         $request->permissions = implode(',', $request->permissions);
 
-        $role = Role::find($id);
         $role->name = $request->name;
         $role->permissions = $request->permissions;
         $role->update();

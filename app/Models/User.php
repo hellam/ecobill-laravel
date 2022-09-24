@@ -104,6 +104,8 @@ class User extends Authenticatable
         'updated_by',
         'supervised_by',
         'supervised_at',
+        'created_at',
+        'updated_at',
         'two_factor',
         'first_time',
         'inactive'

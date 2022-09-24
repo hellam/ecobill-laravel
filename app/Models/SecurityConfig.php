@@ -34,6 +34,8 @@ class SecurityConfig extends Model
         'updated_by',
         'supervised_by',
         'supervised_at',
+        'created_at',
+        'updated_at',
 	];
 
     public static function booted()

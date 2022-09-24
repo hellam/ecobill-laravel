@@ -43,6 +43,8 @@ class MakerCheckerRule extends Model
         'updated_by',
         'supervised_by',
         'supervised_at',
+        'created_at',
+        'updated_at',
 		'inactive'
 	];
 

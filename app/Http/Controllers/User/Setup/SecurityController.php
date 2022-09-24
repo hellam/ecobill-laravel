@@ -11,6 +11,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use function App\CentralLogics\error_web_processor;
+use function App\CentralLogics\set_update_parameters;
 use function App\CentralLogics\success_web_processor;
 
 class SecurityController extends Controller
@@ -29,7 +30,9 @@ class SecurityController extends Controller
      * Update the specified resource in storage.
      *
      */
-    public function update(Request $request, $type)
+    public function update(Request $request, $type,
+                                   $created_at = null, $created_by = null,
+                                   $supervised_by = null, $supervised_at = null)
     {
         $validator = UserValidators::securityUpdateValidation($request);
 
@@ -37,29 +40,29 @@ class SecurityController extends Controller
             return $validator;
         }
 
+        $sec_config = SecurityConfig::first();
+
+        //set parameters
+        $sec_config = set_update_parameters($sec_config, $created_at, $created_by,
+            $supervised_by, $supervised_at);
+
         if ($type == 'general') {
             $configs[] = $request->max_login;
             $configs[] = $request->single_sign;
 
-            $sec_config = SecurityConfig::first();
             $sec_config->general_security = $configs;
-            $sec_config->update();
-            return success_web_processor(null, __('messages.msg_updated_success', ['attribute' => __('messages.security')]));
-        } elseif ($type == 'password_policy') {
-
-            $configs[] = $request->pass_expiry;
-            $configs[] = $request->min_length;
-            $configs[] = $request->strength;
-            $configs[] = $request->pass_history;
-            $configs[] = $request->first_time;
-
-            $sec_config = SecurityConfig::first();
-            $sec_config->password_policy = $configs;
             $sec_config->update();
             return success_web_processor(null, __('messages.msg_updated_success', ['attribute' => __('messages.security')]));
         }
 
-        return error_web_processor(null, __('messages.update_error'));
+        $configs[] = $request->pass_expiry;
+        $configs[] = $request->min_length;
+        $configs[] = $request->strength;
+        $configs[] = $request->pass_history;
+        $configs[] = $request->first_time;
 
+        $sec_config->password_policy = $configs;
+        $sec_config->update();
+        return success_web_processor(null, __('messages.msg_updated_success', ['attribute' => __('messages.security')]));
     }
 }

@@ -74,6 +74,50 @@ function get_user_ref()
     return auth('user')->user()->uuid;
 }
 
+function set_update_parameters($obj, $created_at, $created_by,
+                               $supervised_by, $supervised_at)
+{
+    $obj->updated_by = auth('user')->user()->username;
+
+    if ($created_at != null) {
+        $obj->updated_at = $created_at;
+    }
+    if ($created_by != null) {
+        $obj->updated_by = $created_by;
+    }
+    if ($supervised_by != null) {
+        $obj->supervised_by = $supervised_by;
+    }
+    if ($supervised_at != null) {
+        $obj->supervised_at = $supervised_at;
+    }
+    return $obj;
+}
+
+function set_create_parameters($created_at, $created_by,
+                               $supervised_by, $supervised_at)
+{
+    $array = [];
+
+    if ($created_at != null) {
+        $array = array_merge($array, ['created_at' => $created_at]);
+    }
+
+    if ($created_by != null) {
+        $array = array_merge($array, ['created_by' => $created_by]);
+    } else {
+        $array = array_merge($array, ['created_by' => auth('user')->user()->username]);
+    }
+
+    if ($supervised_by != null) {
+        $array = array_merge($array, ['supervised_by' => $supervised_by]);
+    }
+    if ($supervised_at != null) {
+        $array = array_merge($array, ['supervised_at' => $supervised_at]);
+    }
+    return $array;
+}
+
 function get_active_branch()
 {
     return session('branch');

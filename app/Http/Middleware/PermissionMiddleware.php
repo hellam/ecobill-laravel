@@ -8,12 +8,11 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Session;
 use Yoeunes\Toastr\Facades\Toastr;
 use function App\CentralLogics\check_permission;
 use function App\CentralLogics\error_web_processor;
+use function App\CentralLogics\log_activity;
 use function App\CentralLogics\requires_maker_checker;
-use function App\CentralLogics\success_web_processor;
 
 class PermissionMiddleware
 {
@@ -36,7 +35,7 @@ class PermissionMiddleware
                         return $validator;
                     }
                 }
-                if (!$request->has('remarks'))
+                if (!$request->filled('remarks'))
                     return error_web_processor(
                         __('messages.msg_remarks_required'),
                         203
@@ -48,6 +47,27 @@ class PermissionMiddleware
                             'module' => $maker_checker[2],
                             'trx_type' => $trx_type,
                         ]);
+            }
+
+            //Log all put/delete requests that don't need supervision
+            if ($request->getMethod() == "PUT") {
+                log_activity(
+                    $trx_type,
+                    $request->getClientIp(),
+                    'Update',
+                    json_encode($request->all()),
+                    auth('user')->id(),
+                    Route::current()->id
+                );
+            } elseif ($request->getMethod() == "DELETE") {
+                log_activity(
+                    $trx_type,
+                    $request->getClientIp(),
+                    'Delete',
+                    "",
+                    auth('user')->id(),
+                    Route::current()->id
+                );
             }
             return $next($request);
         }

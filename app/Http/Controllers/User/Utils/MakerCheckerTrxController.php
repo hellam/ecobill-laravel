@@ -16,6 +16,7 @@ use Yajra\DataTables\DataTables;
 use function App\CentralLogics\decode_form_data;
 use function App\CentralLogics\error_web_processor;
 use function App\CentralLogics\get_user_ref;
+use function App\CentralLogics\log_activity;
 use function App\CentralLogics\success_web_processor;
 
 class MakerCheckerTrxController extends Controller
@@ -66,7 +67,9 @@ class MakerCheckerTrxController extends Controller
         $r_body['inputs'] = $request->except('remarks');
         $r_body['parameters'] = $request->route()->parameters();
         $r_body['route'] = $request->route()->getName();
+        $r_body['ip_address'] = $request->getClientIp();
         $r_body['action'] = $request->route()->getAction()['controller'];
+        $r_body['method'] = $request->route()->getActionMethod();
 
         $maker_trx = MakerCheckerTrx::where([
             'txt_data' => json_encode($r_body),
@@ -107,6 +110,7 @@ class MakerCheckerTrxController extends Controller
             return success_web_processor(null, __('messages.msg_data_rejected'));
         }
 
+
         if ($maker_checker_trx->mc_type == 0 || $maker_checker_trx->checker1 != null) {//push and delete
             $data = json_decode($maker_checker_trx->txt_data, true);
 
@@ -114,14 +118,45 @@ class MakerCheckerTrxController extends Controller
             foreach ($data['parameters'] as $key => $value)
                 $request->route()->setParameter($key, $value);
 
+            //pass extra parameters for logs
+            $extra_params = [
+                'created_at' => $maker_checker_trx->created_at,
+                'created_by' => User::find($maker_checker_trx->maker)->username,
+                'supervised_by' => auth('user')->user()->username,
+                'supervised_at' => Carbon::now()
+            ];
+            $params = array_merge($data['parameters'], $extra_params);
+
             //submit request to controller to create/update/delete data
-            $response = app()->call($data['action'], $data['parameters']);
+            $response = app()->call($data['action'], $params);
 
             //submit request to url
             $response_data = json_decode($response->getContent(), true);
 
-            if ($response_data['status'])
+            if ($response_data['status']) {
+                //Maker log
+                log_activity(
+                    $maker_checker_trx->trx_type,
+                    $data['ip_address'],
+                    $data['method'],
+                    json_encode($data['inputs']),
+                    $maker_checker_trx->maker,
+                    $maker_checker_trx->method == "POST" ? $response_data['data']['id'] :
+                        $data['parameters']['id']
+                );//Maker log
+                log_activity(
+                    $maker_checker_trx->trx_type,
+                    $data['ip_address'],
+                    'Supervised: ' . $data['method'],
+                    json_encode($data['inputs']),
+                    auth('user')->id(),
+                    $maker_checker_trx->method == "POST" ? $response_data['data']['id'] :
+                        $data['parameters']['id']
+                );
+
                 $maker_checker_trx->delete();
+            }
+
 
             return $response_data;
         } else {//update checker1 supervision

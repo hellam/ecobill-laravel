@@ -65,6 +65,7 @@ class MakerCheckerTrxController extends Controller
         $r_body['inputs'] = $request->except('remarks');
         $r_body['parameters'] = $request->route()->parameters();
         $r_body['route'] = $request->route()->getName();
+        $r_body['ctr'] = $request->route()->getControllerClass();
 
         $maker_trx = MakerCheckerTrx::where([
             'txt_data' => json_encode($r_body),
@@ -92,7 +93,7 @@ class MakerCheckerTrxController extends Controller
         return success_web_processor(null, __('messages.msg_data_submitted_4_supervision'));
     }
 
-    public static function update(Request $request, $id)
+    public static function update(Request $request, $id,$action)
     {
         $maker_checker_trx = MakerCheckerTrx::find($id);
 
@@ -100,15 +101,26 @@ class MakerCheckerTrxController extends Controller
             return error_web_processor(__('messages.msg_trx_not_found'));
         }
 
-        if ($maker_checker_trx->mc_type > 0 || $maker_checker_trx->checker1 != null) {//push and delete
+        if ($maker_checker_trx->mc_type == 0 || $maker_checker_trx->checker1 != null) {//push and delete
             $data = json_decode($maker_checker_trx->txt_data, true);
-            $data['inputs'] = ['supervised' => $maker_checker_trx->id];
-            Session::put('sudata', $maker_checker_trx->id);
-            $url = $maker_checker_trx->url;
+//            $url = $maker_checker_trx->url;
+//            $url = app()->make('url')->to('/').'/'.$url;
+
+            $request->merge($data['inputs']);
+            $fn = '';
+            if ($maker_checker_trx->method == 'POST')
+                $fn = 'create';
+            else if ($maker_checker_trx->method == 'PUT')
+                $fn = 'update';
+            else if ($maker_checker_trx->method == 'DELETE')
+                $fn = 'destroy';
+
+            //submit request to controller to create/update/delete data
+            $response = app()->call($data['ctr'].'@'.$fn, $data['parameters']);
+
             //submit request to url
-            $request = Request::create($url, $maker_checker_trx->method, $data['inputs']);
-            $response = app()->handle($request);
             $response_data = json_decode($response->getContent(), true);
+
             if ($response_data['status'])
                 $maker_checker_trx->delete();
 
@@ -116,6 +128,7 @@ class MakerCheckerTrxController extends Controller
         } else {//update checker1 supervision
             $maker_checker_trx->checker1 = auth('user')->id();
             $maker_checker_trx->update();
+            return success_web_processor(null, __('messages.msg_data_submitted_4_supervision'));
         }
 
     }

@@ -63,17 +63,15 @@ const KTGeneralSecurity = function () {
                 });
             }
         });
+
+        $("#kt_general_security_form input[id='single_sign_checkbox']").on('change', function () {
+            if ($(this).is(':checked'))
+                $("#kt_general_security_form input[name='single_sign']").val(1)
+            else {
+                $("#kt_general_security_form input[name='single_sign']").val(0)
+            }
+        })
     };
-
-
-
-    $("#kt_general_security_form input[id='single_sign_checkbox']").on('change', function () {
-        if ($(this).is(':checked'))
-            $("#kt_general_security_form input[name='single_sign']").val(1)
-        else {
-            $("#kt_general_security_form input[name='single_sign']").val(0)
-        }
-    })
 
     function submitGeneralSec(str){
         $.ajax({
@@ -91,7 +89,7 @@ const KTGeneralSecurity = function () {
                         $('#err_' + value.field).remove();
                         $("input[name='" + value.field + "']")
                             .after('<small style="color: red;" id="err_' + value.field + '">' + value.error + '</small>')
-                            .on('keyup', function (e) {
+                            .on('keyup', function () {
                                 $('#err_' + value.field).remove();
                             })
                     }
@@ -158,7 +156,7 @@ const KTGeneralSecurity = function () {
                     });
                 }
             },
-            error: function (xhr, desc, err) {
+            error: function (xhr) {
                 console.log(xhr)
                 Swal.fire({
                     text: 'A network error occured. Please consult your network administrator.',

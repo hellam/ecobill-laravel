@@ -76,9 +76,6 @@ const KTPasswordPolicy = function () {
                 });
             }
         });
-    };
-
-    function submitPasswordPolicy(str) {
         $("#kt_password_policy_form input[id='first_time_login']").on('change', function () {
             if ($(this).is(':checked'))
                 $("#kt_password_policy_form input[name='first_time']").val(1)
@@ -86,6 +83,9 @@ const KTPasswordPolicy = function () {
                 $("#kt_password_policy_form input[name='first_time']").val(0)
             }
         })
+    };
+
+    function submitPasswordPolicy(str) {
 
         $.ajax({
             headers: {
@@ -100,17 +100,18 @@ const KTPasswordPolicy = function () {
                     let errors = response.data;
                     for (const [key, value] of Object.entries(errors)) {
                         $('#err_' + value.field).remove();
-                        if ($("input[name='" + value.field + "']")) {
-                            $("input[name='" + value.field + "']")
+                        let input = "input[name='" + value.field + "']";
+                        if ($(input)) {
+                            $(input)
                                 .after('<small style="color: red;" id="err_' + value.field + '">' + value.error + '</small>')
-                                .on('keyup', function (e) {
+                                .on('keyup', function () {
                                     $('#err_' + value.field).remove();
                                 })
                         }
                         if (value.field === 'combination') {
                             $('#combination_span')
                                 .after('<small style="color: red;" id="err_' + value.field + '">' + value.error + '</small>')
-                                .on('keyup', function (e) {
+                                .on('keyup', function () {
                                     $('#err_' + value.field).remove();
                                 })
                         }
@@ -178,7 +179,7 @@ const KTPasswordPolicy = function () {
                     });
                 }
             },
-            error: function (xhr, desc, err) {
+            error: function (xhr) {
                 console.log(xhr)
                 Swal.fire({
                     text: 'A network error occured. Please consult your network administrator.',

@@ -63,15 +63,17 @@ const KTGeneralSecurity = function () {
                 });
             }
         });
-
-        $("#kt_general_security_form input[id='single_sign_checkbox']").on('change', function () {
-            if ($(this).is(':checked'))
-                $("#kt_general_security_form input[name='single_sign']").val(1)
-            else {
-                $("#kt_general_security_form input[name='single_sign']").val(0)
-            }
-        })
     };
+
+
+
+    $("#kt_general_security_form input[id='single_sign_checkbox']").on('change', function () {
+        if ($(this).is(':checked'))
+            $("#kt_general_security_form input[name='single_sign']").val(1)
+        else {
+            $("#kt_general_security_form input[name='single_sign']").val(0)
+        }
+    })
 
     function submitGeneralSec(str){
         $.ajax({

@@ -110,7 +110,7 @@ var KTUsersUpdatePermissions = function () {
                         $('.loader_container').hide();//hide loader
 
                     },
-                    error: function (xhr, desc, err) {
+                    error: function () {
                         Swal.fire({
                             text: 'A network error occured. Please consult your network administrator.',
                             icon: "error",
@@ -147,91 +147,7 @@ var KTUsersUpdatePermissions = function () {
                         updateButton.disabled = true;
 
                         var str = $('#kt_modal_update_role_form').serialize();
-                        $.ajax({
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            },
-                            type: 'PUT',
-                            url: updateURL,
-                            data: str,
-                            success: function (json) {
-                                var response = JSON.parse(JSON.stringify(json));
-                                if (response.status !== true) {
-                                    var errors = response.data;
-                                    for (const [key, value] of Object.entries(errors)) {
-                                        // console.log(value)
-                                        $('#err_' + value.field).remove();
-                                        if ("input[name='" + value.field + "']") {
-                                            $("input[name='" + value.field + "']")
-                                                .after('<small style="color: red;" id="err_' + value.field + '">' + value.error + '</small>')
-                                                .on('keyup', function (e) {
-                                                    $('#err_' + value.field).remove();
-                                                })
-                                        }
-                                        if (value.field === 'permissions') {
-                                            $('#permissions_update').after('<small style="color: red;" id="err_' + value.field + '">' + value.error + '</small>')
-                                                .on('keyup', function (e) {
-                                                    $('#err_' + value.field).remove();
-                                                })
-                                        }
-                                    }
-
-                                    Swal.fire({
-                                        text: response.message,
-                                        icon: "error",
-                                        buttonsStyling: false,
-                                        confirmButtonText: "Ok!",
-                                        customClass: {
-                                            confirmButton: "btn btn-primary"
-                                        }
-                                    });
-
-                                } else {
-                                    Swal.fire({
-                                        text: response.message,
-                                        icon: "success",
-                                        buttonsStyling: false,
-                                        confirmButtonText: "Ok!",
-                                        customClass: {
-                                            confirmButton: "btn btn-primary"
-                                        }
-                                    }).then(function (result) {
-                                        if (result.isConfirmed) {
-                                            // Hide modal
-                                            modal.hide();
-
-                                            // Enable submit button after loading
-                                            updateButton.disabled = false;
-
-                                            window.location.reload();
-                                        }
-                                    });
-                                }
-                                updateButton.removeAttribute('data-kt-indicator');
-
-                                // Enable submit button after loading
-                                updateButton.disabled = false;
-
-                            },
-                            error: function (xhr, desc, err) {
-                                console.log(xhr)
-                                Swal.fire({
-                                    text: 'A network error occured. Please consult your network administrator.',
-                                    icon: "error",
-                                    buttonsStyling: false,
-                                    confirmButtonText: "Ok!",
-                                    customClass: {
-                                        confirmButton: "btn btn-primary"
-                                    }
-                                });
-
-                                updateButton.removeAttribute('data-kt-indicator');
-
-                                // Enable submit button after loading
-                                updateButton.disabled = false;
-
-                            }
-                        });
+                        submitData(str);
                     } else {
                         Swal.fire({
                             text: "Sorry, looks like there are some errors detected, please try again.",
@@ -329,23 +245,35 @@ var KTUsersUpdatePermissions = function () {
             })
         });
 
-        function submitData(deleteURL, roleName) {
-            Swal.fire({
-                text: "Deleting " + roleName,
-                icon: "info",
-                allowOutsideClick: false,
-                buttonsStyling: false,
-                showConfirmButton: false,
-            })
+        function submitData(str) {
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                type: 'DELETE',
-                url: deleteURL,
+                type: 'PUT',
+                url: updateURL,
+                data: str,
                 success: function (json) {
                     var response = JSON.parse(JSON.stringify(json));
                     if (response.status !== true) {
+                        var errors = response.data;
+                        for (const [key, value] of Object.entries(errors)) {
+                            $('#err_' + value.field).remove();
+                            if ("input[name='" + value.field + "']") {
+                                $("input[name='" + value.field + "']")
+                                    .after('<small style="color: red;" id="err_' + value.field + '">' + value.error + '</small>')
+                                    .on('keyup', function () {
+                                        $('#err_' + value.field).remove();
+                                    })
+                            }
+                            if (value.field === 'permissions') {
+                                $('#permissions_update').after('<small style="color: red;" id="err_' + value.field + '">' + value.error + '</small>')
+                                    .on('keyup', function () {
+                                        $('#err_' + value.field).remove();
+                                    })
+                            }
+                        }
+
                         Swal.fire({
                             text: response.message,
                             icon: "error",
@@ -361,18 +289,31 @@ var KTUsersUpdatePermissions = function () {
                             text: response.message,
                             icon: "success",
                             buttonsStyling: false,
-                            confirmButtonText: "Ok, got it!",
+                            confirmButtonText: "Ok!",
                             customClass: {
-                                confirmButton: "btn fw-bold btn-primary",
+                                confirmButton: "btn btn-primary"
                             }
-                        }).then(function () {
-                            // delete row data from server and re-draw datatable
-                            window.location.reload();
+                        }).then(function (result) {
+                            if (result.isConfirmed) {
+                                // Hide modal
+                                modal.hide();
+
+                                // Enable submit button after loading
+                                updateButton.disabled = false;
+
+                                window.location.reload();
+                            }
                         });
                     }
+                    updateButton.removeAttribute('data-kt-indicator');
+
+                    // Enable submit button after loading
+                    updateButton.disabled = false;
+
                 },
                 statusCode: {
                     203: function () {
+                        modal.hide()//hide modal
                         Swal.fire({
                             text: "Please provide remarks",
                             icon: "info",
@@ -385,7 +326,7 @@ var KTUsersUpdatePermissions = function () {
                             buttonsStyling: false,
                             confirmButtonText: "Submit",
                             cancelButtonText: "Cancel",
-                            showLoaderOnConfirm: true,
+                            // showLoaderOnConfirm: true,
                             customClass: {
                                 confirmButton: "btn fw-bold btn-danger",
                                 cancelButton: "btn fw-bold btn-active-light-primary"
@@ -395,12 +336,19 @@ var KTUsersUpdatePermissions = function () {
                             if (result.isConfirmed) {
                                 //data.add('remarks', result.value);
                                 // alert(result.value)
-                                submitData(deleteURL + "?remarks=" + result.value, roleName)
+                                modal.show()//show modal
+                                // console.log(str)
+                                // if (result.value)
+                                str = str + "&remarks=" + result.value
+                                submitData(str)
+                            } else {
+                                form.reset(); // Reset form
                             }
                         });
                     }
                 },
-                error: function (xhr, desc, err) {
+                error: function (xhr) {
+                    console.log(xhr)
                     Swal.fire({
                         text: 'A network error occured. Please consult your network administrator.',
                         icon: "error",
@@ -410,6 +358,12 @@ var KTUsersUpdatePermissions = function () {
                             confirmButton: "btn btn-primary"
                         }
                     });
+
+                    updateButton.removeAttribute('data-kt-indicator');
+
+                    // Enable submit button after loading
+                    updateButton.disabled = false;
+
                 }
             });
         }

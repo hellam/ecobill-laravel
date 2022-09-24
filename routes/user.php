@@ -83,7 +83,7 @@ Route::group(['as' => 'user.'], function () {
                 Route::get('edit/{id}', 'edit')->name('edit')->middleware('permission:7051')->whereNumber('id');
                 Route::put('update/{id}', 'update')->name('update')->middleware('permission:7051,'.ST_MAKER_CHECKER_RULE_SETUP)->whereNumber('id');
                 Route::delete('delete/{id}', 'destroy')->name('delete')->middleware('permission:7052,'.ST_MAKER_CHECKER_RULE_SETUP)->whereNumber('id');
-            });
+            }); 
         });
 
         Route::group(['prefix' => 'utils', 'as' => 'utils.'], function () {

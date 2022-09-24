@@ -477,12 +477,12 @@
                                     class="fs-7 fw-bold text-gray-700 pe-4 text-nowrap d-none d-xxl-block">Sort By:</span>
                                 <!--end::Label-->
                                 <!--begin::Select-->
-                                <select class="form-select form-select-sm form-select-solid w-100px w-xxl-125px"
-                                        data-control="select2" data-placeholder="Latest" data-hide-search="true">
+                                <select class="form-select form-select-sm form-select-solid"
+                                        data-control="select2" data-placeholder="Switch Branch" data-hide-search="true">
                                     <option value=""></option>
-                                    <option value="1" selected="selected">Latest</option>
-                                    <option value="2">In Progress</option>
-                                    <option value="3">Done</option>
+                                    <option value="1">HQ Branch</option>
+                                    <option value="2">Branch 4</option>
+                                    <option value="3">Branch 3</option>
                                 </select>
                                 <!--end::Select-->
                             </div>

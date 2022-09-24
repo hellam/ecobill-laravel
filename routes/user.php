@@ -75,6 +75,15 @@ Route::group(['as' => 'user.'], function () {
                 Route::put('update/{id}', 'update')->name('update')->middleware('permission:7051,'.ST_MAKER_CHECKER_RULE_SETUP)->whereNumber('id');
                 Route::delete('delete/{id}', 'destroy')->name('delete')->middleware('permission:7052,'.ST_MAKER_CHECKER_RULE_SETUP)->whereNumber('id');
             });
+
+            Route::controller(User\Setup\BranchController::class)->prefix('branches')->as('branches.')->group(function () {
+                Route::get('/', 'index')->name('all')->middleware('permission:706');
+                Route::post('/', 'create')->name('create')->middleware('permission:706,'.ST_MAKER_CHECKER_RULE_SETUP);
+                Route::get('/dt_api', 'dt_api')->name('dt_api')->middleware('permission:706');
+                Route::get('edit/{id}', 'edit')->name('edit')->middleware('permission:7071')->whereNumber('id');
+                Route::put('update/{id}', 'update')->name('update')->middleware('permission:7071,'.ST_MAKER_CHECKER_RULE_SETUP)->whereNumber('id');
+                Route::delete('delete/{id}', 'destroy')->name('delete')->middleware('permission:7072,'.ST_MAKER_CHECKER_RULE_SETUP)->whereNumber('id');
+            });
         });
 
         Route::group(['prefix' => 'utils', 'as' => 'utils.'], function () {
@@ -88,8 +97,8 @@ Route::group(['as' => 'user.'], function () {
     });
 });
 
-Route::get('/user-branches', function (){
-    return response()->json([
-        'user_details' => Users::with('user_branches')->where('id', 1)->first()
-    ]);
-});
+//Route::get('/user-branches', function (){
+//    return response()->json([
+//        'user_details' => Users::with('user_branches')->where('id', 1)->first()
+//    ]);
+//});

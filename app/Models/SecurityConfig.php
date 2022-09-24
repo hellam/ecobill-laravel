@@ -1,12 +1,7 @@
 <?php
-
-/**
- * Created by Reliese Model.
- */
-
 namespace App\Models;
 
-use App\Scopes\UserScope;
+use App\Scopes\ClientRefScope;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
@@ -44,7 +39,7 @@ class SecurityConfig extends Model
     public static function booted()
     {
         if (Auth::guard('user')->check()) {
-            static::addGlobalScope(new UserScope());
+            static::addGlobalScope(new ClientRefScope());
         }
     }
 }

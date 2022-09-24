@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Scopes\ClientRefScope;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class Branch
@@ -54,4 +56,13 @@ class Branch extends Model
         'supervised_by',
         'supervised_at',
 	];
+
+
+
+    public static function booted()
+    {
+        if (Auth::guard('user')->check()){
+            static::addGlobalScope(new ClientRefScope());
+        }
+    }
 }

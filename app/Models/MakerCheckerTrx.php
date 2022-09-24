@@ -1,12 +1,9 @@
 <?php
 
-/**
- * Created by Reliese Model.
- */
-
 namespace App\Models;
 
-use App\Scopes\UserScope;
+use App\Scopes\BranchScope;
+use App\Scopes\ClientRefScope;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
@@ -65,7 +62,8 @@ class MakerCheckerTrx extends Model
     public static function booted()
     {
         if (Auth::guard('user')->check()){
-            static::addGlobalScope(new UserScope());
+            static::addGlobalScope(new BranchScope());
+            static::addGlobalScope(new ClientRefScope());
         }
     }
 }

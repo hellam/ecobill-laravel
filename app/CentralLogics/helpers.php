@@ -74,6 +74,11 @@ function get_user_ref()
     return auth('user')->user()->uuid;
 }
 
+function get_active_branch()
+{
+    return session('branch');
+}
+
 /**
  * Return a success JSON response.
  *

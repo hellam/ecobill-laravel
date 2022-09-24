@@ -1,12 +1,7 @@
 <?php
-
-/**
- * Created by Reliese Model.
- */
-
 namespace App\Models;
 
-use App\Scopes\UserScope;
+use App\Scopes\ClientRefScope;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
@@ -18,7 +13,11 @@ use Illuminate\Support\Facades\Auth;
  * @property string $client_ref
  * @property string $general_security
  * @property string $password_policy
+ * @property string $created_by
+ * @property string $updated_by
+ * @property string $supervised_by
  * @property Carbon|null $created_at
+ * @property Carbon|null $supervised_at
  * @property Carbon|null $updated_at
  *
  * @package App\Models
@@ -30,13 +29,17 @@ class SecurityConfig extends Model
 	protected $fillable = [
 		'client_ref',
 		'general_security',
-		'password_policy'
+		'password_policy',
+        'created_by',
+        'updated_by',
+        'supervised_by',
+        'supervised_at',
 	];
 
     public static function booted()
     {
         if (Auth::guard('user')->check()) {
-            static::addGlobalScope(new UserScope());
+            static::addGlobalScope(new ClientRefScope());
         }
     }
 }

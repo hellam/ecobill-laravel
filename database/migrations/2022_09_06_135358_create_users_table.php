@@ -40,10 +40,12 @@ class CreateUsersTable extends Migration
             $table->string('startup_tab', 100)->default('/');
             $table->smallInteger('transaction_days')->default(30);
             $table->string('def_print_destination')->nullable();
-            $table->string('created_by',100)->nullable();
             $table->string('two_factor',100)->nullable();
             $table->tinyInteger('first_time',1)->default(0);
-            $table->string('last_updated_by',100)->nullable();
+            $table->string("created_by",100)->nullable();
+            $table->string("updated_by",100)->nullable();
+            $table->string('supervised_by',100)->nullable();
+            $table->timestamp('supervised_at')->nullable();
             $table->boolean('inactive')->default(false);
             $table->timestamps();
         });

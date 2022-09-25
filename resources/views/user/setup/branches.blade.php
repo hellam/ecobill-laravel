@@ -339,8 +339,9 @@
                                                 name="fiscal_year"
                                                 data-dropdown-parent="#kt_modal_add_branch">
                                             <option></option>
-                                            <option value="01/01/2022">01/01/2022-31/12/2022</option>
-                                            <option value="01/01/2022">01/01/2023-31/12/2023</option>
+                                            @foreach($fiscal_year as $year)
+                                                <option value="{{$year->id}}">{{$year->begin."-".$year->end}}</option>
+                                            @endforeach
                                         </select>
                                         <!--end::Input-->
                                     </div>

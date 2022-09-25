@@ -98,8 +98,7 @@ class BranchController extends Controller
             );
         }
 
-
-        return success_web_processor(['id' => $branch->id], __('messages.msg_saved_success', ['attribute' => __('messages.role')]));
+        return success_web_processor(['id' => $branch->id], __('messages.msg_saved_success', ['attribute' => __('messages.branch')]));
     }
 
     /**

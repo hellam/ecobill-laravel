@@ -148,6 +148,8 @@ return [
     'strength' => 'Strength',
     'strong' => 'Strong',
     'tax_no' => 'Tax No.',
+    'tax_period' => 'Tax Period',
+    'tax_start_date' => 'Tax Start Date',
     'timezone' => 'Timezone',
     'to' => 'To',
     'trx_type' => 'Trx Type',

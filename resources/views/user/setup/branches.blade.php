@@ -259,23 +259,6 @@
                                 <!--begin::Input group-->
                                 <div class="row g-9 mb-7">
                                     <!--begin::Col-->
-                                    <div class="col-md-12 fv-row">
-                                        <!--begin::Label-->
-                                        <label
-                                            class="required fs-6 fw-bold mb-2">{{__('messages.address')}}</label>
-                                        <!--end::Label-->
-                                        <!--begin::Input-->
-                                        <textarea class="form-control form-control-solid"
-                                                  placeholder="{{__('messages.address')}}" rows="3"
-                                                  name="address"></textarea>
-                                        <!--end::Input-->
-                                    </div>
-                                    <!--end::Col-->
-                                </div>
-                                <!--end::Input group-->
-                                <!--begin::Input group-->
-                                <div class="row g-9 mb-7">
-                                    <!--begin::Col-->
                                     <div class="col-md-6 fv-row">
                                         <!--begin::Label-->
                                         <label
@@ -292,12 +275,29 @@
                                     <div class="col-md-6 fv-row">
                                         <!--begin::Label-->
                                         <label
-                                            class="required fs-6 fw-bold mb-2">{{__('messages.phone')}}</label>
+                                            class="required fs-6 fw-bold mb-2">{{__('messages.tax_period')}}</label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
-                                        <input type="text" class="form-control form-control-solid"
-                                               placeholder="{{__('messages.phone')}}"
-                                               name="phone"/>
+                                        <select class="form-select form-select-solid fw-bolder"
+                                                name="tax_period"
+                                                data-kt-select2="true"
+                                                data-placeholder="Select Tax Period"
+                                                data-allow-clear="true"
+                                                data-dropdown-parent="#kt_modal_add_branch">
+                                            <option></option>
+                                            <option value="1">1 Month</option>
+                                            <option value="2">2 Months</option>
+                                            <option value="3">3 Months</option>
+                                            <option value="4">4 Months</option>
+                                            <option value="5">5 Months</option>
+                                            <option value="6">6 Months</option>
+                                            <option value="7">7 Months</option>
+                                            <option value="8">8 Months</option>
+                                            <option value="9">9 Months</option>
+                                            <option value="10">10 Months</option>
+                                            <option value="11">11 Months</option>
+                                            <option value="12">12 Months</option>
+                                        </select>
                                         <!--end::Input-->
                                     </div>
                                     <!--end::Col-->
@@ -353,48 +353,37 @@
                                     <div class="col-md-6 fv-row">
                                         <!--begin::Label-->
                                         <label
-                                            class="required fs-6 fw-bold mb-2">{{__('messages.tax_period')}}</label>
+                                            class="required fs-6 fw-bold mb-2">{{__('messages.timezone')}}</label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
                                         <select class="form-select form-select-solid fw-bolder"
-                                                name="tax_period"
+                                                name="timezone"
                                                 data-kt-select2="true"
-                                                data-placeholder="Select Tax Period"
+                                                data-placeholder="Select Timezone"
                                                 data-allow-clear="true"
                                                 data-dropdown-parent="#kt_modal_add_branch">
                                             <option></option>
-                                            <option value="1">1 Month</option>
-                                            <option value="2">2 Months</option>
-                                            <option value="3">3 Months</option>
-                                            <option value="4">4 Months</option>
-                                            <option value="5">5 Months</option>
-                                            <option value="6">6 Months</option>
-                                            <option value="7">7 Months</option>
-                                            <option value="8">8 Months</option>
-                                            <option value="9">9 Months</option>
-                                            <option value="10">10 Months</option>
-                                            <option value="11">11 Months</option>
-                                            <option value="12">12 Months</option>
+                                            @foreach(TIME_ZONE as $key => $value)
+                                                <option value="{{$key}}">{{$value}}</option>
+                                            @endforeach
                                         </select>
                                         <!--end::Input-->
                                     </div>
                                     <!--end::Col-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="row g-9 mb-7">
                                     <!--begin::Col-->
-                                    <div class="col-md-6 fv-row">
+                                    <div class="col-md-12 fv-row">
                                         <!--begin::Label-->
                                         <label
-                                            class="required fs-6 fw-bold mb-2">{{__('messages.tax_start_date')}}</label>
+                                            class="required fs-6 fw-bold mb-2">{{__('messages.address')}}</label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
-                                        <select class="form-select form-select-solid fw-bolder"
-                                                data-kt-select2="true"
-                                                data-placeholder="Select Fiscal Year"
-                                                data-allow-clear="true"
-                                                data-dropdown-parent="#kt_modal_add_branch">
-                                            <option></option>
-                                            <option value="01/01/2022">01/01/2022-31/12/2022</option>
-                                            <option value="01/01/2022">01/01/2023-31/12/2023</option>
-                                        </select>
+                                        <textarea class="form-control form-control-solid"
+                                                  placeholder="{{__('messages.address')}}" rows="3"
+                                                  name="address"></textarea>
                                         <!--end::Input-->
                                     </div>
                                     <!--end::Col-->

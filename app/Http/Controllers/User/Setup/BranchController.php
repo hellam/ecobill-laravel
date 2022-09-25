@@ -21,6 +21,8 @@ use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\DataTables;
 use function App\CentralLogics\error_web_processor;
 use function App\CentralLogics\get_user_ref;
+use function App\CentralLogics\log_activity;
+use function App\CentralLogics\set_create_parameters;
 use function App\CentralLogics\success_web_processor;
 use function App\CentralLogics\validation_error_processor;
 
@@ -55,26 +57,49 @@ class BranchController extends Controller
             ->make(true);
     }
 
-    public function create(Request $request): JsonResponse
+    public function create(Request $request,$created_at = null, $created_by = null,
+                                            $supervised_by = null, $supervised_at = null): JsonResponse
     {
 
-        $validator = UserValidators::rolesCreateValidation($request);
+        $validator = UserValidators::branchCreateValidation($request);
 
         if ($validator != '') {
             return $validator;
         }
 
-        $request->permissions = implode(',', $request->permissions);
-
-        Role::create([
+        $post_data = [
             'name' => $request->name,
-            'permissions' => $request->permissions,
-            'client_ref' => get_user_ref(),
-            'created_by' => auth('user')->user()->username,
-        ]);
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'tax_no' => $request->tax_no,
+            'tax_period' => $request->tax_period,
+            'default_currency' => $request->default_currency,
+            'fiscal_year' => $request->fiscal_year,
+            'timezone' => $request->timezone,
+            'address' => $request->address,
+            'bcc_email' => $request->bcc_email,
+            'client_ref' => get_user_ref()
+        ];
+        //set_create_parameters($created_at, $created_by, ...)
+        $post_data = array_merge($post_data, set_create_parameters($created_at, $created_by, $supervised_by, $supervised_at));
+
+        $branch = Branch::create($post_data);
+
+        if ($created_at == null) {
+            //if not supervised, log data from create request
+            //Creator log
+            log_activity(
+                ST_BRANCH_SETUP,
+                $request->getClientIp(),
+                'Create Role',
+                json_encode($post_data),
+                auth('user')->id(),
+                $branch->id
+            );
+        }
 
 
-        return success_web_processor(null, __('messages.msg_saved_success', ['attribute' => __('messages.role')]));
+        return success_web_processor(['id' => $branch->id], __('messages.msg_saved_success', ['attribute' => __('messages.role')]));
     }
 
     /**

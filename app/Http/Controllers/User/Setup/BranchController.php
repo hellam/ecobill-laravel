@@ -4,16 +4,19 @@ namespace App\Http\Controllers\User\Setup;
 
 use App\CentralLogics\UserValidators;
 use App\Http\Controllers\Controller;
+use App\Models\Branch;
 use App\Models\Permission;
 use App\Models\PermissionGroup;
 use App\Models\Role;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Yajra\DataTables\DataTables;
 use function App\CentralLogics\error_web_processor;
 use function App\CentralLogics\get_user_ref;
 use function App\CentralLogics\success_web_processor;
@@ -28,6 +31,22 @@ class BranchController extends Controller
     {
         $branches_count = count(auth('user')->user()->user_branches) ?? [];
         return view('user.setup.branches', compact('branches_count'));
+    }
+
+    //Data table API
+    public function dt_api(Request $request): JsonResponse
+    {
+        $branch = Branch::orderBy('created_at', 'desc');
+        return (new DataTables)->eloquent($branch)
+            ->addIndexColumn()
+            ->addColumn('id', function ($row) {
+                return ["id" => $row->id, "edit_url" => route('user.setup.maker_checker_rules.edit', [$row->id]),
+                    "update_url" => route('user.setup.maker_checker_rules.update', [$row->id]),
+                    "delete_url" => route('user.setup.maker_checker_rules.delete', [$row->id])];
+            })->editColumn('created_at', function ($row) {
+                return Carbon::parse($row->created_at)->format('Y/m/d H:i:s');
+            })
+            ->make(true);
     }
 
     public function create(Request $request): JsonResponse

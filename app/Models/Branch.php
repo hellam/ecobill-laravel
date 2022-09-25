@@ -21,13 +21,13 @@ use Illuminate\Support\Facades\Auth;
  * @property string $logo
  * @property string $timezone
  * @property string $fiscal_year
- * @property string $tax_period
- * @property string $tax_last_period
  * @property string $client_ref
  * @property string $created_by
  * @property string $supervised_by
  * @property string $updated_by
+ * @property int $tax_period
  * @property bool|null $is_main
+ * @property Carbon|null $tax_start_date
  * @property Carbon|null $created_at
  * @property Carbon|null $supervised_at
  * @property Carbon|null $updated_at
@@ -39,7 +39,8 @@ class Branch extends Model
 	protected $table = 'branches';
 
     protected $casts = [
-        'is_main' => 'bool'
+        'is_main' => 'bool',
+        'tax_period' => 'int',
     ];
 	protected $fillable = [
 		'name',
@@ -54,7 +55,7 @@ class Branch extends Model
 		'timezone',
 		'fiscal_year',
 		'tax_period',
-		'tax_last_period',
+		'tax_start_date',
 		'client_ref',
         'created_by',
         'updated_by',

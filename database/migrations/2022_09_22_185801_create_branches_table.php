@@ -26,8 +26,8 @@ return new class extends Migration {
             $table->string('logo', 255)->nullable();
             $table->string('timezone', 100);
             $table->string('fiscal_year', 50);
-            $table->string('tax_period', 50);
-            $table->string('tax_last_period', 50);
+            $table->tinyInteger('tax_period');
+            $table->date('tax_start_date');
             $table->string('client_ref', 100);
             $table->string("created_by",100)->nullable();
             $table->string("updated_by",100)->nullable();

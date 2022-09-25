@@ -9,6 +9,18 @@ const KTBranchesAdd = function () {
 
     }
 
+    $("#kt_date_range_picker").daterangepicker({
+            singleDatePicker: true,
+            // showDropdowns: true,
+            locale: {
+                format: "DD/MM"
+            },
+            // minYear: 1901,
+            // maxYear: parseInt(moment().format("YYYY"), 10)
+        }, function (start, end, label) {
+        }
+    );
+
     // Public methods
     return {
         init: function () {

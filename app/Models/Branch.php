@@ -22,7 +22,6 @@ use Illuminate\Support\Facades\Auth;
  * @property string $timezone
  * @property string $fiscal_year
  * @property int $tax_period
- * @property Carbon $tax_start_date
  * @property string $client_ref
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
@@ -44,7 +43,6 @@ class Branch extends Model
 	];
 
 	protected $dates = [
-		'tax_start_date',
 		'supervised_at'
 	];
 
@@ -60,7 +58,6 @@ class Branch extends Model
 		'timezone',
 		'fiscal_year',
 		'tax_period',
-		'tax_start_date',
 		'client_ref',
 		'created_by',
 		'updated_by',

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\User\Setup;
 use App\CentralLogics\UserValidators;
 use App\Http\Controllers\Controller;
 use App\Models\Branch;
+use App\Models\Currency;
+use App\Models\FiscalYear;
 use App\Models\Permission;
 use App\Models\PermissionGroup;
 use App\Models\Role;
@@ -30,7 +32,9 @@ class BranchController extends Controller
     public function index(): Factory|View|Application
     {
         $branches_count = count(auth('user')->user()->user_branches) ?? [];
-        return view('user.setup.branches', compact('branches_count'));
+        $fiscal_year =FiscalYear::all();
+        $currency =Currency::all();
+        return view('user.setup.branches', compact('branches_count', 'currency', 'fiscal_year'));
     }
 
     //Data table API

@@ -26,6 +26,11 @@ class SecurityConfig extends Model
 {
 	protected $table = 'security_configs';
 
+
+    protected $hidden = [
+        'client_ref'
+    ];
+
 	protected $fillable = [
 		'client_ref',
 		'general_security',

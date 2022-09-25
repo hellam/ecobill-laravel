@@ -27,6 +27,10 @@ class Role extends Model
 {
     protected $table = 'roles';
 
+    protected $hidden = [
+        'client_ref'
+    ];
+
     protected $fillable = [
         'name',
         'permissions',

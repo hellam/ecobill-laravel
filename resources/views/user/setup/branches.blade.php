@@ -232,7 +232,7 @@
                                     <div class="col-md-6 fv-row">
                                         <!--begin::Label-->
                                         <label
-                                            class="required fs-6 fw-bold mb-2">{{__('messages.bcc_email')}}</label>
+                                            class="fs-6 fw-bold mb-2">{{__('messages.bcc_email')}}</label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
                                         <input type="email" class="form-control form-control-solid"
@@ -340,7 +340,8 @@
                                                 data-dropdown-parent="#kt_modal_add_branch">
                                             <option></option>
                                             @foreach($fiscal_year as $year)
-                                                <option value="{{$year->id}}">{{\Carbon\Carbon::parse($year->begin)->format("d/m/Y")."-".\Carbon\Carbon::parse($year->end)->isoFormat(auth('user')->user()->date_format)}}</option>
+                                                <option
+                                                    value="{{$year->id}}">{{\Carbon\Carbon::parse($year->begin)->format("d/m/Y")."-".\Carbon\Carbon::parse($year->end)->isoFormat(auth('user')->user()->date_format)}}</option>
                                             @endforeach
                                         </select>
                                         <!--end::Input-->

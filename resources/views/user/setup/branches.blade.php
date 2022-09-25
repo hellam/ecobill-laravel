@@ -319,8 +319,9 @@
                                                 data-allow-clear="true"
                                                 data-dropdown-parent="#kt_modal_add_branch">
                                             <option></option>
-                                            <option value="usd">USD</option>
-                                            <option value="kes">KES</option>
+                                            @foreach($currency as $curr)
+                                                <option value="{{$curr->abbreviation}}">{{$curr->abbreviation}}</option>
+                                            @endforeach
                                         </select>
                                         <!--end::Input-->
                                     </div>

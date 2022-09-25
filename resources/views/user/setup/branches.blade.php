@@ -38,12 +38,21 @@
     <!--begin::Container-->
     <div id="kt_content_container" class="container-xxl">
         <!--begin::Toolbar-->
-        <div class="toolbar d-lg-flex flex-end flex-wrap mb-5 mb-lg-7" id="kt_toolbar">
+        <div class="toolbar d-flex flex-stack flex-wrap mb-5 mb-lg-7" id="kt_toolbar">
+            <!--begin::Page title-->
+            <div class="page-title d-flex flex-column py-1">
+                <!--begin::Title-->
+                <h1 class="d-flex align-items-center my-1">
+                    <span class="text-dark fw-bolder fs-1">{{__('messages.branches')}}</span>
+                </h1>
+                <!--end::Title-->
+            </div>
+            <!--end::Page title-->
             <!--begin::Actions-->
             <div class="d-flex align-items-center py-1">
                 <!--begin::Button-->
                 <a href="#" class="btn btn-flex btn-sm btn-primary fw-bolder border-0 fs-6 h-40px"
-                   data-bs-toggle="modal" data-bs-target="#kt_modal_add_rule"
+                   data-bs-toggle="modal" data-bs-target="#kt_modal_add_role"
                    id="kt_toolbar_primary_button">{{__('messages.add').' '.__('messages.new')}}</a>
                 <!--end::Button-->
             </div>

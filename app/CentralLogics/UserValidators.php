@@ -2,6 +2,7 @@
 
 namespace App\CentralLogics;
 
+use App\Models\Branch;
 use App\Models\MakerCheckerRule;
 use App\Models\Role;
 use Illuminate\Http\Request;
@@ -43,6 +44,21 @@ class UserValidators
         return self::ValidatorMake($request->all(), [
             'name' => 'required|unique:' . Role::class . ',name,NULL,id,client_ref,' . get_user_ref(),
             'permissions' => 'required|array',
+        ]);
+    }
+
+    public static function branchCreateValidation(Request $request)
+    {
+        return self::ValidatorMake($request->all(), [
+            'name' => 'required|unique:' . Branch::class . ',name,NULL,id,client_ref,' . get_user_ref(),
+            'email' => 'required',
+            'phone' => 'required',
+            'tax_no' => 'required',
+            'tax_period' => 'required',
+            'default_currency' => 'required',
+            'fiscal_year' => 'required',
+            'timezone' => 'required',
+            'address' => 'required',
         ]);
     }
 

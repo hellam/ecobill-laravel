@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Scopes\BranchScope;
 use App\Scopes\ClientRefScope;
 use Carbon\Carbon;
-use Carbon\Traits\Date;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,8 +12,8 @@ use Illuminate\Support\Facades\Auth;
  * Class FiscalYear
  *
  * @property int $id
- * @property Date $begin
- * @property Date $end
+ * @property Carbon $begin
+ * @property Carbon $end
  * @property string $client_ref
  * @property bool $closed
  * @property Carbon|null $created_at

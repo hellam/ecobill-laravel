@@ -27,7 +27,6 @@ return new class extends Migration {
             $table->string('timezone', 100);
             $table->string('fiscal_year', 50);
             $table->tinyInteger('tax_period');
-            $table->date('tax_start_date');
             $table->string('client_ref', 100);
             $table->string("created_by",100)->nullable();
             $table->string("updated_by",100)->nullable();

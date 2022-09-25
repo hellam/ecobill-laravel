@@ -508,3 +508,10 @@ define('TIME_ZONE', array(
     'Africa/Harare' => 'UTC +02:10 Africa/Harare - Zimbabwe',
     'Europe/Mariehamn' => 'UTC +01:39 Europe/Mariehamn - Åland Islands'
 ));
+define('DATE_FORMAT',array(
+    'DDMMYYYY',
+    'MMDDYYYY',
+    'YYYYMMDD',
+    'DD MMM YYYY',
+    'MMM DD YYYY',
+    'YYYY MMM DD'));

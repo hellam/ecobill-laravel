@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('name',100);
             $table->string('hundredths_name',20);
             $table->string('country',100);
+            $table->string('client_ref',100);
             $table->boolean('auto_fx')->nullable()->default(false);
             $table->timestamps();
         });

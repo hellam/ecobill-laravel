@@ -40,13 +40,15 @@ class BranchController extends Controller
     //Data table API
     public function dt_api(Request $request): JsonResponse
     {
-        $branch = Branch::orderBy('created_at', 'desc');
+        $branch = Branch::with('fiscalyear')->orderBy('created_at', 'desc');
         return (new DataTables)->eloquent($branch)
             ->addIndexColumn()
             ->addColumn('id', function ($row) {
                 return ["id" => $row->id, "edit_url" => route('user.setup.maker_checker_rules.edit', [$row->id]),
                     "update_url" => route('user.setup.maker_checker_rules.update', [$row->id]),
                     "delete_url" => route('user.setup.maker_checker_rules.delete', [$row->id])];
+            })->editColumn('fiscal_year', function ($row) {
+                return format_date($row->fiscalyear->begin).' - '.format_date($row->fiscalyear->end);
             })->editColumn('created_at', function ($row) {
                 return Carbon::parse($row->created_at)->format('Y/m/d H:i:s');
             })

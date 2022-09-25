@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Scopes\ClientRefScope;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\Auth;
 
 /**
@@ -65,6 +66,11 @@ class Branch extends Model
 		'supervised_at',
 		'is_main'
 	];
+
+    public function fiscalyear(): BelongsTo
+    {
+        return $this->belongsTo(FiscalYear::class, 'fiscal_year');
+    }
 
     public static function booted()
     {

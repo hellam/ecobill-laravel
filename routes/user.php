@@ -79,10 +79,10 @@ Route::group(['as' => 'user.'], function () {
             Route::controller(User\Setup\BranchController::class)->prefix('branches')->as('branches.')->group(function () {
                 Route::get('/', 'index')->name('all')->middleware('permission:705');
                 Route::get('/dt_api', 'dt_api')->name('dt_api')->middleware('permission:705');
-                Route::post('/', 'create')->name('create')->middleware('permission:7050,'.ST_MAKER_CHECKER_RULE_SETUP);
+                Route::post('/', 'create')->name('create')->middleware('permission:7050,'.ST_BRANCH_SETUP);
                 Route::get('edit/{id}', 'edit')->name('edit')->middleware('permission:7051')->whereNumber('id');
-                Route::put('update/{id}', 'update')->name('update')->middleware('permission:7051,'.ST_MAKER_CHECKER_RULE_SETUP)->whereNumber('id');
-                Route::delete('delete/{id}', 'destroy')->name('delete')->middleware('permission:7052,'.ST_MAKER_CHECKER_RULE_SETUP)->whereNumber('id');
+                Route::put('update/{id}', 'update')->name('update')->middleware('permission:7051,'.ST_BRANCH_SETUP)->whereNumber('id');
+                Route::delete('delete/{id}', 'destroy')->name('delete')->middleware('permission:7052,'.ST_BRANCH_SETUP)->whereNumber('id');
             });
         });
 

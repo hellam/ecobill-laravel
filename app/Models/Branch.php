@@ -15,22 +15,22 @@ use Illuminate\Support\Facades\Auth;
  * @property string $address
  * @property string $phone
  * @property string $email
- * @property string $bcc_email
+ * @property string|null $bcc_email
  * @property string $tax_no
  * @property string $default_currency
- * @property string $logo
+ * @property string|null $logo
  * @property string $timezone
  * @property string $fiscal_year
- * @property string $client_ref
- * @property string $created_by
- * @property string $supervised_by
- * @property string $updated_by
  * @property int $tax_period
- * @property bool|null $is_main
- * @property Carbon|null $tax_start_date
+ * @property Carbon $tax_start_date
+ * @property string $client_ref
  * @property Carbon|null $created_at
- * @property Carbon|null $supervised_at
  * @property Carbon|null $updated_at
+ * @property string|null $created_by
+ * @property string|null $updated_by
+ * @property string|null $supervised_by
+ * @property Carbon|null $supervised_at
+ * @property bool|null $is_main
  *
  * @package App\Models
  */
@@ -38,16 +38,21 @@ class Branch extends Model
 {
 	protected $table = 'branches';
 
-    protected $casts = [
-        'is_main' => 'bool',
-        'tax_period' => 'int',
-    ];
+	protected $casts = [
+		'tax_period' => 'int',
+		'is_main' => 'bool'
+	];
+
+	protected $dates = [
+		'tax_start_date',
+		'supervised_at'
+	];
+
 	protected $fillable = [
 		'name',
 		'address',
 		'phone',
 		'email',
-		'is_main',
 		'bcc_email',
 		'tax_no',
 		'default_currency',
@@ -57,15 +62,12 @@ class Branch extends Model
 		'tax_period',
 		'tax_start_date',
 		'client_ref',
-        'created_by',
-        'updated_by',
-        'supervised_by',
-        'supervised_at',
-        'created_at',
-        'updated_at',
+		'created_by',
+		'updated_by',
+		'supervised_by',
+		'supervised_at',
+		'is_main'
 	];
-
-
 
     public static function booted()
     {

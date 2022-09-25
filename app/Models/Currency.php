@@ -14,10 +14,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $name
  * @property string $hundredths_name
  * @property string $country
- * @property string $client_ref
  * @property bool|null $auto_fx
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ * @property string $client_ref
  *
  * @package App\Models
  */
@@ -35,7 +35,7 @@ class Currency extends Model
 		'name',
 		'hundredths_name',
 		'country',
-		'client_ref',
-		'auto_fx'
+		'auto_fx',
+		'client_ref'
 	];
 }

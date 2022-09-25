@@ -18,6 +18,7 @@ return new class extends Migration {
             $table->string('name', 100);
             $table->longText('address');
             $table->string('phone', 30);
+            $table->boolean('is_main')->default(false);
             $table->string('email', 100);
             $table->string('bcc_email', 100)->nullable();
             $table->string('tax_no', 100);

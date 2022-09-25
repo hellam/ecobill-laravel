@@ -27,6 +27,7 @@ use Illuminate\Support\Facades\Auth;
  * @property string $created_by
  * @property string $supervised_by
  * @property string $updated_by
+ * @property bool|null $is_main
  * @property Carbon|null $created_at
  * @property Carbon|null $supervised_at
  * @property Carbon|null $updated_at
@@ -37,11 +38,15 @@ class Branch extends Model
 {
 	protected $table = 'branches';
 
+    protected $casts = [
+        'is_main' => 'bool'
+    ];
 	protected $fillable = [
 		'name',
 		'address',
 		'phone',
 		'email',
+		'is_main',
 		'bcc_email',
 		'tax_no',
 		'default_currency',

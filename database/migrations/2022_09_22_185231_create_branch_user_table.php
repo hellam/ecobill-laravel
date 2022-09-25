@@ -18,7 +18,7 @@ return new class extends Migration
             $table->bigInteger('user_id');
             $table->bigInteger('branch_id');
             $table->bigInteger('role_id');
-            $table->boolean('default');
+            $table->boolean('default')->default(false);
             $table->timestamps();
         });
     }

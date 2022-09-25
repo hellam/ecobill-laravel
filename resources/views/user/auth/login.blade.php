@@ -26,6 +26,7 @@
                         <input type="text" placeholder="Email" name="email"
                                class="form-control bg-transparent" value="{{ old('email') }}" required
                                autocomplete="email" autofocus/>
+                        <input type="hidden" name="previous_url" value="{{$previous_url}}">
                         <!--end::Email-->
                     </div>
                     <!--end::Input group=-->

@@ -16,6 +16,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\URL;
 use Yoeunes\Toastr\Facades\Toastr;
 use function App\CentralLogics\error_web_processor;
 use function App\CentralLogics\get_security_configs;
@@ -35,16 +36,17 @@ class LoginController extends Controller
     /**
      * @return Application|Factory|View
      */
-    public function index(): View|Factory|Application
+    public function index(Request $request): View|Factory|Application
     {
-        return view('user.auth.login');
+        $previous_url = URL::previous();
+        return view('user.auth.login', compact('previous_url'));
     }
 
     /**
      * @param Request $request
      * @return RedirectResponse
      */
-    public function index1(Request $request)
+    public function index1(Request $request): RedirectResponse
     {
         Toastr::warning(__('messages.msg_kicked_out'));
         return redirect()->route('user.auth.login');
@@ -101,6 +103,9 @@ class LoginController extends Controller
             }
 
             //redirect authenticated user
+
+            if ($request->url() != $request->previous_url)
+                return redirect($request->previous_url);
             return redirect()->route('user.dashboard');
         } elseif ($user = User::where('email', $request->email)->first()) {
             try {

@@ -340,7 +340,7 @@
                                                 data-dropdown-parent="#kt_modal_add_branch">
                                             <option></option>
                                             @foreach($fiscal_year as $year)
-                                                <option value="{{$year->id}}">{{$year->begin."-".$year->end}}</option>
+                                                <option value="{{$year->id}}">{{\Carbon\Carbon::parse($year->begin)->format("d/m/Y")."-".\Carbon\Carbon::parse($year->end)->isoFormat(auth('user')->user()->date_format)}}</option>
                                             @endforeach
                                         </select>
                                         <!--end::Input-->

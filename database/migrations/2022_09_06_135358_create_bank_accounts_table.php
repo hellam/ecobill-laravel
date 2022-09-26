@@ -24,6 +24,8 @@ return new class extends Migration {
             $table->timestamp('ending_reconcile_balance')->nullable();
             $table->bigInteger('chart_code');
             $table->bigInteger('charge_chart_code');
+            $table->string("client_ref");
+            $table->bigInteger("branch_id");
             $table->string("created_by", 100)->nullable();
             $table->string("updated_by", 100)->nullable();
             $table->string('supervised_by', 100)->nullable();

@@ -33,6 +33,7 @@ return new class extends Migration {
             $table->string("updated_by",100)->nullable();
             $table->string('supervised_by',100)->nullable();
             $table->timestamp('supervised_at')->nullable();
+            $table->tinyInteger('inactive')->default(0);
             $table->timestamps();
         });
     }

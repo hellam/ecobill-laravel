@@ -32,6 +32,7 @@ use Illuminate\Support\Facades\Auth;
  * @property string|null $supervised_by
  * @property Carbon|null $supervised_at
  * @property bool|null $is_main
+ * @property int $inactive
  *
  * @package App\Models
  */
@@ -42,6 +43,7 @@ class Branch extends Model
 	protected $casts = [
 		'default_bank_account' => 'int',
 		'tax_period' => 'int',
+		'inactive' => 'int',
 		'is_main' => 'bool'
 	];
 
@@ -67,7 +69,8 @@ class Branch extends Model
 		'updated_by',
 		'supervised_by',
 		'supervised_at',
-		'is_main'
+		'is_main',
+		'inactive'
 	];
 
     public function fiscalyear(): BelongsTo

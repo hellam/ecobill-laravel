@@ -342,7 +342,7 @@ function decode_form_data($data, $trx_type, $method)
             $output .= '<td>' . $key . '</td>';
             $output .= '<td>';
             if (is_array($value))
-                $output .= implode(",",$value);
+                $output .= json_encode($value);
             else
                 $output .= $value;
             $output .= '</td>';
@@ -351,24 +351,9 @@ function decode_form_data($data, $trx_type, $method)
         $output .= '</table>';
 
         return $output;
-    } elseif($method == 'PUT') {
-
-        foreach ($data['inputs'] as $key => $value) {
-            $output .= '<tr>';
-            $output .= '<td>' . $key . '</td>';
-
-            $output .= '<td>';
-            if (is_array($value))
-                $output .= implode(",",$value);
-            else
-                $output .= $value;
-            $output .= '</td>';
-            $output .= '</tr>';
-        }
-        $output .= '</table>';
-
+    } elseif ($method == 'PUT') {
         $id = $data['parameters']['id'];
-        $edit_route = str_replace('delete', 'edit', $data['route']);
+        $edit_route = str_replace('update', 'edit', $data['route']);
         $request = Request::create(route($edit_route, ['id' => $id]), 'GET', [
 //            'name'=>Input::get('email'),
 //            'password'=>Input::get('password')
@@ -386,22 +371,31 @@ function decode_form_data($data, $trx_type, $method)
         $output .= '<table style="width: 100%">';
         $output .= '<tr>';
         $output .= '<th>Fields</th>';
-        $output .= '<th>Data</th>';
+        $output .= '<th>Old</th>';
+        $output .= '<th>New</th>';
         $output .= '</tr>';
-        foreach ($response_data as $key => $value) {
+        foreach ($data['inputs'] as $key => $value) {
             $output .= '<tr>';
             $output .= '<td>' . $key . '</td>';
             $output .= '<td>';
             if (is_array($value))
-                $output .= implode(",",$value);
+                $output .= implode(",", $value);
             else
                 $output .= $value;
+            $output .= '</td>';
+            $output .= '<td>';
+            if (key_exists($key, $response_data)) {
+                if (is_array($response_data[$key]))
+                    $output .= json_encode($response_data[$key]);
+                else
+                    $output .= $response_data[$key];
+            }
             $output .= '</td>';
             $output .= '</tr>';
         }
         $output .= '</table>';
         return $output;
-    }elseif($method=='POST'){
+    } elseif ($method == 'POST') {
         $output = '<style>
            table,th,td,tr {
                 border-top: 1px solid black;;
@@ -419,7 +413,7 @@ function decode_form_data($data, $trx_type, $method)
 
             $output .= '<td>';
             if (is_array($value))
-                $output .= implode(",",$value);
+                $output .= json_encode($value);
             else
                 $output .= $value;
             $output .= '</td>';

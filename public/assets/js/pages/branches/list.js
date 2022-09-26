@@ -3,7 +3,7 @@
 // Class definition
 const KTBranchesServerSide = function () {
 // Shared variables
-    let table, dt, form;
+    let table, dt, form, delete_url;
 
     // Private functions
     const initDatatable = function () {
@@ -23,6 +23,7 @@ const KTBranchesServerSide = function () {
                 {data: 'default_currency'},
                 {data: 'timezone'},
                 {data: 'fiscal_year'},
+                {data: 'inactive'},
                 {data: 'actions'},
             ],
             columnDefs: [
@@ -67,17 +68,13 @@ const KTBranchesServerSide = function () {
                                     </a>
                                 </div>
                                 <!--end::Menu item-->
-
-                                <!--begin::Menu item-->
-                                <div class="menu-item px-3">
-                                    <a href="#" class="menu-link px-3 test" data-kt-branch-table-actions="delete_row">
-                                        Delete
-                                    </a>
-                                </div>
-                                <!--end::Menu item-->
-                            </div>
-                            <!--end::Menu-->
                         `;
+                    },
+                }, {
+                    targets: -2,
+                    className: 'text-end',
+                    render: function (data, type, row) {
+                        return decodeHtml(row.inactive)
                     },
                 }
             ],
@@ -193,7 +190,7 @@ const KTBranchesServerSide = function () {
 
                 // Get rule name
                 const branchName = parent.querySelectorAll('td')[1].innerText;
-                const delete_url = parent.querySelector("input[class='delete_url']").value;
+                delete_url = parent.querySelector("input[class='delete_url']").value;
                 Swal.fire({
                     text: "Are you sure you want to delete " + branchName,
                     icon: "warning",
@@ -214,7 +211,7 @@ const KTBranchesServerSide = function () {
                             buttonsStyling: false,
                             showConfirmButton: false,
                         })
-                        handleDelete(delete_url)
+                        handleDelete('')
 
                     } else if (result.dismiss === 'cancel') {
                         Swal.fire({
@@ -233,7 +230,7 @@ const KTBranchesServerSide = function () {
 
     };
 
-    function handleDelete(delete_url) {
+    function handleDelete(remarks) {
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -272,7 +269,34 @@ const KTBranchesServerSide = function () {
                 }
 
             },
-            error: function (xhr, desc, err) {
+            statusCode: {
+                203: function () {
+                    Swal.fire({
+                        text: "Please provide remarks",
+                        icon: "info",
+                        input: 'textarea',
+                        inputAttributes: {
+                            autocapitalize: 'off'
+                        },
+                        allowOutsideClick: false,
+                        showCancelButton: true,
+                        buttonsStyling: false,
+                        confirmButtonText: "Submit",
+                        cancelButtonText: "Cancel",
+                        showLoaderOnConfirm: true,
+                        customClass: {
+                            confirmButton: "btn fw-bold btn-danger",
+                            cancelButton: "btn fw-bold btn-active-light-primary"
+                        }
+                    }).then(function (result) {
+                        // delete row data from server and re-draw datatable
+                        if (result.isConfirmed) {
+                            handleDelete(result.value)
+                        }
+                    });
+                }
+            },
+            error: function () {
                 Swal.fire({
                     text: 'A network error occured. Please consult your network administrator.',
                     icon: "error",

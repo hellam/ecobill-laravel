@@ -105,6 +105,7 @@
                             <th class="min-w-125px">{{__('messages.default_currency')}}</th>
                             <th class="min-w-60px">{{__('messages.timezone')}}</th>
                             <th class="min-w-70px">{{__('messages.fiscal_year')}}</th>
+                            <th class="min-w-70px">{{__('messages.status')}}</th>
                             <th class="text-end min-w-70px">{{__('messages.actions')}}</th>
                         </tr>
                         <!--end::Table row-->

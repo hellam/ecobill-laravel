@@ -105,6 +105,7 @@
                             <th class="min-w-125px">{{__('messages.default_currency')}}</th>
                             <th class="min-w-60px">{{__('messages.timezone')}}</th>
                             <th class="min-w-70px">{{__('messages.fiscal_year')}}</th>
+                            <th class="min-w-70px">{{__('messages.status')}}</th>
                             <th class="text-end min-w-70px">{{__('messages.actions')}}</th>
                         </tr>
                         <!--end::Table row-->
@@ -726,6 +727,13 @@
                                     </div>
                                     <!--end::Col-->
                                 </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <label class="form-check form-switch form-check-custom form-check-solid">
+                                    <span class="fw-semibold ps-2 fs-6">Active</span>
+                                    <input class="form-check-input mx-4" type="checkbox" id="inactive"/>
+                                    <input type="hidden" name="inactive"/>
+                                </label>
                                 <!--end::Input group-->
                             </div>
                             <!--end::Scroll-->

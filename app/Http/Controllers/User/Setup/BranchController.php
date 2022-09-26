@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User\Setup;
 
 use App\CentralLogics\UserValidators;
 use App\Http\Controllers\Controller;
+use App\Models\BankAccount;
 use App\Models\Branch;
 use App\Models\Currency;
 use App\Models\FiscalYear;
@@ -37,7 +38,8 @@ class BranchController extends Controller
         $branches_count = count(auth('user')->user()->user_branches) ?? [];
         $fiscal_year =FiscalYear::all();
         $currency =Currency::all();
-        return view('user.setup.branches', compact('branches_count', 'currency', 'fiscal_year'));
+        $bank_accounts =BankAccount::all();
+        return view('user.setup.branches', compact('branches_count', 'currency', 'fiscal_year', 'bank_accounts'));
     }
 
     //Data table API
@@ -47,9 +49,9 @@ class BranchController extends Controller
         return (new DataTables)->eloquent($branch)
             ->addIndexColumn()
             ->addColumn('id', function ($row) {
-                return ["id" => $row->id, "edit_url" => route('user.setup.maker_checker_rules.edit', [$row->id]),
-                    "update_url" => route('user.setup.maker_checker_rules.update', [$row->id]),
-                    "delete_url" => route('user.setup.maker_checker_rules.delete', [$row->id])];
+                return ["id" => $row->id, "edit_url" => route('user.setup.branches.edit', [$row->id]),
+                    "update_url" => route('user.setup.branches.update', [$row->id]),
+                    "delete_url" => route('user.setup.branches.delete', [$row->id])];
             })->editColumn('fiscal_year', function ($row) {
                 return format_date($row->fiscalyear->begin).' - '.format_date($row->fiscalyear->end);
             })->editColumn('created_at', function ($row) {

@@ -103,7 +103,7 @@ class RolesController extends Controller
     public function update(Request $request, $id, $created_at = null, $created_by = null,
                                    $supervised_by = null, $supervised_at = null)
     {
-        $validator = UserValidators::rolesUpdateValidation($request, $id);
+        $validator = UserValidators::rolesUpdateValidation($request);
 
         if ($validator != '') {
             return $validator;

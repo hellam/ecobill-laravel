@@ -23,6 +23,7 @@ use function App\CentralLogics\error_web_processor;
 use function App\CentralLogics\get_user_ref;
 use function App\CentralLogics\log_activity;
 use function App\CentralLogics\set_create_parameters;
+use function App\CentralLogics\set_update_parameters;
 use function App\CentralLogics\success_web_processor;
 use function App\CentralLogics\validation_error_processor;
 
@@ -74,6 +75,7 @@ class BranchController extends Controller
             'tax_no' => $request->tax_no,
             'tax_period' => $request->tax_period,
             'default_currency' => $request->default_currency,
+            'default_bank_account' => $request->default_bank_account,
             'fiscal_year' => $request->fiscal_year,
             'timezone' => $request->timezone,
             'address' => $request->address,
@@ -107,41 +109,42 @@ class BranchController extends Controller
      */
     public function edit($id)
     {
-        $role = Role::find($id);
-        if (isset($role)) {
-            $permissions = explode(',', $role->permissions);
-            $response['role'] = $role;
-            $response['permissions'] = [];
-
-            $all_permissions = Permission::with('permission_group')->orderBy('parent_id')->get();
-            foreach ($all_permissions as $permission) {
-                $response['permissions'][] = ['group_name' => $permission->permission_group->name, 'code' => $permission->code, 'name' => $permission->name, 'checked' => in_array($permission->code, $permissions)];
-            }
-            $price = array_column($response['permissions'], 'group_name');
-            array_multisort($price, SORT_ASC, $response['permissions']);
-            return success_web_processor($response, __('messages.msg_item_found', ['attribute' => __('messages.role')]));
+        $branch = Branch::with('fiscalyear')->find($id);
+        if (isset($branch)) {
+            return success_web_processor($branch, __('messages.msg_item_found', ['attribute' => __('messages.branch')]));
         }
-        return error_web_processor(trans('messages.msg_item_not_found', ['attribute' => __('messages.role')]));
+        return error_web_processor(trans('messages.msg_item_not_found', ['attribute' => __('messages.branch')]));
     }
 
     /**
      * Update the specified resource in storage.
      *
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id, $created_at = null, $created_by = null,
+                                             $supervised_by = null, $supervised_at = null)
     {
-        $validator = UserValidators::rolesUpdateValidation($request, $id);
+        $validator = UserValidators::branchUpdateValidation($request);
 
         if ($validator != '') {
             return $validator;
         }
 
-        $request->permissions = implode(',', $request->permissions);
+        $branch = Branch::find($id);
+        $branch = set_update_parameters($branch, $created_at, $created_by,
+        $supervised_by, $supervised_at);
 
-        $role = Role::find($id);
-        $role->name = $request->name;
-        $role->permissions = $request->permissions;
-        $role->update();
+        $branch->name = $request->name;
+        $branch->email = $request->email;
+        $branch->phone = $request->phone;
+        $branch->tax_no = $request->tax_no;
+        $branch->tax_period = $request->tax_period;
+        $branch->default_currency = $request->default_currency;
+        $branch->default_bank_account = $request->default_bank_account;
+        $branch->fiscal_year = $request->fiscal_year;
+        $branch->timezone = $request->timezone;
+        $branch->address = $request->address;
+        $branch->bcc_email = $request->bcc_email;
+        $branch->update();
 //
         return success_web_processor(null, __('messages.msg_updated_success', ['attribute' => __('messages.role')]));
     }

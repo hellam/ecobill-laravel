@@ -85,7 +85,14 @@ const KTBranchesUpdate = function () {
                             }
                         }
                     }
-                },
+                },plugins: {
+                    trigger: new FormValidation.plugins.Trigger(),
+                    bootstrap: new FormValidation.plugins.Bootstrap5({
+                        rowSelector: '.fv-row',
+                        eleInvalidClass: '',
+                        eleValidClass: ''
+                    })
+                }
             }
         );
 

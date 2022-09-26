@@ -117,7 +117,6 @@ const KTMakerCheckerRulesServerSide = function () {
                 const parent = e.target.closest('tr');
 
                 // Get customer name
-                const productName = parent.querySelectorAll('td')[1].innerText;
                 const delete_url = parent.querySelector("input[class='delete_url']").value;
 
                 // SweetAlert2 pop up --- official docs reference: https://sweetalert2.github.io/

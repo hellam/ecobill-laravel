@@ -17,31 +17,86 @@ const KTBranchesUpdate = function () {
             form,
             {
                 fields: {
-                    action: {
+                    name: {
                         validators: {
                             notEmpty: {
-                                message: "Permission is required"
+                                message: 'Branch Name is required'
                             }
                         }
                     },
-                    maker_type: {
+                    email: {
                         validators: {
                             notEmpty: {
-                                message: "Type is required"
+                                message: 'Email is required'
+                            }
+                        }
+                    }, phone: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Phone number is required'
+                            }
+                        }
+                    }, tax_no: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Tax number is required'
                             }
                         }
                     },
+                    tax_period: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Tax period is required'
+                            }
+                        }
+                    },
+                    default_currency: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Default currency is required'
+                            }
+                        }
+                    },
+                    fiscal_year: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Fiscal year is required'
+                            }
+                        }
+                    },
+                    timezone: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Timezone is required'
+                            }
+                        }
+                    },
+                    address: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Address is required'
+                            }
+                        }
+                    },
+                    default_bank_account: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Bank account is required'
+                            }
+                        }
+                    }
                 },
-                plugins: {
-                    trigger: new FormValidation.plugins.Trigger,
-                    bootstrap: new FormValidation.plugins.Bootstrap5({
-                        rowSelector: ".fv-row",
-                        eleInvalidClass: "",
-                        eleValidClass: ""
-                    })
-                }
             }
         );
+
+        //revalidate all select boxes
+        let select_fields = ["timezone", "tax_period", "default_currency", "fiscal_year"];
+        select_fields.forEach(select => {
+            $(form.querySelector(`[name=${select}]`)).on('change', function () {
+                // Revalidate the field when an option is chosen
+                validator.revalidateField(`${select}`);
+            });
+        })
 
         // Action buttons
         submitButton.addEventListener('click', function (e) {
@@ -56,7 +111,7 @@ const KTBranchesUpdate = function () {
                         // Disable submit button whilst loading
                         submitButton.disabled = true;
 
-                        const str = $('#kt_modal_update_rule_form').serialize()
+                        const str = $('#kt_modal_update_branch_form').serialize()
                         handleSubmit(str)
                     } else {
                         Swal.fire({
@@ -171,13 +226,11 @@ const KTBranchesUpdate = function () {
                         if (result.isConfirmed) {
                             // Hide modal
                             modal.hide();
-                            $("#permissions_select").val(null).trigger('change');
-                            $("#maker_type1").prop("checked", true);
 
                             // Enable submit button after loading
                             submitButton.disabled = false;
-                            if ($('#kt_maker_checker_rules_table').length) {
-                                $("#kt_maker_checker_rules_table").DataTable().ajax.reload();
+                            if ($('#kt_branches_table').length) {
+                                $("#kt_branches_table").DataTable().ajax.reload();
                                 return;
                             }
                             // Redirect to Taxes list page

@@ -53,7 +53,7 @@ return [
     'address' => 'Address',
     'apply' => 'Apply',
     'action' => 'Action',
-    'bank_account' => 'Bank Account',
+    'default_bank_account' => 'Default Bank Account',
     'barcode' => 'Barcode',
     'bcc_email' => 'BCC Email',
     'category' => 'Category',

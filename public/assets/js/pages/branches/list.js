@@ -138,32 +138,26 @@ const KTBranchesServerSide = function () {
 
                         } else {
 
-                            // $('#kt_modal_update_rule_form').show({backdrop: 'static', keyboard: false});//show form
-                            // const rule = response.data;
+                            $('#kt_modal_update_branch_form').show({backdrop: 'static', keyboard: false});//show form
+                            const branch = response.data;
                             //
-                            // $("#kt_modal_update_rule_form select[name='action']").val(rule.permission_code).trigger('change');
-                            // $("#kt_modal_update_rule_form").find('input[value="' + rule.maker_type + '"]').prop('checked', true);
-                            // $("#kt_modal_update_rule_form input[name='inactive']").val(rule.inactive);
-                            // if (rule.inactive === 0) {
-                            //     $("#kt_modal_update_rule_form input[id='inactive']").prop("checked", true);
-                            // } else {
-                            //     $("#kt_modal_update_rule_form input[id='inactive']").prop("checked", false)
-                            // }
-                            //
-                            // //active/inactive
-                            // $("#kt_modal_update_rule_form input[id='inactive']").on('change', function () {
-                            //     if ($(this).is(':checked'))
-                            //         $("#kt_modal_update_rule_form input[name='inactive']").val(0)
-                            //     else {
-                            //         $("#kt_modal_update_rule_form input[name='inactive']").val(1)
-                            //     }
-                            // })
+                            $("#kt_modal_update_branch_form input[name='name']").val(branch.name);
+                            $("#kt_modal_update_branch_form input[name='email']").val(branch.email);
+                            $("#kt_modal_update_branch_form input[name='bcc_email']").val(branch.bcc_email);
+                            $("#kt_modal_update_branch_form input[name='phone']").val(branch.phone);
+                            $("#kt_modal_update_branch_form input[name='tax_no']").val(branch.tax_no);
+                            $("#kt_modal_update_branch_form select[name='default_bank_account']").val(branch.default_bank_account).trigger('change');
+                            $("#kt_modal_update_branch_form select[name='tax_period']").val(branch.tax_period).trigger('change');
+                            $("#kt_modal_update_branch_form select[name='default_currency']").val(branch.default_currency).trigger('change');
+                            $("#kt_modal_update_branch_form select[name='fiscal_year']").val(branch.fiscal_year).trigger('change');
+                            $("#kt_modal_update_branch_form select[name='timezone']").val(branch.timezone).trigger('change');
+                            $("#kt_modal_update_branch_form textarea[name='address']").val(branch.address);
                         }
 
                         $('.loader_container').hide();//hide loader
 
                     },
-                    error: function (xhr, desc, err) {
+                    error: function () {
                         Swal.fire({
                             text: 'A network error occured. Please consult your network administrator.',
                             icon: "error",

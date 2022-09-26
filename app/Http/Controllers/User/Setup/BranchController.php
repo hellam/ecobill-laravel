@@ -26,7 +26,6 @@ use function App\CentralLogics\log_activity;
 use function App\CentralLogics\set_create_parameters;
 use function App\CentralLogics\set_update_parameters;
 use function App\CentralLogics\success_web_processor;
-use function App\CentralLogics\validation_error_processor;
 
 class BranchController extends Controller
 {

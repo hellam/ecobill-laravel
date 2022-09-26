@@ -79,7 +79,7 @@ class BankAccount extends Model
     public static function booted()
     {
         if (Auth::guard('user')->check()){
-            static::addGlobalScope(new BranchScope());
+//            static::addGlobalScope(new BranchScope());
             static::addGlobalScope(new ClientRefScope());
         }
 

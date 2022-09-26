@@ -262,12 +262,20 @@
                                     <div class="col-md-6 fv-row">
                                         <!--begin::Label-->
                                         <label
-                                            class="required fs-6 fw-bold mb-2">{{__('messages.bank_account')}}</label>
+                                            class="required fs-6 fw-bold mb-2">{{__('messages.default_bank_account')}}</label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
-                                        <input type="text" class="form-control form-control-solid"
-                                               placeholder="{{__('messages.bank_account')}}"
-                                               name="default_bank_account"/>
+                                        <select class="form-select form-select-solid fw-bolder"
+                                                data-kt-select2="true"
+                                                data-placeholder="Select Default Bank Account"
+                                                name="default_bank_account"
+                                                data-allow-clear="true"
+                                                data-dropdown-parent="#kt_modal_add_branch">
+                                            <option></option>
+                                            @foreach($bank_accounts as $bank_account)
+                                                <option value="{{$bank_account->id}}">{{$bank_account->account_name}}</option>
+                                            @endforeach
+                                        </select>
                                         <!--end::Input-->
                                     </div>
                                     <!--end::Col-->
@@ -568,12 +576,20 @@
                                     <div class="col-md-6 fv-row">
                                         <!--begin::Label-->
                                         <label
-                                            class="required fs-6 fw-bold mb-2">{{__('messages.bank_account')}}</label>
+                                            class="required fs-6 fw-bold mb-2">{{__('messages.default_bank_account')}}</label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
-                                        <input type="text" class="form-control form-control-solid"
-                                               placeholder="{{__('messages.bank_account')}}"
-                                               name="default_bank_account"/>
+                                        <select class="form-select form-select-solid fw-bolder"
+                                                data-kt-select2="true"
+                                                data-placeholder="Select Default Bank Account"
+                                                name="default_bank_account"
+                                                data-allow-clear="true"
+                                                data-dropdown-parent="#kt_modal_update_branch">
+                                            <option></option>
+                                            @foreach($bank_accounts as $bank_account)
+                                                <option value="{{$bank_account->id}}">{{$bank_account->account_name}}</option>
+                                            @endforeach
+                                        </select>
                                         <!--end::Input-->
                                     </div>
                                     <!--end::Col-->
@@ -746,4 +762,5 @@
 @push('custom_scripts')
     <script src="{{ asset('assets/js/pages/branches/add.js') }}"></script>
     <script src="{{ asset('assets/js/pages/branches/list.js') }}"></script>
+    <script src="{{ asset('assets/js/pages/branches/update.js') }}"></script>
 @endpush

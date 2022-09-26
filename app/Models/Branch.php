@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Auth;
  * @property string|null $bcc_email
  * @property string $tax_no
  * @property string $default_currency
+ * @property int $default_bank_account
  * @property string|null $logo
  * @property string $timezone
  * @property string $fiscal_year
@@ -39,6 +40,7 @@ class Branch extends Model
 	protected $table = 'branches';
 
 	protected $casts = [
+		'default_bank_account' => 'int',
 		'tax_period' => 'int',
 		'is_main' => 'bool'
 	];
@@ -55,6 +57,7 @@ class Branch extends Model
 		'bcc_email',
 		'tax_no',
 		'default_currency',
+		'default_bank_account',
 		'logo',
 		'timezone',
 		'fiscal_year',

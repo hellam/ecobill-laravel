@@ -728,6 +728,13 @@
                                     <!--end::Col-->
                                 </div>
                                 <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <label class="form-check form-switch form-check-custom form-check-solid">
+                                    <span class="fw-semibold ps-2 fs-6">Active</span>
+                                    <input class="form-check-input mx-4" type="checkbox" id="inactive"/>
+                                    <input type="hidden" name="inactive"/>
+                                </label>
+                                <!--end::Input group-->
                             </div>
                             <!--end::Scroll-->
                         </div>

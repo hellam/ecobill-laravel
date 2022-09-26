@@ -53,6 +53,8 @@ class BranchController extends Controller
                     "delete_url" => route('user.setup.branches.delete', [$row->id])];
             })->editColumn('fiscal_year', function ($row) {
                 return format_date($row->fiscalyear->begin).' - '.format_date($row->fiscalyear->end);
+            })->editColumn('inactive', function ($row) {
+                return $row->inactive == 0 ? '<div class="badge badge-sm badge-light-success">Active</div>' : '<div class="badge badge-sm badge-light-danger">Inactive</div>';
             })->editColumn('created_at', function ($row) {
                 return Carbon::parse($row->created_at)->format('Y/m/d H:i:s');
             })
@@ -145,6 +147,7 @@ class BranchController extends Controller
         $branch->timezone = $request->timezone;
         $branch->address = $request->address;
         $branch->bcc_email = $request->bcc_email;
+        $branch->inactive = $request->inactive;
         $branch->update();
 //
         return success_web_processor(null, __('messages.msg_updated_success', ['attribute' => __('messages.branch')]));

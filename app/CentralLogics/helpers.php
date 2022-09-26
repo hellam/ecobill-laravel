@@ -314,6 +314,7 @@ function checkif_has_any_permission($start, $end)
 
 function decode_form_data($data, $trx_type, $method)
 {
+    $output = 'Nothing to display!';
     if ($method == 'DELETE') {
         $id = $data['parameters']['id'];
         $edit_route = str_replace('delete', 'edit', $data['route']);
@@ -325,11 +326,109 @@ function decode_form_data($data, $trx_type, $method)
         $response = app()->handle($request);
         $response_data = json_decode($response->getContent(), true)['data'];
 
-        return format_delete_data($response_data, $data['route']);
-    } elseif ($method == 'POST') {
+        $output = '<style>
+           table,th,td,tr {
+                border-top: 1px solid black;;
+                border-collapse: collapse;
+            }
+        </style>';
+        $output .= '<table style="width: 100%">';
+        $output .= '<tr>';
+        $output .= '<th>Fields</th>';
+        $output .= '<th>Data</th>';
+        $output .= '</tr>';
+        foreach ($response_data as $key => $value) {
+            $output .= '<tr>';
+            $output .= '<td>' . $key . '</td>';
+            $output .= '<td>';
+            if (is_array($value))
+                $output .= implode(",",$value);
+            else
+                $output .= $value;
+            $output .= '</td>';
+            $output .= '</tr>';
+        }
+        $output .= '</table>';
 
-        return format_post_data($data['inputs'], $data['route']);
+        return $output;
+    } elseif($method == 'PUT') {
+
+        foreach ($data['inputs'] as $key => $value) {
+            $output .= '<tr>';
+            $output .= '<td>' . $key . '</td>';
+
+            $output .= '<td>';
+            if (is_array($value))
+                $output .= implode(",",$value);
+            else
+                $output .= $value;
+            $output .= '</td>';
+            $output .= '</tr>';
+        }
+        $output .= '</table>';
+
+        $id = $data['parameters']['id'];
+        $edit_route = str_replace('delete', 'edit', $data['route']);
+        $request = Request::create(route($edit_route, ['id' => $id]), 'GET', [
+//            'name'=>Input::get('email'),
+//            'password'=>Input::get('password')
+        ]);
+
+        $response = app()->handle($request);
+        $response_data = json_decode($response->getContent(), true)['data'];
+
+        $output = '<style>
+           table,th,td,tr {
+                border-top: 1px solid black;;
+                border-collapse: collapse;
+            }
+        </style>';
+        $output .= '<table style="width: 100%">';
+        $output .= '<tr>';
+        $output .= '<th>Fields</th>';
+        $output .= '<th>Data</th>';
+        $output .= '</tr>';
+        foreach ($response_data as $key => $value) {
+            $output .= '<tr>';
+            $output .= '<td>' . $key . '</td>';
+            $output .= '<td>';
+            if (is_array($value))
+                $output .= implode(",",$value);
+            else
+                $output .= $value;
+            $output .= '</td>';
+            $output .= '</tr>';
+        }
+        $output .= '</table>';
+        return $output;
+    }elseif($method=='POST'){
+        $output = '<style>
+           table,th,td,tr {
+                border-top: 1px solid black;;
+                border-collapse: collapse;
+            }
+        </style>';
+        $output .= '<table style="width: 100%">';
+        $output .= '<tr>';
+        $output .= '<th>Fields</th>';
+        $output .= '<th>Data</th>';
+        $output .= '</tr>';
+        foreach ($data['inputs'] as $key => $value) {
+            $output .= '<tr>';
+            $output .= '<td>' . $key . '</td>';
+
+            $output .= '<td>';
+            if (is_array($value))
+                $output .= implode(",",$value);
+            else
+                $output .= $value;
+            $output .= '</td>';
+            $output .= '</tr>';
+        }
+        $output .= '</table>';
+        return $output;
     }
-    return $data;
+
+    return $output;
 
 }

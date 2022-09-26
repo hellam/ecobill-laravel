@@ -93,6 +93,7 @@ const KTBranchesServerSide = function () {
         dt.on('draw', function () {
             KTMenu.createInstances();
             handleUpdateRows();
+            handleDeleteRows();
         });
     };
 
@@ -177,6 +178,114 @@ const KTBranchesServerSide = function () {
 
     };
 
+    //Delete Button
+    const handleDeleteRows = function () {
+        // Select all delete buttons
+        const deleteButtons = document.querySelectorAll('[data-kt-branch-table-actions="delete_row"]');
+
+        deleteButtons.forEach(d => {
+            // edit button on click
+            d.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                // Select parent row
+                const parent = e.target.closest('tr');
+
+                // Get rule name
+                const branchName = parent.querySelectorAll('td')[1].innerText;
+                const delete_url = parent.querySelector("input[class='delete_url']").value;
+                Swal.fire({
+                    text: "Are you sure you want to delete " + branchName,
+                    icon: "warning",
+                    showCancelButton: true,
+                    buttonsStyling: false,
+                    confirmButtonText: "Yes, delete!",
+                    cancelButtonText: "No, cancel",
+                    customClass: {
+                        confirmButton: "btn fw-bold btn-danger",
+                        cancelButton: "btn fw-bold btn-active-light-primary"
+                    }
+                }).then(function (result) {
+                    if (result.value) {
+                        Swal.fire({
+                            text: "Deleting " + branchName,
+                            icon: "info",
+                            allowOutsideClick: false,
+                            buttonsStyling: false,
+                            showConfirmButton: false,
+                        })
+                        handleDelete(delete_url)
+
+                    } else if (result.dismiss === 'cancel') {
+                        Swal.fire({
+                            text: branchName + " was not deleted.",
+                            icon: "error",
+                            buttonsStyling: false,
+                            confirmButtonText: "Ok, got it!",
+                            customClass: {
+                                confirmButton: "btn fw-bold btn-primary",
+                            }
+                        });
+                    }
+                });
+            })
+        });
+
+    };
+
+    function handleDelete(delete_url) {
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type: 'DELETE',
+            url: delete_url,
+            data: {
+                remarks: remarks
+            },
+            success: function (json) {
+                var response = json;
+                if (response.status !== true) {
+                    Swal.fire({
+                        text: response.message,
+                        icon: "error",
+                        buttonsStyling: false,
+                        confirmButtonText: "Ok!",
+                        customClass: {
+                            confirmButton: "btn btn-primary"
+                        }
+                    });
+
+                } else {
+                    Swal.fire({
+                        text: "Rule deleted Successfully!.",
+                        icon: "success",
+                        buttonsStyling: false,
+                        confirmButtonText: "Ok, got it!",
+                        customClass: {
+                            confirmButton: "btn fw-bold btn-primary",
+                        }
+                    }).then(function () {
+                        // delete row data from server and re-draw datatable
+                        dt.draw();
+                    });
+                }
+
+            },
+            error: function (xhr, desc, err) {
+                Swal.fire({
+                    text: 'A network error occured. Please consult your network administrator.',
+                    icon: "error",
+                    buttonsStyling: false,
+                    confirmButtonText: "Ok!",
+                    customClass: {
+                        confirmButton: "btn btn-primary"
+                    }
+                });
+            }
+        });
+    }
+
     // Public methods
     return {
         init: function () {
@@ -186,6 +295,7 @@ const KTBranchesServerSide = function () {
                 initDatatable();
                 dt.search('').draw();
                 handleUpdateRows();
+                handleDeleteRows();
             }
         }
     }

@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAccountsTable extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -13,20 +12,22 @@ class CreateAccountsTable extends Migration
      */
     public function up()
     {
-        Schema::create('accounts', function (Blueprint $table) {
+        Schema::create('bank_accounts', function (Blueprint $table) {
             $table->bigInteger('id', true);
             $table->string('account_name', 250);
             $table->string('account_number', 250)->nullable();
             $table->string('entity_name', 250)->nullable();
             $table->string('entity_address', 250)->nullable();
-            $table->string('curr_code', 15);
+            $table->string('currency', 15);
             $table->boolean('is_default')->nullable()->default(false);
             $table->timestamp('last_reconcile_date')->nullable();
             $table->timestamp('ending_reconcile_balance')->nullable();
-            $table->bigInteger('chart_code')->index('account_chart_code_fk');
-            $table->bigInteger('charge_chart_code')->index('charge_chart_code_fk');
-            $table->bigInteger('created_by')->nullable()->default(0);
-            $table->bigInteger('last_updated_by')->nullable()->default(0);
+            $table->bigInteger('chart_code');
+            $table->bigInteger('charge_chart_code');
+            $table->string("created_by", 100)->nullable();
+            $table->string("updated_by", 100)->nullable();
+            $table->string('supervised_by', 100)->nullable();
+            $table->timestamp('supervised_at')->nullable();
             $table->timestamps();
             $table->boolean('inactive')->default(false);
         });
@@ -39,6 +40,6 @@ class CreateAccountsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('accounts');
+        Schema::dropIfExists('bank_accounts');
     }
-}
+};

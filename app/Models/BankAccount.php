@@ -6,12 +6,15 @@
 
 namespace App\Models;
 
+use App\Scopes\BranchScope;
+use App\Scopes\ClientRefScope;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class BankAccount
- * 
+ *
  * @property int $id
  * @property string $account_name
  * @property string|null $account_number
@@ -72,4 +75,13 @@ class BankAccount extends Model
 		'supervised_at',
 		'inactive'
 	];
+
+    public static function booted()
+    {
+        if (Auth::guard('user')->check()){
+            static::addGlobalScope(new BranchScope());
+            static::addGlobalScope(new ClientRefScope());
+        }
+
+    }
 }

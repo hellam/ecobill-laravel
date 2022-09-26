@@ -53,7 +53,6 @@ class AuditTrail extends Model
 		'branch_id'
 	];
 
-
     public static function booted()
     {
         if (Auth::guard('user')->check()){

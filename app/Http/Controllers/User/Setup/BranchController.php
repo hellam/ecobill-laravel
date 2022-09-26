@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User\Setup;
 
 use App\CentralLogics\UserValidators;
 use App\Http\Controllers\Controller;
+use App\Models\BankAccount;
 use App\Models\Branch;
 use App\Models\Currency;
 use App\Models\FiscalYear;
@@ -37,7 +38,8 @@ class BranchController extends Controller
         $branches_count = count(auth('user')->user()->user_branches) ?? [];
         $fiscal_year =FiscalYear::all();
         $currency =Currency::all();
-        return view('user.setup.branches', compact('branches_count', 'currency', 'fiscal_year'));
+        $bank_accounts =BankAccount::all();
+        return view('user.setup.branches', compact('branches_count', 'currency', 'fiscal_year', 'bank_accounts'));
     }
 
     //Data table API

@@ -90,7 +90,7 @@ const KTPasswordPolicy = function () {
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            type: 'PUT',
+            type: 'POST',
             url: form.getAttribute("data-kt-action"),
             data: str,
             success: function (json) {

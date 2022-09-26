@@ -56,6 +56,23 @@ class UserValidators
             'tax_no' => 'required',
             'tax_period' => 'required',
             'default_currency' => 'required',
+            'default_bank_account' => 'required',
+            'fiscal_year' => 'required',
+            'timezone' => 'required',
+            'address' => 'required',
+        ]);
+    }
+    public static function branchUpdateValidation(Request $request)
+    {
+        $id = Route::current()->id;
+        return self::ValidatorMake($request->all(), [
+            'name' => 'required|unique:' . Branch::class . ',name,' . $id . ',id,client_ref,' . get_user_ref(),
+            'email' => 'required',
+            'phone' => 'required',
+            'tax_no' => 'required',
+            'tax_period' => 'required',
+            'default_currency' => 'required',
+            'default_bank_account' => 'required',
             'fiscal_year' => 'required',
             'timezone' => 'required',
             'address' => 'required',

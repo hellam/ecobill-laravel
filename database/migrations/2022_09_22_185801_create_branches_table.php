@@ -23,6 +23,7 @@ return new class extends Migration {
             $table->string('bcc_email', 100)->nullable();
             $table->string('tax_no', 100);
             $table->string('default_currency', 30);
+            $table->bigInteger('default_bank_account');
             $table->string('logo', 255)->nullable();
             $table->string('timezone', 100);
             $table->string('fiscal_year', 50);

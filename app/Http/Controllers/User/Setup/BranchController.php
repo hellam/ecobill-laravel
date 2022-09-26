@@ -147,7 +147,7 @@ class BranchController extends Controller
         $branch->bcc_email = $request->bcc_email;
         $branch->update();
 //
-        return success_web_processor(null, __('messages.msg_updated_success', ['attribute' => __('messages.role')]));
+        return success_web_processor(null, __('messages.msg_updated_success', ['attribute' => __('messages.branch')]));
     }
 
     /**

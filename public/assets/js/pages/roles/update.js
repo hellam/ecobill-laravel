@@ -146,7 +146,7 @@ var KTUsersUpdatePermissions = function () {
                         // Disable submit button whilst loading
                         updateButton.disabled = true;
 
-                        var str = $('#kt_modal_update_role_form').serialize();
+                        const str = $('#kt_modal_update_role_form').serialize();
                         submitUpdate(str)
                     } else {
                         Swal.fire({

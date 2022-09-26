@@ -262,6 +262,19 @@
                                     <div class="col-md-6 fv-row">
                                         <!--begin::Label-->
                                         <label
+                                            class="required fs-6 fw-bold mb-2">{{__('messages.bank_account')}}</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <input type="text" class="form-control form-control-solid"
+                                               placeholder="{{__('messages.bank_account')}}"
+                                               name="default_bank_account"/>
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Col-->
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Label-->
+                                        <label
                                             class="required fs-6 fw-bold mb-2">{{__('messages.tax_no')}}</label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
@@ -271,6 +284,10 @@
                                         <!--end::Input-->
                                     </div>
                                     <!--end::Col-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="row g-9 mb-7">
                                     <!--begin::Col-->
                                     <div class="col-md-6 fv-row">
                                         <!--begin::Label-->
@@ -301,10 +318,6 @@
                                         <!--end::Input-->
                                     </div>
                                     <!--end::Col-->
-                                </div>
-                                <!--end::Input group-->
-                                <!--begin::Input group-->
-                                <div class="row g-9 mb-7">
                                     <!--begin::Col-->
                                     <div class="col-md-6 fv-row">
                                         <!--begin::Label-->
@@ -326,6 +339,10 @@
                                         <!--end::Input-->
                                     </div>
                                     <!--end::Col-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="row g-9 mb-7">
                                     <!--begin::Col-->
                                     <div class="col-md-6 fv-row">
                                         <!--begin::Label-->
@@ -348,10 +365,6 @@
                                         <!--end::Input-->
                                     </div>
                                     <!--end::Col-->
-                                </div>
-                                <!--end::Input group-->
-                                <!--begin::Input group-->
-                                <div class="row g-9 mb-7">
                                     <!--begin::Col-->
                                     <div class="col-md-6 fv-row">
                                         <!--begin::Label-->
@@ -360,15 +373,16 @@
                                         <!--end::Label-->
                                         <!--begin::Input-->
                                         <select class="form-select form-select-solid fw-bolder"
-                                                name="timezone"
                                                 data-kt-select2="true"
-                                                data-placeholder="Select Timezone"
+                                                data-placeholder="Select Fiscal Year"
                                                 data-allow-clear="true"
+                                                name="timezone"
                                                 data-dropdown-parent="#kt_modal_add_branch">
                                             <option></option>
-                                            @foreach(TIME_ZONE as $key => $value)
-                                                <option value="{{$key}}">{{$value}}</option>
-                                            @endforeach
+                                            <option>1</option>
+{{--                                            @foreach(TIME_ZONE as $key => $value)--}}
+{{--                                                <option value="{{$key}}">{{$value}}</option>--}}
+{{--                                            @endforeach--}}
                                         </select>
                                         <!--end::Input-->
                                     </div>

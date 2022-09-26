@@ -62,7 +62,7 @@ const KTBranchesServerSide = function () {
                             <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4" data-kt-menu="true">
                                 <!--begin::Menu item-->
                                 <div class="menu-item px-3">
-                                    <a href="#" class="menu-link px-3 test" data-kt-rule-table-actions="edit_row">
+                                    <a href="#" class="menu-link px-3 test" data-kt-branch-table-actions="edit_row">
                                         Edit
                                     </a>
                                 </div>
@@ -70,7 +70,7 @@ const KTBranchesServerSide = function () {
 
                                 <!--begin::Menu item-->
                                 <div class="menu-item px-3">
-                                    <a href="#" class="menu-link px-3 test" data-kt-rule-table-actions="delete_row">
+                                    <a href="#" class="menu-link px-3 test" data-kt-branch-table-actions="delete_row">
                                         Delete
                                     </a>
                                 </div>
@@ -92,17 +92,106 @@ const KTBranchesServerSide = function () {
         // Re-init functions on every table re-draw -- more info: https://datatables.net/reference/event/draw
         dt.on('draw', function () {
             KTMenu.createInstances();
+            handleUpdateRows();
         });
+    };
+
+    //Edit Button
+    const handleUpdateRows = function () {
+        // Select all delete buttons
+        const editButtons = document.querySelectorAll('[data-kt-branch-table-actions="edit_row"]');
+
+        // Make the DIV element draggable:
+        const element = document.querySelector('#kt_modal_update_branch');
+        dragElement(element);
+        editButtons.forEach(d => {
+            // edit button on click
+            d.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                $('#kt_modal_update_branch_form').hide();//hide form
+                $('.loader_container').show();//show loader
+                $("#kt_modal_update_branch").modal('show');//show modal
+                // Select parent row
+                const parent = e.target.closest('tr');
+
+                // Get rule name
+                const update_url = parent.querySelector("input[class='update_url']").value;
+                const edit_url = parent.querySelector("input[class='edit_url']").value;
+                form.setAttribute("data-kt-action", update_url);
+
+                $.ajax({
+                    type: 'GET',
+                    url: edit_url,
+                    success: function (json) {
+                        var response = JSON.parse(JSON.stringify(json));
+                        if (response.status !== true) {
+                            Swal.fire({
+                                text: response.message,
+                                icon: "error",
+                                buttonsStyling: false,
+                                confirmButtonText: "Ok!",
+                                customClass: {
+                                    confirmButton: "btn btn-primary"
+                                }
+                            });
+
+                        } else {
+
+                            // $('#kt_modal_update_rule_form').show({backdrop: 'static', keyboard: false});//show form
+                            // const rule = response.data;
+                            //
+                            // $("#kt_modal_update_rule_form select[name='action']").val(rule.permission_code).trigger('change');
+                            // $("#kt_modal_update_rule_form").find('input[value="' + rule.maker_type + '"]').prop('checked', true);
+                            // $("#kt_modal_update_rule_form input[name='inactive']").val(rule.inactive);
+                            // if (rule.inactive === 0) {
+                            //     $("#kt_modal_update_rule_form input[id='inactive']").prop("checked", true);
+                            // } else {
+                            //     $("#kt_modal_update_rule_form input[id='inactive']").prop("checked", false)
+                            // }
+                            //
+                            // //active/inactive
+                            // $("#kt_modal_update_rule_form input[id='inactive']").on('change', function () {
+                            //     if ($(this).is(':checked'))
+                            //         $("#kt_modal_update_rule_form input[name='inactive']").val(0)
+                            //     else {
+                            //         $("#kt_modal_update_rule_form input[name='inactive']").val(1)
+                            //     }
+                            // })
+                        }
+
+                        $('.loader_container').hide();//hide loader
+
+                    },
+                    error: function (xhr, desc, err) {
+                        Swal.fire({
+                            text: 'A network error occured. Please consult your network administrator.',
+                            icon: "error",
+                            buttonsStyling: false,
+                            confirmButtonText: "Ok!",
+                            customClass: {
+                                confirmButton: "btn btn-primary"
+                            }
+                        });
+
+                    }
+                });
+
+
+            })
+        });
+
     };
 
     // Public methods
     return {
         init: function () {
-            // form = document.querySelector('#kt_modal_update_rule_form');
+            form = document.querySelector('#kt_modal_update_branch_form');
 
             if ($('#kt_branches_table').length) {
                 initDatatable();
                 dt.search('').draw();
+                handleUpdateRows();
             }
         }
     }

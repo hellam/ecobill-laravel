@@ -373,16 +373,15 @@
                                         <!--end::Label-->
                                         <!--begin::Input-->
                                         <select class="form-select form-select-solid fw-bolder"
-                                                data-kt-select2="true"
-                                                data-placeholder="Select Fiscal Year"
-                                                data-allow-clear="true"
                                                 name="timezone"
+                                                data-kt-select2="true"
+                                                data-placeholder="Select Timezone"
+                                                data-allow-clear="true"
                                                 data-dropdown-parent="#kt_modal_add_branch">
                                             <option></option>
-                                            <option>1</option>
-{{--                                            @foreach(TIME_ZONE as $key => $value)--}}
-{{--                                                <option value="{{$key}}">{{$value}}</option>--}}
-{{--                                            @endforeach--}}
+                                            @foreach(TIME_ZONE as $key => $value)
+                                                <option value="{{$key}}">{{$value}}</option>
+                                            @endforeach
                                         </select>
                                         <!--end::Input-->
                                     </div>
@@ -433,6 +432,312 @@
             </div>
         </div>
         <!--end::Modal Branch - Add-->
+        <!--begin::Modal Branch - Edit-->
+        <div class="modal fade" id="kt_modal_update_branch" tabindex="-1" aria-hidden="true" data-backdrop='static'
+             data-keyboard='false'>
+            <!--begin::Modal dialog-->
+            <div class="modal-dialog modal-dialog-centered mw-650px">
+                <!--begin::Modal content-->
+                <div class="modal-content">
+                    <div class="loader_container">
+                        <div class="loader_wrapper">
+                            <div class="loader">
+                                <div class="dot"></div>
+                            </div>
+                            <div class="loader">
+                                <div class="dot"></div>
+                            </div>
+                            <div class="loader">
+                                <div class="dot"></div>
+                            </div>
+                            <div class="loader">
+                                <div class="dot"></div>
+                            </div>
+                            <div class="loader">
+                                <div class="dot"></div>
+                            </div>
+                            <div class="loader">
+                                <div class="dot"></div>
+                            </div>
+                        </div>
+                        <div class="text">
+                            Please wait
+                        </div>
+                    </div>
+                    <!--begin::Form-->
+                    <form class="form" action="#" id="kt_modal_update_branch_form"
+                          data-kt-action="#">
+                        <!--begin::Modal header-->
+                        <div class="modal-header" id="kt_modal_update_branch_header">
+                            <!--begin::Modal title-->
+                            <h2 class="fw-bolder">{{__('messages.update').' '.__('messages.branch')}}</h2>
+                            <!--end::Modal title-->
+                            <!--begin::Close-->
+                            <div id="kt_modal_update_branch_close"
+                                 class="btn btn-icon btn-sm btn-active-icon-primary">
+                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                                <span class="svg-icon svg-icon-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                         height="24" viewBox="0 0 24 24" fill="none">
+                                        <rect opacity="0.5" x="6" y="17.3137" width="16"
+                                              height="2" rx="1"
+                                              transform="rotate(-45 6 17.3137)"
+                                              fill="currentColor"/>
+                                        <rect x="7.41422" y="6" width="16" height="2" rx="1"
+                                              transform="rotate(45 7.41422 6)"
+                                              fill="currentColor"/>
+                                    </svg>
+                                </span>
+                                <!--end::Svg Icon-->
+                            </div>
+                            <!--end::Close-->
+                        </div>
+                        <!--end::Modal header-->
+                        <!--begin::Modal body-->
+                        <div class="modal-body py-10 px-lg-17">
+                            <!--begin::Scroll-->
+                            <div class="scroll-y me-n7 pe-7" id="kt_modal_update_branch_scroll" data-kt-scroll="true"
+                                 data-kt-scroll-activate="{default: false, lg: true}"
+                                 data-kt-scroll-max-height="auto"
+                                 data-kt-scroll-dependencies="#kt_modal_update_branch_header"
+                                 data-kt-scroll-wrappers="#kt_modal_update_branch_scroll"
+                                 data-kt-scroll-offset="300px">
+                                <!--begin::Input group-->
+                                <div class="row g-9 mb-7">
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Label-->
+                                        <label
+                                            class="required fs-6 fw-bold mb-2">{{__('messages.branch').' '.__('messages.name')}}</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <input type="text" class="form-control form-control-solid"
+                                               placeholder="{{__('messages.branch').' '.__('messages.name')}}"
+                                               name="name"/>
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Col-->
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Label-->
+                                        <label
+                                            class="required fs-6 fw-bold mb-2">{{__('messages.email')}}</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <input type="email" class="form-control form-control-solid"
+                                               placeholder="{{__('messages.email')}}"
+                                               name="email"/>
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Col-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="row g-9 mb-7">
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Label-->
+                                        <label
+                                            class="fs-6 fw-bold mb-2">{{__('messages.bcc_email')}}</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <input type="email" class="form-control form-control-solid"
+                                               placeholder="{{__('messages.bcc_email')}}"
+                                               name="bcc_email"/>
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Col-->
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Label-->
+                                        <label
+                                            class="required fs-6 fw-bold mb-2">{{__('messages.phone')}}</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <input type="text" class="form-control form-control-solid"
+                                               placeholder="{{__('messages.phone')}}"
+                                               name="phone"/>
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Col-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="row g-9 mb-7">
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Label-->
+                                        <label
+                                            class="required fs-6 fw-bold mb-2">{{__('messages.bank_account')}}</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <input type="text" class="form-control form-control-solid"
+                                               placeholder="{{__('messages.bank_account')}}"
+                                               name="default_bank_account"/>
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Col-->
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Label-->
+                                        <label
+                                            class="required fs-6 fw-bold mb-2">{{__('messages.tax_no')}}</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <input type="email" class="form-control form-control-solid"
+                                               placeholder="{{__('messages.tax_no')}}"
+                                               name="tax_no"/>
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Col-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="row g-9 mb-7">
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Label-->
+                                        <label
+                                            class="required fs-6 fw-bold mb-2">{{__('messages.tax_period')}}</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <select class="form-select form-select-solid fw-bolder"
+                                                name="tax_period"
+                                                data-kt-select2="true"
+                                                data-placeholder="Select Tax Period"
+                                                data-allow-clear="true"
+                                                data-dropdown-parent="#kt_modal_update_branch">
+                                            <option></option>
+                                            <option value="1">1 Month</option>
+                                            <option value="2">2 Months</option>
+                                            <option value="3">3 Months</option>
+                                            <option value="4">4 Months</option>
+                                            <option value="5">5 Months</option>
+                                            <option value="6">6 Months</option>
+                                            <option value="7">7 Months</option>
+                                            <option value="8">8 Months</option>
+                                            <option value="9">9 Months</option>
+                                            <option value="10">10 Months</option>
+                                            <option value="11">11 Months</option>
+                                            <option value="12">12 Months</option>
+                                        </select>
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Col-->
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Label-->
+                                        <label
+                                            class="required fs-6 fw-bold mb-2">{{__('messages.default_currency')}}</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <select class="form-select form-select-solid fw-bolder"
+                                                data-kt-select2="true"
+                                                data-placeholder="Select Default Currency"
+                                                name="default_currency"
+                                                data-allow-clear="true"
+                                                data-dropdown-parent="#kt_modal_update_branch">
+                                            <option></option>
+                                            @foreach($currency as $curr)
+                                                <option value="{{$curr->abbreviation}}">{{$curr->abbreviation}}</option>
+                                            @endforeach
+                                        </select>
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Col-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="row g-9 mb-7">
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Label-->
+                                        <label
+                                            class="required fs-6 fw-bold mb-2">{{__('messages.fiscal_year')}}</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <select class="form-select form-select-solid fw-bolder"
+                                                data-kt-select2="true"
+                                                data-placeholder="Select Fiscal Year"
+                                                data-allow-clear="true"
+                                                name="fiscal_year"
+                                                data-dropdown-parent="#kt_modal_update_branch">
+                                            <option></option>
+                                            @foreach($fiscal_year as $year)
+                                                <option
+                                                    value="{{$year->id}}">{{\Carbon\Carbon::parse($year->begin)->format("d/m/Y")."-".\Carbon\Carbon::parse($year->end)->isoFormat(auth('user')->user()->date_format)}}</option>
+                                            @endforeach
+                                        </select>
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Col-->
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Label-->
+                                        <label
+                                            class="required fs-6 fw-bold mb-2">{{__('messages.timezone')}}</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <select class="form-select form-select-solid fw-bolder"
+                                                name="timezone"
+                                                data-kt-select2="true"
+                                                data-placeholder="Select Timezone"
+                                                data-allow-clear="true"
+                                                data-dropdown-parent="#kt_modal_update_branch">
+                                            <option></option>
+                                            @foreach(TIME_ZONE as $key => $value)
+                                                <option value="{{$key}}">{{$value}}</option>
+                                            @endforeach
+                                        </select>
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Col-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="row g-9 mb-7">
+                                    <!--begin::Col-->
+                                    <div class="col-md-12 fv-row">
+                                        <!--begin::Label-->
+                                        <label
+                                            class="required fs-6 fw-bold mb-2">{{__('messages.address')}}</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <textarea class="form-control form-control-solid"
+                                                  placeholder="{{__('messages.address')}}" rows="3"
+                                                  name="address"></textarea>
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Col-->
+                                </div>
+                                <!--end::Input group-->
+                            </div>
+                            <!--end::Scroll-->
+                        </div>
+                        <!--end::Modal body-->
+                        <!--begin::Modal footer-->
+                        <div class="modal-footer flex-center">
+                            <!--begin::Button-->
+                            <button type="reset" id="kt_modal_update_branch_cancel" class="btn btn-light me-3">
+                                Discard
+                            </button>
+                            <!--end::Button-->
+                            <!--begin::Button-->
+                            <button type="submit" id="kt_modal_update_branch_submit" class="btn btn-primary">
+                                <span class="indicator-label">Submit</span>
+                                <span class="indicator-progress">Please wait...
+                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                    </span>
+                            </button>
+                            <!--end::Button-->
+                        </div>
+                        <!--end::Modal footer-->
+                    </form>
+                    <!--end::Form-->
+                </div>
+            </div>
+        </div>
+        <!--end::Modal Branch - Edit-->
         <!--end::Modals-->
     </div>
     <!--end::Container-->

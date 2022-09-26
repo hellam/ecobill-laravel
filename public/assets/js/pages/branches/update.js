@@ -1,46 +1,43 @@
 "use strict";
 
 // Class definition
-const KTPasswordPolicy = function () {
+const KTBranchesUpdate = function () {
+    // Shared variables
     let submitButton;
+    let cancelButton;
+    let closeButton;
     let validator;
     let form;
+    let modal;
 
-    // Init form inputs
+    //handle form
     const handleForm = function () {
         // Init form validation rules. For more info check the FormValidation plugin's official documentation:https://formvalidation.io/
         validator = FormValidation.formValidation(
             form,
             {
                 fields: {
-                    'pass_expiry': {
+                    action: {
                         validators: {
                             notEmpty: {
-                                message: 'Password expiry is required'
+                                message: "Permission is required"
                             }
                         }
                     },
-                    'min_length': {
+                    maker_type: {
                         validators: {
                             notEmpty: {
-                                message: 'Minimum password length is required'
+                                message: "Type is required"
                             }
                         }
                     },
-                    'pass_history': {
-                        validators: {
-                            notEmpty: {
-                                message: 'Password history is required'
-                            }
-                        }
-                    }
                 },
                 plugins: {
-                    trigger: new FormValidation.plugins.Trigger(),
+                    trigger: new FormValidation.plugins.Trigger,
                     bootstrap: new FormValidation.plugins.Bootstrap5({
-                        rowSelector: '.fv-row',
-                        eleInvalidClass: '',
-                        eleValidClass: ''
+                        rowSelector: ".fv-row",
+                        eleInvalidClass: "",
+                        eleValidClass: ""
                     })
                 }
             }
@@ -49,7 +46,6 @@ const KTPasswordPolicy = function () {
         // Action buttons
         submitButton.addEventListener('click', function (e) {
             e.preventDefault();
-
             // Validate form before submit
             if (validator) {
                 validator.validate().then(function (status) {
@@ -60,8 +56,8 @@ const KTPasswordPolicy = function () {
                         // Disable submit button whilst loading
                         submitButton.disabled = true;
 
-                        const str = $('#kt_password_policy_form').serialize();
-                        submitPasswordPolicy(str);
+                        const str = $('#kt_modal_update_rule_form').serialize()
+                        handleSubmit(str)
                     } else {
                         Swal.fire({
                             text: "Sorry, looks like there are some errors detected, please try again.",
@@ -76,16 +72,53 @@ const KTPasswordPolicy = function () {
                 });
             }
         });
-        $("#kt_password_policy_form input[id='first_time_login']").on('change', function () {
-            if ($(this).is(':checked'))
-                $("#kt_password_policy_form input[name='first_time']").val(1)
-            else {
-                $("#kt_password_policy_form input[name='first_time']").val(0)
-            }
-        })
-    };
 
-    function submitPasswordPolicy(str) {
+        cancelButton.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            Swal.fire({
+                text: "Are you sure you would like to cancel?",
+                icon: "warning",
+                showCancelButton: true,
+                buttonsStyling: false,
+                confirmButtonText: "Yes, cancel it!",
+                cancelButtonText: "No, return",
+                customClass: {
+                    confirmButton: "btn btn-primary",
+                    cancelButton: "btn btn-active-light"
+                }
+            }).then(function (result) {
+                if (result.value) {
+                    form.reset(); // Reset form
+                    modal.hide(); // Hide modal
+                }
+            });
+        });
+
+        closeButton.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            Swal.fire({
+                text: "Are you sure you would like to cancel?",
+                icon: "warning",
+                showCancelButton: true,
+                buttonsStyling: false,
+                confirmButtonText: "Yes, cancel it!",
+                cancelButtonText: "No, return",
+                customClass: {
+                    confirmButton: "btn btn-primary",
+                    cancelButton: "btn btn-active-light"
+                }
+            }).then(function (result) {
+                if (result.value) {
+                    form.reset(); // Reset form
+                    modal.hide(); // Hide modal
+                }
+            });
+        })
+    }
+
+    function handleSubmit(str) {
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -94,23 +127,22 @@ const KTPasswordPolicy = function () {
             url: form.getAttribute("data-kt-action"),
             data: str,
             success: function (json) {
-                let response = JSON.parse(JSON.stringify(json));
+                var response = JSON.parse(JSON.stringify(json));
                 if (response.status !== true) {
-                    let errors = response.data;
+                    var errors = response.data;
                     for (const [key, value] of Object.entries(errors)) {
                         $('#err_' + value.field).remove();
-                        let input = "input[name='" + value.field + "']";
-                        if ($(input)) {
-                            $(input)
-                                .after('<small style="color: red;" id="err_' + value.field + '">' + value.error + '</small>')
-                                .on('keyup', function () {
+                        if ("input[name='" + value.field + "']") {
+                            $("select[name='" + value.field + "']")
+                                .input('<small style="color: red;" id="err_' + value.field + '">' + value.error + '</small>')
+                                .on('change', function (e) {
                                     $('#err_' + value.field).remove();
                                 })
                         }
-                        if (value.field === 'combination') {
-                            $('#combination_span')
+                        if ("select[name='" + value.field + "']") {
+                            $("select[name='" + value.field + "']")
                                 .after('<small style="color: red;" id="err_' + value.field + '">' + value.error + '</small>')
-                                .on('keyup', function () {
+                                .on('change', function (e) {
                                     $('#err_' + value.field).remove();
                                 })
                         }
@@ -137,8 +169,19 @@ const KTPasswordPolicy = function () {
                         }
                     }).then(function (result) {
                         if (result.isConfirmed) {
-                            // Reload
-                            window.location.reload();
+                            // Hide modal
+                            modal.hide();
+                            $("#permissions_select").val(null).trigger('change');
+                            $("#maker_type1").prop("checked", true);
+
+                            // Enable submit button after loading
+                            submitButton.disabled = false;
+                            if ($('#kt_maker_checker_rules_table').length) {
+                                $("#kt_maker_checker_rules_table").DataTable().ajax.reload();
+                                return;
+                            }
+                            // Redirect to Taxes list page
+                            window.location = form.getAttribute("data-kt-redirect");
                         }
                     });
                 }
@@ -150,6 +193,7 @@ const KTPasswordPolicy = function () {
             },
             statusCode: {
                 203: function () {
+                    modal.hide()//hide modal
                     Swal.fire({
                         text: "Please provide remarks",
                         icon: "info",
@@ -162,7 +206,7 @@ const KTPasswordPolicy = function () {
                         buttonsStyling: false,
                         confirmButtonText: "Submit",
                         cancelButtonText: "Cancel",
-                        // showLoaderOnConfirm: true,
+                        showLoaderOnConfirm: true,
                         customClass: {
                             confirmButton: "btn fw-bold btn-danger",
                             cancelButton: "btn fw-bold btn-active-light-primary"
@@ -170,15 +214,16 @@ const KTPasswordPolicy = function () {
                     }).then(function (result) {
                         // delete row data from server and re-draw datatable
                         if (result.isConfirmed) {
+                            modal.show()//show modal
                             str = str + "&remarks=" + result.value
-                            submitPasswordPolicy(str)
+                            handleSubmit(str)
                         } else {
                             form.reset(); // Reset form
                         }
                     });
                 }
             },
-            error: function (xhr) {
+            error: function (xhr, desc, err) {
                 console.log(xhr)
                 Swal.fire({
                     text: 'A network error occured. Please consult your network administrator.',
@@ -200,17 +245,20 @@ const KTPasswordPolicy = function () {
     }
 
     return {
-        // Public functions
         init: function () {
-            form = document.querySelector('#kt_password_policy_form');
-            submitButton = form.querySelector('#kt_password_policy_submit');
+            modal = new bootstrap.Modal(document.querySelector('#kt_modal_update_branch'));
+
+            form = document.querySelector('#kt_modal_update_branch_form');
+            cancelButton = form.querySelector('#kt_modal_update_branch_cancel');
+            submitButton = form.querySelector('#kt_modal_update_branch_submit');
+            closeButton = document.querySelector('#kt_modal_update_branch_close');
 
             handleForm();
         }
-    };
+    }
 }();
 
 // On document ready
 KTUtil.onDOMContentLoaded(function () {
-    KTPasswordPolicy.init();
+    KTBranchesUpdate.init();
 });

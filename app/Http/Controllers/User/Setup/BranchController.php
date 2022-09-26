@@ -35,9 +35,9 @@ class BranchController extends Controller
     public function index(): Factory|View|Application
     {
         $branches_count = count(auth('user')->user()->user_branches) ?? [];
-        $fiscal_year =FiscalYear::all();
-        $currency =Currency::all();
-        $bank_accounts =BankAccount::all();
+        $fiscal_year = FiscalYear::all();
+        $currency = Currency::all();
+        $bank_accounts = BankAccount::all();
         return view('user.setup.branches', compact('branches_count', 'currency', 'fiscal_year', 'bank_accounts'));
     }
 
@@ -52,7 +52,7 @@ class BranchController extends Controller
                     "update_url" => route('user.setup.branches.update', [$row->id]),
                     "delete_url" => route('user.setup.branches.delete', [$row->id])];
             })->editColumn('fiscal_year', function ($row) {
-                return format_date($row->fiscalyear->begin).' - '.format_date($row->fiscalyear->end);
+                return format_date($row->fiscalyear->begin) . ' - ' . format_date($row->fiscalyear->end);
             })->editColumn('inactive', function ($row) {
                 return $row->inactive == 0 ? '<div class="badge badge-sm badge-light-success">Active</div>' : '<div class="badge badge-sm badge-light-danger">Inactive</div>';
             })->editColumn('created_at', function ($row) {
@@ -61,8 +61,8 @@ class BranchController extends Controller
             ->make(true);
     }
 
-    public function create(Request $request,$created_at = null, $created_by = null,
-                                            $supervised_by = null, $supervised_at = null): JsonResponse
+    public function create(Request $request, $created_at = null, $created_by = null,
+                                   $supervised_by = null, $supervised_at = null): JsonResponse
     {
 
         $validator = UserValidators::branchCreateValidation($request);
@@ -124,7 +124,7 @@ class BranchController extends Controller
      *
      */
     public function update(Request $request, $id, $created_at = null, $created_by = null,
-                                             $supervised_by = null, $supervised_at = null)
+                                   $supervised_by = null, $supervised_at = null)
     {
         $validator = UserValidators::branchUpdateValidation($request);
 
@@ -134,7 +134,7 @@ class BranchController extends Controller
 
         $branch = Branch::find($id);
         $branch = set_update_parameters($branch, $created_at, $created_by,
-        $supervised_by, $supervised_at);
+            $supervised_by, $supervised_at);
 
         $branch->name = $request->name;
         $branch->email = $request->email;

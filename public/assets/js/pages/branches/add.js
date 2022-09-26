@@ -70,6 +70,13 @@ const KTBranchesAdd = function () {
                                 message: 'Address is required'
                             }
                         }
+                    },
+                    default_bank_account: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Bank account is required'
+                            }
+                        }
                     }
                 },
                 plugins: {
@@ -82,6 +89,15 @@ const KTBranchesAdd = function () {
                 }
             }
         );
+
+        //revalidate all select boxes
+        let select_fields = ["timezone", "tax_period", "default_currency", "fiscal_year"];
+        select_fields.forEach(select => {
+            $(form.querySelector(`[name=${select}]`)).on('change', function () {
+                // Revalidate the field when an option is chosen
+                validator.revalidateField(`${select}`);
+            });
+        })
 
         // Action buttons
         submitButton.addEventListener('click', function (e) {

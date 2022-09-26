@@ -49,9 +49,9 @@ class BranchController extends Controller
         return (new DataTables)->eloquent($branch)
             ->addIndexColumn()
             ->addColumn('id', function ($row) {
-                return ["id" => $row->id, "edit_url" => route('user.setup.maker_checker_rules.edit', [$row->id]),
-                    "update_url" => route('user.setup.maker_checker_rules.update', [$row->id]),
-                    "delete_url" => route('user.setup.maker_checker_rules.delete', [$row->id])];
+                return ["id" => $row->id, "edit_url" => route('user.setup.branches.edit', [$row->id]),
+                    "update_url" => route('user.setup.branches.update', [$row->id]),
+                    "delete_url" => route('user.setup.branches.delete', [$row->id])];
             })->editColumn('fiscal_year', function ($row) {
                 return format_date($row->fiscalyear->begin).' - '.format_date($row->fiscalyear->end);
             })->editColumn('created_at', function ($row) {

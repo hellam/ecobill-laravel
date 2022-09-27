@@ -103,6 +103,7 @@ class UserValidators
             'full_name' => 'required',
         ]);
     }
+
     public static function userUpdateValidation(Request $request)
     {
         return self::ValidatorMake($request->all(), [

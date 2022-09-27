@@ -274,7 +274,8 @@
                                                 data-dropdown-parent="#kt_modal_add_branch">
                                             <option></option>
                                             @foreach($bank_accounts as $bank_account)
-                                                <option value="{{$bank_account->id}}">{{$bank_account->account_name."-".$bank_account->account_number}}</option>
+                                                <option
+                                                    value="{{$bank_account->id}}">{{$bank_account->account_name."-".$bank_account->account_number}}</option>
                                             @endforeach
                                         </select>
                                         <!--end::Input-->
@@ -588,7 +589,8 @@
                                                 data-dropdown-parent="#kt_modal_update_branch">
                                             <option></option>
                                             @foreach($bank_accounts as $bank_account)
-                                                <option value="{{$bank_account->id}}">{{$bank_account->account_name."-".$bank_account->account_number}}</option>
+                                                <option
+                                                    value="{{$bank_account->id}}">{{$bank_account->account_name."-".$bank_account->account_number}}</option>
                                             @endforeach
                                         </select>
                                         <!--end::Input-->

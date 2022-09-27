@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\DataTables;
+use function App\CentralLogics\error_web_processor;
 use function App\CentralLogics\generateUniqueId;
 use function App\CentralLogics\get_security_configs;
 use function App\CentralLogics\get_user_ref;
@@ -93,7 +94,7 @@ class UsersController extends Controller
             );
         }
 
-        return success_web_processor(['id' => $user->id], __('messages.msg_saved_success', ['attribute' => __('messages.branch')]));
+        return success_web_processor(['id' => $user->id], __('messages.msg_saved_success', ['attribute' => __('messages.user')]));
     }
 
     /**
@@ -102,11 +103,11 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        $branch = Branch::with('fiscalyear')->find($id);
-        if (isset($branch)) {
-            return success_web_processor($branch, __('messages.msg_item_found', ['attribute' => __('messages.branch')]));
+        $user = User::find($id);
+        if (isset($user)) {
+            return success_web_processor($user, __('messages.msg_item_found', ['attribute' => __('messages.user')]));
         }
-        return error_web_processor(trans('messages.msg_item_not_found', ['attribute' => __('messages.branch')]));
+        return error_web_processor(trans('messages.msg_item_not_found', ['attribute' => __('messages.user')]));
     }
 
     /**

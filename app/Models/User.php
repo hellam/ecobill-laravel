@@ -44,7 +44,7 @@ use Illuminate\Support\Facades\Auth;
  * @property Carbon|null $created_at
  * @property Carbon|null $supervised_at
  * @property Carbon|null $updated_at
- * @property bool $inactive
+ * @property int $inactive
  *
  * @package App\Models
  */

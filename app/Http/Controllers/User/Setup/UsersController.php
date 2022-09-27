@@ -10,7 +10,9 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use function App\CentralLogics\log_activity;
 use function App\CentralLogics\set_create_parameters;
+use function App\CentralLogics\success_web_processor;
 
 class UsersController extends Controller
 {

@@ -10,7 +10,7 @@ const KTUsersAdd = function () {
             form,
             {
                 fields: {
-                    fullname: {
+                    full_name: {
                         validators: {
                             notEmpty: {
                                 message: 'Full Name is required'

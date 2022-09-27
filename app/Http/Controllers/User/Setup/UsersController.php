@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User\Setup;
 use App\CentralLogics\UserValidators;
 use App\Http\Controllers\Controller;
 use App\Models\AuditTrail;
+use App\Models\PasswordHistory;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
@@ -88,6 +89,14 @@ class UsersController extends Controller
 
         $user = User::create($post_data);
 
+        PasswordHistory::create([
+            'user_id' => $user->id,
+            'password' => $user->password,
+            'created_by' => auth('user')->id(),
+            'last_updated_by' => null,
+        ]);
+
+
         if ($created_at == null) {
             //if not supervised, log data from create request
             //Creator log
@@ -140,6 +149,13 @@ class UsersController extends Controller
         if ($request->filled('password')) {
             $user->password = Hash::make($request->password);
             $user->first_time = 1;
+
+            PasswordHistory::create([
+                'user_id' => $user->id,
+                'password' => $user->password,
+                'created_by' => auth('user')->id(),
+                'last_updated_by' => auth('user')->id(),
+            ]);
         }
 
         $user->phone = $request->phone;

@@ -42,7 +42,7 @@ function check_password_re_use($password): bool
     return true;
 }
 
-function password_validation_rule($password_policy_array,$is_new_user=false): array
+function password_validation_rule($password_policy_array, $is_new_user = false): array
 {
     $password = Password::min($password_policy_array[1]);
     if ($password_policy_array[2] == 1) {
@@ -55,7 +55,7 @@ function password_validation_rule($password_policy_array,$is_new_user=false): ar
             ->uncompromised();
     }
 
-    return ['required', 'confirmed', $password, $is_new_user ?'string': new PasswordHistoryRule($password_policy_array[3])];
+    return ['required', 'confirmed', $password, $is_new_user ? 'string' : new PasswordHistoryRule($password_policy_array[3])];
 }
 
 function js_password_validation_rule($password_policy_array): string

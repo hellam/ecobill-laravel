@@ -213,11 +213,7 @@ const KTUsersAdd = function () {
                     }).then(function (result) {
                         // delete row data from server and re-draw datatable
                         if (result.isConfirmed) {
-                            //data.add('remarks', result.value);
-                            // alert(result.value)
                             modal.show()//show modal
-                            // console.log(str)
-                            // if (result.value)
                             str = str + "&remarks=" + result.value
                             submitData(str)
                         } else {

@@ -109,8 +109,8 @@ class UserValidators
     {
         $password_policy_array = json_decode(get_security_configs()->password_policy, true);
         $rule = [
-            'email' => 'required|unique:' . User::class . ',email,NULL,id,client_ref,' . get_user_ref(),
-            'phone' => 'required|unique:' . User::class . ',phone,NULL,id,client_ref,' . get_user_ref(),
+            'email' => 'required|unique:' . User::class . ',email,NULL,id,uuid,' . get_user_ref(),
+            'phone' => 'required|unique:' . User::class . ',phone,NULL,id,uuid,' . get_user_ref(),
             'full_name' => 'required',
         ];
 

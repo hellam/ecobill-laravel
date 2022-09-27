@@ -140,7 +140,7 @@ const KTUnsupervisedData = function () {
                     icon: "warning",
                     showCancelButton: true,
                     buttonsStyling: false,
-                    confirmButtonText: "Yes, approve!",
+                    confirmButtonText: "Yes, "+action+"!",
                     cancelButtonText: "No, cancel",
                     customClass: {
                         confirmButton: "btn fw-bold btn-danger",
@@ -192,7 +192,7 @@ const KTUnsupervisedData = function () {
                                 }
 
                             },
-                            error: function (xhr, desc, err) {
+                            error: function () {
                                 Swal.fire({
                                     text: 'A network error occured. Please consult your network administrator.',
                                     icon: "error",

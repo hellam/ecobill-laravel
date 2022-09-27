@@ -441,7 +441,7 @@
                                         <!--end::Label-->
                                         <!--begin::Input-->
                                         <input type="password" class="form-control form-control-solid"
-                                               placeholder="{{__('messages.password')}}" autocomplete="off"
+                                               placeholder="{{__('messages.password')}}" autocomplete="new-password"
                                                name="password"/>
                                         <!--end::Input-->
                                     </div>

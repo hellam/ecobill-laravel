@@ -25,7 +25,7 @@ class UserRolesController extends Controller
     public function dt_api(Request $request): JsonResponse
     {
         $users = BranchUser::with(['user','branch','role'])
-            ->orderBy('user', 'desc');
+            ->orderBy('user_id', 'desc');
         return (new DataTables)->eloquent($users)
             ->addIndexColumn()
             ->addColumn('id', function ($row) {

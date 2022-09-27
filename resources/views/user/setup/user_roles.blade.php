@@ -211,7 +211,9 @@
                                                 name="user"
                                                 data-dropdown-parent="#kt_modal_add_user_roles">
                                             <option></option>
-                                            <option>Test</option>
+                                            @foreach($users as $user)
+                                                <option value="{{$user->id}}">{{$user->username}}</option>
+                                            @endforeach
                                         </select>
                                         <!--end::Input-->
                                     </div>
@@ -230,7 +232,9 @@
                                                 data-allow-clear="true"
                                                 data-dropdown-parent="#kt_modal_add_user_roles">
                                             <option></option>
-                                            <option>Branch</option>
+                                            @foreach($branches as $branch)
+                                                <option value="{{$branch->id}}">{{$branch->name}}</option>
+                                            @endforeach
                                         </select>
                                         <!--end::Input-->
                                     </div>

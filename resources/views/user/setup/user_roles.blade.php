@@ -253,7 +253,9 @@
                                                 data-allow-clear="true"
                                                 data-dropdown-parent="#kt_modal_add_user_roles">
                                             <option></option>
-                                            <option>Role</option>
+                                            @foreach($roles as $role)
+                                                <option value="{{$role->id}}">{{$role->name}}</option>
+                                            @endforeach
                                         </select>
                                         <!--end::Input-->
                                     </div>

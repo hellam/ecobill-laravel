@@ -29,7 +29,7 @@ class UserRolesController extends Controller
         $branches = Branch::all();
         $roles = Role::all();
         return view('user.setup.user_roles', compact(
-            'user_roles_count', 'branches', 'users'
+            'user_roles_count', 'branches', 'users', 'roles'
         ));
     }
 

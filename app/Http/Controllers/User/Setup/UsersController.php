@@ -144,7 +144,7 @@ class UsersController extends Controller
         $user->inactive = $request->inactive;
         $user->update();
 //
-        return success_web_processor(null, __('messages.msg_updated_success', ['attribute' => __('messages.branch')]));
+        return success_web_processor(null, __('messages.msg_updated_success', ['attribute' => __('messages.user')]));
     }
 
 }

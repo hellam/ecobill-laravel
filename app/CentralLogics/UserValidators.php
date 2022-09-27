@@ -121,7 +121,7 @@ class UserValidators
             'full_name' => $request->full_name,
         ];
 
-        if ($request->has('password')) {
+        if ($request->filled('password')) {
             $rule = array_merge($rule, [
                 'password' =>
                     password_validation_rule($password_policy_array, true)

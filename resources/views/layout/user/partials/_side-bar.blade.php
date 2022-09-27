@@ -409,6 +409,19 @@
                         <!--begin:Menu item-->
                         <div class="menu-item">
                             <!--begin:Menu link-->
+                            <a class="menu-link @if(Route::is('user.setup.user_role.all'))active @endif"
+                               href="{{route('user.setup.user_role.all')}}">
+												<span class="menu-bullet">
+													<span class="bullet bullet-dot"></span>
+												</span>
+                                <span class="menu-title">{{__('messages.user_roles')}}</span>
+                            </a>
+                            <!--end:Menu link-->
+                        </div>
+                        <!--end:Menu item-->
+                        <!--begin:Menu item-->
+                        <div class="menu-item">
+                            <!--begin:Menu link-->
                             <a class="menu-link @if(Route::is('user.setup.roles.list'))active @endif"
                                href="{{route('user.setup.roles.list')}}">
 												<span class="menu-bullet">

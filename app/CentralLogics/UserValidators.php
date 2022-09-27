@@ -84,6 +84,7 @@ class UserValidators
 
     //End Branches
 
+    //Begin Users
     public static function userCreateValidation(Request $request)
     {
         $password_policy_array = json_decode(get_security_configs()->password_policy, true);
@@ -133,6 +134,25 @@ class UserValidators
                 ]);
         }
         return self::ValidatorMake($array, $rule);
+    }
+    //End Users
+
+
+    //Start User Roles
+    public static function userRoleCreateValidation(Request $request)
+    {
+        return self::ValidatorMake($request->all(), [
+            'name' => 'required|unique:' . Branch::class . ',name,NULL,id,client_ref,' . get_user_ref(),
+            'email' => 'required',
+            'phone' => 'required',
+            'tax_no' => 'required',
+            'tax_period' => 'required',
+            'default_currency' => 'required',
+            'default_bank_account' => 'required',
+            'fiscal_year' => 'required',
+            'timezone' => 'required',
+            'address' => 'required',
+        ]);
     }
 
     public static function securityUpdateValidation(Request $request)

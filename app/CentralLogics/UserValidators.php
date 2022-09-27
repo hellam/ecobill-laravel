@@ -90,15 +90,15 @@ class UserValidators
             'username' => $request->username,
             'email' => $request->email,
             'phone' => $request->phone,
-            'password' => base64_decode($request->password),
-            'password_confirmation' => base64_decode($request->password),
+            'password' => $request->password,
+            'password_confirmation' => $request->password,
             'full_name' => $request->full_name,
         ];
 
         return self::ValidatorMake($array, [
-            'username' => 'required|unique:' . User::class . ',username,NULL,id,client_ref,' . get_user_ref(),
-            'email' => 'required|unique:' . User::class . ',email,NULL,id,client_ref,' . get_user_ref(),
-            'phone' => 'required|unique:' . User::class . ',phone,NULL,id,client_ref,' . get_user_ref(),
+            'username' => 'required|unique:' . User::class . ',username,NULL,id,uuid,' . get_user_ref(),
+            'email' => 'required|unique:' . User::class . ',email,NULL,id,uuid,' . get_user_ref(),
+            'phone' => 'required|unique:' . User::class . ',phone,NULL,id,uuid,' . get_user_ref(),
             'password' => password_validation_rule($password_policy_array),
             'full_name' => 'required',
         ]);

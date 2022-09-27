@@ -53,6 +53,14 @@ class UserRolesController extends Controller
             })
             ->make(true);
     }
+    public function view($id){
+        $branch_users = BranchUser::with(['user', 'branch', 'role'])->find($id);
+        $user_role = [];
+        foreach ($branch_users as $key => $value) {
+            $user_role = array_merge($user_role,[$key, $value]);
+        }
+        return success_web_processor($user_role, __('messages.msg_item_found', ['attribute' => __('messages.role')]));
+    }
 
     public function create(Request $request, $created_at = null, $created_by = null,
                                    $supervised_by = null, $supervised_at = null)

@@ -85,7 +85,8 @@ Route::group(['as' => 'user.'], function () {
             });
 
             Route::controller(User\Setup\UsersController::class)->prefix('users')->as('users.')->group(function () {
-                Route::get('/', 'index')->name('all')->middleware('permission:801');
+                Route::get('/', 'index')->name('all')->middleware('permission:706');
+                Route::post('/', 'create')->name('create')->middleware('permission:7060,' . ST_ACCOUNT_MANAGEMENT);
 //                Route::get('/dt_api', 'dt_api')->name('dt_api')->middleware('permission:801');
 //                Route::post('/update/{id}/{action}', 'update')->name('update')->middleware('permission:8011');
             });

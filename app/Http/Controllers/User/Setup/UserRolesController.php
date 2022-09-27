@@ -8,7 +8,9 @@ use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 
 class UserRolesController extends Controller
 {
@@ -27,23 +29,23 @@ class UserRolesController extends Controller
         return (new DataTables)->eloquent($users)
             ->addIndexColumn()
             ->addColumn('id', function ($row) {
-                return ["id" => $row->id, "edit_url" => route('user.setup.users.edit', [$row->id]),
-                    "update_url" => route('user.setup.users.update', [$row->id]),
-//                    "delete_url" => route('user.setup.users.delete', [$row->id])
+                return ["id" => $row->id, "delete_url" => route('user.setup.user_role.delete', [$row->id])
                 ];
-            })->editColumn('inactive', function ($row) {
-                return $row->inactive == 0 ? '<div class="badge badge-sm badge-light-success">Active</div>' : '<div class="badge badge-sm badge-light-danger">Inactive</div>';
-            })->addColumn('last_visit', function ($row) {
-                $login_log = AuditTrail::where('user', $row->id)
-                    ->where('type', ST_LOGON_EVENT)
-                    ->orderBy('created_at', 'desc')
-                    ->first();
-                return $login_log ? Carbon::parse($login_log->created_at)->format('Y/m/d H:i:s') : 'Never';
+            })->addColumn('user', function ($row) {
+                return $row->user->username;
+            })->addColumn('branch', function ($row) {
+                return $row->branch->name;
+            })->addColumn('role', function ($row) {
+                return $row->role->name;
             })
             ->make(true);
     }
 
-    public function create(): Factory|View|Application
+    public function create()
+    {
+
+    }
+    public function destroy()
     {
 
     }

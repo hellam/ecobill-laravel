@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Scopes\ClientRefScope;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class BranchUser
@@ -12,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $user_id
  * @property int $branch_id
  * @property int $role_id
+ * @property string $client_ref
  * @property bool|null $default
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
@@ -33,8 +36,17 @@ class BranchUser extends Model
         'role_id',
 		'user_id',
 		'branch_id',
-        'default'
+        'default',
+        'client_ref'
 	];
+
+
+    public static function booted()
+    {
+        if (Auth::guard('user')->check()){
+            static::addGlobalScope(new ClientRefScope());
+        }
+    }
 
     public function user(){
         return $this->belongsTo(User::class, 'user_id', 'id');

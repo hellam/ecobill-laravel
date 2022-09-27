@@ -86,10 +86,19 @@ Route::group(['as' => 'user.'], function () {
 
             Route::controller(User\Setup\UsersController::class)->prefix('users')->as('users.')->group(function () {
                 Route::get('/', 'index')->name('all')->middleware('permission:706');
-                Route::get('/dt_api', 'dt_api')->name('dt_api')->middleware('permission:801');
+                Route::get('/dt_api', 'dt_api')->name('dt_api')->middleware('permission:706');
                 Route::post('/', 'create')->name('create')->middleware('permission:7060,' . ST_ACCOUNT_MANAGEMENT);
-                Route::get('edit/{id}', 'edit')->name('edit')->middleware('permission:7051')->whereNumber('id');
-                Route::put('update/{id}', 'update')->name('update')->middleware('permission:7051,' . ST_BRANCH_SETUP)->whereNumber('id');
+                Route::get('edit/{id}', 'edit')->name('edit')->middleware('permission:7061')->whereNumber('id');
+                Route::put('update/{id}', 'update')->name('update')->middleware('permission:7061,' . ST_BRANCH_SETUP)->whereNumber('id');
+            });
+
+            Route::controller(User\Setup\UserRolesController::class)->prefix('user_role')->as('user_role.')->group(function () {
+                Route::get('/', 'index')->name('all')->middleware('permission:707');
+                Route::get('/dt_api', 'dt_api')->name('dt_api')->middleware('permission:707');
+                Route::post('/', 'create')->name('create')->middleware('permission:7070,' . ST_ACCOUNT_MANAGEMENT);
+                Route::get('edit/{id}', 'edit')->name('edit')->middleware('permission:7071')->whereNumber('id');
+                Route::put('update/{id}', 'update')->name('update')->middleware('permission:7071,' . ST_BRANCH_SETUP)->whereNumber('id');
+                Route::delete('delete/{id}', 'destroy')->name('delete')->middleware('permission:7072,' . ST_BRANCH_SETUP)->whereNumber('id');
             });
         });
 

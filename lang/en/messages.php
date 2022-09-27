@@ -160,6 +160,7 @@ return [
     'two_factor' => 'Two-factor Authentication',
     'user_deactivated' => 'Account Deactivated!!',
     'user' => 'User',
+    'user_roles' => 'User Roles',
     'username' => 'Username',
     'update' => 'Update',
     'uppercase' => 'Uppercase',

@@ -37,6 +37,7 @@ define('ST_133', "Tax Setup");
 define('ST_134', "API Setup");
 define('ST_135', "Security Policy Setup");
 define('ST_136', "Branch Setup");
+define('ST_137', "User Role Assignment");
 //<-->
 define('ST_BUSINESS_SETUP', "ST_130");
 define('ST_ROLE_SETUP', "ST_131");
@@ -45,6 +46,7 @@ define('ST_TAX_SETUP', "ST_133");
 define('ST_API_SETUP', "ST_134");
 define('ST_SECURITY_POLICY_SETUP', "ST_135");
 define('ST_BRANCH_SETUP', "ST_136");
+define('ST_ROLE_ASSIGNMENT', "ST_137");
 
 #AUDIT
 define('ST_301', "Account Management");
@@ -79,6 +81,7 @@ define('TRX_TYPES', [
     ST_API_SETUP => ST_134,
     ST_SECURITY_POLICY_SETUP => ST_135,
     ST_BRANCH_SETUP => ST_136,
+    ST_ROLE_ASSIGNMENT => ST_137,
 
     ST_ACCOUNT_MANAGEMENT => ST_301,
     ST_LOGON_EVENT => ST_302,

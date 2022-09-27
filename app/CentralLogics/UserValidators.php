@@ -143,13 +143,13 @@ class UserValidators
     public static function userRoleCreateValidation(Request $request)
     {
         $validator =  self::ValidatorMake($request->all(), [
-            'user_id' => 'required',
-            'branch_id' => 'required',
-            'role_id' => 'required',
+            'user' => 'required',
+            'branch' => 'required',
+            'role' => 'required',
         ]);
-        $params = ['user_id' => $request->user_id,
-            'role_id' => $request->role_id,
-            'branch_id' => $request->branch_id];
+        $params = ['user_id' => $request->user,
+            'role_id' => $request->role,
+            'branch_id' => $request->branch];
         if ($validator != '') {
             return $validator;
         } elseif (BranchUser::where($params)->first()) {

@@ -46,12 +46,12 @@ class UsersController extends Controller
                 ];
             })->editColumn('inactive', function ($row) {
                 return $row->inactive == 0 ? '<div class="badge badge-sm badge-light-success">Active</div>' : '<div class="badge badge-sm badge-light-danger">Inactive</div>';
-            })->editColumn('created_at', function ($row) {
+            })->editColumn('last_visit', function ($row) {
                 $login_log = AuditTrail::where('user', $row->id)
                     ->where('type', ST_LOGON_EVENT)
                     ->orderBy('created_at', 'desc')
                     ->first();
-                return $login_log ? Carbon::parse($login_log->created_at)->format('Y/m/d H:i:s'):'Never';
+                return $login_log ? Carbon::parse($login_log->created_at)->format('Y/m/d H:i:s') : 'Never';
             })
             ->make(true);
     }
@@ -136,6 +136,10 @@ class UsersController extends Controller
 
         $user->full_name = $request->full_name;
         $user->email = $request->email;
+
+        if ($request->has('password'))
+            $user->password = Hash::make($request->password);
+
         $user->phone = $request->phone;
         $user->inactive = $request->inactive;
         $user->update();

@@ -37,7 +37,6 @@ const KTUsersServerSide = function () {
                                 ${row.DT_RowIndex}
                                 <input type="hidden" class="edit_url" value="${response.edit_url}" />
                                 <input type="hidden" class="update_url" value="${response.update_url}" />
-                                <input type="hidden" class="delete_url" value="${response.delete_url}" />
                             </div>`;
                     }
                 }, {
@@ -76,6 +75,10 @@ const KTUsersServerSide = function () {
                     render: function (data, type, row) {
                         return decodeHtml(row.inactive)
                     },
+                }, {
+                    targets: -3,
+                    orderable: false,
+                    searchable: false
                 }
             ],
             // Add data-filter attribute
@@ -89,7 +92,7 @@ const KTUsersServerSide = function () {
         // Re-init functions on every table re-draw -- more info: https://datatables.net/reference/event/draw
         dt.on('draw', function () {
             KTMenu.createInstances();
-            handleUpdateRows();
+            // handleUpdateRows();
         });
     };
 
@@ -198,7 +201,7 @@ const KTUsersServerSide = function () {
             if ($('#kt_users_table').length) {
                 initDatatable();
                 dt.search('').draw();
-                handleUpdateRows();
+                // handleUpdateRows();
             }
         }
     }

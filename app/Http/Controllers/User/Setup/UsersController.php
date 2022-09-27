@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User\Setup;
 
 use App\CentralLogics\UserValidators;
 use App\Http\Controllers\Controller;
+use App\Models\AuditTrail;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
@@ -19,20 +20,23 @@ use function App\CentralLogics\get_security_configs;
 use function App\CentralLogics\get_user_ref;
 use function App\CentralLogics\log_activity;
 use function App\CentralLogics\set_create_parameters;
+use function App\CentralLogics\set_update_parameters;
 use function App\CentralLogics\success_web_processor;
 
 class UsersController extends Controller
 {
     public function index(): Factory|View|Application
     {
-        $users_count = User::where('created_by','!=','system')->count() ?? 0;
+        $users_count = User::where('created_by', '!=', 'system')->count() ?? 0;
         return view('user.setup.users', compact('users_count'));
     }
 
     //Data table API
     public function dt_api(Request $request): JsonResponse
     {
-        $users = User::where('created_by','!=','system')->orderBy('created_at', 'desc');
+        $users = User::select('id', 'username', 'full_name', 'phone', 'email', 'inactive', 'image')
+            ->where('created_by', '!=', 'system')
+            ->orderBy('created_at', 'desc');
         return (new DataTables)->eloquent($users)
             ->addIndexColumn()
             ->addColumn('id', function ($row) {
@@ -40,15 +44,18 @@ class UsersController extends Controller
                     "update_url" => route('user.setup.users.update', [$row->id]),
 //                    "delete_url" => route('user.setup.users.delete', [$row->id])
                 ];
-            })->editColumn('fiscal_year', function ($row) {
-                return format_date($row->fiscalyear->begin) . ' - ' . format_date($row->fiscalyear->end);
             })->editColumn('inactive', function ($row) {
                 return $row->inactive == 0 ? '<div class="badge badge-sm badge-light-success">Active</div>' : '<div class="badge badge-sm badge-light-danger">Inactive</div>';
             })->editColumn('created_at', function ($row) {
-                return Carbon::parse($row->created_at)->format('Y/m/d H:i:s');
+                $login_log = AuditTrail::where('user', $row->id)
+                    ->where('type', ST_LOGON_EVENT)
+                    ->orderBy('created_at', 'desc')
+                    ->first();
+                return $login_log ? Carbon::parse($login_log->created_at)->format('Y/m/d H:i:s'):'Never';
             })
             ->make(true);
     }
+
     public function create(Request $request, $created_at = null, $created_by = null,
                                    $supervised_by = null, $supervised_at = null): JsonResponse
     {
@@ -117,29 +124,21 @@ class UsersController extends Controller
     public function update(Request $request, $id, $created_at = null, $created_by = null,
                                    $supervised_by = null, $supervised_at = null)
     {
-        $validator = UserValidators::branchUpdateValidation($request);
+        $validator = UserValidators::userUpdateValidation($request);
 
         if ($validator != '') {
             return $validator;
         }
 
-        $branch = Branch::find($id);
-        $branch = set_update_parameters($branch, $created_at, $created_by,
+        $user = User::find($id);
+        $user = set_update_parameters($user, $created_at, $created_by,
             $supervised_by, $supervised_at);
 
-        $branch->name = $request->name;
-        $branch->email = $request->email;
-        $branch->phone = $request->phone;
-        $branch->tax_no = $request->tax_no;
-        $branch->tax_period = $request->tax_period;
-        $branch->default_currency = $request->default_currency;
-        $branch->default_bank_account = $request->default_bank_account;
-        $branch->fiscal_year = $request->fiscal_year;
-        $branch->timezone = $request->timezone;
-        $branch->address = $request->address;
-        $branch->bcc_email = $request->bcc_email;
-        $branch->inactive = $request->inactive;
-        $branch->update();
+        $user->full_name = $request->full_name;
+        $user->email = $request->email;
+        $user->phone = $request->phone;
+        $user->inactive = $request->inactive;
+        $user->update();
 //
         return success_web_processor(null, __('messages.msg_updated_success', ['attribute' => __('messages.branch')]));
     }

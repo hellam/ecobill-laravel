@@ -15,6 +15,6 @@ class ClientRefScope implements Scope
      */
     public function apply(Builder $builder, Model $model)
     {
-        $builder->where('client_ref',get_user_ref());
+        $builder->where($model->getTable().'.client_ref',get_user_ref());
     }
 }

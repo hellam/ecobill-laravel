@@ -15,6 +15,6 @@ class UserTableScope implements Scope
      */
     public function apply(Builder $builder, Model $model)
     {
-        $builder->where('uuid',get_user_ref());
+        $builder->where($model->getTable().'.uuid',get_user_ref());
     }
 }

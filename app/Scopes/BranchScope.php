@@ -16,6 +16,6 @@ class BranchScope implements Scope
      */
     public function apply(Builder $builder, Model $model)
     {
-        $builder->where('branch_id',get_active_branch());
+        $builder->where($model->getTable().'.branch_id',get_active_branch());
     }
 }

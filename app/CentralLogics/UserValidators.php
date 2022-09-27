@@ -5,6 +5,7 @@ namespace App\CentralLogics;
 use App\Models\Branch;
 use App\Models\MakerCheckerRule;
 use App\Models\Role;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -47,6 +48,7 @@ class UserValidators
         ]);
     }
 
+    //Begin Branches
     public static function branchCreateValidation(Request $request)
     {
         return self::ValidatorMake($request->all(), [
@@ -62,6 +64,7 @@ class UserValidators
             'address' => 'required',
         ]);
     }
+
     public static function branchUpdateValidation(Request $request)
     {
         $id = Route::current()->id;
@@ -76,6 +79,26 @@ class UserValidators
             'fiscal_year' => 'required',
             'timezone' => 'required',
             'address' => 'required',
+        ]);
+    }
+    //End Branches
+
+    public static function userCreateValidation(Request $request)
+    {
+        return self::ValidatorMake($request->all(), [
+            'username' => 'required|unique:' . User::class . ',username,NULL,id,client_ref,' . get_user_ref(),
+            'email' => 'required|unique:' . User::class . ',email,NULL,id,client_ref,' . get_user_ref(),
+            'phone' => 'required|unique:' . User::class . ',phone,NULL,id,client_ref,' . get_user_ref(),
+            'password' => 'required',
+            'full_name' => 'required',
+        ]);
+    }
+    public static function userUpdateValidation(Request $request)
+    {
+        return self::ValidatorMake($request->all(), [
+            'email' => 'required|unique:' . User::class . ',email,NULL,id,client_ref,' . get_user_ref(),
+            'phone' => 'required|unique:' . User::class . ',phone,NULL,id,client_ref,' . get_user_ref(),
+            'full_name' => 'required',
         ]);
     }
 

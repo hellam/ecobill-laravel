@@ -105,6 +105,7 @@
                             <th class="min-w-125px">{{__('messages.email')}}</th>
                             <th class="min-w-125px">{{__('messages.username')}}</th>
                             <th class="min-w-60px">{{__('messages.last_visit')}}</th>
+                            <th class="min-w-60px">{{__('messages.status')}}</th>
                             <th class="text-end min-w-70px">{{__('messages.actions')}}</th>
                         </tr>
                         <!--end::Table row-->

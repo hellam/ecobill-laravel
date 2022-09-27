@@ -46,7 +46,7 @@ class CreateUsersTable extends Migration
             $table->string("updated_by",100)->nullable();
             $table->string('supervised_by',100)->nullable();
             $table->timestamp('supervised_at')->nullable();
-            $table->boolean('inactive')->default(false);
+            $table->tinyInteger('inactive')->default(0);
             $table->timestamps();
         });
     }

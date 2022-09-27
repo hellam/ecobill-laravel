@@ -93,7 +93,7 @@ class BranchController extends Controller
             log_activity(
                 ST_BRANCH_SETUP,
                 $request->getClientIp(),
-                'Create Role',
+                'Create Branch',
                 json_encode($post_data),
                 auth('user')->id(),
                 $branch->id

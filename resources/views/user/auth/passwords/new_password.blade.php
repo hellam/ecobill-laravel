@@ -1,6 +1,7 @@
 @extends('user.auth.layout.app')
 @section('title', 'New Password')
 @section('content')
+{{--    TODO BACK BUTTON ON THIS PAGE--}}
     <!--begin::Body-->
     <div class="d-flex flex-column-fluid flex-lg-row-auto justify-content-center justify-content-lg-end p-12">
         <!--begin::Wrapper-->

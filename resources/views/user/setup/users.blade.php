@@ -334,12 +334,12 @@
                         </div>
                     </div>
                     <!--begin::Form-->
-                    <form class="form" action="#" id="kt_modal_update_user_form"
+                    <form class="form" action="#" id="kt_modal_update_user_form" autocomplete="off"
                           data-kt-action="#">
                         <!--begin::Modal header-->
                         <div class="modal-header" id="kt_modal_update_user_header">
                             <!--begin::Modal title-->
-                            <h2 class="fw-bolder">{{__('messages.update').' '.__('messages.branch')}}</h2>
+                            <h2 class="fw-bolder">{{__('messages.update').' '.__('messages.user')}}</h2>
                             <!--end::Modal title-->
                             <!--begin::Close-->
                             <div id="kt_modal_update_user_close"
@@ -382,7 +382,7 @@
                                         <!--begin::Input-->
                                         <input type="text" class="form-control form-control-solid"
                                                placeholder="{{__('messages.fullName')}}"
-                                               name="fullname"/>
+                                               name="full_name"/>
                                         <!--end::Input-->
                                     </div>
                                     <!--end::Col-->
@@ -437,13 +437,24 @@
                                     <div class="col-md-6 fv-row">
                                         <!--begin::Label-->
                                         <label
-                                            class="required fs-6 fw-bold mb-2">{{__('messages.password')}}</label>
+                                            class="fs-6 fw-bold mb-2">{{__('messages.password')}}</label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
                                         <input type="password" class="form-control form-control-solid"
-                                               placeholder="{{__('messages.password')}}"
+                                               placeholder="{{__('messages.password')}}" autocomplete="off"
                                                name="password"/>
                                         <!--end::Input-->
+                                    </div>
+                                    <!--end::Col-->
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Input group-->
+                                        <label class="fs-6 fw-bold mb-2">Active</label>
+                                        <label class="form-check form-switch form-check-custom form-check-solid">
+                                            <input class="form-check-input" type="checkbox" id="inactive"/>
+                                            <input type="hidden" name="inactive"/>
+                                        </label>
+                                        <!--end::Input group-->
                                     </div>
                                     <!--end::Col-->
                                 </div>

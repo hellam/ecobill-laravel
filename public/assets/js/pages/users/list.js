@@ -62,7 +62,7 @@ const KTUsersServerSide = function () {
                             <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4" data-kt-menu="true">
                                 <!--begin::Menu item-->
                                 <div class="menu-item px-3">
-                                    <a href="#" class="menu-link px-3 test" data-kt-branch-table-actions="edit_row">
+                                    <a href="#" class="menu-link px-3 test" data-kt-users-table-actions="edit_row">
                                         Edit
                                     </a>
                                 </div>
@@ -92,26 +92,26 @@ const KTUsersServerSide = function () {
         // Re-init functions on every table re-draw -- more info: https://datatables.net/reference/event/draw
         dt.on('draw', function () {
             KTMenu.createInstances();
-            // handleUpdateRows();
+            handleUpdateRows();
         });
     };
 
     //Edit Button
     const handleUpdateRows = function () {
         // Select all delete buttons
-        const editButtons = document.querySelectorAll('[data-kt-branch-table-actions="edit_row"]');
+        const editButtons = document.querySelectorAll('[data-kt-users-table-actions="edit_row"]');
 
         // Make the DIV element draggable:
-        const element = document.querySelector('#kt_modal_update_users');
+        const element = document.querySelector('#kt_modal_update_user');
         dragElement(element);
         editButtons.forEach(d => {
             // edit button on click
             d.addEventListener('click', function (e) {
                 e.preventDefault();
 
-                $('#kt_modal_update_users_form').hide();//hide form
+                $('#kt_modal_update_user_form').hide();//hide form
                 $('.loader_container').show();//show loader
-                $("#kt_modal_update_users").modal('show');//show modal
+                $("#kt_modal_update_user").modal('show');//show modal
                 // Select parent row
                 const parent = e.target.closest('tr');
 
@@ -124,7 +124,7 @@ const KTUsersServerSide = function () {
                     type: 'GET',
                     url: edit_url,
                     success: function (json) {
-                        var response = JSON.parse(JSON.stringify(json));
+                        const response = JSON.parse(JSON.stringify(json));
                         if (response.status !== true) {
                             Swal.fire({
                                 text: response.message,
@@ -138,34 +138,27 @@ const KTUsersServerSide = function () {
 
                         } else {
 
-                            $('#kt_modal_update_users_form').show({backdrop: 'static', keyboard: false});//show form
-                            const branch = response.data;
+                            $('#kt_modal_update_user_form').show({backdrop: 'static', keyboard: false});//show form
+                            const user = response.data;
                             //
-                            $("#kt_modal_update_users_form input[name='name']").val(branch.name);
-                            $("#kt_modal_update_users_form input[name='email']").val(branch.email);
-                            $("#kt_modal_update_users_form input[name='bcc_email']").val(branch.bcc_email);
-                            $("#kt_modal_update_users_form input[name='phone']").val(branch.phone);
-                            $("#kt_modal_update_users_form input[name='tax_no']").val(branch.tax_no);
-                            $("#kt_modal_update_users_form select[name='default_bank_account']").val(branch.default_bank_account).trigger('change');
-                            $("#kt_modal_update_users_form select[name='tax_period']").val(branch.tax_period).trigger('change');
-                            $("#kt_modal_update_users_form select[name='default_currency']").val(branch.default_currency).trigger('change');
-                            $("#kt_modal_update_users_form select[name='fiscal_year']").val(branch.fiscal_year).trigger('change');
-                            $("#kt_modal_update_users_form select[name='timezone']").val(branch.timezone).trigger('change');
-                            $("#kt_modal_update_users_form textarea[name='address']").val(branch.address);
+                            $("#kt_modal_update_user_form input[name='full_name']").val(user.full_name);
+                            $("#kt_modal_update_user_form input[name='email']").val(user.email);
+                            $("#kt_modal_update_user_form input[name='phone']").val(user.phone);
+                            $("#kt_modal_update_user_form input[name='username']").val(user.username);
 
-                            $("#kt_modal_update_users_form input[name='inactive']").val(branch.inactive);
-                            if (branch.inactive === 0) {
-                                $("#kt_modal_update_users_form input[id='inactive']").prop("checked", true);
+                            $("#kt_modal_update_user_form input[name='inactive']").val(user.inactive);
+                            if (user.inactive === 0) {
+                                $("#kt_modal_update_user_form input[id='inactive']").prop("checked", true);
                             } else {
-                                $("#kt_modal_update_users_form input[id='inactive']").prop("checked", false)
+                                $("#kt_modal_update_user_form input[id='inactive']").prop("checked", false)
                             }
 
                             //active/inactive
-                            $("#kt_modal_update_users_form input[id='inactive']").on('change', function () {
+                            $("#kt_modal_update_user_form input[id='inactive']").on('change', function () {
                                 if ($(this).is(':checked'))
-                                    $("#kt_modal_update_users_form input[name='inactive']").val(0)
+                                    $("#kt_modal_update_user_form input[name='inactive']").val(0)
                                 else {
-                                    $("#kt_modal_update_users_form input[name='inactive']").val(1)
+                                    $("#kt_modal_update_user_form input[name='inactive']").val(1)
                                 }
                             })
                         }
@@ -196,12 +189,12 @@ const KTUsersServerSide = function () {
     // Public methods
     return {
         init: function () {
-            form = document.querySelector('#kt_modal_update_users_form');
+            form = document.querySelector('#kt_modal_update_user_form');
 
             if ($('#kt_users_table').length) {
                 initDatatable();
                 dt.search('').draw();
-                // handleUpdateRows();
+                handleUpdateRows();
             }
         }
     }

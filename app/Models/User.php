@@ -62,7 +62,7 @@ class User extends Authenticatable
         'account_locked' => 'bool',
         'transaction_days' => 'int',
         'first_time' => 'int',
-        'inactive' => 'bool'
+        'inactive' => 'int'
     ];
 
     protected $dates = [

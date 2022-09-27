@@ -43,8 +43,8 @@ const KTUserRolesServerSide = function () {
                     className: 'text-center',
                     render: function () {
                         return `
-                            <a href="#" class="btn btn-success my-1 me-12" data-kt-user-roles-table-actions="delete_row">
-                                Delete
+                            <a href="#" class="btn btn-primary btn-sm" data-kt-user-roles-table-actions="delete_row">
+                                Remove
                             </a>
                         `;
                     },

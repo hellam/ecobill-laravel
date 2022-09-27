@@ -52,7 +52,7 @@
             <div class="d-flex align-items-center py-1">
                 <!--begin::Button-->
                 <a href="#" class="btn btn-flex btn-sm btn-primary fw-bolder border-0 fs-6 h-40px"
-                   data-bs-toggle="modal" data-bs-target="#kt_modal_add_user"
+                   data-bs-toggle="modal" data-bs-target="#kt_modal_add_user_roles"
                    id="kt_toolbar_primary_button">{{__('messages.add').' '.__('messages.new')}}</a>
                 <!--end::Button-->
             </div>
@@ -130,7 +130,7 @@
 
                     <!--begin::Action-->
                     <button data-bs-toggle="modal"
-                            data-bs-target="#kt_modal_add_user"
+                            data-bs-target="#kt_modal_add_user_roles"
                             class="btn btn-primary">{{__('messages.add',['attribute'=>__('messages.user_roles')])}}
                     </button>
                     <!--end::Action-->
@@ -148,24 +148,24 @@
         <!--end::Card-->
 
         <!--begin::Modals-->
-        <!--begin::Modal User - Add-->
-        <div class="modal fade" id="kt_modal_add_user" tabindex="-1" aria-hidden="true" data-backdrop='static'
+        <!--begin::Modal User Roles - Add-->
+        <div class="modal fade" id="kt_modal_add_user_roles" tabindex="-1" aria-hidden="true" data-backdrop='static'
              data-keyboard='false'>
             <!--begin::Modal dialog-->
-            <div class="modal-dialog modal-dialog-centered mw-650px">
+            <div class="modal-dialog modal-dialog-centered mw-800px">
                 <!--begin::Modal content-->
                 <div class="modal-content">
                     <!--begin::Form-->
-                    <form class="form" action="#" id="kt_modal_add_user_form"
+                    <form class="form" action="#" id="kt_modal_add_user_roles_form"
                           data-kt-action="{{route('user.setup.user_role.create')}}"
                           data-kt-redirect="{{route('user.setup.user_role.all')}}">
                         <!--begin::Modal header-->
-                        <div class="modal-header" id="kt_modal_add_user_header">
+                        <div class="modal-header" id="kt_modal_add_user_roles_header">
                             <!--begin::Modal title-->
                             <h2 class="fw-bolder">{{__('messages.new').' '.__('messages.user_role')}}</h2>
                             <!--end::Modal title-->
                             <!--begin::Close-->
-                            <div id="kt_modal_add_user_close"
+                            <div id="kt_modal_add_user_roles_close"
                                  class="btn btn-icon btn-sm btn-active-icon-primary">
                                 <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
                                 <span class="svg-icon svg-icon-1">
@@ -188,84 +188,69 @@
                         <!--begin::Modal body-->
                         <div class="modal-body py-10 px-lg-17">
                             <!--begin::Scroll-->
-                            <div class="scroll-y me-n7 pe-7" id="kt_modal_add_user_scroll" data-kt-scroll="true"
+                            <div class="scroll-y me-n7 pe-7" id="kt_modal_add_user_roles_scroll" data-kt-scroll="true"
                                  data-kt-scroll-activate="{default: false, lg: true}"
                                  data-kt-scroll-max-height="auto"
-                                 data-kt-scroll-dependencies="#kt_modal_add_user_header"
-                                 data-kt-scroll-wrappers="#kt_modal_add_user_scroll"
+                                 data-kt-scroll-dependencies="#kt_modal_add_user_roles_header"
+                                 data-kt-scroll-wrappers="#kt_modal_add_user_roles_scroll"
                                  data-kt-scroll-offset="300px">
+
                                 <!--begin::Input group-->
                                 <div class="row g-9 mb-7">
                                     <!--begin::Col-->
-                                    <div class="col-md-6 fv-row">
+                                    <div class="col-md-4 fv-row">
                                         <!--begin::Label-->
                                         <label
-                                            class="required fs-6 fw-bold mb-2">{{__('messages.fullName')}}</label>
+                                            class="required fs-6 fw-bold mb-2">{{__('messages.user')}}</label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
-                                        <input type="text" class="form-control form-control-solid"
-                                               placeholder="{{__('messages.fullName')}}"
-                                               name="full_name"/>
+                                        <select class="form-select form-select-solid fw-bolder"
+                                                data-kt-select2="true"
+                                                data-placeholder="Select User"
+                                                data-allow-clear="true"
+                                                name="user"
+                                                data-dropdown-parent="#kt_modal_add_user_roles">
+                                            <option></option>
+                                            <option>Test</option>
+                                        </select>
                                         <!--end::Input-->
                                     </div>
                                     <!--end::Col-->
                                     <!--begin::Col-->
-                                    <div class="col-md-6 fv-row">
+                                    <div class="col-md-4 fv-row">
                                         <!--begin::Label-->
                                         <label
-                                            class="required fs-6 fw-bold mb-2">{{__('messages.email')}}</label>
+                                            class="required fs-6 fw-bold mb-2">{{__('messages.branch')}}</label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
-                                        <input type="email" class="form-control form-control-solid"
-                                               placeholder="{{__('messages.email')}}"
-                                               name="email"/>
-                                        <!--end::Input-->
-                                    </div>
-                                    <!--end::Col-->
-                                </div>
-                                <!--end::Input group-->
-                                <!--begin::Input group-->
-                                <div class="row g-9 mb-7">
-                                    <!--begin::Col-->
-                                    <div class="col-md-6 fv-row">
-                                        <!--begin::Label-->
-                                        <label
-                                            class="required fs-6 fw-bold mb-2">{{__('messages.phone')}}</label>
-                                        <!--end::Label-->
-                                        <!--begin::Input-->
-                                        <input type="text" class="form-control form-control-solid"
-                                               placeholder="{{__('messages.phone')}}"
-                                               name="phone"/>
+                                        <select class="form-select form-select-solid fw-bolder"
+                                                name="branch"
+                                                data-kt-select2="true"
+                                                data-placeholder="Select Branch"
+                                                data-allow-clear="true"
+                                                data-dropdown-parent="#kt_modal_add_user_roles">
+                                            <option></option>
+                                            <option>Branch</option>
+                                        </select>
                                         <!--end::Input-->
                                     </div>
                                     <!--end::Col-->
                                     <!--begin::Col-->
-                                    <div class="col-md-6 fv-row">
+                                    <div class="col-md-4 fv-row">
                                         <!--begin::Label-->
                                         <label
-                                            class="required fs-6 fw-bold mb-2">{{__('messages.username')}}</label>
+                                            class="required fs-6 fw-bold mb-2">{{__('messages.role')}}</label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
-                                        <input type="text" class="form-control form-control-solid"
-                                               placeholder="{{__('messages.username')}}"
-                                               name="username"/>
-                                        <!--end::Input-->
-                                    </div>
-                                    <!--end::Col-->
-                                </div>
-                                <!--end::Input group-->
-                                <!--begin::Input group-->
-                                <div class="row g-9 mb-7">
-                                    <!--begin::Col-->
-                                    <div class="col-md-6 fv-row">
-                                        <!--begin::Label-->
-                                        <label
-                                            class="required fs-6 fw-bold mb-2">{{__('messages.password')}}</label>
-                                        <!--end::Label-->
-                                        <!--begin::Input-->
-                                        <input type="password" class="form-control form-control-solid"
-                                               placeholder="{{__('messages.password')}}"
-                                               name="password"/>
+                                        <select class="form-select form-select-solid fw-bolder"
+                                                name="role"
+                                                data-kt-select2="true"
+                                                data-placeholder="Select Role"
+                                                data-allow-clear="true"
+                                                data-dropdown-parent="#kt_modal_add_user_roles">
+                                            <option></option>
+                                            <option>Role</option>
+                                        </select>
                                         <!--end::Input-->
                                     </div>
                                     <!--end::Col-->
@@ -278,12 +263,12 @@
                         <!--begin::Modal footer-->
                         <div class="modal-footer flex-center">
                             <!--begin::Button-->
-                            <button type="reset" id="kt_modal_add_user_cancel" class="btn btn-light me-3">
+                            <button type="reset" id="kt_modal_add_user_roles_cancel" class="btn btn-light me-3">
                                 Discard
                             </button>
                             <!--end::Button-->
                             <!--begin::Button-->
-                            <button type="submit" id="kt_modal_add_user_submit" class="btn btn-primary">
+                            <button type="submit" id="kt_modal_add_user_roles_submit" class="btn btn-primary">
                                 <span class="indicator-label">Submit</span>
                                 <span class="indicator-progress">Please wait...
                                     <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
@@ -297,192 +282,7 @@
                 </div>
             </div>
         </div>
-        <!--end::Modal Branch - Add-->
-        <!--begin::Modal Branch - Edit-->
-        <div class="modal fade" id="kt_modal_update_user" tabindex="-1" aria-hidden="true" data-backdrop='static'
-             data-keyboard='false'>
-            <!--begin::Modal dialog-->
-            <div class="modal-dialog modal-dialog-centered mw-650px">
-                <!--begin::Modal content-->
-                <div class="modal-content">
-                    <div class="loader_container">
-                        <div class="loader_wrapper">
-                            <div class="loader">
-                                <div class="dot"></div>
-                            </div>
-                            <div class="loader">
-                                <div class="dot"></div>
-                            </div>
-                            <div class="loader">
-                                <div class="dot"></div>
-                            </div>
-                            <div class="loader">
-                                <div class="dot"></div>
-                            </div>
-                            <div class="loader">
-                                <div class="dot"></div>
-                            </div>
-                            <div class="loader">
-                                <div class="dot"></div>
-                            </div>
-                        </div>
-                        <div class="text">
-                            Please wait
-                        </div>
-                    </div>
-                    <!--begin::Form-->
-                    <form class="form" action="#" id="kt_modal_update_user_form" autocomplete="off"
-                          data-kt-action="#">
-                        <!--begin::Modal header-->
-                        <div class="modal-header" id="kt_modal_update_user_header">
-                            <!--begin::Modal title-->
-                            <h2 class="fw-bolder">{{__('messages.update').' '.__('messages.user')}}</h2>
-                            <!--end::Modal title-->
-                            <!--begin::Close-->
-                            <div id="kt_modal_update_user_close"
-                                 class="btn btn-icon btn-sm btn-active-icon-primary">
-                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
-                                <span class="svg-icon svg-icon-1">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                         height="24" viewBox="0 0 24 24" fill="none">
-                                        <rect opacity="0.5" x="6" y="17.3137" width="16"
-                                              height="2" rx="1"
-                                              transform="rotate(-45 6 17.3137)"
-                                              fill="currentColor"/>
-                                        <rect x="7.41422" y="6" width="16" height="2" rx="1"
-                                              transform="rotate(45 7.41422 6)"
-                                              fill="currentColor"/>
-                                    </svg>
-                                </span>
-                                <!--end::Svg Icon-->
-                            </div>
-                            <!--end::Close-->
-                        </div>
-                        <!--end::Modal header-->
-                        <!--begin::Modal body-->
-                        <div class="modal-body py-10 px-lg-17">
-                            <!--begin::Scroll-->
-                            <div class="scroll-y me-n7 pe-7" id="kt_modal_update_user_scroll" data-kt-scroll="true"
-                                 data-kt-scroll-activate="{default: false, lg: true}"
-                                 data-kt-scroll-max-height="auto"
-                                 data-kt-scroll-dependencies="#kt_modal_update_user_header"
-                                 data-kt-scroll-wrappers="#kt_modal_update_user_scroll"
-                                 data-kt-scroll-offset="300px">
-                                <!--begin::Input group-->
-                                <div class="row g-9 mb-7">
-                                    <!--begin::Col-->
-                                    <div class="col-md-6 fv-row">
-                                        <!--begin::Label-->
-                                        <label
-                                            class="required fs-6 fw-bold mb-2">{{__('messages.fullName')}}</label>
-                                        <!--end::Label-->
-                                        <!--begin::Input-->
-                                        <input type="text" class="form-control form-control-solid"
-                                               placeholder="{{__('messages.fullName')}}"
-                                               name="full_name"/>
-                                        <!--end::Input-->
-                                    </div>
-                                    <!--end::Col-->
-                                    <!--begin::Col-->
-                                    <div class="col-md-6 fv-row">
-                                        <!--begin::Label-->
-                                        <label
-                                            class="required fs-6 fw-bold mb-2">{{__('messages.email')}}</label>
-                                        <!--end::Label-->
-                                        <!--begin::Input-->
-                                        <input type="email" class="form-control form-control-solid"
-                                               placeholder="{{__('messages.email')}}"
-                                               name="email"/>
-                                        <!--end::Input-->
-                                    </div>
-                                    <!--end::Col-->
-                                </div>
-                                <!--end::Input group-->
-                                <!--begin::Input group-->
-                                <div class="row g-9 mb-7">
-                                    <!--begin::Col-->
-                                    <div class="col-md-6 fv-row">
-                                        <!--begin::Label-->
-                                        <label
-                                            class="required fs-6 fw-bold mb-2">{{__('messages.phone')}}</label>
-                                        <!--end::Label-->
-                                        <!--begin::Input-->
-                                        <input type="text" class="form-control form-control-solid"
-                                               placeholder="{{__('messages.phone')}}"
-                                               name="phone"/>
-                                        <!--end::Input-->
-                                    </div>
-                                    <!--end::Col-->
-                                    <!--begin::Col-->
-                                    <div class="col-md-6 fv-row">
-                                        <!--begin::Label-->
-                                        <label
-                                            class="required fs-6 fw-bold mb-2">{{__('messages.username')}}</label>
-                                        <!--end::Label-->
-                                        <!--begin::Input-->
-                                        <input type="text" class="form-control form-control-solid"
-                                               placeholder="{{__('messages.username')}}"
-                                               name="username"/>
-                                        <!--end::Input-->
-                                    </div>
-                                    <!--end::Col-->
-                                </div>
-                                <!--end::Input group-->
-                                <!--begin::Input group-->
-                                <div class="row g-9 mb-7">
-                                    <!--begin::Col-->
-                                    <div class="col-md-6 fv-row">
-                                        <!--begin::Label-->
-                                        <label
-                                            class="fs-6 fw-bold mb-2">{{__('messages.password')}}</label>
-                                        <!--end::Label-->
-                                        <!--begin::Input-->
-                                        <input type="password" class="form-control form-control-solid"
-                                               placeholder="{{__('messages.password')}}" autocomplete="new-password"
-                                               name="password"/>
-                                        <!--end::Input-->
-                                    </div>
-                                    <!--end::Col-->
-                                    <!--begin::Col-->
-                                    <div class="col-md-6 fv-row">
-                                        <!--begin::Input group-->
-                                        <label class="fs-6 fw-bold mb-2">Active</label>
-                                        <label class="form-check form-switch form-check-custom form-check-solid">
-                                            <input class="form-check-input" type="checkbox" id="inactive"/>
-                                            <input type="hidden" name="inactive"/>
-                                        </label>
-                                        <!--end::Input group-->
-                                    </div>
-                                    <!--end::Col-->
-                                </div>
-                                <!--end::Input group-->
-                            </div>
-                            <!--end::Scroll-->
-                        </div>
-                        <!--end::Modal body-->
-                        <!--begin::Modal footer-->
-                        <div class="modal-footer flex-center">
-                            <!--begin::Button-->
-                            <button type="reset" id="kt_modal_update_user_cancel" class="btn btn-light me-3">
-                                Discard
-                            </button>
-                            <!--end::Button-->
-                            <!--begin::Button-->
-                            <button type="submit" id="kt_modal_update_user_submit" class="btn btn-primary">
-                                <span class="indicator-label">Submit</span>
-                                <span class="indicator-progress">Please wait...
-                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
-                                    </span>
-                            </button>
-                            <!--end::Button-->
-                        </div>
-                        <!--end::Modal footer-->
-                    </form>
-                    <!--end::Form-->
-                </div>
-            </div>
-        </div>
-        <!--end::Modal Branch - Edit-->
+        <!--end::Modal User Roles - Add-->
         <!--end::Modals-->
     </div>
     <!--end::Container-->
@@ -491,5 +291,5 @@
 @push('custom_scripts')
     <script src="{{ asset('assets/js/pages/user_roles/add.js') }}"></script>
     <script src="{{ asset('assets/js/pages/user_roles/list.js') }}"></script>
-    <script src="{{ asset('assets/js/pages/user_roles/update.js') }}"></script>
+    <script src="{{ asset('assets/js/pages/user_roles/delete.js') }}"></script>
 @endpush

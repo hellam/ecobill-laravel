@@ -55,7 +55,7 @@ function password_validation_rule($password_policy_array,$is_new_user=false): ar
             ->uncompromised();
     }
 
-    return ['required', 'confirmed', $password, $is_new_user ?'': new PasswordHistoryRule($password_policy_array[3])];
+    return ['required', 'confirmed', $password, $is_new_user ?'string': new PasswordHistoryRule($password_policy_array[3])];
 }
 
 function js_password_validation_rule($password_policy_array): string

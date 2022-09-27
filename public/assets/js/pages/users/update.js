@@ -150,20 +150,11 @@ const KTUsersUpdate = function () {
                     var errors = response.data;
                     for (const [key, value] of Object.entries(errors)) {
                         $('#err_' + value.field).remove();
-                        if ("input[name='" + value.field + "']") {
-                            $("select[name='" + value.field + "']")
-                                .input('<small style="color: red;" id="err_' + value.field + '">' + value.error + '</small>')
-                                .on('change', function (e) {
-                                    $('#err_' + value.field).remove();
-                                })
-                        }
-                        if ("select[name='" + value.field + "']") {
-                            $("select[name='" + value.field + "']")
-                                .after('<small style="color: red;" id="err_' + value.field + '">' + value.error + '</small>')
-                                .on('change', function (e) {
-                                    $('#err_' + value.field).remove();
-                                })
-                        }
+                        $("input[name='" + value.field + "']")
+                            .input('<small style="color: red;" id="err_' + value.field + '">' + value.error + '</small>')
+                            .on('change', function (e) {
+                                $('#err_' + value.field).remove();
+                            })
                     }
 
                     Swal.fire({

@@ -258,6 +258,13 @@ function is_account_locked(): bool
     return false;
 }
 
+function is_account_inactive(): bool
+{
+    if (Auth::guard('user')->user()->inactive == 1)
+        return true;
+    return false;
+}
+
 function is_account_expired(): bool
 {
     if (Auth::guard('user')->user()->account_expiry_date != null) {

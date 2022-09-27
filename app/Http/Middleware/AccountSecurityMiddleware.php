@@ -7,12 +7,11 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yoeunes\Toastr\Facades\Toastr;
-use function App\CentralLogics\{
-    is_account_expired,
+use function App\CentralLogics\{is_account_expired,
+    is_account_inactive,
     is_account_locked,
     is_first_time,
-    is_password_expired
-};
+    is_password_expired};
 
 class AccountSecurityMiddleware
 {
@@ -33,6 +32,9 @@ class AccountSecurityMiddleware
             } elseif (is_account_locked()) {
                 self::logout($request);
                 return redirect()->route('user.auth.login')->withErrors([trans('messages.msg_account_locked')]);
+            }elseif (is_account_inactive()) {
+                self::logout($request);
+                return redirect()->route('user.auth.login')->withErrors([trans('messages.user_deactivated')]);
             } elseif (is_first_time()) {//ask user to change their password
                 Toastr::warning(trans('messages.msg_change_factory_password'),'Alert!');
                 return redirect()->route('user.auth.new_password');

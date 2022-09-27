@@ -50,7 +50,7 @@ class UserRolesController extends Controller
     public function create(Request $request, $created_at = null, $created_by = null,
                                    $supervised_by = null, $supervised_at = null)
     {
-        $validator = UserValidators::userCreateValidation($request);
+        $validator = UserValidators::userRoleCreateValidation($request);
 
         if ($validator != '') {
             return $validator;

@@ -112,6 +112,7 @@ return [
     'msg_kicked_out' => 'Someone logged in from another device',
     'msg_password_updated' => 'Password updated successfully',
     'msg_remarks_required' => 'Remarks required',
+    'role_already_assigned' => 'Role already assigned to the selected user',
     'msg_similar_data_exists' => 'Similar data already submitted for Supervision',
     'msg_trx_not_found' => 'Unsupervised transaction not found',
     'msg_updated_success' => ':attribute updated successfully',

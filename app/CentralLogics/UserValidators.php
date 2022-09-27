@@ -3,6 +3,7 @@
 namespace App\CentralLogics;
 
 use App\Models\Branch;
+use App\Models\BranchUser;
 use App\Models\MakerCheckerRule;
 use App\Models\Role;
 use App\Models\User;
@@ -141,18 +142,21 @@ class UserValidators
     //Start User Roles
     public static function userRoleCreateValidation(Request $request)
     {
-        return self::ValidatorMake($request->all(), [
-            'name' => 'required|unique:' . Branch::class . ',name,NULL,id,client_ref,' . get_user_ref(),
-            'email' => 'required',
-            'phone' => 'required',
-            'tax_no' => 'required',
-            'tax_period' => 'required',
-            'default_currency' => 'required',
-            'default_bank_account' => 'required',
-            'fiscal_year' => 'required',
-            'timezone' => 'required',
-            'address' => 'required',
+        $validator =  self::ValidatorMake($request->all(), [
+            'user_id' => 'required',
+            'branch_id' => 'required',
+            'role_id' => 'required',
         ]);
+        $params = ['user_id' => $request->user_id,
+            'role_id' => $request->role_id,
+            'branch_id' => $request->branch_id];
+        if ($validator != '') {
+            return $validator;
+        } elseif (BranchUser::where($params)->first()) {
+            return error_web_processor(__('messages.role_already_assigned'));
+        }
+
+        return '';
     }
 
     public static function securityUpdateValidation(Request $request)

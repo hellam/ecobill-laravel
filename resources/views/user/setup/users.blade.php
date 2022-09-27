@@ -159,8 +159,8 @@
                 <div class="modal-content">
                     <!--begin::Form-->
                     <form class="form" action="#" id="kt_modal_add_user_form"
-                          data-kt-action="{{route('user.setup.branches.create')}}"
-                          data-kt-redirect="{{route('user.setup.branches.all')}}">
+                          data-kt-action="{{route('user.setup.users.create')}}"
+                          data-kt-redirect="{{route('user.setup.users.all')}}">
                         <!--begin::Modal header-->
                         <div class="modal-header" id="kt_modal_add_user_header">
                             <!--begin::Modal title-->

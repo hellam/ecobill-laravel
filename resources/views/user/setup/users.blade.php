@@ -300,8 +300,8 @@
                 </div>
             </div>
         </div>
-        <!--end::Modal Branch - Add-->
-        <!--begin::Modal Branch - Edit-->
+        <!--end::Modal User - Add-->
+        <!--begin::Modal User - Edit-->
         <div class="modal fade" id="kt_modal_update_user" tabindex="-1" aria-hidden="true" data-backdrop='static'
              data-keyboard='false'>
             <!--begin::Modal dialog-->
@@ -485,7 +485,7 @@
                 </div>
             </div>
         </div>
-        <!--end::Modal Branch - Edit-->
+        <!--end::Modal User - Edit-->
         <!--end::Modals-->
     </div>
     <!--end::Container-->

@@ -137,7 +137,7 @@ class UsersController extends Controller
         $user->full_name = $request->full_name;
         $user->email = $request->email;
 
-        if ($request->has('password')) {
+        if ($request->filled('password')) {
             $user->password = Hash::make($request->password);
             $user->first_time = 1;
         }

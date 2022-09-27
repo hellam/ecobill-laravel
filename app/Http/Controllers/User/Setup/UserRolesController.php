@@ -58,7 +58,7 @@ class UserRolesController extends Controller
         $user_role = [
             'User' => $branch_users->user->username,
             'Branch' => $branch_users->branch->name,
-            'Rolw' => $branch_users->role->name,
+            'Role' => $branch_users->role->name,
         ];
         return success_web_processor($user_role, __('messages.msg_item_found', ['attribute' => __('messages.role')]));
     }

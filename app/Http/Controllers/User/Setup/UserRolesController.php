@@ -13,7 +13,7 @@ class UserRolesController extends Controller
 {
     public function index(): Factory|View|Application
     {
-        $users_count = User::where('created_by', '!=', 'system')->count() ?? 0;
-        return view('user.setup.user_roles', compact('users_count'));
+        $user_roles_count = User::where('created_by', '!=', 'system')->count() ?? 0;
+        return view('user.setup.user_roles', compact('user_roles_count'));
     }
 }

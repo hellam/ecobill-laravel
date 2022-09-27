@@ -161,6 +161,7 @@ return [
     'user_deactivated' => 'Account Deactivated!!',
     'user' => 'User',
     'user_roles' => 'User Roles',
+    'user_role' => 'User Role',
     'username' => 'Username',
     'update' => 'Update',
     'uppercase' => 'Uppercase',

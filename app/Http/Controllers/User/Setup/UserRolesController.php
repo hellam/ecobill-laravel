@@ -6,6 +6,7 @@ use App\CentralLogics\UserValidators;
 use App\Http\Controllers\Controller;
 use App\Models\Branch;
 use App\Models\BranchUser;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -26,6 +27,7 @@ class UserRolesController extends Controller
         $user_roles_count = BranchUser::count() ?? 0;
         $users = User::where('created_by', '!=', 'system')->get();
         $branches = Branch::all();
+        $roles = Role::all();
         return view('user.setup.user_roles', compact(
             'user_roles_count', 'branches', 'users'
         ));

@@ -21,7 +21,9 @@ class UserRolesController extends Controller
         $user_roles_count = BranchUser::count() ?? 0;
         $users = User::where('created_by', '!=', 'system')->get();
         $branches = Branch::all();
-        return view('user.setup.user_roles', compact('user_roles_count', 'branches','users'));
+        return view('user.setup.user_roles', compact(
+            'user_roles_count', 'branches', 'users'
+        ));
     }
 
 

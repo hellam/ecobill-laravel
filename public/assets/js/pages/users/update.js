@@ -42,12 +42,6 @@ const KTUsersUpdate = function () {
                                 message: 'Username is required'
                             }
                         }
-                    }, password: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Password is required'
-                            }
-                        }
                     }
                 },
                 plugins: {
@@ -151,7 +145,7 @@ const KTUsersUpdate = function () {
                     for (const [key, value] of Object.entries(errors)) {
                         $('#err_' + value.field).remove();
                         $("input[name='" + value.field + "']")
-                            .input('<small style="color: red;" id="err_' + value.field + '">' + value.error + '</small>')
+                            .after('<small style="color: red;" id="err_' + value.field + '">' + value.error + '</small>')
                             .on('change', function (e) {
                                 $('#err_' + value.field).remove();
                             })

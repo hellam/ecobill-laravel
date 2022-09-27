@@ -11,7 +11,9 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use function App\CentralLogics\generateUniqueId;
 use function App\CentralLogics\get_security_configs;
+use function App\CentralLogics\get_user_ref;
 use function App\CentralLogics\log_activity;
 use function App\CentralLogics\set_create_parameters;
 use function App\CentralLogics\success_web_processor;
@@ -46,6 +48,8 @@ class UsersController extends Controller
             'password_expiry_date' => $password_expiry_date,
             'first_time' => $password_policy_array[4],
             'full_name' => $request->full_name,
+            'uuid' => get_user_ref(),
+            'role_id' => 1,
         ];
         //set_create_parameters($created_at, $created_by, ...)
         $post_data = array_merge($post_data, set_create_parameters($created_at, $created_by, $supervised_by, $supervised_at));

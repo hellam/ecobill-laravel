@@ -158,6 +158,7 @@ return [
     'trx_type' => 'Trx Type',
     'type' => 'Type',
     'two_factor' => 'Two-factor Authentication',
+    'user_deactivated' => 'Account Deactivated!!',
     'user' => 'User',
     'username' => 'Username',
     'update' => 'Update',

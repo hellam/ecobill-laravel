@@ -85,11 +85,21 @@ class UserValidators
 
     public static function userCreateValidation(Request $request)
     {
-        return self::ValidatorMake($request->all(), [
+        $password_policy_array = json_decode(get_security_configs()->password_policy, true);
+        $array = [
+            'username' => $request->username,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'password' => base64_decode($request->password),
+            'password_confirmation' => base64_decode($request->password),
+            'full_name' => $request->full_name,
+        ];
+
+        return self::ValidatorMake($array, [
             'username' => 'required|unique:' . User::class . ',username,NULL,id,client_ref,' . get_user_ref(),
             'email' => 'required|unique:' . User::class . ',email,NULL,id,client_ref,' . get_user_ref(),
             'phone' => 'required|unique:' . User::class . ',phone,NULL,id,client_ref,' . get_user_ref(),
-            'password' => 'required',
+            'password' => password_validation_rule($password_policy_array),
             'full_name' => 'required',
         ]);
     }

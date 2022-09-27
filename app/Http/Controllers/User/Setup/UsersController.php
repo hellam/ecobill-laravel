@@ -25,6 +25,7 @@ class UsersController extends Controller
         $users_count = User::where('created_by','!=','system')->count() ?? 0;
         return view('user.setup.users', compact('users_count'));
     }
+
     public function create(Request $request, $created_at = null, $created_by = null,
                                    $supervised_by = null, $supervised_at = null): JsonResponse
     {

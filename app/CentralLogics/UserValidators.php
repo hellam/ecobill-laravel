@@ -81,6 +81,7 @@ class UserValidators
             'address' => 'required',
         ]);
     }
+
     //End Branches
 
     public static function userCreateValidation(Request $request)
@@ -99,18 +100,38 @@ class UserValidators
             'username' => 'required|unique:' . User::class . ',username,NULL,id,uuid,' . get_user_ref(),
             'email' => 'required|email|unique:' . User::class . ',email,NULL,id,uuid,' . get_user_ref(),
             'phone' => 'required|unique:' . User::class . ',phone,NULL,id,uuid,' . get_user_ref(),
-            'password' => password_validation_rule($password_policy_array,true),
+            'password' => password_validation_rule($password_policy_array, true),
             'full_name' => 'required',
         ]);
     }
 
     public static function userUpdateValidation(Request $request)
     {
-        return self::ValidatorMake($request->all(), [
+        $password_policy_array = json_decode(get_security_configs()->password_policy, true);
+        $rule = [
             'email' => 'required|unique:' . User::class . ',email,NULL,id,client_ref,' . get_user_ref(),
             'phone' => 'required|unique:' . User::class . ',phone,NULL,id,client_ref,' . get_user_ref(),
             'full_name' => 'required',
-        ]);
+        ];
+
+        $array = [
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'full_name' => $request->full_name,
+        ];
+
+        if ($request->has('password')) {
+            $rule = array_merge($rule, [
+                'password' =>
+                    password_validation_rule($password_policy_array, true)
+            ]);
+            $array = array_merge($array,
+                [
+                    'password' => $request->password,
+                    'password_confirmation' => $request->password
+                ]);
+        }
+        return self::ValidatorMake($array, $rule);
     }
 
     public static function securityUpdateValidation(Request $request)

@@ -160,7 +160,7 @@
                     <!--begin::Form-->
                     <form class="form" action="#" id="kt_modal_add_user_form"
                           data-kt-action="{{route('user.setup.users.create')}}"
-                          data-kt-redirect="{{route('user.setup.users.all')}}">
+                          data-kt-redirect="{{route('user.setup.branches.all')}}">
                         <!--begin::Modal header-->
                         <div class="modal-header" id="kt_modal_add_user_header">
                             <!--begin::Modal title-->

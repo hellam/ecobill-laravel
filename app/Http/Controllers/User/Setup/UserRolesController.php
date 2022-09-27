@@ -55,10 +55,11 @@ class UserRolesController extends Controller
     }
     public function view($id){
         $branch_users = BranchUser::with(['user', 'branch', 'role'])->find($id);
-        $user_role = [];
-        foreach ($branch_users as $key => $value) {
-            $user_role = array_merge($user_role,[$key, $value]);
-        }
+        $user_role = [
+            'User' => $branch_users->user->username,
+            'Branch' => $branch_users->branch->name,
+            'Rolw' => $branch_users->role->name,
+        ];
         return success_web_processor($user_role, __('messages.msg_item_found', ['attribute' => __('messages.role')]));
     }
 

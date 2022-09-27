@@ -95,6 +95,7 @@ Route::group(['as' => 'user.'], function () {
             Route::controller(User\Setup\UserRolesController::class)->prefix('user_role')->as('user_role.')->group(function () {
                 Route::get('/', 'index')->name('all')->middleware('permission:707');
                 Route::get('/dt_api', 'dt_api')->name('dt_api')->middleware('permission:707');
+                Route::get('/edit/{id}', 'view')->name('edit')->middleware('permission:707')->whereNumber('id');
                 Route::post('/', 'create')->name('create')->middleware('permission:7070,' . ST_ROLE_ASSIGNMENT);
                 Route::delete('delete/{id}', 'destroy')->name('delete')->middleware('permission:7072,' . ST_ROLE_ASSIGNMENT)->whereNumber('id');
             });

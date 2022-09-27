@@ -46,7 +46,7 @@ class UsersController extends Controller
                 ];
             })->editColumn('inactive', function ($row) {
                 return $row->inactive == 0 ? '<div class="badge badge-sm badge-light-success">Active</div>' : '<div class="badge badge-sm badge-light-danger">Inactive</div>';
-            })->editColumn('last_visit', function ($row) {
+            })->addColumn('last_visit', function ($row) {
                 $login_log = AuditTrail::where('user', $row->id)
                     ->where('type', ST_LOGON_EVENT)
                     ->orderBy('created_at', 'desc')

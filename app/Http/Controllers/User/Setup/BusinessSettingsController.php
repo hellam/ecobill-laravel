@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User\Setup;
 
 use App\Http\Controllers\Controller;
+use App\Models\BusinessSetting;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -12,7 +13,11 @@ class BusinessSettingsController extends Controller
 {
     public function index(): Factory|View|Application
     {
-        $tes = 0;
         return view('user.setup.business_settings');
+    }
+
+    public function view_general(){
+        $general_settings = BusinessSetting::where('key', 'general_settings')->first()->value;
+
     }
 }

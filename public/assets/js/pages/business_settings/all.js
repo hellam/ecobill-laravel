@@ -18,7 +18,7 @@ const KTBusinessSettingsAll = function () {
             },
             error: function () {
                 $('#loader_container').addClass('d-none')
-                $('#loader_container').after("Something went wrong! Please try again!")
+                $('#loader_container').after('<div class="view_data">Something went wrong! Please try again!</div>')
             }
         });
     }

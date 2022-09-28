@@ -1,10 +1,10 @@
 @extends('layout.user.app')
-@section('title', 'Branches')
+@section('title', 'Business Settings')
 @section('page_title')
     <!--begin::Page title-->
     <div class="page-title d-flex justify-content-center flex-column me-5">
         <!--begin::Title-->
-        <h1 class="d-flex flex-column text-dark fw-bold fs-3 mb-0">{{__('messages.branches')}}</h1>
+        <h1 class="d-flex flex-column text-dark fw-bold fs-3 mb-0">{{__('messages.business_settings')}}</h1>
         <!--end::Title-->
         <!--begin::Breadcrumb-->
         <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 pt-1">
@@ -27,7 +27,7 @@
             </li>
             <!--end::Item-->
             <!--begin::Item-->
-            <li class="breadcrumb-item text-dark">{{__('messages.branches')}}</li>
+            <li class="breadcrumb-item text-dark">{{__('messages.business_settings')}}</li>
             <!--end::Item-->
         </ul>
         <!--end::Breadcrumb-->
@@ -79,9 +79,11 @@
             <!--end::Card header-->
             <!--begin::Card body-->
             <div class="card-body pt-0">
-                <div id="loader_container" class="min-vh-30 d-flex align-items-center justify-content-center">
-                    <img src="{{asset('assets/media/loaders/loader.gif')}}" width="30" height="30" alt="">
-                </div>
+                <form>
+                    <div id="loader_container" class="min-vh-30 d-flex align-items-center justify-content-center">
+                        <img src="{{asset('assets/media/loaders/loader.gif')}}" width="30" height="30" alt="">
+                    </div>
+                </form>
             </div>
             <!--end::Card body-->
         </div>

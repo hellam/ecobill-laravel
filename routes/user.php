@@ -99,6 +99,11 @@ Route::group(['as' => 'user.'], function () {
                 Route::post('/', 'create')->name('create')->middleware('permission:7070,' . ST_ROLE_ASSIGNMENT);
                 Route::delete('delete/{id}', 'destroy')->name('delete')->middleware('permission:7072,' . ST_ROLE_ASSIGNMENT)->whereNumber('id');
             });
+
+            Route::controller(User\Setup\BusinessSettingsController::class)->prefix('business-settings')->as('business_settings.')->group(function () {
+                Route::get('/', 'index')->name('all')->middleware('permission:708');
+            });
+
         });
 
         Route::group(['prefix' => 'utils', 'as' => 'utils.'], function () {

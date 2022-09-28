@@ -9044,8 +9044,8 @@ textarea.form-control-lg {
     min-height: 100vh !important
 }
 
-.min-vh-50 {
-    min-height: 50vh !important
+.min-vh-30 {
+    min-height: 30vh !important
 }
 
 .flex-fill {

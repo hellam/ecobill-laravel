@@ -17,7 +17,8 @@ class BusinessSettingsController extends Controller
 
     public function view($tab)
     {
-        $output = '<div class="view_data">';
+        $output = div_start('view_data');
+        $output .= div_start('card-body border-top p-9');
         switch ($tab) {
             case 'general':
                 $output .= $this->general_settings();
@@ -28,7 +29,10 @@ class BusinessSettingsController extends Controller
             case 'email':
                 $output .= 'Email Settings';
         }
-        $output .= '</div>';
+        $output .= div_end();
+        $output .= div_start('card-footer d-flex justify-content-end py-6 px-9');
+        $output .= submit_button('Save Changes', 'btn_save');
+        $output .= div_end();
         return $output;
     }
 

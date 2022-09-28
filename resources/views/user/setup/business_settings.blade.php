@@ -56,13 +56,31 @@
             <div class="card-header border-0 pt-6" id="kt_card">
                 <!--begin::Card title-->
                 <div class="card-title">
-
+                    <ul class="nav nav-tabs nav-line-tabs nav-line-tabs-2x mb-5 fs-6">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-bs-toggle="tab"
+                               href="javascript:">{{__('messages.general_settings')}}
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="javascript:">{{__('messages.sms_settings')}}
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab"
+                               href="javascript:">{{__('messages.email_settings')}}
+                            </a>
+                        </li>
+                    </ul>
                 </div>
                 <!--end::Card title-->
             </div>
             <!--end::Card header-->
             <!--begin::Card body-->
             <div class="card-body pt-0">
+                <div class="min-vh-50">
+
+                </div>
             </div>
             <!--end::Card body-->
         </div>

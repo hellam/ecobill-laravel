@@ -26,7 +26,7 @@ class BusinessSettingsController extends Controller
         switch ($tab) {
             case 'general':
                 $general_settings = json_decode(BusinessSetting::where('key', 'general_settings')->first()->value, true);
-                $output .= image_view('logo', 'imageInput', 'assets/media/avatars/logo.png', $general_settings['logo'] ?? '');
+                $output .= image_view('actual_imageInput', 'actual_imageInput', 'assets/media/avatars/logo.png', $general_settings['logo'] ?? '');
                 $output .= input_field('company_name', 'Company Name', $general_settings['company_name'], true);
                 $output .= input_field('inv_footer', 'Invoice Footer', $general_settings['inv_footer'], true);
                 break;

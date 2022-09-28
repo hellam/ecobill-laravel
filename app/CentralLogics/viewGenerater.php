@@ -32,12 +32,84 @@ function submit_button($name, $id)
                             </button>';
 }
 
-function image_view($name, $id, $default, $value,)
+function image_view($name, $id, $default, $value)
 {
-    return '<script>
-                    for (var link of document.querySelectorAll("script")) {
-                            link.src = link.src.replace(/\?.*|$/, "?" + Date.now())
-                    }
+    return '<style>
+                .avatar-upload {
+                  position: relative;
+                  max-width: 205px;
+                  margin: 50px auto;
+                }
+                .avatar-upload .avatar-edit {
+                  position: absolute;
+                  right: 12px;
+                  z-index: 1;
+                  top: 10px;
+                }
+                .avatar-upload .avatar-edit input {
+                  display: none;
+                }
+                .avatar-upload .avatar-edit input + label {
+                  display: inline-block;
+                  width: 34px;
+                  height: 34px;
+                  margin-bottom: 0;
+                  border-radius: 100%;
+                  background: #FFFFFF;
+                  border: 1px solid transparent;
+                  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.12);
+                  cursor: pointer;
+                  font-weight: normal;
+                  transition: all 0.2s ease-in-out;
+                }
+                .avatar-upload .avatar-edit input + label:hover {
+                  background: #f1f1f1;
+                  border-color: #d6d6d6;
+                }
+
+                .avatar-upload .avatar-preview {
+                  width: 192px;
+                  height: 192px;
+                  position: relative;
+                  border-radius: 100%;
+                  border: 6px solid #F8F8F8;
+                  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+                }
+                .avatar-upload .avatar-preview > img {
+                  width: 100%;
+                  height: 100%;
+                  border-radius: 100%;
+                  background-size: cover;
+                  background-repeat: no-repeat;
+                  background-position: center;
+                }
+            </style>
+            <div class="avatar-upload">
+                <div class="avatar-edit">
+                        <input type="file" id="imageUpload" accept=".png, .jpg, .jpeg" onchange="previewFile()"/>
+                        <input type="hidden" id="'.$id.'" name="'.$name.'"/>
+                        <label for="imageUpload"></label>
+                    </div>
+                    <div class="avatar-preview">
+                        <img id="imagePreview" src="'.asset($value).'" onerror="this.src=\''.asset($default).'\'">
+                </div>
+            </div>
+            <script>
+                function previewFile() {
+                    console.log("Previewing...");
+                  var preview = document.querySelector("#imagePreview");
+                  var file = document.querySelector("#imageUpload").files[0];
+                  var reader = new FileReader();
+
+                  reader.addEventListener("load", function () {
+                    preview.src = reader.result;
+                    $("#actual_imageInput").val(reader.result)
+                  }, false);
+
+                  if (file) {
+                    reader.readAsDataURL(file);
+                  }
+                 }
             //on change of image
                     $("#imageInput").on("change", function (e) {
                         getBaseUrl($(this));
@@ -58,31 +130,5 @@ function image_view($name, $id, $default, $value,)
                         };
                         return reader.readAsDataURL(file);
                     }
-            </script>
-            <div class="col-lg-8">
-                <!--begin::Image input-->
-                <div class="image-input image-input-outline" data-kt-image-input="true" style="background-image: url(https://talktalkltd.com/assets/media/svg/avatars/blank.svg)">
-                    <!--begin::Preview existing avatar-->
-                    <div class="image-input-wrapper w-125px h-125px" style="background-image: url(https://talktalkltd.com/client/my-account/profile-image/business/default), url(https://talktalkltd.com/assets/media/avatars/logo.png)"></div>
-                    <!--end::Preview existing avatar-->
-                    <!--begin::Label-->
-                    <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" title="" data-bs-original-title="Change avatar">
-                        <i class="bi bi-pencil-fill fs-7"></i>
-                        <!--begin::Inputs-->
-                        <input type="file" name="logo" id="imageInput" accept=".png, .jpg, .jpeg">
-                        <input type="hidden" name="actual_image" id="actual_imageInput"/>
-                    <!--end::Inputs-->
-                    </label>
-                    <!--end::Label-->
-                    <!--begin::Cancel-->
-                    <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="" id="btn-remove-image" data-bs-original-title="Remove image">
-                                            <i class="bi bi-x fs-2"></i>
-                                        </span>
-                    <!--end::Cancel-->
-                </div>
-                <!--end::Image input-->
-                <!--begin::Hint-->
-                <div class="form-text">Allowed file types: png, jpg, jpeg.</div>
-                <!--end::Hint-->
-            </div>';
+            </script>';
 }

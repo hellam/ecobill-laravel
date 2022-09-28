@@ -12,6 +12,7 @@ class BusinessSettingsController extends Controller
 {
     public function index(): Factory|View|Application
     {
+        $tes = 0;
         return view('user.setup.business_settings');
     }
 }

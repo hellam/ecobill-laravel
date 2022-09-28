@@ -121,7 +121,7 @@ class User extends Authenticatable
 
     public function permissions(): array
     {
-        return explode(',', Role::where('id', $this->role_id)->first()->permissions);
+        return explode(',', Role::where('id', auth('user')->user()->role_id)->first()->permissions);
     }
 
     public function user_branches()

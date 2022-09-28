@@ -28,7 +28,7 @@ return [
     'all_invoices' => 'All Invoices',
     'api' => 'API',
     'audit_trail' => 'Audit Trail',
-    'business_setup' => 'Business Setup',
+    'business_settings' => 'Business Settings',
     'branches' => 'Branches',
     'branch' => 'Branch',
     'menu_setup' => 'Menu Setup',

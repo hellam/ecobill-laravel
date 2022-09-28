@@ -375,7 +375,7 @@
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
-                                <span class="menu-title">{{__('messages.business_setup')}}</span>
+                                <span class="menu-title">{{__('messages.business_settings')}}</span>
                             </a>
                             <!--end:Menu link-->
                         </div>

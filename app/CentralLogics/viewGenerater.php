@@ -34,6 +34,7 @@ function submit_button($name, $id)
 
 function image_view($name, $id, $default, $value)
 {
+
     return '<style>
                 .avatar-upload {
                   position: relative;

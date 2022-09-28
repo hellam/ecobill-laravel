@@ -29,7 +29,7 @@
     <!--end::Vendor Stylesheets-->
     <!--begin::Global Stylesheets Bundle(used by all pages)-->
     <link href="{{asset('assets/plugins/global/plugins.bundle.css')}}" rel="stylesheet" type="text/css"/>
-    <link href="{{asset('assets/css/style.bundle.css')}}" rel="stylesheet" type="text/css"/>
+    <link href="{{asset('assets/css/style.bundle.css')}}" rel="stylesheet" type="text/css" id="stylesheet"/>
     <!--end::Global Stylesheets Bundle-->
     <!-- Start: Loader -->
     <style>
@@ -4045,8 +4045,8 @@
 <!--end::Modals-->
 <!--begin::Javascript-->
 <!--begin::Global Javascript Bundle(used by all pages)-->
-<script id="script_b1" src="{{asset('assets/plugins/global/plugins.bundle.js')}}"></script>
-<script id="script" src="{{asset('assets/js/scripts.bundle.js')}}"></script>
+<script src="{{asset('assets/plugins/global/plugins.bundle.js')}}" id="bundle"></script>
+<script src="{{asset('assets/js/scripts.bundle.js')}}" id="script"></script>
 <!--end::Global Javascript Bundle-->
 <!--begin::Vendors Javascript(used by this page)-->
 <script src="{{asset('assets/plugins/custom/fullcalendar/fullcalendar.bundle.js')}}"></script>

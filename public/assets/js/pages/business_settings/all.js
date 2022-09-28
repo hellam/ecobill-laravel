@@ -5,7 +5,7 @@ const KTBusinessSettingsAll = function () {
     let base_url = "business-settings/view/";
     //handle form
     const handleShowResults = function () {
-        $('#kt_update_setting_form').attr('action', base_url + 'general')
+        $('#kt_update_setting_form').attr('data-kt-action', base_url + 'general')
         getView("general")
     }
 
@@ -33,10 +33,11 @@ const KTBusinessSettingsAll = function () {
                 $('#loader_container').removeClass('d-none')
                 $('.view_data').remove()
                 getView($(this).attr("data-kt-tab-action"))
-                $('#kt_update_setting_form').attr('action', base_url + $(this).attr("data-kt-tab-action"))
+                $('#kt_update_setting_form').attr('data-kt-action', base_url + $(this).attr("data-kt-tab-action"))
             })
         });
     }
+
 
     // Public methods
     return {

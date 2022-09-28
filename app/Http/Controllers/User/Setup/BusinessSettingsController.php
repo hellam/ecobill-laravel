@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User\Setup;
 
+use App\CentralLogics\UserValidators;
 use App\Http\Controllers\Controller;
 use App\Models\BusinessSetting;
 use Illuminate\Contracts\Foundation\Application;
@@ -46,6 +47,11 @@ class BusinessSettingsController extends Controller
 
     public function update(Request $request, $tab)
     {
+        $validator = UserValidators::generalSettingsUpdateValidation($request);
+
+        if ($validator != '') {
+            return back();
+        }
         switch ($tab) {
             case 'general':
                 $business_settings = BusinessSetting::where('key', 'general_settings')->firstOrFail();

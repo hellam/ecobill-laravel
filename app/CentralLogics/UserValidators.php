@@ -179,6 +179,27 @@ class UserValidators
         return self::ValidatorMake($request->all(), $rules);
     }
 
+    public static function generalSettingsUpdateValidation(Request $request)
+    {
+        $type = Route::current()->tab;
+
+        $rules = [
+            'logo' => 'required',
+            'company_name' => 'required',
+            'inv_footer' => 'required',
+        ];
+        if ($type == 'sms')
+            $rules = [
+                'provider' => 'required',
+            ];
+        elseif ($type == 'email')
+            $rules = [
+                'security' => 'required',
+            ];
+
+        return self::ValidatorMake($request->all(), $rules);
+    }
+
     public static function passwordUpdateValidation(Request $request)
     {
         $password_policy_array = json_decode(get_security_configs()->password_policy, true);

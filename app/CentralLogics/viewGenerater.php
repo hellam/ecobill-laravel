@@ -34,16 +34,17 @@ function submit_button($name, $id)
 
 function image_view($name, $id, $default, $value,)
 {
-    return '<link href="' . asset('assets/css/style.bundle.css') . '" rel="stylesheet" type="text/css"/>
-            <script src="' . asset('assets/js/scripts.bundle.js') . '"></script>
-            <script>
+    return '<script>
+                    for (var link of document.querySelectorAll("script")) {
+                            link.src = link.src.replace(/\?.*|$/, "?" + Date.now())
+                    }
             //on change of image
                     $("#imageInput").on("change", function (e) {
                         getBaseUrl($(this));
                     });
 
                     $("#btn-remove-image").on("click", function (e) {
-                        base64Img = "";
+                            $("#actual_imageInput").val("")
                     })
 
                     function getBaseUrl(input) {
@@ -53,6 +54,7 @@ function image_view($name, $id, $default, $value,)
                         reader.onloadend = function () {
                             baseString = reader.result;
                             base64Img = baseString
+                            $("#actual_imageInput").val(baseString)
                         };
                         return reader.readAsDataURL(file);
                     }
@@ -68,6 +70,7 @@ function image_view($name, $id, $default, $value,)
                         <i class="bi bi-pencil-fill fs-7"></i>
                         <!--begin::Inputs-->
                         <input type="file" name="logo" id="imageInput" accept=".png, .jpg, .jpeg">
+                        <input type="hidden" name="actual_image" id="actual_imageInput"/>
                     <!--end::Inputs-->
                     </label>
                     <!--end::Label-->

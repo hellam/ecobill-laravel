@@ -92,7 +92,7 @@ Route::group(['as' => 'user.'], function () {
                 Route::put('update/{id}', 'update')->name('update')->middleware('permission:7061,' . ST_BRANCH_SETUP)->whereNumber('id');
             });
 
-            Route::controller(User\Setup\UserRolesController::class)->prefix('user_role')->as('user_role.')->group(function () {
+            Route::controller(User\Setup\UserRolesController::class)->prefix('user-role')->as('user_role.')->group(function () {
                 Route::get('/', 'index')->name('all')->middleware('permission:707');
                 Route::get('/dt_api', 'dt_api')->name('dt_api')->middleware('permission:707');
                 Route::get('/edit/{id}', 'view')->name('edit')->middleware('permission:707')->whereNumber('id');

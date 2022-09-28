@@ -21,11 +21,12 @@ class BusinessSettingsController extends Controller
         switch ($tab) {
             case 'general':
                 $output = $this->general_settings();
+                break;
             case 'sms':
                 $output = 'SMS Settings';
+                break;
             case 'email':
                 $output = 'Email Settings';
-
         }
         $output .= '</div>';
         return $output;

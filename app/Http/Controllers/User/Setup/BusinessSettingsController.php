@@ -7,6 +7,7 @@ use App\Models\BusinessSetting;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\Client\Request;
 
 class BusinessSettingsController extends Controller
 {
@@ -21,13 +22,16 @@ class BusinessSettingsController extends Controller
         $output .= div_start('card-body border-top p-9');
         switch ($tab) {
             case 'general':
-                $output .= $this->general_settings();
+                $general_settings = json_decode(BusinessSetting::where('key', 'general_settings')->first()->value, true);
+                $output .= input_field('company_name', 'Company Name', $general_settings['company_name'], true);
+                $output .= input_field('inv_footer', 'Invoice Footer', $general_settings['inv_footer'], true);
                 break;
             case 'sms':
                 $output .= 'SMS Settings';
                 break;
             case 'email':
                 $output .= 'Email Settings';
+                break;
         }
         $output .= div_end();
         $output .= div_start('card-footer d-flex justify-content-end py-6 px-9');
@@ -37,13 +41,25 @@ class BusinessSettingsController extends Controller
         return $output;
     }
 
-    public function general_settings()
+    public function update(Request $request, $tab)
     {
-        $general_settings = json_decode(BusinessSetting::where('key', 'general_settings')->first()->value, true);
+        switch ($tab) {
+            case 'general':
+                $business_settings = BusinessSetting::where('key','general_settings')->firstOrFail();
+                $business_settings->key = 'general_settings';
+                $business_settings->value = json_encode(
+                    [
+                        'company_name' => $request->company_name,
+                        'inv_footer' => $request->inv_footer,
+                    ]
+                );
+                $business_settings->save();
+                break;
+            case 'sms':
 
-        $output = input_field('company_name', 'Company Name', $general_settings['company_name'], true);
-        $output .= input_field('inv_footer', 'Invoice Footer', $general_settings['inv_footer'], true);
+                break;
+            case 'email':
 
-        return $output;
+        }
     }
 }

@@ -33,6 +33,7 @@ class BusinessSettingsController extends Controller
         $output .= div_start('card-footer d-flex justify-content-end py-6 px-9');
         $output .= submit_button('Save Changes', 'btn_save');
         $output .= div_end();
+        $output .= div_end();
         return $output;
     }
 

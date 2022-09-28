@@ -25,6 +25,7 @@ class BusinessSettingsController extends Controller
         switch ($tab) {
             case 'general':
                 $general_settings = json_decode(BusinessSetting::where('key', 'general_settings')->first()->value, true);
+                $output .= image_view('logo', 'company_logo', 'assets/media/avatars/logo.png', $general_settings['logo'] ?? '');
                 $output .= input_field('company_name', 'Company Name', $general_settings['company_name'], true);
                 $output .= input_field('inv_footer', 'Invoice Footer', $general_settings['inv_footer'], true);
                 break;
@@ -47,10 +48,11 @@ class BusinessSettingsController extends Controller
     {
         switch ($tab) {
             case 'general':
-                $business_settings = BusinessSetting::where('key','general_settings')->firstOrFail();
+                $business_settings = BusinessSetting::where('key', 'general_settings')->firstOrFail();
                 $business_settings->key = 'general_settings';
                 $business_settings->value = json_encode(
                     [
+                        'logo' => $request->logo,
                         'company_name' => $request->company_name,
                         'inv_footer' => $request->inv_footer,
                     ]

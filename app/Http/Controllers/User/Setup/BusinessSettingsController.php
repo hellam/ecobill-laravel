@@ -18,10 +18,10 @@ class BusinessSettingsController extends Controller
 
     public function view_general()
     {
-        $general_settings = BusinessSetting::where('key', 'general_settings')->first()->value;
+        $general_settings = json_decode(BusinessSetting::where('key', 'general_settings')->first()->value,true);
 
         $output = $this->input_field('company_name','Company Name',$general_settings['company_name'],true);
-        $output = $this->input_field('inv_footer','Invoice Footer',$general_settings['inv_footer'],true);
+        $output .= $this->input_field('inv_footer','Invoice Footer',$general_settings['inv_footer'],true);
 
         return $output;
     }

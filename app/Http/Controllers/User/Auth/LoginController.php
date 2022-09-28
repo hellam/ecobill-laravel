@@ -92,6 +92,9 @@ class LoginController extends Controller
                 $user->update();
             }
 
+            //set default branch
+
+
             //check if SSO is enabled and apply
             try {
                 $security_configs = SecurityConfig::first();

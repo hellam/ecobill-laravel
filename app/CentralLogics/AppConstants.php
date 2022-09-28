@@ -30,7 +30,7 @@ define('ST_QUOTATION', "ST_123");
 define('ST_CREDIT_NOTE', "ST_124");
 
 #SETUP
-define('ST_130', "Business Setup");
+define('ST_130', "Business Settings");
 define('ST_131', "Role Setup");
 define('ST_132', "Maker Checker Rule Setup");
 define('ST_133', "Tax Setup");
@@ -39,7 +39,7 @@ define('ST_135', "Security Policy Setup");
 define('ST_136', "Branch Setup");
 define('ST_137', "User Role Assignment");
 //<-->
-define('ST_BUSINESS_SETUP', "ST_130");
+define('ST_BUSINESS_SETTINGS', "ST_130");
 define('ST_ROLE_SETUP', "ST_131");
 define('ST_MAKER_CHECKER_RULE_SETUP', "ST_132");
 define('ST_TAX_SETUP', "ST_133");
@@ -74,7 +74,7 @@ define('TRX_TYPES', [
     ST_QUOTATION => ST_123,
     ST_CREDIT_NOTE => ST_124,
 
-    ST_BUSINESS_SETUP => ST_130,
+    ST_BUSINESS_SETTINGS => ST_130,
     ST_ROLE_SETUP => ST_131,
     ST_MAKER_CHECKER_RULE_SETUP => ST_132,
     ST_TAX_SETUP => ST_133,

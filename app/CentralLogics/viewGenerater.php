@@ -26,7 +26,9 @@ function submit_button($name,$id){
                             </button>';
 }
 function image_view($name,$id,$default,$value,){
-    return '<div class="image-input image-input-outline" data-kt-image-input="true" style="background-image: url('.asset($default).')">
+    return '<link href="'.asset('assets/css/style.bundle.css').'" rel="stylesheet" type="text/css"/>
+<script src="'.asset('assets/js/scripts.bundle.js').'"></script>
+    <div class="image-input image-input-outline" data-kt-image-input="true" style="background-image: url('.asset($default).')">
                 <!--begin::Preview existing avatar-->
                 <div class="image-input-wrapper w-125px h-125px" style="background-image: url('.asset($default).')"></div>
                 <!--end::Preview existing avatar-->

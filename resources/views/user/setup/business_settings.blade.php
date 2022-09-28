@@ -78,8 +78,8 @@
             <!--end::Card header-->
             <!--begin::Card body-->
             <div class="card-body pt-0">
-                <div class="min-vh-50">
-
+                <div class="min-vh-50 d-flex align-items-center justify-content-center">
+                    <img id="loader_gif" src="{{asset('assets/media/loaders/loader.gif')}}" width="30" height="30">
                 </div>
             </div>
             <!--end::Card body-->

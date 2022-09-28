@@ -20,6 +20,7 @@ class BusinessSettingsController extends Controller
     {
         $output = div_start('view_data');
         $output .= div_start('card-body border-top p-9');
+        $output.= @csrf_field();
         switch ($tab) {
             case 'general':
                 $general_settings = json_decode(BusinessSetting::where('key', 'general_settings')->first()->value, true);

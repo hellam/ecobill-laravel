@@ -58,16 +58,17 @@
                 <div class="card-title">
                     <ul class="nav nav-tabs nav-line-tabs nav-line-tabs-2x mb-5 fs-6">
                         <li class="nav-item">
-                            <a class="nav-link active" data-bs-toggle="tab"
+                            <a class="nav-link active" data-bs-toggle="tab" data-kt-tab-action="general"
                                href="javascript:">{{__('messages.general_settings')}}
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="tab" href="javascript:">{{__('messages.sms_settings')}}
+                            <a class="nav-link" data-bs-toggle="tab" data-kt-tab-action="sms"
+                               href="javascript:">{{__('messages.sms_settings')}}
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="tab"
+                            <a class="nav-link" data-bs-toggle="tab" data-kt-tab-action="email"
                                href="javascript:">{{__('messages.email_settings')}}
                             </a>
                         </li>

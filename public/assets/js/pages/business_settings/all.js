@@ -4,13 +4,13 @@
 const KTBusinessSettingsAll = function () {
     //handle form
     const handleShowResults = function () {
-        getView("business-settings/general_settings/view/general")
+        getView()
     }
 
-    function getView(url) {
+    function getView(tab = "general") {
         $.ajax({
             type: 'GET',
-            url: url,
+            url: "business-settings/view/" + tab,
             success: function (json) {
                 const response = JSON.parse(JSON.stringify(json));
                 $('#loader_container').addClass('d-none')
@@ -23,10 +23,23 @@ const KTBusinessSettingsAll = function () {
         });
     }
 
+    function handleTabClick() {
+        const tabButtons = document.querySelectorAll('[data-kt-tab-action="general"],[data-kt-tab-action="sms"],[data-kt-tab-action="email"]');
+        tabButtons.forEach(d => {
+            d.addEventListener('click', function (e) {
+                e.preventDefault();
+                $('#loader_container').removeClass('d-none')
+                $('.view_data').remove()
+                getView($(this).attr("data-kt-tab-action"))
+            })
+        });
+    }
+
     // Public methods
     return {
         init: function () {
             handleShowResults();
+            handleTabClick();
         }
     }
 }();

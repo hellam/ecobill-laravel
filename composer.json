@@ -34,7 +34,8 @@
             "app/CentralLogics/helpers.php",
             "app/CentralLogics/AppConstants.php",
             "app/CentralLogics/data_format.php",
-            "app/CentralLogics/unsupervised_data_format.php"
+            "app/CentralLogics/unsupervised_data_format.php",
+            "app/CentralLogics/viewGenerater.php"
         ]
     },
     "autoload-dev": {

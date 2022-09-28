@@ -7,7 +7,8 @@ use App\Models\BusinessSetting;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\Client\Request;
+use Illuminate\Http\Request;
+use Yoeunes\Toastr\Facades\Toastr;
 
 class BusinessSettingsController extends Controller
 {
@@ -20,7 +21,7 @@ class BusinessSettingsController extends Controller
     {
         $output = div_start('view_data');
         $output .= div_start('card-body border-top p-9');
-        $output.= @csrf_field();
+        $output .= @csrf_field();
         switch ($tab) {
             case 'general':
                 $general_settings = json_decode(BusinessSetting::where('key', 'general_settings')->first()->value, true);
@@ -55,12 +56,14 @@ class BusinessSettingsController extends Controller
                     ]
                 );
                 $business_settings->save();
-                break;
+                Toastr::success(__('messages.msg_updated_success', ['attribute' => __('messages.business_settings')]));
+                return back();
             case 'sms':
-
-                break;
+                Toastr::success(__('messages.msg_updated_success', ['attribute' => __('messages.business_settings')]));
+                return back();
             case 'email':
-
+                Toastr::success(__('messages.msg_updated_success', ['attribute' => __('messages.business_settings')]));
+                return back();
         }
     }
 }

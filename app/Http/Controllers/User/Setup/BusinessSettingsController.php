@@ -20,13 +20,13 @@ class BusinessSettingsController extends Controller
         $output = '<div class="view_data">';
         switch ($tab) {
             case 'general':
-                $output = $this->general_settings();
+                $output .= $this->general_settings();
                 break;
             case 'sms':
-                $output = 'SMS Settings';
+                $output .= 'SMS Settings';
                 break;
             case 'email':
-                $output = 'Email Settings';
+                $output .= 'Email Settings';
         }
         $output .= '</div>';
         return $output;

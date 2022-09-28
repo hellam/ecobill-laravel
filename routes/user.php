@@ -102,7 +102,7 @@ Route::group(['as' => 'user.'], function () {
 
             Route::controller(User\Setup\BusinessSettingsController::class)->prefix('business-settings')->as('business_settings.')->group(function () {
                 Route::get('/', 'index')->name('all')->middleware('permission:708');
-                Route::get('/general_settings', 'view_general')->name('general_settings')->middleware('permission:708');
+                Route::get('/view/{tab}', 'view')->name('view')->middleware('permission:708')->whereIn('tab', ['general', 'sms', 'email']);
             });
 
         });

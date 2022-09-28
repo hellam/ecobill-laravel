@@ -16,12 +16,26 @@ class BusinessSettingsController extends Controller
         return view('user.setup.business_settings');
     }
 
-    public function view_general()
+    public function view($tab)
     {
-        $general_settings = json_decode(BusinessSetting::where('key', 'general_settings')->first()->value,true);
+        switch ($tab) {
+            case 'general':
+                return $this->general_settings();
+            case 'sms':
+                return 'SMS Settings';
+            case 'email':
+                return 'Email Settings';
 
-        $output = $this->input_field('company_name','Company Name',$general_settings['company_name'],true);
-        $output .= $this->input_field('inv_footer','Invoice Footer',$general_settings['inv_footer'],true);
+        }
+        return 'Not Found';
+    }
+
+    public function general_settings()
+    {
+        $general_settings = json_decode(BusinessSetting::where('key', 'general_settings')->first()->value, true);
+
+        $output = $this->input_field('company_name', 'Company Name', $general_settings['company_name'], true);
+        $output .= $this->input_field('inv_footer', 'Invoice Footer', $general_settings['inv_footer'], true);
 
         return $output;
     }

@@ -2,15 +2,17 @@
 
 // Class definition
 const KTBusinessSettingsAll = function () {
+    let base_url = "business-settings/view/";
     //handle form
     const handleShowResults = function () {
-        getView()
+        $('#kt_update_setting_form').attr('action', base_url+'general')
+        getView("general")
     }
 
-    function getView(tab = "general") {
+    function getView(tab) {
         $.ajax({
             type: 'GET',
-            url: "business-settings/view/" + tab,
+            url:  base_url + tab,
             success: function (json) {
                 const response = JSON.parse(JSON.stringify(json));
                 $('#loader_container').addClass('d-none')
@@ -31,6 +33,7 @@ const KTBusinessSettingsAll = function () {
                 $('#loader_container').removeClass('d-none')
                 $('.view_data').remove()
                 getView($(this).attr("data-kt-tab-action"))
+                $('#kt_update_setting_form').attr('action', base_url+$(this).attr("data-kt-tab-action"))
             })
         });
     }

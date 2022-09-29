@@ -106,7 +106,7 @@ function image_view($name, $id, $default, $value)
                         <label for="imageUpload"><i class="fa fa-pen"></i></label>
                     </div>
                     <div class="avatar-preview">
-                        <img id="imagePreview" src="' . $value . '" onerror="this.src=\'' . asset($default) . '\'">
+                        <img id="imagePreview" src="' . asset($value) . '" onerror="this.src=\'' . asset($default) . '\'">
                 </div>
             </div>
             <script>

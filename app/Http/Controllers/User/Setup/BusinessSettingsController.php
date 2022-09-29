@@ -10,6 +10,8 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Yoeunes\Toastr\Facades\Toastr;
+use function App\CentralLogics\error_web_processor;
+use function App\CentralLogics\store_base64_image;
 use function App\CentralLogics\success_web_processor;
 
 class BusinessSettingsController extends Controller
@@ -27,7 +29,16 @@ class BusinessSettingsController extends Controller
         switch ($tab) {
             case 'general':
                 $general_settings = json_decode(BusinessSetting::where('key', 'general_settings')->first()->value, true);
-                $output .= image_view('actual_imageInput', 'actual_imageInput', 'assets/media/avatars/logo.png', $general_settings['logo'] ?? '');
+                $output .= image_view(
+                    'actual_imageInput',
+                    'actual_imageInput',
+                    'assets/media/avatars/logo.png',
+                    route('user.files',
+                        ['folder' => 'users',
+                            'fileName' => $general_settings['logo']
+                        ]
+                    )
+                );
                 $output .= input_field('company_name', 'Company Name', $general_settings['company_name'], true);
                 $output .= input_field('inv_footer', 'Invoice Footer', $general_settings['inv_footer'], true);
                 break;
@@ -56,10 +67,23 @@ class BusinessSettingsController extends Controller
         switch ($tab) {
             case 'general':
                 $business_settings = BusinessSetting::where('key', 'general_settings')->firstOrFail();
+
+                if ($request->has('logo')) {
+                    $requestImage = $request->image; //your base64 encoded
+                    try {
+                        $array = json_decode($business_settings->value, true);
+                        $fileName = $array['logo'];
+                        $fileName = store_base64_image($requestImage, $fileName, 'users');
+                    } catch (\Exception $exception) {
+                        return error_web_processor($exception,
+                            200, ['field' => 'logo', 'error' => 'Invalid Image file']);
+                    }
+                }
+
                 $business_settings->key = 'general_settings';
                 $business_settings->value = json_encode(
                     [
-                        'logo' => $request->logo,
+                        'logo' => $fileName,
                         'company_name' => $request->company_name,
                         'inv_footer' => $request->inv_footer,
                     ]
@@ -72,6 +96,6 @@ class BusinessSettingsController extends Controller
                 break;
         }
 
-        return success_web_processor(null,__('messages.msg_updated_success', ['attribute' => __('messages.business_settings')]));
+        return success_web_processor(null, __('messages.msg_updated_success', ['attribute' => __('messages.business_settings')]));
     }
 }

@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\User;
-use App\Models\User as UserModel;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,6 +38,22 @@ Route::group(['as' => 'user.'], function () {
     /* end authentication routes */
 
     Route::group(['middleware' => ['user', 'acc.security']], function () {
+        //get profile image
+        Route::get('/files/{folder}/{fileName}', function ($folder, $image) {
+            try{
+                $path = storage_path('app/public/' . $folder . '/' . $image);
+                $file = File::get($path);
+                $type = File::mimeType($path);
+
+                $response = Response::make($file, 200);
+                $response->header("Content-Type", $type);
+            }catch(Exception $e){
+                $response = '';
+            }
+
+            return $response;
+        })->name('files');
+
         Route::get('/', [User\DashboardController::class, 'index'])->name('dashboard')->middleware('permission:100');
         Route::group(['prefix' => 'products', 'as' => 'products.'], function () {
             Route::get('/', [User\Products\ProductsController::class, 'index'])->middleware('permission:101')->name('list');

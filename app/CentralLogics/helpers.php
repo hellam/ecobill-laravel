@@ -12,8 +12,11 @@ use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules\Password;
+use Intervention\Image\Facades\Image;
 
 function generateUniqueId($userId): string
 {
@@ -259,6 +262,48 @@ function array_equal($a, $b): bool
         && array_diff($a, $b) === array_diff($b, $a)
     );
 }
+
+function store_base64_image($requestImage, $fileName, $folderName)
+{
+    $old_fileName = $fileName; //store old file name so that we can try to delete it
+    $image = get_base64_image($requestImage)['image'];
+    $fileName = get_base64_image($requestImage)['fileName'];
+
+    Storage::put('public/' . $folderName . '/' . $fileName, base64_decode($image));
+
+    // open an image file
+    $img = Image::make(storage_path('app/public/' . $folderName . '/' . $fileName));
+
+    // now you are able to resize the instance
+    $img->orientate()
+        ->fit(400, 400, function ($constraint) {
+            $constraint->upsize();
+        })->save(storage_path('app/public/' . $folderName . '/' . $fileName), 60);
+
+    //find if file exists
+    $path = storage_path('app/public/' . $folderName . '/' . $old_fileName);
+    //if so, then unlink from storage
+    if (File::exists($path)) {
+        try {
+            unlink($path);
+        } catch (\Exception $e) {
+        }
+    }
+
+    return $fileName;
+}
+
+function get_base64_image($base64_image): array
+{
+    $extension = explode('/', explode(':', substr($base64_image, 0, strpos($base64_image, ';')))[1])[1];   // .jpg .png .pdf
+    //find substring from replace here eg: data:image/png;base64,
+    $replace = substr($base64_image, 0, strpos($base64_image, ',') + 1);
+    $image = str_replace($replace, '', $base64_image);
+    $image = str_replace(' ', '+', $image);
+    $fileName = md5(uniqid(auth::user()->id, true)) . '.' . $extension;
+    return ['image' => $image, 'fileName' => $fileName];
+}
+
 
 function is_account_locked(): bool
 {

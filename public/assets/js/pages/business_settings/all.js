@@ -50,6 +50,10 @@ const KTBusinessSettingsAll = function () {
     function handleForm(str, submit_url) {
         let submitButton = document.querySelector('#btn_save');
         submitButton.setAttribute('data-kt-indicator', 'on');
+
+        if ($('#actual_imageInput') && $('#actual_imageInput').val() !== '') {
+            str = str + '&logo=' + $('#actual_imageInput').val()
+        }
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

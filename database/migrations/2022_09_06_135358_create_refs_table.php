@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRefsTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -15,7 +15,7 @@ class CreateRefsTable extends Migration
     {
         Schema::create('refs', function (Blueprint $table) {
             $table->bigInteger('id')->default(0);
-            $table->bigInteger('type')->default(0);
+            $table->string('type')->default(0);
             $table->string('reference', 100);
 
             $table->primary(['id', 'type']);
@@ -32,4 +32,4 @@ class CreateRefsTable extends Migration
     {
         Schema::dropIfExists('refs');
     }
-}
+};

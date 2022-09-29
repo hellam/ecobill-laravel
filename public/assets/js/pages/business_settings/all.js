@@ -3,10 +3,11 @@
 // Class definition
 const KTBusinessSettingsAll = function () {
     let base_url = "business-settings/view/";
+    let tab = 'general';
     //handle form
     const handleShowResults = function () {
-        $('#kt_update_setting_form').attr('data-kt-action', location.href + '/view/general')
-        getView("general")
+        $('#kt_update_setting_form').attr('data-kt-action', location.href + '/view/' + tab)
+        getView(tab)
     }
 
     function getView(tab) {
@@ -32,8 +33,9 @@ const KTBusinessSettingsAll = function () {
                 e.preventDefault();
                 $('#loader_container').removeClass('d-none')
                 $('.view_data').remove()
-                getView($(this).attr("data-kt-tab-action"))
-                $('#kt_update_setting_form').attr('data-kt-action', location.href + '/view/' + $(this).attr("data-kt-tab-action"))
+                tab = $(this).attr("data-kt-tab-action")
+                getView(tab)
+                $('#kt_update_setting_form').attr('data-kt-action', location.href + '/view/' + tab)
             })
         });
     }
@@ -92,6 +94,9 @@ const KTBusinessSettingsAll = function () {
                         customClass: {
                             confirmButton: "btn btn-primary"
                         }
+                    }).then(function () {
+                        if (tab === 'general')
+                            getView(tab)
                     });
 
                 } else {

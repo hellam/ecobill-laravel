@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property Carbon|null $updated_at
  * @property string|null $code
  * @property bool|null $requires_maker_checker
+ * @property bool|null $requires_hq
  * @property string|null $maker_validator_function
  *
  * @package App\Models
@@ -26,13 +27,15 @@ class Permission extends Model
 	protected $table = 'permissions';
 
 	protected $casts = [
-		'requires_maker_checker' => 'bool'
+		'requires_maker_checker' => 'bool',
+		'requires_hq' => 'bool'
 	];
 
 	protected $fillable = [
 		'name',
 		'parent_id',
 		'code',
+		'requires_hq',
 		'requires_maker_checker',
 		'maker_validator_function'
 	];

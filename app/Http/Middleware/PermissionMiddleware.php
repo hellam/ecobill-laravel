@@ -28,6 +28,14 @@ class PermissionMiddleware
     {
         if (Auth::guard('user')->check() && check_permission($permission_code)) {
             $maker_checker = requires_maker_checker($permission_code);
+
+            if (is_array($maker_checker)) {
+                if ($maker_checker[3])
+                    if (!session('branch_is_main')) {
+                        abort(404);
+                    }
+            }
+
             if (!$request->isMethod("GET") && is_array($maker_checker)) {
                 if ($maker_checker[1] != null) {
                     $validator = app()->call([UserValidators::class, $maker_checker[1]]);

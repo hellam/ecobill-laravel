@@ -111,38 +111,19 @@ function image_view($name, $id, $default, $value)
             </div>
             <script>
                 function previewFile() {
-                  var preview = document.querySelector("#imagePreview");
-                  var file = document.querySelector("#imageUpload").files[0];
-                  var reader = new FileReader();
+                      var preview = document.querySelector("#imagePreview");
+                      var file = document.querySelector("#imageUpload").files[0];
+                      var reader = new FileReader();
 
-                  reader.addEventListener("load", function () {
-                    preview.src = reader.result;
-                    $("#actual_imageInput").val(reader.result)
-                  }, false);
+                      reader.addEventListener("load", function () {
+                        preview.src = reader.result;
+                        $("#actual_imageInput").val(reader.result)
+                      }, false);
 
-                  if (file) {
-                    reader.readAsDataURL(file);
-                  }
+                      if (file) {
+                        reader.readAsDataURL(file);
+                      }
                  }
-            //on change of image
-                    $("#imageInput").on("change", function (e) {
-                        getBaseUrl($(this));
-                    });
-
-                    $("#btn-remove-image").on("click", function (e) {
-                            $("#actual_imageInput").val("")
-                    })
-
-                    function getBaseUrl(input) {
-                        var file = input[0].files[0];
-                        var reader = new FileReader();
-                        var baseString;
-                        reader.onloadend = function () {
-                            baseString = reader.result;
-                            base64Img = baseString
-                            $("#actual_imageInput").val(baseString)
-                        };
-                        return reader.readAsDataURL(file);
-                    }
+                 $("#company_logo").attr("src",'.asset($value).')
             </script>';
 }

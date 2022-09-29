@@ -33,7 +33,7 @@ class BusinessSettingsController extends Controller
                 $output .= image_view(
                     'actual_imageInput',
                     'actual_imageInput',
-                    '',
+                    'assets/media/avatars/logo.png',
                     route('user.files',
                         [
                             'folder' => 'users',

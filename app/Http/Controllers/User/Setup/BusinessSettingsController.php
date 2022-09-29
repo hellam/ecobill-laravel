@@ -76,7 +76,7 @@ class BusinessSettingsController extends Controller
                         $fileName = $array['logo'];
                         $fileName = store_base64_image($requestImage, $fileName, 'users');
                     } catch (\Exception $exception) {
-                        return error_web_processor($exception,
+                        return error_web_processor('Invalid image file',
                             200, ['field' => 'logo', 'error' => 'Invalid Image file']);
                     }
                 }

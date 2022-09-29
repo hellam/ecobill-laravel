@@ -34,8 +34,9 @@ class BusinessSettingsController extends Controller
                     'actual_imageInput',
                     'assets/media/avatars/logo.png',
                     route('user.files',
-                        ['folder' => 'users',
-                            'fileName' => $general_settings['logo']
+                        [
+                            'folder' => 'users',
+                            'fileName' => $general_settings['logo'] ?? 'null'
                         ]
                     )
                 );

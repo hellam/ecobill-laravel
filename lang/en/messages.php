@@ -104,6 +104,7 @@ return [
     'msg_data_rejected' => 'Data Rejected',
     'msg_delete_not_allowed' => 'Delete not allowed because :attribute has existing :attribute1',
     'msg_deleted_success' => ':attribute deleted successfully',
+    'msg_branch_switched_success' => 'Branch switched successfully',
     'msg_no_branch_assigned' => 'Sorry! No role assigned to you on any branch.',
     'msg_removed_success' => ':attribute removed successfully',
     'msg_saved_success' => ':attribute saved successfully',

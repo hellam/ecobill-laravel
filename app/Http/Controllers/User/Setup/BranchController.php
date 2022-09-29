@@ -16,7 +16,9 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Yajra\DataTables\DataTables;
+use Yoeunes\Toastr\Facades\Toastr;
 use function App\CentralLogics\error_web_processor;
 use function App\CentralLogics\get_user_ref;
 use function App\CentralLogics\log_activity;
@@ -150,6 +152,12 @@ class BranchController extends Controller
         $branch->update();
 //
         return success_web_processor(null, __('messages.msg_updated_success', ['attribute' => __('messages.branch')]));
+    }
+
+    public function switch_branch($branch) {
+        Session::put('branch', $branch);
+        Toastr::success(trans('messages.msg_branch_switched_success'), trans('messages.welcome') . '!', ["positionClass" => "toast-top-right"]);
+        return redirect()->route('user.dashboard');
     }
 
     /**

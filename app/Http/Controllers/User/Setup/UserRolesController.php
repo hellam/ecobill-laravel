@@ -25,8 +25,10 @@ class UserRolesController extends Controller
     public function index(): Factory|View|Application
     {
         $user_roles_count = BranchUser::count() ?? 0;
-        $users = User::where('created_by', '!=', 'system')->get();
-        $branches = Branch::all();
+        $users = User::
+//        where('created_by', '!=', 'system')->
+        get();
+        $branches = Branch::where('inactive',0)->get();
         $roles = Role::all();
         return view('user.setup.user_roles', compact(
             'user_roles_count', 'branches', 'users', 'roles'

@@ -31,7 +31,7 @@ class AccountSecurityMiddleware
     public function handle(Request $request, Closure $next)
     {
         if (Auth::guard('user')->check()) {
-            $branch_user = BranchUser::with('branch:id,name')
+            $branch_user = BranchUser::with('branch:id,name,is_main')
                 ->whereHas('branch', function ($q) {
                     $q->where('inactive', 0);
                 })->where(['branch_id' => get_active_branch(),'user_id' => auth('user')->id()])
@@ -57,6 +57,7 @@ class AccountSecurityMiddleware
             }
 
             Session::put('branch_name', $branch_user->branch->name);
+            Session::put('branch_is_main', $branch_user->branch->is_main);
         }
 
         return $next($request);

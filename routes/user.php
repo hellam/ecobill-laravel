@@ -55,6 +55,7 @@ Route::group(['as' => 'user.'], function () {
         })->name('files');
 
         Route::get('/', [User\DashboardController::class, 'index'])->name('dashboard')->middleware('permission:100');
+        Route::get('/switch_branch', [User\Setup\BranchController::class, 'switch_branch'])->name('switch_branch')->middleware('permission:100');
         Route::group(['prefix' => 'products', 'as' => 'products.'], function () {
             Route::get('/', [User\Products\ProductsController::class, 'index'])->middleware('permission:101')->name('list');
         });
@@ -143,7 +144,7 @@ Route::group(['as' => 'user.'], function () {
     });
 });
 
-Route::get('/branches', function () {
-//    $user = UserModel::with('user_branches:id,name,id')->find(auth::id());
-    return auth('user')->user()->active_branches();
-});
+//Route::get('/branches', function () {
+////    $user = UserModel::with('user_branches:id,name,id')->find(auth::id());
+//    return auth('user')->user()->active_branches();
+//});

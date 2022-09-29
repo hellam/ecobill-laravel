@@ -159,7 +159,7 @@
                 <div class="aside-user d-flex align-items-sm-center justify-content-center py-5">
                     <!--begin::Symbol-->
                     <div class="symbol symbol-50px">
-                        <img src="{{Auth::user()->logo()}}" alt="" onerror="this.src = '{{asset('assets/media/avatars/logo.png')}}'"/>
+                        <img src="{{Auth::user()->logo()}}" alt="" onerror="this.src = '{{asset('assets/media/avatars/logo.png')}}'" id="company_logo"/>
                     </div>
                     <!--end::Symbol-->
                     <!--begin::Wrapper-->

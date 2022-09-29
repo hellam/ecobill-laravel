@@ -159,7 +159,7 @@
                 <div class="aside-user d-flex align-items-sm-center justify-content-center py-5">
                     <!--begin::Symbol-->
                     <div class="symbol symbol-50px">
-                        <img src="{{Auth::user()->logo()}}" alt="" onerror="this.src = '{{asset('assets/media/avatars/logo.png')}}'" id="company_logo"/>
+                        <img src="{{Auth::user()->logo()}}" alt="" onerror="this.src = '{{asset('assets/media/avatars/logo.png')}}'" class="company_logo"/>
                     </div>
                     <!--end::Symbol-->
                     <!--begin::Wrapper-->
@@ -212,7 +212,7 @@
                                         <div class="menu-content d-flex align-items-center px-3">
                                             <!--begin::Avatar-->
                                             <div class="symbol symbol-50px me-5">
-                                                <img alt="Logo" src="{{asset('assets/media/avatars/300-1.jpg')}}"/>
+                                                <img src="{{Auth::user()->logo()}}" alt="" onerror="this.src = '{{asset('assets/media/avatars/logo.png')}}'" class="company_logo"/>
                                             </div>
                                             <!--end::Avatar-->
                                             <!--begin::Username-->

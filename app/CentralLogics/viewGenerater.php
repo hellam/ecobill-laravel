@@ -38,14 +38,28 @@ function image_view($name, $id, $default, $value)
     return '<style>
                 .avatar-upload {
                   position: relative;
-                  max-width: 205px;
-                  margin: 50px auto;
+                  margin: 30px auto;
                 }
                 .avatar-upload .avatar-edit {
                   position: absolute;
-                  right: 12px;
+                  left: 120px;
                   z-index: 1;
                   top: 10px;
+                  text-align: center;
+                }
+//                .avatar-upload button {
+//                  position: absolute;
+//                  z-index: 1;
+//                  top: 100px;
+//                  text-align: center;
+//                  border-radius: 100%;
+//                  border: 0;
+//                  width: 34px;
+//                  height: 34px;
+//                  left: 120px;
+//                }
+                .avatar-upload .avatar-edit i {
+                   margin-top: 8px;
                 }
                 .avatar-upload .avatar-edit input {
                   display: none;
@@ -69,8 +83,8 @@ function image_view($name, $id, $default, $value)
                 }
 
                 .avatar-upload .avatar-preview {
-                  width: 192px;
-                  height: 192px;
+                  width: 150px;
+                  height: 150px;
                   position: relative;
                   border-radius: 100%;
                   border: 6px solid #F8F8F8;
@@ -88,16 +102,15 @@ function image_view($name, $id, $default, $value)
             <div class="avatar-upload">
                 <div class="avatar-edit">
                         <input type="file" id="imageUpload" accept=".png, .jpg, .jpeg" onchange="previewFile()"/>
-                        <input type="hidden" id="'.$id.'" name="'.$name.'"/>
-                        <label for="imageUpload"></label>
+                        <input type="hidden" id="' . $id . '" name="' . $name . '"/>
+                        <label for="imageUpload"><i class="fa fa-pen"></i></label>
                     </div>
                     <div class="avatar-preview">
-                        <img id="imagePreview" src="'.asset($value).'" onerror="this.src=\''.asset($default).'\'">
+                        <img id="imagePreview" src="' . asset($value) . '" onerror="this.src=\'' . asset($default) . '\'">
                 </div>
             </div>
             <script>
                 function previewFile() {
-                    console.log("Previewing...");
                   var preview = document.querySelector("#imagePreview");
                   var file = document.querySelector("#imageUpload").files[0];
                   var reader = new FileReader();

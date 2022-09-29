@@ -5,7 +5,7 @@ const KTBusinessSettingsAll = function () {
     let base_url = "business-settings/view/";
     //handle form
     const handleShowResults = function () {
-        $('#kt_update_setting_form').attr('data-kt-action', base_url + 'general')
+        $('#kt_update_setting_form').attr('data-kt-action', 'http://localhost/ecobill/public/u/setup/business-settings/view/general')
         getView("general")
     }
 
@@ -33,17 +33,24 @@ const KTBusinessSettingsAll = function () {
                 $('#loader_container').removeClass('d-none')
                 $('.view_data').remove()
                 getView($(this).attr("data-kt-tab-action"))
-                $('#kt_update_setting_form').attr('data-kt-action', base_url + $(this).attr("data-kt-tab-action"))
+                $('#kt_update_setting_form').attr('data-kt-action', 'http://localhost/ecobill/public/u/setup/business-settings/view/' + $(this).attr("data-kt-tab-action"))
             })
         });
     }
 
+    function handleSubmit() {
+        $('#kt_update_setting_form').on('submit', function (e) {
+            e.preventDefault()
+            let submit_url = $(this).attr('data-kt-action')
+        })
+    }
 
     // Public methods
     return {
         init: function () {
             handleShowResults();
             handleTabClick();
+            handleSubmit();
         }
     }
 }();

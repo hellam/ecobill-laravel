@@ -94,10 +94,7 @@ const KTBusinessSettingsAll = function () {
                         customClass: {
                             confirmButton: "btn btn-primary"
                         }
-                    }).then(function () {
-                        if (tab === 'general')
-                            getView(tab)
-                    });
+                    })
 
                 } else {
                     Swal.fire({
@@ -108,7 +105,15 @@ const KTBusinessSettingsAll = function () {
                         customClass: {
                             confirmButton: "btn btn-primary"
                         }
-                    })
+                    }).then(function (result) {
+                        if (result.isConfirmed) {
+                            if (tab === 'general'){
+                                $('#loader_container').removeClass('d-none')
+                                $('.view_data').remove()
+                                getView(tab)
+                            }
+                        }
+                    });
                 }
                 submitButton.removeAttribute('data-kt-indicator');
 

@@ -55,6 +55,8 @@ class AccountSecurityMiddleware
                 Toastr::warning(trans('messages.msg_change_expired_password'), 'Alert!');
                 return redirect()->route('user.auth.new_password');
             }
+
+            Session::put('branch_name', $branch_user->branch->name);
         }
 
         return $next($request);

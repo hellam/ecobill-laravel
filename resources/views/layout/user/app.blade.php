@@ -169,10 +169,10 @@
                             <!--begin::Info-->
                             <div class="flex-grow-1 me-2">
                                 <!--begin::Username-->
-                                <a href="#" class="text-gray-900 text-hover-primary fs-6 fw-bold">Paul Melone</a>
+                                <a href="#" class="text-gray-900 text-hover-primary fs-6 fw-bold">{{auth('user')->user()->username}}</a>
                                 <!--end::Username-->
                                 <!--begin::Description-->
-                                <span class="text-gray-600 fw-semibold d-block fs-8 mb-1">Python Dev</span>
+                                <span class="text-gray-600 fw-semibold d-block fs-8 mb-1">{{session('branch_name')}}</span>
                                 <!--end::Description-->
                                 <!--begin::Label-->
                                 <div class="d-flex align-items-center text-success fs-9">

@@ -480,6 +480,7 @@
                                 <select class="form-select form-select-sm form-select-solid"
                                         data-control="select2" data-placeholder="Switch Branch" data-hide-search="true">
                                     <option value=""></option>
+                                    @foreach(\App\Models\User::with('user_branches'))
                                     <option value="1">HQ Branch</option>
                                     <option value="2">Branch 4</option>
                                     <option value="3">Branch 3</option>

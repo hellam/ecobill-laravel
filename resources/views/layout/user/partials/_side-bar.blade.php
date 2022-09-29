@@ -136,11 +136,11 @@
                     <!--begin:Menu item-->
                     <div class="menu-item">
                         <!--begin:Menu link-->
-                        <a class="menu-link" href="../../demo8/dist/account/overview.html">
+                        <a class="menu-link" href="{{route('user.banking.gl_maintenance')}}">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
-                            <span class="menu-title">Overview</span>
+                            <span class="menu-title">{{__('messages.gl_maintenance')}}</span>
                         </a>
                         <!--end:Menu link-->
                     </div>

@@ -18,6 +18,7 @@ class CreatePermissionsTable extends Migration
             $table->string('name', 250);
             $table->string('code', 250)->unique('code');
             $table->boolean('requires_maker_checker')->default(false);
+            $table->boolean('requires_hq')->default(false);
             $table->string('maker_validator_function', 250)->nullable();
             $table->bigInteger('parent_id')->nullable();
             $table->timestamps();

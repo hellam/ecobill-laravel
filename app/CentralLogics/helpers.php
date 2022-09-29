@@ -358,7 +358,9 @@ function requires_maker_checker($permission_code): string|array
         return [
             $maker_checker_rule->maker_type,
             $maker_checker_rule->permission->maker_validator_function,
-            $maker_checker_rule->permission->permission_group->name];
+            $maker_checker_rule->permission->permission_group->name,
+            $maker_checker_rule->requires_hq,
+        ];
     return 'na';
 }
 

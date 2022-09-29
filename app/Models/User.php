@@ -126,6 +126,17 @@ class User extends Authenticatable
         return explode(',', Role::where('id', $branch_user->role_id)->first()->permissions);
     }
 
+    public static function logo()
+    {
+        $general_settings = json_decode(BusinessSetting::where('key', 'general_settings')->first()->value, true);
+        return route('user.files',
+            [
+                'folder' => 'users',
+                'fileName' => $general_settings['logo'] ?? 'null'
+            ]
+        );
+    }
+
     public static function active_branches()
     {
         $branch_user = User::with('user_branches:id,name,id')

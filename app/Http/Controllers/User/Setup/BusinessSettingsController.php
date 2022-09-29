@@ -11,6 +11,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Yoeunes\Toastr\Facades\Toastr;
 use function App\CentralLogics\error_web_processor;
+use function App\CentralLogics\get_user_ref;
 use function App\CentralLogics\store_base64_image;
 use function App\CentralLogics\success_web_processor;
 
@@ -32,7 +33,7 @@ class BusinessSettingsController extends Controller
                 $output .= image_view(
                     'actual_imageInput',
                     'actual_imageInput',
-                    'assets/media/avatars/logo.png',
+                    '',
                     route('user.files',
                         [
                             'folder' => 'users',
@@ -74,7 +75,7 @@ class BusinessSettingsController extends Controller
                 if ($request->has('logo')) {
                     $requestImage = $request->logo; //your base64 encoded
                     try {
-                        $fileName = store_base64_image($requestImage, $fileName, 'users');
+                        $fileName = store_base64_image($requestImage, $fileName, get_user_ref().'/users');
                     } catch (\Exception $exception) {
                         return error_web_processor('Invalid image file',
                             200, ['field' => 'logo', 'error' => 'Invalid Image file']);

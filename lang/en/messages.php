@@ -31,6 +31,7 @@ return [
     'business_settings' => 'Business Settings',
     'branches' => 'Branches',
     'branch' => 'Branch',
+    'gl_maintenance' => 'GL Maintenance',
     'menu_setup' => 'Menu Setup',
     'unsupervised_data' => 'Unsupervised Data',
     'maker_checker' => 'Maker Checker',

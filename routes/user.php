@@ -135,6 +135,12 @@ Route::group(['as' => 'user.'], function () {
             });
         });
 
+        Route::group(['prefix' => 'banking', 'as' => 'banking.'], function () {
+            Route::controller(User\Banking\GLMaintenanceController::class)->prefix('gl-maintenance')->as('gl_maintenance.')->group(function () {
+                Route::get('/', 'index')->name('all')->middleware('permission:901');
+            });
+        });
+
     });
 });
 

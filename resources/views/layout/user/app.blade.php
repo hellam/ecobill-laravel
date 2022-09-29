@@ -480,9 +480,9 @@
                                 <select class="form-select form-select-sm form-select-solid"
                                         data-control="select2" data-placeholder="Switch Branch" data-hide-search="true">
                                     <option value=""></option>
-                                    <option value="1">HQ Branch</option>
-                                    <option value="2">Branch 4</option>
-                                    <option value="3">Branch 3</option>
+                                    @foreach(auth('user')->user()->active_branches() as $active_branch)
+                                        <option value="{{$active_branch->id}}" @if(session('branch') == $active_branch->id)selected @endif>{{$active_branch->name}}</option>
+                                    @endforeach
                                 </select>
                                 <!--end::Select-->
                             </div>

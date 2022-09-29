@@ -124,6 +124,6 @@ function image_view($name, $id, $default, $value)
                         reader.readAsDataURL(file);
                       }
                  }
-                 document.querySelector("#company_logo").src = "' . asset($value) . '"
+                 document.querySelector(".company_logo").src = "' . asset($value) . '"
             </script>';
 }

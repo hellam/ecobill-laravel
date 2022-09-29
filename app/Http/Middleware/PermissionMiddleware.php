@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use App\CentralLogics\UserValidators;
 use App\Http\Controllers\User\Utils\MakerCheckerTrxController;
+use App\Models\Permission;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,9 +29,9 @@ class PermissionMiddleware
     {
         if (Auth::guard('user')->check() && check_permission($permission_code)) {
             $maker_checker = requires_maker_checker($permission_code);
-
-            if (is_array($maker_checker)) {
-                if ($maker_checker[3])
+            $permission = Permission::where('code', $permission_code)->first();
+            if ($permission) {
+                if ($permission->requires_hq)
                     if (!session('branch_is_main')) {
                         abort(404);
                     }

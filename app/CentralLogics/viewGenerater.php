@@ -102,7 +102,7 @@ function image_view($name, $id, $default, $value)
             <div class="avatar-upload">
                 <div class="avatar-edit">
                         <input type="file" id="imageUpload" accept=".png, .jpg, .jpeg" onchange="previewFile()"/>
-                        <input type="hidden" id="' . $id . '" name="' . $name . '"/>
+                        <input readonly type="hidden" id="' . $id . '" name="' . $name . '"/>
                         <label for="imageUpload"><i class="fa fa-pen"></i></label>
                     </div>
                     <div class="avatar-preview">

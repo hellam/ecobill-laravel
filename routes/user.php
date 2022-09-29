@@ -4,6 +4,7 @@ use App\Http\Controllers\User;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
+use function App\CentralLogics\get_user_ref;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,15 +41,15 @@ Route::group(['as' => 'user.'], function () {
     Route::group(['middleware' => ['user', 'acc.security']], function () {
         //get profile image
         Route::get('/files/{folder}/{fileName}', function ($folder, $image) {
-            try{
-                $path = storage_path('app/public/' . $folder . '/' . $image);
+            try {
+                $path = storage_path('app/public/' . get_user_ref() . '/' . $folder . '/' . $image);
                 $file = File::get($path);
                 $type = File::mimeType($path);
 
                 $response = Response::make($file, 200);
                 $response->header("Content-Type", $type);
-            }catch(Exception $e){
-                $response = '';
+            } catch (Exception $e) {
+                $response = asset('assets/media/avatars/logo.png');
             }
 
             return $response;
@@ -122,7 +123,7 @@ Route::group(['as' => 'user.'], function () {
             Route::controller(User\Setup\BusinessSettingsController::class)->prefix('business-settings')->as('business_settings.')->group(function () {
                 Route::get('/', 'index')->name('all')->middleware('permission:708');
                 Route::get('/view/{tab}', 'view')->name('view')->middleware('permission:708')->whereIn('tab', ['general', 'sms', 'email']);
-                Route::post('/view/{tab}', 'update')->name('update')->middleware('permission:708,'.ST_BUSINESS_SETTINGS)->whereIn('tab', ['general', 'sms', 'email']);
+                Route::post('/view/{tab}', 'update')->name('update')->middleware('permission:708,' . ST_BUSINESS_SETTINGS)->whereIn('tab', ['general', 'sms', 'email']);
             });
 
         });

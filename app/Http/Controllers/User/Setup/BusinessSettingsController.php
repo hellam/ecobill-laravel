@@ -10,6 +10,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Yoeunes\Toastr\Facades\Toastr;
+use function App\CentralLogics\success_web_processor;
 
 class BusinessSettingsController extends Controller
 {
@@ -50,7 +51,7 @@ class BusinessSettingsController extends Controller
         $validator = UserValidators::generalSettingsUpdateValidation($request);
 
         if ($validator != '') {
-            return back();
+            return $validator;
         }
         switch ($tab) {
             case 'general':
@@ -64,14 +65,13 @@ class BusinessSettingsController extends Controller
                     ]
                 );
                 $business_settings->save();
-                Toastr::success(__('messages.msg_updated_success', ['attribute' => __('messages.business_settings')]));
-                return back();
+                break;
             case 'sms':
-                Toastr::success(__('messages.msg_updated_success', ['attribute' => __('messages.business_settings')]));
-                return back();
+                break;
             case 'email':
-                Toastr::success(__('messages.msg_updated_success', ['attribute' => __('messages.business_settings')]));
-                return back();
+                break;
         }
+
+        return success_web_processor(null,__('messages.msg_updated_success', ['attribute' => __('messages.business_settings')]));
     }
 }

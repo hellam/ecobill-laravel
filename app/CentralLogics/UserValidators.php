@@ -184,7 +184,7 @@ class UserValidators
         $type = Route::current()->tab;
 
         $rules = [
-            'logo' => 'required',
+            'logo' => 'string',
             'company_name' => 'required',
             'inv_footer' => 'required',
         ];

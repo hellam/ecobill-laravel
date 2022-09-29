@@ -4129,6 +4129,10 @@
         }
     }
 
+    function handleSwitchBranch(){
+
+    }
+
     //# End Make Modals Draggable
 </script>
 @stack('custom_scripts')

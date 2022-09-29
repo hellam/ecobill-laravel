@@ -136,7 +136,7 @@
                     <!--begin:Menu item-->
                     <div class="menu-item">
                         <!--begin:Menu link-->
-                        <a class="menu-link" href="{{route('user.banking.gl_maintenance')}}">
+                        <a class="menu-link" href="{{route('user.banking.gl_maintenance.all')}}">
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>

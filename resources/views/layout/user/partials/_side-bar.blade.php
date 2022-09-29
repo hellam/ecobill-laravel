@@ -145,7 +145,7 @@
             </div>
             <!--end:Menu item-->
             <!--begin:Menu item-->
-            <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+            <div data-kt-menu-trigger="click" class="menu-item menu-accordion @if(Route::is('user.banking*'))hover show @endif">
                 <!--begin:Menu link-->
                 <span class="menu-link">
                     <span class="menu-icon">
@@ -170,13 +170,13 @@
                 <!--begin:Menu sub-->
                 <div class="menu-sub menu-sub-accordion">
                     <!--begin:Menu item-->
-                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion mb-1">
+                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                         <!--begin:Menu link-->
                         <span class="menu-link">
                             <span class="menu-bullet">
                                 <span class="bullet bullet-dot"></span>
                             </span>
-                            <span class="menu-title">Banking</span>
+                            <span class="menu-title">{{__('messages.banking')}}</span>
                             <span class="menu-arrow"></span>
                         </span>
                         <!--end:Menu link-->
@@ -189,7 +189,7 @@
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
-                                    <span class="menu-title">Transactions</span>
+                                    <span class="menu-title">{{__('messages.transactions')}}</span>
                                 </a>
                                 <!--end:Menu link-->
                             </div>
@@ -201,7 +201,7 @@
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
-                                    <span class="menu-title">Deposits</span>
+                                    <span class="menu-title">{{__('messages.deposits')}}</span>
                                 </a>
                                 <!--end:Menu link-->
                             </div>
@@ -213,7 +213,7 @@
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
-                                    <span class="menu-title">Expenses</span>
+                                    <span class="menu-title">{{__('messages.expenses')}}</span>
                                 </a>
                                 <!--end:Menu link-->
                             </div>
@@ -225,7 +225,7 @@
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
-                                    <span class="menu-title">Reconciliation</span>
+                                    <span class="menu-title">{{__('messages.reconciliation')}}</span>
                                 </a>
                                 <!--end:Menu link-->
                             </div>
@@ -237,7 +237,7 @@
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
-                                    <span class="menu-title">Account Maintenance</span>
+                                    <span class="menu-title">{{__('messages.account_maintenance')}}</span>
                                 </a>
                                 <!--end:Menu link-->
                             </div>
@@ -247,13 +247,13 @@
                     </div>
                     <!--end:Menu item-->
                     <!--begin:Menu item-->
-                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion mb-1">
+                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion @if(Route::is('user.banking*'))hover show @endif">
                         <!--begin:Menu link-->
                         <span class="menu-link">
                             <span class="menu-bullet">
                                 <span class="bullet bullet-dot"></span>
                             </span>
-                            <span class="menu-title">GL</span>
+                            <span class="menu-title">{{__('messages.gl')}}</span>
                             <span class="menu-arrow"></span>
                         </span>
                         <!--end:Menu link-->
@@ -266,7 +266,7 @@
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
-                                    <span class="menu-title">GL Transactions</span>
+                                    <span class="menu-title">{{__('messages.gl_transactions')}}</span>
                                 </a>
                                 <!--end:Menu link-->
                             </div>
@@ -278,7 +278,7 @@
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
-                                    <span class="menu-title">Journal Entries</span>
+                                    <span class="menu-title">{{__('messages.journal_entries')}}</span>
                                 </a>
                                 <!--end:Menu link-->
                             </div>
@@ -290,7 +290,7 @@
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
-                                    <span class="menu-title">Budget Entries</span>
+                                    <span class="menu-title">{{__('messages.budget_entries')}}</span>
                                 </a>
                                 <!--end:Menu link-->
                             </div>
@@ -298,11 +298,11 @@
                             <!--begin:Menu item-->
                             <div class="menu-item">
                                 <!--begin:Menu link-->
-                                <a class="menu-link" href="#">
+                                <a class="menu-link @if(Route::is('user.banking.gl_maintenance.all'))active @endif" href="{{route('user.banking.gl_maintenance.all')}}">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
-                                    <span class="menu-title">GL Maintenance</span>
+                                    <span class="menu-title">{{__('messages.gl_maintenance')}}</span>
                                 </a>
                                 <!--end:Menu link-->
                             </div>
@@ -318,7 +318,7 @@
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
-                            <span class="menu-title">Currency & FX</span>
+                            <span class="menu-title">{{__('messages.currency_fx')}}</span>
                         </a>
                         <!--end:Menu link-->
                     </div>
@@ -330,7 +330,7 @@
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
-                            <span class="menu-title">Payment Terms</span>
+                            <span class="menu-title">{{__('messages.payment_terms')}}</span>
                         </a>
                         <!--end:Menu link-->
                     </div>
@@ -477,7 +477,7 @@
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title">Bank Statement</span>
+                                <span class="menu-title">{{__('messages.banking_statement')}}</span>
                             </a>
                             <!--end:Menu link-->
                         </div>
@@ -490,7 +490,7 @@
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title">Customer Statement</span>
+                                <span class="menu-title">{{__('messages.customer_statement')}}</span>
                             </a>
                             <!--end:Menu link-->
                         </div>
@@ -503,7 +503,7 @@
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title">Sales Report</span>
+                                <span class="menu-title">{{__('messages.sales_reports')}}</span>
                             </a>
                             <!--end:Menu link-->
                         </div>
@@ -516,7 +516,7 @@
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title">Customer Balances</span>
+                                <span class="menu-title">{{__('messages.customer_balances')}}</span>
                             </a>
                             <!--end:Menu link-->
                         </div>
@@ -529,7 +529,7 @@
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title">Reconciled Bank Statement</span>
+                                <span class="menu-title">{{__('messages.reconciled_bank_stmt')}}</span>
                             </a>
                             <!--end:Menu link-->
                         </div>
@@ -542,7 +542,7 @@
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title">Edged Customer Analysis</span>
+                                <span class="menu-title">{{__('messages.edged_customer_analysis')}}</span>
                             </a>
                             <!--end:Menu link-->
                         </div>
@@ -555,7 +555,7 @@
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title">Tax Reports</span>
+                                <span class="menu-title">{{__('messages.tax_reports')}}</span>
                             </a>
                             <!--end:Menu link-->
                         </div>
@@ -568,7 +568,7 @@
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title">Trial Balance</span>
+                                <span class="menu-title">{{__('messages.trial_balance')}}</span>
                             </a>
                             <!--end:Menu link-->
                         </div>
@@ -581,7 +581,7 @@
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title">Profit & Loss</span>
+                                <span class="menu-title">{{__('messages.profit_loss')}}</span>
                             </a>
                             <!--end:Menu link-->
                         </div>
@@ -594,7 +594,7 @@
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title">Balance Sheet</span>
+                                <span class="menu-title">{{__('messages.balance_sheet')}}</span>
                             </a>
                             <!--end:Menu link-->
                         </div>
@@ -607,7 +607,7 @@
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title">Cash Flow statement</span>
+                                <span class="menu-title">{{__('messages.cash_flow_statement')}}</span>
                             </a>
                             <!--end:Menu link-->
                         </div>
@@ -620,7 +620,7 @@
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title">Expenses Reports</span>
+                                <span class="menu-title">{{__('messages.expense_reports')}}</span>
                             </a>
                             <!--end:Menu link-->
                         </div>
@@ -633,7 +633,7 @@
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title">Tender Reports</span>
+                                <span class="menu-title">{{__('messages.tender_reports')}}</span>
                             </a>
                             <!--end:Menu link-->
                         </div>

@@ -402,7 +402,7 @@
                 <!--begin::Brand-->
                 <div class="header-brand">
                     <!--begin::Logo-->
-                    <a href="/">
+                    <a href="{{route('user.dashboard')}}">
                         <img alt="Logo" src="{{asset('assets/media/logos/ecobill-logo.png')}}"
                              class="h-25px h-lg-40px"/>
                     </a>

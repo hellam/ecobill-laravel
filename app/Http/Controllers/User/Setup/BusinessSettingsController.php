@@ -69,14 +69,14 @@ class BusinessSettingsController extends Controller
             case 'general':
                 $business_settings = BusinessSetting::where('key', 'general_settings')->firstOrFail();
 
+                $array = json_decode($business_settings->value, true);
+                $fileName = $array['logo'] ?? '';
                 if ($request->has('logo')) {
                     $requestImage = $request->logo; //your base64 encoded
                     try {
-                        $array = json_decode($business_settings->value, true);
-                        $fileName = $array['logo'];
                         $fileName = store_base64_image($requestImage, $fileName, 'users');
                     } catch (\Exception $exception) {
-                        return error_web_processor($exception,
+                        return error_web_processor('Invalid image file',
                             200, ['field' => 'logo', 'error' => 'Invalid Image file']);
                     }
                 }

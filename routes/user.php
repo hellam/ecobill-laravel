@@ -143,7 +143,7 @@ Route::group(['as' => 'user.'], function () {
     });
 });
 
-//Route::get('/branches', function () {
-////    $user = UserModel::with('user_branches:id,name,id')->find(auth::id());
-//    return \App\CentralLogics\get_active_branch();
-//});
+Route::get('/branches', function () {
+//    $user = UserModel::with('user_branches:id,name,id')->find(auth::id());
+    return auth('user')->user()->active_branches();
+});

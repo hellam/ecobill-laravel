@@ -122,8 +122,18 @@ class User extends Authenticatable
 
     public function permissions(): array
     {
-        $branch_user = BranchUser::where(['branch_id' => get_active_branch(),'user_id' => auth('user')->id()])->first();
+        $branch_user = BranchUser::where(['branch_id' => get_active_branch(), 'user_id' => auth('user')->id()])->first();
         return explode(',', Role::where('id', $branch_user->role_id)->first()->permissions);
+    }
+
+    public static function active_branches()
+    {
+        $branch_user = User::with('user_branches:id,name,id')
+            ->whereHas('user_branches', function ($q) {
+                $q->where('inactive', 0);
+            })->find(auth::id());
+        $branch_user->user_branches->makeHidden('pivot');
+        return $branch_user->user_branches;
     }
 
     public function user_branches()

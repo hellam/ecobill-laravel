@@ -38,7 +38,9 @@ class UserRolesController extends Controller
     public function dt_api(Request $request): JsonResponse
     {
         $users = BranchUser::with(['user', 'branch', 'role'])
-            ->orderBy('user_id', 'desc');
+            ->whereHas('user', function ($q) {
+                $q->where('created_by', '!=', 'system');
+            })->orderBy('user_id', 'desc');
         return (new DataTables)->eloquent($users)
             ->addIndexColumn()
             ->addColumn('id', function ($row) {
@@ -54,7 +56,8 @@ class UserRolesController extends Controller
             ->make(true);
     }
     public function view($id){
-        $branch_users = BranchUser::with(['user', 'branch', 'role'])->find($id);
+        $branch_users = BranchUser::with(['user', 'branch', 'role'])
+            ->find($id);
         $user_role = [
             'User' => $branch_users->user->username,
             'Branch' => $branch_users->branch->name,
@@ -101,7 +104,11 @@ class UserRolesController extends Controller
 
     public function destroy($id)
     {
-        $branch_user = BranchUser::find($id);
+        $branch_user = BranchUser::with('user')
+            ->whereHas('user', function ($q) {
+                $q->where('created_by', '!=', 'system');
+            })
+        ->find($id);
         if (isset($branch_user)) {
             $branch_user->delete();
             return success_web_processor(null, __('messages.msg_removed_success', ['attribute' => __('messages.role')]));

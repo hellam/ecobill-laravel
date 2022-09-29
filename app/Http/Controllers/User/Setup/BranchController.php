@@ -48,6 +48,8 @@ class BranchController extends Controller
                 return ["id" => $row->id, "edit_url" => route('user.setup.branches.edit', [$row->id]),
                     "update_url" => route('user.setup.branches.update', [$row->id]),
                     "delete_url" => route('user.setup.branches.delete', [$row->id])];
+            })->editColumn('name', function ($row) {
+                return $row->name . ($row->is_main ? '<br/><div class="badge badge-sm badge-light-dark">Main</div>' : '');
             })->editColumn('fiscal_year', function ($row) {
                 return format_date($row->fiscalyear->begin) . ' - ' . format_date($row->fiscalyear->end);
             })->editColumn('inactive', function ($row) {
@@ -144,7 +146,7 @@ class BranchController extends Controller
         $branch->timezone = $request->timezone;
         $branch->address = $request->address;
         $branch->bcc_email = $request->bcc_email;
-        $branch->inactive = $request->inactive;
+        $branch->inactive = $branch->is_main ? 0 : $request->inactive;
         $branch->update();
 //
         return success_web_processor(null, __('messages.msg_updated_success', ['attribute' => __('messages.branch')]));

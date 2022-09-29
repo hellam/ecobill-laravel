@@ -71,6 +71,12 @@ const KTBranchesServerSide = function () {
                         `;
                     },
                 }, {
+                    targets: 1,
+                    className: 'text-start',
+                    render: function (data, type, row) {
+                        return decodeHtml(row.name)
+                    },
+                }, {
                     targets: -2,
                     className: 'text-end',
                     render: function (data, type, row) {
@@ -156,6 +162,16 @@ const KTBranchesServerSide = function () {
                                 $("#kt_modal_update_branch_form input[id='inactive']").prop("checked", true);
                             } else {
                                 $("#kt_modal_update_branch_form input[id='inactive']").prop("checked", false)
+                            }
+
+                            //main branch cannot be deactivated
+                            if (branch.is_main) {
+                                $("#kt_modal_update_branch_form input[id='inactive']").attr("disabled", true);
+                                $("#kt_modal_update_branch_form input[id='inactive']").after('<span id="inactive_disabled" style="color: red;">Main Branch cannot be Deactivated</span>');
+                            }
+                            else {
+                                $("#kt_modal_update_branch_form input[id='inactive']").attr("disabled", false);
+                                $("#kt_modal_update_branch_form #inactive_disabled").remove();
                             }
 
                             //active/inactive

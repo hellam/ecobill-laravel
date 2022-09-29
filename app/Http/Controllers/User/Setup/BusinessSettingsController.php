@@ -70,7 +70,7 @@ class BusinessSettingsController extends Controller
                 $business_settings = BusinessSetting::where('key', 'general_settings')->firstOrFail();
 
                 $array = json_decode($business_settings->value, true);
-                $fileName = $array['logo'];
+                $fileName = $array['logo'] ?? '';
                 if ($request->has('logo')) {
                     $requestImage = $request->logo; //your base64 encoded
                     try {

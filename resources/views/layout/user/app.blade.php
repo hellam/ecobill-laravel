@@ -159,7 +159,7 @@
                 <div class="aside-user d-flex align-items-sm-center justify-content-center py-5">
                     <!--begin::Symbol-->
                     <div class="symbol symbol-50px">
-                        <img src="{{asset('assets/media/avatars/300-1.jpg')}}" alt=""/>
+                        <img src="{{Auth::user()->logo}}" alt="" onerror="this.src = '{{asset('assets/media/avatars/logo.png')}}'"/>
                     </div>
                     <!--end::Symbol-->
                     <!--begin::Wrapper-->
@@ -169,10 +169,12 @@
                             <!--begin::Info-->
                             <div class="flex-grow-1 me-2">
                                 <!--begin::Username-->
-                                <a href="#" class="text-gray-900 text-hover-primary fs-6 fw-bold">{{auth('user')->user()->username}}</a>
+                                <a href="#"
+                                   class="text-gray-900 text-hover-primary fs-6 fw-bold">{{auth('user')->user()->username}}</a>
                                 <!--end::Username-->
                                 <!--begin::Description-->
-                                <span class="text-gray-600 fw-semibold d-block fs-8 mb-1">{{session('branch_name')}}</span>
+                                <span
+                                    class="text-gray-600 fw-semibold d-block fs-8 mb-1">{{session('branch_name')}}</span>
                                 <!--end::Description-->
                                 <!--begin::Label-->
                                 <div class="d-flex align-items-center text-success fs-9">

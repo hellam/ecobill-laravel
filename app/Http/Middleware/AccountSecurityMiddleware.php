@@ -2,16 +2,21 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\BranchUser;
+use App\Models\User;
 use Carbon\Carbon;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Yoeunes\Toastr\Facades\Toastr;
-use function App\CentralLogics\{is_account_expired,
+use function App\CentralLogics\{get_active_branch,
+    is_account_expired,
     is_account_inactive,
     is_account_locked,
     is_first_time,
-    is_password_expired};
+    is_password_expired,
+    logout};
 
 class AccountSecurityMiddleware
 {
@@ -26,31 +31,32 @@ class AccountSecurityMiddleware
     public function handle(Request $request, Closure $next)
     {
         if (Auth::guard('user')->check()) {
-            if (is_account_expired()) {
-                self::logout($request);
+            $branch_user = BranchUser::with('branch:id,name')
+                ->whereHas('branch', function ($q) {
+                    $q->where('inactive', 0);
+                })->where(['branch_id' => get_active_branch(),'user_id' => auth('user')->id()])
+                ->first();
+            if (!$branch_user) {
+                logout($request);
+                return redirect()->route('user.auth.login')->withErrors([trans('messages.msg_no_branch_assigned')]);
+            } elseif (is_account_expired()) {
+                logout($request);
                 return redirect()->route('user.auth.login')->withErrors([trans('messages.msg_account_expired')]);
             } elseif (is_account_locked()) {
-                self::logout($request);
+                logout($request);
                 return redirect()->route('user.auth.login')->withErrors([trans('messages.msg_account_locked')]);
-            }elseif (is_account_inactive()) {
-                self::logout($request);
+            } elseif (is_account_inactive()) {
+                logout($request);
                 return redirect()->route('user.auth.login')->withErrors([trans('messages.user_deactivated')]);
             } elseif (is_first_time()) {//ask user to change their password
-                Toastr::warning(trans('messages.msg_change_factory_password'),'Alert!');
+                Toastr::warning(trans('messages.msg_change_factory_password'), 'Alert!');
                 return redirect()->route('user.auth.new_password');
-            }elseif (is_password_expired()) {//ask user to change their password
-                Toastr::warning(trans('messages.msg_change_expired_password'),'Alert!');
+            } elseif (is_password_expired()) {//ask user to change their password
+                Toastr::warning(trans('messages.msg_change_expired_password'), 'Alert!');
                 return redirect()->route('user.auth.new_password');
             }
         }
 
         return $next($request);
-    }
-
-    public function logout(Request $request): void
-    {
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-        auth()->guard('user')->logout();
     }
 }

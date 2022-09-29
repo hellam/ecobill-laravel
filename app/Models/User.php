@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
+use function App\CentralLogics\get_active_branch;
 
 /**
  * Class User
@@ -121,11 +122,13 @@ class User extends Authenticatable
 
     public function permissions(): array
     {
-        return explode(',', Role::where('id', auth('user')->user()->role_id)->first()->permissions);
+        $branch_user = BranchUser::where(['branch_id' => get_active_branch(),'user_id' => auth('user')->id()])->first();
+        return explode(',', Role::where('id', $branch_user->role_id)->first()->permissions);
     }
 
     public function user_branches()
     {
-        return $this->belongsToMany(Branch::class, BranchUser::class, 'user_id', 'branch_id');
+        return $this->belongsToMany(Branch::class, BranchUser::class, 'user_id', 'branch_id')
+            ->withPivot('role_id');
     }
 }

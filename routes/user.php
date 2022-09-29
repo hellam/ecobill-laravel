@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\User;
+use App\Models\User as UserModel;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -118,3 +120,8 @@ Route::group(['as' => 'user.'], function () {
 
     });
 });
+
+//Route::get('/branches', function () {
+////    $user = UserModel::with('user_branches:id,name,id')->find(auth::id());
+//    return \App\CentralLogics\get_active_branch();
+//});

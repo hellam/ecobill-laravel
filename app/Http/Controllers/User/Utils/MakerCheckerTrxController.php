@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Session;
 use Yajra\DataTables\DataTables;
 use function App\CentralLogics\decode_form_data;
 use function App\CentralLogics\error_web_processor;
+use function App\CentralLogics\get_active_branch;
 use function App\CentralLogics\get_user_ref;
 use function App\CentralLogics\log_activity;
 use function App\CentralLogics\success_web_processor;
@@ -91,7 +92,8 @@ class MakerCheckerTrxController extends Controller
             'url' => $request->path(),
             'description' => $request->remarks,
             'maker' => auth('user')->id(),
-            'client_ref' => get_user_ref()
+            'client_ref' => get_user_ref(),
+            'branch_id' => get_active_branch()
         ]);
 
         return success_web_processor(null, __('messages.msg_data_submitted_4_supervision'));

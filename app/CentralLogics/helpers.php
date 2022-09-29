@@ -123,6 +123,14 @@ function get_active_branch()
     return session('branch');
 }
 
+
+function logout(Request $request): void
+{
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+    auth()->guard('user')->logout();
+}
+
 /**
  * Return a success JSON response.
  *
@@ -236,6 +244,7 @@ function log_activity($type, $ip_address, $description, $request_details, $user 
             'request_details' => $request_details,
             'ip_address' => $ip_address,
             'client_ref' => get_user_ref(),
+            'branch_id' => get_active_branch(),
         ]);
     } catch (\Exception $e) {
     }

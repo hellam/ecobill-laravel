@@ -16,6 +16,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\URL;
 use Yoeunes\Toastr\Facades\Toastr;
 use function App\CentralLogics\error_web_processor;
@@ -23,6 +24,7 @@ use function App\CentralLogics\get_security_configs;
 use function App\CentralLogics\is_first_time;
 use function App\CentralLogics\is_password_expired;
 use function App\CentralLogics\log_activity;
+use function App\CentralLogics\logout;
 use function App\CentralLogics\success_web_processor;
 use function App\CentralLogics\validation_error_processor;
 
@@ -76,14 +78,6 @@ class LoginController extends Controller
 
         if (auth('user')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
             Toastr::success(trans('messages.msg_login_success'), trans('messages.welcome') . '!', ["positionClass" => "toast-top-right"]);
-            //log success login action
-            log_activity(
-                ST_LOGON_EVENT,
-                $request->getClientIp(),
-                trans('messages.msg_login_success'),
-                "",
-                auth('user')->id()
-            );
 
             //reset failed login attempts
             if (auth('user')->user()->failed_login_attempts > 0) {
@@ -91,9 +85,23 @@ class LoginController extends Controller
                 $user->failed_login_attempts = 0;
                 $user->update();
             }
+            //set default active branch
+            $user = User::with('user_branches:id,name,id')
+                ->whereHas('user_branches', function ($q) {
+                    $q->where('inactive', 0);
+                })->find(auth('user')->id());
+            if ($user) {
+                Session::put('branch', $user->user_branches[0]->id);
 
-            //set default branch
-
+                //log success login action
+                log_activity(
+                    ST_LOGON_EVENT,
+                    $request->getClientIp(),
+                    trans('messages.msg_login_success'),
+                    "",
+                    auth('user')->id()
+                );
+            }
 
             //check if SSO is enabled and apply
             try {

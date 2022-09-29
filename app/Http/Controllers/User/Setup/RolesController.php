@@ -79,7 +79,7 @@ class RolesController extends Controller
      */
     public function edit($id)
     {
-        $role = Role::where('created_by', '!=', 'system')->find($id);
+        $role = Role::find($id)->where('created_by', '!=', 'system');
         if (isset($role)) {
             $permissions = explode(',', $role->permissions);
             $response['role'] = $role;
@@ -109,7 +109,9 @@ class RolesController extends Controller
             return $validator;
         }
 
-        $role = Role::where('created_by', '!=', 'system')->findOrFail($id);
+        $role = Role::
+        where('created_by', '!=', 'system')->
+        findOrFail($id);
         //set parameters
         $role = set_update_parameters($role, $created_at, $created_by,
             $supervised_by, $supervised_at);
@@ -129,7 +131,9 @@ class RolesController extends Controller
      */
     public function destroy($id)
     {
-        $contact = Role::where('created_by', '!=', 'system')->find($id);
+        $contact = Role::
+        where('created_by', '!=', 'system')->
+        find($id);
         if (isset($contact)) {
             $users = User::where('role_id', $id)->count();
             if ($users > 0) {

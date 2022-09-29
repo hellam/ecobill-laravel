@@ -52,6 +52,8 @@ const KTBusinessSettingsAll = function () {
         submitButton.setAttribute('data-kt-indicator', 'on');
 
         if ($('#actual_imageInput') && $('#actual_imageInput').val() !== '') {
+            // str = str + '&logo=' + $('#actual_imageInput').val()
+            str = $("#kt_update_setting_form").find("input[name!=actual_imageInput]").serialize();
             str = str + '&logo=' + $('#actual_imageInput').val()
         }
         $.ajax({

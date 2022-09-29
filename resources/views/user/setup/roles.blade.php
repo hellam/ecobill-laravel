@@ -105,9 +105,11 @@
                                 <!--end::Permissions-->
                             </div>
                             <!--end::Card body-->
-                            @if($role->created_by != 'system')
-                                <!--begin::Card footer-->
-                                <div class="card-footer flex-wrap pt-0">
+                            <!--begin::Card footer-->
+                            <div class="card-footer flex-wrap pt-0">
+                                @if($role->created_by == 'system' && env('APP_ENV') == 'production')
+                                    <p class="text-primary">Cannot edit or delete administrator role</p>
+                                @else
                                     <a href="#" data-kt-role-delete="kt_modal_delete_role_btn"
                                        data-kt-delete-url="{{route('user.setup.roles.delete', $role->id)}}"
                                        class="btn btn-light btn-active-primary my-1 me-2">Delete Role</a>
@@ -117,9 +119,9 @@
                                             data-kt-update-url="{{route('user.setup.roles.update', $role->id)}}">Edit
                                         Role
                                     </button>
-                                </div>
-                                <!--end::Card footer-->
-                            @endif
+                                @endif
+                            </div>
+                            <!--end::Card footer-->
                         </div>
                         <!--end::Card-->
                     </div>

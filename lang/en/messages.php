@@ -216,6 +216,7 @@ return [
     'update' => 'Update',
     'update_gl_group' => 'Update GL Group',
     'update_gl_class' => 'Update GL Class',
+    'update_gl_account' => 'Update GL Account',
     'uppercase' => 'Uppercase',
     'welcome' => 'Welcome',
     'week' => 'Week',

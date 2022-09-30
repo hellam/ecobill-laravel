@@ -155,11 +155,11 @@
                                 <thead>
                                 <!--begin::Table row-->
                                 <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
-                                    <th class="min-w-50px">#</th>
-                                    <th class="min-w-125px">{{__('messages.acc_code')}}</th>
-                                    <th class="min-w-125px">{{__('messages.acc_name')}}</th>
-                                    <th class="min-w-125px">{{__('messages.group')}}</th>
-                                    <th class="min-w-125px">{{__('messages.status')}}</th>
+                                    <th class="">#</th>
+                                    <th class="">{{__('messages.acc_code')}}</th>
+                                    <th class="">{{__('messages.acc_name')}}</th>
+                                    <th class="">{{__('messages.group')}}</th>
+                                    <th class="">{{__('messages.status')}}</th>
                                     <th class="text-end min-w-70px">{{__('messages.actions')}}</th>
                                 </tr>
                                 <!--end::Table row-->
@@ -489,6 +489,139 @@
             </div>
         </div>
         <!--end::Modal - GL Accounts - Add-->
+
+        <!--begin::Modal - GL Accounts - Update-->
+        <div class="modal fade" id="kt_modal_update_gl_account" tabindex="-1">
+            <!--begin::Modal dialog-->
+            <div class="modal-dialog modal-dialog-centered mw-650px">
+                <!--begin::Modal content-->
+                <div class="modal-content">
+                    <!--begin::Form-->
+                    <form class="form" action="#" id="kt_modal_update_gl_account_form"
+                          data-kt-action="#">
+                        <!--begin::Modal header-->
+                        <div class="modal-header" id="kt_modal_update_gl_account_header">
+                            <!--begin::Modal title-->
+                            <h2 class="fw-bolder">{{__('messages.update_gl_account')}}</h2>
+                            <!--end::Modal title-->
+                            <!--begin::Close-->
+                            <div id="kt_modal_update_gl_account_close"
+                                 class="btn btn-icon btn-sm btn-active-icon-primary">
+                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                                <span class="svg-icon svg-icon-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                         height="24" viewBox="0 0 24 24" fill="none">
+                                        <rect opacity="0.5" x="6" y="17.3137" width="16"
+                                              height="2" rx="1"
+                                              transform="rotate(-45 6 17.3137)"
+                                              fill="currentColor"/>
+                                        <rect x="7.41422" y="6" width="16" height="2" rx="1"
+                                              transform="rotate(45 7.41422 6)"
+                                              fill="currentColor"/>
+                                    </svg>
+                                </span>
+                                <!--end::Svg Icon-->
+                            </div>
+                            <!--end::Close-->
+                        </div>
+                        <!--end::Modal header-->
+                        <!--begin::Modal body-->
+                        <div class="modal-body py-10 px-lg-17">
+                            <!--begin::Scroll-->
+                            <div class="scroll-y me-n7 pe-7" id="kt_modal_update_gl_account_scroll"
+                                 data-kt-scroll="true"
+                                 data-kt-scroll-activate="{default: false, lg: true}"
+                                 data-kt-scroll-max-height="auto"
+                                 data-kt-scroll-dependencies="#kt_modal_update_gl_account_header"
+                                 data-kt-scroll-wrappers="#kt_modal_update_gl_account_scroll"
+                                 data-kt-scroll-offset="300px">
+
+                                <!--begin::Input group-->
+                                <div class="fv-row mb-7">
+                                    <!--begin::Label-->
+                                    <label class="fs-6 fw-bold mb-2" for="account_code">
+                                        <span class="required">{{__('messages.acc_code')}}</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                    <input id="account_code" type="text" class="form-control form-control-solid"
+                                           placeholder="{{__('messages.acc_code')}}"
+                                           name="account_code"/>
+                                    <!--end::Input-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="fv-row mb-7">
+                                    <!--begin::Label-->
+                                    <label class="fs-6 fw-bold mb-2" for="account_name">
+                                        <span class="required">{{__('messages.acc_name')}}</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                    <input id="account_name" type="text" class="form-control form-control-solid"
+                                           placeholder="{{__('messages.acc_name')}}"
+                                           name="account_name"/>
+                                    <!--end::Input-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="row g-9 mb-7">
+                                    <div class="col-md-12 fv-row">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-bold mb-2">
+                                            <span class="required">{{__('messages.group')}}</span>
+                                        </label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <select name="account_group"
+                                                aria-label="Select Group"
+                                                data-control="select2"
+                                                data-kt-src="#"
+                                                data-placeholder="Select Group"
+                                                data-dropdown-parent="#kt_modal_update_gl_account"
+                                                class="form-select form-select-solid fw-bolder">
+                                            <option></option>
+                                            @foreach($gl_groups as $group)
+                                                <option value="{{$group->id}}">{{$group->name}}</option>
+                                            @endforeach
+                                        </select>
+                                        <!--end::Input-->
+                                        <!--begin::Input group-->
+                                        <input type="hidden" name="inactive">
+                                        <label class="form-check form-switch form-check-custom form-check-solid">
+                                            <input class="form-check-input" type="checkbox" id="inactive">
+                                            <span class="form-check-label fs-7 fw-bolder text-gray-800">Active</span>
+                                        </label>
+                                        <!--end::Input group-->
+                                    </div>
+                                </div>
+                                <!--end::Input group-->
+                            </div>
+                            <!--end::Scroll-->
+                        </div>
+                        <!--end::Modal body-->
+                        <!--begin::Modal footer-->
+                        <div class="modal-footer flex-center">
+                            <!--begin::Button-->
+                            <button type="reset" id="kt_modal_update_gl_account_cancel" class="btn btn-light me-3">
+                                Discard
+                            </button>
+                            <!--end::Button-->
+                            <!--begin::Button-->
+                            <button type="submit" id="kt_modal_update_gl_account_submit" class="btn btn-primary">
+                                <span class="indicator-label">Submit</span>
+                                <span class="indicator-progress">Please wait...
+                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                            </button>
+                            <!--end::Button-->
+                        </div>
+                        <!--end::Modal footer-->
+                    </form>
+                    <!--end::Form-->
+                </div>
+            </div>
+        </div>
+        <!--end::Modal - GL Accounts - Update-->
 
         <!--begin::Modal - GL Groups - Add-->
         <div class="modal fade" id="kt_modal_add_gl_group" tabindex="-1">

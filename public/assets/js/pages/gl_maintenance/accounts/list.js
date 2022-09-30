@@ -1,7 +1,7 @@
 "use strict";
 
 // Class definition
-const KTGLClassesServerSide = function () {
+const KTGLAccountsServerSide = function () {
 // Shared variables
     let table, dt, form, delete_url;
 
@@ -101,7 +101,7 @@ const KTGLClassesServerSide = function () {
         const editButtons = document.querySelectorAll('[data-kt-gl-accounts-table-actions="edit_row"]');
 
         // Make the DIV element draggable:
-        const element = document.querySelector('#kt_modal_update_gl_class');
+        const element = document.querySelector('#kt_modal_update_gl_account');
         dragElement(element);
         editButtons.forEach(d => {
             // edit button on click
@@ -110,7 +110,7 @@ const KTGLClassesServerSide = function () {
 
                 $('#kt_modal_update_gl_account_form').hide();//hide form
                 $('.loader_container').show();//show loader
-                $("#kt_modal_update_gl_class").modal('show');//show modal
+                $("#kt_modal_update_gl_account").modal('show');//show modal
                 // Select parent row
                 const parent = e.target.closest('tr');
 
@@ -138,12 +138,12 @@ const KTGLClassesServerSide = function () {
                         } else {
 
                             $('#kt_modal_update_gl_account_form').show({backdrop: 'static', keyboard: false});//show form
-                            const gl_class = response.data;
+                            const gl_account = response.data;
                             //
-                            $("#kt_modal_update_gl_account_form input[name='class_name']").val(gl_class.class_name);
-                            $("#kt_modal_update_gl_account_form input[name='inactive']").val(gl_class.inactive)
+                            $("#kt_modal_update_gl_account_form input[name='class_name']").val(gl_account.class_name);
+                            $("#kt_modal_update_gl_account_form input[name='inactive']").val(gl_account.inactive)
 
-                            if (gl_class.inactive !== 1) {
+                            if (gl_account.inactive !== 1) {
                                 $("#kt_modal_update_gl_account_form input[id='inactive']").attr("checked", "checked");
                             } else {
                                 $("#kt_modal_update_gl_account_form input[id='inactive']").removeAttr("checked")
@@ -334,5 +334,5 @@ const KTGLClassesServerSide = function () {
 
 // On document ready
 KTUtil.onDOMContentLoaded(function () {
-    KTGLClassesServerSide.init();
+    KTGLAccountsServerSide.init();
 });

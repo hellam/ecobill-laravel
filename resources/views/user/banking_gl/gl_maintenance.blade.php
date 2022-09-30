@@ -372,8 +372,8 @@
                 <div class="modal-content">
                     <!--begin::Form-->
                     <form class="form" action="#" id="kt_modal_add_gl_account_form"
-                          data-kt-action="#"
-                          data-kt-redirect="#">
+                          data-kt-action="{{route('user.banking_gl.gl_accounts.create')}}"
+                          data-kt-redirect="{{route('user.banking_gl.gl_accounts.all')}}">
                         <!--begin::Modal header-->
                         <div class="modal-header" id="kt_modal_add_gl_account_header">
                             <!--begin::Modal title-->
@@ -455,6 +455,9 @@
                                                 data-dropdown-parent="#kt_modal_add_gl_account"
                                                 class="form-select form-select-solid fw-bolder">
                                             <option></option>
+                                            @foreach($gl_groups as $group)
+                                                <option value="{{$group->id}}">{{$group->name}}</option>
+                                            @endforeach
                                         </select>
                                         <!--end::Input-->
                                     </div>

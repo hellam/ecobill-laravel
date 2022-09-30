@@ -10,7 +10,7 @@ use App\Models\ChartGroup;
 use App\Models\MakerCheckerRule;
 use App\Models\Role;
 use App\Models\User;
-use Illuminate\Http\Request;
+use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Validator;
 

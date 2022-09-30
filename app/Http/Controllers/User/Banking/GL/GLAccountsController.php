@@ -56,7 +56,6 @@ class GLAccountsController extends Controller
 
 
     /**
-     * @param \Illuminate\Http\Request $request
      * @param $created_at
      * @param $created_by
      * @param $supervised_by

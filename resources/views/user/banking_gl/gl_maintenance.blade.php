@@ -58,18 +58,19 @@
                 <div class="card-title">
                     <ul class="nav nav-tabs nav-line-tabs nav-line-tabs-2x mb-5 fs-6">
                         <li class="nav-item">
-                            <a class="nav-link active" data-bs-toggle="tab" data-kt-tab-action="general"
-                               href="javascript:">{{__('messages.accounts')}}
+                            <a class="nav-link active" data-bs-toggle="tab"
+                               href="#kt_tab_pane_1">
+                                {{__('messages.accounts')}}
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="tab" data-kt-tab-action="sms"
-                               href="javascript:">{{__('messages.groups')}}
+                            <a class="nav-link" data-bs-toggle="tab" href="#kt_tab_pane_2">
+                                {{__('messages.groups')}}
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="tab" data-kt-tab-action="email"
-                               href="javascript:">{{__('messages.classes')}}
+                            <a class="nav-link" data-bs-toggle="tab" href="#kt_tab_pane_2">
+                                {{__('messages.classes')}}
                             </a>
                         </li>
                     </ul>
@@ -79,11 +80,7 @@
             <!--end::Card header-->
             <!--begin::Card body-->
             <div class="card-body pt-0">
-                <form method="post" data-kt-action="#" id="kt_update_setting_form">
-                    <div id="loader_container" class="min-vh-30 d-flex align-items-center justify-content-center">
-                        <img src="{{asset('assets/media/loaders/loader.gif')}}" width="30" height="30" alt="">
-                    </div>
-                </form>
+
             </div>
             <!--end::Card body-->
         </div>
@@ -93,5 +90,5 @@
 @stop
 
 @push('custom_scripts')
-{{--    <script src="{{ asset('assets/js/pages/business_settings/all.js') }}"></script>--}}
+    {{--    <script src="{{ asset('assets/js/pages/business_settings/all.js') }}"></script>--}}
 @endpush

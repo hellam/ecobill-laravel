@@ -15,12 +15,16 @@ use function App\CentralLogics\success_web_processor;
 
 class GLClassController extends Controller
 {
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     * @throws \Exception
+     */
 
     //Data table API
     public function dt_api(Request $request): JsonResponse
     {
         $chart_class = ChartClass::orderBy('class_name');
-
         return (new DataTables)->eloquent($chart_class)
             ->addIndexColumn()
             ->addColumn('id', function ($row) {
@@ -34,6 +38,15 @@ class GLClassController extends Controller
                 return $row->inactive == 0 ? '<div class="badge badge-sm badge-light-success">Active</div>' : '<div class="badge badge-sm badge-light-danger">Inactive</div>';
             })->make(true);
     }
+
+    /**
+     * @param Request $request
+     * @param $created_at
+     * @param $created_by
+     * @param $supervised_by
+     * @param $supervised_at
+     * @return JsonResponse
+     */
 
     public function create(Request $request, $created_at = null, $created_by = null,
                                    $supervised_by = null, $supervised_at = null): JsonResponse
@@ -69,5 +82,7 @@ class GLClassController extends Controller
 
         return success_web_processor(['id' => $chart_class->id], __('messages.msg_saved_success', ['attribute' => __('messages.new_gl_class')]));
     }
+
+
 
 }

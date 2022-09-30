@@ -6,12 +6,15 @@
 
 namespace App\Models;
 
+use App\Scopes\ClientRefScope;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class ChartGroup
- * 
+ *
  * @property int $id
  * @property string|null $name
  * @property int $class_id
@@ -49,4 +52,16 @@ class ChartGroup extends Model
 		'supervised_at',
 		'inactive'
 	];
+
+    public static function booted()
+    {
+        if (Auth::guard('user')->check()){
+            static::addGlobalScope(new ClientRefScope());
+        }
+    }
+
+    public function classes(): BelongsTo
+    {
+        return $this->belongsTo(ChartClass::class, 'class_id');
+    }
 }

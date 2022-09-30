@@ -82,7 +82,10 @@ class PermissionMiddleware
             return $next($request);
         }
 
-        Toastr::warning(__('messages.access_denied'));
-        return back();
+        if ($request->getMethod() == "GET") {
+            Toastr::warning(__('messages.access_denied'));
+            return back();
+        }
+        return error_web_processor(__('messages.access_denied'));
     }
 }

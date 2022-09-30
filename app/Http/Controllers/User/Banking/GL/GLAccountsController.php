@@ -35,9 +35,9 @@ class GLAccountsController extends Controller
     //Data table API
     public function dt_api(Request $request): JsonResponse
     {
-        $audit_trail = ChartAccount::with('group')->orderBy('account_name');
+        $chart_account = ChartAccount::with('group')->orderBy('account_name');
 
-        return (new DataTables)->eloquent($audit_trail)
+        return (new DataTables)->eloquent($chart_account)
             ->addIndexColumn()
             ->addColumn('id', function ($row) {
                 return ["id" => $row->id,
@@ -128,16 +128,17 @@ class GLAccountsController extends Controller
             return $validator;
         }
 
-        $chart_group = ChartGroup::find($id);
-        $chart_group = set_update_parameters($chart_group, $created_at, $created_by,
+        $chart_account = ChartAccount::find($id);
+        $chart_account = set_update_parameters($chart_account, $created_at, $created_by,
             $supervised_by, $supervised_at);
 
-        $chart_group->name = $request->name;
-        $chart_group->class_id = $request->class_id;
-        $chart_group->inactive = $request->inactive;
-        $chart_group->update();
+        $chart_account->account_code = $request->account_code;
+        $chart_account->account_name = $request->account_name;
+        $chart_account->account_group = $request->account_group;
+        $chart_account->inactive = $request->inactive;
+        $chart_account->update();
 //
-        return success_web_processor(null, __('messages.msg_updated_success', ['attribute' => __('messages.gl_group')]));
+        return success_web_processor(null, __('messages.msg_updated_success', ['attribute' => __('messages.gl_account')]));
     }
 
     /**
@@ -146,16 +147,17 @@ class GLAccountsController extends Controller
      */
     public function destroy($id)
     {
-        $chart_class = ChartGroup::find($id);
-        if (isset($chart_class)) {
-            $chart_account = ChartAccount::where('account_group', $id)->count();
-            if ($chart_account > 0) {
-                return error_web_processor(__('messages.msg_delete_not_allowed', ['attribute' => __('messages.gl_group'), 'attribute1' => __('messages.gl_account')]));
-            }
-            $chart_class->delete();
-            return success_web_processor(null, __('messages.msg_deleted_success', ['attribute' => __('messages.gl_group')]));
+        $chart_account = ChartAccount::find($id);
+        if (isset($chart_account)) {
+            //TODO: check if the chart account has transactions
+//            $chart_account = ChartAccount::where('account_group', $id)->count();
+//            if ($chart_account > 0) {
+//                return error_web_processor(__('messages.msg_delete_not_allowed', ['attribute' => __('messages.gl_group'), 'attribute1' => __('messages.gl_account')]));
+//            }
+            $chart_account->delete();
+            return success_web_processor(null, __('messages.msg_deleted_success', ['attribute' => __('messages.gl_account')]));
         }
-        return error_web_processor(__('messages.msg_item_not_found', ['attribute' => __('messages.gl_group')]));
+        return error_web_processor(__('messages.msg_item_not_found', ['attribute' => __('messages.gl_account')]));
     }
 
 }

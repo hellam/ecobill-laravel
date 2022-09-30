@@ -120,11 +120,11 @@ class GLAccountsController extends Controller
     public function update(Request $request, $id, $created_at = null, $created_by = null,
                                    $supervised_by = null, $supervised_at = null)
     {
-//        $validator = UserValidators::glAccountsUpdateValidation($request);
+        $validator = UserValidators::glAccountsUpdateValidation($request);
 
-//        if ($validator != '') {
-//            return $validator;
-//        }
+        if ($validator != '') {
+            return $validator;
+        }
 
         $chart_account = ChartAccount::find($id);
         $chart_account = set_update_parameters($chart_account, $created_at, $created_by,

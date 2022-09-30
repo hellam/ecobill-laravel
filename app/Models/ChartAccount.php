@@ -33,8 +33,6 @@ use Illuminate\Support\Facades\Auth;
 class ChartAccount extends Model
 {
 	protected $table = 'chart_accounts';
-	protected $primaryKey = 'account_code';
-	public $incrementing = false;
 
 	protected $casts = [
 		'account_code' => 'int',

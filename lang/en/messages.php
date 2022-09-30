@@ -158,6 +158,7 @@ return [
     'msg_trx_not_found' => 'Unsupervised transaction not found',
     'msg_updated_success' => ':attribute updated successfully',
     'msg_update_error' => 'Update Error',
+    'msg_no_permission' => 'You do\'t have permission to perform this action',
     'min_length' => 'Minimum Length',
     'month' => 'Month',
     'module' => 'Module',

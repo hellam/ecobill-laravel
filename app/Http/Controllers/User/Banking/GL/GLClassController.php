@@ -46,7 +46,7 @@ class GLClassController extends Controller
         }
 
         $post_data = [
-            'name' => $request->name,
+            'class_name' => $request->name,
             'client_ref' => get_user_ref()
         ];
         //set_create_parameters($created_at, $created_by, ...)

@@ -139,11 +139,20 @@ Route::group(['as' => 'user.'], function () {
         Route::group(['prefix' => 'banking-gl', 'as' => 'banking_gl.'], function () {
             Route::controller(User\Banking\GL\GLAccountsController::class)->prefix('gl-accounts')->as('gl_accounts.')->group(function () {
                 Route::get('/', 'index')->name('all')->middleware('permission:302');
-                Route::post('/', 'create')->name('create')->middleware('permission:3020,' . ST_ROLE_ASSIGNMENT);
+                Route::post('/', 'create')->name('create')->middleware('permission:3020,' . ST_GL_ACCOUNT_SETUP);
                 Route::get('/dt-api', 'dt_api')->name('dt_api')->middleware('permission:302');
                 Route::get('edit/{id}', 'edit')->name('edit')->middleware('permission:3021')->whereNumber('id');
-                Route::put('update/{id}', 'update')->name('update')->middleware('permission:3021,' . ST_BRANCH_SETUP)->whereNumber('id');
+                Route::put('update/{id}', 'update')->name('update')->middleware('permission:3021,' . ST_GL_ACCOUNT_SETUP)->whereNumber('id');
             });
+
+            Route::controller(User\Banking\GL\GlGroupsController::class)->prefix('gl-accounts')->as('gl_accounts.')->group(function () {
+                Route::get('/', 'index')->name('all')->middleware('permission:302');
+                Route::post('/', 'create')->name('create')->middleware('permission:3020,' . ST_GL_ACCOUNT_SETUP);
+                Route::get('/dt-api', 'dt_api')->name('dt_api')->middleware('permission:302');
+                Route::get('edit/{id}', 'edit')->name('edit')->middleware('permission:3021')->whereNumber('id');
+                Route::put('update/{id}', 'update')->name('update')->middleware('permission:3021,' . ST_GL_ACCOUNT_SETUP)->whereNumber('id');
+            });
+
         });
 
     });

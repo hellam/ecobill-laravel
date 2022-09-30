@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateChartClassTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -16,10 +16,12 @@ class CreateChartClassTable extends Migration
         Schema::create('chart_class', function (Blueprint $table) {
             $table->bigInteger('id', true);
             $table->string('class_name', 250)->nullable();
-            $table->bigInteger('created_by')->nullable()->default(0);
-            $table->bigInteger('last_updated_by')->nullable()->default(0);
-            $table->timestamps();
+            $table->string("created_by",100)->nullable();
+            $table->string("updated_by",100)->nullable();
+            $table->string('supervised_by',100)->nullable();
+            $table->timestamp('supervised_at')->nullable();
             $table->boolean('inactive')->nullable()->default(false);
+            $table->timestamps();
         });
     }
 
@@ -32,4 +34,4 @@ class CreateChartClassTable extends Migration
     {
         Schema::dropIfExists('chart_class');
     }
-}
+};

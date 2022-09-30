@@ -4,20 +4,30 @@ namespace App\CentralLogics;
 
 #JOURNAL
 define('ST_100', "Journal Entry");
-//<-->
+define('ST_101', "Budget Entry");
+
 define('ST_JOURNAL', "ST_100");
+define('ST_BUDGET', "ST_101");
+////////////////////////////////
+
 
 #BANKING AND GL
-define('ST_110', "Account Payment");
+define('ST_110', "Account Expense");
 define('ST_111', "Account Deposit");
-define('ST_112', "Funds Transfer");
-define('ST_113', "B");
+define('ST_112', "Account Transfer");
+define('ST_113', "Bank Account Setup");
+define('ST_114', "GL Account Setup");
+define('ST_115', "GL Group Setup");
+define('ST_116', "GL Classes Setup");
 
-
-//<-->
-define('ST_ACCOUNT_PAYMENT', "ST_110");
+define('ST_ACCOUNT_EXPENSE', "ST_110");
 define('ST_ACCOUNT_DEPOSIT', "ST_111");
-define('ST_FUNDS_TRANSFER', "ST_112");
+define('ST_ACCOUNT_TRANSFER', "ST_112");
+define('ST_BANK_ACCOUNT_SETUP', "ST_113");
+define('ST_GL_ACCOUNT_SETUP', "ST_114");
+define('ST_GL_GROUP_SETUP', "ST_115");
+define('ST_GL_CLASSES_SETUP', "ST_116");
+//////////////////////////////////////
 
 #SALES
 define('ST_120', "Invoice");
@@ -25,12 +35,23 @@ define('ST_121', "Customer Payment");
 define('ST_122', "Delivery Note");
 define('ST_123', "Quotation");
 define('ST_124', "Credit Note");
-//<-->
+
 define('ST_INVOICE', "ST_120");
 define('ST_CUSTOMER_PAYMENT', "ST_121");
 define('ST_DELIVERY_NOTE', "ST_122");
 define('ST_QUOTATION', "ST_123");
 define('ST_CREDIT_NOTE', "ST_124");
+////////////////////////////////
+
+
+//UTILS
+define('ST_400','Void Transaction');
+define('ST_401','Transaction Supervision');
+
+define('ST_VOID_TRANSACTION','ST_400');
+define('ST_TRANSACTION_SUPERVISION','ST_401');
+///////////////////////////////////////
+
 
 #SETUP
 define('ST_130', "Business Settings");
@@ -41,7 +62,7 @@ define('ST_134', "API Setup");
 define('ST_135', "Security Policy Setup");
 define('ST_136', "Branch Setup");
 define('ST_137', "User Role Assignment");
-//<-->
+
 define('ST_BUSINESS_SETTINGS', "ST_130");
 define('ST_ROLE_SETUP', "ST_131");
 define('ST_MAKER_CHECKER_RULE_SETUP', "ST_132");
@@ -50,6 +71,7 @@ define('ST_API_SETUP', "ST_134");
 define('ST_SECURITY_POLICY_SETUP', "ST_135");
 define('ST_BRANCH_SETUP', "ST_136");
 define('ST_ROLE_ASSIGNMENT', "ST_137");
+////////////////////////////////////////
 
 #AUDIT
 define('ST_301', "Account Management");
@@ -57,25 +79,31 @@ define('ST_302', "Logon Events");
 define('ST_303', "Directory Service Access");
 define('ST_304', "Policy Change");//eg A user right was assigned.
 define('ST_305', "System Events");
-//<-->
+
 define('ST_ACCOUNT_MANAGEMENT', "ST_301");
 define('ST_LOGON_EVENT', "ST_302");
 define('ST_DIRECTORY_SERVICE_ACCESS', "ST_303");
 define('ST_POLICY_CHANGE', "ST_304");
 define('ST_SYSTEM_EVENT', "ST_305");
+////////////////////////////////////////
 
 define('TRX_TYPES', [
     ST_JOURNAL => ST_100,
+    ST_BUDGET => ST_101,
 
-    ST_ACCOUNT_PAYMENT => ST_110,
+    ST_ACCOUNT_EXPENSE => ST_110,
     ST_ACCOUNT_DEPOSIT => ST_111,
-    ST_FUNDS_TRANSFER => ST_112,
+    ST_ACCOUNT_TRANSFER => ST_112,
+    ST_BANK_ACCOUNT_SETUP => ST_113,
 
     ST_INVOICE => ST_120,
     ST_CUSTOMER_PAYMENT => ST_121,
     ST_DELIVERY_NOTE => ST_122,
     ST_QUOTATION => ST_123,
     ST_CREDIT_NOTE => ST_124,
+
+    ST_VOID_TRANSACTION => ST_400,
+    ST_TRANSACTION_SUPERVISION => ST_401,
 
     ST_BUSINESS_SETTINGS => ST_130,
     ST_ROLE_SETUP => ST_131,

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User\Banking\GL;
 
 use App\CentralLogics\UserValidators;
 use App\Http\Controllers\Controller;
+use App\Models\ChartAccount;
 use App\Models\ChartGroup;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -125,7 +126,7 @@ class GLGroupsController extends Controller
         $chart_group->inactive = $request->inactive;
         $chart_group->update();
 //
-        return success_web_processor(null, __('messages.msg_updated_success', ['attribute' => __('messages.gl_class')]));
+        return success_web_processor(null, __('messages.msg_updated_success', ['attribute' => __('messages.gl_group')]));
     }
 
     /**
@@ -134,15 +135,15 @@ class GLGroupsController extends Controller
      */
     public function destroy($id)
     {
-        $chart_class = ChartClass::find($id);
+        $chart_class = ChartGroup::find($id);
         if (isset($chart_class)) {
-            $users = ChartGroup::where('class_id', $id)->count();
-            if ($users > 0) {
-                return error_web_processor(__('messages.msg_delete_not_allowed', ['attribute' => __('messages.gl_class'), 'attribute1' => __('messages.gl_groups')]));
+            $chart_account = ChartAccount::where('account_group', $id)->count();
+            if ($chart_account > 0) {
+                return error_web_processor(__('messages.msg_delete_not_allowed', ['attribute' => __('messages.gl_group'), 'attribute1' => __('messages.gl_account')]));
             }
             $chart_class->delete();
-            return success_web_processor(null, __('messages.msg_deleted_success', ['attribute' => __('messages.gl_class')]));
+            return success_web_processor(null, __('messages.msg_deleted_success', ['attribute' => __('messages.gl_group')]));
         }
-        return error_web_processor(__('messages.msg_item_not_found', ['attribute' => __('messages.gl_class')]));
+        return error_web_processor(__('messages.msg_item_not_found', ['attribute' => __('messages.gl_group')]));
     }
 }

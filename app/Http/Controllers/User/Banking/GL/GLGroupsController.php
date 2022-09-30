@@ -12,6 +12,7 @@ use function App\CentralLogics\error_web_processor;
 use function App\CentralLogics\get_user_ref;
 use function App\CentralLogics\log_activity;
 use function App\CentralLogics\set_create_parameters;
+use function App\CentralLogics\set_update_parameters;
 use function App\CentralLogics\success_web_processor;
 
 class GLGroupsController extends Controller
@@ -30,9 +31,9 @@ class GLGroupsController extends Controller
             ->addIndexColumn()
             ->addColumn('id', function ($row) {
                 return ["id" => $row->id,
-                    "edit_url" => route('user.banking_gl.gl_group.edit', [$row->id]),
-                    "update_url" => route('user.banking_gl.gl_group.update', [$row->id]),
-                    "delete_url" => route('user.banking_gl.gl_group.delete', [$row->id])
+                    "edit_url" => route('user.banking_gl.gl_groups.edit', [$row->id]),
+                    "update_url" => route('user.banking_gl.gl_groups.update', [$row->id]),
+                    "delete_url" => route('user.banking_gl.gl_groups.delete', [$row->id])
                 ];
             })
             ->addColumn('class_name', function ($row) {
@@ -115,13 +116,14 @@ class GLGroupsController extends Controller
             return $validator;
         }
 
-        $chart_class = ChartClass::find($id);
-        $chart_class = set_update_parameters($chart_class, $created_at, $created_by,
+        $chart_group = ChartGroup::find($id);
+        $chart_group = set_update_parameters($chart_group, $created_at, $created_by,
             $supervised_by, $supervised_at);
 
-        $chart_class->name = $request->name;
-        $chart_class->inactive = $request->inactive;
-        $chart_class->update();
+        $chart_group->name = $request->name;
+        $chart_group->class_id = $request->class_id;
+        $chart_group->inactive = $request->inactive;
+        $chart_group->update();
 //
         return success_web_processor(null, __('messages.msg_updated_success', ['attribute' => __('messages.gl_class')]));
     }

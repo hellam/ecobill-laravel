@@ -143,7 +143,7 @@ class UserValidators
     //Start User Roles
     public static function userRoleCreateValidation(Request $request)
     {
-        $validator =  self::ValidatorMake($request->all(), [
+        $validator = self::ValidatorMake($request->all(), [
             'user' => 'required',
             'branch' => 'required',
             'role' => 'required',
@@ -159,6 +159,7 @@ class UserValidators
 
         return '';
     }
+
     //end user roles
 
 
@@ -171,8 +172,9 @@ class UserValidators
 
     public static function glClassUpdateValidation(Request $request)
     {
+        $id = Route::current()->id;
         return self::ValidatorMake($request->all(), [
-            'class_name' => 'required|unique:' . ChartClass::class . ',class_name,NULL,id,client_ref,' . get_user_ref(),
+            'class_name' => 'required|unique:' . ChartClass::class . ',class_name,' . $id . ',id,client_ref,' . get_user_ref(),
         ]);
     }
 

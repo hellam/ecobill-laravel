@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User\Banking\GL;
 use App\CentralLogics\UserValidators;
 use App\Http\Controllers\Controller;
 use App\Models\ChartClass;
+use App\Models\ChartGroup;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
@@ -123,4 +124,21 @@ class GLClassController extends Controller
         return success_web_processor(null, __('messages.msg_updated_success', ['attribute' => __('messages.gl_class')]));
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     */
+    public function destroy($id)
+    {
+        $chart_class = ChartClass::find($id);
+        if (isset($chart_class)) {
+            $users = ChartGroup::where('class_id', $id)->count();
+            if ($users > 0) {
+                return error_web_processor(__('messages.msg_delete_not_allowed', ['attribute' => __('messages.gl_class'), 'attribute1' => __('messages.gl_groups')]));
+            }
+            $chart_class->delete();
+            return success_web_processor(null, __('messages.msg_deleted_success', ['attribute' => __('messages.gl_class')]));
+        }
+        return error_web_processor(__('messages.msg_item_not_found', ['attribute' => __('messages.gl_class')]));
+    }
 }

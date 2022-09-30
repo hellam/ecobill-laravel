@@ -167,6 +167,8 @@ return [
     'narration' => 'Narration',
     'new' => 'New',
     'gl_class' => 'GL Class',
+    'gl_groups' => 'GL Groups',
+    'gl_accounts' => 'GL Accounts',
     'new_gl_account' => 'New GL Account',
     'new_gl_class' => 'New GL Class',
     'new_gl_group' => 'New GL Group',

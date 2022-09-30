@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers\User\Banking\GL;
 
+use App\CentralLogics\UserValidators;
 use App\Http\Controllers\Controller;
 use App\Models\ChartGroup;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
+use function App\CentralLogics\error_web_processor;
+use function App\CentralLogics\get_user_ref;
+use function App\CentralLogics\log_activity;
+use function App\CentralLogics\set_create_parameters;
+use function App\CentralLogics\success_web_processor;
 
 class GLGroupsController extends Controller
 {
@@ -29,6 +35,9 @@ class GLGroupsController extends Controller
                     "delete_url" => route('user.banking_gl.gl_group.delete', [$row->id])
                 ];
             })
+            ->addColumn('class_name', function ($row) {
+                return $row->classes->name;
+            })
             ->editColumn('inactive', function ($row) {
                 return $row->inactive == 0 ? '<div class="badge badge-sm badge-light-success">Active</div>' : '<div class="badge badge-sm badge-light-danger">Inactive</div>';
             })->make(true);
@@ -47,20 +56,21 @@ class GLGroupsController extends Controller
                                    $supervised_by = null, $supervised_at = null): JsonResponse
     {
 
-        $validator = UserValidators::glClassCreateValidation($request);
+        $validator = UserValidators::glGroupCreateValidation($request);
 
         if ($validator != '') {
             return $validator;
         }
 
         $post_data = [
-            'class_name' => $request->class_name,
+            'name' => $request->name,
+            'class_id' => $request->class_id,
             'client_ref' => get_user_ref()
         ];
         //set_create_parameters($created_at, $created_by, ...)
         $post_data = array_merge($post_data, set_create_parameters($created_at, $created_by, $supervised_by, $supervised_at));
 
-        $chart_class = ChartClass::create($post_data);
+        $chart_group = ChartGroup::create($post_data);
 
         if ($created_at == null) {
             //if not supervised, log data from create request
@@ -68,14 +78,14 @@ class GLGroupsController extends Controller
             log_activity(
                 ST_GL_ACCOUNT_SETUP,
                 $request->getClientIp(),
-                'Create Chart Class',
+                'Create Chart Group',
                 json_encode($post_data),
                 auth('user')->id(),
-                $chart_class->id
+                $chart_group->id
             );
         }
 
-        return success_web_processor(['id' => $chart_class->id], __('messages.msg_saved_success', ['attribute' => __('messages.new_gl_class')]));
+        return success_web_processor(['id' => $chart_group->id], __('messages.msg_saved_success', ['attribute' => __('messages.new_gl_group')]));
     }
 
 
@@ -85,11 +95,11 @@ class GLGroupsController extends Controller
      */
     public function edit($id)
     {
-        $chart_class = ChartClass::find($id);
-        if (isset($chart_class)) {
-            return success_web_processor($chart_class, __('messages.msg_item_found', ['attribute' => __('messages.gl_class')]));
+        $chart_group = ChartGroup::find($id);
+        if (isset($chart_group)) {
+            return success_web_processor($chart_group, __('messages.msg_item_found', ['attribute' => __('messages.gl_group')]));
         }
-        return error_web_processor(trans('messages.msg_item_not_found', ['attribute' => __('messages.gl_class')]));
+        return error_web_processor(trans('messages.msg_item_not_found', ['attribute' => __('messages.gl_group')]));
     }
 
     /**

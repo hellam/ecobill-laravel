@@ -166,6 +166,7 @@ return [
     'name' => 'Name',
     'narration' => 'Narration',
     'new' => 'New',
+    'gl_class' => 'GL Class',
     'new_gl_account' => 'New GL Account',
     'new_gl_class' => 'New GL Class',
     'new_gl_group' => 'New GL Group',

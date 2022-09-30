@@ -169,6 +169,13 @@ class UserValidators
         ]);
     }
 
+    public static function glClassUpdateValidation(Request $request)
+    {
+        return self::ValidatorMake($request->all(), [
+            'class_name' => 'required|unique:' . ChartClass::class . ',class_name,NULL,id,client_ref,' . get_user_ref(),
+        ]);
+    }
+
     public static function securityUpdateValidation(Request $request)
     {
         $type = Route::current()->type;

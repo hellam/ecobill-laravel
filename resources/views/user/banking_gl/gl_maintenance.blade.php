@@ -279,7 +279,7 @@
                             <!--end::Description-->
                             <!--begin::Action-->
                             <a href="#" data-bs-toggle="modal"
-                               data-bs-target="#kt_modal_update_gl_class"
+                               data-bs-target="#kt_modal_add_gl_class"
                                class="btn btn-primary">{{__('messages.add_new')}}</a>
                             <!--end::Action-->
 
@@ -313,7 +313,7 @@
                                     <!--end::Svg Icon-->
                                     <input type="text" data-kt-contact-table-filter="search"
                                            class="form-control form-control-solid w-250px ps-15"
-                                           placeholder="{{__('messages.search_hint',['attribute'=>__('messages.classes')])}}"/>
+                                           placeholder="{{__('messages.search',['attribute'=>__('messages.classes')])}}"/>
                                 </div>
                                 <!--end::Search-->
                             </div>
@@ -324,7 +324,7 @@
                                 <div class="d-flex justify-content-end" data-kt-contact-table-toolbar="base">
                                     <!--begin::Add customer-->
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                            data-bs-target="#kt_modal_update_gl_class">{{__('messages.add_new')}}
+                                            data-bs-target="#kt_modal_add_gl_class">{{__('messages.add_new')}}
                                     </button>
                                     <!--end::Add customer-->
                                 </div>

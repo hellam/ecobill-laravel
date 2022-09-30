@@ -73,7 +73,7 @@ const KTGLClassesServerSide = function () {
                                 <!--end::Menu item-->
                         `;
                     },
-                },{
+                }, {
                     targets: -2,
                     className: 'text-end',
                     render: function (data, type, row) {
@@ -89,7 +89,7 @@ const KTGLClassesServerSide = function () {
         dt.on('draw', function () {
             KTMenu.createInstances();
             handleUpdateRows();
-            // handleDeleteRows();
+            handleDeleteRows();
         });
     };
 
@@ -183,7 +183,7 @@ const KTGLClassesServerSide = function () {
     //Delete Button
     const handleDeleteRows = function () {
         // Select all delete buttons
-        const deleteButtons = document.querySelectorAll('[data-kt-branch-table-actions="delete_row"]');
+        const deleteButtons = document.querySelectorAll('[data-kt-gl-classes-table-actions="delete_row"]');
 
         deleteButtons.forEach(d => {
             // edit button on click
@@ -194,10 +194,10 @@ const KTGLClassesServerSide = function () {
                 const parent = e.target.closest('tr');
 
                 // Get rule name
-                const branchName = parent.querySelectorAll('td')[1].innerText;
+                const className = parent.querySelectorAll('td')[1].innerText;
                 delete_url = parent.querySelector("input[class='delete_url']").value;
                 Swal.fire({
-                    text: "Are you sure you want to delete " + branchName,
+                    text: "Are you sure you want to delete " + className,
                     icon: "warning",
                     showCancelButton: true,
                     buttonsStyling: false,
@@ -210,7 +210,7 @@ const KTGLClassesServerSide = function () {
                 }).then(function (result) {
                     if (result.value) {
                         Swal.fire({
-                            text: "Deleting " + branchName,
+                            text: "Deleting " + className,
                             icon: "info",
                             allowOutsideClick: false,
                             buttonsStyling: false,
@@ -220,7 +220,7 @@ const KTGLClassesServerSide = function () {
 
                     } else if (result.dismiss === 'cancel') {
                         Swal.fire({
-                            text: branchName + " was not deleted.",
+                            text: className + " was not deleted.",
                             icon: "error",
                             buttonsStyling: false,
                             confirmButtonText: "Ok, got it!",
@@ -260,7 +260,7 @@ const KTGLClassesServerSide = function () {
 
                 } else {
                     Swal.fire({
-                        text: "Rule deleted Successfully!.",
+                        text: response.message,
                         icon: "success",
                         buttonsStyling: false,
                         confirmButtonText: "Ok, got it!",
@@ -324,7 +324,7 @@ const KTGLClassesServerSide = function () {
                 initDatatable();
                 dt.search('').draw();
                 handleUpdateRows();
-                // handleDeleteRows();
+                handleDeleteRows();
             }
         }
     }

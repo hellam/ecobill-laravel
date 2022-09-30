@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name', 250)->nullable()->unique('name');
             $table->text('description')->nullable();
             $table->integer('rate')->nullable()->default(0);
+            $table->string("client_ref",100)->nullable();
             $table->string("created_by",100)->nullable();
             $table->string("updated_by",100)->nullable();
             $table->string('supervised_by',100)->nullable();

@@ -23,6 +23,7 @@ return new class extends Migration
             $table->integer('order')->nullable()->default(1);
             $table->bigInteger('category_id');
             $table->bigInteger('tax_id');
+            $table->string("client_ref",100)->nullable();
             $table->tinyInteger('type')->default(1)->comment('1-product or 2-subscription');
             $table->string("created_by",100)->nullable();
             $table->string("updated_by",100)->nullable();

@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('chart_class', function (Blueprint $table) {
             $table->bigInteger('id', true);
             $table->string('class_name', 250)->nullable();
+            $table->string("client_ref",100)->nullable();
             $table->string("created_by",100)->nullable();
             $table->string("updated_by",100)->nullable();
             $table->string('supervised_by',100)->nullable();

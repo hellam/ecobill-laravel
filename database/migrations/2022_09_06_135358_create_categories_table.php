@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name', 250);
             $table->text('description')->nullable();
             $table->bigInteger('default_tax_id');
+            $table->string("client_ref",100)->nullable();
             $table->string("created_by",100)->nullable();
             $table->string("updated_by",100)->nullable();
             $table->string('supervised_by',100)->nullable();

@@ -4,6 +4,7 @@ namespace App\CentralLogics;
 
 use App\Models\Branch;
 use App\Models\BranchUser;
+use App\Models\ChartClass;
 use App\Models\MakerCheckerRule;
 use App\Models\Role;
 use App\Models\User;
@@ -157,6 +158,15 @@ class UserValidators
         }
 
         return '';
+    }
+    //end user roles
+
+
+    public static function glClassCreateValidation(Request $request)
+    {
+        return self::ValidatorMake($request->all(), [
+            'class_name' => 'required|unique:' . ChartClass::class . ',name,NULL,id,client_ref,' . get_user_ref(),
+        ]);
     }
 
     public static function securityUpdateValidation(Request $request)

@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  * @property string $type
  * @property string $reference
+ * @property string|null $client_ref
  *
  * @package App\Models
  */
@@ -28,6 +29,7 @@ class Ref extends Model
 	];
 
 	protected $fillable = [
-		'reference'
+		'reference',
+		'client_ref'
 	];
 }

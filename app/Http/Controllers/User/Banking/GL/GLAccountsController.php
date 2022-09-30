@@ -6,11 +6,15 @@ use App\Http\Controllers\Controller;
 use App\Models\ChartAccount;
 use App\Models\ChartClass;
 use App\Models\ChartGroup;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Client\Request;
 use Illuminate\Http\JsonResponse;
+use Yajra\DataTables\DataTables;
+use function App\CentralLogics\decode_form_data;
 
 class GLAccountsController extends Controller
 {
@@ -25,32 +29,22 @@ class GLAccountsController extends Controller
     //Data table API
     public function dt_api(Request $request): JsonResponse
     {
-        if (env('APP_ENV') == 'production')
-            $audit_trail = ChartAccount::where('maker', '!=', auth('user')->id())
-                ->orderBy('created_at', 'desc');
-        else
-            $audit_trail = MakerCheckerTrx::orderBy('created_at', 'desc');
+        $audit_trail = ChartAccount::with('group')->orderBy('account_name');
 
         return (new DataTables)->eloquent($audit_trail)
             ->addIndexColumn()
-            ->editColumn('method', function ($row) {
-                if ($row->method == 'POST')
-                    return 'Create';
-                else if ($row->method == 'PUT')
-                    return 'Update';
-                else if ($row->method == 'DELETE')
-                    return 'Delete';
-                return 'UNKNOWN';
-            })->editColumn('trx_type', function ($row) {
-                return ["trx_type" => $row->trx_type == '' ? '' : constant($row->trx_type),
-                    "html_data" => decode_form_data(json_decode($row->txt_data, true), $row->trx_type, $row->method),
-                    "approve_url" => route('user.utils.unsupervised_data.update', [$row->id, 'approve']),
-                    "reject_url" => route('user.utils.unsupervised_data.update', [$row->id, 'reject']),
+            ->addColumn('id', function ($row) {
+                return ["id" => $row->id,
+                    "edit_url" => route('user.banking_gl.gl_accounts.edit', [$row->id]),
+                    "update_url" => route('user.banking_gl.gl_accounts.update', [$row->id]),
+                    "delete_url" => route('user.banking_gl.gl_accounts.delete', [$row->id])
                 ];
-            })->editColumn('maker', function ($row) {
-                return User::where('id', $row->maker)->first()->username;
-            })->editColumn('created_at', function ($row) {
-                return Carbon::parse($row->created_at)->format('Y/m/d H:i:s');
+            })
+            ->editColumn('account_group', function ($row) {
+                return $row->group->name ?? "";
+            })
+            ->editColumn('inactive', function ($row) {
+                return $row->inactive == 0 ? '<div class="badge badge-sm badge-light-success">Active</div>' : '<div class="badge badge-sm badge-light-danger">Inactive</div>';
             })->make(true);
     }
 

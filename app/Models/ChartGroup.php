@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  * @property string|null $name
  * @property int $class_id
+ * @property string|null $client_ref
  * @property string|null $created_by
  * @property string|null $updated_by
  * @property string|null $supervised_by
@@ -41,6 +42,7 @@ class ChartGroup extends Model
 	protected $fillable = [
 		'name',
 		'class_id',
+		'client_ref',
 		'created_by',
 		'updated_by',
 		'supervised_by',

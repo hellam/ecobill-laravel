@@ -17,6 +17,7 @@ return new class extends Migration
             $table->bigInteger('id')->default(0);
             $table->string('type')->default(0);
             $table->string('reference', 100);
+            $table->string("client_ref",100)->nullable();
 
             $table->primary(['id', 'type']);
             $table->unique(['type', 'reference'], 'Type_Ref unique');

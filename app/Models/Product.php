@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int|null $order
  * @property int $category_id
  * @property int $tax_id
+ * @property string|null $client_ref
  * @property int $type
  * @property string|null $created_by
  * @property string|null $updated_by
@@ -59,6 +60,7 @@ class Product extends Model
 		'order',
 		'category_id',
 		'tax_id',
+		'client_ref',
 		'type',
 		'created_by',
 		'updated_by',

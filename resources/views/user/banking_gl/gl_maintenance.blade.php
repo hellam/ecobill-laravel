@@ -336,7 +336,7 @@
                         <!--begin::Card body-->
                         <div class="card-body pt-0">
                             <!--begin::Table-->
-                            <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_gl_accounts_table"
+                            <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_gl_classes_table"
                                    data-kt-dt_api="#">
                                 <!--begin::Table head-->
                                 <thead>
@@ -690,4 +690,6 @@
 
 @push('custom_scripts')
         <script src="{{ asset('assets/js/pages/gl_maintenance/accounts/add.js') }}"></script>
+        <script src="{{ asset('assets/js/pages/gl_maintenance/classes/add.js') }}"></script>
+        <script src="{{ asset('assets/js/pages/gl_maintenance/classes/list.js') }}"></script>
 @endpush

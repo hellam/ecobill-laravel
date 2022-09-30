@@ -24,6 +24,13 @@ const KTGLAccountsAdd = function () {
                             }
                         }
                     },
+                    account_type: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Group is required'
+                            }
+                        }
+                    },
                 },
                 plugins: {
                     trigger: new FormValidation.plugins.Trigger(),
@@ -36,10 +43,8 @@ const KTGLAccountsAdd = function () {
             }
         );
 
-        console.log(form)
-
         // //revalidate account_type select
-        form.querySelector('select[name="account_type"]').on('change', function () {
+        $(form.querySelector('[name="account_type"]')).on('change', function () {
             // Revalidate the field when an option is chosen
             validator.revalidateField("account_type");
         })

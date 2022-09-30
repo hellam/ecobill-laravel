@@ -192,7 +192,7 @@ class UserValidators
     {
         $id = Route::current()->id;
         return self::ValidatorMake($request->all(), [
-            'name' => 'required|unique:' . ChartClass::class . ',name,' . $id . ',id,client_ref,' . get_user_ref(),
+            'name' => 'required|unique:' . ChartGroup::class . ',name,' . $id . ',id,client_ref,' . get_user_ref(),
             'class_id' => 'required',
             'inactive' => 'in:1,0',
         ]);

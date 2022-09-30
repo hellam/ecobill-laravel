@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Auth;
 /**
  * Class ChartAccount
  *
+ * @property int $id
  * @property int $account_code
  * @property string|null $account_name
  * @property int $account_group

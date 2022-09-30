@@ -447,7 +447,7 @@
                                         </label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
-                                        <select name="account_type"
+                                        <select name="account_group"
                                                 aria-label="Select Group"
                                                 data-control="select2"
                                                 data-kt-src="#"

@@ -24,7 +24,7 @@ const KTGLAccountsAdd = function () {
                             }
                         }
                     },
-                    account_type: {
+                    account_group: {
                         validators: {
                             notEmpty: {
                                 message: 'Group is required'

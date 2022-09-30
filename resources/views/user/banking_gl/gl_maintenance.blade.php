@@ -243,7 +243,7 @@
                         <!--begin::Card body-->
                         <div class="card-body pt-0">
                             <!--begin::Table-->
-                            <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_gl_accounts_table"
+                            <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_gl_groups_table"
                                    data-kt-dt_api="#">
                                 <!--begin::Table head-->
                                 <thead>
@@ -495,8 +495,8 @@
                 <div class="modal-content">
                     <!--begin::Form-->
                     <form class="form" action="#" id="kt_modal_add_gl_group_form"
-                          data-kt-action="#"
-                          data-kt-redirect="#">
+                          data-kt-action="{{route('user.banking_gl.gl_groups.create')}}"
+                          data-kt-redirect="{{route('user.banking_gl.gl_accounts.all')}}">
                         <!--begin::Modal header-->
                         <div class="modal-header" id="kt_modal_add_gl_group_header">
                             <!--begin::Modal title-->
@@ -536,13 +536,13 @@
                                 <!--begin::Input group-->
                                 <div class="fv-row mb-7">
                                     <!--begin::Label-->
-                                    <label class="fs-6 fw-bold mb-2" for="class_name">
+                                    <label class="fs-6 fw-bold mb-2" for="name">
                                         <span class="required">{{__('messages.name')}}</span>
                                     </label>
                                     <!--end::Label-->
                                     <!--begin::Input-->
-                                    <input type="text" class="form-control form-control-solid"
-                                           placeholder="{{__('messages.group')}} {{__('messages.name')}}"
+                                    <input type="text" id="name" class="form-control form-control-solid"
+                                           placeholder="{{__('messages.group').' '.__('messages.name')}}"
                                            name="name"/>
                                     <!--end::Input-->
                                 </div>
@@ -552,7 +552,7 @@
                                     <div class="col-md-12 fv-row">
                                         <!--begin::Label-->
                                         <label class="fs-6 fw-bold mb-2">
-                                            <span class="required">{{__('messages.class')}}</span>
+                                            <span class="required">{{__('messages.group').' '.__('messages.class')}}</span>
                                         </label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
@@ -564,6 +564,9 @@
                                                 data-dropdown-parent="#kt_modal_add_gl_group"
                                                 class="form-select form-select-solid fw-bolder">
                                             <option></option>
+                                            @foreach($gl_classes as $class)
+                                                <option value="{{$class->id}}">{{$class->class_name}}</option>
+                                            @endforeach
                                         </select>
                                         <!--end::Input-->
                                     </div>
@@ -810,4 +813,5 @@
         <script src="{{ asset('assets/js/pages/gl_maintenance/classes/add.js') }}"></script>
         <script src="{{ asset('assets/js/pages/gl_maintenance/classes/list.js') }}"></script>
         <script src="{{ asset('assets/js/pages/gl_maintenance/classes/update.js') }}"></script>
+        <script src="{{ asset('assets/js/pages/gl_maintenance/groups/add.js') }}"></script>
 @endpush

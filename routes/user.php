@@ -64,7 +64,7 @@ Route::group(['as' => 'user.'], function () {
         Route::group(['prefix' => 'reports', 'as' => 'reports.'], function () {
             Route::controller(User\Reports\AuditTrailController::class)->middleware('permission:601')->prefix('audit-trail')->as('audit_trail.')->group(function () {
                 Route::get('/', 'index')->name('list');
-                Route::get('/dt_api', 'dt_api')->name('dt_api');
+                Route::get('/dt-api', 'dt_api')->name('dt_api');
             });
         });
 
@@ -88,7 +88,7 @@ Route::group(['as' => 'user.'], function () {
 
             Route::controller(User\Setup\MakerCheckerRulesController::class)->prefix('maker-checker-rules')->as('maker_checker_rules.')->group(function () {
                 Route::get('/', 'index')->name('all')->middleware('permission:704');
-                Route::get('/dt_api', 'dt_api')->name('dt_api')->middleware('permission:704');
+                Route::get('/dt-api', 'dt_api')->name('dt_api')->middleware('permission:704');
                 Route::post('/', 'create')->name('create')->middleware('permission:7040,' . ST_MAKER_CHECKER_RULE_SETUP);
                 Route::get('edit/{id}', 'edit')->name('edit')->middleware('permission:7041')->whereNumber('id');
                 Route::put('update/{id}', 'update')->name('update')->middleware('permission:7041,' . ST_MAKER_CHECKER_RULE_SETUP)->whereNumber('id');
@@ -97,7 +97,7 @@ Route::group(['as' => 'user.'], function () {
 
             Route::controller(User\Setup\BranchController::class)->prefix('branches')->as('branches.')->group(function () {
                 Route::get('/', 'index')->name('all')->middleware('permission:705');
-                Route::get('/dt_api', 'dt_api')->name('dt_api')->middleware('permission:705');
+                Route::get('/dt-api', 'dt_api')->name('dt_api')->middleware('permission:705');
                 Route::post('/', 'create')->name('create')->middleware('permission:7050,' . ST_BRANCH_SETUP);
                 Route::get('edit/{id}', 'edit')->name('edit')->middleware('permission:7051')->whereNumber('id');
                 Route::put('update/{id}', 'update')->name('update')->middleware('permission:7051,' . ST_BRANCH_SETUP)->whereNumber('id');
@@ -106,7 +106,7 @@ Route::group(['as' => 'user.'], function () {
 
             Route::controller(User\Setup\UsersController::class)->prefix('users')->as('users.')->group(function () {
                 Route::get('/', 'index')->name('all')->middleware('permission:706');
-                Route::get('/dt_api', 'dt_api')->name('dt_api')->middleware('permission:706');
+                Route::get('/dt-api', 'dt_api')->name('dt_api')->middleware('permission:706');
                 Route::post('/', 'create')->name('create')->middleware('permission:7060,' . ST_ACCOUNT_MANAGEMENT);
                 Route::get('edit/{id}', 'edit')->name('edit')->middleware('permission:7061')->whereNumber('id');
                 Route::put('update/{id}', 'update')->name('update')->middleware('permission:7061,' . ST_BRANCH_SETUP)->whereNumber('id');
@@ -114,7 +114,7 @@ Route::group(['as' => 'user.'], function () {
 
             Route::controller(User\Setup\UserRolesController::class)->prefix('user-role')->as('user_role.')->group(function () {
                 Route::get('/', 'index')->name('all')->middleware('permission:707');
-                Route::get('/dt_api', 'dt_api')->name('dt_api')->middleware('permission:707');
+                Route::get('/dt-api', 'dt_api')->name('dt_api')->middleware('permission:707');
                 Route::get('/edit/{id}', 'view')->name('edit')->middleware('permission:707')->whereNumber('id');
                 Route::post('/', 'create')->name('create')->middleware('permission:7070,' . ST_ROLE_ASSIGNMENT);
                 Route::delete('delete/{id}', 'destroy')->name('delete')->middleware('permission:7072,' . ST_ROLE_ASSIGNMENT)->whereNumber('id');
@@ -131,7 +131,7 @@ Route::group(['as' => 'user.'], function () {
         Route::group(['prefix' => 'utils', 'as' => 'utils.'], function () {
             Route::controller(User\Utils\MakerCheckerTrxController::class)->prefix('unsupervised-data')->as('unsupervised_data.')->group(function () {
                 Route::get('/', 'index')->name('all')->middleware('permission:801');
-                Route::get('/dt_api', 'dt_api')->name('dt_api')->middleware('permission:801');
+                Route::get('/dt-api', 'dt_api')->name('dt_api')->middleware('permission:801');
                 Route::post('/update/{id}/{action}', 'update')->name('update')->middleware('permission:8011');
             });
         });
@@ -139,6 +139,10 @@ Route::group(['as' => 'user.'], function () {
         Route::group(['prefix' => 'banking-gl', 'as' => 'banking_gl.'], function () {
             Route::controller(User\Banking\GL\GLAccountsController::class)->prefix('gl-accounts')->as('gl_accounts.')->group(function () {
                 Route::get('/', 'index')->name('all')->middleware('permission:302');
+                Route::post('/', 'create')->name('create')->middleware('permission:3020,' . ST_ROLE_ASSIGNMENT);
+                Route::get('/dt-api', 'dt_api')->name('dt_api')->middleware('permission:302');
+                Route::get('edit/{id}', 'edit')->name('edit')->middleware('permission:3021')->whereNumber('id');
+                Route::put('update/{id}', 'update')->name('update')->middleware('permission:3021,' . ST_BRANCH_SETUP)->whereNumber('id');
             });
         });
 

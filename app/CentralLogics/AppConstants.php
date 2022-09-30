@@ -7,10 +7,13 @@ define('ST_100', "Journal Entry");
 //<-->
 define('ST_JOURNAL', "ST_100");
 
-#ACCOUNT
+#BANKING AND GL
 define('ST_110', "Account Payment");
 define('ST_111', "Account Deposit");
 define('ST_112', "Funds Transfer");
+define('ST_113', "B");
+
+
 //<-->
 define('ST_ACCOUNT_PAYMENT', "ST_110");
 define('ST_ACCOUNT_DEPOSIT', "ST_111");

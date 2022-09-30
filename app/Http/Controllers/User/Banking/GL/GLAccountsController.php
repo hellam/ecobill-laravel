@@ -20,7 +20,7 @@ class GLAccountsController extends Controller
 {
     public function index(): Factory|View|Application
     {
-        $gl_classes = ChartClass::all();
+        $gl_classes = ChartClass::select('class_name','id')->all();
         $gl_accounts_count = ChartAccount::count() ?? 0;
         $gl_groups_count = ChartGroup::count() ?? 0;
         $gl_classes_count = ChartClass::count() ?? 0;

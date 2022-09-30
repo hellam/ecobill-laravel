@@ -230,6 +230,7 @@ const KTGLAccountsUpdate = function () {
                             handleSubmit(str)
                         } else {
                             form.reset(); // Reset form
+                            $("select[name='account_group']").val(null).trigger('change');
                         }
                     });
                 }

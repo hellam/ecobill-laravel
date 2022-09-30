@@ -79,6 +79,7 @@ class GLAccountsController extends Controller
             'account_group' => $request->account_group,
             'client_ref' => get_user_ref()
         ];
+
         //set_create_parameters($created_at, $created_by, ...)
         $post_data = array_merge($post_data, set_create_parameters($created_at, $created_by, $supervised_by, $supervised_at));
 

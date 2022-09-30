@@ -46,6 +46,7 @@ class ChartAccount extends Model
 	];
 
 	protected $fillable = [
+		'account_code',
 		'account_name',
 		'account_group',
 		'client_ref',

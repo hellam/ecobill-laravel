@@ -117,7 +117,7 @@ class GLClassController extends Controller
         $chart_class = set_update_parameters($chart_class, $created_at, $created_by,
             $supervised_by, $supervised_at);
 
-        $chart_class->name = $request->name;
+        $chart_class->class_name = $request->class_name;
         $chart_class->inactive = $request->inactive;
         $chart_class->update();
 //

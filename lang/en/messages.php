@@ -214,6 +214,8 @@ return [
     'user_role' => 'User Role',
     'username' => 'Username',
     'update' => 'Update',
+    'update_gl_group' => 'Update GL Group',
+    'update_gl_class' => 'Update GL Class',
     'uppercase' => 'Uppercase',
     'welcome' => 'Welcome',
     'week' => 'Week',

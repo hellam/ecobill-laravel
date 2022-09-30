@@ -89,7 +89,7 @@ const KTGLGroupsServerSide = function () {
         // Re-init functions on every table re-draw -- more info: https://datatables.net/reference/event/draw
         dt.on('draw', function () {
             KTMenu.createInstances();
-            // handleUpdateRows();
+            handleUpdateRows();
             // handleDeleteRows();
         });
     };
@@ -139,7 +139,8 @@ const KTGLGroupsServerSide = function () {
                             $('#kt_modal_update_gl_group_form').show({backdrop: 'static', keyboard: false});//show form
                             const gl_group = response.data;
                             //
-                            $("#kt_modal_update_gl_group_form input[name='class_name']").val(gl_group.class_name);
+                            $("#kt_modal_update_gl_group_form input[name='name']").val(gl_group.name);
+                            $("#kt_modal_update_gl_group_form select[name='class_id']").val(gl_group.class_id).trigger('change');
                             $("#kt_modal_update_gl_group_form input[name='inactive']").val(gl_group.inactive)
 
                             if (gl_group.inactive !== 1) {

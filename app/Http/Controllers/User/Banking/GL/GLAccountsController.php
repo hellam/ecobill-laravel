@@ -20,10 +20,11 @@ class GLAccountsController extends Controller
 {
     public function index(): Factory|View|Application
     {
+        $gl_classes = ChartClass::select('class_name','id')->all();
         $gl_accounts_count = ChartAccount::count() ?? 0;
         $gl_groups_count = ChartGroup::count() ?? 0;
         $gl_classes_count = ChartClass::count() ?? 0;
-        return view('user.banking_gl.gl_maintenance', compact('gl_accounts_count', 'gl_groups_count', 'gl_classes_count'));
+        return view('user.banking_gl.gl_maintenance', compact('gl_accounts_count', 'gl_groups_count', 'gl_classes_count','gl_classes'));
     }
 
     //Data table API

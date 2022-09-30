@@ -132,9 +132,9 @@ class GLClassController extends Controller
     {
         $chart_class = ChartClass::find($id);
         if (isset($chart_class)) {
-            $users = ChartGroup::where('class_id', $id)->count();
-            if ($users > 0) {
-                return error_web_processor(__('messages.msg_delete_not_allowed', ['attribute' => __('messages.gl_class'), 'attribute1' => __('messages.gl_groups')]));
+            $chart_group = ChartGroup::where('class_id', $id)->count();
+            if ($chart_group > 0) {
+                return error_web_processor(__('messages.msg_delete_not_allowed', ['attribute' => __('messages.gl_class'), 'attribute1' => __('messages.gl_group')]));
             }
             $chart_class->delete();
             return success_web_processor(null, __('messages.msg_deleted_success', ['attribute' => __('messages.gl_class')]));

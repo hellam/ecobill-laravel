@@ -11,7 +11,6 @@ use App\Models\MakerCheckerRule;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Validator;
 
@@ -206,7 +205,6 @@ class UserValidators
             'account_code' => 'required|unique:' . ChartAccount::class . ',account_code,NULL,id,client_ref,' . get_user_ref(),
             'account_name' => 'required|unique:' . ChartAccount::class . ',account_name,NULL,id,client_ref,' . get_user_ref(),
             'account_group' => 'required|exists:' . ChartGroup::class . ',id',
-            'class_id' => 'required',
         ]);
     }
 
@@ -217,7 +215,6 @@ class UserValidators
             'account_code' => 'required|unique:' . ChartAccount::class . ',account_code,' . $id . ',id,client_ref,' . get_user_ref(),
             'account_name' => 'required|unique:' . ChartAccount::class . ',account_name,' . $id . ',id,client_ref,' . get_user_ref(),
             'account_group' => 'required|exists:' . ChartGroup::class . ',id',
-            'class_id' => 'required',
             'inactive' => 'in:1,0',
         ]);
     }

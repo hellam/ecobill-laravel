@@ -4,6 +4,7 @@ namespace App\CentralLogics;
 
 use App\Models\Branch;
 use App\Models\BranchUser;
+use App\Models\ChartAccount;
 use App\Models\ChartClass;
 use App\Models\ChartGroup;
 use App\Models\MakerCheckerRule;
@@ -184,7 +185,7 @@ class UserValidators
     {
         return self::ValidatorMake($request->all(), [
             'name' => 'required|unique:' . ChartGroup::class . ',name,NULL,id,client_ref,' . get_user_ref(),
-            'class_id' => 'required',
+            'class_id' => 'required|exists:' . ChartClass::class . ',id',
         ]);
     }
 
@@ -193,6 +194,29 @@ class UserValidators
         $id = Route::current()->id;
         return self::ValidatorMake($request->all(), [
             'name' => 'required|unique:' . ChartGroup::class . ',name,' . $id . ',id,client_ref,' . get_user_ref(),
+            'class_id' => 'required|exists:' . ChartClass::class . ',id',
+            'inactive' => 'in:1,0',
+        ]);
+    }
+
+    public static function glAccountsCreateValidation(Request $request)
+    {
+
+        return self::ValidatorMake($request->all(), [
+            'account_code' => 'required|unique:' . ChartAccount::class . ',account_code,NULL,id,client_ref,' . get_user_ref(),
+            'account_name' => 'required|unique:' . ChartAccount::class . ',account_name,NULL,id,client_ref,' . get_user_ref(),
+            'account_group' => 'required|exists:' . ChartGroup::class . ',id',
+            'class_id' => 'required',
+        ]);
+    }
+
+    public static function glAccountsUpdateValidation(Request $request)
+    {
+        $id = Route::current()->id;
+        return self::ValidatorMake($request->all(), [
+            'account_code' => 'required|unique:' . ChartAccount::class . ',account_code,' . $id . ',id,client_ref,' . get_user_ref(),
+            'account_name' => 'required|unique:' . ChartAccount::class . ',account_name,' . $id . ',id,client_ref,' . get_user_ref(),
+            'account_group' => 'required|exists:' . ChartGroup::class . ',id',
             'class_id' => 'required',
             'inactive' => 'in:1,0',
         ]);
@@ -273,4 +297,5 @@ class UserValidators
         } else
             return '';
     }
+
 }

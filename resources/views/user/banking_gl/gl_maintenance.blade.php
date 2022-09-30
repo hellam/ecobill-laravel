@@ -99,7 +99,7 @@
                             <!--begin::Illustration-->
                             <div class="text-center px-4">
                                 <img class="mw-100 mh-300px" alt=""
-                                     src="{{asset('assets/media/illustrations/sketchy-1/2.png')}}"/>
+                                     src="{{asset('assets/media/illustrations/sketchy-1/2_.png')}}"/>
                             </div>
                             <!--end::Illustration-->
                         </div>
@@ -193,7 +193,7 @@
                             <!--begin::Illustration-->
                             <div class="text-center px-4">
                                 <img class="mw-100 mh-300px" alt=""
-                                     src="{{asset('assets/media/illustrations/sketchy-1/2.png')}}"/>
+                                     src="{{asset('assets/media/illustrations/sketchy-1/2_.png')}}"/>
                             </div>
                             <!--end::Illustration-->
                         </div>
@@ -286,7 +286,7 @@
                             <!--begin::Illustration-->
                             <div class="text-center px-4">
                                 <img class="mw-100 mh-300px" alt=""
-                                     src="{{asset('assets/media/illustrations/sketchy-1/2.png')}}"/>
+                                     src="{{asset('assets/media/illustrations/sketchy-1/2_.png')}}"/>
                             </div>
                             <!--end::Illustration-->
                         </div>

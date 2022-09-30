@@ -337,14 +337,13 @@
                         <div class="card-body pt-0">
                             <!--begin::Table-->
                             <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_gl_classes_table"
-                                   data-kt-dt_api="#">
+                                   data-kt-dt_api="{{route('user.banking_gl.gl_class.dt_api')}}">
                                 <!--begin::Table head-->
                                 <thead>
                                 <!--begin::Table row-->
                                 <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
                                     <th class="min-w-25px">#</th>
                                     <th class="min-w-125px">{{__('messages.name')}}</th>
-                                    <th class="min-w-125px">{{__('messages.created_by')}}</th>
                                     <th class="min-w-125px">{{__('messages.status')}}</th>
                                     <th class="text-end min-w-70px">{{__('messages.actions')}}</th>
                                 </tr>

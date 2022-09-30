@@ -7,7 +7,7 @@ const KTGLClassesServerSide = function () {
 
     // Private functions
     const initDatatable = function () {
-        let td = document.querySelector('#kt_branches_table')
+        let td = document.querySelector('#kt_gl_classes_table')
         dt = $("#kt_gl_classes_table").DataTable({
             // searchDelay: 500,
             processing: true,
@@ -18,7 +18,7 @@ const KTGLClassesServerSide = function () {
             },
             columns: [
                 {data: 'DT_RowIndex', name: 'id'},
-                {data: 'name'},
+                {data: 'class_name'},
                 {data: 'inactive'},
                 {data: 'actions'},
             ],
@@ -342,7 +342,7 @@ const KTGLClassesServerSide = function () {
         init: function () {
             form = document.querySelector('#kt_modal_update_branch_form');
 
-            if ($('#kt_branches_table').length) {
+            if ($('#kt_gl_classes_table').length) {
                 initDatatable();
                 dt.search('').draw();
                 // handleUpdateRows();

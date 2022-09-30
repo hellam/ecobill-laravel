@@ -220,7 +220,7 @@
                                     <!--end::Svg Icon-->
                                     <input type="text" data-kt-contact-table-filter="search"
                                            class="form-control form-control-solid w-250px ps-15"
-                                           placeholder="{{__('messages.search_hint',['attribute'=>__('messages.classes')])}}"/>
+                                           placeholder="{{__('messages.search')}}"/>
                                 </div>
                                 <!--end::Search-->
                             </div>
@@ -244,7 +244,7 @@
                         <div class="card-body pt-0">
                             <!--begin::Table-->
                             <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_gl_groups_table"
-                                   data-kt-dt_api="#">
+                                   data-kt-dt_api="{{route('user.banking_gl.gl_groups.dt_api')}}">
                                 <!--begin::Table head-->
                                 <thead>
                                 <!--begin::Table row-->
@@ -814,4 +814,5 @@
         <script src="{{ asset('assets/js/pages/gl_maintenance/classes/list.js') }}"></script>
         <script src="{{ asset('assets/js/pages/gl_maintenance/classes/update.js') }}"></script>
         <script src="{{ asset('assets/js/pages/gl_maintenance/groups/add.js') }}"></script>
+        <script src="{{ asset('assets/js/pages/gl_maintenance/groups/list.js') }}"></script>
 @endpush

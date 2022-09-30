@@ -34,7 +34,10 @@ class PermissionMiddleware
             if ($permission) {
                 if ($permission->requires_hq)
                     if (!session('branch_is_main')) {
-                        abort(404);
+                        if ($request->getMethod() == "GET") {
+                            abort(404);
+                        }
+                        return error_web_processor(__('messages.msg_no_permission'));
                     }
             }
 

@@ -40,10 +40,10 @@ class GLAccountsController extends Controller
         return (new DataTables)->eloquent($chart_account)
             ->addIndexColumn()
             ->addColumn('id', function ($row) {
-                return ["id" => $row->id,
-                    "edit_url" => route('user.banking_gl.gl_accounts.edit', [$row->id]),
-                    "update_url" => route('user.banking_gl.gl_accounts.update', [$row->id]),
-                    "delete_url" => route('user.banking_gl.gl_accounts.delete', [$row->id])
+                return ["account_code" => $row->account_code,
+                    "edit_url" => route('user.banking_gl.gl_accounts.edit', [$row->account_code]),
+                    "update_url" => route('user.banking_gl.gl_accounts.update', [$row->account_code]),
+                    "delete_url" => route('user.banking_gl.gl_accounts.delete', [$row->account_code])
                 ];
             })
             ->editColumn('account_group', function ($row) {

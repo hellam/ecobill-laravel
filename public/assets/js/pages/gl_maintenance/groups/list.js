@@ -325,7 +325,7 @@ const KTGLGroupsServerSide = function () {
             if ($('#kt_gl_groups_table').length) {
                 initDatatable();
                 dt.search('').draw();
-                // handleUpdateRows();
+                handleUpdateRows();
                 // handleDeleteRows();
             }
         }

@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Auth;
  * @property string|null $updated_by
  * @property string|null $supervised_by
  * @property Carbon|null $supervised_at
- * @property bool|null $inactive
+ * @property int|null $inactive
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  *
@@ -32,7 +32,7 @@ class ChartClass extends Model
 	protected $table = 'chart_class';
 
 	protected $casts = [
-		'inactive' => 'bool'
+		'inactive' => 'int'
 	];
 
 	protected $dates = [

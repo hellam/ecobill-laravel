@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateChartTypesTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,16 @@ class CreateChartTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('chart_types', function (Blueprint $table) {
+        Schema::create('chart_groups', function (Blueprint $table) {
             $table->bigInteger('id', true);
             $table->string('name', 250)->nullable();
-            $table->bigInteger('class_id')->index('chart_class_id_fk');
-            $table->bigInteger('created_by')->nullable()->default(0);
-            $table->bigInteger('last_updated_by')->nullable()->default(0);
-            $table->timestamps();
+            $table->bigInteger('class_id');
+            $table->string("created_by",100)->nullable();
+            $table->string("updated_by",100)->nullable();
+            $table->string('supervised_by',100)->nullable();
+            $table->timestamp('supervised_at')->nullable();
             $table->boolean('inactive')->nullable()->default(false);
+            $table->timestamps();
         });
     }
 
@@ -31,6 +33,6 @@ class CreateChartTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('chart_types');
+        Schema::dropIfExists('chart_groups');
     }
-}
+};

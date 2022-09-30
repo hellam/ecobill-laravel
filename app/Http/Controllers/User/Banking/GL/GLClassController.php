@@ -69,4 +69,5 @@ class GLClassController extends Controller
 
         return success_web_processor(['id' => $chart_class->id], __('messages.msg_saved_success', ['attribute' => __('messages.new_gl_class')]));
     }
+
 }

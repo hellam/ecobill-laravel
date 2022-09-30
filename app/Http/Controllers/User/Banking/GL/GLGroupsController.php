@@ -29,6 +29,9 @@ class GLGroupsController extends Controller
                     "delete_url" => route('user.banking_gl.gl_group.delete', [$row->id])
                 ];
             })
+            ->addColumn('class_name', function ($row) {
+                return $row->classes->name;
+            })
             ->editColumn('inactive', function ($row) {
                 return $row->inactive == 0 ? '<div class="badge badge-sm badge-light-success">Active</div>' : '<div class="badge badge-sm badge-light-danger">Inactive</div>';
             })->make(true);

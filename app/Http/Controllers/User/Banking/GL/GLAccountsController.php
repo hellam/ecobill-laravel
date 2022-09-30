@@ -108,11 +108,11 @@ class GLAccountsController extends Controller
      */
     public function edit($id)
     {
-        $chart_group = ChartGroup::find($id);
-        if (isset($chart_group)) {
-            return success_web_processor($chart_group, __('messages.msg_item_found', ['attribute' => __('messages.gl_group')]));
+        $chart_account = ChartAccount::find($id);
+        if (isset($chart_account)) {
+            return success_web_processor($chart_account, __('messages.msg_item_found', ['attribute' => __('messages.gl_account')]));
         }
-        return error_web_processor(trans('messages.msg_item_not_found', ['attribute' => __('messages.gl_group')]));
+        return error_web_processor(trans('messages.msg_item_not_found', ['attribute' => __('messages.gl_account')]));
     }
 
     /**
@@ -122,7 +122,7 @@ class GLAccountsController extends Controller
     public function update(Request $request, $id, $created_at = null, $created_by = null,
                                    $supervised_by = null, $supervised_at = null)
     {
-        $validator = UserValidators::glGroupUpdateValidation($request);
+        $validator = UserValidators::glAccountsUpdateValidation($request);
 
         if ($validator != '') {
             return $validator;

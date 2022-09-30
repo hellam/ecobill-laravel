@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\Rules\PasswordHistoryRule;
+use Carbon\Carbon;
 use PHPUnit\Framework\TestCase;
 
 class ExampleTest extends TestCase

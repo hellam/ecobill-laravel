@@ -109,7 +109,7 @@ class GLGroupsController extends Controller
     public function update(Request $request, $id, $created_at = null, $created_by = null,
                                    $supervised_by = null, $supervised_at = null)
     {
-        $validator = UserValidators::glClassUpdateValidation($request);
+        $validator = UserValidators::glGroupUpdateValidation($request);
 
         if ($validator != '') {
             return $validator;

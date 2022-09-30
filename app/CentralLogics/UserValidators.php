@@ -187,7 +187,7 @@ class UserValidators
         ]);
     }
 
-    public static function glGroupUpateValidation(Request $request)
+    public static function glGroupUpdateValidation(Request $request)
     {
         $id = Route::current()->id;
         return self::ValidatorMake($request->all(), [

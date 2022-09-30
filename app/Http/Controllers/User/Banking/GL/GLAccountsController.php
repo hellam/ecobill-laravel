@@ -108,7 +108,7 @@ class GLAccountsController extends Controller
      */
     public function edit($id)
     {
-        $chart_account = ChartAccount::find($id);
+        $chart_account = ChartAccount::where('id', $id)->first();
         if (isset($chart_account)) {
             return success_web_processor($chart_account, __('messages.msg_item_found', ['attribute' => __('messages.gl_account')]));
         }

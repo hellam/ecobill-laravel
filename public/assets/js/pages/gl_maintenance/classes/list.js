@@ -64,8 +64,6 @@ const KTGLClassesServerSide = function () {
                                     </a>
                                 </div>
                                 <!--end::Menu item-->
-                            <!--begin::Menu-->
-                            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4" data-kt-menu="true">
                                 <!--begin::Menu item-->
                                 <div class="menu-item px-3">
                                     <a href="#" class="menu-link px-3 test" data-kt-gl-classes-table-actions="delete_row">
@@ -90,7 +88,7 @@ const KTGLClassesServerSide = function () {
         // Re-init functions on every table re-draw -- more info: https://datatables.net/reference/event/draw
         dt.on('draw', function () {
             KTMenu.createInstances();
-            // handleUpdateRows();
+            handleUpdateRows();
             // handleDeleteRows();
         });
     };
@@ -98,19 +96,19 @@ const KTGLClassesServerSide = function () {
     //Edit Button
     const handleUpdateRows = function () {
         // Select all delete buttons
-        const editButtons = document.querySelectorAll('[data-kt-branch-table-actions="edit_row"]');
+        const editButtons = document.querySelectorAll('[data-kt-gl-classes-table-actions="edit_row"]');
 
         // Make the DIV element draggable:
-        const element = document.querySelector('#kt_modal_update_branch');
+        const element = document.querySelector('#kt_modal_update_gl_class');
         dragElement(element);
         editButtons.forEach(d => {
             // edit button on click
             d.addEventListener('click', function (e) {
                 e.preventDefault();
 
-                $('#kt_modal_update_branch_form').hide();//hide form
+                $('#kt_modal_update_gl_class_form').hide();//hide form
                 $('.loader_container').show();//show loader
-                $("#kt_modal_update_branch").modal('show');//show modal
+                $("#kt_modal_update_gl_class").modal('show');//show modal
                 // Select parent row
                 const parent = e.target.closest('tr');
 
@@ -137,44 +135,17 @@ const KTGLClassesServerSide = function () {
 
                         } else {
 
-                            $('#kt_modal_update_branch_form').show({backdrop: 'static', keyboard: false});//show form
-                            const branch = response.data;
+                            $('#kt_modal_update_gl_class_form').show({backdrop: 'static', keyboard: false});//show form
+                            const gl_class = response.data;
                             //
-                            $("#kt_modal_update_branch_form input[name='name']").val(branch.name);
-                            $("#kt_modal_update_branch_form input[name='email']").val(branch.email);
-                            $("#kt_modal_update_branch_form input[name='bcc_email']").val(branch.bcc_email);
-                            $("#kt_modal_update_branch_form input[name='phone']").val(branch.phone);
-                            $("#kt_modal_update_branch_form input[name='tax_no']").val(branch.tax_no);
-                            $("#kt_modal_update_branch_form select[name='default_bank_account']").val(branch.default_bank_account).trigger('change');
-                            $("#kt_modal_update_branch_form select[name='tax_period']").val(branch.tax_period).trigger('change');
-                            $("#kt_modal_update_branch_form select[name='default_currency']").val(branch.default_currency).trigger('change');
-                            $("#kt_modal_update_branch_form select[name='fiscal_year']").val(branch.fiscal_year).trigger('change');
-                            $("#kt_modal_update_branch_form select[name='timezone']").val(branch.timezone).trigger('change');
-                            $("#kt_modal_update_branch_form textarea[name='address']").val(branch.address);
-
-                            $("#kt_modal_update_branch_form input[name='inactive']").val(branch.inactive);
-                            if (branch.inactive === 0) {
-                                $("#kt_modal_update_branch_form input[id='inactive']").prop("checked", true);
-                            } else {
-                                $("#kt_modal_update_branch_form input[id='inactive']").prop("checked", false)
-                            }
-
-                            //main branch cannot be deactivated
-                            if (branch.is_main) {
-                                $("#kt_modal_update_branch_form input[id='inactive']").attr("disabled", true);
-                                $("#kt_modal_update_branch_form input[id='inactive']").after('<span id="inactive_disabled" style="color: red;">Main Branch cannot be Deactivated</span>');
-                            }
-                            else {
-                                $("#kt_modal_update_branch_form input[id='inactive']").attr("disabled", false);
-                                $("#kt_modal_update_branch_form #inactive_disabled").remove();
-                            }
+                            $("#kt_modal_update_gl_class_form input[name='class_name']").val(gl_class.class_name);
 
                             //active/inactive
-                            $("#kt_modal_update_branch_form input[id='inactive']").on('change', function () {
+                            $("#kt_modal_update_gl_class_form input[id='inactive']").on('change', function () {
                                 if ($(this).is(':checked'))
-                                    $("#kt_modal_update_branch_form input[name='inactive']").val(0)
+                                    $("#kt_modal_update_gl_class_form input[name='inactive']").val(0)
                                 else {
-                                    $("#kt_modal_update_branch_form input[name='inactive']").val(1)
+                                    $("#kt_modal_update_gl_class_form input[name='inactive']").val(1)
                                 }
                             })
                         }
@@ -340,12 +311,12 @@ const KTGLClassesServerSide = function () {
     // Public methods
     return {
         init: function () {
-            form = document.querySelector('#kt_modal_update_branch_form');
+            form = document.querySelector('#kt_modal_update_gl_class_form');
 
             if ($('#kt_gl_classes_table').length) {
                 initDatatable();
                 dt.search('').draw();
-                // handleUpdateRows();
+                handleUpdateRows();
                 // handleDeleteRows();
             }
         }

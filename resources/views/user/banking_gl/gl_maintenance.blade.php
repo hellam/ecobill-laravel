@@ -809,4 +809,5 @@
         <script src="{{ asset('assets/js/pages/gl_maintenance/accounts/add.js') }}"></script>
         <script src="{{ asset('assets/js/pages/gl_maintenance/classes/add.js') }}"></script>
         <script src="{{ asset('assets/js/pages/gl_maintenance/classes/list.js') }}"></script>
+        <script src="{{ asset('assets/js/pages/gl_maintenance/classes/update.js') }}"></script>
 @endpush

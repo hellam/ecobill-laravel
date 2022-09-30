@@ -139,6 +139,13 @@ const KTGLClassesServerSide = function () {
                             const gl_class = response.data;
                             //
                             $("#kt_modal_update_gl_class_form input[name='class_name']").val(gl_class.class_name);
+                            $("#kt_modal_update_gl_class_form input[name='inactive']").val(gl_class.inactive)
+
+                            if (gl_class.inactive !== 1) {
+                                $("#kt_modal_update_gl_class_form input[id='inactive']").attr("checked", "checked");
+                            } else {
+                                $("#kt_modal_update_gl_class_form input[id='inactive']").removeAttr("checked")
+                            }
 
                             //active/inactive
                             $("#kt_modal_update_gl_class_form input[id='inactive']").on('change', function () {

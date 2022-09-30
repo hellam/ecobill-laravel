@@ -586,15 +586,15 @@
                                             @endforeach
                                         </select>
                                         <!--end::Input-->
-                                        <!--begin::Input group-->
-                                        <input type="hidden" name="inactive">
-                                        <label class="form-check form-switch form-check-custom form-check-solid">
-                                            <input class="form-check-input" type="checkbox" id="inactive">
-                                            <span class="form-check-label fs-7 fw-bolder text-gray-800">Active</span>
-                                        </label>
-                                        <!--end::Input group-->
                                     </div>
                                 </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <input type="hidden" name="inactive">
+                                <label class="form-check form-switch form-check-custom form-check-solid fs-6 fw-bold">
+                                    <span class=" fw-bolder text-gray-800">Active</span>
+                                    <input class="form-check-input mx-2" type="checkbox" id="inactive">
+                                </label>
                                 <!--end::Input group-->
                             </div>
                             <!--end::Scroll-->
@@ -823,9 +823,9 @@
                                 <!--end::Input group-->
                                 <!--begin::Input group-->
                                 <input type="hidden" name="inactive">
-                                <label class="form-check form-switch form-check-custom form-check-solid">
-                                    <input class="form-check-input" type="checkbox" id="inactive">
-                                    <span class="form-check-label fs-7 fw-bolder text-gray-800">Active</span>
+                                <label class="form-check form-switch form-check-custom form-check-solid fs-6 fw-bold">
+                                    <span class=" fw-bolder text-gray-800">Active</span>
+                                    <input class="form-check-input mx-2" type="checkbox" id="inactive">
                                 </label>
                                 <!--end::Input group-->
                             </div>
@@ -1028,9 +1028,9 @@
                                 <!--end::Input group-->
                                 <!--begin::Input group-->
                                 <input type="hidden" name="inactive">
-                                <label class="form-check form-switch form-check-custom form-check-solid">
-                                    <input class="form-check-input" type="checkbox" id="inactive">
-                                    <span class="form-check-label fs-7 fw-bolder text-gray-800">Active</span>
+                                <label class="form-check form-switch form-check-custom form-check-solid fs-6 fw-bold">
+                                    <span class=" fw-bolder text-gray-800">Active</span>
+                                    <input class="form-check-input mx-2" type="checkbox" id="inactive">
                                 </label>
                                 <!--end::Input group-->
                             </div>
@@ -1067,6 +1067,7 @@
 @push('custom_scripts')
     <script src="{{ asset('assets/js/pages/gl_maintenance/accounts/add.js') }}"></script>
     <script src="{{ asset('assets/js/pages/gl_maintenance/accounts/list.js') }}"></script>
+    <script src="{{ asset('assets/js/pages/gl_maintenance/accounts/update.js') }}"></script>
     <script src="{{ asset('assets/js/pages/gl_maintenance/classes/add.js') }}"></script>
     <script src="{{ asset('assets/js/pages/gl_maintenance/classes/list.js') }}"></script>
     <script src="{{ asset('assets/js/pages/gl_maintenance/classes/update.js') }}"></script>

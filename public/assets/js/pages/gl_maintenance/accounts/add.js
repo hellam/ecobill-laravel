@@ -44,9 +44,9 @@ const KTGLAccountsAdd = function () {
         );
 
         // //revalidate account_type select
-        $(form.querySelector('[name="account_type"]')).on('change', function () {
+        $(form.querySelector('[name="account_group"]')).on('change', function () {
             // Revalidate the field when an option is chosen
-            validator.revalidateField("account_type");
+            validator.revalidateField("account_group");
         })
 
         // Action buttons

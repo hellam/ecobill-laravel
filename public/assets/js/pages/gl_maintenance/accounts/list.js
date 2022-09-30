@@ -140,7 +140,9 @@ const KTGLAccountsServerSide = function () {
                             $('#kt_modal_update_gl_account_form').show({backdrop: 'static', keyboard: false});//show form
                             const gl_account = response.data;
                             //
-                            $("#kt_modal_update_gl_account_form input[name='class_name']").val(gl_account.class_name);
+                            $("#kt_modal_update_gl_account_form input[name='account_code']").val(gl_account.account_code);
+                            $("#kt_modal_update_gl_account_form input[name='account_name']").val(gl_account.account_name);
+                            $("#kt_modal_update_gl_account_form select[name='account_group']").val(gl_account.account_group).trigger('change');
                             $("#kt_modal_update_gl_account_form input[name='inactive']").val(gl_account.inactive)
 
                             if (gl_account.inactive !== 1) {

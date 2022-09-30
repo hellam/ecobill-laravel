@@ -19,7 +19,7 @@ class GLClassController extends Controller
     //Data table API
     public function dt_api(Request $request): JsonResponse
     {
-        $chart_class = ChartClass::orderBy('name');
+        $chart_class = ChartClass::orderBy('class_name');
 
         return (new DataTables)->eloquent($chart_class)
             ->addIndexColumn()
@@ -47,7 +47,6 @@ class GLClassController extends Controller
 
         $post_data = [
             'class_name' => $request->class_name,
-
             'client_ref' => get_user_ref()
         ];
         //set_create_parameters($created_at, $created_by, ...)

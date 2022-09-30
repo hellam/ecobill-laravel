@@ -36,11 +36,13 @@ const KTGLAccountsAdd = function () {
             }
         );
 
+        console.log(form)
+
         // //revalidate account_type select
-        // form.querySelector('select[name="account_type"]').on('change', function () {
-        //     // Revalidate the field when an option is chosen
-        //     validator.revalidateField("account_type");
-        // })
+        form.querySelector('select[name="account_type"]').on('change', function () {
+            // Revalidate the field when an option is chosen
+            validator.revalidateField("account_type");
+        })
 
         // Action buttons
         submitButton.addEventListener('click', function (e) {

@@ -342,9 +342,9 @@
                                 <thead>
                                 <!--begin::Table row-->
                                 <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
-                                    <th class="min-w-25px">#</th>
-                                    <th class="min-w-125px">{{__('messages.name')}}</th>
-                                    <th class="min-w-125px">{{__('messages.status')}}</th>
+                                    <th class="min-w-125px">#</th>
+                                    <th class="min-w-100px">{{__('messages.name')}}</th>
+                                    <th class="min-w-100px">{{__('messages.status')}}</th>
                                     <th class="text-end min-w-70px">{{__('messages.actions')}}</th>
                                 </tr>
                                 <!--end::Table row-->

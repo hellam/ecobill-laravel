@@ -126,7 +126,7 @@
                                     <!--end::Svg Icon-->
                                     <input type="text" data-kt-contact-table-filter="search"
                                            class="form-control form-control-solid w-250px ps-15"
-                                           placeholder="{{__('messages.search_hint',['attribute'=>__('messages.account')])}}"/>
+                                           placeholder="{{__('messages.search')}}"/>
                                 </div>
                                 <!--end::Search-->
                             </div>
@@ -149,8 +149,8 @@
                         <!--begin::Card body-->
                         <div class="card-body pt-0">
                             <!--begin::Table-->
-                            <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_contacts_table"
-                                   data-kt-dt_api="#">
+                            <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_gl_accounts_table"
+                                   data-kt-dt_api="{{route('user.banking_gl.gl_accounts.dt_api')}}">
                                 <!--begin::Table head-->
                                 <thead>
                                 <!--begin::Table row-->
@@ -933,6 +933,7 @@
 
 @push('custom_scripts')
     <script src="{{ asset('assets/js/pages/gl_maintenance/accounts/add.js') }}"></script>
+    <script src="{{ asset('assets/js/pages/gl_maintenance/accounts/list.js') }}"></script>
     <script src="{{ asset('assets/js/pages/gl_maintenance/classes/add.js') }}"></script>
     <script src="{{ asset('assets/js/pages/gl_maintenance/classes/list.js') }}"></script>
     <script src="{{ asset('assets/js/pages/gl_maintenance/classes/update.js') }}"></script>

@@ -14,7 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('chart_accounts', function (Blueprint $table) {
-            $table->bigInteger('account_code')->primary();
+            $table->id();
+            $table->bigInteger('account_code');
             $table->string('account_name', 250)->nullable();
             $table->bigInteger('account_group');
             $table->string("client_ref",100)->nullable();

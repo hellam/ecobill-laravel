@@ -5,6 +5,7 @@ namespace App\CentralLogics;
 use App\Models\Branch;
 use App\Models\BranchUser;
 use App\Models\ChartClass;
+use App\Models\ChartGroup;
 use App\Models\MakerCheckerRule;
 use App\Models\Role;
 use App\Models\User;
@@ -175,6 +176,23 @@ class UserValidators
         $id = Route::current()->id;
         return self::ValidatorMake($request->all(), [
             'class_name' => 'required|unique:' . ChartClass::class . ',class_name,' . $id . ',id,client_ref,' . get_user_ref(),
+        ]);
+    }
+
+    public static function glGroupCreateValidation(Request $request)
+    {
+        return self::ValidatorMake($request->all(), [
+            'name' => 'required|unique:' . ChartGroup::class . ',name,NULL,id,client_ref,' . get_user_ref(),
+            'class_id' => 'required',
+        ]);
+    }
+
+    public static function glGroupUpateValidation(Request $request)
+    {
+        $id = Route::current()->id;
+        return self::ValidatorMake($request->all(), [
+            'name' => 'required|unique:' . ChartClass::class . ',name,' . $id . ',id,client_ref,' . get_user_ref(),
+            'class_id' => 'required',
         ]);
     }
 

@@ -1,7 +1,7 @@
 "use strict";
 
 // Class definition
-const KTGLClassesUpdate = function () {
+const KTGLGroupsUpdate = function () {
     // Shared variables
     let submitButton;
     let cancelButton;
@@ -175,6 +175,7 @@ const KTGLClassesUpdate = function () {
                     }).then(function (result) {
                         if (result.isConfirmed) {
                             // Hide modal
+                            form.reset();
                             modal.hide();
 
                             // Enable submit button after loading
@@ -239,10 +240,8 @@ const KTGLClassesUpdate = function () {
                 });
 
                 submitButton.removeAttribute('data-kt-indicator');
-
                 // Enable submit button after loading
                 submitButton.disabled = false;
-
             }
         });
     }
@@ -263,5 +262,5 @@ const KTGLClassesUpdate = function () {
 
 // On document ready
 KTUtil.onDOMContentLoaded(function () {
-    KTGLClassesUpdate.init();
+    KTGLGroupsUpdate.init();
 });

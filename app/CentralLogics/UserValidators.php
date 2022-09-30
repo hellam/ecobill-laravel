@@ -165,7 +165,7 @@ class UserValidators
     public static function glClassCreateValidation(Request $request)
     {
         return self::ValidatorMake($request->all(), [
-            'class_name' => 'required|unique:' . ChartClass::class . ',name,NULL,id,client_ref,' . get_user_ref(),
+            'class_name' => 'required|unique:' . ChartClass::class . ',class_name,NULL,id,client_ref,' . get_user_ref(),
         ]);
     }
 

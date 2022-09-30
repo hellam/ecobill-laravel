@@ -153,6 +153,7 @@ const KTGLClassesUpdate = function () {
                     }).then(function (result) {
                         if (result.isConfirmed) {
                             // Hide modal
+                            form.reset();
                             modal.hide();
 
                             // Enable submit button after loading

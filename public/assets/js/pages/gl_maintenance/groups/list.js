@@ -42,7 +42,7 @@ const KTGLGroupsServerSide = function () {
                     data: 'action',
                     orderable: false,
                     searchable: false,
-                    className: 'text-end',
+                    groupName: 'text-end',
                     render: function () {
                         return `
                             <a href="#" class="btn btn-light btn-active-light-primary btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" data-kt-menu-flip="top-end">
@@ -76,7 +76,7 @@ const KTGLGroupsServerSide = function () {
                     },
                 }, {
                     targets: -2,
-                    className: 'text-end',
+                    groupName: 'text-end',
                     render: function (data, type, row) {
                         return decodeHtml(row.inactive)
                     },
@@ -90,7 +90,7 @@ const KTGLGroupsServerSide = function () {
         dt.on('draw', function () {
             KTMenu.createInstances();
             handleUpdateRows();
-            // handleDeleteRows();
+            handleDeleteRows();
         });
     };
 
@@ -143,7 +143,7 @@ const KTGLGroupsServerSide = function () {
                             $("#kt_modal_update_gl_group_form select[name='class_id']").val(gl_group.class_id).trigger('change');
                             $("#kt_modal_update_gl_group_form input[name='inactive']").val(gl_group.inactive)
 
-                            if (gl_group.inactive !== 1) {
+                            if (gl_group.inactive === 0) {
                                 $("#kt_modal_update_gl_group_form input[id='inactive']").attr("checked", "checked");
                             } else {
                                 $("#kt_modal_update_gl_group_form input[id='inactive']").removeAttr("checked")
@@ -196,10 +196,10 @@ const KTGLGroupsServerSide = function () {
                 const parent = e.target.closest('tr');
 
                 // Get rule name
-                const className = parent.querySelectorAll('td')[1].innerText;
+                const groupName = parent.querySelectorAll('td')[1].innerText;
                 delete_url = parent.querySelector("input[class='delete_url']").value;
                 Swal.fire({
-                    text: "Are you sure you want to delete " + className,
+                    text: "Are you sure you want to delete " + groupName,
                     icon: "warning",
                     showCancelButton: true,
                     buttonsStyling: false,
@@ -212,7 +212,7 @@ const KTGLGroupsServerSide = function () {
                 }).then(function (result) {
                     if (result.value) {
                         Swal.fire({
-                            text: "Deleting " + className,
+                            text: "Deleting " + groupName,
                             icon: "info",
                             allowOutsideClick: false,
                             buttonsStyling: false,
@@ -222,7 +222,7 @@ const KTGLGroupsServerSide = function () {
 
                     } else if (result.dismiss === 'cancel') {
                         Swal.fire({
-                            text: className + " was not deleted.",
+                            text: groupName + " was not deleted.",
                             icon: "error",
                             buttonsStyling: false,
                             confirmButtonText: "Ok, got it!",
@@ -326,7 +326,7 @@ const KTGLGroupsServerSide = function () {
                 initDatatable();
                 dt.search('').draw();
                 handleUpdateRows();
-                // handleDeleteRows();
+                handleDeleteRows();
             }
         }
     }

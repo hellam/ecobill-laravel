@@ -44,6 +44,7 @@ return [
     'edged_customer_analysis' => 'Edged Customer Analysis',
     'expenses' => 'Expenses',
     'expense_reports' => 'Expenses Reports',
+    'account_transfer' => 'Account transfer',
     'gl_maintenance' => 'GL Maintenance',
     'gl_transactions' => 'GL Transactions',
     'gl' => 'GL',

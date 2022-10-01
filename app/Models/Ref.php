@@ -6,7 +6,9 @@
 
 namespace App\Models;
 
+use App\Scopes\ClientRefScope;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class Ref
@@ -34,4 +36,11 @@ class Ref extends Model
 		'reference',
 		'client_ref'
 	];
+
+    public static function booted()
+    {
+        if (Auth::guard('user')->check()){
+            static::addGlobalScope(new ClientRefScope());
+        }
+    }
 }

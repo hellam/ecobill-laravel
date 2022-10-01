@@ -6,12 +6,14 @@
 
 namespace App\Models;
 
+use App\Scopes\ClientRefScope;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class Product
- * 
+ *
  * @property int $id
  * @property string $barcode
  * @property string|null $name
@@ -27,7 +29,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $updated_by
  * @property string|null $supervised_by
  * @property Carbon|null $supervised_at
- * @property bool|null $inactive
+ * @property int $inactive
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  *
@@ -44,7 +46,7 @@ class Product extends Model
 		'category_id' => 'int',
 		'tax_id' => 'int',
 		'type' => 'int',
-		'inactive' => 'bool'
+		'inactive' => 'int'
 	];
 
 	protected $dates = [
@@ -68,4 +70,11 @@ class Product extends Model
 		'supervised_at',
 		'inactive'
 	];
+
+    public static function booted()
+    {
+        if (Auth::guard('user')->check()){
+            static::addGlobalScope(new ClientRefScope());
+        }
+    }
 }

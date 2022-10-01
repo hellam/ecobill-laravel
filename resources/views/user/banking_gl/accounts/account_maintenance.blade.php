@@ -50,7 +50,170 @@
             <!--end::Page title-->
         </div>
         <!--end::Toolbar-->
+        <!--begin::Card-->
+        <div class="card shadow">
+            @if($account_count<=0)
+                <!--begin::No Accounts Wrapper-->
+                <div class="card-px text-center py-20 my-10">
+                    <!--begin::Title-->
+                    <h2 class="fs-2x fw-bolder mb-10">{{__('messages.welcome_to_module',['attribute'=>__('messages.account_maintenance')])}}</h2>
+                    <!--end::Title-->
+                    <!--begin::Description-->
+                    <p class="text-gray-400 fs-4 fw-bold mb-10">{{__('messages.not_found',['attribute'=>__('messages.accounts')])}}</p>
+                    <!--end::Description-->
+                    <!--begin::Action-->
+                    <a href="#" data-bs-toggle="modal"
+                       data-bs-target="#kt_modal_add_account"
+                       class="btn btn-primary">{{__('messages.add_new')}}</a>
+                    <!--end::Action-->
 
+                    <!--begin::Illustration-->
+                    <div class="text-center px-4">
+                        <img class="mw-100 mh-300px" alt=""
+                             src="{{asset('assets/media/illustrations/sketchy-1/2_.png')}}"/>
+                    </div>
+                    <!--end::Illustration-->
+                </div>
+                <!--end::No Accounts Wrapper-->
+            @else
+
+            @endif
+        </div>
+        <!--end::Card-->
+
+        <!--begin::Modal - Account - Add-->
+        <div class="modal fade" id="kt_modal_add_account" tabindex="-1">
+            <!--begin::Modal dialog-->
+            <div class="modal-dialog modal-dialog-centered mw-650px">
+                <!--begin::Modal content-->
+                <div class="modal-content">
+                    <!--begin::Form-->
+                    <form class="form" action="#" id="kt_modal_add_account_form"
+                          data-kt-action="#"
+                          data-kt-redirect="#">
+                        <!--begin::Modal header-->
+                        <div class="modal-header" id="kt_modal_add_account_header">
+                            <!--begin::Modal title-->
+                            <h2 class="fw-bolder">{{__('messages.new_bank_account')}}</h2>
+                            <!--end::Modal title-->
+                            <!--begin::Close-->
+                            <div id="kt_modal_add_account_close"
+                                 class="btn btn-icon btn-sm btn-active-icon-primary">
+                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                                <span class="svg-icon svg-icon-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                         height="24" viewBox="0 0 24 24" fill="none">
+                                        <rect opacity="0.5" x="6" y="17.3137" width="16"
+                                              height="2" rx="1"
+                                              transform="rotate(-45 6 17.3137)"
+                                              fill="currentColor"/>
+                                        <rect x="7.41422" y="6" width="16" height="2" rx="1"
+                                              transform="rotate(45 7.41422 6)"
+                                              fill="currentColor"/>
+                                    </svg>
+                                </span>
+                                <!--end::Svg Icon-->
+                            </div>
+                            <!--end::Close-->
+                        </div>
+                        <!--end::Modal header-->
+                        <!--begin::Modal body-->
+                        <div class="modal-body py-10 px-lg-17">
+                            <!--begin::Scroll-->
+                            <div class="scroll-y me-n7 pe-7" id="kt_modal_add_account_scroll" data-kt-scroll="true"
+                                 data-kt-scroll-activate="{default: false, lg: true}"
+                                 data-kt-scroll-max-height="auto"
+                                 data-kt-scroll-dependencies="#kt_modal_add_account_header"
+                                 data-kt-scroll-wrappers="#kt_modal_add_account_scroll"
+                                 data-kt-scroll-offset="300px">
+
+                                {{--                                currency - select--}}
+                                {{--                                transactions gl_account--}}
+                                {{--                                charges_gl_account--}}
+                                {{--                                branch_id--}}
+
+                                <!--begin::Input group-->
+                                <div class="fv-row mb-7">
+                                    <!--begin::Label-->
+                                    <label class="fs-6 fw-bold mb-2" for="account_name">
+                                        <span class="required">{{__('messages.acc_name')}}</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                    <input type="text" class="form-control form-control-solid"
+                                           placeholder="{{__('messages.acc_name')}}"
+                                           name="account_name"/>
+                                    <!--end::Input-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="fv-row mb-7">
+                                    <!--begin::Label-->
+                                    <label class="fs-6 fw-bold mb-2" for="account_number">
+                                        <span class="required">{{__('messages.acc_number')}}</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                    <input type="text" class="form-control form-control-solid"
+                                           placeholder="{{__('messages.acc_number')}}"
+                                           name="account_number"/>
+                                    <!--end::Input-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="fv-row mb-7">
+                                    <!--begin::Label-->
+                                    <label class="fs-6 fw-bold mb-2" for="entity_name">
+                                        <span>{{__('messages.entity_name')}}</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                    <input type="text" class="form-control form-control-solid"
+                                           placeholder="{{__('messages.entity_name')}} i.e Bank Name"
+                                           name="entity_name"/>
+                                    <!--end::Input-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="fv-row mb-7">
+                                    <!--begin::Label-->
+                                    <label class="fs-6 fw-bold mb-2" for="entity_address">
+                                        <span>{{__('messages.entity_address')}}</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                    <input type="text" class="form-control form-control-solid"
+                                           placeholder="{{__('messages.entity_address')}} i.e Bank Address"
+                                           name="entity_address"/>
+                                    <!--end::Input-->
+                                </div>
+                                <!--end::Input group-->
+                            </div>
+                            <!--end::Scroll-->
+                        </div>
+                        <!--end::Modal body-->
+                        <!--begin::Modal footer-->
+                        <div class="modal-footer flex-center">
+                            <!--begin::Button-->
+                            <button type="reset" id="kt_modal_add_account_cancel" class="btn btn-light me-3">
+                                Discard
+                            </button>
+                            <!--end::Button-->
+                            <!--begin::Button-->
+                            <button type="submit" id="kt_modal_add_account_submit" class="btn btn-primary">
+                                <span class="indicator-label">Submit</span>
+                                <span class="indicator-progress">Please wait...
+                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                            </button>
+                            <!--end::Button-->
+                        </div>
+                        <!--end::Modal footer-->
+                    </form>
+                    <!--end::Form-->
+                </div>
+            </div>
+        </div>
+        <!--end::Modal - Account - Add-->
     </div>
     <!--end::Container-->
 @stop

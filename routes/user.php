@@ -161,7 +161,12 @@ Route::group(['as' => 'user.'], function () {
                 Route::put('update/{id}', 'update')->name('update')->middleware('permission:3021,' . ST_GL_ACCOUNT_SETUP)->whereNumber('id');
                 Route::delete('delete/{id}', 'destroy')->name('delete')->middleware('permission:3022,' . ST_GL_ACCOUNT_SETUP)->whereNumber('id');
             });
+        });
 
+        Route::group(['prefix' => 'banking', 'as' => 'banking.'], function () {
+            Route::controller(User\Banking\AccountMaintenanceController::class)->prefix('account-maintenance')->as('account_maintenance.')->group(function () {
+                Route::get('/', 'index')->name('all')->middleware('permission:302');
+            });
         });
 
     });

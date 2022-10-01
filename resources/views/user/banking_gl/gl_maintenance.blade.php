@@ -470,7 +470,7 @@
                         <!--begin::Modal footer-->
                         <div class="modal-footer flex-center">
                             <!--begin::Button-->
-                            <button type="reset" id="kt_modal_add_gl_account_cancel" class="btn btn-light me-3">
+                            <button type="button" id="kt_modal_add_gl_account_cancel" class="btn btn-light me-3">
                                 Discard
                             </button>
                             <!--end::Button-->

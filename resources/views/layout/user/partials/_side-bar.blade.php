@@ -146,7 +146,7 @@
             <!--end:Menu item-->
             <!--begin:Menu item-->
             <div data-kt-menu-trigger="click"
-                 class="menu-item menu-accordion @if(Route::is('user.banking*'))hover show @endif">
+                 class="menu-item menu-accordion @if(Route::is('user.banking_gl.*') || Route::is('user.banking.*'))hover show @endif">
                 <!--begin:Menu link-->
                 <span class="menu-link">
                     <span class="menu-icon">
@@ -171,7 +171,8 @@
                 <!--begin:Menu sub-->
                 <div class="menu-sub menu-sub-accordion">
                     <!--begin:Menu item-->
-                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                    <div data-kt-menu-trigger="click"
+                         class="menu-item menu-accordion @if(Route::is('user.banking.*'))hover show @endif">
                         <!--begin:Menu link-->
                         <span class="menu-link">
                             <span class="menu-bullet">
@@ -246,7 +247,8 @@
                             <!--begin:Menu item-->
                             <div class="menu-item">
                                 <!--begin:Menu link-->
-                                <a class="menu-link @if(Route::is('user.banking.accounts.all'))active @endif" href="{{route('user.banking.accounts.all')}}">
+                                <a class="menu-link @if(Route::is('user.banking.accounts.all'))active @endif"
+                                   href="{{route('user.banking.accounts.all')}}">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
@@ -261,7 +263,7 @@
                     <!--end:Menu item-->
                     <!--begin:Menu item-->
                     <div data-kt-menu-trigger="click"
-                         class="menu-item menu-accordion @if(Route::is('user.banking*'))hover show @endif">
+                         class="menu-item menu-accordion @if(Route::is('user.banking_gl.*'))hover show @endif">
                         <!--begin:Menu link-->
                         <span class="menu-link">
                             <span class="menu-bullet">

@@ -2,6 +2,7 @@
 
 namespace App\CentralLogics;
 
+use App\Models\BankAccount;
 use App\Models\Branch;
 use App\Models\BranchUser;
 use App\Models\ChartAccount;
@@ -11,6 +12,7 @@ use App\Models\MakerCheckerRule;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Validator;
 
@@ -216,6 +218,15 @@ class UserValidators
             'account_name' => 'required|unique:' . ChartAccount::class . ',account_name,' . $id . ',id,client_ref,' . get_user_ref(),
             'account_group' => 'required|exists:' . ChartGroup::class . ',id',
             'inactive' => 'in:1,0',
+        ]);
+    }
+
+    public static function bankAccountsCreateValidation(Request $request)
+    {
+        return self::ValidatorMake($request->all(), [
+            'account_name' => 'required|unique:' . BankAccount::class . ',account_name,NULL,id,client_ref,' . get_user_ref(),
+            'account_number' => 'required|unique:' . ChartAccount::class . ',account_number,NULL,id,client_ref,' . get_user_ref(),
+            'account_group' => 'required|exists:' . ChartGroup::class . ',id',
         ]);
     }
 

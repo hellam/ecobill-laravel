@@ -90,6 +90,7 @@ return [
     'bcc_email' => 'BCC Email',
     'category' => 'Category',
     'categories' => 'Categories',
+    'charges' => 'Charges',
     'classes' => 'Classes',
     'class' => 'Class',
     'combination' => 'Combination',

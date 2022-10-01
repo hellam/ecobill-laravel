@@ -25,6 +25,7 @@ class BankAccountController extends Controller
     {
         $account_count = BankAccount::count();
         $currency = Currency::all();
+        $gl_accounts = ChartAccount::all();
         $branches = Branch::all();
         return view('user.banking_gl.accounts.account_maintenance', compact(
             'account_count', 'currency', 'branches'));

@@ -87,6 +87,7 @@ const KTGLAccountsUpdate = function () {
 
         cancelButton.addEventListener('click', function (e) {
             e.preventDefault();
+            $('#kt_modal_add_gl_account_form :input').prop('disabled', true);
 
             Swal.fire({
                 text: "Are you sure you would like to cancel?",
@@ -100,6 +101,7 @@ const KTGLAccountsUpdate = function () {
                     cancelButton: "btn btn-active-light"
                 }
             }).then(function (result) {
+                $('#kt_modal_add_gl_account_form :input').prop('disabled', false);
                 if (result.value) {
                     form.reset(); // Reset form
                     modal.hide(); // Hide modal
@@ -109,6 +111,7 @@ const KTGLAccountsUpdate = function () {
 
         closeButton.addEventListener('click', function (e) {
             e.preventDefault();
+            $('#kt_modal_add_gl_account_form :input').prop('disabled', true);
 
             Swal.fire({
                 text: "Are you sure you would like to cancel?",
@@ -122,6 +125,7 @@ const KTGLAccountsUpdate = function () {
                     cancelButton: "btn btn-active-light"
                 }
             }).then(function (result) {
+                $('#kt_modal_add_gl_account_form :input').prop('disabled', false);
                 if (result.value) {
                     form.reset(); // Reset form
                     modal.hide(); // Hide modal

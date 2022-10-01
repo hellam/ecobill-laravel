@@ -78,7 +78,7 @@ const KTGLAccountsAdd = function () {
 
         discardButton.addEventListener('click', function (e) {
             e.preventDefault();
-
+            $('#kt_modal_add_gl_account_form :input').prop('disabled', true);
             Swal.fire({
                 text: "Are you sure you would like to cancel?",
                 icon: "warning",
@@ -91,6 +91,7 @@ const KTGLAccountsAdd = function () {
                     cancelButton: "btn btn-active-light"
                 }
             }).then(function (result) {
+                $('#kt_modal_add_gl_account_form :input').prop('disabled', false);
                 if (result.value) {
                     form.reset(); // Reset form
                     $("select[name='account_type']").val(null).trigger('change');
@@ -101,6 +102,7 @@ const KTGLAccountsAdd = function () {
 
         closeButton.addEventListener('click', function (e) {
             e.preventDefault();
+            $('#kt_modal_add_gl_account_form :input').prop('disabled', true);
 
             Swal.fire({
                 text: "Are you sure you would like to cancel?",
@@ -114,6 +116,7 @@ const KTGLAccountsAdd = function () {
                     cancelButton: "btn btn-active-light"
                 }
             }).then(function (result) {
+                $('#kt_modal_add_gl_account_form :input').prop('disabled', false);
                 if (result.value) {
                     form.reset(); // Reset form
                     $("select[name='account_type']").val(null).trigger('change');

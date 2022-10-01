@@ -22,7 +22,7 @@ class BankAccountController extends Controller
     public function index(): Factory|View|Application
     {
         $account_count = BankAccount::count();
-        return view('user.banking_gl.account_maintenance', compact('account_count'));
+        return view('user.banking_gl.accounts.account_maintenance', compact('account_count'));
     }
 
     /**

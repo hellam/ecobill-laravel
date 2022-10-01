@@ -8,7 +8,7 @@ class BankAccountController extends Controller
 {
     public function index()
     {
-        return view('user.banking_gl.account_maintenance');
+        return view('user.banking_gl.accounts.account_maintenance');
     }
 
 

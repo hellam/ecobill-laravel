@@ -246,7 +246,7 @@
                             <!--begin:Menu item-->
                             <div class="menu-item">
                                 <!--begin:Menu link-->
-                                <a class="menu-link @if(Route::is('user.banking.account_maintenance.all'))active @endif" href="{{route('user.banking.account_maintenance.all')}}">
+                                <a class="menu-link @if(Route::is('user.banking.accounts.all'))active @endif" href="{{route('user.banking.accounts.all')}}">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>

@@ -163,12 +163,6 @@ Route::group(['as' => 'user.'], function () {
             });
         });
 
-        Route::group(['prefix' => 'banking', 'as' => 'banking.'], function () {
-            Route::controller(User\Banking\AccountMaintenanceController::class)->prefix('account-maintenance')->as('account_maintenance.')->group(function () {
-                Route::get('/', 'index')->name('all')->middleware('permission:302');
-            });
-        });
-
     });
 });
 

@@ -8,6 +8,7 @@ use App\Models\BranchUser;
 use App\Models\ChartAccount;
 use App\Models\ChartClass;
 use App\Models\ChartGroup;
+use App\Models\Currency;
 use App\Models\MakerCheckerRule;
 use App\Models\Role;
 use App\Models\User;
@@ -228,7 +229,9 @@ class UserValidators
             'account_number' => 'required|unique:' . BankAccount::class . ',account_number,NULL,id,client_ref,' . get_user_ref(),
             'entity_name' => 'string',
             'entity_address' => 'string',
-            'currency' => 'string',
+            'currency' => 'required|exists:' . Currency::class . ',abbreviation,client_ref,' . get_user_ref(),
+            'chart_code' => 'required|unique:'. ChartAccount::class . ',chart_code,client_ref,' . get_user_ref(),
+            'charge_chart_code' => 'required|unique:'. ChartAccount::class . ',chart_code,client_ref,' . get_user_ref(),
         ]);
     }
 

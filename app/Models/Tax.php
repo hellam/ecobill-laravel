@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Tax
- * 
+ *
  * @property int $id
  * @property string|null $name
  * @property string|null $description
@@ -21,7 +21,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $updated_by
  * @property string|null $supervised_by
  * @property Carbon|null $supervised_at
- * @property bool|null $inactive
+ * @property int $inactive
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  *
@@ -33,7 +33,7 @@ class Tax extends Model
 
 	protected $casts = [
 		'rate' => 'int',
-		'inactive' => 'bool'
+		'inactive' => 'int'
 	];
 
 	protected $dates = [

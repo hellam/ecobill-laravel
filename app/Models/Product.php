@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Product
- * 
+ *
  * @property int $id
  * @property string $barcode
  * @property string|null $name
@@ -27,7 +27,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $updated_by
  * @property string|null $supervised_by
  * @property Carbon|null $supervised_at
- * @property bool|null $inactive
+ * @property int $inactive
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  *
@@ -44,7 +44,7 @@ class Product extends Model
 		'category_id' => 'int',
 		'tax_id' => 'int',
 		'type' => 'int',
-		'inactive' => 'bool'
+		'inactive' => 'int'
 	];
 
 	protected $dates = [

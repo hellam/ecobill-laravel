@@ -26,10 +26,11 @@ class BankAccountController extends Controller
     }
 
     /**
-     * @param $created_at
-     * @param $created_by
-     * @param $supervised_by
-     * @param $supervised_at
+     * @param Request $request
+     * @param null $created_at
+     * @param null $created_by
+     * @param null $supervised_by
+     * @param null $supervised_at
      * @return JsonResponse
      */
 

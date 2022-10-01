@@ -6,6 +6,7 @@ use App\CentralLogics\UserValidators;
 use App\Http\Controllers\Controller;
 use App\Models\BankAccount;
 use App\Models\ChartAccount;
+use App\Models\Currency;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -22,7 +23,9 @@ class BankAccountController extends Controller
     public function index(): Factory|View|Application
     {
         $account_count = BankAccount::count();
-        return view('user.banking_gl.accounts.account_maintenance', compact('account_count'));
+        $currency = Currency::all();
+        return view('user.banking_gl.accounts.account_maintenance', compact(
+            'account_count', 'currency'));
     }
 
     /**

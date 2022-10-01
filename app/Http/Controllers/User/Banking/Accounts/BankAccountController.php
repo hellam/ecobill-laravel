@@ -5,14 +5,21 @@ namespace App\Http\Controllers\User\Banking\Accounts;
 use App\CentralLogics\UserValidators;
 use App\Http\Controllers\Controller;
 use App\Models\BankAccount;
+use App\Models\ChartAccount;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use function App\CentralLogics\error_web_processor;
 use function App\CentralLogics\get_user_ref;
+use function App\CentralLogics\log_activity;
 use function App\CentralLogics\set_create_parameters;
+use function App\CentralLogics\success_web_processor;
 
 class BankAccountController extends Controller
 {
-    public function index()
+    public function index(): Factory|View|Application
     {
         $account_count = BankAccount::count();
         return view('user.banking_gl.account_maintenance', compact('account_count'));
@@ -81,7 +88,7 @@ class BankAccountController extends Controller
      *
      */
     public function update(Request $request, $id, $created_at = null, $created_by = null,
-                                   $supervised_by = null, $supervised_at = null)
+                                   $supervised_by = null, $supervised_at = null): JsonResponse|string
     {
         $validator = UserValidators::glAccountsUpdateValidation($request);
 
@@ -106,7 +113,7 @@ class BankAccountController extends Controller
      * Remove the specified resource from storage.
      *
      */
-    public function destroy($id)
+    public function destroy($id): JsonResponse
     {
         $chart_account = ChartAccount::find($id);
         if (isset($chart_account)) {

@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\User\Banking;
+namespace App\Http\Controllers\User\Banking\Accounts;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 
-class AccountMaintenanceController extends Controller
+class BankAccountController extends Controller
 {
     public function index()
     {
         return view('user.banking_gl.account_maintenance');
     }
+
+
 }

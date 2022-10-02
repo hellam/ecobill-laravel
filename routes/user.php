@@ -167,6 +167,8 @@ Route::group(['as' => 'user.'], function () {
             Route::controller(User\Banking\Accounts\BankAccountController::class)->prefix('accounts')->as('accounts.')->group(function () {
                 Route::get('/', 'index')->name('all')->middleware('permission:301');
                 Route::post('/', 'create')->name('create')->middleware('permission:3010,' . ST_BANK_ACCOUNT_SETUP);
+                Route::get('edit/{id}', 'edit')->name('edit')->middleware('permission:3011')->whereNumber('id');
+                Route::put('update/{id}', 'update')->name('update')->middleware('permission:3011,' . ST_GL_ACCOUNT_SETUP)->whereNumber('id');
             });
         });
 

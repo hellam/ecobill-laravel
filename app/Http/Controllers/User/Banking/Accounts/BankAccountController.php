@@ -18,6 +18,7 @@ use function App\CentralLogics\error_web_processor;
 use function App\CentralLogics\get_user_ref;
 use function App\CentralLogics\log_activity;
 use function App\CentralLogics\set_create_parameters;
+use function App\CentralLogics\set_update_parameters;
 use function App\CentralLogics\success_web_processor;
 
 class BankAccountController extends Controller
@@ -111,23 +112,25 @@ class BankAccountController extends Controller
     public function update(Request $request, $id, $created_at = null, $created_by = null,
                                    $supervised_by = null, $supervised_at = null): JsonResponse|string
     {
-        $validator = UserValidators::glAccountsUpdateValidation($request);
+        $validator = UserValidators::bankAccountsUpdateValidation($request);
 
         if ($validator != '') {
             return $validator;
         }
 
-        $chart_account = ChartAccount::find($id);
-        $chart_account = set_update_parameters($chart_account, $created_at, $created_by,
+        $bank_account = BankAccount::withoutGlobalScope(BranchScope::class)
+            ->with('chart_account')
+            ->with('charge_chart_account')
+            ->with('branch')
+            ->find($id);
+        $bank_account = set_update_parameters($bank_account, $created_at, $created_by,
             $supervised_by, $supervised_at);
 
-        $chart_account->account_code = $request->account_code;
-        $chart_account->account_name = $request->account_name;
-        $chart_account->account_group = $request->account_group;
-        $chart_account->inactive = $request->inactive;
-        $chart_account->update();
+        $bank_account->account_name = $request->account_name;
+        $bank_account->inactive = $request->inactive;
+        $bank_account->update();
 //
-        return success_web_processor(null, __('messages.msg_updated_success', ['attribute' => __('messages.gl_account')]));
+        return success_web_processor(null, __('messages.msg_updated_success', ['attribute' => __('messages.bank_account')]));
     }
 
     /**

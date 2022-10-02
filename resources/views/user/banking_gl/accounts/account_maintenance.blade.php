@@ -127,8 +127,6 @@
                                  data-kt-scroll-wrappers="#kt_modal_add_account_scroll"
                                  data-kt-scroll-offset="300px">
 
-                                {{--                                currency - select--}}
-                                {{--                                transactions gl_account--}}
                                 {{--                                charges_gl_account--}}
                                 {{--                                branch_id--}}
 
@@ -182,10 +180,62 @@
                                     </label>
                                     <!--end::Label-->
                                     <!--begin::Input-->
-                                    <input type="text" class="form-control form-control-solid"
+                                    <textarea type="text" class="form-control form-control-solid"
                                            placeholder="{{__('messages.entity_address')}} i.e Bank Address"
-                                           name="entity_address"/>
+                                              name="entity_address"></textarea>
                                     <!--end::Input-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="row g-9 mb-7">
+                                    <div class="col-md-12 fv-row">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-bold mb-2">
+                                            <span
+                                                class="required">{{__('messages.currency')}}</span>
+                                        </label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <select name="currency"
+                                                aria-label="Select Currency"
+                                                data-control="select2"
+                                                data-kt-src="#"
+                                                data-placeholder="Select Currency"
+                                                data-dropdown-parent="#kt_modal_add_account"
+                                                class="form-select form-select-solid fw-bolder">
+                                            <option></option>
+                                            @foreach($currency as $curr)
+                                                <option value="{{$curr->id}}">{{$curr->abbreviation}}</option>
+                                            @endforeach
+                                        </select>
+                                        <!--end::Input-->
+                                    </div>
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="row g-9 mb-7">
+                                    <div class="col-md-12 fv-row">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-bold mb-2">
+                                            <span
+                                                class="required">{{__('messages.transactions').' '.__('messages.gl_account')}}</span>
+                                        </label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <select name="charge_code"
+                                                aria-label="Select Trx Gl Account"
+                                                data-control="select2"
+                                                data-kt-src="#"
+                                                data-placeholder="Select Trx GL Account"
+                                                data-dropdown-parent="#kt_modal_add_account"
+                                                class="form-select form-select-solid fw-bolder">
+                                            <option></option>
+                                            @foreach($currency as $curr)
+                                                <option value="{{$curr->id}}">{{$curr->abbreviation}}</option>
+                                            @endforeach
+                                        </select>
+                                        <!--end::Input-->
+                                    </div>
                                 </div>
                                 <!--end::Input group-->
                             </div>

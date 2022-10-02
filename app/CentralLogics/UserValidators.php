@@ -230,8 +230,10 @@ class UserValidators
             'entity_name' => 'string',
             'entity_address' => 'string',
             'currency' => 'required|exists:' . Currency::class . ',abbreviation,client_ref,' . get_user_ref(),
-            'chart_code' => 'required|unique:'. ChartAccount::class . ',account_code,client_ref,' . get_user_ref(),
-            'charge_chart_code' => 'required|unique:'. ChartAccount::class . ',account_code,client_ref,' . get_user_ref(),
+            'chart_code' => 'required|unique:' . BankAccount::class . ',chart_code,NULL,id,client_ref,' . get_user_ref()
+                .'|exists:'. ChartAccount::class . ',account_code,client_ref,' . get_user_ref(),
+            'charge_chart_code' => 'required|exists:'. ChartAccount::class . ',account_code,client_ref,' . get_user_ref(),
+            'branch_id' => 'required|exists:'. Branch::class . ',id,client_ref,' . get_user_ref(),
         ]);
     }
 

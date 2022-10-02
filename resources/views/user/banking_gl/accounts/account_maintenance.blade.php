@@ -202,7 +202,7 @@
                                                 class="form-select form-select-solid fw-bolder">
                                             <option></option>
                                             @foreach($currency as $curr)
-                                                <option value="{{$curr->id}}">{{$curr->abbreviation}}</option>
+                                                <option value="{{$curr->abbreviation}}">{{$curr->abbreviation.' - '.$curr->name}}</option>
                                             @endforeach
                                         </select>
                                         <!--end::Input-->
@@ -229,7 +229,7 @@
                                             <option></option>
                                             @foreach($gl_accounts as $gl_account)
                                                 <option
-                                                    value="{{$gl_account->id}}">{{$gl_account->account_name}}</option>
+                                                    value="{{$gl_account->account_code}}">{{$gl_account->account_name}}</option>
                                             @endforeach
                                         </select>
                                         <!--end::Input-->
@@ -256,7 +256,7 @@
                                             <option></option>
                                             @foreach($gl_accounts as $gl_account)
                                                 <option
-                                                    value="{{$gl_account->id}}">{{$gl_account->account_name}}</option>
+                                                    value="{{$gl_account->account_code}}">{{$gl_account->account_name}}</option>
                                             @endforeach
                                         </select>
                                         <!--end::Input-->

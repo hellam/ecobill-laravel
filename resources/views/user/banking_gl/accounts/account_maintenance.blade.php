@@ -358,7 +358,7 @@
                                             <option></option>
                                             @foreach($gl_accounts as $gl_account)
                                                 <option
-                                                    value="{{$gl_account->account_code}}">{{$gl_account->account_name}}</option>
+                                                    value="{{$gl_account->account_code}}">{{$gl_account->account_code.' - '.$gl_account->account_name}}</option>
                                             @endforeach
                                         </select>
                                         <!--end::Input-->
@@ -582,19 +582,8 @@
                                         </label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
-                                        <select name="currency"
-                                                aria-label="Select Currency"
-                                                data-control="select2"
-                                                data-kt-src="#"
-                                                data-placeholder="Select Currency"
-                                                data-dropdown-parent="#kt_modal_update_account"
-                                                class="form-select form-select-solid fw-bolder">
-                                            <option></option>
-                                            @foreach($currency as $curr)
-                                                <option
-                                                    value="{{$curr->abbreviation}}">{{$curr->abbreviation.' - '.$curr->name}}</option>
-                                            @endforeach
-                                        </select>
+                                        <input type="text" class="form-control form-control-solid"
+                                               name="currency" disabled readonly/>
                                         <!--end::Input-->
                                     </div>
                                 </div>
@@ -609,19 +598,8 @@
                                         </label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
-                                        <select name="chart_code"
-                                                aria-label="Select Trx Gl Account"
-                                                data-control="select2"
-                                                data-kt-src="#"
-                                                data-placeholder="Select Trx GL Account"
-                                                data-dropdown-parent="#kt_modal_update_account"
-                                                class="form-select form-select-solid fw-bolder">
-                                            <option></option>
-                                            @foreach($gl_accounts as $gl_account)
-                                                <option
-                                                    value="{{$gl_account->account_code}}">{{$gl_account->account_name}}</option>
-                                            @endforeach
-                                        </select>
+                                        <input type="text" class="form-control form-control-solid"
+                                               name="chart_code" disabled readonly/>
                                         <!--end::Input-->
                                     </div>
                                 </div>
@@ -646,7 +624,7 @@
                                             <option></option>
                                             @foreach($gl_accounts as $gl_account)
                                                 <option
-                                                    value="{{$gl_account->account_code}}">{{$gl_account->account_name}}</option>
+                                                    value="{{$gl_account->account_code}}">{{$gl_account->account_code.' - '.$gl_account->account_name}}</option>
                                             @endforeach
                                         </select>
                                         <!--end::Input-->
@@ -663,18 +641,8 @@
                                         </label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
-                                        <select name="branch_id"
-                                                aria-label="Select Branch"
-                                                data-control="select2"
-                                                data-kt-src="#"
-                                                data-placeholder="Select Branch"
-                                                data-dropdown-parent="#kt_modal_update_account"
-                                                class="form-select form-select-solid fw-bolder">
-                                            <option></option>
-                                            @foreach($branches as $branch)
-                                                <option value="{{$branch->id}}">{{$branch->name}}</option>
-                                            @endforeach
-                                        </select>
+                                        <input type="text" class="form-control form-control-solid"
+                                               name="branch_id" disabled readonly/>
                                         <!--end::Input-->
                                     </div>
                                 </div>

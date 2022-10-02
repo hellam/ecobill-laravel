@@ -64,13 +64,10 @@ const KTBankAccountsServerSide = function () {
                             $("#kt_modal_update_account_form input[name='account_number']").val(account.account_number);
                             $("#kt_modal_update_account_form input[name='entity_name']").val(account.entity_name);
                             $("#kt_modal_update_account_form input[name='entity_address']").val(account.entity_address);
-                            $("#kt_modal_update_account_form select[name='currency']").val(account.currency).trigger('change');
-                            $("#kt_modal_update_account_form select[name='currency']").attr('disabled', true);
-                            $("#kt_modal_update_account_form select[name='chart_code']").val(account.chart_code).trigger('change');
-                            $("#kt_modal_update_account_form select[name='chart_code']").attr('disabled', true);
+                            $("#kt_modal_update_account_form input[name='currency']").val(account.currency);
+                            $("#kt_modal_update_account_form input[name='chart_code']").val(account.chart_account.account_code+' - '+account.chart_account.account_name);
                             $("#kt_modal_update_account_form select[name='charge_chart_code']").val(account.charge_chart_code).trigger('change');
-                            $("#kt_modal_update_account_form select[name='branch_id']").val(account.branch_id).trigger('change');
-                            $("#kt_modal_update_account_form select[name='branch_id']").attr('disabled', true);
+                            $("#kt_modal_update_account_form input[name='branch_id']").val(account.branch.name);
                             $("#kt_modal_update_account_form input[name='inactive']").val(account.inactive)
 
                             if (account.inactive !== 1) {

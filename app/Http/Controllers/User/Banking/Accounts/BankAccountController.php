@@ -51,31 +51,36 @@ class BankAccountController extends Controller
         }
 
         $post_data = [
-            'account_code' => $request->account_code,
             'account_name' => $request->account_name,
-            'account_group' => $request->account_group,
+            'account_number' => $request->account_number,
+            'entity_name' => $request->entity_name,
+            'entity_address' => $request->entity_address,
+            'currency' => $request->currency,
+            'chart_code' => $request->chart_code,
+            'charge_chart_code' => $request->charge_chart_code,
+            'branch_id' => $request->branch_id,
             'client_ref' => get_user_ref()
         ];
 
         //set_create_parameters($created_at, $created_by, ...)
         $post_data = array_merge($post_data, set_create_parameters($created_at, $created_by, $supervised_by, $supervised_at));
 
-        $chart_account = ChartAccount::create($post_data);
+        $bank_account = BankAccount::create($post_data);
 
         if ($created_at == null) {
             //if not supervised, log data from create request
             //Creator log
             log_activity(
-                ST_GL_ACCOUNT_SETUP,
+                ST_BANK_ACCOUNT_SETUP,
                 $request->getClientIp(),
-                'Create Chart Account',
+                'Create Bank Account',
                 json_encode($post_data),
                 auth('user')->id(),
-                $chart_account->id
+                $bank_account->id
             );
         }
 
-        return success_web_processor(['id' => $chart_account->id], __('messages.msg_saved_success', ['attribute' => __('messages.new_gl_account')]));
+        return success_web_processor(['id' => $bank_account->id], __('messages.msg_saved_success', ['attribute' => __('messages.bank_account')]));
     }
 
     /**

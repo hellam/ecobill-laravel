@@ -124,6 +124,7 @@ return [
     'fiscal_year' => 'Fiscal Year',
     'from' => 'From',
     'fullName' => 'FullName',
+    'fx' => 'FX Rate',
     'general' => 'General',
     'general_settings' => 'General Settings',
     'groups' => 'Groups',

@@ -27,6 +27,7 @@ class BankAccountController extends Controller
         $account_count = BankAccount::withoutGlobalScope(BranchScope::class)->count();
         $bank_accounts = BankAccount::withoutGlobalScope(BranchScope::class)
             ->with('chart_account')
+            ->with('charge_chart_account')
             ->get();
         $currency = Currency::all();
         $gl_accounts = ChartAccount::all();

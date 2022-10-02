@@ -89,8 +89,8 @@
                 <div class="modal-content">
                     <!--begin::Form-->
                     <form class="form" action="#" id="kt_modal_add_account_form"
-                          data-kt-action="#"
-                          data-kt-redirect="#">
+                          data-kt-action="{{route('user.banking.accounts.create')}}"
+                          data-kt-redirect="{{route('user.banking.accounts.all')}}">
                         <!--begin::Modal header-->
                         <div class="modal-header" id="kt_modal_add_account_header">
                             <!--begin::Modal title-->

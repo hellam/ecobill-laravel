@@ -128,10 +128,10 @@ const KTBankAccountAdd = function () {
             }).then(function (result) {
                 if (result.value) {
                     form.reset(); // Reset form
-                    $("select[name='tax_period']").val(null).trigger('change');
-                    $("select[name='default_currency']").val(null).trigger('change');
-                    $("select[name='fiscal_year']").val(null).trigger('change');
-                    $("select[name='timezone']").val(null).trigger('change');
+                    $("select[name='currency']").val(null).trigger('change');
+                    $("select[name='chart_code']").val(null).trigger('change');
+                    $("select[name='charge_chart_code']").val(null).trigger('change');
+                    $("select[name='branch_id']").val(null).trigger('change');
                     modal.hide(); // Hide modal
                 }
             });
@@ -154,10 +154,10 @@ const KTBankAccountAdd = function () {
             }).then(function (result) {
                 if (result.value) {
                     form.reset(); // Reset form
-                    $("select[name='tax_period']").val(null).trigger('change');
-                    $("select[name='default_currency']").val(null).trigger('change');
-                    $("select[name='fiscal_year']").val(null).trigger('change');
-                    $("select[name='timezone']").val(null).trigger('change');
+                    $("select[name='currency']").val(null).trigger('change');
+                    $("select[name='chart_code']").val(null).trigger('change');
+                    $("select[name='charge_chart_code']").val(null).trigger('change');
+                    $("select[name='branch_id']").val(null).trigger('change');
                     modal.hide(); // Hide modal
                 }
             });
@@ -221,11 +221,10 @@ const KTBankAccountAdd = function () {
                             // Enable submit button after loading
                             submitButton.disabled = false;
                             form.reset(); // Reset form
-
-                            $("select[name='tax_period']").val(null).trigger('change');
-                            $("select[name='default_currency']").val(null).trigger('change');
-                            $("select[name='fiscal_year']").val(null).trigger('change');
-                            $("select[name='timezone']").val(null).trigger('change');
+                            $("select[name='currency']").val(null).trigger('change');
+                            $("select[name='chart_code']").val(null).trigger('change');
+                            $("select[name='charge_chart_code']").val(null).trigger('change');
+                            $("select[name='branch_id']").val(null).trigger('change');
 
                             if ($('#kt_branches_table').length) {
                                 $("#kt_branches_table").DataTable().ajax.reload();
@@ -274,10 +273,10 @@ const KTBankAccountAdd = function () {
                             submitData(str)
                         } else {
                             form.reset(); // Reset form
-                            $("select[name='tax_period']").val(null).trigger('change');
-                            $("select[name='default_currency']").val(null).trigger('change');
-                            $("select[name='fiscal_year']").val(null).trigger('change');
-                            $("select[name='timezone']").val(null).trigger('change');
+                            $("select[name='currency']").val(null).trigger('change');
+                            $("select[name='chart_code']").val(null).trigger('change');
+                            $("select[name='charge_chart_code']").val(null).trigger('change');
+                            $("select[name='branch_id']").val(null).trigger('change');
                         }
                     });
                 }

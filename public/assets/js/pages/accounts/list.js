@@ -15,10 +15,19 @@ const KTBankAccountsServerSide = function () {
         // Re-init functions on every table re-draw -- more info: https://datatables.net/reference/event/draw
         dt.on('draw', function () {
             KTMenu.createInstances();
+            handleSearchDatatable();
             // handleUpdateRows();
             // handleDeleteRows();
         });
     };
+
+    // Search Datatable --- official docs reference: https://datatables.net/reference/api/search()
+    var handleSearchDatatable = function () {
+        const filterSearch = document.querySelector('[data-kt-accounts-table-filter="search"]');
+        filterSearch.addEventListener('keyup', function (e) {
+            dt.search(e.target.value).draw();
+        });
+    }
 
     //Edit Button
     const handleUpdateRows = function () {
@@ -252,8 +261,9 @@ const KTBankAccountsServerSide = function () {
             if ($('#kt_accounts_table').length) {
                 initDatatable();
                 dt.search('').draw();
-                handleUpdateRows();
-                handleDeleteRows();
+                handleSearchDatatable();
+                // handleUpdateRows();
+                // handleDeleteRows();
             }
         }
     }

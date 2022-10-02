@@ -93,11 +93,15 @@ class BankAccountController extends Controller
      */
     public function edit($id)
     {
-        $bank_account = ChartAccount::where('id', $id)->first();
+        $bank_account = BankAccount::withoutGlobalScope(BranchScope::class)
+            ->with('chart_account')
+            ->with('charge_chart_account')
+            ->with('branch')
+            ->where('id', $id)->first();
         if (isset($bank_account)) {
-            return success_web_processor($bank_account, __('messages.msg_item_found', ['attribute' => __('messages.gl_account')]));
+            return success_web_processor($bank_account, __('messages.msg_item_found', ['attribute' => __('messages.bank_account')]));
         }
-        return error_web_processor(trans('messages.msg_item_not_found', ['attribute' => __('messages.gl_account')]), 200, $chart_account);
+        return error_web_processor(trans('messages.msg_item_not_found', ['attribute' => __('messages.bank_account')]));
     }
 
     /**

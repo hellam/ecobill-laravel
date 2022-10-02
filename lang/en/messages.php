@@ -86,6 +86,7 @@ return [
     'apply' => 'Apply',
     'action' => 'Action',
     'default_bank_account' => 'Default Bank Account',
+    'bank_account' => 'Bank Account',
     'barcode' => 'Barcode',
     'bcc_email' => 'BCC Email',
     'category' => 'Category',

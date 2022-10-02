@@ -84,11 +84,6 @@ const KTBankAccountAdd = function () {
             });
         })
 
-        // Revalidate the password when changing the username
-        form.querySelector('[name="charge_chart_code"]').addEventListener('change', function () {
-            validator.revalidateField('chart_code');
-        });
-
         // Action buttons
         submitButton.addEventListener('click', function (e) {
             e.preventDefault();

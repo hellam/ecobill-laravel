@@ -165,7 +165,8 @@ Route::group(['as' => 'user.'], function () {
 
         Route::group(['prefix' => 'banking', 'as' => 'banking.'], function () {
             Route::controller(User\Banking\Accounts\BankAccountController::class)->prefix('accounts')->as('accounts.')->group(function () {
-                Route::get('/', 'index')->name('all')->middleware('permission:302');
+                Route::get('/', 'index')->name('all')->middleware('permission:3010');
+                Route::post('/', 'create')->name('create')->middleware('permission:30100,' . ST_BANK_ACCOUNT_SETUP);
             });
         });
 

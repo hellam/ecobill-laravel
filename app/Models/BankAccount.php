@@ -83,6 +83,9 @@ class BankAccount extends Model
     public function charge_chart_account(){
         return $this->belongsTo(ChartAccount::class, 'charge_chart_code', 'account_code');
     }
+    public function branch(){
+        return $this->belongsTo(Branch::class, 'branch_id');
+    }
 
     public static function booted()
     {

@@ -22,6 +22,17 @@ use function App\CentralLogics\get_user_ref;
 Route::get('login', [User\Auth\LoginController::class, 'index1'])->name('login');
 
 
+/**
+ * @return void
+ */
+function currency_and_fx(): void
+{
+    Route::post('/', 'create')->name('create')->middleware('permission:3110,' . ST_CURRENCY_SETUP);
+    Route::get('edit/{id}', 'edit')->name('edit')->middleware('permission:3111')->whereNumber('id');
+    Route::put('update/{id}', 'update')->name('update')->middleware('permission:3111,' . ST_CURRENCY_SETUP)->whereNumber('id');
+    Route::delete('delete/{id}', 'destroy')->name('delete')->middleware('permission:3112,' . ST_CURRENCY_SETUP)->whereNumber('id');
+}
+
 Route::group(['as' => 'user.'], function () {
     Route::post('reload-captcha', function () {
         return response()->json(['captcha' => captcha_img('math')]);
@@ -170,6 +181,15 @@ Route::group(['as' => 'user.'], function () {
                 Route::get('edit/{id}', 'edit')->name('edit')->middleware('permission:3011')->whereNumber('id');
                 Route::put('update/{id}', 'update')->name('update')->middleware('permission:3011,' . ST_BANK_ACCOUNT_SETUP)->whereNumber('id');
                 Route::delete('delete/{id}', 'destroy')->name('delete')->middleware('permission:3012,' . ST_BANK_ACCOUNT_SETUP)->whereNumber('id');
+            });
+
+            Route::controller(User\Banking\CurrencyController::class)->prefix('currency')->as('currency.')->group(function () {
+                Route::get('/', 'index')->name('all')->middleware('permission:311');
+                currency_and_fx();
+            });
+
+            Route::controller(User\Banking\CurrencyController::class)->prefix('currency')->as('currency.')->group(function () {
+                currency_and_fx();
             });
         });
 

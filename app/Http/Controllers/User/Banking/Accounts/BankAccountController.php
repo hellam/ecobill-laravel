@@ -8,6 +8,7 @@ use App\Models\BankAccount;
 use App\Models\Branch;
 use App\Models\ChartAccount;
 use App\Models\Currency;
+use App\Scopes\BranchScope;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -23,7 +24,7 @@ class BankAccountController extends Controller
 {
     public function index(): Factory|View|Application
     {
-        $account_count = BankAccount::count();
+        $account_count = BankAccount::withoutGlobalScope(BranchScope::class)->count();
         $currency = Currency::all();
         $gl_accounts = ChartAccount::all();
         $branches = Branch::all();

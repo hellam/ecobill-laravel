@@ -133,8 +133,6 @@
                             <th>{{__('messages.acc_number')}}</th>
                             <th>{{__('messages.branch')}}</th>
                             <th>{{__('messages.entity')}}</th>
-                            <th>{{__('messages.entity_address')}}</th>
-                            <th>{{__('messages.status')}}</th>
                             <th class="text-end">{{__('messages.actions')}}</th>
                         </tr>
                         <!--end::Table row-->
@@ -142,8 +140,17 @@
                         <!--end::Table head-->
                         <!--begin::Table body-->
                         <tbody class="fw-bold text-gray-600">
-                        @foreach()
-                            <tr></tr>
+                        @foreach($bank_accounts as $bank_account)
+                            <tr>
+                                <td>{{$loop->iteration}}</td>
+                                <td>{{$bank_account->account_name}}</td>
+                                <td>{{$bank_account->currency}}</td>
+                                <td>{{$bank_account->currency}}</td>
+                                <td>{{$bank_account->currency}}</td>
+                                <td>{{$bank_account->currency}}</td>
+                                <td>{{$bank_account->currency}}</td>
+                                <td>{{$bank_account->currency}}</td>
+                            </tr>
                         @endforeach
                         </tbody>
                         <!--end::Table body-->

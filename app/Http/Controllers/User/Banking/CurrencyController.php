@@ -24,8 +24,10 @@ class CurrencyController extends Controller
     public function index(): Factory|View|Application
     {
         $currency_count = Currency::count();
+        $currency = Currency::all();
         $fx_rate = 0;
-        return view('user.banking_gl.currency_fx', compact('currency_count', 'fx_rate'));
+        return view('user.banking_gl.currency_fx',
+            compact('currency_count', 'fx_rate','currency'));
     }
 
 

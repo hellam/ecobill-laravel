@@ -86,6 +86,7 @@ return [
     'address' => 'Address',
     'apply' => 'Apply',
     'action' => 'Action',
+    'auto_update' => 'Auto Update',
     'default_bank_account' => 'Default Bank Account',
     'bank_account' => 'Bank Account',
     'barcode' => 'Barcode',

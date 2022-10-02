@@ -62,14 +62,11 @@ const KTCurrencyAdd = function () {
             }
         );
 
-        //revalidate all select boxes
-        let select_fields = ["chart_code", "charge_chart_code", "branch_id", "currency"];
-        select_fields.forEach(select => {
-            $(form.querySelector(`[name=${select}]`)).on('change', function () {
-                // Revalidate the field when an option is chosen
-                validator.revalidateField(`${select}`);
-            });
-        })
+        //revalidate all select
+        $(form.querySelector(`[name="country"]`)).on('change', function () {
+            // Revalidate the field when an option is chosen
+            validator.revalidateField("country");
+        });
 
         // Action buttons
         submitButton.addEventListener('click', function (e) {
@@ -81,7 +78,7 @@ const KTCurrencyAdd = function () {
 
                     if (status === 'Valid') {
                         submitButton.setAttribute('data-kt-indicator', 'on');
-                        let str = $('#kt_modal_add_account_form').serialize();
+                        let str = $('#kt_modal_add_currency_form').serialize();
                         submitData(str);
                     } else {
                         Swal.fire({
@@ -115,10 +112,7 @@ const KTCurrencyAdd = function () {
             }).then(function (result) {
                 if (result.value) {
                     form.reset(); // Reset form
-                    $("select[name='currency']").val(null).trigger('change');
-                    $("select[name='chart_code']").val(null).trigger('change');
-                    $("select[name='charge_chart_code']").val(null).trigger('change');
-                    $("select[name='branch_id']").val(null).trigger('change');
+                    $("select[name='country']").val(null).trigger('change');
                     modal.hide(); // Hide modal
                 }
             });
@@ -141,10 +135,7 @@ const KTCurrencyAdd = function () {
             }).then(function (result) {
                 if (result.value) {
                     form.reset(); // Reset form
-                    $("select[name='currency']").val(null).trigger('change');
-                    $("select[name='chart_code']").val(null).trigger('change');
-                    $("select[name='charge_chart_code']").val(null).trigger('change');
-                    $("select[name='branch_id']").val(null).trigger('change');
+                    $("select[name='country']").val(null).trigger('change');
                     modal.hide(); // Hide modal
                 }
             });
@@ -209,13 +200,10 @@ const KTCurrencyAdd = function () {
                             // Enable submit button after loading
                             submitButton.disabled = false;
                             form.reset(); // Reset form
-                            $("select[name='currency']").val(null).trigger('change');
-                            $("select[name='chart_code']").val(null).trigger('change');
-                            $("select[name='charge_chart_code']").val(null).trigger('change');
-                            $("select[name='branch_id']").val(null).trigger('change');
+                            $("select[name='country']").val(null).trigger('change');
 
-                            if ($('#kt_branches_table').length) {
-                                $("#kt_branches_table").DataTable().ajax.reload();
+                            if ($('#kt_currency_table').length) {
+                                $("#kt_currency_table").DataTable().ajax.reload();
                                 return;
                             }
                             // Redirect to customers list page
@@ -261,10 +249,7 @@ const KTCurrencyAdd = function () {
                             submitData(str)
                         } else {
                             form.reset(); // Reset form
-                            $("select[name='currency']").val(null).trigger('change');
-                            $("select[name='chart_code']").val(null).trigger('change');
-                            $("select[name='charge_chart_code']").val(null).trigger('change');
-                            $("select[name='branch_id']").val(null).trigger('change');
+                            $("select[name='country']").val(null).trigger('change');
                         }
                     });
                 }
@@ -292,11 +277,11 @@ const KTCurrencyAdd = function () {
     // Public methods
     return {
         init: function () {
-            modal = new bootstrap.Modal(document.querySelector('#kt_modal_add_account'));
-            form = document.querySelector('#kt_modal_add_account_form');
-            submitButton = form.querySelector('#kt_modal_add_account_submit');
-            discardButton = form.querySelector('#kt_modal_add_account_cancel');
-            closeButton = form.querySelector('#kt_modal_add_account_close');
+            modal = new bootstrap.Modal(document.querySelector('#kt_modal_add_currency'));
+            form = document.querySelector('#kt_modal_add_currency_form');
+            submitButton = form.querySelector('#kt_modal_add_currency_submit');
+            discardButton = form.querySelector('#kt_modal_add_currency_cancel');
+            closeButton = form.querySelector('#kt_modal_add_currency_close');
             handleForm();
         }
     }

@@ -132,7 +132,7 @@
                                 <div class="d-flex justify-content-end" data-kt-contact-table-toolbar="base">
                                     <!--begin::Add customer-->
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                            data-bs-target="#kt_modal_add_gl_account">{{__('messages.add_new')}}
+                                            data-bs-target="#kt_modal_add_currency">{{__('messages.add_new')}}
                                     </button>
                                     <!--end::Add customer-->
                                 </div>
@@ -151,10 +151,12 @@
                                 <!--begin::Table row-->
                                 <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
                                     <th class="">#</th>
-                                    <th class="">{{__('messages.acc_code')}}</th>
-                                    <th class="">{{__('messages.acc_name')}}</th>
-                                    <th class="">{{__('messages.group')}}</th>
-                                    <th class="">{{__('messages.status')}}</th>
+                                    <th class="">{{__('messages.abbr')}}</th>
+                                    <th class="">{{__('messages.symbol')}}</th>
+                                    <th class="">{{__('messages.currency').' '.__('messages.name')}}</th>
+                                    <th class="">{{__('messages.hundredths').' '.__('messages.name')}}</th>
+                                    <th class="">{{__('messages.country')}}</th>
+                                    <th class="">{{__('messages.auto_update')}}</th>
                                     <th class="text-end min-w-70px">{{__('messages.actions')}}</th>
                                 </tr>
                                 <!--end::Table row-->
@@ -276,7 +278,7 @@
                 <div class="modal-content">
                     <!--begin::Form-->
                     <form class="form" action="#" id="kt_modal_add_currency_form"
-                          data-kt-action="{{route('user.banking_gl.gl_groups.create')}}"
+                          data-kt-action="{{route('user.banking_gl.currency.create')}}"
                           data-kt-redirect="{{route('user.banking_gl.currency.all')}}">
                         <!--begin::Modal header-->
                         <div class="modal-header" id="kt_modal_add_currency_header">
@@ -364,7 +366,7 @@
                                     <!--begin::Label-->
                                     <label class="fs-6 fw-bold mb-2" for="hundredths_name">
                                         <span
-                                            class="required">{{__('messages.currency').' '.__('messages.name')}}</span>
+                                            class="required">{{__('messages.hundredths').' '.__('messages.name')}}</span>
                                     </label>
                                     <!--end::Label-->
                                     <!--begin::Input-->
@@ -392,9 +394,9 @@
                                                 data-dropdown-parent="#kt_modal_add_currency"
                                                 class="form-select form-select-solid fw-bolder">
                                             <option></option>
-                                            @foreach(\Monarobase\CountryList\CountryListFacade::getList('en', 'json') as $country)
+                                            @foreach(\Monarobase\CountryList\CountryListFacade::getList() as $key => $country)
+                                                <option value="{{$key}}">{{$country}}</option>
                                             @endforeach
-
                                         </select>
                                         <!--end::Input-->
                                     </div>
@@ -431,7 +433,7 @@
 @stop
 
 @push('custom_scripts')
-    <script src="{{ asset('assets/js/pages/currency/curr_add.js') }}"></script>
-    <script src="{{ asset('assets/js/pages/currency/curr_all.js') }}"></script>
-    <script src="{{ asset('assets/js/pages/currency/curr_update.js') }}"></script>
+    <script src="{{ asset('assets/js/pages/currency_fx/curr_add.js') }}"></script>
+    {{--    <script src="{{ asset('assets/js/pages/currency/curr_all.js') }}"></script>--}}
+    {{--    <script src="{{ asset('assets/js/pages/currency/curr_update.js') }}"></script>--}}
 @endpush

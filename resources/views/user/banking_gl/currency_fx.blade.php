@@ -163,7 +163,10 @@
                                 </thead>
                                 <!--end::Table head-->
                                 <!--begin::Table body-->
-                                <tbody class="fw-bold text-gray-600"></tbody>
+                                <tbody class="fw-bold text-gray-600">
+                                @foreach()
+                                @endforeach
+                                </tbody>
                                 <!--end::Table body-->
                             </table>
                             <!--end::Table-->

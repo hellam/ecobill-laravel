@@ -127,6 +127,9 @@ class BankAccountController extends Controller
             $supervised_by, $supervised_at);
 
         $bank_account->account_name = $request->account_name;
+        $bank_account->account_number = $request->account_number;
+        $bank_account->entity_name = $request->entity_name;
+        $bank_account->entity_address = $request->entity_address;
         $bank_account->inactive = $request->inactive;
         $bank_account->update();
 //

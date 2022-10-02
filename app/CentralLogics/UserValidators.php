@@ -246,6 +246,19 @@ class UserValidators
         ]);
     }
 
+
+    public static function currencyCreateValidation(Request $request)
+    {
+        return self::ValidatorMake($request->all(), [
+            'abbreviation' => 'required|unique:' . Currency::class . ',abbreviation,NULL,id,client_ref,' . get_user_ref(),
+            'name' => 'required|unique:' . Currency::class . ',name,NULL,id,client_ref,' . get_user_ref(),
+            'country' => 'required|unique:' . Currency::class . ',country,NULL,id,client_ref,' . get_user_ref(),
+            'symbol' => 'required',
+            'hundredths_name' => 'required',
+            'auto_fx' => 'in:1,0',
+        ]);
+    }
+
     public static function securityUpdateValidation(Request $request)
     {
         $type = Route::current()->type;

@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Auth;
  * @property string $name
  * @property string $hundredths_name
  * @property string $country
- * @property bool|null $auto_fx
+ * @property int $auto_fx
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property string $client_ref
@@ -28,7 +28,7 @@ class Currency extends Model
 	protected $table = 'currency';
 
 	protected $casts = [
-		'auto_fx' => 'bool'
+		'auto_fx' => 'int'
 	];
 
 	protected $fillable = [

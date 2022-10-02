@@ -155,11 +155,11 @@ Route::group(['as' => 'user.'], function () {
             });
 
             Route::controller(User\Banking\GL\GLClassController::class)->prefix('gl-class')->as('gl_class.')->group(function () {
-                Route::post('/', 'create')->name('create')->middleware('permission:3020,' . ST_GL_ACCOUNT_SETUP);
-                Route::get('/dt-api', 'dt_api')->name('dt_api')->middleware('permission:302');
-                Route::get('edit/{id}', 'edit')->name('edit')->middleware('permission:3021')->whereNumber('id');
-                Route::put('update/{id}', 'update')->name('update')->middleware('permission:3021,' . ST_GL_ACCOUNT_SETUP)->whereNumber('id');
-                Route::delete('delete/{id}', 'destroy')->name('delete')->middleware('permission:3022,' . ST_GL_ACCOUNT_SETUP)->whereNumber('id');
+                Route::post('/', 'create')->name('create')->middleware('permission:3070,' . ST_GL_ACCOUNT_SETUP);
+                Route::get('/dt-api', 'dt_api')->name('dt_api')->middleware('permission:307');
+                Route::get('edit/{id}', 'edit')->name('edit')->middleware('permission:3071')->whereNumber('id');
+                Route::put('update/{id}', 'update')->name('update')->middleware('permission:3071,' . ST_GL_ACCOUNT_SETUP)->whereNumber('id');
+                Route::delete('delete/{id}', 'destroy')->name('delete')->middleware('permission:3072,' . ST_GL_ACCOUNT_SETUP)->whereNumber('id');
             });
         });
 

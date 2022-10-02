@@ -25,11 +25,12 @@ class BankAccountController extends Controller
     public function index(): Factory|View|Application
     {
         $account_count = BankAccount::withoutGlobalScope(BranchScope::class)->count();
+        $bank_accounts = BankAccount::withoutGlobalScope(BranchScope::class)->all();
         $currency = Currency::all();
         $gl_accounts = ChartAccount::all();
         $branches = Branch::all();
         return view('user.banking_gl.accounts.account_maintenance', compact(
-            'account_count', 'currency', 'branches', 'gl_accounts'));
+            'account_count', 'currency', 'branches', 'gl_accounts', 'bank_accounts'));
     }
 
     /**

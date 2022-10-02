@@ -182,15 +182,15 @@ Route::group(['as' => 'user.'], function () {
                 Route::put('update/{id}', 'update')->name('update')->middleware('permission:3011,' . ST_BANK_ACCOUNT_SETUP)->whereNumber('id');
                 Route::delete('delete/{id}', 'destroy')->name('delete')->middleware('permission:3012,' . ST_BANK_ACCOUNT_SETUP)->whereNumber('id');
             });
+        });
 
-            Route::controller(User\Banking\CurrencyController::class)->prefix('currency')->as('currency.')->group(function () {
-                Route::get('/', 'index')->name('all')->middleware('permission:311');
-                currency_and_fx();
-            });
+        Route::controller(User\Banking\CurrencyController::class)->prefix('currency')->as('currency.')->group(function () {
+            Route::get('/', 'index')->name('all')->middleware('permission:311');
+            currency_and_fx();
+        });
 
-            Route::controller(User\Banking\CurrencyController::class)->prefix('currency')->as('currency.')->group(function () {
-                currency_and_fx();
-            });
+        Route::controller(User\Banking\CurrencyController::class)->prefix('currency')->as('currency.')->group(function () {
+            currency_and_fx();
         });
 
     });

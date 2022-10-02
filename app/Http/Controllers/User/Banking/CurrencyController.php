@@ -85,9 +85,9 @@ class CurrencyController extends Controller
     {
         $currency = Currency::find($id);
         if (isset($currency)) {
-            return success_web_processor($currency, __('messages.msg_item_found', ['attribute' => __('messages.bank_account')]));
+            return success_web_processor($currency, __('messages.msg_item_found', ['attribute' => __('messages.currency')]));
         }
-        return error_web_processor(trans('messages.msg_item_not_found', ['attribute' => __('messages.bank_account')]));
+        return error_web_processor(trans('messages.msg_item_not_found', ['attribute' => __('messages.currency')]));
     }
 
     /**
@@ -97,29 +97,24 @@ class CurrencyController extends Controller
     public function update(Request $request, $id, $created_at = null, $created_by = null,
                                    $supervised_by = null, $supervised_at = null): JsonResponse|string
     {
-        $validator = UserValidators::bankAccountsUpdateValidation($request);
+        $validator = UserValidators::currencyUpdateValidation($request);
 
         if ($validator != '') {
             return $validator;
         }
 
-        $bank_account = BankAccount::withoutGlobalScope(BranchScope::class)
-            ->with('chart_account')
-            ->with('charge_chart_account')
-            ->with('branch')
-            ->find($id);
-        $bank_account = set_update_parameters($bank_account, $created_at, $created_by,
+        $currency = Currency::find($id);
+        $currency = set_update_parameters($currency, $created_at, $created_by,
             $supervised_by, $supervised_at);
 
-        $bank_account->account_name = $request->account_name;
-        $bank_account->account_number = $request->account_number;
-        $bank_account->entity_name = $request->entity_name;
-        $bank_account->entity_address = $request->entity_address;
-        $bank_account->charge_chart_code = $request->charge_chart_code;
-        $bank_account->inactive = $request->inactive;
-        $bank_account->update();
+        $currency->name = $request->name;
+        $currency->country = $request->country;
+        $currency->symbol = $request->symbol;
+        $currency->hundredths_name = $request->hundredths_name;
+        $currency->auto_fx = $request->auto_fx;
+        $currency->update();
 //
-        return success_web_processor(null, __('messages.msg_updated_success', ['attribute' => __('messages.bank_account')]));
+        return success_web_processor(null, __('messages.msg_updated_success', ['attribute' => __('messages.currency')]));
     }
 
     /**
@@ -128,20 +123,16 @@ class CurrencyController extends Controller
      */
     public function destroy($id): JsonResponse
     {
-        $bank_account = BankAccount::withoutGlobalScope(BranchScope::class)
-            ->with('chart_account')
-            ->with('charge_chart_account')
-            ->with('branch')
-            ->find($id);
-        if (isset($bank_account)) {
-            //TODO: check if the bank account has transactions
+        $currency = Currency::find($id);
+        if (isset($currency)) {
+            //TODO: check if the currency has transactions or relations
 //            $chart_account = ChartAccount::where('account_group', $id)->count();
 //            if ($chart_account > 0) {
 //                return error_web_processor(__('messages.msg_delete_not_allowed', ['attribute' => __('messages.gl_group'), 'attribute1' => __('messages.gl_account')]));
 //            }
-            $bank_account->delete();
-            return success_web_processor(null, __('messages.msg_deleted_success', ['attribute' => __('messages.bank_account')]));
+            $currency->delete();
+            return success_web_processor(null, __('messages.msg_deleted_success', ['attribute' => __('messages.currency')]));
         }
-        return error_web_processor(__('messages.msg_item_not_found', ['attribute' => __('messages.bank_account')]));
+        return error_web_processor(__('messages.msg_item_not_found', ['attribute' => __('messages.currency')]));
     }
 }

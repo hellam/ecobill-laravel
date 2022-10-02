@@ -187,6 +187,19 @@
                             <!--begin:Menu item-->
                             <div class="menu-item">
                                 <!--begin:Menu link-->
+                                <a class="menu-link @if(Route::is('user.banking.accounts.all'))active @endif"
+                                   href="{{route('user.banking.accounts.all')}}">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                    <span class="menu-title">{{__('messages.account_maintenance')}}</span>
+                                </a>
+                                <!--end:Menu link-->
+                            </div>
+                            <!--end:Menu item-->
+                            <!--begin:Menu item-->
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
                                 <a class="menu-link" href="#">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
@@ -244,19 +257,6 @@
                                 <!--end:Menu link-->
                             </div>
                             <!--end:Menu item-->
-                            <!--begin:Menu item-->
-                            <div class="menu-item">
-                                <!--begin:Menu link-->
-                                <a class="menu-link @if(Route::is('user.banking.accounts.all'))active @endif"
-                                   href="{{route('user.banking.accounts.all')}}">
-                                    <span class="menu-bullet">
-                                        <span class="bullet bullet-dot"></span>
-                                    </span>
-                                    <span class="menu-title">{{__('messages.account_maintenance')}}</span>
-                                </a>
-                                <!--end:Menu link-->
-                            </div>
-                            <!--end:Menu item-->
                         </div>
                         <!--end:Menu sub-->
                     </div>
@@ -275,6 +275,19 @@
                         <!--end:Menu link-->
                         <!--begin:Menu sub-->
                         <div class="menu-sub menu-sub-accordion">
+                            <!--begin:Menu item-->
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a class="menu-link @if(Route::is('user.banking_gl.gl_accounts.all'))active @endif"
+                                   href="{{route('user.banking_gl.gl_accounts.all')}}">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                    <span class="menu-title">{{__('messages.gl_maintenance')}}</span>
+                                </a>
+                                <!--end:Menu link-->
+                            </div>
+                            <!--end:Menu item-->
                             <!--begin:Menu item-->
                             <div class="menu-item">
                                 <!--begin:Menu link-->
@@ -307,19 +320,6 @@
                                         <span class="bullet bullet-dot"></span>
                                     </span>
                                     <span class="menu-title">{{__('messages.budget_entries')}}</span>
-                                </a>
-                                <!--end:Menu link-->
-                            </div>
-                            <!--end:Menu item-->
-                            <!--begin:Menu item-->
-                            <div class="menu-item">
-                                <!--begin:Menu link-->
-                                <a class="menu-link @if(Route::is('user.banking_gl.gl_accounts.all'))active @endif"
-                                   href="{{route('user.banking_gl.gl_accounts.all')}}">
-                                    <span class="menu-bullet">
-                                        <span class="bullet bullet-dot"></span>
-                                    </span>
-                                    <span class="menu-title">{{__('messages.gl_maintenance')}}</span>
                                 </a>
                                 <!--end:Menu link-->
                             </div>

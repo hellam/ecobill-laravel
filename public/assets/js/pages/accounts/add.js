@@ -186,10 +186,11 @@ const KTBankAccountAdd = function () {
                                 .on('keyup', function (e) {
                                     $('#err_' + value.field).remove();
                                 })
-                        } else if ($("select[name='" + value.field + "']").length) {
-                            $("textarea[name='" + value.field + "']")
+                        }
+                        if ($("select[name='" + value.field + "']").length) {
+                            $("select[name='" + value.field + "']")
                                 .after('<small style="color: red;" id="err_' + value.field + '">' + value.error + '</small>')
-                                .on('keyup', function (e) {
+                                .on('change', function (e) {
                                     $('#err_' + value.field).remove();
                                 })
                         }

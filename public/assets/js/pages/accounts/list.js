@@ -251,7 +251,7 @@ const KTBankAccountsServerSide = function () {
                 initDatatable();
                 dt.search('').draw();
                 handleSearchDatatable();
-                // handleUpdateRows();
+                handleUpdateRows();
                 // handleDeleteRows();
             }
         }

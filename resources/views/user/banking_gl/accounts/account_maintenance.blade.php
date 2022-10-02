@@ -146,7 +146,7 @@
                                 <td>
                                     {{$bank_account->account_name}}
                                     <br/>
-                                    {!!$bank_account->account_name ? '<div class="badge badge-sm badge-light-success">Active</div>' : '<div class="badge badge-sm badge-light-danger">Inactive</div>'!!}
+                                    {!!$bank_account->inactive == 0 ? '<div class="badge badge-sm badge-light-success">Active</div>' : '<div class="badge badge-sm badge-light-danger">Inactive</div>'!!}
                                 </td>
                                 <td>{{$bank_account->currency}}</td>
                                 <td>{{$bank_account->chart_account->account_code.' '.$bank_account->chart_account->account_name}}</td>
@@ -190,7 +190,7 @@
                                         <div class="menu-item px-3">
                                             <a href="#" class="menu-link px-3 test"
                                                data-kt-accounts-table-actions="delete_row"
-                                               data-kt-accounts-delete-url="delete_row">
+                                               data-kt-accounts-delete-url="{{route('user.banking.accounts.delete', $bank_account->id)}}">
                                                 Delete
                                             </a>
                                         </div>

@@ -227,10 +227,6 @@ const KTAccountsUpdateAdd = function () {
                             $("select[name='charge_chart_code']").val(null).trigger('change');
                             $("select[name='branch_id']").val(null).trigger('change');
 
-                            if ($('#kt_branches_table').length) {
-                                $("#kt_branches_table").DataTable().ajax.reload();
-                                return;
-                            }
                             // Redirect to customers list page
                             window.location = form.getAttribute("data-kt-redirect");
                         }

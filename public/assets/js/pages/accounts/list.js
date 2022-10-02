@@ -34,10 +34,7 @@ const KTBankAccountsServerSide = function () {
                 $('#kt_modal_update_account_form').hide();//hide form
                 $('.loader_container').show();//show loader
                 $("#kt_modal_update_account").modal('show');//show modal
-                // Select parent row
-                const parent = e.target.closest('tr');
 
-                // Get rule name
                 const update_url = d.getAttribute('data-kt-accounts-update-url');
                 const edit_url = d.getAttribute('data-kt-accounts-edit-url');
                 form.setAttribute("data-kt-action", update_url);
@@ -118,7 +115,7 @@ const KTBankAccountsServerSide = function () {
     //Delete Button
     const handleDeleteRows = function () {
         // Select all delete buttons
-        const deleteButtons = document.querySelectorAll('[data-kt-gl-accounts-table-actions="delete_row"]');
+        const deleteButtons = document.querySelectorAll('[data-kt-accounts-table-actions="delete_row"]');
 
         deleteButtons.forEach(d => {
             // edit button on click
@@ -129,10 +126,10 @@ const KTBankAccountsServerSide = function () {
                 const parent = e.target.closest('tr');
 
                 // Get rule name
-                const className = parent.querySelectorAll('td')[1].innerText;
-                delete_url = parent.querySelector("input[class='delete_url']").value;
+                const accountName = parent.querySelectorAll('td')[1].innerText;
+                delete_url = d.getAttribute('data-kt-accounts-delete-url');
                 Swal.fire({
-                    text: "Are you sure you want to delete " + className,
+                    text: "Are you sure you want to delete " + accountName,
                     icon: "warning",
                     showCancelButton: true,
                     buttonsStyling: false,
@@ -145,7 +142,7 @@ const KTBankAccountsServerSide = function () {
                 }).then(function (result) {
                     if (result.value) {
                         Swal.fire({
-                            text: "Deleting " + className,
+                            text: "Deleting " + accountName,
                             icon: "info",
                             allowOutsideClick: false,
                             buttonsStyling: false,
@@ -155,7 +152,7 @@ const KTBankAccountsServerSide = function () {
 
                     } else if (result.dismiss === 'cancel') {
                         Swal.fire({
-                            text: className + " was not deleted.",
+                            text: accountName + " was not deleted.",
                             icon: "error",
                             buttonsStyling: false,
                             confirmButtonText: "Ok, got it!",
@@ -203,8 +200,7 @@ const KTBankAccountsServerSide = function () {
                             confirmButton: "btn fw-bold btn-primary",
                         }
                     }).then(function () {
-                        // delete row data from server and re-draw datatable
-                        dt.draw();
+                        window.location = form.getAttribute("data-kt-redirect");
                     });
                 }
 
@@ -260,7 +256,7 @@ const KTBankAccountsServerSide = function () {
                 dt.search('').draw();
                 handleSearchDatatable();
                 handleUpdateRows();
-                // handleDeleteRows();
+                handleDeleteRows();
             }
         }
     }

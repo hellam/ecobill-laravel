@@ -120,6 +120,9 @@
 
     </style>
     <!-- End: Loader -->
+{{--    <noscript>--}}
+{{--        <META HTTP-EQUIV="Refresh" CONTENT="0;URL=ShowErrorPage.html">--}}
+{{--    </noscript>--}}
 
     @stack('custom_styles')
 </head>

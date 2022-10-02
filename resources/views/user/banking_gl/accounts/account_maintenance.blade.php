@@ -483,7 +483,7 @@
                         <!--begin::Modal header-->
                         <div class="modal-header" id="kt_modal_update_account_header">
                             <!--begin::Modal title-->
-                            <h2 class="fw-bolder">{{__('messages.new_bank_account')}}</h2>
+                            <h2 class="fw-bolder">{{__('messages.update').' '.__('messages.bank_account')}}</h2>
                             <!--end::Modal title-->
                             <!--begin::Close-->
                             <div id="kt_modal_update_account_close"

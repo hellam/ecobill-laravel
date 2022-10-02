@@ -68,6 +68,15 @@ const KTCurrencyAdd = function () {
             validator.revalidateField("country");
         });
 
+        //
+        $(form.querySelector(`[id="check_auto_fx"]`)).on('change', function (){
+            if(this.checked) {
+                $('[name="auto_fx"]').val(1)
+            }else{
+                $('[name="auto_fx"]').val(0)
+            }
+        })
+
         // Action buttons
         submitButton.addEventListener('click', function (e) {
             e.preventDefault();
@@ -79,7 +88,8 @@ const KTCurrencyAdd = function () {
                     if (status === 'Valid') {
                         submitButton.setAttribute('data-kt-indicator', 'on');
                         let str = $('#kt_modal_add_currency_form').serialize();
-                        submitData(str);
+                        console.log(str)
+                        // submitData(str);
                     } else {
                         Swal.fire({
                             text: "Sorry, looks like there are some errors detected, please try again.",

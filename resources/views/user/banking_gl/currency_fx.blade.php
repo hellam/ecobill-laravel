@@ -150,21 +150,66 @@
                                 <thead>
                                 <!--begin::Table row-->
                                 <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
-                                    <th class="">#</th>
-                                    <th class="">{{__('messages.abbr')}}</th>
-                                    <th class="">{{__('messages.symbol')}}</th>
-                                    <th class="">{{__('messages.currency').' '.__('messages.name')}}</th>
-                                    <th class="">{{__('messages.hundredths').' '.__('messages.name')}}</th>
-                                    <th class="">{{__('messages.country')}}</th>
-                                    <th class="">{{__('messages.auto_update')}}</th>
-                                    <th class="text-end min-w-70px">{{__('messages.actions')}}</th>
+                                    <th>#</th>
+                                    <th>{{__('messages.abbr')}}</th>
+                                    <th>{{__('messages.symbol')}}</th>
+                                    <th>{{__('messages.currency').' '.__('messages.name')}}</th>
+                                    <th>{{__('messages.hundredths').' '.__('messages.name')}}</th>
+                                    <th>{{__('messages.country')}}</th>
+                                    <th>{{__('messages.auto_update')}}</th>
+                                    <th class="text-end">{{__('messages.actions')}}</th>
                                 </tr>
                                 <!--end::Table row-->
                                 </thead>
                                 <!--end::Table head-->
                                 <!--begin::Table body-->
                                 <tbody class="fw-bold text-gray-600">
-                                @foreach()
+                                @foreach($currency as $curr)
+                                    <tr>
+                                        <td>{{$loop->iteration}}</td>
+                                        <td>{{$curr->abbreviation}}</td>
+                                        <td>{{$curr->symbol}}</td>
+                                        <td>{{$curr->name}}</td>
+                                        <td>{{$curr->hundredths_name}}</td>
+                                        <td>{{\Monarobase\CountryList\CountryListFacade::getOne($curr->country)}}</td>
+                                        <td class="text-center">{{$curr->auto_fx == 1 ? 'Yes' : 'No'}}</td>
+                                        <td class="text-end">
+                                            <a href="#" class="btn btn-light btn-active-light-primary btn-sm"
+                                               data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end"
+                                               data-kt-menu-flip="top-end">
+                                                Actions
+                                                <span class="svg-icon svg-icon-5 m-0">
+                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                         xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                         width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                                        <g stroke="none" stroke-width="1" fill="none"
+                                                           fill-rule="evenodd">
+                                                            <polygon points="0 0 24 0 24 24 0 24"></polygon>
+                                                            <path
+                                                                d="M6.70710678,15.7071068 C6.31658249,16.0976311 5.68341751,16.0976311 5.29289322,15.7071068 C4.90236893,15.3165825 4.90236893,14.6834175 5.29289322,14.2928932 L11.2928932,8.29289322 C11.6714722,7.91431428 12.2810586,7.90106866 12.6757246,8.26284586 L18.6757246,13.7628459 C19.0828436,14.1360383 19.1103465,14.7686056 18.7371541,15.1757246 C18.3639617,15.5828436 17.7313944,15.6103465 17.3242754,15.2371541 L12.0300757,10.3841378 L6.70710678,15.7071068 Z"
+                                                                fill="#000000" fill-rule="nonzero"
+                                                                transform="translate(12.000003, 11.999999) rotate(-180.000000) translate(-12.000003, -11.999999)"></path>
+                                                        </g>
+                                                    </svg>
+                                                </span>
+                                            </a>
+                                            <!--begin::Menu-->
+                                            <div
+                                                class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                                                data-kt-menu="true">
+                                                <!--begin::Menu item-->
+                                                <div class="menu-item px-3">
+                                                    <a href="#" class="menu-link px-3 test"
+                                                       data-kt-currency-table-actions="edit_row"
+                                                       data-kt-currency-edit-url="{{route('user.banking_gl.currency.edit', $curr->id)}}"
+                                                       data-kt-currency-update-url="{{route('user.banking_gl.currency.update', $curr->id)}}">
+                                                        Edit
+                                                    </a>
+                                                </div>
+                                                <!--end::Menu item-->
+                                            </div>
+                                        </td>
+                                    </tr>
                                 @endforeach
                                 </tbody>
                                 <!--end::Table body-->
@@ -406,19 +451,19 @@
                                 </div>
                                 <!--end::Input group-->
                                 <!--begin::Input group-->
-                                <div class="row mb-0">
-                                    <!--begin::Label-->
-                                    <label
-                                        class="col-lg-4 col-form-label fw-semibold fs-6">{{__('messages.auto_exchange_update')}}</label>
-                                    <!--begin::Label-->
-                                    <!--begin::Label-->
-                                    <div class="col-lg-8 d-flex align-items-center">
-                                        <div class="form-check form-check-solid form-switch fv-row">
-                                            <input class="form-check-input w-45px h-30px" type="checkbox"
-                                                   id="auto_fx" checked/>
-                                        </div>
-                                    </div>
-                                    <!--begin::Label-->
+                                <div class="d-flex">
+                                    <!--begin::Checkbox-->
+                                    <label class="form-check form-check-custom form-check-solid me-10">
+                                        <!--begin::Label-->
+                                        <span class="fs-6 fw-bold me-7">{{__('messages.auto_exchange_update')}}</span>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <input class="form-check-input h-20px w-20px" type="checkbox" checked
+                                               id="check_auto_fx">
+                                        <input type="hidden" name="auto_fx" value="1">
+                                        <!--end::Input-->
+                                    </label>
+                                    <!--end::Checkbox-->
                                 </div>
                                 <!--end::Input group-->
                             </div>
@@ -447,12 +492,186 @@
             </div>
         </div>
         <!--end::Modal - Currency - Add-->
+
+        <!--begin::Modal - Currency - Update-->
+        <div class="modal fade" id="kt_modal_update_currency" tabindex="-1">
+            <!--begin::Modal dialog-->
+            <div class="modal-dialog modal-dialog-centered mw-650px">
+                <!--begin::Modal content-->
+                <div class="modal-content">
+                    <!--begin::Form-->
+                    <form class="form" action="#" id="kt_modal_update_currency_form"
+                          data-kt-action="#">
+                        <!--begin::Modal header-->
+                        <div class="modal-header" id="kt_modal_update_currency_header">
+                            <!--begin::Modal title-->
+                            <h2 class="fw-bolder">{{__('messages.update').' '.__('messages.currency')}}</h2>
+                            <!--end::Modal title-->
+                            <!--begin::Close-->
+                            <div id="kt_modal_update_currency_close"
+                                 class="btn btn-icon btn-sm btn-active-icon-primary">
+                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                                <span class="svg-icon svg-icon-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                         height="24" viewBox="0 0 24 24" fill="none">
+                                        <rect opacity="0.5" x="6" y="17.3137" width="16"
+                                              height="2" rx="1"
+                                              transform="rotate(-45 6 17.3137)"
+                                              fill="currentColor"/>
+                                        <rect x="7.41422" y="6" width="16" height="2" rx="1"
+                                              transform="rotate(45 7.41422 6)"
+                                              fill="currentColor"/>
+                                    </svg>
+                                </span>
+                                <!--end::Svg Icon-->
+                            </div>
+                            <!--end::Close-->
+                        </div>
+                        <!--end::Modal header-->
+                        <!--begin::Modal body-->
+                        <div class="modal-body py-10 px-lg-17">
+                            <!--begin::Scroll-->
+                            <div class="scroll-y me-n7 pe-7" id="kt_modal_update_currency_scroll" data-kt-scroll="true"
+                                 data-kt-scroll-activate="{default: false, lg: true}"
+                                 data-kt-scroll-max-height="auto"
+                                 data-kt-scroll-dependencies="#kt_modal_update_currency_header"
+                                 data-kt-scroll-wrappers="#kt_modal_update_currency_scroll"
+                                 data-kt-scroll-offset="300px">
+
+                                <!--begin::Input group-->
+                                <div class="fv-row mb-7">
+                                    <!--begin::Label-->
+                                    <label class="fs-6 fw-bold mb-2" for="abbreviation">
+                                        <span
+                                            class="required">{{__('messages.currency').' '.__('messages.abbr')}}</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                    <input type="text" class="form-control form-control-solid"
+                                           placeholder="{{__('messages.currency').' '.__('messages.abbr')}}"
+                                           name="abbreviation"/>
+                                    <!--end::Input-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="fv-row mb-7">
+                                    <!--begin::Label-->
+                                    <label class="fs-6 fw-bold mb-2" for="symbol">
+                                        <span
+                                            class="required">{{__('messages.currency').' '.__('messages.symbol')}}</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                    <input type="text" class="form-control form-control-solid"
+                                           placeholder="{{__('messages.currency').' '.__('messages.symbol')}}"
+                                           name="symbol"/>
+                                    <!--end::Input-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="fv-row mb-7">
+                                    <!--begin::Label-->
+                                    <label class="fs-6 fw-bold mb-2" for="name">
+                                        <span
+                                            class="required">{{__('messages.currency').' '.__('messages.name')}}</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                    <input type="text" class="form-control form-control-solid"
+                                           placeholder="{{__('messages.currency').' '.__('messages.name')}}"
+                                           name="name"/>
+                                    <!--end::Input-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="fv-row mb-7">
+                                    <!--begin::Label-->
+                                    <label class="fs-6 fw-bold mb-2" for="hundredths_name">
+                                        <span
+                                            class="required">{{__('messages.hundredths').' '.__('messages.name')}}</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                    <input type="text" class="form-control form-control-solid"
+                                           placeholder="{{__('messages.hundredths').' '.__('messages.name')}} eg cents"
+                                           name="hundredths_name"/>
+                                    <!--end::Input-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="row g-9 mb-7">
+                                    <div class="col-md-12 fv-row">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-bold mb-2">
+                                            <span
+                                                class="required">{{__('messages.country')}}</span>
+                                        </label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <select name="country"
+                                                aria-label="Select Country"
+                                                data-control="select2"
+                                                data-kt-src="#"
+                                                data-placeholder="Select Country"
+                                                data-dropdown-parent="#kt_modal_update_currency"
+                                                class="form-select form-select-solid fw-bolder">
+                                            <option></option>
+                                            @foreach(\Monarobase\CountryList\CountryListFacade::getList() as $key => $country)
+                                                <option value="{{$key}}">{{$country}}</option>
+                                            @endforeach
+                                        </select>
+                                        <!--end::Input-->
+                                    </div>
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="d-flex">
+                                    <!--begin::Checkbox-->
+                                    <label class="form-check form-check-custom form-check-solid me-10">
+                                        <!--begin::Label-->
+                                        <span class="fs-6 fw-bold me-7">{{__('messages.auto_exchange_update')}}</span>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <input class="form-check-input h-20px w-20px" type="checkbox"
+                                               id="check_auto_fx">
+                                        <input type="hidden" name="auto_fx" value="1">
+                                        <!--end::Input-->
+                                    </label>
+                                    <!--end::Checkbox-->
+                                </div>
+                                <!--end::Input group-->
+                            </div>
+                            <!--end::Scroll-->
+                        </div>
+                        <!--end::Modal body-->
+                        <!--begin::Modal footer-->
+                        <div class="modal-footer flex-center">
+                            <!--begin::Button-->
+                            <button type="reset" id="kt_modal_update_currency_cancel" class="btn btn-light me-3">
+                                Discard
+                            </button>
+                            <!--end::Button-->
+                            <!--begin::Button-->
+                            <button type="submit" id="kt_modal_update_currency_submit" class="btn btn-primary">
+                                <span class="indicator-label">Submit</span>
+                                <span class="indicator-progress">Please wait...
+                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                            </button>
+                            <!--end::Button-->
+                        </div>
+                        <!--end::Modal footer-->
+                    </form>
+                    <!--end::Form-->
+                </div>
+            </div>
+        </div>
+        <!--end::Modal - Currency - Update-->
     </div>
     <!--end::Container-->
 @stop
 
 @push('custom_scripts')
     <script src="{{ asset('assets/js/pages/currency_fx/curr_add.js') }}"></script>
-        <script src="{{ asset('assets/js/pages/currency_fx/curr_list.js') }}"></script>
-    {{--    <script src="{{ asset('assets/js/pages/currency/curr_update.js') }}"></script>--}}
+    <script src="{{ asset('assets/js/pages/currency_fx/curr_list.js') }}"></script>
+    <script src="{{ asset('assets/js/pages/currency_fx/curr_update.js') }}"></script>
 @endpush

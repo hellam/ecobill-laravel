@@ -127,9 +127,6 @@
                                  data-kt-scroll-wrappers="#kt_modal_add_account_scroll"
                                  data-kt-scroll-offset="300px">
 
-                                {{--                                charges_gl_account--}}
-                                {{--                                branch_id--}}
-
                                 <!--begin::Input group-->
                                 <div class="fv-row mb-7">
                                     <!--begin::Label-->
@@ -181,7 +178,7 @@
                                     <!--end::Label-->
                                     <!--begin::Input-->
                                     <textarea type="text" class="form-control form-control-solid"
-                                           placeholder="{{__('messages.entity_address')}} i.e Bank Address"
+                                              placeholder="{{__('messages.entity_address')}} i.e Bank Address"
                                               name="entity_address"></textarea>
                                     <!--end::Input-->
                                 </div>
@@ -222,7 +219,7 @@
                                         </label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
-                                        <select name="charge_code"
+                                        <select name="chart_code"
                                                 aria-label="Select Trx Gl Account"
                                                 data-control="select2"
                                                 data-kt-src="#"
@@ -230,8 +227,62 @@
                                                 data-dropdown-parent="#kt_modal_add_account"
                                                 class="form-select form-select-solid fw-bolder">
                                             <option></option>
-                                            @foreach($currency as $curr)
-                                                <option value="{{$curr->id}}">{{$curr->abbreviation}}</option>
+                                            @foreach($gl_accounts as $gl_account)
+                                                <option
+                                                    value="{{$gl_account->id}}">{{$gl_account->account_name}}</option>
+                                            @endforeach
+                                        </select>
+                                        <!--end::Input-->
+                                    </div>
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="row g-9 mb-7">
+                                    <div class="col-md-12 fv-row">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-bold mb-2">
+                                            <span
+                                                class="required">{{__('messages.charges').' '.__('messages.gl_account')}}</span>
+                                        </label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <select name="charge_chart_code"
+                                                aria-label="Select Charges Gl Account"
+                                                data-control="select2"
+                                                data-kt-src="#"
+                                                data-placeholder="Select Charges GL Account"
+                                                data-dropdown-parent="#kt_modal_add_account"
+                                                class="form-select form-select-solid fw-bolder">
+                                            <option></option>
+                                            @foreach($gl_accounts as $gl_account)
+                                                <option
+                                                    value="{{$gl_account->id}}">{{$gl_account->account_name}}</option>
+                                            @endforeach
+                                        </select>
+                                        <!--end::Input-->
+                                    </div>
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="row g-9 mb-7">
+                                    <div class="col-md-12 fv-row">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-bold mb-2">
+                                            <span
+                                                class="required">{{__('messages.branch')}}</span>
+                                        </label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <select name="branch_id"
+                                                aria-label="Select Branch"
+                                                data-control="select2"
+                                                data-kt-src="#"
+                                                data-placeholder="Select Branch"
+                                                data-dropdown-parent="#kt_modal_add_account"
+                                                class="form-select form-select-solid fw-bolder">
+                                            <option></option>
+                                            @foreach($branches as $branch)
+                                                <option value="{{$branch->id}}">{{$branch->name}}</option>
                                             @endforeach
                                         </select>
                                         <!--end::Input-->
@@ -269,4 +320,5 @@
 @stop
 
 @push('custom_scripts')
+    <script src="{{ asset('assets/js/pages/accounts/add.js') }}"></script>
 @endpush

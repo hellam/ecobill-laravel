@@ -119,7 +119,7 @@
                                         </svg>
                                     </span>
                                     <!--end::Svg Icon-->
-                                    <input type="text" data-kt-contact-table-filter="search"
+                                    <input type="text" data-kt-currency-table-filter="search"
                                            class="form-control form-control-solid w-250px ps-15"
                                            placeholder="{{__('messages.search')}}"/>
                                 </div>
@@ -163,7 +163,10 @@
                                 </thead>
                                 <!--end::Table head-->
                                 <!--begin::Table body-->
-                                <tbody class="fw-bold text-gray-600"></tbody>
+                                <tbody class="fw-bold text-gray-600">
+                                @foreach()
+                                @endforeach
+                                </tbody>
                                 <!--end::Table body-->
                             </table>
                             <!--end::Table-->
@@ -402,6 +405,22 @@
                                     </div>
                                 </div>
                                 <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="row mb-0">
+                                    <!--begin::Label-->
+                                    <label
+                                        class="col-lg-4 col-form-label fw-semibold fs-6">{{__('messages.auto_exchange_update')}}</label>
+                                    <!--begin::Label-->
+                                    <!--begin::Label-->
+                                    <div class="col-lg-8 d-flex align-items-center">
+                                        <div class="form-check form-check-solid form-switch fv-row">
+                                            <input class="form-check-input w-45px h-30px" type="checkbox"
+                                                   id="auto_fx" checked/>
+                                        </div>
+                                    </div>
+                                    <!--begin::Label-->
+                                </div>
+                                <!--end::Input group-->
                             </div>
                             <!--end::Scroll-->
                         </div>
@@ -434,6 +453,6 @@
 
 @push('custom_scripts')
     <script src="{{ asset('assets/js/pages/currency_fx/curr_add.js') }}"></script>
-    {{--    <script src="{{ asset('assets/js/pages/currency/curr_all.js') }}"></script>--}}
+        <script src="{{ asset('assets/js/pages/currency_fx/curr_list.js') }}"></script>
     {{--    <script src="{{ asset('assets/js/pages/currency/curr_update.js') }}"></script>--}}
 @endpush

@@ -127,6 +127,9 @@ class BankAccountController extends Controller
             $supervised_by, $supervised_at);
 
         $bank_account->account_name = $request->account_name;
+        $bank_account->account_number = $request->account_number;
+        $bank_account->entity_name = $request->entity_name;
+        $bank_account->entity_address = $request->entity_address;
         $bank_account->inactive = $request->inactive;
         $bank_account->update();
 //
@@ -139,17 +142,21 @@ class BankAccountController extends Controller
      */
     public function destroy($id): JsonResponse
     {
-        $chart_account = ChartAccount::find($id);
-        if (isset($chart_account)) {
-            //TODO: check if the chart account has transactions
+        $bank_account = BankAccount::withoutGlobalScope(BranchScope::class)
+            ->with('chart_account')
+            ->with('charge_chart_account')
+            ->with('branch')
+            ->find($id);
+        if (isset($bank_account)) {
+            //TODO: check if the bank account has transactions
 //            $chart_account = ChartAccount::where('account_group', $id)->count();
 //            if ($chart_account > 0) {
 //                return error_web_processor(__('messages.msg_delete_not_allowed', ['attribute' => __('messages.gl_group'), 'attribute1' => __('messages.gl_account')]));
 //            }
-            $chart_account->delete();
-            return success_web_processor(null, __('messages.msg_deleted_success', ['attribute' => __('messages.gl_account')]));
+            $bank_account->delete();
+            return success_web_processor(null, __('messages.msg_deleted_success', ['attribute' => __('messages.bank_account')]));
         }
-        return error_web_processor(__('messages.msg_item_not_found', ['attribute' => __('messages.gl_account')]));
+        return error_web_processor(__('messages.msg_item_not_found', ['attribute' => __('messages.bank_account')]));
     }
 
 }

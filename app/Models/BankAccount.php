@@ -34,7 +34,7 @@ use Illuminate\Support\Facades\Auth;
  * @property Carbon|null $supervised_at
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property bool $inactive
+ * @property int $inactive
  *
  * @package App\Models
  */
@@ -47,7 +47,7 @@ class BankAccount extends Model
 		'chart_code' => 'int',
 		'charge_chart_code' => 'int',
 		'branch_id' => 'int',
-		'inactive' => 'bool'
+		'inactive' => 'int'
 	];
 
 	protected $dates = [

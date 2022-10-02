@@ -95,7 +95,7 @@ class BankAccountController extends Controller
         if (isset($bank_account)) {
             return success_web_processor($bank_account, __('messages.msg_item_found', ['attribute' => __('messages.gl_account')]));
         }
-        return error_web_processor(trans('messages.msg_item_not_found', ['attribute' => __('messages.gl_account')]),200,$chart_account);
+        return error_web_processor(trans('messages.msg_item_not_found', ['attribute' => __('messages.gl_account')]), 200, $chart_account);
     }
 
     /**

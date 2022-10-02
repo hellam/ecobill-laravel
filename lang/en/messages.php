@@ -109,6 +109,7 @@ return [
     'edit' => 'Edit',
     'email' => 'Email',
     'email_settings' => 'Email Settings',
+    'entity' => 'Entity',
     'entity_name' => 'Entity Name',
     'entity_address' => 'Entity Address',
     'error_404' => 'Page Not Found!',

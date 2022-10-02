@@ -180,8 +180,8 @@
                                         <div class="menu-item px-3">
                                             <a href="#" class="menu-link px-3 test"
                                                data-kt-accounts-table-actions="edit_row"
-                                               data-kt-accounts-edit-url="{{route('user.banking.accounts.edit', $bank_account->id)}}"
-                                               data-kt-accounts-update-url="{{route('user.banking.accounts.update', $bank_account->id)}}">
+                                               data-kt-accounts-edit-url="{{route('user.banking_gl.banking.accounts.edit', $bank_account->id)}}"
+                                               data-kt-accounts-update-url="{{route('user.banking_gl.banking.accounts.update', $bank_account->id)}}">
                                                 Edit
                                             </a>
                                         </div>
@@ -190,7 +190,7 @@
                                         <div class="menu-item px-3">
                                             <a href="#" class="menu-link px-3 test"
                                                data-kt-accounts-table-actions="delete_row"
-                                               data-kt-accounts-delete-url="{{route('user.banking.accounts.delete', $bank_account->id)}}">
+                                               data-kt-accounts-delete-url="{{route('user.banking_gl.banking.accounts.delete', $bank_account->id)}}">
                                                 Delete
                                             </a>
                                         </div>
@@ -217,8 +217,8 @@
                 <div class="modal-content">
                     <!--begin::Form-->
                     <form class="form" action="#" id="kt_modal_add_account_form"
-                          data-kt-action="{{route('user.banking.accounts.create')}}"
-                          data-kt-redirect="{{route('user.banking.accounts.all')}}">
+                          data-kt-action="{{route('user.banking_gl.banking.accounts.create')}}"
+                          data-kt-redirect="{{route('user.banking_gl.banking.accounts.all')}}">
                         <!--begin::Modal header-->
                         <div class="modal-header" id="kt_modal_add_account_header">
                             <!--begin::Modal title-->
@@ -479,7 +479,7 @@
                     <!--begin::Form-->
                     <form class="form" action="#" id="kt_modal_update_account_form"
                           data-kt-action=""
-                          data-kt-redirect="{{route('user.banking.accounts.all')}}">
+                          data-kt-redirect="{{route('user.banking_gl.banking.accounts.all')}}">
                         <!--begin::Modal header-->
                         <div class="modal-header" id="kt_modal_update_account_header">
                             <!--begin::Modal title-->

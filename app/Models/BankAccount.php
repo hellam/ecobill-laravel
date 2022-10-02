@@ -76,6 +76,14 @@ class BankAccount extends Model
 		'inactive'
 	];
 
+    public function chart_account(){
+        return $this->belongsTo(ChartAccount::class, 'chart_code', 'account_code');
+    }
+
+    public function charge_chart_account(){
+        return $this->belongsTo(ChartAccount::class, 'charge_chart_code', 'account_code');
+    }
+
     public static function booted()
     {
         if (Auth::guard('user')->check()){

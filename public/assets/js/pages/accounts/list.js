@@ -9,16 +9,14 @@ const KTBankAccountsServerSide = function () {
     const initDatatable = function () {
         let td = document.querySelector('#kt_accounts_table')
         dt = $("#kt_accounts_table").DataTable();
-
-        table = dt.$;
-
-        // Re-init functions on every table re-draw -- more info: https://datatables.net/reference/event/draw
-        dt.on('draw', function () {
-            KTMenu.createInstances();
-            // handleUpdateRows();
-            // handleDeleteRows();
-        });
     };
+
+    var handleSearchDatatable = function () {
+        const filterSearch = document.querySelector('[data-kt-accounts-table-filter="search"]');
+        filterSearch.addEventListener('keyup', function (e) {
+            dt.search(e.target.value).draw();
+        });
+    }
 
     //Edit Button
     const handleUpdateRows = function () {
@@ -247,13 +245,14 @@ const KTBankAccountsServerSide = function () {
     // Public methods
     return {
         init: function () {
-            form = document.querySelector('#kt_modal_update_gl_account_form');
+            form = document.querySelector('#kt_modal_update_account_form');
 
             if ($('#kt_accounts_table').length) {
                 initDatatable();
                 dt.search('').draw();
-                handleUpdateRows();
-                handleDeleteRows();
+                handleSearchDatatable();
+                // handleUpdateRows();
+                // handleDeleteRows();
             }
         }
     }

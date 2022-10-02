@@ -145,9 +145,9 @@
                                 <td>{{$loop->iteration}}</td>
                                 <td>{{$bank_account->account_name}}</td>
                                 <td>{{$bank_account->currency}}</td>
-                                <td>{{$bank_account->currency}}</td>
-                                <td>{{$bank_account->currency}}</td>
-                                <td>{{$bank_account->currency}}</td>
+                                <td>{{$bank_account->chart_account->account_code.' '.$bank_account->chart_account->account_name}}</td>
+                                <td>{{$bank_account->account_number}}</td>
+                                <td>{{$bank_account->branch}}</td>
                                 <td>{{$bank_account->currency}}</td>
                                 <td>{{$bank_account->currency}}</td>
                             </tr>

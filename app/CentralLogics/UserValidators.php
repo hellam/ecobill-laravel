@@ -227,8 +227,6 @@ class UserValidators
         return self::ValidatorMake($request->all(), [
             'account_name' => 'required|unique:' . BankAccount::class . ',account_name,NULL,id,client_ref,' . get_user_ref(),
             'account_number' => 'required|unique:' . BankAccount::class . ',account_number,NULL,id,client_ref,' . get_user_ref(),
-            'entity_name' => 'string',
-            'entity_address' => 'string',
             'currency' => 'required|exists:' . Currency::class . ',abbreviation,client_ref,' . get_user_ref(),
             'chart_code' => 'required|unique:' . BankAccount::class . ',chart_code,NULL,id,client_ref,' . get_user_ref()
                 .'|exists:'. ChartAccount::class . ',account_code,client_ref,' . get_user_ref(),

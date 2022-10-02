@@ -235,6 +235,20 @@ class UserValidators
         ]);
     }
 
+    public static function bankAccountsUpdateValidation(Request $request)
+    {
+        return self::ValidatorMake($request->all(), [
+            'account_name' => 'required|unique:' . BankAccount::class . ',account_name,NULL,id,client_ref,' . get_user_ref(),
+            'account_number' => 'required|unique:' . BankAccount::class . ',account_number,NULL,id,client_ref,' . get_user_ref(),
+            'currency' => 'required|exists:' . Currency::class . ',abbreviation,client_ref,' . get_user_ref(),
+            'chart_code' => 'required|unique:' . BankAccount::class . ',chart_code,NULL,id,client_ref,' . get_user_ref()
+                .'|exists:'. ChartAccount::class . ',account_code,client_ref,' . get_user_ref(),
+            'charge_chart_code' => 'required|exists:'. ChartAccount::class . ',account_code,client_ref,' . get_user_ref(),
+            'branch_id' => 'required|exists:'. Branch::class . ',id,client_ref,' . get_user_ref(),
+            'inactive' => 'in:1,0',
+        ]);
+    }
+
     public static function securityUpdateValidation(Request $request)
     {
         $type = Route::current()->type;

@@ -25,7 +25,9 @@ class BankAccountController extends Controller
     public function index(): Factory|View|Application
     {
         $account_count = BankAccount::withoutGlobalScope(BranchScope::class)->count();
-        $bank_accounts = BankAccount::withoutGlobalScope(BranchScope::class)->all();
+        $bank_accounts = BankAccount::withoutGlobalScope(BranchScope::class)
+            ->with('chart_account')
+            ->get();
         $currency = Currency::all();
         $gl_accounts = ChartAccount::all();
         $branches = Branch::all();
@@ -45,7 +47,6 @@ class BankAccountController extends Controller
     public function create(Request $request, $created_at = null, $created_by = null,
                                    $supervised_by = null, $supervised_at = null): JsonResponse
     {
-
         $validator = UserValidators::bankAccountsCreateValidation($request);
 
         if ($validator != '') {

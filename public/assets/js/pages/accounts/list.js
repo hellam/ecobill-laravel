@@ -3,7 +3,7 @@
 // Class definition
 const KTBankAccountsServerSide = function () {
 // Shared variables
-    let table, dt, form, delete_url;
+    let dt, form, delete_url;
 
     // Private functions
     const initDatatable = function () {
@@ -21,25 +21,25 @@ const KTBankAccountsServerSide = function () {
     //Edit Button
     const handleUpdateRows = function () {
         // Select all delete buttons
-        const editButtons = document.querySelectorAll('[data-kt-gl-accounts-table-actions="edit_row"]');
+        const editButtons = document.querySelectorAll('[data-kt-accounts-table-actions="edit_row"]');
 
         // Make the DIV element draggable:
-        const element = document.querySelector('#kt_modal_update_gl_account');
+        const element = document.querySelector('#kt_modal_update_account');
         dragElement(element);
         editButtons.forEach(d => {
             // edit button on click
             d.addEventListener('click', function (e) {
                 e.preventDefault();
 
-                $('#kt_modal_update_gl_account_form').hide();//hide form
+                $('#kt_modal_update_account_form').hide();//hide form
                 $('.loader_container').show();//show loader
-                $("#kt_modal_update_gl_account").modal('show');//show modal
+                $("#kt_modal_update_account").modal('show');//show modal
                 // Select parent row
                 const parent = e.target.closest('tr');
 
                 // Get rule name
-                const update_url = parent.querySelector("input[class='update_url']").value;
-                const edit_url = parent.querySelector("input[class='edit_url']").value;
+                const update_url = d.getAttribute('data-kt-accounts-update-url');
+                const edit_url = d.getAttribute('data-kt-accounts-edit-url');
                 form.setAttribute("data-kt-action", update_url);
 
                 $.ajax({
@@ -60,26 +60,34 @@ const KTBankAccountsServerSide = function () {
 
                         } else {
 
-                            $('#kt_modal_update_gl_account_form').show({backdrop: 'static', keyboard: false});//show form
-                            const gl_account = response.data;
+                            $('#kt_modal_update_account_form').show({backdrop: 'static', keyboard: false});//show form
+                            const account = response.data;
                             //
-                            $("#kt_modal_update_gl_account_form input[name='account_code']").val(gl_account.account_code);
-                            $("#kt_modal_update_gl_account_form input[name='account_name']").val(gl_account.account_name);
-                            $("#kt_modal_update_gl_account_form select[name='account_group']").val(gl_account.account_group).trigger('change');
-                            $("#kt_modal_update_gl_account_form input[name='inactive']").val(gl_account.inactive)
+                            $("#kt_modal_update_account_form input[name='account_name']").val(account.account_name);
+                            $("#kt_modal_update_account_form input[name='account_number']").val(account.account_number);
+                            $("#kt_modal_update_account_form input[name='entity_name']").val(account.entity_name);
+                            $("#kt_modal_update_account_form input[name='entity_address']").val(account.entity_address);
+                            $("#kt_modal_update_account_form select[name='currency']").val(account.currency).trigger('change');
+                            $("#kt_modal_update_account_form select[name='currency']").attr('disabled', true);
+                            $("#kt_modal_update_account_form select[name='chart_code']").val(account.chart_code).trigger('change');
+                            $("#kt_modal_update_account_form select[name='chart_code']").attr('disabled', true);
+                            $("#kt_modal_update_account_form select[name='charge_chart_code']").val(account.charge_chart_code).trigger('change');
+                            $("#kt_modal_update_account_form select[name='branch_id']").val(account.branch_id).trigger('change');
+                            $("#kt_modal_update_account_form select[name='branch_id']").attr('disabled', true);
+                            $("#kt_modal_update_account_form input[name='inactive']").val(account.inactive)
 
-                            if (gl_account.inactive !== 1) {
-                                $("#kt_modal_update_gl_account_form input[id='inactive']").attr("checked", "checked");
+                            if (account.inactive !== 1) {
+                                $("#kt_modal_update_account_form input[id='inactive']").attr("checked", "checked");
                             } else {
-                                $("#kt_modal_update_gl_account_form input[id='inactive']").removeAttr("checked")
+                                $("#kt_modal_update_account_form input[id='inactive']").removeAttr("checked")
                             }
 
                             //active/inactive
-                            $("#kt_modal_update_gl_account_form input[id='inactive']").on('change', function () {
+                            $("#kt_modal_update_account_form input[id='inactive']").on('change', function () {
                                 if ($(this).is(':checked'))
-                                    $("#kt_modal_update_gl_account_form input[name='inactive']").val(0)
+                                    $("#kt_modal_update_account_form input[name='inactive']").val(0)
                                 else {
-                                    $("#kt_modal_update_gl_account_form input[name='inactive']").val(1)
+                                    $("#kt_modal_update_account_form input[name='inactive']").val(1)
                                 }
                             })
                         }

@@ -179,7 +179,9 @@
                                         <!--begin::Menu item-->
                                         <div class="menu-item px-3">
                                             <a href="#" class="menu-link px-3 test"
-                                               data-kt-gl-accounts-table-actions="edit_row">
+                                               data-kt-accounts-table-actions="edit_row"
+                                               data-kt-accounts-edit-url="{{route('user.banking.accounts.edit', $bank_account->id)}}"
+                                               data-kt-accounts-update-url="{{route('user.banking.accounts.update', $bank_account->id)}}">
                                                 Edit
                                             </a>
                                         </div>
@@ -187,7 +189,8 @@
                                         <!--begin::Menu item-->
                                         <div class="menu-item px-3">
                                             <a href="#" class="menu-link px-3 test"
-                                               data-kt-gl-accounts-table-actions="delete_row">
+                                               data-kt-accounts-table-actions="delete_row"
+                                               data-kt-accounts-delete-url="delete_row">
                                                 Delete
                                             </a>
                                         </div>
@@ -676,6 +679,13 @@
                                     </div>
                                 </div>
                                 <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <input type="hidden" name="inactive">
+                                <label class="form-check form-switch form-check-custom form-check-solid fs-6 fw-bold">
+                                    <span class=" fw-bolder text-gray-800">Active</span>
+                                    <input class="form-check-input mx-2" type="checkbox" id="inactive">
+                                </label>
+                                <!--end::Input group-->
                             </div>
                             <!--end::Scroll-->
                         </div>
@@ -709,4 +719,5 @@
 @push('custom_scripts')
     <script src="{{ asset('assets/js/pages/accounts/add.js') }}"></script>
     <script src="{{ asset('assets/js/pages/accounts/list.js') }}"></script>
+    <script src="{{ asset('assets/js/pages/accounts/update.js') }}"></script>
 @endpush

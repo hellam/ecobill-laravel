@@ -130,6 +130,7 @@ class BankAccountController extends Controller
         $bank_account->account_number = $request->account_number;
         $bank_account->entity_name = $request->entity_name;
         $bank_account->entity_address = $request->entity_address;
+        $bank_account->charge_chart_code = $request->charge_chart_code;
         $bank_account->inactive = $request->inactive;
         $bank_account->update();
 //

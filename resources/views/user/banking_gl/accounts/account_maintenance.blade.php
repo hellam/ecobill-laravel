@@ -142,7 +142,7 @@
                         <!--end::Table head-->
                         <!--begin::Table body-->
                         <tbody class="fw-bold text-gray-600">
-                        @foreach()
+                        @foreach($bank_accounts as $bank_account)
                             <tr></tr>
                         @endforeach
                         </tbody>

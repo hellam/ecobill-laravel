@@ -199,3 +199,7 @@ Route::group(['as' => 'user.'], function () {
 ////    $user = UserModel::with('user_branches:id,name,id')->find(auth::id());
 //    return auth('user')->user()->active_branches();
 //});
+//Route::get('/country', function()
+//{
+//    return \Monarobase\CountryList\CountryListFacade::getList('en', 'json');
+//});

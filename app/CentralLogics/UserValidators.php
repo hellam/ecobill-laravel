@@ -302,6 +302,25 @@ class UserValidators
         ]);
     }
 
+    public static function taxCreateValidation(Request $request)
+    {
+        return self::ValidatorMake($request->all(), [
+            'name' => 'required|unique:' . PaymentTerm::class . ',name,NULL,id,client_ref,' . get_user_ref(),
+            'description' => 'required',
+            'rate' => 'required|numeric',
+        ]);
+    }
+
+    public static function taxUpdateValidation(Request $request)
+    {
+        $id = Route::current()->id;
+        return self::ValidatorMake($request->all(), [
+            'name' => 'required|unique:' . PaymentTerm::class . ',name,' . $id . ',id,client_ref,' . get_user_ref(),
+            'description' => 'required',
+            'rate' => 'required',
+        ]);
+    }
+
     public static function securityUpdateValidation(Request $request)
     {
         $type = Route::current()->type;

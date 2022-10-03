@@ -19,7 +19,8 @@ class ExchangeRateController extends Controller
     public function index()
     {
         $fx_rates = 0;
-        return view('user.banking_gl.fx_rates', compact('fx_rates'));
+        $currency = Currency::all();
+        return view('user.banking_gl.fx_rates', compact('fx_rates', 'currency'));
     }
 
     /**
@@ -52,7 +53,7 @@ class ExchangeRateController extends Controller
         //set_create_parameters($created_at, $created_by, ...)
         $post_data = array_merge($post_data, set_create_parameters($created_at, $created_by, $supervised_by, $supervised_at));
 
-        $currency = ExchangeRate::create($post_data);
+        $fx = ExchangeRate::create($post_data);
 
         if ($created_at == null) {
             //if not supervised, log data from create request
@@ -63,11 +64,11 @@ class ExchangeRateController extends Controller
                 'Create exchange rate',
                 json_encode($post_data),
                 auth('user')->id(),
-                $currency->id
+                $fx->id
             );
         }
 
-        return success_web_processor(['id' => $currency->id], __('messages.msg_saved_success', ['attribute' => __('messages.fx')]));
+        return success_web_processor(['id' => $fx->id], __('messages.msg_saved_success', ['attribute' => __('messages.fx')]));
     }
 
     /**
@@ -75,11 +76,11 @@ class ExchangeRateController extends Controller
      */
     public function edit($id)
     {
-        $currency = Currency::find($id);
-        if (isset($currency)) {
-            return success_web_processor($currency, __('messages.msg_item_found', ['attribute' => __('messages.currency')]));
+        $fx = ExchangeRate::find($id);
+        if (isset($fx)) {
+            return success_web_processor($fx, __('messages.msg_item_found', ['attribute' => __('messages.fx')]));
         }
-        return error_web_processor(trans('messages.msg_item_not_found', ['attribute' => __('messages.currency')]));
+        return error_web_processor(trans('messages.msg_item_not_found', ['attribute' => __('messages.fx')]));
     }
 
     /**
@@ -95,8 +96,8 @@ class ExchangeRateController extends Controller
             return $validator;
         }
 
-        $currency = Currency::find($id);
-//        $currency = set_update_parameters($currency, $created_at, $created_by, $supervised_by, $supervised_at);
+        $fx = Currency::find($id);
+        $currency = set_update_parameters($fx, $created_at, $created_by, $supervised_by, $supervised_at);
 
         $currency->name = $request->name;
         $currency->country = $request->country;

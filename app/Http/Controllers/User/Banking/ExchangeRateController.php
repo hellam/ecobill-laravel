@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use function App\CentralLogics\error_web_processor;
 use function App\CentralLogics\get_user_ref;
 use function App\CentralLogics\log_activity;
+use function App\CentralLogics\set_create_parameters;
 use function App\CentralLogics\success_web_processor;
 
 class ExchangeRateController extends Controller
@@ -32,24 +33,22 @@ class ExchangeRateController extends Controller
     public function create(Request $request, $created_at = null, $created_by = null,
                                    $supervised_by = null, $supervised_at = null): JsonResponse
     {
-        $validator = UserValidators::currencyCreateValidation($request);
+        $validator = UserValidators::fxCreateValidation($request);
 
         if ($validator != '') {
             return $validator;
         }
 
         $post_data = [
-            'abbreviation' => $request->abbreviation,
-            'name' => $request->name,
-            'country' => $request->country,
-            'symbol' => $request->symbol,
-            'hundredths_name' => $request->hundredths_name,
-            'auto_fx' => $request->auto_fx,
+            'currency' => $request->abbreviation,
+            'buy_rate' => $request->name,
+            'sell_rate' => $request->country,
+            'branch' => $request->symbol,
             'client_ref' => get_user_ref()
         ];
 
         //set_create_parameters($created_at, $created_by, ...)
-//        $post_data = array_merge($post_data, set_create_parameters($created_at, $created_by, $supervised_by, $supervised_at));
+        $post_data = array_merge($post_data, set_create_parameters($created_at, $created_by, $supervised_by, $supervised_at));
 
         $currency = Currency::create($post_data);
 
@@ -57,16 +56,16 @@ class ExchangeRateController extends Controller
             //if not supervised, log data from create request
             //Creator log
             log_activity(
-                ST_CURRENCY_SETUP,
+                ST_EXCHANGE_RATE_SETUP,
                 $request->getClientIp(),
-                'Create new Currency',
+                'Create exchange rate',
                 json_encode($post_data),
                 auth('user')->id(),
                 $currency->id
             );
         }
 
-        return success_web_processor(['id' => $currency->id], __('messages.msg_saved_success', ['attribute' => __('messages.currency')]));
+        return success_web_processor(['id' => $currency->id], __('messages.msg_saved_success', ['attribute' => __('messages.fx')]));
     }
 
     /**

@@ -129,12 +129,10 @@
                             <!--begin::Table row-->
                             <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
                                 <th>#</th>
-                                <th>{{__('messages.abbr')}}</th>
-                                <th>{{__('messages.symbol')}}</th>
-                                <th>{{__('messages.fx').' '.__('messages.name')}}</th>
-                                <th>{{__('messages.hundredths').' '.__('messages.name')}}</th>
-                                <th>{{__('messages.country')}}</th>
-                                <th>{{__('messages.auto_update')}}</th>
+                                <th>{{__('messages.currency')}}</th>
+                                <th>{{__('messages.buy_rate')}}</th>
+                                <th>{{__('messages.sell_rate')}}</th>
+                                <th>{{__('messages.date')}}</th>
                                 <th class="text-end">{{__('messages.actions')}}</th>
                             </tr>
                             <!--end::Table row-->
@@ -314,7 +312,8 @@
                                     <!--begin::Input-->
                                     <input class="form-control form-control-solid"
                                            placeholder="{{__('messages.select').' '.__('messages.date_from')}}"
-                                           name="date_from" id="kt_date_from"/>
+                                            id="kt_date_from"/>
+                                    <input type="hidden" name="date" id="date">
                                     <!--end::Input-->
                                 </div>
                                 <!--end::Input group-->

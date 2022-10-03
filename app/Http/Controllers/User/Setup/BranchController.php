@@ -143,7 +143,7 @@ class BranchController extends Controller
         $branch->phone = $request->phone;
         $branch->tax_no = $request->tax_no;
         $branch->tax_period = $request->tax_period;
-        $branch->default_currency = $request->default_currency;
+//        $branch->default_currency = $request->default_currency;
         $branch->default_bank_account = $request->default_bank_account;
         $branch->fiscal_year = $request->fiscal_year;
         $branch->timezone = $request->timezone;

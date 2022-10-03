@@ -101,7 +101,7 @@ class PaymentTermsController extends Controller
         $pay_terms = PaymentTerm::find($id);
         $pay_terms = set_update_parameters($pay_terms, $created_at, $created_by, $supervised_by, $supervised_at);
 
-        $pay_terms->name = $request->name;
+        $pay_terms->terms = $request->terms;
         $pay_terms->type = $request->type;
         $pay_terms->days = $request->days ?? 0;
         $pay_terms->update();

@@ -484,7 +484,7 @@
                                 <!--begin::Select-->
                                 <select class="form-select form-select-sm form-select-solid"
                                         data-control="select2"
-                                        data-placeholder="Switch Branch"
+                                        data-placeholder="{{config('currency')}}"
                                         id="switch_branch"
                                         data-hide-search="true">
                                     <option value=""></option>

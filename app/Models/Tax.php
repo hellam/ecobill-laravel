@@ -1,12 +1,8 @@
 <?php
 
-/**
- * Created by Reliese Model.
- */
 
 namespace App\Models;
 
-use App\Scopes\BranchScope;
 use App\Scopes\ClientRefScope;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;

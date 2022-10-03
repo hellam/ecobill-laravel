@@ -140,15 +140,13 @@
                             <!--end::Table head-->
                             <!--begin::Table body-->
                             <tbody class="fw-bold text-gray-600">
-                            @foreach($currency as $curr)
+                            @foreach($exchangeRates as $fx)
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
-                                    <td>{{$curr->abbreviation}}</td>
-                                    <td>{{$curr->symbol}}</td>
-                                    <td>{{$curr->name}}</td>
-                                    <td>{{$curr->hundredths_name}}</td>
-                                    <td>{{\Monarobase\CountryList\CountryListFacade::getOne($curr->country)}}</td>
-                                    <td class="text-center">{{$curr->auto_fx == 1 ? 'Yes' : 'No'}}</td>
+                                    <td>{{$fx->curr->name}}</td>
+                                    <td>{{$fx->buy_rate}}</td>
+                                    <td>{{$fx->sell_rate}}</td>
+                                    <td>{{$fx->date}}</td>
                                     <td class="text-end">
                                         <a href="#" class="btn btn-light btn-active-light-primary btn-sm"
                                            data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end"

@@ -1,7 +1,7 @@
 "use strict";
 
 // Class definition
-const KTCurrencyAdd = function () {
+const KTFXAdd = function () {
     // Shared variables
     let closeButton, discardButton, submitButton, validator, form, modal;
 
@@ -10,38 +10,31 @@ const KTCurrencyAdd = function () {
             form,
             {
                 fields: {
-                    abbreviation: {
+                    currency: {
                         validators: {
                             notEmpty: {
-                                message: 'Abbreviation is required'
+                                message: 'Currency is required'
                             }
                         }
                     },
-                    symbol: {
+                    buy_rate: {
                         validators: {
                             notEmpty: {
-                                message: 'Symbol is required'
+                                message: 'Buy rate is required'
                             }
                         }
                     },
-                    name: {
+                    sell_rate: {
                         validators: {
                             notEmpty: {
-                                message: 'Currency name is required'
+                                message: 'Sell rate is required'
                             }
                         }
                     },
-                    hundredths_name: {
+                    date_from: {
                         validators: {
                             notEmpty: {
-                                message: 'Hundredths name is required'
-                            }
-                        }
-                    },
-                    country: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Country is required'
+                                message: 'Date from is required'
                             }
                         }
                     }
@@ -63,19 +56,25 @@ const KTCurrencyAdd = function () {
         );
 
         //revalidate all select
-        $(form.querySelector(`[name="country"]`)).on('change', function () {
+        $(form.querySelector(`[name="currency"]`)).on('change', function () {
             // Revalidate the field when an option is chosen
-            validator.revalidateField("country");
+            validator.revalidateField("currency");
         });
 
-        //
-        $(form.querySelector(`[id="check_auto_fx"]`)).on('change', function (){
-            if(this.checked) {
-                $('[name="auto_fx"]').val(1)
-            }else{
-                $('[name="auto_fx"]').val(0)
+        $("#kt_date_from").daterangepicker({
+                singleDatePicker: true,
+                timePicker: true,
+                drops: 'up',
+                startDate: moment(),
+                showDropdowns: true,
+                maxYear: parseInt(moment().format("YYYY"), 10),
+                timePicker24Hour: false,
+                locale: {
+                    format: 'DD/MM/YYYY HH:mm A',
+                },
+            }, function () {
             }
-        })
+        );
 
         // Action buttons
         submitButton.addEventListener('click', function (e) {
@@ -87,7 +86,7 @@ const KTCurrencyAdd = function () {
 
                     if (status === 'Valid') {
                         submitButton.setAttribute('data-kt-indicator', 'on');
-                        let str = $('#kt_modal_add_currency_form').serialize();
+                        let str = $('#kt_modal_add_fx_form').serialize();
                         submitData(str);
                     } else {
                         Swal.fire({
@@ -211,8 +210,8 @@ const KTCurrencyAdd = function () {
                             form.reset(); // Reset form
                             $("select[name='country']").val(null).trigger('change');
 
-                            if ($('#kt_currency_table').length) {
-                                $("#kt_currency_table").DataTable().ajax.reload();
+                            if ($('#kt_fx_table').length) {
+                                $("#kt_fx_table").DataTable().ajax.reload();
                                 return;
                             }
                             // Redirect to customers list page
@@ -286,11 +285,11 @@ const KTCurrencyAdd = function () {
     // Public methods
     return {
         init: function () {
-            modal = new bootstrap.Modal(document.querySelector('#kt_modal_add_currency'));
-            form = document.querySelector('#kt_modal_add_currency_form');
-            submitButton = form.querySelector('#kt_modal_add_currency_submit');
-            discardButton = form.querySelector('#kt_modal_add_currency_cancel');
-            closeButton = form.querySelector('#kt_modal_add_currency_close');
+            modal = new bootstrap.Modal(document.querySelector('#kt_modal_add_fx'));
+            form = document.querySelector('#kt_modal_add_fx_form');
+            submitButton = form.querySelector('#kt_modal_add_fx_submit');
+            discardButton = form.querySelector('#kt_modal_add_fx_cancel');
+            closeButton = form.querySelector('#kt_modal_add_fx_close');
             handleForm();
         }
     }
@@ -298,5 +297,5 @@ const KTCurrencyAdd = function () {
 
 // On document ready
 KTUtil.onDOMContentLoaded(function () {
-    KTCurrencyAdd.init();
+    KTFXAdd.init();
 });

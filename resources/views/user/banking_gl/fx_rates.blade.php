@@ -54,7 +54,7 @@
         <div class="card shadow">
             <!--begin::Card body-->
             <div class="card-body pt-0 tab-content">
-                @if($fx_rates_count<=0)
+                @if($fx_count<=0)
                     <!--begin::No FX Wrapper-->
                     <div class="card-px text-center py-20 my-10">
                         <!--begin::Title-->
@@ -209,8 +209,8 @@
                 <div class="modal-content">
                     <!--begin::Form-->
                     <form class="form" action="#" id="kt_modal_add_fx_form"
-                          data-kt-action="{{route('user.banking_gl.currency.create')}}"
-                          data-kt-redirect="{{route('user.banking_gl.currency.all')}}">
+                          data-kt-action="{{route('user.banking_gl.fx.create')}}"
+                          data-kt-redirect="{{route('user.banking_gl.fx.all')}}">
                         <!--begin::Modal header-->
                         <div class="modal-header" id="kt_modal_add_fx_header">
                             <!--begin::Modal title-->
@@ -257,7 +257,7 @@
                                         </label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
-                                        <select name="country"
+                                        <select name="currency"
                                                 aria-label="Select Currency"
                                                 data-control="select2"
                                                 data-kt-src="#"
@@ -265,6 +265,9 @@
                                                 data-dropdown-parent="#kt_modal_add_fx"
                                                 class="form-select form-select-solid fw-bolder">
                                             <option></option>
+                                            @foreach($currency as $curr)
+                                                <option value="{{$curr->abbreviation}}">{{$curr->abbreviation.' - '.$curr->name}}</option>
+                                            @endforeach
                                         </select>
                                         <!--end::Input-->
                                     </div>
@@ -273,15 +276,45 @@
                                 <!--begin::Input group-->
                                 <div class="fv-row mb-7">
                                     <!--begin::Label-->
-                                    <label class="fs-6 fw-bold mb-2" for="abbreviation">
+                                    <label class="fs-6 fw-bold mb-2" for="buy_rate">
                                         <span
-                                            class="required">{{__('messages.currency').' '.__('messages.abbr')}}</span>
+                                            class="required">{{__('messages.buy_rate')}}</span>
                                     </label>
                                     <!--end::Label-->
                                     <!--begin::Input-->
-                                    <input type="text" class="form-control form-control-solid"
-                                           placeholder="{{__('messages.currency').' '.__('messages.abbr')}}"
-                                           name="abbreviation"/>
+                                    <input type="number" class="form-control form-control-solid"
+                                           placeholder="{{__('messages.buy_rate')}}"
+                                           name="buy_rate"/>
+                                    <!--end::Input-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="fv-row mb-7">
+                                    <!--begin::Label-->
+                                    <label class="fs-6 fw-bold mb-2" for="sell_rate">
+                                        <span
+                                            class="required">{{__('messages.sell_rate')}}</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                    <input type="number" class="form-control form-control-solid"
+                                           placeholder="{{__('messages.sell_rate')}}"
+                                           name="sell_rate"/>
+                                    <!--end::Input-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="fv-row mb-7">
+                                    <!--begin::Label-->
+                                    <label class="fs-6 fw-bold mb-2" for="date_from">
+                                        <span
+                                            class="required">{{__('messages.date_from')}}</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                    <input class="form-control form-control-solid"
+                                           placeholder="{{__('messages.select').' '.__('messages.date_from')}}"
+                                           name="date_from" id="kt_date_from"/>
                                     <!--end::Input-->
                                 </div>
                                 <!--end::Input group-->
@@ -491,7 +524,7 @@
 @stop
 
 @push('custom_scripts')
-{{--    <script src="{{ asset('assets/js/pages/fx/add.js') }}"></script>--}}
+    <script src="{{ asset('assets/js/pages/fx/add.js') }}"></script>
 {{--    <script src="{{ asset('assets/js/pages/fx/list.js') }}"></script>--}}
 {{--    <script src="{{ asset('assets/js/pages/fx/update.js') }}"></script>--}}
 @endpush

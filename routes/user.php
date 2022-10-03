@@ -71,6 +71,10 @@ Route::group(['as' => 'user.'], function () {
         Route::group(['prefix' => 'setup', 'as' => 'setup.'], function () {
             Route::controller(User\Setup\TaxController::class)->prefix('tax')->as('tax.')->group(function () {
                 Route::get('/', 'index')->name('list')->middleware('permission:701');
+                Route::post('/', 'create')->name('add')->middleware('permission:7010,' . ST_TAX_SETUP);
+                Route::get('edit/{id}', 'edit')->name('edit')->middleware('permission:7011')->whereNumber('id');
+                Route::put('update/{id}', 'update')->name('update')->middleware('permission:7011,' . ST_TAX_SETUP)->whereNumber('id');
+                Route::delete('delete/{id}', 'destroy')->name('delete')->middleware('permission:7012,' . ST_TAX_SETUP)->whereNumber('id');
             });
 
             Route::controller(User\Setup\RolesController::class)->prefix('roles')->as('roles.')->group(function () {

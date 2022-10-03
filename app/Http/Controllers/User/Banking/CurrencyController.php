@@ -60,7 +60,7 @@ class CurrencyController extends Controller
         ];
 
         //set_create_parameters($created_at, $created_by, ...)
-        $post_data = array_merge($post_data, set_create_parameters($created_at, $created_by, $supervised_by, $supervised_at));
+//        $post_data = array_merge($post_data, set_create_parameters($created_at, $created_by, $supervised_by, $supervised_at));
 
         $currency = Currency::create($post_data);
 

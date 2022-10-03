@@ -5,6 +5,7 @@ namespace App\CentralLogics;
 use App\Models\BankAccount;
 use App\Models\Branch;
 use App\Models\BranchUser;
+use App\Models\Category;
 use App\Models\ChartAccount;
 use App\Models\ChartClass;
 use App\Models\ChartGroup;
@@ -319,6 +320,15 @@ class UserValidators
             'name' => 'required|unique:' . Tax::class . ',name,' . $id . ',id,client_ref,' . get_user_ref(),
             'description' => 'required',
             'rate' => 'required',
+        ]);
+    }
+
+    public static function categoryCreateValidation(Request $request)
+    {
+        return self::ValidatorMake($request->all(), [
+            'name' => 'required|unique:' . Category::class . ',name,NULL,id,client_ref,' . get_user_ref(),
+            'description' => 'required',
+            'default_tax_id' => 'required|numeric',
         ]);
     }
 

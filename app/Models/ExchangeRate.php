@@ -6,12 +6,15 @@
 
 namespace App\Models;
 
+use App\Scopes\BranchScope;
+use App\Scopes\ClientRefScope;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class ExchangeRate
- * 
+ *
  * @property int $id
  * @property string $currency
  * @property float $buy_rate
@@ -55,4 +58,22 @@ class ExchangeRate extends Model
 		'supervised_by',
 		'supervised_at'
 	];
+
+
+    public function branch(){
+        return $this->belongsTo(Branch::class, 'branch_id');
+    }
+
+    public function curr(){
+        return $this->belongsTo(Currency::class, 'currency','abbreviation');
+    }
+
+    public static function booted()
+    {
+        if (Auth::guard('user')->check()){
+            static::addGlobalScope(new BranchScope());
+            static::addGlobalScope(new ClientRefScope());
+        }
+
+    }
 }

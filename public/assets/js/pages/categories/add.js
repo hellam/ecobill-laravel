@@ -16,13 +16,14 @@ var KTModalGroupAdd = function () {
             form,
             {
                 fields: {
-                    'name': {
+                    name: {
                         validators: {
                             notEmpty: {
                                 message: 'Category name is required'
                             }
                         }
-                    }, 'defaultTaxId': {
+                    },
+                    defaultTaxId: {
                         validators: {
                             notEmpty: {
                                 message: 'Default tax is required'

@@ -45,7 +45,7 @@ class PaymentTermsController extends Controller
         }
 
         $post_data = [
-            'name' => $request->namespace,
+            'terms' => $request->terms,
             'type' => $request->type,
             'days' => $request->days,
             'client_ref' => get_user_ref()

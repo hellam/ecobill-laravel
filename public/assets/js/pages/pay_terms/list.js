@@ -3,19 +3,12 @@
 // Class definition
 const KTPayTermsServerSide = function () {
 // Shared variables
-    let dt, form, delete_url;
+    let dt, form;
 
     // Private functions
     const initDatatable = function () {
         dt = $("#kt_pay_terms_table").DataTable();
     };
-
-    var handleSearchDatatable = function () {
-        const filterSearch = document.querySelector('[data-kt-pay-terms-table-filter="search"]');
-        filterSearch.addEventListener('keyup', function (e) {
-            dt.search(e.target.value).draw();
-        });
-    }
 
     //Edit Button
     const handleUpdateRows = function () {
@@ -78,9 +71,9 @@ const KTPayTermsServerSide = function () {
                                     $('#update_day_label').html(label)
                                     $('input[name="days"]').attr('placeholder', label).attr('disabled', false)
                                 } else {
-                                    $('#days').addClass('d-none')
-                                    $('#day_label').html(label)
-                                    $('input[name="days"]').attr('placeholder', label).attr('disabled', 'disabled')
+                                    $('#update_days').addClass('d-none')
+                                    $(form.querySelector('[name="day_label"]')).html(label)
+                                    $(form.querySelector('[name="days"]')).attr('placeholder', label).attr('disabled', 'disabled')
                                 }
                             });
                         }
@@ -108,139 +101,6 @@ const KTPayTermsServerSide = function () {
 
     };
 
-    //Delete Button
-    const handleDeleteRows = function () {
-        // Select all delete buttons
-        const deleteButtons = document.querySelectorAll('[data-kt-pay-terms-table-actions="delete_row"]');
-
-        deleteButtons.forEach(d => {
-            // edit button on click
-            d.addEventListener('click', function (e) {
-                e.preventDefault();
-
-                // Select parent row
-                const parent = e.target.closest('tr');
-
-                // Get rule name
-                const payTermsName = parent.querySelectorAll('td')[1].innerText;
-                delete_url = d.getAttribute('data-kt-pay-terms-delete-url');
-                Swal.fire({
-                    text: "Are you sure you want to delete " + payTermsName,
-                    icon: "warning",
-                    showCancelButton: true,
-                    buttonsStyling: false,
-                    confirmButtonText: "Yes, delete!",
-                    cancelButtonText: "No, cancel",
-                    customClass: {
-                        confirmButton: "btn fw-bold btn-danger",
-                        cancelButton: "btn fw-bold btn-active-light-primary"
-                    }
-                }).then(function (result) {
-                    if (result.value) {
-                        Swal.fire({
-                            text: "Deleting " + payTermsName,
-                            icon: "info",
-                            allowOutsideClick: false,
-                            buttonsStyling: false,
-                            showConfirmButton: false,
-                        })
-                        handleDelete('')
-
-                    } else if (result.dismiss === 'cancel') {
-                        Swal.fire({
-                            text: payTermsName + " was not deleted.",
-                            icon: "error",
-                            buttonsStyling: false,
-                            confirmButtonText: "Ok, got it!",
-                            customClass: {
-                                confirmButton: "btn fw-bold btn-primary",
-                            }
-                        });
-                    }
-                });
-            })
-        });
-
-    };
-
-    function handleDelete(remarks) {
-        $.ajax({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            type: 'DELETE',
-            url: delete_url,
-            data: {
-                remarks: remarks
-            },
-            success: function (json) {
-                var response = json;
-                if (response.status !== true) {
-                    Swal.fire({
-                        text: response.message,
-                        icon: "error",
-                        buttonsStyling: false,
-                        confirmButtonText: "Ok!",
-                        customClass: {
-                            confirmButton: "btn btn-primary"
-                        }
-                    });
-
-                } else {
-                    Swal.fire({
-                        text: response.message,
-                        icon: "success",
-                        buttonsStyling: false,
-                        confirmButtonText: "Ok, got it!",
-                        customClass: {
-                            confirmButton: "btn fw-bold btn-primary",
-                        }
-                    }).then(function () {
-                        // delete row data from server and re-draw datatable
-                        window.location.reload()
-                    });
-                }
-            },
-            statusCode: {
-                203: function () {
-                    Swal.fire({
-                        text: "Please provide remarks",
-                        icon: "info",
-                        input: 'textarea',
-                        inputAttributes: {
-                            autocapitalize: 'off'
-                        },
-                        allowOutsideClick: false,
-                        showCancelButton: true,
-                        buttonsStyling: false,
-                        confirmButtonText: "Submit",
-                        cancelButtonText: "Cancel",
-                        showLoaderOnConfirm: true,
-                        customClass: {
-                            confirmButton: "btn fw-bold btn-danger",
-                            cancelButton: "btn fw-bold btn-active-light-primary"
-                        }
-                    }).then(function (result) {
-                        // delete row data from server and re-draw datatable
-                        if (result.isConfirmed) {
-                            handleDelete(result.value)
-                        }
-                    });
-                }
-            },
-            error: function () {
-                Swal.fire({
-                    text: 'A network error occured. Please consult your network administrator.',
-                    icon: "error",
-                    buttonsStyling: false,
-                    confirmButtonText: "Ok!",
-                    customClass: {
-                        confirmButton: "btn btn-primary"
-                    }
-                });
-            }
-        });
-    }
 
     // Public methods
     return {
@@ -250,9 +110,9 @@ const KTPayTermsServerSide = function () {
             if ($('#kt_pay_terms_table').length) {
                 initDatatable();
                 dt.search('').draw();
-                handleSearchDatatable();
+                handleSearchDatatable('[data-kt-pay-terms-table-filter="search"]', dt);
                 handleUpdateRows();
-                handleDeleteRows();
+                handleDeleteRows('[data-kt-pay-terms-table-actions="delete_row"]', 'data-kt-pay-terms-delete-url');
             }
         }
     }

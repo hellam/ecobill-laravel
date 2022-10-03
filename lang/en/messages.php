@@ -57,6 +57,7 @@ return [
     'maker_checker_rules' => 'Maker Checker Rules',
     'new_invoice' => 'New Invoice',
     'payment_terms' => 'Payment Terms',
+    'pay_terms' => 'Payment Terms',
     'profit_loss' => 'Profit & Loss',
     'receive_payment' => 'Receive Payment',
     'reconciliation' => 'Reconciliation',

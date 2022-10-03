@@ -8,7 +8,10 @@ use App\Models\Category;
 use App\Models\MakerCheckerRule;
 use App\Models\PaymentTerm;
 use App\Models\Permission;
+use App\Models\Product;
+use App\Models\Role;
 use App\Models\Tax;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -142,13 +145,17 @@ class CategoryController extends Controller
      * Remove the specified resource from storage.
      *
      */
-    public function destroy($id): JsonResponse
+    public function destroy($id)
     {
-        $pay_terms = PaymentTerm::find($id);
-        if (isset($pay_terms)) {
-            $pay_terms->delete();
-            return success_web_processor(null, __('messages.msg_deleted_success', ['attribute' => __('messages.pay_terms')]));
+        $category = Category::find($id);
+        if (isset($category)) {
+            $products = Product::where('category_id', $id)->count();
+            if ($products > 0) {
+                return error_web_processor(__('messages.msg_delete_not_allowed', ['attribute' => __('messages.category'), 'attribute1' => __('messages.products')]));
+            }
+            $category->delete();
+            return success_web_processor(null, __('messages.msg_deleted_success', ['attribute' => __('messages.category')]));
         }
-        return error_web_processor(__('messages.msg_item_not_found', ['attribute' => __('messages.pay_terms')]));
+        return error_web_processor(__('messages.msg_item_not_found', ['attribute' => __('messages.category')]));
     }
 }

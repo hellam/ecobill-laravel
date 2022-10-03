@@ -442,7 +442,8 @@
             </div>
         </div>
         <!--end::Modal Branch - Add-->
-        <!--begin::Modal Branch - Edit-->
+
+        <!--begin::Modal Branch - Update-->
         <div class="modal fade" id="kt_modal_update_branch" tabindex="-1" aria-hidden="true" data-backdrop='static'
              data-keyboard='false'>
             <!--begin::Modal dialog-->
@@ -650,17 +651,8 @@
                                             class="required fs-6 fw-bold mb-2">{{__('messages.default_currency')}}</label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
-                                        <select class="form-select form-select-solid fw-bolder"
-                                                data-kt-select2="true"
-                                                data-placeholder="Select Default Currency"
-                                                name="default_currency"
-                                                data-allow-clear="true"
-                                                data-dropdown-parent="#kt_modal_update_branch">
-                                            <option></option>
-                                            @foreach($currency as $curr)
-                                                <option value="{{$curr->abbreviation}}">{{$curr->abbreviation}}</option>
-                                            @endforeach
-                                        </select>
+                                        <input class="form-control form-control-solid"
+                                               name="default_currency" disabled readonly>
                                         <!--end::Input-->
                                     </div>
                                     <!--end::Col-->
@@ -763,7 +755,7 @@
                 </div>
             </div>
         </div>
-        <!--end::Modal Branch - Edit-->
+        <!--end::Modal Branch - Update-->
         <!--end::Modals-->
     </div>
     <!--end::Container-->

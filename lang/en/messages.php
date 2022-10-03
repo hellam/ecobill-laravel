@@ -127,7 +127,7 @@ return [
     'fiscal_year' => 'Fiscal Year',
     'from' => 'From',
     'fullName' => 'FullName',
-    'fx' => 'Exchange Rate',
+    'fx' => 'Exchange Rates',
     'general' => 'General',
     'general_settings' => 'General Settings',
     'groups' => 'Groups',

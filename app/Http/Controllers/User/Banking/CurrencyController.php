@@ -25,9 +25,8 @@ class CurrencyController extends Controller
     {
         $currency_count = Currency::count();
         $currency = Currency::all();
-        $fx_rate = 0;
-        return view('user.banking_gl.currency_fx',
-            compact('currency_count', 'fx_rate','currency'));
+        return view('user.banking_gl.currency',
+            compact('currency_count', 'currency'));
     }
 
 

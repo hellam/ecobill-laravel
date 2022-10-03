@@ -335,7 +335,19 @@
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
-                            <span class="menu-title">{{__('messages.currency_fx')}}</span>
+                            <span class="menu-title">{{__('messages.currency')}}</span>
+                        </a>
+                        <!--end:Menu link-->
+                    </div>
+                    <!--end:Menu item-->
+                    <!--begin:Menu item-->
+                    <div class="menu-item">
+                        <!--begin:Menu link-->
+                        <a class="menu-link @if(Route::is('user.banking_gl.fx.all'))active @endif" href="{{route('user.banking_gl.fx.all')}}">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                            <span class="menu-title">{{__('messages.fx')}}</span>
                         </a>
                         <!--end:Menu link-->
                     </div>

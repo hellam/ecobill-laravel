@@ -4,7 +4,7 @@
     <!--begin::Page title-->
     <div class="page-title d-flex justify-content-center flex-column me-5">
         <!--begin::Title-->
-        <h1 class="d-flex flex-column text-dark fw-bold fs-3 mb-0">{{__('messages.currency_fx')}}</h1>
+        <h1 class="d-flex flex-column text-dark fw-bold fs-3 mb-0">{{__('messages.currency')}}</h1>
         <!--end::Title-->
         <!--begin::Breadcrumb-->
         <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 pt-1">
@@ -27,7 +27,7 @@
             </li>
             <!--end::Item-->
             <!--begin::Item-->
-            <li class="breadcrumb-item text-dark">{{__('messages.currency_fx')}}</li>
+            <li class="breadcrumb-item text-dark">{{__('messages.currency')}}</li>
             <!--end::Item-->
         </ul>
         <!--end::Breadcrumb-->
@@ -43,7 +43,7 @@
             <div class="page-title d-flex flex-column py-1">
                 <!--begin::Title-->
                 <h1 class="d-flex align-items-center my-1">
-                    <span class="text-dark fw-bolder fs-1">{{__('messages.currency_fx')}}</span>
+                    <span class="text-dark fw-bolder fs-1">{{__('messages.currency')}}</span>
                 </h1>
                 <!--end::Title-->
             </div>
@@ -52,62 +52,40 @@
         <!--end::Toolbar-->
         <!--begin::Card-->
         <div class="card shadow">
-            <!--begin::Card header-->
-            <div class="card-header border-0 pt-6" id="kt_card">
-                <!--begin::Card title-->
-                <div class="card-title">
-                    <ul class="nav nav-tabs nav-line-tabs nav-line-tabs-2x mb-5 fs-6">
-                        <li class="nav-item">
-                            <a class="nav-link active" data-bs-toggle="tab"
-                               href="#currency">
-                                {{__('messages.currency')}}
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="tab" href="#fx_rate">
-                                {{__('messages.fx')}}
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <!--end::Card title-->
-            </div>
-            <!--end::Card header-->
             <!--begin::Card body-->
             <div class="card-body pt-0 tab-content">
-                <div class="tab-pane fade show active" id="currency" role="tabpanel">
-                    @if($currency_count<=0)
-                        <!--begin::No Currency Wrapper-->
-                        <div class="card-px text-center py-20 my-10">
-                            <!--begin::Title-->
-                            <h2 class="fs-2x fw-bolder mb-10">{{__('messages.welcome_to_module',['attribute'=>__('messages.currency')])}}</h2>
-                            <!--end::Title-->
-                            <!--begin::Description-->
-                            <p class="text-gray-400 fs-4 fw-bold mb-10">{{__('messages.not_found',['attribute'=>__('messages.currency')])}}</p>
-                            <!--end::Description-->
-                            <!--begin::Action-->
-                            <a href="#" data-bs-toggle="modal"
-                               data-bs-target="#kt_modal_add_currency"
-                               class="btn btn-primary">{{__('messages.add_new')}}</a>
-                            <!--end::Action-->
+                @if($currency_count<=0)
+                    <!--begin::No Currency Wrapper-->
+                    <div class="card-px text-center py-20 my-10">
+                        <!--begin::Title-->
+                        <h2 class="fs-2x fw-bolder mb-10">{{__('messages.welcome_to_module',['attribute'=>__('messages.currency')])}}</h2>
+                        <!--end::Title-->
+                        <!--begin::Description-->
+                        <p class="text-gray-400 fs-4 fw-bold mb-10">{{__('messages.not_found',['attribute'=>__('messages.currency')])}}</p>
+                        <!--end::Description-->
+                        <!--begin::Action-->
+                        <a href="#" data-bs-toggle="modal"
+                           data-bs-target="#kt_modal_add_currency"
+                           class="btn btn-primary">{{__('messages.add_new')}}</a>
+                        <!--end::Action-->
 
-                            <!--begin::Illustration-->
-                            <div class="text-center px-4">
-                                <img class="mw-100 mh-300px" alt=""
-                                     src="{{asset('assets/media/illustrations/sketchy-1/2_.png')}}"/>
-                            </div>
-                            <!--end::Illustration-->
+                        <!--begin::Illustration-->
+                        <div class="text-center px-4">
+                            <img class="mw-100 mh-300px" alt=""
+                                 src="{{asset('assets/media/illustrations/sketchy-1/2_.png')}}"/>
                         </div>
-                        <!--end::No Currency Wrapper-->
-                    @else
-                        <!--begin::Card header-->
-                        <div class="card-header border-0 pt-6">
-                            <!--begin::Card title-->
-                            <div class="card-title">
-                                <!--begin::Search-->
-                                <div class="d-flex align-items-center position-relative my-1">
-                                    <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
-                                    <span class="svg-icon svg-icon-1 position-absolute ms-6">
+                        <!--end::Illustration-->
+                    </div>
+                    <!--end::No Currency Wrapper-->
+                @else
+                    <!--begin::Card header-->
+                    <div class="card-header border-0 pt-6">
+                        <!--begin::Card title-->
+                        <div class="card-title">
+                            <!--begin::Search-->
+                            <div class="d-flex align-items-center position-relative my-1">
+                                <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
+                                <span class="svg-icon svg-icon-1 position-absolute ms-6">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                              viewBox="0 0 24 24" fill="none">
                                             <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546"
@@ -118,67 +96,67 @@
                                                 fill="currentColor"/>
                                         </svg>
                                     </span>
-                                    <!--end::Svg Icon-->
-                                    <input type="text" data-kt-currency-table-filter="search"
-                                           class="form-control form-control-solid w-250px ps-15"
-                                           placeholder="{{__('messages.search')}}"/>
-                                </div>
-                                <!--end::Search-->
+                                <!--end::Svg Icon-->
+                                <input type="text" data-kt-currency-table-filter="search"
+                                       class="form-control form-control-solid w-250px ps-15"
+                                       placeholder="{{__('messages.search')}}"/>
                             </div>
-                            <!--begin::Card title-->
-                            <!--begin::Card toolbar-->
-                            <div class="card-toolbar">
-                                <!--begin::Toolbar-->
-                                <div class="d-flex justify-content-end" data-kt-contact-table-toolbar="base">
-                                    <!--begin::Add customer-->
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                            data-bs-target="#kt_modal_add_currency">{{__('messages.add_new')}}
-                                    </button>
-                                    <!--end::Add customer-->
-                                </div>
-                                <!--end::Toolbar-->
-                            </div>
-                            <!--end::Card toolbar-->
+                            <!--end::Search-->
                         </div>
-                        <!--end::Card header-->
-                        <!--begin::Card body-->
-                        <div class="card-body pt-0">
-                            <!--begin::Table-->
-                            <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_currency_table"
-                                   data-kt-dt_api="#">
-                                <!--begin::Table head-->
-                                <thead>
-                                <!--begin::Table row-->
-                                <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
-                                    <th>#</th>
-                                    <th>{{__('messages.abbr')}}</th>
-                                    <th>{{__('messages.symbol')}}</th>
-                                    <th>{{__('messages.currency').' '.__('messages.name')}}</th>
-                                    <th>{{__('messages.hundredths').' '.__('messages.name')}}</th>
-                                    <th>{{__('messages.country')}}</th>
-                                    <th>{{__('messages.auto_update')}}</th>
-                                    <th class="text-end">{{__('messages.actions')}}</th>
-                                </tr>
-                                <!--end::Table row-->
-                                </thead>
-                                <!--end::Table head-->
-                                <!--begin::Table body-->
-                                <tbody class="fw-bold text-gray-600">
-                                @foreach($currency as $curr)
-                                    <tr>
-                                        <td>{{$loop->iteration}}</td>
-                                        <td>{{$curr->abbreviation}}</td>
-                                        <td>{{$curr->symbol}}</td>
-                                        <td>{{$curr->name}}</td>
-                                        <td>{{$curr->hundredths_name}}</td>
-                                        <td>{{\Monarobase\CountryList\CountryListFacade::getOne($curr->country)}}</td>
-                                        <td class="text-center">{{$curr->auto_fx == 1 ? 'Yes' : 'No'}}</td>
-                                        <td class="text-end">
-                                            <a href="#" class="btn btn-light btn-active-light-primary btn-sm"
-                                               data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end"
-                                               data-kt-menu-flip="top-end">
-                                                Actions
-                                                <span class="svg-icon svg-icon-5 m-0">
+                        <!--begin::Card title-->
+                        <!--begin::Card toolbar-->
+                        <div class="card-toolbar">
+                            <!--begin::Toolbar-->
+                            <div class="d-flex justify-content-end" data-kt-contact-table-toolbar="base">
+                                <!--begin::Add customer-->
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#kt_modal_add_currency">{{__('messages.add_new')}}
+                                </button>
+                                <!--end::Add customer-->
+                            </div>
+                            <!--end::Toolbar-->
+                        </div>
+                        <!--end::Card toolbar-->
+                    </div>
+                    <!--end::Card header-->
+                    <!--begin::Card body-->
+                    <div class="card-body pt-0">
+                        <!--begin::Table-->
+                        <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_currency_table"
+                               data-kt-dt_api="#">
+                            <!--begin::Table head-->
+                            <thead>
+                            <!--begin::Table row-->
+                            <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
+                                <th>#</th>
+                                <th>{{__('messages.abbr')}}</th>
+                                <th>{{__('messages.symbol')}}</th>
+                                <th>{{__('messages.currency').' '.__('messages.name')}}</th>
+                                <th>{{__('messages.hundredths').' '.__('messages.name')}}</th>
+                                <th>{{__('messages.country')}}</th>
+                                <th>{{__('messages.auto_update')}}</th>
+                                <th class="text-end">{{__('messages.actions')}}</th>
+                            </tr>
+                            <!--end::Table row-->
+                            </thead>
+                            <!--end::Table head-->
+                            <!--begin::Table body-->
+                            <tbody class="fw-bold text-gray-600">
+                            @foreach($currency as $curr)
+                                <tr>
+                                    <td>{{$loop->iteration}}</td>
+                                    <td>{{$curr->abbreviation}}</td>
+                                    <td>{{$curr->symbol}}</td>
+                                    <td>{{$curr->name}}</td>
+                                    <td>{{$curr->hundredths_name}}</td>
+                                    <td>{{\Monarobase\CountryList\CountryListFacade::getOne($curr->country)}}</td>
+                                    <td class="text-center">{{$curr->auto_fx == 1 ? 'Yes' : 'No'}}</td>
+                                    <td class="text-end">
+                                        <a href="#" class="btn btn-light btn-active-light-primary btn-sm"
+                                           data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end"
+                                           data-kt-menu-flip="top-end">
+                                            Actions
+                                            <span class="svg-icon svg-icon-5 m-0">
                                                     <svg xmlns="http://www.w3.org/2000/svg"
                                                          xmlns:xlink="http://www.w3.org/1999/xlink"
                                                          width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -192,127 +170,32 @@
                                                         </g>
                                                     </svg>
                                                 </span>
-                                            </a>
-                                            <!--begin::Menu-->
-                                            <div
-                                                class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
-                                                data-kt-menu="true">
-                                                <!--begin::Menu item-->
-                                                <div class="menu-item px-3">
-                                                    <a href="#" class="menu-link px-3 test"
-                                                       data-kt-currency-table-actions="edit_row"
-                                                       data-kt-currency-edit-url="{{route('user.banking_gl.currency.edit', $curr->id)}}"
-                                                       data-kt-currency-update-url="{{route('user.banking_gl.currency.update', $curr->id)}}">
-                                                        Edit
-                                                    </a>
-                                                </div>
-                                                <!--end::Menu item-->
+                                        </a>
+                                        <!--begin::Menu-->
+                                        <div
+                                            class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4"
+                                            data-kt-menu="true">
+                                            <!--begin::Menu item-->
+                                            <div class="menu-item px-3">
+                                                <a href="#" class="menu-link px-3 test"
+                                                   data-kt-currency-table-actions="edit_row"
+                                                   data-kt-currency-edit-url="{{route('user.banking_gl.currency.edit', $curr->id)}}"
+                                                   data-kt-currency-update-url="{{route('user.banking_gl.currency.update', $curr->id)}}">
+                                                    Edit
+                                                </a>
                                             </div>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                                <!--end::Table body-->
-                            </table>
-                            <!--end::Table-->
-                        </div>
-                        <!--end::Card body-->
-                    @endif
-                </div>
-                <div class="tab-pane fade" id="fx_rate" role="tabpanel">
-                    @if($fx_rate<=0)
-                        <!--begin::No Currency Wrapper-->
-                        <div class="card-px text-center py-20 my-10">
-                            <!--begin::Title-->
-                            <h2 class="fs-2x fw-bolder mb-10">{{__('messages.welcome_to_module',['attribute'=>__('messages.fx')])}}</h2>
-                            <!--end::Title-->
-                            <!--begin::Description-->
-                            <p class="text-gray-400 fs-4 fw-bold mb-10">{{__('messages.not_found',['attribute'=>__('messages.fx')])}}</p>
-                            <!--end::Description-->
-                            <!--begin::Action-->
-                            <a href="#" data-bs-toggle="modal"
-                               data-bs-target="#kt_modal_add_gl_account"
-                               class="btn btn-primary">{{__('messages.add_new')}}</a>
-                            <!--end::Action-->
-
-                            <!--begin::Illustration-->
-                            <div class="text-center px-4">
-                                <img class="mw-100 mh-300px" alt=""
-                                     src="{{asset('assets/media/illustrations/sketchy-1/2_.png')}}"/>
-                            </div>
-                            <!--end::Illustration-->
-                        </div>
-                        <!--end::No Currency Wrapper-->
-                    @else
-                        <!--begin::Card header-->
-                        <div class="card-header border-0 pt-6">
-                            <!--begin::Card title-->
-                            <div class="card-title">
-                                <!--begin::Search-->
-                                <div class="d-flex align-items-center position-relative my-1">
-                                    <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
-                                    <span class="svg-icon svg-icon-1 position-absolute ms-6">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                             viewBox="0 0 24 24" fill="none">
-                                            <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546"
-                                                  height="2" rx="1" transform="rotate(45 17.0365 15.1223)"
-                                                  fill="currentColor"/>
-                                            <path
-                                                d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
-                                                fill="currentColor"/>
-                                        </svg>
-                                    </span>
-                                    <!--end::Svg Icon-->
-                                    <input type="text" data-kt-contact-table-filter="search"
-                                           class="form-control form-control-solid w-250px ps-15"
-                                           placeholder="{{__('messages.search')}}"/>
-                                </div>
-                                <!--end::Search-->
-                            </div>
-                            <!--begin::Card title-->
-                            <!--begin::Card toolbar-->
-                            <div class="card-toolbar">
-                                <!--begin::Toolbar-->
-                                <div class="d-flex justify-content-end" data-kt-contact-table-toolbar="base">
-                                    <!--begin::Add customer-->
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                            data-bs-target="#kt_modal_add_gl_account">{{__('messages.add_new')}}
-                                    </button>
-                                    <!--end::Add customer-->
-                                </div>
-                                <!--end::Toolbar-->
-                            </div>
-                            <!--end::Card toolbar-->
-                        </div>
-                        <!--end::Card header-->
-                        <!--begin::Card body-->
-                        <div class="card-body pt-0">
-                            <!--begin::Table-->
-                            <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_currency_table"
-                                   data-kt-dt_api="#">
-                                <!--begin::Table head-->
-                                <thead>
-                                <!--begin::Table row-->
-                                <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
-                                    <th class="">#</th>
-                                    <th class="">{{__('messages.acc_code')}}</th>
-                                    <th class="">{{__('messages.acc_name')}}</th>
-                                    <th class="">{{__('messages.group')}}</th>
-                                    <th class="">{{__('messages.status')}}</th>
-                                    <th class="text-end min-w-70px">{{__('messages.actions')}}</th>
+                                            <!--end::Menu item-->
+                                        </div>
+                                    </td>
                                 </tr>
-                                <!--end::Table row-->
-                                </thead>
-                                <!--end::Table head-->
-                                <!--begin::Table body-->
-                                <tbody class="fw-bold text-gray-600"></tbody>
-                                <!--end::Table body-->
-                            </table>
-                            <!--end::Table-->
-                        </div>
-                        <!--end::Card body-->
-                    @endif
-                </div>
+                            @endforeach
+                            </tbody>
+                            <!--end::Table body-->
+                        </table>
+                        <!--end::Table-->
+                    </div>
+                    <!--end::Card body-->
+                @endif
             </div>
             <!--end::Card body-->
         </div>
@@ -672,7 +555,7 @@
 @stop
 
 @push('custom_scripts')
-    <script src="{{ asset('assets/js/pages/currency_fx/curr_add.js') }}"></script>
-    <script src="{{ asset('assets/js/pages/currency_fx/curr_list.js') }}"></script>
-    <script src="{{ asset('assets/js/pages/currency_fx/curr_update.js') }}"></script>
+    <script src="{{ asset('assets/js/pages/currency/add.js') }}"></script>
+    <script src="{{ asset('assets/js/pages/currency/list.js') }}"></script>
+    <script src="{{ asset('assets/js/pages/currency/update.js') }}"></script>
 @endpush

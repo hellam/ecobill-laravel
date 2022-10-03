@@ -183,7 +183,7 @@
                                             <div class="menu-item px-3">
                                                 <a href="#" class="menu-link px-3 test"
                                                    data-kt-pay-terms-table-actions="delete_row"
-                                                   data-kt-pay-terms-delete-url="{{route('user.banking_gl.pay_terms.update', $pay_term->id)}}">
+                                                   data-kt-pay-terms-delete-url="{{route('user.banking_gl.pay_terms.delete', $pay_term->id)}}">
                                                     Delete
                                                 </a>
                                             </div>

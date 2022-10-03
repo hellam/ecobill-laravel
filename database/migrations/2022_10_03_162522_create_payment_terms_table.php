@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('terms', 100);
             $table->tinyInteger('type')->comment('0-cash,1-after no of days, 2-day in following month');
-            $table->integer('days');
+            $table->integer('days')->default(0);
             $table->string('client_ref', 100);
             $table->string("created_by",100)->nullable();
             $table->string("updated_by",100)->nullable();

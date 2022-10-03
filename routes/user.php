@@ -187,6 +187,14 @@ Route::group(['as' => 'user.'], function () {
                 Route::put('update/{id}', 'update')->name('update')->middleware('permission:3121,' . ST_EXCHANGE_RATE_SETUP)->whereNumber('id');
                 Route::delete('delete/{id}', 'destroy')->name('delete')->middleware('permission:3122,' . ST_EXCHANGE_RATE_SETUP)->whereNumber('id');
             });
+
+            Route::controller(User\Banking\PaymentTermsController::class)->prefix('pay_terms')->as('pay_terms.')->group(function () {
+                Route::get('/', 'index')->name('all')->middleware('permission:312');
+                Route::post('/', 'create')->name('create')->middleware('permission:3120,' . ST_EXCHANGE_RATE_SETUP);
+                Route::get('edit/{id}', 'edit')->name('edit')->middleware('permission:3121')->whereNumber('id');
+                Route::put('update/{id}', 'update')->name('update')->middleware('permission:3121,' . ST_EXCHANGE_RATE_SETUP)->whereNumber('id');
+                Route::delete('delete/{id}', 'destroy')->name('delete')->middleware('permission:3122,' . ST_EXCHANGE_RATE_SETUP)->whereNumber('id');
+            });
         });
     });
 });

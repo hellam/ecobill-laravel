@@ -282,6 +282,10 @@ class UserValidators
         ]);
     }
 
+    public static function payTermsCreateValidation(Request $request)
+    {
+    }
+
     public static function securityUpdateValidation(Request $request)
     {
         $type = Route::current()->type;

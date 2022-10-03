@@ -1,62 +1,64 @@
 "use strict";
 
 // Class definition
-var KTModalUpdateTax = function () {
-    var element;
-    var submitButton;
-    var cancelButton;
-    var closeButton;
-    var form;
-    var modal;
+const KTTaxUpdate = function () {
+    // Shared variables
+    let closeButton, discardButton, submitButton, validator, form, modal;
 
-    // Init form inputs
-    var initForm = function () {
-        // Action buttons
-        submitButton.addEventListener('click', function (e) {
-            // Prevent default button action
-            e.preventDefault();
-
-            // Show loading indication
-            submitButton.setAttribute('data-kt-indicator', 'on');
-
-            // Disable submit button whilst loading
-            submitButton.disabled = true;
-            const str = $('#kt_modal_update_tax_form').serializeArray().reduce(function (a, x) {
-                a[x.name] = x.value;
-                return a;
-            }, {});
-            console.log(str)
-            $.ajax({
-                type: 'PUT',
-                url: form.getAttribute("data-kt-action"),
-                contentType: 'application/json',
-                data: JSON.stringify(str),
-                success: function (json) {
-                    const response = JSON.parse(json);
-                    if (response.status !== true) {
-                        // const fields = response.data;
-                        $('#kt_modal_update_tax_form small').remove();
-                        var errors = response.data;
-                        for (const [key, value] of Object.entries(errors)) {
-                            // console.log(errors)
-                            $('#err_' + key).remove();
-                            if ($("input[name='" + key + "']").length) {
-                                $("input[name='" + key + "']")
-                                    .after('<small style="color: red;" id="err_' + key + '">' + value + '</small>')
-                                    .on('keyup', function (e) {
-                                        $('#err_' + key).remove();
-                                    })
-                            } else if ($("textarea[name='" + key + "']").length) {
-                                $("textarea[name='" + key + "']")
-                                    .after('<small style="color: red;" id="err_' + key + '">' + value + '</small>')
-                                    .on('keyup', function (e) {
-                                        $('#err_' + key).remove();
-                                    })
+    const handleForm = function () {
+        validator = FormValidation.formValidation(
+            form,
+            {
+                fields: {
+                    name: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Tax name is required'
                             }
                         }
+                    },
+                    rate: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Rate is required'
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    trigger: new FormValidation.plugins.Trigger(),
+                    bootstrap: new FormValidation.plugins.Bootstrap5({
+                        rowSelector: '.fv-row',
+                        eleInvalidClass: '',
+                        eleValidClass: ''
+                    }),
+                    icon: new FormValidation.plugins.Icon({
+                        valid: 'fa fa-check',
+                        invalid: 'fa fa-times',
+                        validating: 'fa fa-refresh',
+                    }),
+                }
+            }
+        );
 
+        // Action buttons
+        submitButton.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            // Validate form before submit
+            if (validator) {
+                validator.validate().then(function (status) {
+
+                    if (status === 'Valid') {
+                        submitButton.setAttribute('data-kt-indicator', 'on');
+                        var str = $('#kt_modal_update_tax_form').serializeArray().reduce(function (a, x) {
+                            a[x.name] = x.value;
+                            return a;
+                        }, {});
+                        submitData(str);
+                    } else {
                         Swal.fire({
-                            text: response.message,
+                            text: "Sorry, looks like there are some errors detected, please try again.",
                             icon: "error",
                             buttonsStyling: false,
                             confirmButtonText: "Ok!",
@@ -64,56 +66,12 @@ var KTModalUpdateTax = function () {
                                 confirmButton: "btn btn-primary"
                             }
                         });
-
-                    } else {
-                        Swal.fire({
-                            text: response.message,
-                            icon: "success",
-                            buttonsStyling: false,
-                            confirmButtonText: "Ok!",
-                            customClass: {
-                                confirmButton: "btn btn-primary"
-                            }
-                        }).then(function (result) {
-                            if (result.isConfirmed) {
-                                // Hide modal
-                                modal.hide();
-
-                                // Enable submit button after loading
-                                submitButton.disabled = false;
-
-                                // Reload datatable
-                                $("#kt_taxes_table").DataTable().ajax.reload();
-                            }
-                        });
                     }
-                    submitButton.removeAttribute('data-kt-indicator');
-
-                    // Enable submit button after loading
-                    submitButton.disabled = false;
-
-                },
-                error: function (xhr, desc, err) {
-                    Swal.fire({
-                        text: 'A network error occured. Please consult your network administrator.',
-                        icon: "error",
-                        buttonsStyling: false,
-                        confirmButtonText: "Ok!",
-                        customClass: {
-                            confirmButton: "btn btn-primary"
-                        }
-                    });
-
-                    submitButton.removeAttribute('data-kt-indicator');
-
-                    // Enable submit button after loading
-                    submitButton.disabled = false;
-
-                }
-            });
+                })
+            }
         });
 
-        cancelButton.addEventListener('click', function (e) {
+        discardButton.addEventListener('click', function (e) {
             e.preventDefault();
 
             Swal.fire({
@@ -158,24 +116,137 @@ var KTModalUpdateTax = function () {
         });
     }
 
+    function submitData(str) {
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type: 'PUT',
+            url: form.getAttribute("data-kt-action"),
+            data: str,
+            success: function (json) {
+                var response = JSON.parse(JSON.stringify(json));
+                if (response.status !== true) {
+                    var errors = response.data;
+                    for (const [key, value] of Object.entries(errors)) {
+                        // var field = fields[i];
+                        // console.log(field.field);
+                        $('#err_' + value.field).remove();
+                        $("input[name='" + value.field + "']")
+                            .after('<small style="color: red;" id="err_' + value.field + '">' + value.error + '</small>')
+                            .on('keyup', function (e) {
+                                $('#err_' + value.field).remove();
+                            })
+                    }
+
+                    Swal.fire({
+                        text: response.message,
+                        icon: "error",
+                        buttonsStyling: false,
+                        confirmButtonText: "Ok!",
+                        customClass: {
+                            confirmButton: "btn btn-primary"
+                        }
+                    });
+
+                } else {
+                    Swal.fire({
+                        text: response.message,
+                        icon: "success",
+                        buttonsStyling: false,
+                        confirmButtonText: "Ok!",
+                        customClass: {
+                            confirmButton: "btn btn-primary"
+                        }
+                    }).then(function (result) {
+                        if (result.isConfirmed) {
+                            // Hide modal
+                            modal.hide();
+                            // Enable submit button after loading
+                            submitButton.disabled = false;
+                            form.reset(); // Reset form
+
+                            // Redirect
+                            window.location.reload()
+                        }
+                    });
+                }
+                submitButton.removeAttribute('data-kt-indicator');
+
+                // Enable submit button after loading
+                submitButton.disabled = false;
+
+            },
+            statusCode: {
+                203: function () {
+                    modal.hide()//hide modal
+                    Swal.fire({
+                        text: "Please provide remarks",
+                        icon: "info",
+                        input: 'textarea',
+                        inputAttributes: {
+                            autocapitalize: 'off'
+                        },
+                        allowOutsideClick: false,
+                        showCancelButton: true,
+                        buttonsStyling: false,
+                        confirmButtonText: "Submit",
+                        cancelButtonText: "Cancel",
+                        // showLoaderOnConfirm: true,
+                        customClass: {
+                            confirmButton: "btn fw-bold btn-danger",
+                            cancelButton: "btn fw-bold btn-active-light-primary"
+                        }
+                    }).then(function (result) {
+                        // delete row data from server and re-draw datatable
+                        if (result.isConfirmed) {
+                            //data.add('remarks', result.value);
+                            // alert(result.value)
+                            modal.show()//show modal
+                            // console.log(str)
+                            // if (result.value)
+                            str = str + "&remarks=" + result.value
+                            submitData(str)
+                        } else {
+                            form.reset(); // Reset form
+                        }
+                    });
+                }
+            },
+            error: function () {
+                Swal.fire({
+                    text: 'A network error occurred. Please consult your network administrator.',
+                    icon: "error",
+                    buttonsStyling: false,
+                    confirmButtonText: "Ok!",
+                    customClass: {
+                        confirmButton: "btn btn-primary"
+                    }
+                });
+
+                submitButton.removeAttribute('data-kt-indicator');
+
+                // Enable submit button after loading
+                submitButton.disabled = false;
+
+            }
+        });
+    }
+
+    // Public methods
     return {
-        // Public functions
         init: function () {
-            // Elements
-            element = document.querySelector('#kt_modal_update_tax');
-            modal = new bootstrap.Modal(element);
-
-            form = element.querySelector('#kt_modal_update_tax_form');
+            modal = new bootstrap.Modal(document.querySelector('#kt_modal_update_tax'));
+            form = document.querySelector('#kt_modal_update_tax_form');
             submitButton = form.querySelector('#kt_modal_update_tax_submit');
-            cancelButton = form.querySelector('#kt_modal_update_tax_cancel');
-            closeButton = element.querySelector('#kt_modal_update_tax_close');
-
-            initForm();
+            discardButton = form.querySelector('#kt_modal_update_tax_cancel');
+            closeButton = form.querySelector('#kt_modal_update_tax_close');
+            handleForm();
         }
-    };
+    }
 }();
 
 // On document ready
 KTUtil.onDOMContentLoaded(function () {
-    KTModalUpdateTax.init();
+    KTTaxUpdate.init();
 });

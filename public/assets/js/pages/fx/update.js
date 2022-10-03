@@ -1,7 +1,7 @@
 "use strict";
 
 // Class definition
-const KTFXUpdateAdd = function () {
+const KTFXUpdate = function () {
     // Shared variables
     let closeButton, discardButton, submitButton, validator, form, modal;
 
@@ -278,5 +278,5 @@ const KTFXUpdateAdd = function () {
 
 // On document ready
 KTUtil.onDOMContentLoaded(function () {
-    KTFXUpdateAdd.init();
+    KTFXUpdate.init();
 });

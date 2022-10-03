@@ -161,12 +161,7 @@ const KTPayTermsAdd = function () {
                             // Enable submit button after loading
                             submitButton.disabled = false;
                             form.reset(); // Reset form
-                            if ($('#kt_taxes_table').length) {
-                                $("#kt_taxes_table").DataTable().ajax.reload();
-                                return;
-                            }
-                            // Redirect to Taxes list page
-                            window.location = form.getAttribute("data-kt-redirect");
+                            window.location.reload();
                         }
                     });
                 }

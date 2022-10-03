@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User\Banking;
 use App\CentralLogics\UserValidators;
 use App\Http\Controllers\Controller;
 use App\Models\Currency;
+use App\Models\ExchangeRate;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use function App\CentralLogics\error_web_processor;
@@ -40,17 +41,18 @@ class ExchangeRateController extends Controller
         }
 
         $post_data = [
-            'currency' => $request->abbreviation,
-            'buy_rate' => $request->name,
-            'sell_rate' => $request->country,
-            'branch' => $request->symbol,
+            'currency' => $request->currency,
+            'buy_rate' => $request->buy_rate,
+            'sell_rate' => $request->sell_rate,
+            'branch' => $request->branch,
+            'date' => $request->date,
             'client_ref' => get_user_ref()
         ];
 
         //set_create_parameters($created_at, $created_by, ...)
         $post_data = array_merge($post_data, set_create_parameters($created_at, $created_by, $supervised_by, $supervised_at));
 
-        $currency = Currency::create($post_data);
+        $currency = ExchangeRate::create($post_data);
 
         if ($created_at == null) {
             //if not supervised, log data from create request

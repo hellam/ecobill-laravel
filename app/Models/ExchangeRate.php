@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property float $buy_rate
  * @property float $sell_rate
  * @property int $branch
+ * @property Carbon $date
  * @property string $client_ref
  * @property string|null $created_by
  * @property string|null $updated_by
@@ -38,6 +39,7 @@ class ExchangeRate extends Model
 	];
 
 	protected $dates = [
+		'date',
 		'supervised_at'
 	];
 
@@ -46,6 +48,7 @@ class ExchangeRate extends Model
 		'buy_rate',
 		'sell_rate',
 		'branch',
+		'date',
 		'client_ref',
 		'created_by',
 		'updated_by',

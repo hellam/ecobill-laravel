@@ -1,10 +1,10 @@
 @extends('layout.user.app')
-@section('title', 'GL Maintenance')
+@section('title', 'Currency & FX')
 @section('page_title')
     <!--begin::Page title-->
     <div class="page-title d-flex justify-content-center flex-column me-5">
         <!--begin::Title-->
-        <h1 class="d-flex flex-column text-dark fw-bold fs-3 mb-0">{{__('messages.gl_maintenance')}}</h1>
+        <h1 class="d-flex flex-column text-dark fw-bold fs-3 mb-0">{{__('messages.currency_fx')}}</h1>
         <!--end::Title-->
         <!--begin::Breadcrumb-->
         <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 pt-1">
@@ -19,7 +19,7 @@
             </li>
             <!--end::Item-->
             <!--begin::Item-->
-            <li class="breadcrumb-item text-muted">{{__('messages.banking')}}</li>
+            <li class="breadcrumb-item text-muted">{{__('messages.banking_gL')}}</li>
             <!--end::Item-->
             <!--begin::Item-->
             <li class="breadcrumb-item">
@@ -27,7 +27,7 @@
             </li>
             <!--end::Item-->
             <!--begin::Item-->
-            <li class="breadcrumb-item text-dark">{{__('messages.gl_maintenance')}}</li>
+            <li class="breadcrumb-item text-dark">{{__('messages.currency_fx')}}</li>
             <!--end::Item-->
         </ul>
         <!--end::Breadcrumb-->
@@ -43,7 +43,7 @@
             <div class="page-title d-flex flex-column py-1">
                 <!--begin::Title-->
                 <h1 class="d-flex align-items-center my-1">
-                    <span class="text-dark fw-bolder fs-1">{{__('messages.gl_maintenance')}}</span>
+                    <span class="text-dark fw-bolder fs-1">{{__('messages.currency_fx')}}</span>
                 </h1>
                 <!--end::Title-->
             </div>
@@ -501,7 +501,8 @@
                 <div class="modal-content">
                     <!--begin::Form-->
                     <form class="form" action="#" id="kt_modal_update_currency_form"
-                          data-kt-action="#">
+                          data-kt-action="#"
+                          data-kt-redirect="{{route('user.banking_gl.currency.all')}}">
                         <!--begin::Modal header-->
                         <div class="modal-header" id="kt_modal_update_currency_header">
                             <!--begin::Modal title-->

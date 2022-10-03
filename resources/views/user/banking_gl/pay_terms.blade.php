@@ -54,18 +54,18 @@
         <div class="card shadow">
             <!--begin::Card body-->
             <div class="card-body pt-0 tab-content">
-                @if($currency_count<=0)
-                    <!--begin::No Currency Wrapper-->
+                @if($pay_terms_count<=0)
+                    <!--begin::No Pay Terms Wrapper-->
                     <div class="card-px text-center py-20 my-10">
                         <!--begin::Title-->
-                        <h2 class="fs-2x fw-bolder mb-10">{{__('messages.welcome_to_module',['attribute'=>__('messages.currency')])}}</h2>
+                        <h2 class="fs-2x fw-bolder mb-10">{{__('messages.welcome_to_module',['attribute'=>__('messages.pay_terms')])}}</h2>
                         <!--end::Title-->
                         <!--begin::Description-->
-                        <p class="text-gray-400 fs-4 fw-bold mb-10">{{__('messages.not_found',['attribute'=>__('messages.currency')])}}</p>
+                        <p class="text-gray-400 fs-4 fw-bold mb-10">{{__('messages.not_found',['attribute'=>__('messages.pay_terms')])}}</p>
                         <!--end::Description-->
                         <!--begin::Action-->
                         <a href="#" data-bs-toggle="modal"
-                           data-bs-target="#kt_modal_add_currency"
+                           data-bs-target="#kt_modal_add_pay_terms"
                            class="btn btn-primary">{{__('messages.add_new')}}</a>
                         <!--end::Action-->
 
@@ -76,7 +76,7 @@
                         </div>
                         <!--end::Illustration-->
                     </div>
-                    <!--end::No Currency Wrapper-->
+                    <!--end::No Pay Terms Wrapper-->
                 @else
                     <!--begin::Card header-->
                     <div class="card-header border-0 pt-6">
@@ -97,7 +97,7 @@
                                         </svg>
                                     </span>
                                 <!--end::Svg Icon-->
-                                <input type="text" data-kt-currency-table-filter="search"
+                                <input type="text" data-kt-pay-terms-table-filter="search"
                                        class="form-control form-control-solid w-250px ps-15"
                                        placeholder="{{__('messages.search')}}"/>
                             </div>
@@ -110,7 +110,7 @@
                             <div class="d-flex justify-content-end" data-kt-contact-table-toolbar="base">
                                 <!--begin::Add customer-->
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                        data-bs-target="#kt_modal_add_currency">{{__('messages.add_new')}}
+                                        data-bs-target="#kt_modal_add_pay_terms">{{__('messages.add_new')}}
                                 </button>
                                 <!--end::Add customer-->
                             </div>
@@ -122,7 +122,7 @@
                     <!--begin::Card body-->
                     <div class="card-body pt-0">
                         <!--begin::Table-->
-                        <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_currency_table"
+                        <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_pay_terms_table"
                                data-kt-dt_api="#">
                             <!--begin::Table head-->
                             <thead>
@@ -178,9 +178,9 @@
                                             <!--begin::Menu item-->
                                             <div class="menu-item px-3">
                                                 <a href="#" class="menu-link px-3 test"
-                                                   data-kt-currency-table-actions="edit_row"
-                                                   data-kt-currency-edit-url="{{route('user.banking_gl.currency.edit', $curr->id)}}"
-                                                   data-kt-currency-update-url="{{route('user.banking_gl.currency.update', $curr->id)}}">
+                                                   data-kt-pay-terms-table-actions="edit_row"
+                                                   data-kt-pay-terms-edit-url="{{route('user.banking_gl.pay_terms.edit', $curr->id)}}"
+                                                   data-kt-pay-terms-update-url="{{route('user.banking_gl.pay_terms.update', $curr->id)}}">
                                                     Edit
                                                 </a>
                                             </div>
@@ -201,23 +201,23 @@
         </div>
         <!--end::Card-->
 
-        <!--begin::Modal - Currency - Add-->
-        <div class="modal fade" id="kt_modal_add_currency" tabindex="-1">
+        <!--begin::Modal - Pay Terms - Add-->
+        <div class="modal fade" id="kt_modal_add_pay_terms" tabindex="-1">
             <!--begin::Modal dialog-->
             <div class="modal-dialog modal-dialog-centered mw-650px">
                 <!--begin::Modal content-->
                 <div class="modal-content">
                     <!--begin::Form-->
-                    <form class="form" action="#" id="kt_modal_add_currency_form"
-                          data-kt-action="{{route('user.banking_gl.currency.create')}}"
-                          data-kt-redirect="{{route('user.banking_gl.currency.all')}}">
+                    <form class="form" action="#" id="kt_modal_add_pay_terms_form"
+                          data-kt-action="{{route('user.banking_gl.pay_terms.create')}}"
+                          data-kt-redirect="{{route('user.banking_gl.pay_terms.all')}}">
                         <!--begin::Modal header-->
-                        <div class="modal-header" id="kt_modal_add_currency_header">
+                        <div class="modal-header" id="kt_modal_add_pay_terms_header">
                             <!--begin::Modal title-->
-                            <h2 class="fw-bolder">{{__('messages.new').' '.__('messages.currency')}}</h2>
+                            <h2 class="fw-bolder">{{__('messages.new').' '.__('messages.pay_term')}}</h2>
                             <!--end::Modal title-->
                             <!--begin::Close-->
-                            <div id="kt_modal_add_currency_close"
+                            <div id="kt_modal_add_pay_terms_close"
                                  class="btn btn-icon btn-sm btn-active-icon-primary">
                                 <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
                                 <span class="svg-icon svg-icon-1">
@@ -240,113 +240,66 @@
                         <!--begin::Modal body-->
                         <div class="modal-body py-10 px-lg-17">
                             <!--begin::Scroll-->
-                            <div class="scroll-y me-n7 pe-7" id="kt_modal_add_currency_scroll" data-kt-scroll="true"
+                            <div class="scroll-y me-n7 pe-7" id="kt_modal_add_pay_terms_scroll" data-kt-scroll="true"
                                  data-kt-scroll-activate="{default: false, lg: true}"
                                  data-kt-scroll-max-height="auto"
-                                 data-kt-scroll-dependencies="#kt_modal_add_currency_header"
-                                 data-kt-scroll-wrappers="#kt_modal_add_currency_scroll"
+                                 data-kt-scroll-dependencies="#kt_modal_add_pay_terms_header"
+                                 data-kt-scroll-wrappers="#kt_modal_add_pay_terms_scroll"
                                  data-kt-scroll-offset="300px">
 
                                 <!--begin::Input group-->
                                 <div class="fv-row mb-7">
                                     <!--begin::Label-->
-                                    <label class="fs-6 fw-bold mb-2" for="abbreviation">
+                                    <label class="fs-6 fw-bold mb-2" for="terms">
                                         <span
-                                            class="required">{{__('messages.currency').' '.__('messages.abbr')}}</span>
+                                            class="required">{{__('messages.terms')}}</span>
                                     </label>
                                     <!--end::Label-->
                                     <!--begin::Input-->
                                     <input type="text" class="form-control form-control-solid"
-                                           placeholder="{{__('messages.currency').' '.__('messages.abbr')}}"
-                                           name="abbreviation"/>
+                                           placeholder="{{__('messages.terms')}}"
+                                           name="terms"/>
                                     <!--end::Input-->
                                 </div>
                                 <!--end::Input group-->
                                 <!--begin::Input group-->
-                                <div class="fv-row mb-7">
-                                    <!--begin::Label-->
-                                    <label class="fs-6 fw-bold mb-2" for="symbol">
-                                        <span
-                                            class="required">{{__('messages.currency').' '.__('messages.symbol')}}</span>
-                                    </label>
-                                    <!--end::Label-->
-                                    <!--begin::Input-->
-                                    <input type="text" class="form-control form-control-solid"
-                                           placeholder="{{__('messages.currency').' '.__('messages.symbol')}}"
-                                           name="symbol"/>
-                                    <!--end::Input-->
-                                </div>
-                                <!--end::Input group-->
-                                <!--begin::Input group-->
-                                <div class="fv-row mb-7">
-                                    <!--begin::Label-->
-                                    <label class="fs-6 fw-bold mb-2" for="name">
-                                        <span
-                                            class="required">{{__('messages.currency').' '.__('messages.name')}}</span>
-                                    </label>
-                                    <!--end::Label-->
-                                    <!--begin::Input-->
-                                    <input type="text" class="form-control form-control-solid"
-                                           placeholder="{{__('messages.currency').' '.__('messages.name')}}"
-                                           name="name"/>
-                                    <!--end::Input-->
-                                </div>
-                                <!--end::Input group-->
-                                <!--begin::Input group-->
-                                <div class="fv-row mb-7">
-                                    <!--begin::Label-->
-                                    <label class="fs-6 fw-bold mb-2" for="hundredths_name">
-                                        <span
-                                            class="required">{{__('messages.hundredths').' '.__('messages.name')}}</span>
-                                    </label>
-                                    <!--end::Label-->
-                                    <!--begin::Input-->
-                                    <input type="text" class="form-control form-control-solid"
-                                           placeholder="{{__('messages.hundredths').' '.__('messages.name')}} eg cents"
-                                           name="hundredths_name"/>
-                                    <!--end::Input-->
-                                </div>
-                                <!--end::Input group-->
-                                <!--begin::Input group-->
-                                <div class="row g-9 mb-7">
+                                <div class="row g-9 mb-7" id="type">
                                     <div class="col-md-12 fv-row">
                                         <!--begin::Label-->
                                         <label class="fs-6 fw-bold mb-2">
                                             <span
-                                                class="required">{{__('messages.country')}}</span>
+                                                class="required">{{__('messages.type')}}</span>
                                         </label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
-                                        <select name="country"
-                                                aria-label="Select Country"
+                                        <select name="type"
+                                                aria-label="Select type"
                                                 data-control="select2"
                                                 data-kt-src="#"
-                                                data-placeholder="Select Country"
-                                                data-dropdown-parent="#kt_modal_add_currency"
+                                                data-placeholder="Select type"
+                                                data-dropdown-parent="#kt_modal_add_pay_terms"
                                                 class="form-select form-select-solid fw-bolder">
                                             <option></option>
-                                            @foreach(\Monarobase\CountryList\CountryListFacade::getList() as $key => $country)
-                                                <option value="{{$key}}">{{$country}}</option>
-                                            @endforeach
+                                            <option value="0">Cash</option>
+                                            <option value="1">After no. of days</option>
+                                            <option value="2">Day in the following month</option>
                                         </select>
                                         <!--end::Input-->
                                     </div>
                                 </div>
                                 <!--end::Input group-->
                                 <!--begin::Input group-->
-                                <div class="d-flex">
-                                    <!--begin::Checkbox-->
-                                    <label class="form-check form-check-custom form-check-solid me-10">
-                                        <!--begin::Label-->
-                                        <span class="fs-6 fw-bold me-7">{{__('messages.auto_exchange_update')}}</span>
-                                        <!--end::Label-->
-                                        <!--begin::Input-->
-                                        <input class="form-check-input h-20px w-20px" type="checkbox" checked
-                                               id="check_auto_fx">
-                                        <input type="hidden" name="auto_fx" value="1">
-                                        <!--end::Input-->
+                                <div class="fv-row mb-7 d-none" id="days">
+                                    <!--begin::Label-->
+                                    <label class="fs-6 fw-bold mb-2" for="abbreviation">
+                                        <span
+                                            class="required" id="day_label"></span>
                                     </label>
-                                    <!--end::Checkbox-->
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                    <input type="number" class="form-control form-control-solid"
+                                           name="days" disabled/>
+                                    <!--end::Input-->
                                 </div>
                                 <!--end::Input group-->
                             </div>
@@ -356,12 +309,12 @@
                         <!--begin::Modal footer-->
                         <div class="modal-footer flex-center">
                             <!--begin::Button-->
-                            <button type="reset" id="kt_modal_add_currency_cancel" class="btn btn-light me-3">
+                            <button type="reset" id="kt_modal_add_pay_terms_cancel" class="btn btn-light me-3">
                                 Discard
                             </button>
                             <!--end::Button-->
                             <!--begin::Button-->
-                            <button type="submit" id="kt_modal_add_currency_submit" class="btn btn-primary">
+                            <button type="submit" id="kt_modal_add_pay_terms_submit" class="btn btn-primary">
                                 <span class="indicator-label">Submit</span>
                                 <span class="indicator-progress">Please wait...
                                 <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
@@ -374,207 +327,7 @@
                 </div>
             </div>
         </div>
-        <!--end::Modal - Currency - Add-->
-
-        <!--begin::Modal - Currency - Update-->
-        <div class="modal fade" id="kt_modal_update_currency" tabindex="-1">
-            <!--begin::Modal dialog-->
-            <div class="modal-dialog modal-dialog-centered mw-650px">
-                <!--begin::Modal content-->
-                <div class="modal-content">
-                    <div class="loader_container">
-                        <div class="loader_wrapper">
-                            <div class="loader">
-                                <div class="dot"></div>
-                            </div>
-                            <div class="loader">
-                                <div class="dot"></div>
-                            </div>
-                            <div class="loader">
-                                <div class="dot"></div>
-                            </div>
-                            <div class="loader">
-                                <div class="dot"></div>
-                            </div>
-                            <div class="loader">
-                                <div class="dot"></div>
-                            </div>
-                            <div class="loader">
-                                <div class="dot"></div>
-                            </div>
-                        </div>
-                        <div class="text">
-                            Please wait
-                        </div>
-                    </div>
-                    <!--begin::Form-->
-                    <form class="form" action="#" id="kt_modal_update_currency_form"
-                          data-kt-action="#"
-                          data-kt-redirect="{{route('user.banking_gl.currency.all')}}">
-                        <!--begin::Modal header-->
-                        <div class="modal-header" id="kt_modal_update_currency_header">
-                            <!--begin::Modal title-->
-                            <h2 class="fw-bolder">{{__('messages.update').' '.__('messages.currency')}}</h2>
-                            <!--end::Modal title-->
-                            <!--begin::Close-->
-                            <div id="kt_modal_update_currency_close"
-                                 class="btn btn-icon btn-sm btn-active-icon-primary">
-                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
-                                <span class="svg-icon svg-icon-1">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                         height="24" viewBox="0 0 24 24" fill="none">
-                                        <rect opacity="0.5" x="6" y="17.3137" width="16"
-                                              height="2" rx="1"
-                                              transform="rotate(-45 6 17.3137)"
-                                              fill="currentColor"/>
-                                        <rect x="7.41422" y="6" width="16" height="2" rx="1"
-                                              transform="rotate(45 7.41422 6)"
-                                              fill="currentColor"/>
-                                    </svg>
-                                </span>
-                                <!--end::Svg Icon-->
-                            </div>
-                            <!--end::Close-->
-                        </div>
-                        <!--end::Modal header-->
-                        <!--begin::Modal body-->
-                        <div class="modal-body py-10 px-lg-17">
-                            <!--begin::Scroll-->
-                            <div class="scroll-y me-n7 pe-7" id="kt_modal_update_currency_scroll" data-kt-scroll="true"
-                                 data-kt-scroll-activate="{default: false, lg: true}"
-                                 data-kt-scroll-max-height="auto"
-                                 data-kt-scroll-dependencies="#kt_modal_update_currency_header"
-                                 data-kt-scroll-wrappers="#kt_modal_update_currency_scroll"
-                                 data-kt-scroll-offset="300px">
-
-                                <!--begin::Input group-->
-                                <div class="fv-row mb-7">
-                                    <!--begin::Label-->
-                                    <label class="fs-6 fw-bold mb-2" for="abbreviation">
-                                        <span
-                                            class="required">{{__('messages.currency').' '.__('messages.abbr')}}</span>
-                                    </label>
-                                    <!--end::Label-->
-                                    <!--begin::Input-->
-                                    <input type="text" class="form-control form-control-solid"
-                                           placeholder="{{__('messages.currency').' '.__('messages.abbr')}}"
-                                           name="abbreviation"/>
-                                    <!--end::Input-->
-                                </div>
-                                <!--end::Input group-->
-                                <!--begin::Input group-->
-                                <div class="fv-row mb-7">
-                                    <!--begin::Label-->
-                                    <label class="fs-6 fw-bold mb-2" for="symbol">
-                                        <span
-                                            class="required">{{__('messages.currency').' '.__('messages.symbol')}}</span>
-                                    </label>
-                                    <!--end::Label-->
-                                    <!--begin::Input-->
-                                    <input type="text" class="form-control form-control-solid"
-                                           placeholder="{{__('messages.currency').' '.__('messages.symbol')}}"
-                                           name="symbol"/>
-                                    <!--end::Input-->
-                                </div>
-                                <!--end::Input group-->
-                                <!--begin::Input group-->
-                                <div class="fv-row mb-7">
-                                    <!--begin::Label-->
-                                    <label class="fs-6 fw-bold mb-2" for="name">
-                                        <span
-                                            class="required">{{__('messages.currency').' '.__('messages.name')}}</span>
-                                    </label>
-                                    <!--end::Label-->
-                                    <!--begin::Input-->
-                                    <input type="text" class="form-control form-control-solid"
-                                           placeholder="{{__('messages.currency').' '.__('messages.name')}}"
-                                           name="name"/>
-                                    <!--end::Input-->
-                                </div>
-                                <!--end::Input group-->
-                                <!--begin::Input group-->
-                                <div class="fv-row mb-7">
-                                    <!--begin::Label-->
-                                    <label class="fs-6 fw-bold mb-2" for="hundredths_name">
-                                        <span
-                                            class="required">{{__('messages.hundredths').' '.__('messages.name')}}</span>
-                                    </label>
-                                    <!--end::Label-->
-                                    <!--begin::Input-->
-                                    <input type="text" class="form-control form-control-solid"
-                                           placeholder="{{__('messages.hundredths').' '.__('messages.name')}} eg cents"
-                                           name="hundredths_name"/>
-                                    <!--end::Input-->
-                                </div>
-                                <!--end::Input group-->
-                                <!--begin::Input group-->
-                                <div class="row g-9 mb-7">
-                                    <div class="col-md-12 fv-row">
-                                        <!--begin::Label-->
-                                        <label class="fs-6 fw-bold mb-2">
-                                            <span
-                                                class="required">{{__('messages.country')}}</span>
-                                        </label>
-                                        <!--end::Label-->
-                                        <!--begin::Input-->
-                                        <select name="country"
-                                                aria-label="Select Country"
-                                                data-control="select2"
-                                                data-kt-src="#"
-                                                data-placeholder="Select Country"
-                                                data-dropdown-parent="#kt_modal_update_currency"
-                                                class="form-select form-select-solid fw-bolder">
-                                            <option></option>
-                                            @foreach(\Monarobase\CountryList\CountryListFacade::getList() as $key => $country)
-                                                <option value="{{$key}}">{{$country}}</option>
-                                            @endforeach
-                                        </select>
-                                        <!--end::Input-->
-                                    </div>
-                                </div>
-                                <!--end::Input group-->
-                                <!--begin::Input group-->
-                                <div class="d-flex">
-                                    <!--begin::Checkbox-->
-                                    <label class="form-check form-check-custom form-check-solid me-10">
-                                        <!--begin::Label-->
-                                        <span class="fs-6 fw-bold me-7">{{__('messages.auto_exchange_update')}}</span>
-                                        <!--end::Label-->
-                                        <!--begin::Input-->
-                                        <input class="form-check-input h-20px w-20px" type="checkbox"
-                                               id="check_auto_fx">
-                                        <input type="hidden" name="auto_fx" value="1">
-                                        <!--end::Input-->
-                                    </label>
-                                    <!--end::Checkbox-->
-                                </div>
-                                <!--end::Input group-->
-                            </div>
-                            <!--end::Scroll-->
-                        </div>
-                        <!--end::Modal body-->
-                        <!--begin::Modal footer-->
-                        <div class="modal-footer flex-center">
-                            <!--begin::Button-->
-                            <button type="reset" id="kt_modal_update_currency_cancel" class="btn btn-light me-3">
-                                Discard
-                            </button>
-                            <!--end::Button-->
-                            <!--begin::Button-->
-                            <button type="submit" id="kt_modal_update_currency_submit" class="btn btn-primary">
-                                <span class="indicator-label">Submit</span>
-                                <span class="indicator-progress">Please wait...
-                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                            </button>
-                            <!--end::Button-->
-                        </div>
-                        <!--end::Modal footer-->
-                    </form>
-                    <!--end::Form-->
-                </div>
-            </div>
-        </div>
-        <!--end::Modal - Currency - Update-->
+        <!--end::Modal - Pay Terms - Add-->
     </div>
     <!--end::Container-->
 @stop

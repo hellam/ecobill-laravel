@@ -50,8 +50,13 @@ define('ST_CREDIT_NOTE', "ST_124");
 ////////////////////////////////
 
 #PRODUCTS
-define('ST_CATEGORY', "ST_111");
+define('ST_140', "Category Setup");
+define('ST_141', "Product Setup");
+define('ST_142', "Subscription Setup");
 
+define('ST_CATEGORY_SETUP', "ST_140");
+define('ST_PRODUCT_SETUP', "ST_141");
+define('ST_SUBSCRIPTION_SETUP','ST_142');
 //////////////////////////////////////
 
 //UTILS

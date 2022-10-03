@@ -57,8 +57,20 @@ Route::group(['as' => 'user.'], function () {
 
         Route::get('/', [User\DashboardController::class, 'index'])->name('dashboard')->middleware('permission:100');
         Route::get('/switch_branch/{branch}', [User\Setup\BranchController::class, 'switch_branch'])->name('switch_branch')->middleware('permission:100');
+
         Route::group(['prefix' => 'products', 'as' => 'products.'], function () {
-            Route::get('/', [User\Products\ProductsController::class, 'index'])->middleware('permission:101')->name('list');
+            Route::controller(User\Products\ProductsController::class)->group(function () {
+                Route::get('/', 'index')->name('all')->middleware('permission:501');
+                Route::get('/dt-api', 'dt_api')->name('dt_api')->middleware('permission:501');
+            });
+
+            Route::controller(User\Products\CategoryController::class)->prefix('categories')->as('categories.')->group(function () {
+                Route::get('/', 'index')->name('all')->middleware('permission:502');
+                Route::post('/', 'create')->name('create')->middleware('permission:5020,' . ST_CATEGORY_SETUP);
+                Route::get('edit/{id}', 'edit')->name('edit')->middleware('permission:5021')->whereNumber('id');
+                Route::put('update/{id}', 'update')->name('update')->middleware('permission:5021,' . ST_CATEGORY_SETUP)->whereNumber('id');
+                Route::delete('delete/{id}', 'destroy')->name('delete')->middleware('permission:5022,' . ST_CATEGORY_SETUP)->whereNumber('id');
+            });
         });
 
         Route::group(['prefix' => 'reports', 'as' => 'reports.'], function () {

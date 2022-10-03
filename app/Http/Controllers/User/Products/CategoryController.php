@@ -67,7 +67,7 @@ class CategoryController extends Controller
             //if not supervised, log data from create request
             //Creator log
             log_activity(
-                ST_PAYMENT_TERMS_SETUP,
+                ST_CATEGORY_SETUP,
                 $request->getClientIp(),
                 'Create Category',
                 json_encode($post_data),

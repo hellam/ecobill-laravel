@@ -451,49 +451,6 @@ var MUBGroupsDatatablesServerSide = function () {
         });
     }
 
-    //Edit Button
-    // const handleSelectContact = function () {
-    //     const modal = document.querySelector('#kt_modal_add_category');
-    //     dragElement(modal);
-    //     const element = document.querySelector('.select_tax');
-    //
-    //     $('.select_tax').html("").trigger('change');
-    //
-    //
-    //     $('.select_tax').select2({
-    //         placeholder: 'Select a tax',
-    //         // minimumInputLength: 1,
-    //         multiple: true,
-    //         escapeMarkup: function (markup) {
-    //             return markup;
-    //         },
-    //         ajax: {
-    //             url: element.getAttribute("data-kt-src"),
-    //             dataType: 'json',
-    //             type: 'GET',
-    //             delay: 50,
-    //             data: function (params) {
-    //                 // Query parameters will be ?search=[term]&type=public
-    //                 return {
-    //                     search: params.term,
-    //                     type: 'public'
-    //                 };
-    //             },
-    //             processResults: function (data) {
-    //
-    //                 return {
-    //                     results: $.map(data, function (item) {
-    //                         return {
-    //                             text: item.f_name + ' ' + item.l_name,
-    //                             id: item.id,
-    //                         }
-    //                     })
-    //                 }
-    //             }
-    //         }
-    //     });
-    // };
-
 
     // Public methods
     return {

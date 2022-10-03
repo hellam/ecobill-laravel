@@ -70,7 +70,7 @@ Route::group(['as' => 'user.'], function () {
 
         Route::group(['prefix' => 'setup', 'as' => 'setup.'], function () {
             Route::controller(User\Setup\TaxController::class)->prefix('tax')->as('tax.')->group(function () {
-                Route::get('/', 'index')->name('list')->middleware('permission:701');
+                Route::get('/', 'index')->name('all')->middleware('permission:701');
                 Route::post('/', 'create')->name('create')->middleware('permission:7010,' . ST_TAX_SETUP);
                 Route::get('edit/{id}', 'edit')->name('edit')->middleware('permission:7011')->whereNumber('id');
                 Route::put('update/{id}', 'update')->name('update')->middleware('permission:7011,' . ST_TAX_SETUP)->whereNumber('id');

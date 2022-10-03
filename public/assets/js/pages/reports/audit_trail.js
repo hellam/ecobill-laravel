@@ -45,14 +45,6 @@ const KTAuditTrailServerSide = function () {
         });
     };
 
-    // Search Datatable --- official docs reference: https://datatables.net/reference/api/search()
-    const handleSearchDatatable = function () {
-        const filterSearch = document.querySelector('[data-kt-audit-trail-table-filter="search"]');
-        filterSearch.addEventListener('keyup', function (e) {
-            dt.search(e.target.value).draw();
-        });
-    };
-
     const start = moment();
     const end = moment();
 
@@ -108,7 +100,7 @@ const KTAuditTrailServerSide = function () {
             if ($('#kt_audits_table').length) {
                 initDatatable();
                 dt.search('').draw();
-                handleSearchDatatable();
+                handleSearchDatatable('[data-kt-audit-trail-table-filter="search"]', dt);
                 // handleFilterDatatable();
             }
         }

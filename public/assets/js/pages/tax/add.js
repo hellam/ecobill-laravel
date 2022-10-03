@@ -41,12 +41,6 @@ var KTModalTaxesAdd = function () {
             }
         );
 
-        // // Revalidate country field. For more info, plase visit the official plugin site: https://select2.org/
-        // $(form.querySelector('[name="country"]')).on('change', function () {
-        //     // Revalidate the field when an option is chosen
-        //     validator.revalidateField('country');
-        // });
-
         // Action buttons
         submitButton.addEventListener('click', function (e) {
             e.preventDefault();
@@ -67,27 +61,25 @@ var KTModalTaxesAdd = function () {
                         }, {});
                         $.ajax({
                             type: 'POST',
-                            contentType: 'application/json',
                             url: form.getAttribute("data-kt-action"),
-                            data: JSON.stringify(str),
+                            data: str,
                             success: function (json) {
                                 var response = JSON.parse(json);
                                 if (response.status !== true) {
                                     var errors = response.data;
                                     for (const [key, value] of Object.entries(errors)) {
-                                        // console.log(errors)
-                                        $('#err_' + key).remove();
-                                        if ($("input[name='" + key + "']").length) {
-                                            $("input[name='" + key + "']")
-                                                .after('<small style="color: red;" id="err_' + key + '">' + value + '</small>')
+                                        $('#err_' + value.field).remove();
+                                        if ($("input[name='" + value.field + "']").length) {
+                                            $("input[name='" + value.field + "']")
+                                                .after('<small style="color: red;" id="err_' + value.field + '">' + value.error + '</small>')
                                                 .on('keyup', function (e) {
-                                                    $('#err_' + key).remove();
+                                                    $('#err_' + value.field).remove();
                                                 })
-                                        } else if ($("textarea[name='" + key + "']").length) {
-                                            $("textarea[name='" + key + "']")
-                                                .after('<small style="color: red;" id="err_' + key + '">' + value + '</small>')
+                                        } else if ($("textarea[name='" + value.field + "']").length) {
+                                            $("textarea[name='" + value.field + "']")
+                                                .after('<small style="color: red;" id="err_' + key + '">' + value.error + '</small>')
                                                 .on('keyup', function (e) {
-                                                    $('#err_' + key).remove();
+                                                    $('#err_' + value.field).remove();
                                                 })
                                         }
                                     }
@@ -186,17 +178,6 @@ var KTModalTaxesAdd = function () {
                     form.reset(); // Reset form
                     modal.hide(); // Hide modal
                 }
-                // else if (result.dismiss === 'cancel') {
-                //     Swal.fire({
-                //         text: "Your form has not been cancelled!.",
-                //         icon: "error",
-                //         buttonsStyling: false,
-                //         confirmButtonText: "Ok, got it!",
-                //         customClass: {
-                //             confirmButton: "btn btn-primary",
-                //         }
-                //     });
-                // }
             });
         });
 
@@ -219,17 +200,6 @@ var KTModalTaxesAdd = function () {
                     form.reset(); // Reset form
                     modal.hide(); // Hide modal
                 }
-                // else if (result.dismiss === 'cancel') {
-                //     Swal.fire({
-                //         text: "Your form has not been cancelled!.",
-                //         icon: "error",
-                //         buttonsStyling: false,
-                //         confirmButtonText: "Ok, got it!",
-                //         customClass: {
-                //             confirmButton: "btn btn-primary",
-                //         }
-                //     });
-                // }
             });
         })
 

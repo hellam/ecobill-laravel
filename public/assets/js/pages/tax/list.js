@@ -114,14 +114,6 @@ var MUBDatatablesServerSide = function () {
         });
     }
 
-    // Search Datatable --- official docs reference: https://datatables.net/reference/api/search()
-    var handleSearchDatatable = function () {
-        const filterSearch = document.querySelector('[data-kt-tax-table-filter="search"]');
-        filterSearch.addEventListener('keyup', function (e) {
-            dt.search(e.target.value).draw();
-        });
-    }
-
     // Filter Datatable
     var handleFilterDatatable = () => {
         // Select filter options
@@ -477,7 +469,7 @@ var MUBDatatablesServerSide = function () {
             if ($('#kt_taxes_table').length) {
                 initDatatable();
                 dt.search('').draw();
-                handleSearchDatatable();
+                handleSearchDatatable('[data-kt-tax-table-filter="search"]', dt);
                 initToggleToolbar();
                 handleFilterDatatable();
                 handleDeleteRows();

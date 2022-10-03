@@ -4153,6 +4153,7 @@
 
     //# End Make Modals Draggable
 </script>
+<script src="{{asset('assets/js/pages/functions.js')}}"></script>
 @stack('custom_scripts')
 
 </body>

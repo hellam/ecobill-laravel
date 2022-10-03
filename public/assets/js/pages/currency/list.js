@@ -10,13 +10,6 @@ const KTCurrencyServerSide = function () {
         dt = $("#kt_currency_table").DataTable();
     };
 
-    var handleSearchDatatable = function () {
-        const filterSearch = document.querySelector('[data-kt-currency-table-filter="search"]');
-        filterSearch.addEventListener('keyup', function (e) {
-            dt.search(e.target.value).draw();
-        });
-    }
-
     //Edit Button
     const handleUpdateRows = function () {
         // Select all delete buttons
@@ -121,7 +114,7 @@ const KTCurrencyServerSide = function () {
             if ($('#kt_currency_table').length) {
                 initDatatable();
                 dt.search('').draw();
-                handleSearchDatatable();
+                handleSearchDatatable('[data-kt-currency-table-filter="search"]', dt);
                 handleUpdateRows();
             }
         }

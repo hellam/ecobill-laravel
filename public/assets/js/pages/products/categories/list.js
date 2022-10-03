@@ -111,14 +111,6 @@ var MUBGroupsDatatablesServerSide = function () {
         });
     }
 
-    // Search Datatable --- official docs reference: https://datatables.net/reference/api/search()
-    var handleSearchDatatable = function () {
-        const filterSearch = document.querySelector('[data-kt-category-table-filter="search"]');
-        filterSearch.addEventListener('keyup', function (e) {
-            dt.search(e.target.value).draw();
-        });
-    }
-
     // Filter Datatable
     var handleFilterDatatable = () => {
         // Select filter options
@@ -511,7 +503,7 @@ var MUBGroupsDatatablesServerSide = function () {
             if ($('#kt_categories_table').length) {
                 initDatatable();
                 dt.search('').draw();
-                handleSearchDatatable();
+                handleSearchDatatable('[data-kt-category-table-filter="search"]', dt);
                 initToggleToolbar();
                 handleFilterDatatable();
                 handleDeleteRows();

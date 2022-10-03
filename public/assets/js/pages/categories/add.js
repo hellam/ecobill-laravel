@@ -1,7 +1,7 @@
 "use strict";
 
 // Class definition
-const KTPayTermsAdd = function () {
+const KTCategoryAdd = function () {
     // Shared variables
     let closeButton, discardButton, submitButton, validator, form, modal;
 
@@ -81,6 +81,7 @@ const KTPayTermsAdd = function () {
             }).then(function (result) {
                 if (result.value) {
                     form.reset(); // Reset form
+                    $("select[name='default_tax_id']").val(null).trigger('change');
                     modal.hide(); // Hide modal
                 }
             });
@@ -103,6 +104,7 @@ const KTPayTermsAdd = function () {
             }).then(function (result) {
                 if (result.value) {
                     form.reset(); // Reset formadd_category
+                    $("select[name='default_tax_id']").val(null).trigger('change');
                     modal.hide(); // Hide modal
                 }
             });
@@ -158,7 +160,14 @@ const KTPayTermsAdd = function () {
                             // Enable submit button after loading
                             submitButton.disabled = false;
                             form.reset(); // Reset form
-                            window.location.reload();
+                            $("select[name='default_tax_id']").val(null).trigger('change');
+
+                            if ($('#kt_categories_table').length) {
+                                $("#kt_categories_table").DataTable().ajax.reload();
+                                return;
+                            }
+                            // Redirect to customers list page
+                            window.location = form.getAttribute("data-kt-redirect");
                         }
                     });
                 }
@@ -200,6 +209,7 @@ const KTPayTermsAdd = function () {
                             submitData(str)
                         } else {
                             form.reset(); // Reset form
+                            $("select[name='default_tax_id']").val(null).trigger('change');
                         }
                     });
                 }
@@ -239,5 +249,5 @@ const KTPayTermsAdd = function () {
 
 // On document ready
 KTUtil.onDOMContentLoaded(function () {
-    KTPayTermsAdd.init();
+    KTCategoryAdd.init();
 });

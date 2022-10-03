@@ -105,15 +105,15 @@ class CategoryController extends Controller
             return $validator;
         }
 
-        $pay_terms = PaymentTerm::find($id);
-        $pay_terms = set_update_parameters($pay_terms, $created_at, $created_by, $supervised_by, $supervised_at);
+        $category = Category::find($id);
+        $category = set_update_parameters($category, $created_at, $created_by, $supervised_by, $supervised_at);
 
-        $pay_terms->terms = $request->terms;
-        $pay_terms->type = $request->type;
-        $pay_terms->days = $request->days ?? 0;
-        $pay_terms->update();
+        $category->name = $request->name;
+        $category->descripton = $category->type;
+        $category->default_tax_id = $request->default_tax_id;
+        $category->update();
 
-        return success_web_processor(null, __('messages.msg_updated_success', ['attribute' => __('messages.pay_terms')]));
+        return success_web_processor(null, __('messages.msg_updated_success', ['attribute' => __('messages.category')]));
     }
 
     /**

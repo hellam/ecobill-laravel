@@ -50,13 +50,6 @@ const KTBranchesUpdate = function () {
                             }
                         }
                     },
-                    default_currency: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Default currency is required'
-                            }
-                        }
-                    },
                     fiscal_year: {
                         validators: {
                             notEmpty: {
@@ -97,7 +90,7 @@ const KTBranchesUpdate = function () {
         );
 
         //revalidate all select boxes
-        let select_fields = ["timezone", "tax_period", "default_currency", "fiscal_year"];
+        let select_fields = ["timezone", "tax_period", "fiscal_year"];
         select_fields.forEach(select => {
             $(form.querySelector(`[name=${select}]`)).on('change', function () {
                 // Revalidate the field when an option is chosen

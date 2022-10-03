@@ -19,8 +19,9 @@ define('ST_113', "Bank Account Setup");
 define('ST_114', "GL Account Setup");
 define('ST_115', "GL Group Setup");
 define('ST_116', "GL Classes Setup");
-define('ST_117', "Currency & FX Setup");
-define('ST_118', "Payment Terms Setup");
+define('ST_117', "Currency Setup");
+define('ST_118', "Exchange Rate Setup");
+define('ST_119', "Payment Terms Setup");
 
 define('ST_ACCOUNT_EXPENSE', "ST_110");
 define('ST_ACCOUNT_DEPOSIT', "ST_111");
@@ -30,7 +31,8 @@ define('ST_GL_ACCOUNT_SETUP', "ST_114");
 define('ST_GL_GROUP_SETUP', "ST_115");
 define('ST_GL_CLASSES_SETUP', "ST_116");
 define('ST_CURRENCY_SETUP', "ST_117");
-define('ST_PAYMENT_TERMS_SETUP',"ST_118");
+define('ST_EXCHANGE_RATE_SETUP', "ST_118");
+define('ST_PAYMENT_TERMS_SETUP',"ST_119");
 //////////////////////////////////////
 
 #SALES
@@ -103,7 +105,8 @@ define('TRX_TYPES', [
     ST_GL_GROUP_SETUP => ST_115,
     ST_GL_CLASSES_SETUP => ST_116,
     ST_CURRENCY_SETUP => ST_117,
-    ST_PAYMENT_TERMS_SETUP => ST_118,
+    ST_EXCHANGE_RATE_SETUP => ST_118,
+    ST_PAYMENT_TERMS_SETUP => ST_119,
 
     ST_INVOICE => ST_120,
     ST_CUSTOMER_PAYMENT => ST_121,

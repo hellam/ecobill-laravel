@@ -332,6 +332,16 @@ class UserValidators
         ]);
     }
 
+    public static function categoryUpdateValidation(Request $request)
+    {
+        $id = Route::current()->id;
+        return self::ValidatorMake($request->all(), [
+            'name' => 'required|unique:' . Category::class . ',name,' . $id . ',id,client_ref,' . get_user_ref(),
+            'description' => 'required',
+            'default_tax_id' => 'required|numeric',
+        ]);
+    }
+
     public static function securityUpdateValidation(Request $request)
     {
         $type = Route::current()->type;

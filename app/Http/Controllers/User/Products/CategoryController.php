@@ -85,11 +85,11 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $pay_terms = PaymentTerm::find($id);
-        if (isset($pay_terms)) {
-            return success_web_processor($pay_terms, __('messages.msg_item_found', ['attribute' => __('messages.pay_terms')]));
+        $category = Category::find($id);
+        if (isset($category)) {
+            return success_web_processor($category, __('messages.msg_item_found', ['attribute' => __('messages.category')]));
         }
-        return error_web_processor(trans('messages.msg_item_not_found', ['attribute' => __('messages.pay_terms')]));
+        return error_web_processor(trans('messages.msg_item_not_found', ['attribute' => __('messages.category')]));
     }
 
     /**
@@ -99,7 +99,7 @@ class CategoryController extends Controller
     public function update(Request $request, $id, $created_at = null, $created_by = null,
                                    $supervised_by = null, $supervised_at = null): JsonResponse|string
     {
-        $validator = UserValidators::payTermsUpdateValidation($request);
+        $validator = UserValidators::categoryUpdateValidation($request);
 
         if ($validator != '') {
             return $validator;

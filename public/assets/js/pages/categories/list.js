@@ -1,7 +1,7 @@
 "use strict";
 
 // Class definition
-var MUBGroupsDatatablesServerSide = function () {
+var KTCategoriesServerSide = function () {
     // Shared variables
     var table;
     var dt;
@@ -26,28 +26,28 @@ var MUBGroupsDatatablesServerSide = function () {
                 url: td.getAttribute('data-kt-dt_api'),
             },
             columns: [
-                {data: 'id'},
+                {data: 'DT_RowIndex'},
                 {data: 'name'},
                 {data: 'description'},
-                {data: 'tax.name'},
                 {data: 'inactive'},
+                {data: 'actions'},
             ],
             columnDefs: [
                 {
                     targets: 0,
                     orderable: false,
                     render: function (data, type, row) {
-                        var response = JSON.parse(row.data);
+                        var response = row.id;
                         return `
                             <div class="form-check form-check-sm form-check-custom form-check-solid">
-                                <input class="form-check-input" type="checkbox" value="${response.id}" />
+                                ${row.DT_RowIndex}
                                 <input type="hidden" class="edit_url" value="${response.edit_url}" />
                                 <input type="hidden" class="update_url" value="${response.update_url}" />
                                 <input type="hidden" class="delete_url" value="${response.delete_url}" />
                             </div>`;
                     }
                 }, {
-                    targets: 2,
+                    targets: -2,
                     orderable: true,
                     render: function (data, row) {
                         return decodeHtml(data);
@@ -93,18 +93,12 @@ var MUBGroupsDatatablesServerSide = function () {
                     },
                 },
             ],
-            // Add data-filter attribute
-            createdRow: function (row, data, dataIndex) {
-                $(row).find('td:eq(4)').attr('data-filter', data.CreditCardType);
-            }
         });
 
         table = dt.$;
 
         // Re-init functions on every table re-draw -- more info: https://datatables.net/reference/event/draw
         dt.on('draw', function () {
-            initToggleToolbar();
-            toggleToolbars();
             handleDeleteRows();
             handleUpdateRows();
             KTMenu.createInstances();
@@ -237,131 +231,6 @@ var MUBGroupsDatatablesServerSide = function () {
         });
     }
 
-    // Reset Filter
-    var handleResetForm = () => {
-        // Select reset button
-        const resetButton = document.querySelector('[data-kt-category-table-filter="reset"]');
-
-        // Reset datatable
-        resetButton.addEventListener('click', function () {
-            // Reset payment type
-            filterPayment[0].checked = true;
-
-            // Reset datatable --- official docs reference: https://datatables.net/reference/api/search()
-            dt.search('').draw();
-        });
-    }
-
-    // Init toggle toolbar
-    var initToggleToolbar = function () {
-        // Toggle selected action toolbar
-        // Select all checkboxes
-        const container = document.querySelector('#kt_categories_table');
-        const checkboxes = container.querySelectorAll('[type="checkbox"]');
-
-        // Select elements
-        const deleteSelected = document.querySelector('[data-kt-category-table-select="delete_selected"]');
-
-        // Toggle delete selected toolbar
-        checkboxes.forEach(c => {
-            // Checkbox on click event
-            c.addEventListener('click', function () {
-                setTimeout(function () {
-                    toggleToolbars();
-                }, 50);
-            });
-        });
-
-        // Deleted selected rows
-        deleteSelected.addEventListener('click', function () {
-            // SweetAlert2 pop up --- official docs reference: https://sweetalert2.github.io/
-            Swal.fire({
-                text: "Are you sure you want to delete selected customers?",
-                icon: "warning",
-                showCancelButton: true,
-                buttonsStyling: false,
-                showLoaderOnConfirm: true,
-                confirmButtonText: "Yes, delete!",
-                cancelButtonText: "No, cancel",
-                customClass: {
-                    confirmButton: "btn fw-bold btn-danger",
-                    cancelButton: "btn fw-bold btn-active-light-primary"
-                },
-            }).then(function (result) {
-                if (result.value) {
-                    // Simulate delete request -- for demo purpose only
-                    Swal.fire({
-                        text: "Deleting selected customers",
-                        icon: "info",
-                        buttonsStyling: false,
-                        showConfirmButton: false,
-                        timer: 2000
-                    }).then(function () {
-                        Swal.fire({
-                            text: "You have deleted all selected customers!.",
-                            icon: "success",
-                            buttonsStyling: false,
-                            confirmButtonText: "Ok, got it!",
-                            customClass: {
-                                confirmButton: "btn fw-bold btn-primary",
-                            }
-                        }).then(function () {
-                            // delete row data from server and re-draw datatable
-                            dt.draw();
-                        });
-
-                        // Remove header checked box
-                        const headerCheckbox = container.querySelectorAll('[type="checkbox"]')[0];
-                        headerCheckbox.checked = false;
-                    });
-                } else if (result.dismiss === 'cancel') {
-                    Swal.fire({
-                        text: "Selected customers was not deleted.",
-                        icon: "error",
-                        buttonsStyling: false,
-                        confirmButtonText: "Ok, got it!",
-                        customClass: {
-                            confirmButton: "btn fw-bold btn-primary",
-                        }
-                    });
-                }
-            });
-        });
-    }
-
-    // Toggle toolbars
-    var toggleToolbars = function () {
-        // Define variables
-        const container = document.querySelector('#kt_categories_table');
-        const toolbarBase = document.querySelector('[data-kt-category-table-toolbar="base"]');
-        const toolbarSelected = document.querySelector('[data-kt-category-table-toolbar="selected"]');
-        const selectedCount = document.querySelector('[data-kt-category-table-select="selected_count"]');
-
-        // Select refreshed checkbox DOM elements
-        const allCheckboxes = container.querySelectorAll('tbody [type="checkbox"]');
-
-        // Detect checkboxes state & count
-        let checkedState = false;
-        let count = 0;
-
-        // Count checked boxes
-        allCheckboxes.forEach(c => {
-            if (c.checked) {
-                checkedState = true;
-                count++;
-            }
-        });
-
-        // Toggle toolbars
-        if (checkedState) {
-            selectedCount.innerHTML = count;
-            toolbarBase.classList.add('d-none');
-            toolbarSelected.classList.remove('d-none');
-        } else {
-            toolbarBase.classList.remove('d-none');
-            toolbarSelected.classList.add('d-none');
-        }
-    }
 
     //Edit Button
     var handleUpdateRows = function () {
@@ -461,11 +330,9 @@ var MUBGroupsDatatablesServerSide = function () {
                 initDatatable();
                 dt.search('').draw();
                 handleSearchDatatable('[data-kt-category-table-filter="search"]', dt);
-                initToggleToolbar();
                 handleFilterDatatable();
                 handleDeleteRows();
                 handleUpdateRows();
-                handleResetForm();
             }
             // handleSelectContact();
         }
@@ -474,5 +341,5 @@ var MUBGroupsDatatablesServerSide = function () {
 
 // On document ready
 KTUtil.onDOMContentLoaded(function () {
-    MUBGroupsDatatablesServerSide.init();
+    KTCategoriesServerSide.init();
 });

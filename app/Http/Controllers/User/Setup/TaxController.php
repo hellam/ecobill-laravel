@@ -107,7 +107,7 @@ class TaxController extends Controller
         $tax = set_update_parameters($tax, $created_at, $created_by, $supervised_by, $supervised_at);
 
         $tax->name = $request->name;
-        $tax->descriotion = $request->description;
+        $tax->description = $request->description;
         $tax->rate = $request->rate;
         $tax->update();
 

@@ -106,8 +106,7 @@ class CurrencyController extends Controller
         }
 
         $currency = Currency::find($id);
-        $currency = set_update_parameters($currency, $created_at, $created_by,
-            $supervised_by, $supervised_at);
+//        $currency = set_update_parameters($currency, $created_at, $created_by, $supervised_by, $supervised_at);
 
         $currency->name = $request->name;
         $currency->country = $request->country;

@@ -136,6 +136,7 @@ class CategoryController extends Controller
         $category->name = $request->name;
         $category->description = $request->description;
         $category->default_tax_id = $request->default_tax_id;
+        $category->inactive = $request->inactive;
         $category->update();
 
         return success_web_processor(null, __('messages.msg_updated_success', ['attribute' => __('messages.category')]));

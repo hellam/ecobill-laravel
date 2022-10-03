@@ -36,6 +36,7 @@ var KTCategoriesServerSide = function () {
                 {
                     targets: 0,
                     orderable: false,
+                    searchable: false,
                     render: function (data, type, row) {
                         var response = row.id;
                         return `
@@ -49,6 +50,7 @@ var KTCategoriesServerSide = function () {
                 }, {
                     targets: -2,
                     orderable: true,
+                    searchable: false,
                     render: function (data, row) {
                         return decodeHtml(data);
                     }
@@ -74,7 +76,7 @@ var KTCategoriesServerSide = function () {
                             <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4" data-kt-menu="true">
                                 <!--begin::Menu item-->
                                 <div class="menu-item px-3">
-                                    <a href="#" class="menu-link px-3" data-kt-category-table-filter="edit_row">
+                                    <a href="#" class="menu-link px-3" data-kt-category-table-actions="edit_row">
                                         Edit
                                     </a>
                                 </div>
@@ -82,7 +84,7 @@ var KTCategoriesServerSide = function () {
 
                                 <!--begin::Menu item-->
                                 <div class="menu-item px-3">
-                                    <a href="#" class="menu-link px-3" data-kt-category-table-filter="delete_row">
+                                    <a href="#" class="menu-link px-3" data-kt-category-table-actions="delete_row">
                                         Delete
                                     </a>
                                 </div>
@@ -232,8 +234,7 @@ var KTCategoriesServerSide = function () {
                 initDatatable();
                 dt.search('').draw();
                 handleSearchDatatable('[data-kt-category-table-filter="search"]', dt);
-                handleFilterDatatable();
-                handleDeleteRows('[data-kt-category-table-filter="delete_row"]', "input[class='delete_url']");
+                handleDeleteRows('[data-kt-category-table-actions="delete_row"]', "input[class='delete_url']");
                 handleUpdateRows();
             }
         }

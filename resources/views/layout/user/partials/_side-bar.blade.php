@@ -423,8 +423,8 @@
                     <!--begin:Menu item-->
                     <div class="menu-item">
                         <!--begin:Menu link-->
-                        <a class="menu-link @if(Route::is('user.products.category.all'))active @endif"
-                           href="{{route('user.products.category.all')}}">
+                        <a class="menu-link @if(Route::is('user.products.categories.all'))active @endif"
+                           href="{{route('user.products.categories.all')}}">
                             <span class="menu-bullet">
                                 <span class="bullet bullet-dot"></span>
                             </span>

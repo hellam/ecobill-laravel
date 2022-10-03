@@ -47,7 +47,7 @@ class PaymentTermsController extends Controller
         $post_data = [
             'terms' => $request->terms,
             'type' => $request->type,
-            'days' => $request->days,
+            'days' => $request->days ?? 0,
             'client_ref' => get_user_ref()
         ];
 
@@ -102,7 +102,7 @@ class PaymentTermsController extends Controller
 
         $pay_terms->name = $request->name;
         $pay_terms->type = $request->type;
-        $pay_terms->days = $request->days;
+        $pay_terms->days = $request->days ?? 0;
         $pay_terms->update();
 
         return success_web_processor(null, __('messages.msg_updated_success', ['attribute' => __('messages.pay_terms')]));

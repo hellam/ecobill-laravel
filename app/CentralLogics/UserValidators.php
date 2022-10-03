@@ -12,6 +12,7 @@ use App\Models\Currency;
 use App\Models\MakerCheckerRule;
 use App\Models\PaymentTerm;
 use App\Models\Role;
+use App\Models\Tax;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

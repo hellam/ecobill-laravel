@@ -17,7 +17,7 @@ const KTPayTermsAdd = function () {
                             }
                         }
                     },
-                    defaultTaxId: {
+                    default_tax_id: {
                         validators: {
                             notEmpty: {
                                 message: 'Default tax is required'
@@ -47,10 +47,7 @@ const KTPayTermsAdd = function () {
 
                     if (status === 'Valid') {
                         submitButton.setAttribute('data-kt-indicator', 'on');
-                        var str = $('#kt_modal_add_category_form').serializeArray().reduce(function (a, x) {
-                            a[x.name] = x.value;
-                            return a;
-                        }, {});
+                        var str = $('#kt_modal_add_category_form').serialize()
                         submitData(str);
                     } else {
                         Swal.fire({

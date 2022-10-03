@@ -29,7 +29,8 @@ class CategoryController extends Controller
     public function index(): Factory|View|Application
     {
         $taxes = Tax::all();
-        return view('user.products.products', compact('taxes'));
+        $categories_count = Category::count();
+        return view('user.products.categories', compact('taxes','categories_count'));
     }
 
 

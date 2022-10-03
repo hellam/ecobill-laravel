@@ -177,12 +177,12 @@
                 <!--begin::No Categories Wrapper-->
                 <div class="card-px text-center py-20 my-10">
                     <!--begin::Title-->
-                    <h2 class="fs-2x fw-bolder mb-10">{{__('messages.welcome_to_module',['attribute'=>__('messages.tax')])}}</h2>
+                    <h2 class="fs-2x fw-bolder mb-10">{{__('messages.welcome_to_module',['attribute'=>__('messages.categories')])}}</h2>
                     <!--end::Title-->
 
                     <!--begin::Description-->
                     <p class="text-gray-400 fs-4 fw-bold mb-10">
-                        {{__('messages.not_found',['attribute'=>__('messages.tax')])}}
+                        {{__('messages.not_found',['attribute'=>__('messages.categories')])}}
                     </p>
                     <!--end::Description-->
 
@@ -278,12 +278,13 @@
                                         </label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
-                                        <select name="defaultTaxId"
+                                        <select name="default_tax_id"
                                                 aria-label="{{__('messages.select').' '.__('messages.default').' '.__('messages.tax')}}"
                                                 data-control="select2"
                                                 data-placeholder="{{__('messages.select').' '.__('messages.default').' '.__('messages.tax')}}"
                                                 data-dropdown-parent="#kt_modal_add_category"
                                                 class="form-select form-select-solid fw-bolder select_tax">
+                                            <option></option>
                                             @foreach($taxes as $tax)
                                                 <option value="{{$tax->id}}">{{$tax->name}}</option>
                                             @endforeach

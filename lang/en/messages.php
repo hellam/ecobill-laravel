@@ -113,6 +113,7 @@ return [
     'default_currency' => 'Default Currency',
     'digits' => 'Digits',
     'double' => 'Double',
+    'due_after' => 'Due after',
     'edit' => 'Edit',
     'email' => 'Email',
     'email_settings' => 'Email Settings',

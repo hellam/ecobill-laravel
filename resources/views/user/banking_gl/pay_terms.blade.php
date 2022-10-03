@@ -129,12 +129,9 @@
                             <!--begin::Table row-->
                             <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
                                 <th>#</th>
-                                <th>{{__('messages.abbr')}}</th>
-                                <th>{{__('messages.symbol')}}</th>
-                                <th>{{__('messages.currency').' '.__('messages.name')}}</th>
-                                <th>{{__('messages.hundredths').' '.__('messages.name')}}</th>
-                                <th>{{__('messages.country')}}</th>
-                                <th>{{__('messages.auto_update')}}</th>
+                                <th>{{__('messages.terms')}}</th>
+                                <th>{{__('messages.type')}}</th>
+                                <th>{{__('messages.due_after')}}</th>
                                 <th class="text-end">{{__('messages.actions')}}</th>
                             </tr>
                             <!--end::Table row-->
@@ -142,15 +139,12 @@
                             <!--end::Table head-->
                             <!--begin::Table body-->
                             <tbody class="fw-bold text-gray-600">
-                            @foreach($currency as $curr)
+                            @foreach($pay_terms as $pay_term)
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
-                                    <td>{{$curr->abbreviation}}</td>
-                                    <td>{{$curr->symbol}}</td>
-                                    <td>{{$curr->name}}</td>
-                                    <td>{{$curr->hundredths_name}}</td>
-                                    <td>{{\Monarobase\CountryList\CountryListFacade::getOne($curr->country)}}</td>
-                                    <td class="text-center">{{$curr->auto_fx == 1 ? 'Yes' : 'No'}}</td>
+                                    <td>{{$pay_term->terms}}</td>
+                                    <td>{{$pay_term->type == 0 ? 'Cash' : ($curr->type == 1 ? 'Number of days' : 'Day in the following month')}}</td>
+                                    <td>{{$pay_term->days}} days</td>
                                     <td class="text-end">
                                         <a href="#" class="btn btn-light btn-active-light-primary btn-sm"
                                            data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end"
@@ -179,9 +173,18 @@
                                             <div class="menu-item px-3">
                                                 <a href="#" class="menu-link px-3 test"
                                                    data-kt-pay-terms-table-actions="edit_row"
-                                                   data-kt-pay-terms-edit-url="{{route('user.banking_gl.pay_terms.edit', $curr->id)}}"
-                                                   data-kt-pay-terms-update-url="{{route('user.banking_gl.pay_terms.update', $curr->id)}}">
+                                                   data-kt-pay-terms-edit-url="{{route('user.banking_gl.pay_terms.edit', $pay_term->id)}}"
+                                                   data-kt-pay-terms-update-url="{{route('user.banking_gl.pay_terms.update', $pay_term->id)}}">
                                                     Edit
+                                                </a>
+                                            </div>
+                                            <!--end::Menu item-->
+                                            <!--begin::Menu item-->
+                                            <div class="menu-item px-3">
+                                                <a href="#" class="menu-link px-3 test"
+                                                   data-kt-pay-terms-table-actions="delete_row"
+                                                   data-kt-pay-terms-delete-url="{{route('user.banking_gl.pay_terms.update', $pay_term->id)}}">
+                                                    Delete
                                                 </a>
                                             </div>
                                             <!--end::Menu item-->

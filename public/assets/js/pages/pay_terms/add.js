@@ -40,7 +40,7 @@ const KTPayTermssAdd = function () {
         $(form.querySelector(`[name="type"]`)).on('change', function () {
             // Revalidate the field when an option is chosen
             validator.revalidateField("type");
-            let label = $(this).val() == 1 ? 'Number of days' : 'Days or day in the next month';
+            let label = $(this).val() == 1 ? 'Number of days' : 'Day in the next month';
 
             if ($(this).val() == 1 || $(this).val() == 2) {
                 $('#days').removeClass('d-none')

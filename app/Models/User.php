@@ -139,7 +139,7 @@ class User extends Authenticatable
 
     public static function active_branches()
     {
-        $branch_user = User::with('user_branches:id,name,id')
+        $branch_user = User::with('user_branches:id,name,id')->first()
             ->whereHas('user_branches', function ($q) {
                 $q->where('inactive', 0);
             })->find(auth::id());

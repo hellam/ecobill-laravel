@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Session;
 use Yoeunes\Toastr\Facades\Toastr;
 use function App\CentralLogics\{get_active_branch,
@@ -31,7 +32,7 @@ class AccountSecurityMiddleware
     public function handle(Request $request, Closure $next)
     {
         if (Auth::guard('user')->check()) {
-            $branch_user = BranchUser::with('branch:id,name,is_main')
+            $branch_user = BranchUser::with('branch:id,name,is_main,default_currency')
                 ->whereHas('branch', function ($q) {
                     $q->where('inactive', 0);
                 })->where(['branch_id' => get_active_branch(),'user_id' => auth('user')->id()])
@@ -58,6 +59,7 @@ class AccountSecurityMiddleware
 
             Session::put('branch_name', $branch_user->branch->name);
             Session::put('branch_is_main', $branch_user->branch->is_main);
+            Config::set('currency', $branch_user->branch->default_currency);
         }
 
         return $next($request);

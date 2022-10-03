@@ -49,6 +49,10 @@ define('ST_QUOTATION', "ST_123");
 define('ST_CREDIT_NOTE', "ST_124");
 ////////////////////////////////
 
+#PRODUCTS
+define('ST_CATEGORY', "ST_111");
+
+//////////////////////////////////////
 
 //UTILS
 define('ST_400','Void Transaction');

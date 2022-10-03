@@ -61,7 +61,7 @@ class ExchangeRate extends Model
 
 
     public function branch(){
-        return $this->belongsTo(Branch::class, 'branch_id');
+        return $this->belongsTo(Branch::class, 'branch');
     }
 
     public function curr(){

@@ -5,13 +5,17 @@ namespace App\Http\Controllers\User\Products;
 use App\CentralLogics\UserValidators;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\MakerCheckerRule;
 use App\Models\PaymentTerm;
+use App\Models\Permission;
 use App\Models\Tax;
+use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 use function App\CentralLogics\error_web_processor;
 use function App\CentralLogics\get_user_ref;
 use function App\CentralLogics\log_activity;
@@ -30,9 +34,27 @@ class CategoryController extends Controller
     {
         $taxes = Tax::all();
         $categories_count = Category::count();
-        return view('user.products.categories', compact('taxes','categories_count'));
+        return view('user.products.categories', compact('taxes', 'categories_count'));
     }
 
+
+    //Data table API
+    public function dt_api(Request $request): JsonResponse
+    {
+        $audit_trail = Category::orderBy('name');
+        return (new DataTables)->eloquent($audit_trail)
+            ->addIndexColumn()
+            ->addColumn('id', function ($row) {
+                return ["id" => $row->id, "edit_url" => route('user.products.categories.edit', [$row->id]),
+                    "update_url" => route('user.products.categories.update', [$row->id]),
+                    "delete_url" => route('user.products.categories.delete', [$row->id])];
+            })->editColumn('inactive', function ($row) {
+                return $row->inactive == 0 ? '<div class="badge badge-sm badge-light-success">Active</div>' : '<div class="badge badge-sm badge-light-danger">Inactive</div>';
+            })->editColumn('created_at', function ($row) {
+                return Carbon::parse($row->created_at)->format('Y/m/d H:i:s');
+            })
+            ->make(true);
+    }
 
     /**
      * @param Request $request

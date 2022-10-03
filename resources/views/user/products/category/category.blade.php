@@ -97,7 +97,7 @@
                 <!--begin::Card body-->
                 <div class="card-body pt-0">
                     <!--begin::Table-->
-                    <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_taxes_table"
+                    <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_categories_table"
                            data-kt-dt_api="#">
                         <!--begin::Table head-->
                         <thead>
@@ -207,7 +207,7 @@
 
         <!--begin::Modals-->
 
-        <!--begin::Modal - Taxes - Add-->
+        <!--begin::Modal - Category - Add-->
         <div class="modal fade" id="kt_modal_add_category" tabindex="-1" aria-hidden="true" data-backdrop='static'
              data-keyboard='false'>
             <!--begin::Modal dialog-->
@@ -216,8 +216,8 @@
                 <div class="modal-content">
                     <!--begin::Form-->
                     <form class="form" action="#" id="kt_modal_add_category_form"
-                          data-kt-action="{{route('user.setup.tax.create')}}"
-                          data-kt-redirect="{{route('user.setup.tax.all')}}">
+                          data-kt-action="{{route('user.products.categories.create')}}"
+                          data-kt-redirect="{{route('user.products.categories.all')}}">
                         <!--begin::Modal header-->
                         <div class="modal-header" id="kt_modal_add_category_header">
                             <!--begin::Modal title-->
@@ -256,13 +256,13 @@
                                 <!--begin::Input group-->
                                 <div class="fv-row mb-7">
                                     <!--begin::Label-->
-                                    <label class="fs-6 fw-bold mb-2" for="group_name">
+                                    <label class="fs-6 fw-bold mb-2" for="name">
                                         <span
                                             class="required">{{__('messages.category').' '.__('messages.name')}}</span>
                                     </label>
                                     <!--end::Label-->
                                     <!--begin::Input-->
-                                    <input id="group_name" type="text" class="form-control form-control-solid"
+                                    <input id="name" type="text" class="form-control form-control-solid"
                                            placeholder="{{__('messages.category').' '.__('messages.name')}}"
                                            name="name"/>
                                     <!--end::Input-->
@@ -331,9 +331,9 @@
                 </div>
             </div>
         </div>
-        <!--end::Modal - Taxes - Add-->
+        <!--end::Modal - Category - Add-->
 
-        <!--begin::Modal - Taxes - Edit-->
+        <!--begin::Modal - Category - Edit-->
         <div class="modal fade" id="kt_modal_update_tax" tabindex="-1">
             <!--begin::Modal dialog-->
             <div class="modal-dialog modal-dialog-centered mw-650px">
@@ -480,7 +480,7 @@
                 </div>
             </div>
         </div>
-        <!--end::Modal - Taxes - Edit-->
+        <!--end::Modal - Category - Edit-->
 
         <!--end::Modals-->
     </div>

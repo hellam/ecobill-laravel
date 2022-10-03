@@ -4,9 +4,7 @@ namespace App\Http\Controllers\User\Banking;
 
 use App\CentralLogics\UserValidators;
 use App\Http\Controllers\Controller;
-use App\Models\BankAccount;
 use App\Models\Currency;
-use App\Scopes\BranchScope;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -15,8 +13,6 @@ use Illuminate\Http\Request;
 use function App\CentralLogics\error_web_processor;
 use function App\CentralLogics\get_user_ref;
 use function App\CentralLogics\log_activity;
-use function App\CentralLogics\set_create_parameters;
-use function App\CentralLogics\set_update_parameters;
 use function App\CentralLogics\success_web_processor;
 
 class CurrencyController extends Controller

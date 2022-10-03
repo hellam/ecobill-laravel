@@ -1,7 +1,7 @@
 "use strict";
 
 // Class definition
-const KTPayTermssAdd = function () {
+const KTPayTermsAdd = function () {
     // Shared variables
     let closeButton, discardButton, submitButton, validator, form, modal;
 
@@ -269,5 +269,5 @@ const KTPayTermssAdd = function () {
 
 // On document ready
 KTUtil.onDOMContentLoaded(function () {
-    KTPayTermssAdd.init();
+    KTPayTermsAdd.init();
 });

@@ -276,8 +276,8 @@ class UserValidators
     {
         return self::ValidatorMake($request->all(), [
             'currency' => 'required|exists:' . Currency::class . ',abbreviation,client_ref,' . get_user_ref(),
-            'buy_rate' => 'required|double',
-            'sell_rate' => 'required|double',
+            'buy_rate' => 'required|float',
+            'sell_rate' => 'required|float',
             'date' => 'required|datetime',
         ]);
     }

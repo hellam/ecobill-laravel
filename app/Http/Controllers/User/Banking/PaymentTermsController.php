@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User\Banking;
 use App\CentralLogics\UserValidators;
 use App\Http\Controllers\Controller;
 use App\Models\ExchangeRate;
+use App\Models\PaymentTerm;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use function App\CentralLogics\error_web_processor;
@@ -37,33 +38,31 @@ class PaymentTermsController extends Controller
         }
 
         $post_data = [
-            'currency' => $request->currency,
-            'buy_rate' => $request->buy_rate,
-            'sell_rate' => $request->sell_rate,
-            'date' => $request->date,
-            'branch_id' => session('branch'),
+            'name' => $request->namespace,
+            'type' => $request->type,
+            'days' => $request->days,
             'client_ref' => get_user_ref()
         ];
 
         //set_create_parameters($created_at, $created_by, ...)
         $post_data = array_merge($post_data, set_create_parameters($created_at, $created_by, $supervised_by, $supervised_at));
 
-        $fx = ExchangeRate::create($post_data);
+        $pay_terms = PaymentTerm::create($post_data);
 
         if ($created_at == null) {
             //if not supervised, log data from create request
             //Creator log
             log_activity(
-                ST_EXCHANGE_RATE_SETUP,
+                ST_PAYMENT_TERMS_SETUP,
                 $request->getClientIp(),
-                'Create exchange rate',
+                'Create Payment Term',
                 json_encode($post_data),
                 auth('user')->id(),
-                $fx->id
+                $pay_terms->id
             );
         }
 
-        return success_web_processor(['id' => $fx->id], __('messages.msg_saved_success', ['attribute' => __('messages.fx')]));
+        return success_web_processor(['id' => $pay_terms->id], __('messages.msg_saved_success', ['attribute' => __('messages.pay_terms')]));
     }
 
     /**

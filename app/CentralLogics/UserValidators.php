@@ -10,6 +10,7 @@ use App\Models\ChartClass;
 use App\Models\ChartGroup;
 use App\Models\Currency;
 use App\Models\MakerCheckerRule;
+use App\Models\PaymentTerm;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -284,6 +285,11 @@ class UserValidators
 
     public static function payTermsCreateValidation(Request $request)
     {
+        return self::ValidatorMake($request->all(), [
+            'name' => 'required|unique:' . PaymentTerm::class . ',name,NULL,id,client_ref,' . get_user_ref(),
+            'type' => 'requiredIin:0,1,2',
+            'days' => 'required_if:type,1,2',
+        ]);
     }
 
     public static function securityUpdateValidation(Request $request)

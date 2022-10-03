@@ -77,11 +77,11 @@ class PaymentTermsController extends Controller
      */
     public function edit($id)
     {
-        $fx = ExchangeRate::find($id);
-        if (isset($fx)) {
-            return success_web_processor($fx, __('messages.msg_item_found', ['attribute' => __('messages.fx')]));
+        $pay_terms = PaymentTerm::find($id);
+        if (isset($pay_terms)) {
+            return success_web_processor($pay_terms, __('messages.msg_item_found', ['attribute' => __('messages.pay_terms')]));
         }
-        return error_web_processor(trans('messages.msg_item_not_found', ['attribute' => __('messages.fx')]));
+        return error_web_processor(trans('messages.msg_item_not_found', ['attribute' => __('messages.pay_terms')]));
     }
 
     /**
@@ -91,22 +91,21 @@ class PaymentTermsController extends Controller
     public function update(Request $request, $id, $created_at = null, $created_by = null,
                                    $supervised_by = null, $supervised_at = null): JsonResponse|string
     {
-        $validator = UserValidators::fxCreateUpdateValidation($request);
+        $validator = UserValidators::payTermsUpdateValidation($request);
 
         if ($validator != '') {
             return $validator;
         }
 
-        $fx = ExchangeRate::find($id);
-        $fx = set_update_parameters($fx, $created_at, $created_by, $supervised_by, $supervised_at);
+        $pay_terms = PaymentTerm::find($id);
+        $pay_terms = set_update_parameters($pay_terms, $created_at, $created_by, $supervised_by, $supervised_at);
 
-        $fx->currency = $request->currency;
-        $fx->buy_rate = $request->buy_rate;
-        $fx->sell_rate = $request->sell_rate;
-        $fx->date = $request->date;
-        $fx->update();
-//
-        return success_web_processor(null, __('messages.msg_updated_success', ['attribute' => __('messages.fx')]));
+        $pay_terms->name = $request->name;
+        $pay_terms->type = $request->type;
+        $pay_terms->days = $request->days;
+        $pay_terms->update();
+
+        return success_web_processor(null, __('messages.msg_updated_success', ['attribute' => __('messages.pay_terms')]));
     }
 
     /**
@@ -115,11 +114,11 @@ class PaymentTermsController extends Controller
      */
     public function destroy($id): JsonResponse
     {
-        $fx = ExchangeRate::find($id);
-        if (isset($fx)) {
-            $fx->delete();
-            return success_web_processor(null, __('messages.msg_deleted_success', ['attribute' => __('messages.fx')]));
+        $pay_terms = PaymentTerm::find($id);
+        if (isset($pay_terms)) {
+            $pay_terms->delete();
+            return success_web_processor(null, __('messages.msg_deleted_success', ['attribute' => __('messages.pay_terms')]));
         }
-        return error_web_processor(__('messages.msg_item_not_found', ['attribute' => __('messages.fx')]));
+        return error_web_processor(__('messages.msg_item_not_found', ['attribute' => __('messages.pay_terms')]));
     }
 }

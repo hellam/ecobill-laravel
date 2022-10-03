@@ -25,7 +25,6 @@ class PaymentTermsController extends Controller
         return view('user.banking_gl.pay_terms');
     }
 
-
     /**
      * @param Request $request
      * @param null $created_at

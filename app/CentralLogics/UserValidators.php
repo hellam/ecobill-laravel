@@ -305,7 +305,7 @@ class UserValidators
     public static function taxCreateValidation(Request $request)
     {
         return self::ValidatorMake($request->all(), [
-            'name' => 'required|unique:' . PaymentTerm::class . ',name,NULL,id,client_ref,' . get_user_ref(),
+            'name' => 'required|unique:' . Tax::class . ',name,NULL,id,client_ref,' . get_user_ref(),
             'description' => 'required',
             'rate' => 'required|numeric',
         ]);
@@ -315,7 +315,7 @@ class UserValidators
     {
         $id = Route::current()->id;
         return self::ValidatorMake($request->all(), [
-            'name' => 'required|unique:' . PaymentTerm::class . ',name,' . $id . ',id,client_ref,' . get_user_ref(),
+            'name' => 'required|unique:' . Tax::class . ',name,' . $id . ',id,client_ref,' . get_user_ref(),
             'description' => 'required',
             'rate' => 'required',
         ]);

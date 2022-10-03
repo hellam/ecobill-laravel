@@ -341,6 +341,16 @@
                                     </div>
                                     <!--end::Menu item-->
                                     <!--begin::Menu item-->
+                                    <div class="menu-item px-5" data-kt-menu-trigger="{default: 'click', lg: 'hover'}"
+                                         data-kt-menu-placement="right-start">
+                                        <a href="#" class="menu-link px-5">
+													<span class="menu-title position-relative">Default Currency
+													<span
+                                                        class="fs-8 rounded bg-light px-3 py-2 position-absolute translate-middle-y top-50 end-0">{{session('currency')}}
+                                        </a>
+                                    </div>
+                                    <!--end::Menu item-->
+                                    <!--begin::Menu item-->
                                     <div class="menu-item px-5 my-1">
                                         <a href="#" class="menu-link px-5">Account
                                             Settings</a>

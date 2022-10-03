@@ -331,6 +331,134 @@
             </div>
         </div>
         <!--end::Modal - Pay Terms - Add-->
+
+        <!--begin::Modal - Pay Terms - Update-->
+        <div class="modal fade" id="kt_modal_update_pay_terms" tabindex="-1">
+            <!--begin::Modal dialog-->
+            <div class="modal-dialog modal-dialog-centered mw-650px">
+                <!--begin::Modal content-->
+                <div class="modal-content">
+                    <!--begin::Form-->
+                    <form class="form" action="#" id="kt_modal_update_pay_terms_form"
+                          data-kt-action="#"
+                          data-kt-redirect="{{route('user.banking_gl.pay_terms.all')}}">
+                        <!--begin::Modal header-->
+                        <div class="modal-header" id="kt_modal_update_pay_terms_header">
+                            <!--begin::Modal title-->
+                            <h2 class="fw-bolder">{{__('messages.update').' '.__('messages.pay_term')}}</h2>
+                            <!--end::Modal title-->
+                            <!--begin::Close-->
+                            <div id="kt_modal_update_pay_terms_close"
+                                 class="btn btn-icon btn-sm btn-active-icon-primary">
+                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                                <span class="svg-icon svg-icon-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                         height="24" viewBox="0 0 24 24" fill="none">
+                                        <rect opacity="0.5" x="6" y="17.3137" width="16"
+                                              height="2" rx="1"
+                                              transform="rotate(-45 6 17.3137)"
+                                              fill="currentColor"/>
+                                        <rect x="7.41422" y="6" width="16" height="2" rx="1"
+                                              transform="rotate(45 7.41422 6)"
+                                              fill="currentColor"/>
+                                    </svg>
+                                </span>
+                                <!--end::Svg Icon-->
+                            </div>
+                            <!--end::Close-->
+                        </div>
+                        <!--end::Modal header-->
+                        <!--begin::Modal body-->
+                        <div class="modal-body py-10 px-lg-17">
+                            <!--begin::Scroll-->
+                            <div class="scroll-y me-n7 pe-7" id="kt_modal_update_pay_terms_scroll" data-kt-scroll="true"
+                                 data-kt-scroll-activate="{default: false, lg: true}"
+                                 data-kt-scroll-max-height="auto"
+                                 data-kt-scroll-dependencies="#kt_modal_update_pay_terms_header"
+                                 data-kt-scroll-wrappers="#kt_modal_update_pay_terms_scroll"
+                                 data-kt-scroll-offset="300px">
+
+                                <!--begin::Input group-->
+                                <div class="fv-row mb-7">
+                                    <!--begin::Label-->
+                                    <label class="fs-6 fw-bold mb-2" for="terms">
+                                        <span
+                                            class="required">{{__('messages.terms')}}</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                    <input type="text" class="form-control form-control-solid"
+                                           placeholder="{{__('messages.terms')}}"
+                                           name="terms"/>
+                                    <!--end::Input-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="row g-9 mb-7" id="type">
+                                    <div class="col-md-12 fv-row">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-bold mb-2">
+                                            <span
+                                                class="required">{{__('messages.type')}}</span>
+                                        </label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <select name="type"
+                                                aria-label="Select type"
+                                                data-control="select2"
+                                                data-kt-src="#"
+                                                data-placeholder="Select type"
+                                                data-dropdown-parent="#kt_modal_update_pay_terms"
+                                                class="form-select form-select-solid fw-bolder">
+                                            <option></option>
+                                            <option value="0">Cash</option>
+                                            <option value="1">After no. of days</option>
+                                            <option value="2">Day in the following month</option>
+                                        </select>
+                                        <!--end::Input-->
+                                    </div>
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="fv-row mb-7 d-none" id="update_days">
+                                    <!--begin::Label-->
+                                    <label class="fs-6 fw-bold mb-2" for="abbreviation">
+                                        <span
+                                            class="required" id="update_day_label"></span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                    <input type="number" class="form-control form-control-solid"
+                                           name="days" disabled/>
+                                    <!--end::Input-->
+                                </div>
+                                <!--end::Input group-->
+                            </div>
+                            <!--end::Scroll-->
+                        </div>
+                        <!--end::Modal body-->
+                        <!--begin::Modal footer-->
+                        <div class="modal-footer flex-center">
+                            <!--begin::Button-->
+                            <button type="reset" id="kt_modal_update_pay_terms_cancel" class="btn btn-light me-3">
+                                Discard
+                            </button>
+                            <!--end::Button-->
+                            <!--begin::Button-->
+                            <button type="submit" id="kt_modal_update_pay_terms_submit" class="btn btn-primary">
+                                <span class="indicator-label">Submit</span>
+                                <span class="indicator-progress">Please wait...
+                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                            </button>
+                            <!--end::Button-->
+                        </div>
+                        <!--end::Modal footer-->
+                    </form>
+                    <!--end::Form-->
+                </div>
+            </div>
+        </div>
+        <!--end::Modal - Pay Terms - Update-->
     </div>
     <!--end::Container-->
 @stop

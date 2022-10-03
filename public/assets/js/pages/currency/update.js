@@ -1,7 +1,7 @@
 "use strict";
 
 // Class definition
-const KTcurrencysUpdateAdd = function () {
+const KTCurrencyUpdate = function () {
     // Shared variables
     let closeButton, discardButton, submitButton, validator, form, modal;
 
@@ -285,5 +285,5 @@ const KTcurrencysUpdateAdd = function () {
 
 // On document ready
 KTUtil.onDOMContentLoaded(function () {
-    KTcurrencysUpdateAdd.init();
+    KTCurrencyUpdate.init();
 });

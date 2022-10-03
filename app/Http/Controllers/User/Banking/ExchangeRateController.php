@@ -7,5 +7,9 @@ use Illuminate\Http\Request;
 
 class ExchangeRateController extends Controller
 {
-    //
+    public function index()
+    {
+        $fx_rates = 0;
+        return view('user.banking_gl.fx_rates', compact('fx_rates'));
+    }
 }

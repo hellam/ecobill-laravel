@@ -144,7 +144,7 @@
                                     <td>{{$loop->iteration}}</td>
                                     <td>{{$pay_term->terms}}</td>
                                     <td>{{$pay_term->type == 0 ? 'Cash' : ($pay_term->type == 1 ? 'Number of days' : 'Day in the following month')}}</td>
-                                    <td>{{$pay_term->days}} days</td>
+                                    <td>{{$pay_term->type == 0 || $pay_term->type == 1 ? $pay_term->days.' days' : App\CentralLogics\number_suffix($pay_term->days).' day'}}</td>
                                     <td class="text-end">
                                         <a href="#" class="btn btn-light btn-active-light-primary btn-sm"
                                            data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end"

@@ -10,6 +10,7 @@ use App\Models\Currency;
 use App\Models\FiscalYear;
 use App\Models\Role;
 use App\Models\User;
+use App\Scopes\BranchScope;
 use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -36,7 +37,7 @@ class BranchController extends Controller
         $branches_count = count(auth('user')->user()->user_branches) ?? [];
         $fiscal_year = FiscalYear::all();
         $currency = Currency::all();
-        $bank_accounts = BankAccount::all();
+        $bank_accounts = BankAccount::withoutGlobalScope(BranchScope::class)->get();
         return view('user.setup.branches', compact('branches_count', 'currency', 'fiscal_year', 'bank_accounts'));
     }
 

@@ -263,7 +263,7 @@
                     <!--end:Menu item-->
                     <!--begin:Menu item-->
                     <div data-kt-menu-trigger="click"
-                         class="menu-item menu-accordion @if(Route::is('user.banking_gl.*'))hover show @endif">
+                         class="menu-item menu-accordion @if(Route::is('user.banking_gl.gl_accounts*'))hover show @endif">
                         <!--begin:Menu link-->
                         <span class="menu-link">
                             <span class="menu-bullet">

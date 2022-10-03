@@ -83,11 +83,11 @@ class TaxController extends Controller
      */
     public function edit($id)
     {
-        $pay_terms = PaymentTerm::find($id);
-        if (isset($pay_terms)) {
-            return success_web_processor($pay_terms, __('messages.msg_item_found', ['attribute' => __('messages.pay_terms')]));
+        $tax = Tax::find($id);
+        if (isset($tax)) {
+            return success_web_processor($tax, __('messages.msg_item_found', ['attribute' => __('messages.tax')]));
         }
-        return error_web_processor(trans('messages.msg_item_not_found', ['attribute' => __('messages.pay_terms')]));
+        return error_web_processor(trans('messages.msg_item_not_found', ['attribute' => __('messages.tax')]));
     }
 
     /**
@@ -97,21 +97,21 @@ class TaxController extends Controller
     public function update(Request $request, $id, $created_at = null, $created_by = null,
                                    $supervised_by = null, $supervised_at = null): JsonResponse|string
     {
-        $validator = UserValidators::payTermsUpdateValidation($request);
+        $validator = UserValidators::taxUpdateValidation($request);
 
         if ($validator != '') {
             return $validator;
         }
 
-        $pay_terms = PaymentTerm::find($id);
-        $pay_terms = set_update_parameters($pay_terms, $created_at, $created_by, $supervised_by, $supervised_at);
+        $tax = Tax::find($id);
+        $tax = set_update_parameters($tax, $created_at, $created_by, $supervised_by, $supervised_at);
 
-        $pay_terms->terms = $request->terms;
-        $pay_terms->type = $request->type;
-        $pay_terms->days = $request->days ?? 0;
-        $pay_terms->update();
+        $tax->name = $request->name;
+        $tax->descriotion = $request->description;
+        $tax->rate = $request->rate;
+        $tax->update();
 
-        return success_web_processor(null, __('messages.msg_updated_success', ['attribute' => __('messages.pay_terms')]));
+        return success_web_processor(null, __('messages.msg_updated_success', ['attribute' => __('messages.tax')]));
     }
 
     /**
@@ -120,11 +120,11 @@ class TaxController extends Controller
      */
     public function destroy($id): JsonResponse
     {
-        $pay_terms = PaymentTerm::find($id);
-        if (isset($pay_terms)) {
-            $pay_terms->delete();
-            return success_web_processor(null, __('messages.msg_deleted_success', ['attribute' => __('messages.pay_terms')]));
+        $tax = Tax::find($id);
+        if (isset($tax)) {
+            $tax->delete();
+            return success_web_processor(null, __('messages.msg_deleted_success', ['attribute' => __('messages.tax')]));
         }
-        return error_web_processor(__('messages.msg_item_not_found', ['attribute' => __('messages.pay_terms')]));
+        return error_web_processor(__('messages.msg_item_not_found', ['attribute' => __('messages.tax')]));
     }
 }

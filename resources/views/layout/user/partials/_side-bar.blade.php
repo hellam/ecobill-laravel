@@ -331,7 +331,8 @@
                     <!--begin:Menu item-->
                     <div class="menu-item">
                         <!--begin:Menu link-->
-                        <a class="menu-link @if(Route::is('user.banking_gl.currency.all'))active @endif" href="{{route('user.banking_gl.currency.all')}}">
+                        <a class="menu-link @if(Route::is('user.banking_gl.currency.all'))active @endif"
+                           href="{{route('user.banking_gl.currency.all')}}">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
@@ -343,7 +344,8 @@
                     <!--begin:Menu item-->
                     <div class="menu-item">
                         <!--begin:Menu link-->
-                        <a class="menu-link @if(Route::is('user.banking_gl.fx.all'))active @endif" href="{{route('user.banking_gl.fx.all')}}">
+                        <a class="menu-link @if(Route::is('user.banking_gl.fx.all'))active @endif"
+                           href="{{route('user.banking_gl.fx.all')}}">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
@@ -355,7 +357,8 @@
                     <!--begin:Menu item-->
                     <div class="menu-item">
                         <!--begin:Menu link-->
-                        <a class="menu-link" href="#">
+                        <a class="menu-link @if(Route::is('user.banking_gl.pay_terms.all'))active @endif"
+                           href="{{route('user.banking_gl.pay_terms.all')}}">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>

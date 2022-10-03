@@ -332,7 +332,9 @@
                                     <div class="col-md-6 fv-row">
                                         <!--begin::Label-->
                                         <label
-                                            class="required fs-6 fw-bold mb-2">{{__('messages.default_currency')}}</label>
+                                            class="required fs-6 fw-bold mb-2">{{__('messages.default_currency')}}
+                                        </label>
+                                        <small class="text-primary">This cannot be changed in the future</small>
                                         <!--end::Label-->
                                         <!--begin::Input-->
                                         <select class="form-select form-select-solid fw-bolder"

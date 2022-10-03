@@ -181,6 +181,13 @@ const KTCategoriesUpdate = function () {
                             form.reset(); // Reset form
                             $("select[name='default_tax_id']").val(null).trigger('change');
 
+                            // Enable submit button after loading
+                            submitButton.disabled = false;
+                            if ($('#kt_categories_table').length) {
+                                $("#kt_categories_table").DataTable().ajax.reload();
+                                return;
+                            }
+
                             // Redirect to customers list page
                             window.location = form.getAttribute("data-kt-redirect");
                         }

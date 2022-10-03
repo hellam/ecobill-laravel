@@ -5,7 +5,6 @@ var KTCategoriesServerSide = function () {
     // Shared variables
     var table;
     var dt;
-    var filterPayment;
     var form;
 
     // Private functions
@@ -58,6 +57,7 @@ var KTCategoriesServerSide = function () {
                     targets: -1,
                     data: 'action',
                     orderable: false,
+                    searchable: false,
                     className: 'text-end',
                     render: function (data, type, row) {
                         return `

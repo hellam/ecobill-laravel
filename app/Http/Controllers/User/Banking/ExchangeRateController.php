@@ -19,9 +19,10 @@ class ExchangeRateController extends Controller
 {
     public function index()
     {
-        $fx_count = 0;
+        $fx_count = ExchangeRate::count() ?? 0;
         $currency = Currency::all();
-        return view('user.banking_gl.fx_rates', compact('fx_count', 'currency'));
+        $exchangeRates = ExchangeRate::with('curr')->get();
+        return view('user.banking_gl.fx_rates', compact('fx_count', 'currency', 'exchangeRates'));
     }
 
     /**

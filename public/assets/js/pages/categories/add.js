@@ -36,6 +36,12 @@ const KTCategoryAdd = function () {
             }
         );
 
+        //revalidate all select boxes
+        $(form.querySelector(`[name="default_tax_id"]`)).on('change', function () {
+            // Revalidate the field when an option is chosen
+            validator.revalidateField(`default_tax_id`);
+        });
+
 
         // Action buttons
         submitButton.addEventListener('click', function (e) {

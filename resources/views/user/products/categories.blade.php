@@ -72,7 +72,7 @@
                             </svg>
                         </span>
                             <!--end::Svg Icon-->
-                            <input type="text" data-kt-tax-table-filter="search"
+                            <input type="text" data-kt-category-table-filter="search"
                                    class="form-control form-control-solid w-250px ps-15"
                                    placeholder="{{__('messages.search')}}"/>
                         </div>
@@ -317,24 +317,24 @@
                         <!--begin::Modal header-->
                         <div class="modal-header" id="kt_modal_update_category_header">
                             <!--begin::Modal title-->
-                            <h2 class="fw-bolder">{{__('messages.update').' '.__('messages.tax')}}</h2>
+                            <h2 class="fw-bolder">{{__('messages.update').' '.__('messages.category')}}</h2>
                             <!--end::Modal title-->
                             <!--begin::Close-->
                             <div id="kt_modal_update_category_close"
                                  class="btn btn-icon btn-sm btn-active-icon-primary">
                                 <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
                                 <span class="svg-icon svg-icon-1">
-															<svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                 height="24" viewBox="0 0 24 24" fill="none">
-																<rect opacity="0.5" x="6" y="17.3137" width="16"
-                                                                      height="2" rx="1"
-                                                                      transform="rotate(-45 6 17.3137)"
-                                                                      fill="currentColor"/>
-																<rect x="7.41422" y="6" width="16" height="2" rx="1"
-                                                                      transform="rotate(45 7.41422 6)"
-                                                                      fill="currentColor"/>
-															</svg>
-														</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                         height="24" viewBox="0 0 24 24" fill="none">
+                                        <rect opacity="0.5" x="6" y="17.3137" width="16"
+                                              height="2" rx="1"
+                                              transform="rotate(-45 6 17.3137)"
+                                              fill="currentColor"/>
+                                        <rect x="7.41422" y="6" width="16" height="2" rx="1"
+                                              transform="rotate(45 7.41422 6)"
+                                              fill="currentColor"/>
+                                    </svg>
+                                </span>
                                 <!--end::Svg Icon-->
                             </div>
                             <!--end::Close-->
@@ -350,48 +350,56 @@
                                  data-kt-scroll-wrappers="#kt_modal_update_category_scroll"
                                  data-kt-scroll-offset="300px">
                                 <!--begin::Input group-->
-                                <div class="row g-9 mb-7">
-                                    <!--begin::Col-->
-                                    <div class="col-md-6 fv-row">
-                                        <!--begin::Label-->
-                                        <label
-                                            class="required fs-6 fw-bold mb-2">{{__('messages.tax').' '.__('messages.name')}}</label>
-                                        <!--end::Label-->
-                                        <!--begin::Input-->
-                                        <input type="text" class="form-control form-control-solid"
-                                               placeholder="{{__('messages.tax').' '.__('messages.name')}}"
-                                               name="name"/>
-                                        <!--end::Input-->
-                                    </div>
-                                    <!--end::Col-->
-                                    <!--begin::Col-->
-                                    <div class="col-md-6 fv-row">
-                                        <!--begin::Label-->
-                                        <label
-                                            class="required fs-6 fw-bold mb-2">{{__('messages.tax').' '.__('messages.rate')}}</label>
-                                        <!--end::Label-->
-                                        <!--begin::Input-->
-                                        <input type="number" class="form-control form-control-solid"
-                                               placeholder="{{__('messages.tax').' '.__('messages.rate')}}"
-                                               name="rate"/>
-                                        <!--end::Input-->
-                                    </div>
-                                    <!--end::Col-->
+                                <div class="fv-row mb-7">
+                                    <!--begin::Label-->
+                                    <label class="fs-6 fw-bold mb-2" for="name">
+                                        <span
+                                            class="required">{{__('messages.category').' '.__('messages.name')}}</span>
+                                    </label>
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                    <input id="name" type="text" class="form-control form-control-solid"
+                                           placeholder="{{__('messages.category').' '.__('messages.name')}}"
+                                           name="name"/>
+                                    <!--end::Input-->
                                 </div>
                                 <!--end::Input group-->
                                 <!--begin::Input group-->
                                 <div class="row g-9 mb-7">
-                                    <!--begin::Col-->
                                     <div class="col-md-12 fv-row">
-                                        <label
-                                            class="fs-6 fw-bold mb-2">{{__('messages.tax').' '.__('messages.description')}}</label>
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-bold mb-2">
+                                            <span
+                                                class="required">{{__('messages.default').' '.__('messages.tax')}}</span>
+                                        </label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
-                                        <textarea type="text" class="form-control form-control-solid"
-                                                  placeholder="{{__('messages.tax').' '.__('messages.description')}}"
-                                                  name="description"></textarea>
+                                        <select name="default_tax_id"
+                                                aria-label="{{__('messages.select').' '.__('messages.default').' '.__('messages.tax')}}"
+                                                data-control="select2"
+                                                data-placeholder="{{__('messages.select').' '.__('messages.default').' '.__('messages.tax')}}"
+                                                data-dropdown-parent="#kt_modal_update_category"
+                                                class="form-select form-select-solid fw-bolder select_tax">
+                                            <option></option>
+                                            @foreach($taxes as $tax)
+                                                <option value="{{$tax->id}}">{{$tax->name}}</option>
+                                            @endforeach
+                                        </select>
                                         <!--end::Input-->
                                     </div>
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="fv-row mb-7">
+                                    <!--begin::Label-->
+                                    <label class="fs-6 fw-bold mb-2"
+                                           for="description">{{__('messages.category').' '.__('messages.description')}}</label>
+                                    <!--end::Label-->
+                                    <!--begin::Input-->
+                                    <textarea id="description" class="form-control form-control-solid"
+                                              placeholder="{{__('messages.category').' '.__('messages.description')}}"
+                                              name="description"></textarea>
+                                    <!--end::Input-->
                                 </div>
                                 <!--end::Input group-->
                                 <!--begin::Input group-->
@@ -416,8 +424,8 @@
                             <button type="submit" id="kt_modal_update_category_submit" class="btn btn-primary">
                                 <span class="indicator-label">Update</span>
                                 <span class="indicator-progress">Please wait...
-														<span
-                                                            class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                    <span
+                                        class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                             </button>
                             <!--end::Button-->
                         </div>

@@ -292,6 +292,16 @@ class UserValidators
         ]);
     }
 
+    public static function payTermsUpdateValidation(Request $request)
+    {
+        $id = Route::current()->id;
+        return self::ValidatorMake($request->all(), [
+            'name' => 'required|unique:' . PaymentTerm::class . ',name,' . $id . ',id,client_ref,' . get_user_ref(),
+            'type' => 'requiredIin:0,1,2',
+            'days' => 'required_if:type,1,2',
+        ]);
+    }
+
     public static function securityUpdateValidation(Request $request)
     {
         $type = Route::current()->type;
@@ -367,5 +377,4 @@ class UserValidators
         } else
             return '';
     }
-
 }

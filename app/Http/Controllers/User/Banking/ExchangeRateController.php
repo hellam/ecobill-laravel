@@ -12,6 +12,7 @@ use function App\CentralLogics\error_web_processor;
 use function App\CentralLogics\get_user_ref;
 use function App\CentralLogics\log_activity;
 use function App\CentralLogics\set_create_parameters;
+use function App\CentralLogics\set_update_parameters;
 use function App\CentralLogics\success_web_processor;
 
 class ExchangeRateController extends Controller
@@ -35,7 +36,7 @@ class ExchangeRateController extends Controller
     public function create(Request $request, $created_at = null, $created_by = null,
                                    $supervised_by = null, $supervised_at = null): JsonResponse
     {
-        $validator = UserValidators::fxCreateValidation($request);
+        $validator = UserValidators::fxCreateUpdateValidation($request);
 
         if ($validator != '') {
             return $validator;
@@ -45,8 +46,8 @@ class ExchangeRateController extends Controller
             'currency' => $request->currency,
             'buy_rate' => $request->buy_rate,
             'sell_rate' => $request->sell_rate,
-            'branch' => $request->branch,
             'date' => $request->date,
+            'branch' => session('branch'),
             'client_ref' => get_user_ref()
         ];
 
@@ -90,23 +91,22 @@ class ExchangeRateController extends Controller
     public function update(Request $request, $id, $created_at = null, $created_by = null,
                                    $supervised_by = null, $supervised_at = null): JsonResponse|string
     {
-        $validator = UserValidators::currencyUpdateValidation($request);
+        $validator = UserValidators::fxCreateUpdateValidation($request);
 
         if ($validator != '') {
             return $validator;
         }
 
-        $fx = Currency::find($id);
-        $currency = set_update_parameters($fx, $created_at, $created_by, $supervised_by, $supervised_at);
+        $fx = ExchangeRate::find($id);
+        $fx = set_update_parameters($fx, $created_at, $created_by, $supervised_by, $supervised_at);
 
-        $currency->name = $request->name;
-        $currency->country = $request->country;
-        $currency->symbol = $request->symbol;
-        $currency->hundredths_name = $request->hundredths_name;
-        $currency->auto_fx = $request->auto_fx;
-        $currency->update();
+        $fx->currency = $request->currency;
+        $fx->buy_rate = $request->buy_rate;
+        $fx->sell_rate = $request->sell_rate;
+        $fx->date = $request->date;
+        $fx->update();
 //
-        return success_web_processor(null, __('messages.msg_updated_success', ['attribute' => __('messages.currency')]));
+        return success_web_processor(null, __('messages.msg_updated_success', ['attribute' => __('messages.fx')]));
     }
 
     /**
@@ -115,16 +115,11 @@ class ExchangeRateController extends Controller
      */
     public function destroy($id): JsonResponse
     {
-        $currency = Currency::find($id);
-        if (isset($currency)) {
-            //TODO: check if the currency has transactions or relations
-//            $chart_account = ChartAccount::where('account_group', $id)->count();
-//            if ($chart_account > 0) {
-//                return error_web_processor(__('messages.msg_delete_not_allowed', ['attribute' => __('messages.gl_group'), 'attribute1' => __('messages.gl_account')]));
-//            }
-            $currency->delete();
-            return success_web_processor(null, __('messages.msg_deleted_success', ['attribute' => __('messages.currency')]));
+        $fx = ExchangeRate::find($id);
+        if (isset($fx)) {
+            $fx->delete();
+            return success_web_processor(null, __('messages.msg_deleted_success', ['attribute' => __('messages.fx')]));
         }
-        return error_web_processor(__('messages.msg_item_not_found', ['attribute' => __('messages.currency')]));
+        return error_web_processor(__('messages.msg_item_not_found', ['attribute' => __('messages.fx')]));
     }
 }

@@ -272,14 +272,13 @@ class UserValidators
     }
 
 
-    public static function fxCreateValidation(Request $request)
+    public static function fxCreateUpdateValidation(Request $request)
     {
         return self::ValidatorMake($request->all(), [
             'currency' => 'required|exists:' . Currency::class . ',abbreviation,client_ref,' . get_user_ref(),
             'buy_rate' => 'required|double',
             'sell_rate' => 'required|double',
             'date' => 'required|datetime',
-            'branch' => 'required|exists:' . Branch::class . ',id,client_ref,' . get_user_ref()
         ]);
     }
 

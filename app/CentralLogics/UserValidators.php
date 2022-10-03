@@ -278,7 +278,7 @@ class UserValidators
             'currency' => 'required|exists:' . Currency::class . ',abbreviation,client_ref,' . get_user_ref(),
             'buy_rate' => 'required',
             'sell_rate' => 'required',
-            'date' => 'required|date_format:Y/m/d H:i:s',
+            'date' => 'required|date_format:d/m/Y H:i:s',
         ]);
     }
 

@@ -31,7 +31,7 @@ const KTFXAdd = function () {
                             }
                         }
                     },
-                    date_from: {
+                    date: {
                         validators: {
                             notEmpty: {
                                 message: 'Date from is required'
@@ -61,6 +61,8 @@ const KTFXAdd = function () {
             validator.revalidateField("currency");
         });
 
+        $("#date").val(moment().format('DD/MM/YYYY H:mm:ss'))
+
         $("#kt_date_from").daterangepicker({
                 singleDatePicker: true,
                 timePicker: true,
@@ -72,7 +74,8 @@ const KTFXAdd = function () {
                 locale: {
                     format: 'DD/MM/YYYY HH:mm A',
                 },
-            }, function () {
+            }, function (start, end, label) {
+                $("#date").val(start.format('DD/MM/YYYY H:mm:ss'))
             }
         );
 

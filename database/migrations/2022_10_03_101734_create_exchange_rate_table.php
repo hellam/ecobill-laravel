@@ -19,7 +19,12 @@ return new class extends Migration
             $table->double('buy_rate');
             $table->double('sell_rate');
             $table->bigInteger('branch');
+            $table->timestamp('date');
             $table->string('client_ref', 100);
+            $table->string("created_by",100)->nullable();
+            $table->string("updated_by",100)->nullable();
+            $table->string('supervised_by',100)->nullable();
+            $table->timestamp('supervised_at')->nullable();
             $table->timestamps();
         });
     }

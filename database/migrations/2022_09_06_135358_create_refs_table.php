@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('reference', 100);
             $table->string("client_ref",100)->nullable();
 
-            $table->primary(['id', 'type']);
-            $table->unique(['type', 'reference'], 'Type_Ref unique');
+            $table->primary(['id', 'type','client_ref']);
+            $table->unique(['type', 'reference','client_ref'], 'Type_Ref_Client_ref unique');
         });
     }
 

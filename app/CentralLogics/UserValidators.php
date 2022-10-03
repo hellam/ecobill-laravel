@@ -286,7 +286,7 @@ class UserValidators
     public static function payTermsCreateValidation(Request $request)
     {
         return self::ValidatorMake($request->all(), [
-            'terms' => 'required|unique:' . PaymentTerm::class . ',name,NULL,id,client_ref,' . get_user_ref(),
+            'terms' => 'required|unique:' . PaymentTerm::class . ',terms,NULL,id,client_ref,' . get_user_ref(),
             'type' => 'required|in:0,1,2',
             'days' => 'required_if:type,1,2',
         ]);
@@ -296,7 +296,7 @@ class UserValidators
     {
         $id = Route::current()->id;
         return self::ValidatorMake($request->all(), [
-            'terms' => 'required|unique:' . PaymentTerm::class . ',name,' . $id . ',id,client_ref,' . get_user_ref(),
+            'terms' => 'required|unique:' . PaymentTerm::class . ',terms,' . $id . ',id,client_ref,' . get_user_ref(),
             'type' => 'required|in:0,1,2',
             'days' => 'required_if:type,1,2',
         ]);

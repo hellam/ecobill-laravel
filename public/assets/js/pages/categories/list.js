@@ -101,45 +101,16 @@ var KTCategoriesServerSide = function () {
 
         // Re-init functions on every table re-draw -- more info: https://datatables.net/reference/event/draw
         dt.on('draw', function () {
-            handleDeleteRows();
+            handleDeleteRows('[data-kt-category-table-actions="delete_row"]', "input[class='delete_url']", dt);
             handleUpdateRows();
             KTMenu.createInstances();
         });
     }
 
-    // Filter Datatable
-    var handleFilterDatatable = () => {
-        // Select filter options
-        filterPayment = document.querySelectorAll('[data-kt-category-table-filter="payment_type"] [name="payment_type"]');
-        const filterButton = document.querySelector('[data-kt-category-table-filter="filter"]');
-
-        // Filter datatable on submit
-        filterButton.addEventListener('click', function () {
-            // Get filter values
-            let paymentValue = '';
-
-            // Get payment value
-            filterPayment.forEach(r => {
-                if (r.checked) {
-                    paymentValue = r.value;
-                }
-
-                // Reset payment value if "All" is selected
-                if (paymentValue === 'all') {
-                    paymentValue = '';
-                }
-            });
-
-            // Filter datatable --- official docs reference: https://datatables.net/reference/api/search()
-            dt.search(paymentValue).draw();
-        });
-    }
-
-
     //Edit Button
     var handleUpdateRows = function () {
         // Select all delete buttons
-        const editButtons = document.querySelectorAll('[data-kt-category-table-filter="edit_row"]');
+        const editButtons = document.querySelectorAll('[data-kt-category-table-actions="edit_row"]');
 
         // Make the DIV element draggable:
         var element = document.querySelector('#kt_modal_update_category');
@@ -234,7 +205,7 @@ var KTCategoriesServerSide = function () {
                 initDatatable();
                 dt.search('').draw();
                 handleSearchDatatable('[data-kt-category-table-filter="search"]', dt);
-                handleDeleteRows('[data-kt-category-table-actions="delete_row"]', "input[class='delete_url']");
+                handleDeleteRows('[data-kt-category-table-actions="delete_row"]', "input[class='delete_url']", dt);
                 handleUpdateRows();
             }
         }

@@ -1,7 +1,7 @@
 "use strict";
 
 // Class definition
-const KTFXAdd = function () {
+const KTFXUpdateAdd = function () {
     // Shared variables
     let closeButton, discardButton, submitButton, validator, form, modal;
 
@@ -61,24 +61,6 @@ const KTFXAdd = function () {
             validator.revalidateField("currency");
         });
 
-        $("#date").val(moment().format('DD/MM/YYYY H:mm:ss'))
-
-        $("#kt_date_from").daterangepicker({
-                singleDatePicker: true,
-                timePicker: true,
-                drops: 'up',
-                startDate: moment(),
-                showDropdowns: true,
-                maxYear: parseInt(moment().format("YYYY"), 10),
-                timePicker24Hour: true,
-                locale: {
-                    format: 'DD/MM/YYYY HH:mm',
-                },
-            }, function (start, end, label) {
-                $("#date").val(start.format('DD/MM/YYYY H:mm:ss'))
-            }
-        );
-
         // Action buttons
         submitButton.addEventListener('click', function (e) {
             e.preventDefault();
@@ -89,7 +71,7 @@ const KTFXAdd = function () {
 
                     if (status === 'Valid') {
                         submitButton.setAttribute('data-kt-indicator', 'on');
-                        let str = $('#kt_modal_add_fx_form').serialize();
+                        let str = $('#kt_modal_update_fx_form').serialize();
                         submitData(str);
                     } else {
                         Swal.fire({
@@ -158,7 +140,7 @@ const KTFXAdd = function () {
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            type: 'POST',
+            type: 'PUT',
             url: form.getAttribute("data-kt-action"),
             data: str,
             success: function (json) {
@@ -177,7 +159,7 @@ const KTFXAdd = function () {
                                 })
                         }
                         if ($("select[name='" + value.field + "']").length) {
-                            $("select[name='" + value.field + "']")
+                            $("select[name='" + value.field + "']").parent('div')
                                 .after('<small style="color: red;" id="err_' + value.field + '">' + value.error + '</small>')
                                 .on('change', function (e) {
                                     $('#err_' + value.field).remove();
@@ -213,7 +195,7 @@ const KTFXAdd = function () {
                             form.reset(); // Reset form
                             $("select[name='currency']").val(null).trigger('change');
 
-                            // Redirect to customers list page
+                            // Redirect
                             window.location = form.getAttribute("data-kt-redirect");
                         }
                     });
@@ -284,11 +266,11 @@ const KTFXAdd = function () {
     // Public methods
     return {
         init: function () {
-            modal = new bootstrap.Modal(document.querySelector('#kt_modal_add_fx'));
-            form = document.querySelector('#kt_modal_add_fx_form');
-            submitButton = form.querySelector('#kt_modal_add_fx_submit');
-            discardButton = form.querySelector('#kt_modal_add_fx_cancel');
-            closeButton = form.querySelector('#kt_modal_add_fx_close');
+            modal = new bootstrap.Modal(document.querySelector('#kt_modal_update_fx'));
+            form = document.querySelector('#kt_modal_update_fx_form');
+            submitButton = form.querySelector('#kt_modal_update_fx_submit');
+            discardButton = form.querySelector('#kt_modal_update_fx_cancel');
+            closeButton = form.querySelector('#kt_modal_update_fx_close');
             handleForm();
         }
     }
@@ -296,5 +278,5 @@ const KTFXAdd = function () {
 
 // On document ready
 KTUtil.onDOMContentLoaded(function () {
-    KTFXAdd.init();
+    KTFXUpdateAdd.init();
 });

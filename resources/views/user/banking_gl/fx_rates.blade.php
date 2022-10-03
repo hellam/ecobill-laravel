@@ -146,7 +146,7 @@
                                     <td>{{$fx->curr->name}}</td>
                                     <td>{{$fx->buy_rate}}</td>
                                     <td>{{$fx->sell_rate}}</td>
-                                    <td>{{$fx->date}}</td>
+                                    <td>{{format_date($fx->date, true)}}</td>
                                     <td class="text-end">
                                         <a href="#" class="btn btn-light btn-active-light-primary btn-sm"
                                            data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end"
@@ -175,9 +175,18 @@
                                             <div class="menu-item px-3">
                                                 <a href="#" class="menu-link px-3 test"
                                                    data-kt-fx-table-actions="edit_row"
-                                                   data-kt-fx-edit-url="{{route('user.banking_gl.fx.edit', $curr->id)}}"
-                                                   data-kt-fx-update-url="{{route('user.banking_gl.fx.update', $curr->id)}}">
+                                                   data-kt-fx-edit-url="{{route('user.banking_gl.fx.edit', $fx->id)}}"
+                                                   data-kt-fx-update-url="{{route('user.banking_gl.fx.update', $fx->id)}}">
                                                     Edit
+                                                </a>
+                                            </div>
+                                            <!--end::Menu item-->
+                                            <!--begin::Menu item-->
+                                            <div class="menu-item px-3">
+                                                <a href="#" class="menu-link px-3 test"
+                                                   data-kt-fx-table-actions="delete_row"
+                                                   data-kt-fx-delete-url="{{route('user.banking_gl.fx.delete', $fx->id)}}">
+                                                    Delete
                                                 </a>
                                             </div>
                                             <!--end::Menu item-->
@@ -262,7 +271,8 @@
                                                 class="form-select form-select-solid fw-bolder">
                                             <option></option>
                                             @foreach($currency as $curr)
-                                                <option value="{{$curr->abbreviation}}">{{$curr->abbreviation.' - '.$curr->name}}</option>
+                                                <option
+                                                    value="{{$curr->abbreviation}}">{{$curr->abbreviation.' - '.$curr->name}}</option>
                                             @endforeach
                                         </select>
                                         <!--end::Input-->
@@ -310,7 +320,7 @@
                                     <!--begin::Input-->
                                     <input class="form-control form-control-solid"
                                            placeholder="{{__('messages.select').' '.__('messages.date_from')}}"
-                                            id="kt_date_from"/>
+                                           id="kt_date_from"/>
                                     <input type="hidden" name="date" id="date">
                                     <!--end::Input-->
                                 </div>
@@ -348,14 +358,39 @@
             <div class="modal-dialog modal-dialog-centered mw-650px">
                 <!--begin::Modal content-->
                 <div class="modal-content">
+                    <div class="loader_container">
+                        <div class="loader_wrapper">
+                            <div class="loader">
+                                <div class="dot"></div>
+                            </div>
+                            <div class="loader">
+                                <div class="dot"></div>
+                            </div>
+                            <div class="loader">
+                                <div class="dot"></div>
+                            </div>
+                            <div class="loader">
+                                <div class="dot"></div>
+                            </div>
+                            <div class="loader">
+                                <div class="dot"></div>
+                            </div>
+                            <div class="loader">
+                                <div class="dot"></div>
+                            </div>
+                        </div>
+                        <div class="text">
+                            Please wait
+                        </div>
+                    </div>
                     <!--begin::Form-->
                     <form class="form" action="#" id="kt_modal_update_fx_form"
                           data-kt-action="#"
-                          data-kt-redirect="{{route('user.banking_gl.currency.all')}}">
+                          data-kt-redirect="{{route('user.banking_gl.fx.all')}}">
                         <!--begin::Modal header-->
                         <div class="modal-header" id="kt_modal_update_fx_header">
                             <!--begin::Modal title-->
-                            <h2 class="fw-bolder">{{__('messages.update').' '.__('messages.currency')}}</h2>
+                            <h2 class="fw-bolder">{{__('messages.update').' '.__('messages.fx')}}</h2>
                             <!--end::Modal title-->
                             <!--begin::Close-->
                             <div id="kt_modal_update_fx_close"
@@ -398,7 +433,7 @@
                                         </label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
-                                        <select name="country"
+                                        <select name="currency"
                                                 aria-label="Select Currency"
                                                 data-control="select2"
                                                 data-kt-src="#"
@@ -406,8 +441,9 @@
                                                 data-dropdown-parent="#kt_modal_update_fx"
                                                 class="form-select form-select-solid fw-bolder">
                                             <option></option>
-                                            @foreach(\Monarobase\CountryList\CountryListFacade::getList() as $key => $country)
-                                                <option value="{{$key}}">{{$country}}</option>
+                                            @foreach($currency as $curr)
+                                                <option
+                                                    value="{{$curr->abbreviation}}">{{$curr->abbreviation.' - '.$curr->name}}</option>
                                             @endforeach
                                         </select>
                                         <!--end::Input-->
@@ -417,77 +453,47 @@
                                 <!--begin::Input group-->
                                 <div class="fv-row mb-7">
                                     <!--begin::Label-->
-                                    <label class="fs-6 fw-bold mb-2" for="abbreviation">
+                                    <label class="fs-6 fw-bold mb-2" for="buy_rate">
                                         <span
-                                            class="required">{{__('messages.currency').' '.__('messages.abbr')}}</span>
+                                            class="required">{{__('messages.buy_rate')}}</span>
                                     </label>
                                     <!--end::Label-->
                                     <!--begin::Input-->
-                                    <input type="text" class="form-control form-control-solid"
-                                           placeholder="{{__('messages.currency').' '.__('messages.abbr')}}"
-                                           name="abbreviation"/>
+                                    <input type="number" class="form-control form-control-solid"
+                                           placeholder="{{__('messages.buy_rate')}}"
+                                           name="buy_rate"/>
                                     <!--end::Input-->
                                 </div>
                                 <!--end::Input group-->
                                 <!--begin::Input group-->
                                 <div class="fv-row mb-7">
                                     <!--begin::Label-->
-                                    <label class="fs-6 fw-bold mb-2" for="symbol">
+                                    <label class="fs-6 fw-bold mb-2" for="sell_rate">
                                         <span
-                                            class="required">{{__('messages.currency').' '.__('messages.symbol')}}</span>
+                                            class="required">{{__('messages.sell_rate')}}</span>
                                     </label>
                                     <!--end::Label-->
                                     <!--begin::Input-->
-                                    <input type="text" class="form-control form-control-solid"
-                                           placeholder="{{__('messages.currency').' '.__('messages.symbol')}}"
-                                           name="symbol"/>
+                                    <input type="number" class="form-control form-control-solid"
+                                           placeholder="{{__('messages.sell_rate')}}"
+                                           name="sell_rate"/>
                                     <!--end::Input-->
                                 </div>
                                 <!--end::Input group-->
                                 <!--begin::Input group-->
                                 <div class="fv-row mb-7">
                                     <!--begin::Label-->
-                                    <label class="fs-6 fw-bold mb-2" for="name">
+                                    <label class="fs-6 fw-bold mb-2" for="date_from">
                                         <span
-                                            class="required">{{__('messages.currency').' '.__('messages.name')}}</span>
+                                            class="required">{{__('messages.date_from')}}</span>
                                     </label>
                                     <!--end::Label-->
                                     <!--begin::Input-->
-                                    <input type="text" class="form-control form-control-solid"
-                                           placeholder="{{__('messages.currency').' '.__('messages.name')}}"
-                                           name="name"/>
+                                    <input class="form-control form-control-solid"
+                                           placeholder="{{__('messages.select').' '.__('messages.date_from')}}"
+                                           id="kt_update_date_from"/>
+                                    <input type="hidden" name="date" id="update_date">
                                     <!--end::Input-->
-                                </div>
-                                <!--end::Input group-->
-                                <!--begin::Input group-->
-                                <div class="fv-row mb-7">
-                                    <!--begin::Label-->
-                                    <label class="fs-6 fw-bold mb-2" for="hundredths_name">
-                                        <span
-                                            class="required">{{__('messages.hundredths').' '.__('messages.name')}}</span>
-                                    </label>
-                                    <!--end::Label-->
-                                    <!--begin::Input-->
-                                    <input type="text" class="form-control form-control-solid"
-                                           placeholder="{{__('messages.hundredths').' '.__('messages.name')}} eg cents"
-                                           name="hundredths_name"/>
-                                    <!--end::Input-->
-                                </div>
-                                <!--end::Input group-->
-                                <!--begin::Input group-->
-                                <div class="d-flex">
-                                    <!--begin::Checkbox-->
-                                    <label class="form-check form-check-custom form-check-solid me-10">
-                                        <!--begin::Label-->
-                                        <span class="fs-6 fw-bold me-7">{{__('messages.auto_exchange_update')}}</span>
-                                        <!--end::Label-->
-                                        <!--begin::Input-->
-                                        <input class="form-check-input h-20px w-20px" type="checkbox"
-                                               id="check_auto_fx">
-                                        <input type="hidden" name="auto_fx" value="1">
-                                        <!--end::Input-->
-                                    </label>
-                                    <!--end::Checkbox-->
                                 </div>
                                 <!--end::Input group-->
                             </div>
@@ -522,6 +528,6 @@
 
 @push('custom_scripts')
     <script src="{{ asset('assets/js/pages/fx/add.js') }}"></script>
-{{--    <script src="{{ asset('assets/js/pages/fx/list.js') }}"></script>--}}
-{{--    <script src="{{ asset('assets/js/pages/fx/update.js') }}"></script>--}}
+    <script src="{{ asset('assets/js/pages/fx/list.js') }}"></script>
+    <script src="{{ asset('assets/js/pages/fx/update.js') }}"></script>
 @endpush

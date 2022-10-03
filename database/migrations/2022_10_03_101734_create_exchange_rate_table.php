@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('currency',15);
             $table->double('buy_rate');
             $table->double('sell_rate');
-            $table->bigInteger('branch');
+            $table->bigInteger('branch_id');
             $table->timestamp('date');
             $table->string('client_ref', 100);
             $table->string("created_by",100)->nullable();

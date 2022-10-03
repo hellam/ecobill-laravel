@@ -484,10 +484,10 @@
                                 <!--begin::Select-->
                                 <select class="form-select form-select-sm form-select-solid"
                                         data-control="select2"
-                                        data-placeholder="{{config('currency')}}"
+                                        data-placeholder="Switch Branch"
                                         id="switch_branch"
                                         data-hide-search="true">
-                                    <option value=""></option>
+                                    <option></option>
                                     @foreach(auth('user')->user()->active_branches() as $active_branch)
                                         <option value="{{$active_branch->id}}"
                                                 @if(session('branch') == $active_branch->id)selected @endif>{{$active_branch->name}}</option>

@@ -287,7 +287,7 @@ const KTBranchesServerSide = function () {
 
                 } else {
                     Swal.fire({
-                        text: "Rule deleted Successfully!.",
+                        text: response.message,
                         icon: "success",
                         buttonsStyling: false,
                         confirmButtonText: "Ok, got it!",

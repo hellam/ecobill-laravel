@@ -496,6 +496,31 @@
             <div class="modal-dialog modal-dialog-centered mw-650px">
                 <!--begin::Modal content-->
                 <div class="modal-content">
+                    <div class="loader_container">
+                        <div class="loader_wrapper">
+                            <div class="loader">
+                                <div class="dot"></div>
+                            </div>
+                            <div class="loader">
+                                <div class="dot"></div>
+                            </div>
+                            <div class="loader">
+                                <div class="dot"></div>
+                            </div>
+                            <div class="loader">
+                                <div class="dot"></div>
+                            </div>
+                            <div class="loader">
+                                <div class="dot"></div>
+                            </div>
+                            <div class="loader">
+                                <div class="dot"></div>
+                            </div>
+                        </div>
+                        <div class="text">
+                            Please wait
+                        </div>
+                    </div>
                     <!--begin::Form-->
                     <form class="form" action="#" id="kt_modal_update_gl_account_form"
                           data-kt-action="#">
@@ -742,6 +767,31 @@
             <div class="modal-dialog modal-dialog-centered mw-650px">
                 <!--begin::Modal content-->
                 <div class="modal-content">
+                    <div class="loader_container">
+                        <div class="loader_wrapper">
+                            <div class="loader">
+                                <div class="dot"></div>
+                            </div>
+                            <div class="loader">
+                                <div class="dot"></div>
+                            </div>
+                            <div class="loader">
+                                <div class="dot"></div>
+                            </div>
+                            <div class="loader">
+                                <div class="dot"></div>
+                            </div>
+                            <div class="loader">
+                                <div class="dot"></div>
+                            </div>
+                            <div class="loader">
+                                <div class="dot"></div>
+                            </div>
+                        </div>
+                        <div class="text">
+                            Please wait
+                        </div>
+                    </div>
                     <!--begin::Form-->
                     <form class="form" action="#" id="kt_modal_update_gl_group_form"
                           data-kt-action="#">

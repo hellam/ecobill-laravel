@@ -22,7 +22,8 @@ class PaymentTermsController extends Controller
 {
     public function index(): Factory|View|Application
     {
-        return view('user.banking_gl.pay_terms');
+        $pay_terms_count = PaymentTerm::count() ?? 0;
+        return view('user.banking_gl.pay_terms', compact('pay_terms_count'));
     }
 
     /**

@@ -275,7 +275,7 @@ var KTCategoriesServerSide = function () {
                         } else {
 
                             $('#kt_modal_update_category_form').show({backdrop: 'static', keyboard: false});//show form
-                            var category = JSON.parse(response.data);
+                            var category = response.data;
 
                             $("#kt_modal_update_category_form input[name='name']").val(category.name);
                             $("#kt_modal_update_category_form select[name='defaultTaxId']").val(category.defaultTaxId).trigger('change');
@@ -334,7 +334,6 @@ var KTCategoriesServerSide = function () {
                 handleDeleteRows();
                 handleUpdateRows();
             }
-            // handleSelectContact();
         }
     }
 }();

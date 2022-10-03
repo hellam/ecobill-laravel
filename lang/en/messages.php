@@ -96,6 +96,7 @@ return [
     'barcode' => 'Barcode',
     'bcc_email' => 'BCC Email',
     'category' => 'Category',
+    'category_name' => 'Category Name',
     'categories' => 'Categories',
     'charges' => 'Charges',
     'classes' => 'Classes',

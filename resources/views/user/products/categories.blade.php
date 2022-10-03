@@ -98,7 +98,7 @@
                 <div class="card-body pt-0">
                     <!--begin::Table-->
                     <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_categories_table"
-                           data-kt-dt_api="#">
+                           data-kt-dt_api="{{route('user.products.categories.dt_api')}}">
                         <!--begin::Table head-->
                         <thead>
                         <!--begin::Table row-->
@@ -167,7 +167,7 @@
                         <!--begin::Modal header-->
                         <div class="modal-header" id="kt_modal_add_category_header">
                             <!--begin::Modal title-->
-                            <h2 class="fw-bolder">{{__('messages.new').' '.__('messages.tax')}}</h2>
+                            <h2 class="fw-bolder">{{__('messages.new').' '.__('messages.category')}}</h2>
                             <!--end::Modal title-->
                             <!--begin::Close-->
                             <div id="kt_modal_add_category_close"
@@ -281,7 +281,7 @@
         <!--end::Modal - Category - Add-->
 
         <!--begin::Modal - Category - Edit-->
-        <div class="modal fade" id="kt_modal_update_tax" tabindex="-1">
+        <div class="modal fade" id="kt_modal_update_category" tabindex="-1">
             <!--begin::Modal dialog-->
             <div class="modal-dialog modal-dialog-centered mw-650px">
                 <!--begin::Modal content-->
@@ -312,15 +312,15 @@
                         </div>
                     </div>
                     <!--begin::Form-->
-                    <form class="form" action="#" id="kt_modal_update_tax_form"
+                    <form class="form" action="#" id="kt_modal_update_category_form"
                           data-kt-redirect="#">
                         <!--begin::Modal header-->
-                        <div class="modal-header" id="kt_modal_update_tax_header">
+                        <div class="modal-header" id="kt_modal_update_category_header">
                             <!--begin::Modal title-->
                             <h2 class="fw-bolder">{{__('messages.update').' '.__('messages.tax')}}</h2>
                             <!--end::Modal title-->
                             <!--begin::Close-->
-                            <div id="kt_modal_update_tax_close"
+                            <div id="kt_modal_update_category_close"
                                  class="btn btn-icon btn-sm btn-active-icon-primary">
                                 <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
                                 <span class="svg-icon svg-icon-1">
@@ -343,11 +343,11 @@
                         <!--begin::Modal body-->
                         <div class="modal-body py-10 px-lg-17">
                             <!--begin::Scroll-->
-                            <div class="scroll-y me-n7 pe-7" id="kt_modal_update_tax_scroll" data-kt-scroll="true"
+                            <div class="scroll-y me-n7 pe-7" id="kt_modal_update_category_scroll" data-kt-scroll="true"
                                  data-kt-scroll-activate="{default: false, lg: true}"
                                  data-kt-scroll-max-height="auto"
-                                 data-kt-scroll-dependencies="#kt_modal_update_tax_header"
-                                 data-kt-scroll-wrappers="#kt_modal_update_tax_scroll"
+                                 data-kt-scroll-dependencies="#kt_modal_update_category_header"
+                                 data-kt-scroll-wrappers="#kt_modal_update_category_scroll"
                                  data-kt-scroll-offset="300px">
                                 <!--begin::Input group-->
                                 <div class="row g-9 mb-7">
@@ -408,12 +408,12 @@
                         <!--begin::Modal footer-->
                         <div class="modal-footer flex-center">
                             <!--begin::Button-->
-                            <button type="reset" id="kt_modal_update_tax_cancel" class="btn btn-light me-3">
+                            <button type="reset" id="kt_modal_update_category_cancel" class="btn btn-light me-3">
                                 Discard
                             </button>
                             <!--end::Button-->
                             <!--begin::Button-->
-                            <button type="submit" id="kt_modal_update_tax_submit" class="btn btn-primary">
+                            <button type="submit" id="kt_modal_update_category_submit" class="btn btn-primary">
                                 <span class="indicator-label">Update</span>
                                 <span class="indicator-progress">Please wait...
 														<span

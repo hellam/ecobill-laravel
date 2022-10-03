@@ -6,6 +6,7 @@ use App\CentralLogics\UserValidators;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\PaymentTerm;
+use App\Models\Tax;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -27,9 +28,8 @@ class CategoryController extends Controller
      */
     public function index(): Factory|View|Application
     {
-        $products = [];
-        $categories = [];
-        return view('user.products.products', compact('products', 'categories'));
+        $taxes = Tax::all();
+        return view('user.products.products', compact('taxes'));
     }
 
 

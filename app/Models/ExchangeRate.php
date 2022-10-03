@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Auth;
  * @property string $currency
  * @property float $buy_rate
  * @property float $sell_rate
- * @property int $branch
+ * @property int $branch_id
  * @property Carbon $date
  * @property string $client_ref
  * @property string|null $created_by
@@ -38,7 +38,7 @@ class ExchangeRate extends Model
 	protected $casts = [
 		'buy_rate' => 'float',
 		'sell_rate' => 'float',
-		'branch' => 'int'
+		'branch_id' => 'int'
 	];
 
 	protected $dates = [
@@ -50,7 +50,7 @@ class ExchangeRate extends Model
 		'currency',
 		'buy_rate',
 		'sell_rate',
-		'branch',
+		'branch_id',
 		'date',
 		'client_ref',
 		'created_by',
@@ -58,7 +58,6 @@ class ExchangeRate extends Model
 		'supervised_by',
 		'supervised_at'
 	];
-
 
     public function branch(){
         return $this->belongsTo(Branch::class, 'branch');

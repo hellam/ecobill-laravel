@@ -48,7 +48,7 @@ class ExchangeRateController extends Controller
             'buy_rate' => $request->buy_rate,
             'sell_rate' => $request->sell_rate,
             'date' => $request->date,
-            'branch' => session('branch'),
+            'branch_id' => session('branch'),
             'client_ref' => get_user_ref()
         ];
 

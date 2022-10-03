@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('tax', function (Blueprint $table) {
             $table->bigInteger('id', true);
-            $table->string('name', 250)->nullable()->unique('name');
+            $table->string('name', 250)->nullable();
             $table->text('description')->nullable();
             $table->integer('rate')->nullable()->default(0);
             $table->string("client_ref",100)->nullable();

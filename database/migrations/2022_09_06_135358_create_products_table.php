@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->bigInteger('id', true);
-            $table->string('barcode', 250)->unique('product_barcode_index');
+            $table->string('barcode', 250);
             $table->string('name', 250)->nullable();
             $table->longText('description')->nullable();
             $table->double('price')->nullable()->default(0);

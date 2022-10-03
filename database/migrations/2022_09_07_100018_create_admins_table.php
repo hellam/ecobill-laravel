@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('admins', function (Blueprint $table) {
             $table->bigInteger('id', true);
-            $table->string('username', 20)->unique('username');
+            $table->string('username', 20);
             $table->string('password', 250);
             $table->timestamp('password_expiry_date')->nullable();
             $table->timestamp('account_expiry_date')->nullable();

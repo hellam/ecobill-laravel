@@ -143,7 +143,7 @@
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
                                     <td>{{$pay_term->terms}}</td>
-                                    <td>{{$pay_term->type == 0 ? 'Cash' : ($curr->type == 1 ? 'Number of days' : 'Day in the following month')}}</td>
+                                    <td>{{$pay_term->type == 0 ? 'Cash' : ($pay_term->type == 1 ? 'Number of days' : 'Day in the following month')}}</td>
                                     <td>{{$pay_term->days}} days</td>
                                     <td class="text-end">
                                         <a href="#" class="btn btn-light btn-active-light-primary btn-sm"

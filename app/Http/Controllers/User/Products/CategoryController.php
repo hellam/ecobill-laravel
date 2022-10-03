@@ -134,7 +134,7 @@ class CategoryController extends Controller
         $category = set_update_parameters($category, $created_at, $created_by, $supervised_by, $supervised_at);
 
         $category->name = $request->name;
-        $category->descripton = $category->type;
+        $category->description = $request->description;
         $category->default_tax_id = $request->default_tax_id;
         $category->update();
 

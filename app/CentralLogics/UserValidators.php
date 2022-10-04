@@ -12,6 +12,7 @@ use App\Models\ChartGroup;
 use App\Models\Currency;
 use App\Models\MakerCheckerRule;
 use App\Models\PaymentTerm;
+use App\Models\Product;
 use App\Models\Role;
 use App\Models\Tax;
 use App\Models\User;
@@ -338,6 +339,21 @@ class UserValidators
         return self::ValidatorMake($request->all(), [
             'name' => 'required|unique:' . Category::class . ',name,' . $id . ',id,client_ref,' . get_user_ref(),
             'description' => 'required',
+            'default_tax_id' => 'required|numeric',
+        ]);
+    }
+
+    public static function productCreateValidation(Request $request)
+    {
+        return self::ValidatorMake($request->all(), [
+            'barcode' => 'required|unique:' . Product::class . ',barcode,NULL,id,client_ref,' . get_user_ref(),
+            'name' => 'required|unique:' . Product::class . ',name,NULL,id,client_ref,' . get_user_ref(),
+            'image' => 'required',
+            'description' => 'required',
+            'price' => 'required',
+            'cost' => 'required',
+            'order' => 'required',
+            'category_id' => 'required|exists:' . Category::class . ',id,client_ref,' . get_user_ref(),
             'default_tax_id' => 'required|numeric',
         ]);
     }

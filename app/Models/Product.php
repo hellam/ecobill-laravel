@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Auth;
  *
  * @property int $id
  * @property string $barcode
+ * @property string|null $image
  * @property string|null $name
  * @property string|null $description
  * @property float|null $price
@@ -29,7 +30,7 @@ use Illuminate\Support\Facades\Auth;
  * @property string|null $updated_by
  * @property string|null $supervised_by
  * @property Carbon|null $supervised_at
- * @property int $inactive
+ * @property bool|null $inactive
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  *
@@ -46,7 +47,7 @@ class Product extends Model
 		'category_id' => 'int',
 		'tax_id' => 'int',
 		'type' => 'int',
-		'inactive' => 'int'
+		'inactive' => 'bool'
 	];
 
 	protected $dates = [
@@ -55,6 +56,7 @@ class Product extends Model
 
 	protected $fillable = [
 		'barcode',
+		'image',
 		'name',
 		'description',
 		'price',

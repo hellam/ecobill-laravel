@@ -49,13 +49,6 @@ const KTBranchesUpdate = function () {
                             }
                         }
                     },
-                    default_currency: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Default currency is required'
-                            }
-                        }
-                    },
                     fiscal_year: {
                         validators: {
                             notEmpty: {

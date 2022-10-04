@@ -332,33 +332,6 @@
                                     <div class="col-md-6 fv-row">
                                         <!--begin::Label-->
                                         <label
-                                            class="required fs-6 fw-bold mb-2">{{__('messages.default_currency')}}
-                                        </label>
-                                        <small class="text-primary">This cannot be changed in the future</small>
-                                        <!--end::Label-->
-                                        <!--begin::Input-->
-                                        <select class="form-select form-select-solid fw-bolder"
-                                                data-kt-select2="true"
-                                                data-placeholder="Select Default Currency"
-                                                name="default_currency"
-                                                data-allow-clear="true"
-                                                data-dropdown-parent="#kt_modal_add_branch">
-                                            <option></option>
-                                            @foreach($currency as $curr)
-                                                <option value="{{$curr->abbreviation}}">{{$curr->abbreviation}}</option>
-                                            @endforeach
-                                        </select>
-                                        <!--end::Input-->
-                                    </div>
-                                    <!--end::Col-->
-                                </div>
-                                <!--end::Input group-->
-                                <!--begin::Input group-->
-                                <div class="row g-9 mb-7">
-                                    <!--begin::Col-->
-                                    <div class="col-md-6 fv-row">
-                                        <!--begin::Label-->
-                                        <label
                                             class="required fs-6 fw-bold mb-2">{{__('messages.fiscal_year')}}</label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
@@ -377,6 +350,10 @@
                                         <!--end::Input-->
                                     </div>
                                     <!--end::Col-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="row g-9 mb-7">
                                     <!--begin::Col-->
                                     <div class="col-md-6 fv-row">
                                         <!--begin::Label-->
@@ -650,22 +627,6 @@
                                     <div class="col-md-6 fv-row">
                                         <!--begin::Label-->
                                         <label
-                                            class="required fs-6 fw-bold mb-2">{{__('messages.default_currency')}}</label>
-                                        <!--end::Label-->
-                                        <!--begin::Input-->
-                                        <input class="form-control form-control-solid"
-                                               name="default_currency" disabled readonly>
-                                        <!--end::Input-->
-                                    </div>
-                                    <!--end::Col-->
-                                </div>
-                                <!--end::Input group-->
-                                <!--begin::Input group-->
-                                <div class="row g-9 mb-7">
-                                    <!--begin::Col-->
-                                    <div class="col-md-6 fv-row">
-                                        <!--begin::Label-->
-                                        <label
                                             class="required fs-6 fw-bold mb-2">{{__('messages.fiscal_year')}}</label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
@@ -684,6 +645,10 @@
                                         <!--end::Input-->
                                     </div>
                                     <!--end::Col-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="row g-9 mb-7">
                                     <!--begin::Col-->
                                     <div class="col-md-6 fv-row">
                                         <!--begin::Label-->

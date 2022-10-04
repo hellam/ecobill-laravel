@@ -178,7 +178,7 @@ function handleFormSubmit(form, fields, form_jquery, cancelButton, closeButton, 
                 if (status === 'Valid') {
                     submitButton.setAttribute('data-kt-indicator', 'on');
                     let str = form_jquery.serialize();
-                    submitFormData(str, form, modal, submitButton, table, select_fields,method);
+                    submitFormData(str, form, modal, submitButton, table, select_fields, method);
                 } else {
                     Swal.fire({
                         text: "Sorry, looks like there are some errors detected, please try again.",
@@ -366,7 +366,7 @@ function submitFormData(str, form, modal, submitButton, table, select_fields, me
                         // console.log(str)
                         // if (result.value)
                         str = str + "&remarks=" + result.value
-                        submitFormData(str, form, modal, submitButton, table);
+                        submitFormData(str, form, modal, submitButton, table, select_fields, method);
                     } else {
                         form.reset(); // Reset form
                         if (select_fields !== null)
@@ -395,4 +395,76 @@ function submitFormData(str, form, modal, submitButton, table, select_fields, me
 
         }
     });
+}
+
+function handleUpdateRows(button, modal, form, requires_parent, form_update) {
+    let update_url, edit_url, parent;
+    // Select all delete buttons
+    const editButtons = document.querySelectorAll(button);
+
+    // Make the DIV element draggable:
+    const el = document.querySelector(modal);
+    dragElement(el);
+    editButtons.forEach(d => {
+        // edit button on click
+        d.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            form.hide();//hide form
+            $('.loader_container').show();//show loader
+            $(modal).modal('show');//show modal
+
+            if(requires_parent){
+                parent = e.target.closest('tr');
+                update_url = parent.querySelector("input[class='update_url']").value;
+                edit_url = parent.querySelector("input[class='edit_url']").value;
+            }else{
+                update_url = d.getAttribute('data-kt-currency-update-url');
+                edit_url = d.getAttribute('data-kt-currency-edit-url');
+            }
+
+            // Get rule name
+            form.setAttribute("data-kt-action", update_url);
+
+            $.ajax({
+                type: 'GET',
+                url: edit_url,
+                success: function (json) {
+                    var response = JSON.parse(JSON.stringify(json));
+                    if (response.status !== true) {
+                        Swal.fire({
+                            text: response.message,
+                            icon: "error",
+                            buttonsStyling: false,
+                            confirmButtonText: "Ok!",
+                            customClass: {
+                                confirmButton: "btn btn-primary"
+                            }
+                        });
+
+                    } else {
+                        form_update
+                    }
+
+                    $('.loader_container').hide();//hide loader
+
+                },
+                error: function () {
+                    Swal.fire({
+                        text: 'A network error occured. Please consult your network administrator.',
+                        icon: "error",
+                        buttonsStyling: false,
+                        confirmButtonText: "Ok!",
+                        customClass: {
+                            confirmButton: "btn btn-primary"
+                        }
+                    });
+
+                }
+            });
+
+
+        })
+    });
+
 }

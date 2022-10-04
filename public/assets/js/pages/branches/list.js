@@ -3,7 +3,7 @@
 // Class definition
 const KTBranchesServerSide = function () {
 // Shared variables
-    let table, dt, form, delete_url;
+    let table, dt, form;
 
     // Private functions
     const initDatatable = function () {
@@ -96,7 +96,6 @@ const KTBranchesServerSide = function () {
         dt.on('draw', function () {
             KTMenu.createInstances();
             handleUpdateRows();
-            // handleDeleteRows('[data-kt-branch-table-actions="delete_row"]',"input[class='delete_url']");
         });
     };
 
@@ -168,8 +167,7 @@ const KTBranchesServerSide = function () {
                             if (branch.is_main) {
                                 $("#kt_modal_update_branch_form input[id='inactive']").attr("disabled", true);
                                 $("#kt_modal_update_branch_form input[id='inactive']").after('<span id="inactive_disabled" style="color: red;">Main Branch cannot be Deactivated</span>');
-                            }
-                            else {
+                            } else {
                                 $("#kt_modal_update_branch_form input[id='inactive']").attr("disabled", false);
                                 $("#kt_modal_update_branch_form #inactive_disabled").remove();
                             }
@@ -216,7 +214,6 @@ const KTBranchesServerSide = function () {
                 initDatatable();
                 dt.search('').draw();
                 handleUpdateRows();
-                // handleDeleteRows('[data-kt-branch-table-actions="delete_row"]',"input[class='delete_url']");
             }
         }
     }

@@ -113,7 +113,7 @@ const KTBankAccountsServerSide = function () {
                 dt.search('').draw();
                 handleSearchDatatable('[data-kt-accounts-table-filter="search"]', dt);
                 handleUpdateRows();
-                handleDeleteRows('[data-kt-accounts-table-actions="delete_row"]', 'data-kt-accounts-delete-url');
+                handleDeleteRows('[data-kt-accounts-table-actions="delete_row"]', 'data-kt-accounts-delete-url', dt);
             }
         }
     }

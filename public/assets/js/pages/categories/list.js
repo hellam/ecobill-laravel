@@ -11,16 +11,10 @@ var KTCategoriesServerSide = function () {
     var initDatatable = function () {
         let td = document.querySelector('#kt_categories_table')
         dt = $("#kt_categories_table").DataTable({
-            searchDelay: 500,
             processing: true,
             serverSide: true,
             order: [[1, 'desc']],
             stateSave: true,
-            select: {
-                style: 'multi',
-                selector: 'td:first-child input[type="checkbox"]',
-                className: 'row-selected'
-            },
             ajax: {
                 url: td.getAttribute('data-kt-dt_api'),
             },

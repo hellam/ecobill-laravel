@@ -108,9 +108,8 @@ const MUBDatatablesServerSide = function () {
         dt.on('draw', function () {
             initToggleToolbar();
             toggleToolbars();
-            handleDeleteRows();
+            handleDeleteRows('[data-kt-product-table-filter="delete_row"]', "input[class='delete_url']", dt);
             handleUpdateRows();
-            handleFilter();
             KTMenu.createInstances();
         });
     };
@@ -141,104 +140,6 @@ const MUBDatatablesServerSide = function () {
 
             // Filter datatable --- official docs reference: https://datatables.net/reference/api/search()
             dt.search(paymentValue).draw();
-        });
-    }
-
-    // Delete customer
-    var handleDeleteRows = () => {
-        // Select all delete buttons
-        const deleteButtons = document.querySelectorAll('[data-kt-product-table-filter="delete_row"]');
-
-        deleteButtons.forEach(d => {
-            // Delete button on click
-            d.addEventListener('click', function (e) {
-                e.preventDefault();
-
-                // Select parent row
-                const parent = e.target.closest('tr');
-
-                // Get customer name
-                const productName = parent.querySelectorAll('td')[1].innerText;
-                const delete_url = parent.querySelector("input[class='delete_url']").value;
-
-                // SweetAlert2 pop up --- official docs reference: https://sweetalert2.github.io/
-                Swal.fire({
-                    text: "Are you sure you want to delete " + productName + "? This is not reversible!",
-                    icon: "warning",
-                    showCancelButton: true,
-                    buttonsStyling: false,
-                    confirmButtonText: "Yes, delete!",
-                    cancelButtonText: "No, cancel",
-                    customClass: {
-                        confirmButton: "btn fw-bold btn-danger",
-                        cancelButton: "btn fw-bold btn-active-light-primary"
-                    }
-                }).then(function (result) {
-                    if (result.value) {
-                        Swal.fire({
-                            text: "Deleting " + productName,
-                            icon: "info",
-                            allowOutsideClick: false,
-                            buttonsStyling: false,
-                            showConfirmButton: false,
-                        })
-                        $.ajax({
-                            type: 'DELETE',
-                            url: delete_url,
-                            success: function (json) {
-                                var response = JSON.parse(json);
-                                if (response.status !== true) {
-                                    Swal.fire({
-                                        text: response.message,
-                                        icon: "error",
-                                        buttonsStyling: false,
-                                        confirmButtonText: "Ok!",
-                                        customClass: {
-                                            confirmButton: "btn btn-primary"
-                                        }
-                                    });
-
-                                } else {
-                                    Swal.fire({
-                                        text: "You have deleted " + productName + "!.",
-                                        icon: "success",
-                                        buttonsStyling: false,
-                                        confirmButtonText: "Ok, got it!",
-                                        customClass: {
-                                            confirmButton: "btn fw-bold btn-primary",
-                                        }
-                                    }).then(function () {
-                                        // delete row data from server and re-draw datatable
-                                        dt.draw();
-                                    });
-                                }
-
-                            },
-                            error: function (xhr, desc, err) {
-                                Swal.fire({
-                                    text: 'A network error occured. Please consult your network administrator.',
-                                    icon: "error",
-                                    buttonsStyling: false,
-                                    confirmButtonText: "Ok!",
-                                    customClass: {
-                                        confirmButton: "btn btn-primary"
-                                    }
-                                });
-                            }
-                        });
-                    } else if (result.dismiss === 'cancel') {
-                        Swal.fire({
-                            text: productName + " was not deleted.",
-                            icon: "error",
-                            buttonsStyling: false,
-                            confirmButtonText: "Ok, got it!",
-                            customClass: {
-                                confirmButton: "btn fw-bold btn-primary",
-                            }
-                        });
-                    }
-                });
-            })
         });
     }
 
@@ -578,7 +479,7 @@ const MUBDatatablesServerSide = function () {
                 handleSearchDatatable('[data-kt-product-table-filter="search"]', dt);
                 initToggleToolbar();
                 handleFilterDatatable();
-                handleDeleteRows();
+                handleDeleteRows('[data-kt-product-table-filter="delete_row"]', "input[class='delete_url']", dt);
                 handleUpdateRows();
                 handleResetForm();
             }

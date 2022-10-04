@@ -55,6 +55,27 @@ class ProductsController extends Controller
     }
 
     /**
+     * Show the form for editing the specified resource.
+     *
+     */
+    public function select_api(Request $request): JsonResponse
+    {
+        $product = Product::select('name', 'id', 'default_tax_id')
+            ->orderBy('name')
+            ->limit(10)
+            ->get();
+        if ($request->has('search'))
+            $product = Category::select('name', 'id', 'default_tax_id')
+                ->where('name', 'like', '%' . $request->search . '%')
+                ->orWhere('description', 'like', '%' . $request->search . '%')
+                ->orderBy('name')
+                ->limit(10)
+                ->get();
+
+        return response()->json($product, 200);
+    }
+
+    /**
      * @param Request $request
      * @param null $created_at
      * @param null $created_by

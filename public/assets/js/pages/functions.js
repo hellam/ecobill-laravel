@@ -138,7 +138,7 @@ function handleSearchDatatable(input, dt) {
     });
 }
 
-function handleFormSubmit(form, fields, form_jquery, cancelButton, closeButton, submitButton, method,modal = null,  table = null, select_fields = null) {
+function handleFormSubmit(form, fields, form_jquery, cancelButton, closeButton, submitButton, method, modal = null, table = null, select_fields = null) {
     let validator = FormValidation.formValidation(
         form,
         {
@@ -283,7 +283,7 @@ function submitFormData(str, form, modal, submitButton, table, select_fields, me
                     if ($("textarea[name='" + value.field + "']").length) {
                         $("textarea[name='" + value.field + "']")
                             .after('<small style="color: red;" id="err_' + value.field + '">' + value.error + '</small>')
-                            .on('change', function (e) {
+                            .on('keyup', function (e) {
                                 $('#err_' + value.field).remove();
                             })
                     }
@@ -321,7 +321,7 @@ function submitFormData(str, form, modal, submitButton, table, select_fields, me
                                 $(form.querySelector(`[name=${select}]`)).val(null).trigger('change');
                             })
 
-                        if (table!== null && table.length) {
+                        if (table !== null && table.length) {
                             table.DataTable().ajax.reload();
                             return;
                         }
@@ -395,76 +395,4 @@ function submitFormData(str, form, modal, submitButton, table, select_fields, me
 
         }
     });
-}
-
-function handleUpdateRows(button, modal, form, requires_parent, form_update) {
-    let update_url, edit_url, parent;
-    // Select all delete buttons
-    const editButtons = document.querySelectorAll(button);
-
-    // Make the DIV element draggable:
-    const el = document.querySelector(modal);
-    dragElement(el);
-    editButtons.forEach(d => {
-        // edit button on click
-        d.addEventListener('click', function (e) {
-            e.preventDefault();
-
-            form.hide();//hide form
-            $('.loader_container').show();//show loader
-            $(modal).modal('show');//show modal
-
-            if(requires_parent){
-                parent = e.target.closest('tr');
-                update_url = parent.querySelector("input[class='update_url']").value;
-                edit_url = parent.querySelector("input[class='edit_url']").value;
-            }else{
-                update_url = d.getAttribute('data-kt-currency-update-url');
-                edit_url = d.getAttribute('data-kt-currency-edit-url');
-            }
-
-            // Get rule name
-            form.setAttribute("data-kt-action", update_url);
-
-            $.ajax({
-                type: 'GET',
-                url: edit_url,
-                success: function (json) {
-                    var response = JSON.parse(JSON.stringify(json));
-                    if (response.status !== true) {
-                        Swal.fire({
-                            text: response.message,
-                            icon: "error",
-                            buttonsStyling: false,
-                            confirmButtonText: "Ok!",
-                            customClass: {
-                                confirmButton: "btn btn-primary"
-                            }
-                        });
-
-                    } else {
-                        form_update
-                    }
-
-                    $('.loader_container').hide();//hide loader
-
-                },
-                error: function () {
-                    Swal.fire({
-                        text: 'A network error occured. Please consult your network administrator.',
-                        icon: "error",
-                        buttonsStyling: false,
-                        confirmButtonText: "Ok!",
-                        customClass: {
-                            confirmButton: "btn btn-primary"
-                        }
-                    });
-
-                }
-            });
-
-
-        })
-    });
-
 }

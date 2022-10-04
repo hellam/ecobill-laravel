@@ -46,10 +46,10 @@ function submit_button($name, $id)
                             </button>';
 }
 
-function image_view($name, $id, $default, $value)
+function image_view($name, $id, $default, $value, $is_profile = true)
 {
 
-    return '<style>
+    $output = '<style>
                 .avatar-upload {
                   position: relative;
                   margin: 30px auto;
@@ -61,17 +61,17 @@ function image_view($name, $id, $default, $value)
                   top: 10px;
                   text-align: center;
                 }
-//                .avatar-upload button {
-//                  position: absolute;
-//                  z-index: 1;
-//                  top: 100px;
-//                  text-align: center;
-//                  border-radius: 100%;
-//                  border: 0;
-//                  width: 34px;
-//                  height: 34px;
-//                  left: 120px;
-//                }
+                .avatar-upload button {
+                  position: absolute;
+                  z-index: 1;
+                  top: 100px;
+                  text-align: center;
+                  border-radius: 100%;
+                  border: 0;
+                  width: 34px;
+                  height: 34px;
+                  left: 120px;
+                }
                 .avatar-upload .avatar-edit i {
                    margin-top: 8px;
                 }
@@ -119,11 +119,18 @@ function image_view($name, $id, $default, $value)
                         <input readonly type="hidden" id="' . $id . '" name="' . $name . '"/>
                         <label for="imageUpload"><i class="fa fa-pen"></i></label>
                     </div>
+                        <button type="button" id="trash"><i class="fa fa-trash"></i></button>
                     <div class="avatar-preview">
                         <img id="imagePreview" src="' . asset($value) . '" onerror="this.src=\'' . asset($default) . '\'">
                 </div>
             </div>
             <script>
+                document.querySelector("#trash").addEventListener("click", function (){
+                    if(document.querySelector("#imagePreview").src !== \'' . asset($default) . '\'){
+                        document.querySelector("#imagePreview").src = \'' . asset($default) . '\';
+                        $("#' . $id . '").val("")
+                    }
+                })
                 function previewFile() {
                       var preview = document.querySelector("#imagePreview");
                       var file = document.querySelector("#imageUpload").files[0];
@@ -131,15 +138,17 @@ function image_view($name, $id, $default, $value)
 
                       reader.addEventListener("load", function () {
                         preview.src = reader.result;
-                        $("#actual_imageInput").val(reader.result)
+                        $("#' . $id . '").val(reader.result)
                       }, false);
 
                       if (file) {
                         reader.readAsDataURL(file);
                       }
-                 }
-                 document.querySelector(".company_logo").src = "' . asset($value) . '"
-            </script>';
+                 }';
+    $output .= $is_profile ? 'document.querySelector(".company_logo").src = "' . asset($value) . '"' : '';
+    $output .= '</script>';
+
+    return $output;
 }
 
 function select($name, $description, $data, $error = '')

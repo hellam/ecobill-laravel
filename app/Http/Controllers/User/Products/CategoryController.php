@@ -59,6 +59,29 @@ class CategoryController extends Controller
             ->make(true);
     }
 
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     */
+    public function select_api(Request $request): JsonResponse
+    {
+        $customer = Category::select('name', 'id', 'default_tax_id')
+            ->orderBy('name')
+            ->limit(10)
+            ->get();
+        if ($request->has('search'))
+            $customer = Category::select('name', 'id', 'default_tax_id')
+                ->where('name', 'like', '%' . $request->search . '%')
+                ->orWhere('description', 'like', '%' . $request->search . '%')
+                ->orderBy('name')
+                ->limit(10)
+                ->get();
+
+        return response()->json($customer, 200);
+    }
+
+
     /**
      * @param Request $request
      * @param null $created_at

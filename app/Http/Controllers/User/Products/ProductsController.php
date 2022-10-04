@@ -36,8 +36,6 @@ class ProductsController extends Controller
     }
 
 
-
-
     //Data table API
     public function dt_api(Request $request): JsonResponse
     {

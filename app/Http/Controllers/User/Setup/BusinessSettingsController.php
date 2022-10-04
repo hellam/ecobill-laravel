@@ -43,6 +43,7 @@ class BusinessSettingsController extends Controller
                 );
                 $output .= input_field('company_name', 'Company Name', $general_settings['company_name'], true);
                 $output .= input_field('inv_footer', 'Invoice Footer', $general_settings['inv_footer'], true);
+                $output .= select('default_currency','Select Currency', CURRENCY);
                 break;
             case 'sms':
                 $output .= 'SMS Settings';

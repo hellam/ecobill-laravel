@@ -40,19 +40,22 @@ class ProductsController extends Controller
     //Data table API
     public function dt_api(Request $request): JsonResponse
     {
-        $audit_trail = Category::orderBy('name');
+        $audit_trail = Product::with('category', 'tax')->orderBy('name');
         return (new DataTables)->eloquent($audit_trail)
             ->addIndexColumn()
             ->addColumn('id', function ($row) {
-                return ["id" => $row->id, "edit_url" => route('user.products.categories.edit', [$row->id]),
-                    "update_url" => route('user.products.categories.update', [$row->id]),
-                    "delete_url" => route('user.products.categories.delete', [$row->id])];
+                return ["id" => $row->id, "edit_url" => route('user.products.edit', [$row->id]),
+                    "update_url" => route('user.products.update', [$row->id]),
+                    "delete_url" => route('user.products.delete', [$row->id])];
             })->editColumn('inactive', function ($row) {
                 return $row->inactive == 0 ? '<div class="badge badge-sm badge-light-success">Active</div>' : '<div class="badge badge-sm badge-light-danger">Inactive</div>';
-            })->editColumn('created_at', function ($row) {
-                return Carbon::parse($row->created_at)->format('Y/m/d H:i:s');
-            })
-            ->make(true);
+            })->addColumn('category', function ($row) {
+                return $row->category->name;
+            })->addColumn('tax', function ($row) {
+                return $row->tax->name.': '.$row->tax->rate.'%';
+            })->editColumn('type', function ($row) {
+                return $row->type_name();
+            })->make(true);
     }
 
     /**
@@ -98,7 +101,7 @@ class ProductsController extends Controller
         if ($request->has('image')) {
             $requestImage = $request->image; //your base64 encoded
             try {
-                $fileName = store_base64_image($requestImage, $fileName, get_user_ref().'/products');
+                $fileName = store_base64_image($requestImage, $fileName, get_user_ref() . '/products');
             } catch (\Exception $exception) {
                 return error_web_processor('Invalid image file',
                     200, ['field' => 'image', 'error' => 'Invalid Image file']);
@@ -172,7 +175,7 @@ class ProductsController extends Controller
         if ($request->has('image')) {
             $requestImage = $request->image; //your base64 encoded
             try {
-                $fileName = store_base64_image($requestImage, $fileName, get_user_ref().'/products');
+                $fileName = store_base64_image($requestImage, $fileName, get_user_ref() . '/products');
             } catch (\Exception $exception) {
                 return error_web_processor('Invalid image file',
                     200, ['field' => 'image', 'error' => 'Invalid Image file']);

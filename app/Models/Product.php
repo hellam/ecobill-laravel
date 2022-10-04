@@ -9,6 +9,7 @@ namespace App\Models;
 use App\Scopes\ClientRefScope;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\Auth;
 
 /**
@@ -38,44 +39,59 @@ use Illuminate\Support\Facades\Auth;
  */
 class Product extends Model
 {
-	protected $table = 'products';
+    protected $table = 'products';
 
-	protected $casts = [
-		'price' => 'float',
-		'cost' => 'float',
-		'order' => 'int',
-		'category_id' => 'int',
-		'tax_id' => 'int',
-		'type' => 'int',
-		'inactive' => 'bool'
-	];
+    protected $casts = [
+        'price' => 'float',
+        'cost' => 'float',
+        'order' => 'int',
+        'category_id' => 'int',
+        'tax_id' => 'int',
+        'type' => 'int',
+        'inactive' => 'bool'
+    ];
 
-	protected $dates = [
-		'supervised_at'
-	];
+    protected $dates = [
+        'supervised_at'
+    ];
 
-	protected $fillable = [
-		'barcode',
-		'image',
-		'name',
-		'description',
-		'price',
-		'cost',
-		'order',
-		'category_id',
-		'tax_id',
-		'client_ref',
-		'type',
-		'created_by',
-		'updated_by',
-		'supervised_by',
-		'supervised_at',
-		'inactive'
-	];
+    protected $fillable = [
+        'barcode',
+        'image',
+        'name',
+        'description',
+        'price',
+        'cost',
+        'order',
+        'category_id',
+        'tax_id',
+        'client_ref',
+        'type',
+        'created_by',
+        'updated_by',
+        'supervised_by',
+        'supervised_at',
+        'inactive'
+    ];
+
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class, 'category_id');
+    }
+
+    public function tax(): BelongsTo
+    {
+        return $this->belongsTo(Category::class, 'tax_id');
+    }
+
+    public function type_name(): string
+    {
+        return $this->type == 0 ? 'product' : 'subscription';
+    }
 
     public static function booted()
     {
-        if (Auth::guard('user')->check()){
+        if (Auth::guard('user')->check()) {
             static::addGlobalScope(new ClientRefScope());
         }
     }

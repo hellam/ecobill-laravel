@@ -66,7 +66,7 @@ class UserValidators
             'phone' => 'required',
             'tax_no' => 'required',
             'tax_period' => 'required',
-            'default_currency' => 'required',
+//            'default_currency' => 'required',
             'default_bank_account' => 'required',
             'fiscal_year' => 'required',
             'timezone' => 'required',

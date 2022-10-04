@@ -91,7 +91,7 @@ const KTGLAccountsServerSide = function () {
         dt.on('draw', function () {
             KTMenu.createInstances();
             handleUpdateRows();
-            handleDeleteRows('[data-kt-gl-accounts-table-actions="delete_row"]', "input[class='delete_url']");
+            handleDeleteRows('[data-kt-gl-accounts-table-actions="delete_row"]', "input[class='delete_url']", dt);
         });
     };
 

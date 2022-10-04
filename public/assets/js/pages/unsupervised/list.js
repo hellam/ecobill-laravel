@@ -3,7 +3,7 @@
 // Class definition
 const KTUnsupervisedData = function () {
 // Shared variables
-    let table, dt, approveButtons;
+    let table, dt;
 
     // Private functions
     const initDatatable = function () {
@@ -208,7 +208,6 @@ const KTUnsupervisedData = function () {
                 })
             })
         });
-
     };
 
     //View Details Button

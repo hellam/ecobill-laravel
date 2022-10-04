@@ -3,6 +3,7 @@
 namespace App\CentralLogics;
 
 use App\Models\AuditTrail;
+use App\Models\BusinessSetting;
 use App\Models\MakerCheckerRule;
 use App\Models\PasswordHistory;
 use App\Models\SecurityConfig;
@@ -361,6 +362,13 @@ function requires_maker_checker($permission_code): string|array
             $maker_checker_rule->permission->permission_group->name,
         ];
     return 'na';
+}
+
+function get_company_default_currency()
+{
+    $general_settings = json_decode(BusinessSetting::where('key', 'general_settings')->first()->value, true);
+
+    return $general_settings['default_currency'] ?? 'USD';
 }
 
 function checkif_has_any_permission($start, $end)

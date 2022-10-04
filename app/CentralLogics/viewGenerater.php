@@ -21,7 +21,7 @@ function view_field($description, $value): string
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                    <span type="text" class="form-control form-control-lg form-control-solid">'.$value.'</span>
+                                    <span type="text" class="form-control form-control-lg form-control-solid">' . $value . '</span>
                                 <div class="fv-plugins-message-container invalid-feedback"></div></div>
                                 <!--end::Col-->
                             </div>';
@@ -142,7 +142,7 @@ function image_view($name, $id, $default, $value)
             </script>';
 }
 
-function select($name, $description, $data)
+function select($name, $description, $data, $error = '')
 {
     $output = '<!--begin::Input-->
     <div class="row mb-6">
@@ -163,7 +163,7 @@ function select($name, $description, $data)
 
     $output .= '</select>
             <!--end::Input-->
-                                <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <div class="fv-plugins-message-container invalid-feedback">' . $error . '</div></div>
                                 <!--end::Col-->
                             </div>';
 

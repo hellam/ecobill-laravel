@@ -461,7 +461,7 @@
                                                 data-kt-src="{{route('user.products.categories.select_api')}}"
                                                 data-placeholder="{{__('messages.select').' '.__('messages.category')}}"
                                                 data-dropdown-parent="#kt_modal_add_product"
-                                                class="form-select form-select-solid fw-bolder select_category">
+                                                class="form-select form-select-solid fw-bolder select_cat">
                                         </select>
                                         <!--end::Input-->
                                     </div>
@@ -477,7 +477,7 @@
                                                 data-control="select2"
                                                 data-placeholder="{{__('messages.select').' '.__('messages.tax')}}"
                                                 data-dropdown-parent="#kt_modal_add_product"
-                                                class="form-select form-select-solid fw-bolder">
+                                                class="form-select form-select-solid fw-bolder tax_id">
                                             <option></option>
                                             @foreach($tax as $tx)
                                                 <option value="{{$tx->id}}">{{$tx->name}}</option>

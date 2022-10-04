@@ -9,10 +9,9 @@ const KTProductsAdd = function () {
         $('#barcode').val(Math.floor(Math.random() * 100000000))
     })
 
-
-    const handleDTSelect = function () {
-        const element = document.querySelector('.select_category');
-        $('.select_category').select2({
+    const handleAPISelect = function () {
+        const element = document.querySelector('.select_cat');
+        $('.select_cat').select2({
             placeholder: 'Select Category',
             minimumInputLength: 0,
             escapeMarkup: function (markup) {
@@ -20,14 +19,13 @@ const KTProductsAdd = function () {
             },
             ajax: {
                 url: element.getAttribute("data-kt-src"),
+                dataType: 'json',
                 type: 'GET',
+                contentType: 'application/json',
                 delay: 50,
-                // processData: false,
                 data: function (params) {
-                    // Query parameters will be ?name=[term]&description=public
                     return {
-                        name: params.term || "",
-                        description: params.term || ""
+                        search: params.term
                     };
                 },
                 processResults: function (data) {
@@ -36,13 +34,22 @@ const KTProductsAdd = function () {
                             return {
                                 text: item.name,
                                 id: item.id,
+                                'data-default-tax-id': item.default_tax_id,
                             }
                         })
                     }
                 }
             }
-        })
-    };
+        }).on('select2:select', function (e) {
+            let data = e.params.data;
+            $(this).children('[value="' + data['id'] + '"]').attr(
+                {
+                    'data-default-tax-id': data["data-default-tax-id"], //dynamic value from data array
+                }
+            );
+            $('.tax_id').val($('.select_cat').find(':selected').data('default-tax-id')).trigger('change')
+        }).val(0).trigger('change');
+    }
 
     return {
         // Public functions
@@ -118,7 +125,7 @@ const KTProductsAdd = function () {
                 ["tax_id", "category_id", "order", "type"],
             );
 
-            handleDTSelect()
+            handleAPISelect()
         }
     };
 }();

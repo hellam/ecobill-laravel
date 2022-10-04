@@ -9,7 +9,6 @@ const KTBranchesServerSide = function () {
     const initDatatable = function () {
         let td = document.querySelector('#kt_branches_table')
         dt = $("#kt_branches_table").DataTable({
-            // searchDelay: 500,
             processing: true,
             serverSide: true,
             stateSave: true,

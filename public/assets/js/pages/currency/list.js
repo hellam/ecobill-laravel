@@ -3,7 +3,7 @@
 // Class definition
 const KTCurrencyServerSide = function () {
 // Shared variables
-    let dt, form, delete_url;
+    let dt, form;
 
     // Private functions
     const initDatatable = function () {

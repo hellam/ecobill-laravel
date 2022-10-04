@@ -354,7 +354,8 @@ class UserValidators
             'cost' => 'required',
             'order' => 'required',
             'category_id' => 'required|exists:' . Category::class . ',id,client_ref,' . get_user_ref(),
-            'default_tax_id' => 'required|numeric',
+            'tax_id' => 'required|numeric',
+            'type' => 'required|numeric',
         ]);
     }
 

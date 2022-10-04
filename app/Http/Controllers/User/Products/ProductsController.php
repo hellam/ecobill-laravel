@@ -75,31 +75,38 @@ class ProductsController extends Controller
         }
 
         $post_data = [
+            'barcode' => $request->barcode,
             'name' => $request->name,
+            'image' => $request->image,
             'description' => $request->description,
-            'default_tax_id' => $request->default_tax_id,
+            'price' => $request->price,
+            'cost' => $request->cost,
+            'order' => $request->order,
+            'category_id' => $request->category_id,
+            'tax_id' => $request->tax_id,
+            'type' => $request->type,
             'client_ref' => get_user_ref()
         ];
 
         //set_create_parameters($created_at, $created_by, ...)
         $post_data = array_merge($post_data, set_create_parameters($created_at, $created_by, $supervised_by, $supervised_at));
 
-        $category = Category::create($post_data);
+        $product = Product::create($post_data);
 
         if ($created_at == null) {
             //if not supervised, log data from create request
             //Creator log
             log_activity(
-                ST_CATEGORY_SETUP,
+                ST_PRODUCT_SETUP,
                 $request->getClientIp(),
-                'Create Category',
+                'Create Product',
                 json_encode($post_data),
                 auth('user')->id(),
-                $category->id
+                $product->id
             );
         }
 
-        return success_web_processor(['id' => $category->id], __('messages.msg_saved_success', ['attribute' => __('messages.category')]));
+        return success_web_processor(['id' => $product->id], __('messages.msg_saved_success', ['attribute' => __('messages.product')]));
     }
 
     /**

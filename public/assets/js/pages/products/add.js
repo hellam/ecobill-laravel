@@ -2,12 +2,47 @@
 
 // Class definition
 const KTProductsAdd = function () {
-    let submitButton, cancelButton, closeButton, generateBarcodeButton, form, modal;
+    let submitButton, cancelButton, closeButton, form, modal;
 
     document.querySelector('#kt_generate_product_barcode').addEventListener('click', function (e) {
         e.preventDefault();
         $('#barcode').val(Math.floor(Math.random() * 100000000))
     })
+
+
+    const handleDTSelect = function () {
+        const element = document.querySelector('.select_category');
+        $('.select_category').select2({
+            placeholder: 'Select Category',
+            minimumInputLength: 0,
+            escapeMarkup: function (markup) {
+                return markup;
+            },
+            ajax: {
+                url: element.getAttribute("data-kt-src"),
+                type: 'GET',
+                delay: 50,
+                // processData: false,
+                data: function (params) {
+                    // Query parameters will be ?name=[term]&description=public
+                    return {
+                        name: params.term || "",
+                        description: params.term || ""
+                    };
+                },
+                processResults: function (data) {
+                    return {
+                        results: $.map(data, function (item) {
+                            return {
+                                text: item.name,
+                                id: item.id,
+                            }
+                        })
+                    }
+                }
+            }
+        })
+    };
 
     return {
         // Public functions
@@ -64,6 +99,13 @@ const KTProductsAdd = function () {
                                 message: 'Tax is required'
                             }
                         }
+                    },
+                    type: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Tax is required'
+                            }
+                        }
                     }
                 },
                 $('#kt_modal_add_product_form'),
@@ -73,8 +115,10 @@ const KTProductsAdd = function () {
                 'POST',
                 modal,
                 $('#kt_products_table'),
-                ["tax_id", "category_id", "order"],
+                ["tax_id", "category_id", "order", "type"],
             );
+
+            handleDTSelect()
         }
     };
 }();

@@ -458,7 +458,7 @@
                                         <select name="category_id"
                                                 aria-label="{{__('messages.select').' '.__('messages.category')}}"
                                                 data-control="select2"
-                                                data-kt-src="#"
+                                                data-kt-src="{{route('user.products.categories.select_api')}}"
                                                 data-placeholder="{{__('messages.select').' '.__('messages.category')}}"
                                                 data-dropdown-parent="#kt_modal_add_product"
                                                 class="form-select form-select-solid fw-bolder select_category">
@@ -478,6 +478,7 @@
                                                 data-placeholder="{{__('messages.select').' '.__('messages.tax')}}"
                                                 data-dropdown-parent="#kt_modal_add_product"
                                                 class="form-select form-select-solid fw-bolder">
+                                            <option></option>
                                             @foreach($tax as $tx)
                                                 <option value="{{$tx->id}}">{{$tx->name}}</option>
                                             @endforeach
@@ -492,7 +493,8 @@
                                     <!--begin::Col-->
                                     <div class="col-md-6 fv-row">
                                         <!--begin::Label-->
-                                        <label class="required fs-6 fw-bold mb-2">{{__('messages.tax')}}</label>
+                                        <label
+                                            class="required fs-6 fw-bold mb-2">{{__('messages.product').' '.__('messages.type')}}</label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
                                         <select name="type"

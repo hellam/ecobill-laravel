@@ -23,9 +23,10 @@ use Illuminate\Support\Facades\Auth;
  * @property string|null $updated_by
  * @property string|null $supervised_by
  * @property Carbon|null $supervised_at
- * @property int $inactive
+ * @property bool|null $inactive
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ * @property string|null $image
  *
  * @package App\Models
  */
@@ -35,7 +36,7 @@ class Category extends Model
 
 	protected $casts = [
 		'default_tax_id' => 'int',
-		'inactive' => 'int'
+		'inactive' => 'bool'
 	];
 
 	protected $dates = [
@@ -51,8 +52,10 @@ class Category extends Model
 		'updated_by',
 		'supervised_by',
 		'supervised_at',
-		'inactive'
+		'inactive',
+		'image'
 	];
+
 
     public static function booted()
     {

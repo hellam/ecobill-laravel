@@ -24,6 +24,7 @@ use function App\CentralLogics\get_user_ref;
 use function App\CentralLogics\log_activity;
 use function App\CentralLogics\set_create_parameters;
 use function App\CentralLogics\set_update_parameters;
+use function App\CentralLogics\store_base64_image;
 use function App\CentralLogics\success_web_processor;
 
 class CategoryController extends Controller
@@ -66,21 +67,20 @@ class CategoryController extends Controller
      */
     public function select_api(Request $request): JsonResponse
     {
-        $customer = Category::select('name', 'id', 'default_tax_id')
+        $category = Category::select('name', 'id', 'default_tax_id')
             ->orderBy('name')
             ->limit(10)
             ->get();
         if ($request->has('search'))
-            $customer = Category::select('name', 'id', 'default_tax_id')
+            $category = Category::select('name', 'id', 'default_tax_id')
                 ->where('name', 'like', '%' . $request->search . '%')
                 ->orWhere('description', 'like', '%' . $request->search . '%')
                 ->orderBy('name')
                 ->limit(10)
                 ->get();
 
-        return response()->json($customer, 200);
+        return response()->json($category, 200);
     }
-
 
     /**
      * @param Request $request
@@ -100,8 +100,21 @@ class CategoryController extends Controller
             return $validator;
         }
 
+
+        $fileName = '';
+        if ($request->has('image')) {
+            $requestImage = $request->image; //your base64 encoded
+            try {
+                $fileName = store_base64_image($requestImage, $fileName, get_user_ref().'/categories');
+            } catch (\Exception $exception) {
+                return error_web_processor('Invalid image file',
+                    200, ['field' => 'image', 'error' => 'Invalid Image file']);
+            }
+        }
+
         $post_data = [
             'name' => $request->name,
+            'image' => $fileName,
             'description' => $request->description,
             'default_tax_id' => $request->default_tax_id,
             'client_ref' => get_user_ref()

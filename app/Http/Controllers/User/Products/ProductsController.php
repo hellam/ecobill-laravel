@@ -36,8 +36,6 @@ class ProductsController extends Controller
     }
 
 
-
-
     //Data table API
     public function dt_api(Request $request): JsonResponse
     {
@@ -75,31 +73,38 @@ class ProductsController extends Controller
         }
 
         $post_data = [
+            'barcode' => $request->barcode,
             'name' => $request->name,
+            'image' => $request->image,
             'description' => $request->description,
-            'default_tax_id' => $request->default_tax_id,
+            'price' => $request->price,
+            'cost' => $request->cost,
+            'order' => $request->order,
+            'category_id' => $request->category_id,
+            'tax_id' => $request->tax_id,
+            'type' => $request->type,
             'client_ref' => get_user_ref()
         ];
 
         //set_create_parameters($created_at, $created_by, ...)
         $post_data = array_merge($post_data, set_create_parameters($created_at, $created_by, $supervised_by, $supervised_at));
 
-        $category = Category::create($post_data);
+        $product = Product::create($post_data);
 
         if ($created_at == null) {
             //if not supervised, log data from create request
             //Creator log
             log_activity(
-                ST_CATEGORY_SETUP,
+                ST_PRODUCT_SETUP,
                 $request->getClientIp(),
-                'Create Category',
+                'Create Product',
                 json_encode($post_data),
                 auth('user')->id(),
-                $category->id
+                $product->id
             );
         }
 
-        return success_web_processor(['id' => $category->id], __('messages.msg_saved_success', ['attribute' => __('messages.category')]));
+        return success_web_processor(['id' => $product->id], __('messages.msg_saved_success', ['attribute' => __('messages.product')]));
     }
 
     /**
@@ -107,11 +112,11 @@ class ProductsController extends Controller
      */
     public function edit($id)
     {
-        $category = Category::find($id);
-        if (isset($category)) {
-            return success_web_processor($category, __('messages.msg_item_found', ['attribute' => __('messages.category')]));
+        $product = Product::find($id);
+        if (isset($product)) {
+            return success_web_processor($product, __('messages.msg_item_found', ['attribute' => __('messages.product')]));
         }
-        return error_web_processor(trans('messages.msg_item_not_found', ['attribute' => __('messages.category')]));
+        return error_web_processor(trans('messages.msg_item_not_found', ['attribute' => __('messages.product')]));
     }
 
     /**
@@ -121,22 +126,27 @@ class ProductsController extends Controller
     public function update(Request $request, $id, $created_at = null, $created_by = null,
                                    $supervised_by = null, $supervised_at = null): JsonResponse|string
     {
-        $validator = UserValidators::categoryUpdateValidation($request);
+        $validator = UserValidators::productUpdateValidation($request);
 
         if ($validator != '') {
             return $validator;
         }
 
-        $category = Category::find($id);
-        $category = set_update_parameters($category, $created_at, $created_by, $supervised_by, $supervised_at);
+        $products = Product::find($id);
+        $products = set_update_parameters($products, $created_at, $created_by, $supervised_by, $supervised_at);
 
-        $category->name = $request->name;
-        $category->description = $request->description;
-        $category->default_tax_id = $request->default_tax_id;
-        $category->inactive = $request->inactive;
-        $category->update();
+        $products->name = $request->name;
+        $products->image = $request->image;
+        $products->description = $request->description;
+        $products->price = $request->price;
+        $products->cost = $request->cost;
+        $products->order = $request->order;
+        $products->category_id = $request->category_id;
+        $products->tax_id = $request->tax_id;
+        $products->inactive = $request->inactive;
+        $products->update();
 
-        return success_web_processor(null, __('messages.msg_updated_success', ['attribute' => __('messages.category')]));
+        return success_web_processor(null, __('messages.msg_updated_success', ['attribute' => __('messages.product')]));
     }
 
     /**

@@ -354,7 +354,23 @@ class UserValidators
             'cost' => 'required',
             'order' => 'required',
             'category_id' => 'required|exists:' . Category::class . ',id,client_ref,' . get_user_ref(),
-            'default_tax_id' => 'required|numeric',
+            'tax_id' => 'required|numeric',
+            'type' => 'required|numeric',
+        ]);
+    }
+
+    public static function productUpdateValidation(Request $request)
+    {
+        $id = Route::current()->id;
+        return self::ValidatorMake($request->all(), [
+            'name' => 'required|unique:' . Product::class . ',name,' . $id . ',id,client_ref,' . get_user_ref(),
+            'image' => 'required',
+            'description' => 'required',
+            'price' => 'required',
+            'cost' => 'required',
+            'order' => 'required',
+            'category_id' => 'required|exists:' . Category::class . ',id,client_ref,' . get_user_ref(),
+            'tax_id' => 'required|numeric',
         ]);
     }
 

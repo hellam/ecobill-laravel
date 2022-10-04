@@ -13,6 +13,20 @@ function input_field($name, $description, $value, $required = false): string
                             </div>';
 }
 
+function view_field($description, $value): string
+{
+    return '<div class="row mb-6">
+                                <!--begin::Label-->
+                                <label class="col-lg-4 col-form-label required fw-bold fs-6">' . $description . '</label>
+                                <!--end::Label-->
+                                <!--begin::Col-->
+                                <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                    <span type="text" class="form-control form-control-lg form-control-solid">'.$value.'</span>
+                                <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <!--end::Col-->
+                            </div>';
+}
+
 function div_start($class)
 {
     return '<div class="' . $class . '">';
@@ -126,4 +140,32 @@ function image_view($name, $id, $default, $value)
                  }
                  document.querySelector(".company_logo").src = "' . asset($value) . '"
             </script>';
+}
+
+function select($name, $description, $data)
+{
+    $output = '<!--begin::Input-->
+    <div class="row mb-6">
+                                <!--begin::Label-->
+                                <label class="col-lg-4 col-form-label required fw-bold fs-6">' . $description . '</label>
+                                <!--end::Label-->
+                                <!--begin::Col-->
+                                <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                <select name="' . $name . '"
+                    aria-label="' . $description . '"
+                    data-control="select2"
+                    data-kt-src="#"
+                    data-placeholder="' . $description . '"
+                    class="form-select form-select-solid fw-bolder">
+                <option selected disabled> ' . $description . '</option>';
+    foreach ($data as $key => $value)
+        $output .= '<option value="' . $key . '">' . $value . '</option>';
+
+    $output .= '</select>
+            <!--end::Input-->
+                                <div class="fv-plugins-message-container invalid-feedback"></div></div>
+                                <!--end::Col-->
+                            </div>';
+
+    return $output;
 }

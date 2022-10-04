@@ -32,7 +32,8 @@ class ProductsController extends Controller
     {
         $products = Product::count() ?? 0;
         $tax = Tax::all();
-        return view('user.products.products', compact('products', 'tax'));
+        $categories = Category::all();
+        return view('user.products.products', compact('products', 'tax', 'categories'));
     }
 
 

@@ -62,6 +62,10 @@ Route::group(['as' => 'user.'], function () {
             Route::controller(User\Products\ProductsController::class)->group(function () {
                 Route::get('/', 'index')->name('all')->middleware('permission:501');
                 Route::get('/dt-api', 'dt_api')->name('dt_api')->middleware('permission:501');
+                Route::post('/', 'create')->name('create')->middleware('permission:5020,' . ST_PRODUCT_SETUP);
+                Route::get('edit/{id}', 'edit')->name('edit')->middleware('permission:5021')->whereNumber('id');
+                Route::put('update/{id}', 'update')->name('update')->middleware('permission:5021,' . ST_PRODUCT_SETUP)->whereNumber('id');
+                Route::delete('delete/{id}', 'destroy')->name('delete')->middleware('permission:5022,' . ST_PRODUCT_SETUP)->whereNumber('id');
             });
 
             Route::controller(User\Products\CategoryController::class)->prefix('categories')->as('categories.')->group(function () {

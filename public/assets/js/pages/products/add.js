@@ -56,7 +56,6 @@ const KTProductsAdd = function () {
         init: function () {
             // Elements
             modal = new bootstrap.Modal(document.querySelector('#kt_modal_add_product'));
-
             form = document.querySelector('#kt_modal_add_product_form');
             submitButton = form.querySelector('#kt_modal_add_product_submit');
             cancelButton = form.querySelector('#kt_modal_add_product_cancel');
@@ -100,6 +99,9 @@ const KTProductsAdd = function () {
                             }
                         }
                     },
+                    order: {
+                        validators: {}
+                    },
                     tax_id: {
                         validators: {
                             notEmpty: {
@@ -110,7 +112,7 @@ const KTProductsAdd = function () {
                     type: {
                         validators: {
                             notEmpty: {
-                                message: 'Tax is required'
+                                message: 'Type is required'
                             }
                         }
                     }
@@ -122,7 +124,7 @@ const KTProductsAdd = function () {
                 'POST',
                 modal,
                 $('#kt_products_table'),
-                ["tax_id", "category_id", "order", "type"],
+                ["type", "tax_id", "order", "category_id"],
             );
 
             handleAPISelect()

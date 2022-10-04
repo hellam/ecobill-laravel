@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Session;
 use Yajra\DataTables\DataTables;
 use Yoeunes\Toastr\Facades\Toastr;
 use function App\CentralLogics\error_web_processor;
+use function App\CentralLogics\get_company_default_currency;
 use function App\CentralLogics\get_user_ref;
 use function App\CentralLogics\log_activity;
 use function App\CentralLogics\set_create_parameters;
@@ -79,7 +80,7 @@ class BranchController extends Controller
             'phone' => $request->phone,
             'tax_no' => $request->tax_no,
             'tax_period' => $request->tax_period,
-            'default_currency' => $request->default_currency,
+            'default_currency' => get_company_default_currency(),
             'default_bank_account' => $request->default_bank_account,
             'fiscal_year' => $request->fiscal_year,
             'timezone' => $request->timezone,

@@ -19,6 +19,7 @@ use function App\CentralLogics\get_user_ref;
 use function App\CentralLogics\log_activity;
 use function App\CentralLogics\set_create_parameters;
 use function App\CentralLogics\set_update_parameters;
+use function App\CentralLogics\store_base64_image;
 use function App\CentralLogics\success_web_processor;
 
 class ProductsController extends Controller
@@ -93,10 +94,21 @@ class ProductsController extends Controller
             return $validator;
         }
 
+        $fileName = '';
+        if ($request->has('image')) {
+            $requestImage = $request->image; //your base64 encoded
+            try {
+                $fileName = store_base64_image($requestImage, $fileName, get_user_ref().'/products');
+            } catch (\Exception $exception) {
+                return error_web_processor('Invalid image file',
+                    200, ['field' => 'image', 'error' => 'Invalid Image file']);
+            }
+        }
+
         $post_data = [
             'barcode' => $request->barcode,
             'name' => $request->name,
-            'image' => $request->image,
+            'image' => $fileName,
             'description' => $request->description,
             'price' => $request->price,
             'cost' => $request->cost,
@@ -156,8 +168,18 @@ class ProductsController extends Controller
         $products = Product::find($id);
         $products = set_update_parameters($products, $created_at, $created_by, $supervised_by, $supervised_at);
 
+        $fileName = $products->image;
+        if ($request->has('image')) {
+            $requestImage = $request->image; //your base64 encoded
+            try {
+                $fileName = store_base64_image($requestImage, $fileName, get_user_ref().'/products');
+            } catch (\Exception $exception) {
+                return error_web_processor('Invalid image file',
+                    200, ['field' => 'image', 'error' => 'Invalid Image file']);
+            }
+        }
         $products->name = $request->name;
-        $products->image = $request->image;
+        $products->image = $fileName;
         $products->description = $request->description;
         $products->price = $request->price;
         $products->cost = $request->cost;

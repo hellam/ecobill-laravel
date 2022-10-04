@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->bigInteger('id', true);
             $table->string('name', 250);
+            $table->string('image', 255);
             $table->text('description')->nullable();
             $table->bigInteger('default_tax_id');
             $table->string("client_ref",100)->nullable();

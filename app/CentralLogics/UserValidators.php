@@ -329,6 +329,7 @@ class UserValidators
         return self::ValidatorMake($request->all(), [
             'name' => 'required|unique:' . Category::class . ',name,NULL,id,client_ref,' . get_user_ref(),
             'description' => 'required',
+            'image' => 'string',
             'default_tax_id' => 'required|numeric',
         ]);
     }
@@ -348,7 +349,7 @@ class UserValidators
         return self::ValidatorMake($request->all(), [
             'barcode' => 'required|unique:' . Product::class . ',barcode,NULL,id,client_ref,' . get_user_ref(),
             'name' => 'required|unique:' . Product::class . ',name,NULL,id,client_ref,' . get_user_ref(),
-            'image' => 'required',
+            'image' => 'string',
             'description' => 'required',
             'price' => 'required',
             'cost' => 'required',
@@ -366,9 +367,9 @@ class UserValidators
             'name' => 'required|unique:' . Product::class . ',name,' . $id . ',id,client_ref,' . get_user_ref(),
             'image' => 'required',
             'description' => 'required',
-            'price' => 'required',
-            'cost' => 'required',
-            'order' => 'required',
+            'price' => 'required|numeric',
+            'cost' => 'required|numeric',
+            'order' => 'required|numeric',
             'category_id' => 'required|exists:' . Category::class . ',id,client_ref,' . get_user_ref(),
             'tax_id' => 'required|numeric',
         ]);

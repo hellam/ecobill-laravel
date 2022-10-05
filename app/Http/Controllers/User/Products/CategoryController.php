@@ -90,7 +90,7 @@ class CategoryController extends Controller
 
 
         $fileName = '';
-        if ($request->has('image')) {
+        if ($request->filled('image')) {
             $requestImage = $request->image; //your base64 encoded
             try {
                 $fileName = store_base64_image($requestImage, $fileName, get_user_ref().'/categories');
@@ -158,7 +158,7 @@ class CategoryController extends Controller
         $category = set_update_parameters($category, $created_at, $created_by, $supervised_by, $supervised_at);
 
         $fileName = $category->image;
-        if ($request->has('image')) {
+        if ($request->filled('image')) {
             $requestImage = $request->image; //your base64 encoded
             try {
                 $fileName = store_base64_image($requestImage, $fileName, get_user_ref().'/products');

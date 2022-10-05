@@ -230,7 +230,7 @@
                 <div class="card-body pt-0">
                     <!--begin::Table-->
                     <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_products_table"
-                           data-kt-dt_api="#">
+                           data-kt-dt_api="{{route('user.products.dt_api')}}">
                         <!--begin::Table head-->
                         <thead>
                         <!--begin::Table row-->
@@ -243,12 +243,13 @@
                                            value="1"/>
                                 </div>
                             </th>
-                            <th class="min-w-125px">{{__('messages.product').' '.__('messages.name')}}</th>
+                            <th class="min-w-125px">{{__('messages.name')}}</th>
                             <th class="min-w-125px">{{__('messages.barcode')}}</th>
                             <th class="min-w-125px">{{__('messages.price')}}</th>
                             <th class="min-w-125px">{{__('messages.cost')}}</th>
                             <th class="min-w-125px">{{__('messages.category')}}</th>
                             <th class="min-w-125px">{{__('messages.tax')}}</th>
+                            <th class="min-w-125px">{{__('messages.type')}}</th>
                             <th class="text-end min-w-70px">{{__('messages.actions')}}</th>
                         </tr>
                         <!--end::Table row-->
@@ -304,8 +305,8 @@
                 <div class="modal-content">
                     <!--begin::Form-->
                     <form class="form" action="#" id="kt_modal_add_product_form"
-                          data-kt-action="#"
-                          data-kt-redirect="#">
+                          data-kt-action="{{route('user.products.create')}}"
+                          data-kt-redirect="{{route('user.products.all')}}">
                         <!--begin::Modal header-->
                         <div class="modal-header" id="kt_modal_add_product_header">
                             <!--begin::Modal title-->
@@ -436,6 +437,7 @@
                                                 data-placeholder="{{__('messages.select').' '.__('messages.order')}}"
                                                 data-dropdown-parent="#kt_modal_add_product"
                                                 class="form-select form-select-solid fw-bolder">
+                                            <option></option>
                                             <option value="1" selected>1</option>
                                             <option value="2">2</option>
                                             <option value="3">3</option>
@@ -807,5 +809,5 @@
 @push('custom_scripts')
     <script src="{{asset('assets/js/pages/products/list.js')}}"></script>
     <script src="{{asset('assets/js/pages/products/add.js')}}"></script>
-    <script src="{{asset('assets/js/pages/products/update.js')}}"></script>
+{{--    <script src="{{asset('assets/js/pages/products/update.js')}}"></script>--}}
 @endpush

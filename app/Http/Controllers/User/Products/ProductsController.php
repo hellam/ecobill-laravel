@@ -44,7 +44,7 @@ class ProductsController extends Controller
             })->addColumn('category', function ($row) {
                 return $row->category->name;
             })->addColumn('tax', function ($row) {
-                return $row->tax->name.': '.$row->tax->rate.'%';
+                return $row->tax->name . ': ' . $row->tax->rate . '%';
             })->editColumn('type', function ($row) {
                 return $row->type_name();
             })->make(true);
@@ -141,7 +141,7 @@ class ProductsController extends Controller
     public function edit($id)
     {
         $product = Product::with('category:id,name,id')->find($id);
-        $product->image = get_file_url('products',$product->image);
+        $product->image = get_file_url('products', $product->image);
         if (isset($product)) {
             return success_web_processor($product, __('messages.msg_item_found', ['attribute' => __('messages.product')]));
         }
@@ -164,7 +164,7 @@ class ProductsController extends Controller
         $products = Product::find($id);
         $products = set_update_parameters($products, $created_at, $created_by, $supervised_by, $supervised_at);
 
-        $fileName = $products->image;
+        $fileName = $request->delete == 0 ? $products->image : '';
         if ($request->filled('image')) {
             $requestImage = $request->image; //your base64 encoded
             try {

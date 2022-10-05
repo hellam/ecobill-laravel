@@ -261,7 +261,8 @@ function array_equal($a, $b): bool
     );
 }
 
-function get_file_url($folder, $filename= ''){
+function get_file_url($folder, $filename = '')
+{
     return route('user.files',
         [
             'folder' => $folder,
@@ -287,6 +288,13 @@ function store_base64_image($requestImage, $fileName, $folderName)
             $constraint->upsize();
         })->save(storage_path('app/public/' . $folderName . '/' . $fileName), 60);
 
+    delete_file($folderName, $old_fileName);
+
+    return $fileName;
+}
+
+function delete_file($folderName, $old_fileName)
+{
     //find if file exists
     $path = storage_path('app/public/' . $folderName . '/' . $old_fileName);
     //if so, then unlink from storage
@@ -296,8 +304,6 @@ function store_base64_image($requestImage, $fileName, $folderName)
         } catch (\Exception $e) {
         }
     }
-
-    return $fileName;
 }
 
 function get_base64_image($base64_image): array
@@ -505,9 +511,9 @@ function decode_form_data($data, $trx_type, $method)
 
 function number_suffix($number): string
 {
-    $ends = array('th','st','nd','rd','th','th','th','th','th','th');
-    if ((($number % 100) >= 11) && (($number%100) <= 13))
-        return $number. 'th';
+    $ends = array('th', 'st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th', 'th');
+    if ((($number % 100) >= 11) && (($number % 100) <= 13))
+        return $number . 'th';
     else
-        return $number. $ends[$number % 10];
+        return $number . $ends[$number % 10];
 }

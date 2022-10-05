@@ -236,14 +236,13 @@
                         <!--begin::Table row-->
                         <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
                             <th class="w-10px pe-2">#</th>
-                            <th class="min-w-125px">{{__('messages.name')}}</th>
-                            <th class="min-w-125px">{{__('messages.barcode')}}</th>
-                            <th class="min-w-125px">{{__('messages.price')}}</th>
-                            <th class="min-w-125px">{{__('messages.cost')}}</th>
-                            <th class="min-w-125px">{{__('messages.category')}}</th>
-                            <th class="min-w-125px">{{__('messages.tax')}}</th>
-                            <th class="min-w-125px">{{__('messages.type')}}</th>
-                            <th class="text-end min-w-70px">{{__('messages.actions')}}</th>
+                            <th>{{__('messages.name')}}</th>
+                            <th>{{__('messages.price')}}</th>
+                            <th>{{__('messages.cost')}}</th>
+                            <th>{{__('messages.category')}}</th>
+                            <th>{{__('messages.type')}}</th>
+                            <th>{{__('messages.status')}}</th>
+                            <th class="text-end">{{__('messages.actions')}}</th>
                         </tr>
                         <!--end::Table row-->
                         </thead>
@@ -583,7 +582,7 @@
                     <form class="form" action="#" id="kt_modal_update_product_form"
                           data-kt-redirect="#">
                         <!--begin::Modal header-->
-                        <div class="modal-header" id="kt_modal_add_product_header">
+                        <div class="modal-header" id="kt_modal_update_product_header">
                             <!--begin::Modal title-->
                             <h2 class="fw-bolder">{{__('messages.edit').' '.__('messages.product')}}</h2>
                             <!--end::Modal title-->
@@ -592,17 +591,17 @@
                                  class="btn btn-icon btn-sm btn-active-icon-primary">
                                 <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
                                 <span class="svg-icon svg-icon-1">
-															<svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                                 height="24" viewBox="0 0 24 24" fill="none">
-																<rect opacity="0.5" x="6" y="17.3137" width="16"
-                                                                      height="2" rx="1"
-                                                                      transform="rotate(-45 6 17.3137)"
-                                                                      fill="currentColor"/>
-																<rect x="7.41422" y="6" width="16" height="2" rx="1"
-                                                                      transform="rotate(45 7.41422 6)"
-                                                                      fill="currentColor"/>
-															</svg>
-														</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                         height="24" viewBox="0 0 24 24" fill="none">
+                                        <rect opacity="0.5" x="6" y="17.3137" width="16"
+                                              height="2" rx="1"
+                                              transform="rotate(-45 6 17.3137)"
+                                              fill="currentColor"/>
+                                        <rect x="7.41422" y="6" width="16" height="2" rx="1"
+                                              transform="rotate(45 7.41422 6)"
+                                              fill="currentColor"/>
+                                    </svg>
+                                </span>
                                 <!--end::Svg Icon-->
                             </div>
                             <!--end::Close-->
@@ -695,6 +694,7 @@
                                                 data-placeholder="{{__('messages.select').' '.__('messages.order')}}"
                                                 data-dropdown-parent="#kt_modal_update_product"
                                                 class="form-select form-select-solid fw-bolder">
+                                            <option></option>
                                             <option value="1" selected>1</option>
                                             <option value="2">2</option>
                                             <option value="3">3</option>
@@ -711,17 +711,16 @@
                                     <!--begin::Col-->
                                     <div class="col-md-6 fv-row">
                                         <!--begin::Label-->
-                                        <label class="required fs-6 fw-bold mb-2"
-                                               text="{{__('messages.category')}}"></label>
+                                        <label class="required fs-6 fw-bold mb-2">{{__('messages.category')}}</label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
-                                        <select name="categoryId"
+                                        <select name="category_id"
                                                 aria-label="{{__('messages.select').' '.__('messages.category')}}"
                                                 data-control="select2"
-                                                data-kt-src="#"
+                                                data-kt-src="{{route('user.products.categories.select_api')}}"
                                                 data-placeholder="{{__('messages.select').' '.__('messages.category')}}"
                                                 data-dropdown-parent="#kt_modal_update_product"
-                                                class="form-select form-select-solid fw-bolder select_category">
+                                                class="form-select form-select-solid fw-bolder select_cat">
                                         </select>
                                         <!--end::Input-->
                                     </div>
@@ -732,14 +731,40 @@
                                         <label class="required fs-6 fw-bold mb-2">{{__('messages.tax')}}</label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
-                                        <select name="taxId"
+                                        <select name="tax_id"
                                                 aria-label="{{__('messages.select').' '.__('messages.tax')}}"
                                                 data-control="select2"
                                                 data-placeholder="{{__('messages.select').' '.__('messages.tax')}}"
                                                 data-dropdown-parent="#kt_modal_update_product"
+                                                class="form-select form-select-solid fw-bolder tax_id">
+                                            <option></option>
+                                            @foreach($tax as $tx)
+                                                <option value="{{$tx->id}}">{{$tx->name}}</option>
+                                            @endforeach
+                                        </select>
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Col-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="row g-9 mb-7">
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Label-->
+                                        <label
+                                            class="required fs-6 fw-bold mb-2">{{__('messages.product').' '.__('messages.type')}}</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <select name="type"
+                                                aria-label="{{__('messages.select').' '.__('messages.product').' '.__('messages.type')}}"
+                                                data-control="select2"
+                                                data-placeholder="{{__('messages.select').' '.__('messages.product').' '.__('messages.type')}}"
+                                                data-dropdown-parent="#kt_modal_update_product"
                                                 class="form-select form-select-solid fw-bolder">
-                                            {{--                                                <option th:each="tax: ${taxes}" th:value="${tax.id}"--}}
-                                            {{--                                                        th:text="${tax.name}"></option>--}}
+                                            <option></option>
+                                            <option value="0">Product</option>
+                                            <option value="1">Subscription</option>
                                         </select>
                                         <!--end::Input-->
                                     </div>
@@ -753,18 +778,11 @@
                                            for="description">{{__('messages.product').' '.__('messages.description')}}</label>
                                     <!--end::Label-->
                                     <!--begin::Input-->
-                                    <textarea id="description1" class="form-control form-control-solid"
+                                    <textarea id="description" class="form-control form-control-solid"
                                               placeholder="{{__('messages.product').' '.__('messages.description')}}"
                                               name="description"></textarea>
                                     <!--end::Input-->
                                 </div>
-                                <!--end::Input group-->
-                                <!--begin::Input group-->
-                                <input type="hidden" name="inactive">
-                                <label class="form-check form-switch form-check-custom form-check-solid">
-                                    <input class="form-check-input" type="checkbox" id="inactive">
-                                    <span class="form-check-label fs-7 fw-bolder text-gray-800">Active</span>
-                                </label>
                                 <!--end::Input group-->
                             </div>
                             <!--end::Scroll-->

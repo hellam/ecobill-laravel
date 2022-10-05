@@ -22,12 +22,11 @@ const KTProductsServerSide = function () {
             columns: [
                 {data: 'DT_RowIndex'},
                 {data: 'name'},
-                {data: 'barcode'},
                 {data: 'price'},
                 {data: 'cost'},
                 {data: 'category'},
-                {data: 'tax'},
                 {data: 'type'},
+                {data: 'inactive'},
                 {data: 'actions'},
             ],
             columnDefs: [
@@ -45,7 +44,23 @@ const KTProductsServerSide = function () {
                                 <input type="hidden" class="delete_url" value="${response.delete_url}" />
                             </div>`;
                     }
-                }, {
+                },
+                {
+                    targets: 1,
+                    render: function (data, type, row) {
+                        return `
+                            ${row.name}<br/>
+                            <small><i class="fa fa-barcode"></i> ${row.barcode}</small>
+                        `;
+                    }
+                },
+                {
+                    targets: -2,
+                    render: function (data, type, row) {
+                        return decodeHtml(row.inactive)
+                    }
+                },
+                {
                     targets: 2,
                     orderable: true,
                     render: function (data, row) {
@@ -93,10 +108,6 @@ const KTProductsServerSide = function () {
                     },
                 },
             ],
-            // Add data-filter attribute
-            createdRow: function (row, data, dataIndex) {
-                $(row).find('td:eq(4)').attr('data-filter', data.CreditCardType);
-            }
         });
 
         table = dt.$;
@@ -153,35 +164,25 @@ const KTProductsServerSide = function () {
                         } else {
 
                             $('#kt_modal_update_product_form').show({backdrop: 'static', keyboard: false});//show form
-                            const branch = response.data;
+                            const product = response.data;
                             //
-                            $("#kt_modal_update_product_form input[name='name']").val(branch.name);
-                            $("#kt_modal_update_product_form input[name='email']").val(branch.email);
-                            $("#kt_modal_update_product_form input[name='bcc_email']").val(branch.bcc_email);
-                            $("#kt_modal_update_product_form input[name='phone']").val(branch.phone);
-                            $("#kt_modal_update_product_form input[name='tax_no']").val(branch.tax_no);
-                            $("#kt_modal_update_product_form select[name='default_bank_account']").val(branch.default_bank_account).trigger('change');
-                            $("#kt_modal_update_product_form select[name='tax_period']").val(branch.tax_period).trigger('change');
-                            $("#kt_modal_update_product_form input[name='default_currency']").val(branch.default_currency);
-                            $("#kt_modal_update_product_form select[name='fiscal_year']").val(branch.fiscal_year).trigger('change');
-                            $("#kt_modal_update_product_form select[name='timezone']").val(branch.timezone).trigger('change');
-                            $("#kt_modal_update_product_form textarea[name='address']").val(branch.address);
+                            $("#kt_modal_update_product_form input[name='barcode']").val(product.barcode);
+                            $("#kt_modal_update_product_form input[name='name']").val(product.name);
+                            $("#kt_modal_update_product_form input[name='cost']").val(product.cost);
+                            $("#kt_modal_update_product_form input[name='price']").val(product.price);
+                            $("#kt_modal_update_product_form select[name='order']").val(product.order).trigger('change');
+                            $("#kt_modal_update_product_form select[name='tax_id']").val(product.tax_id).trigger('change');
+                            $("#kt_modal_update_product_form select[name='type']").val(product.type).trigger('change');
+                            $("#kt_modal_update_product_form textarea[name='description']").val(product.description);
 
-                            $("#kt_modal_update_product_form input[name='inactive']").val(branch.inactive);
-                            if (branch.inactive === 0) {
+                            $("#kt_modal_update_product_form input[name='inactive']").val(product.inactive);
+                            if (product.inactive === 0) {
                                 $("#kt_modal_update_product_form input[id='inactive']").prop("checked", true);
                             } else {
                                 $("#kt_modal_update_product_form input[id='inactive']").prop("checked", false)
                             }
 
-                            //main branch cannot be deactivated
-                            if (branch.is_main) {
-                                $("#kt_modal_update_product_form input[id='inactive']").attr("disabled", true);
-                                $("#kt_modal_update_product_form input[id='inactive']").after('<span id="inactive_disabled" style="color: red;">Main Branch cannot be Deactivated</span>');
-                            } else {
-                                $("#kt_modal_update_product_form input[id='inactive']").attr("disabled", false);
-                                $("#kt_modal_update_product_form #inactive_disabled").remove();
-                            }
+                            handleCategoryAPISelect('#kt_modal_update_product', [product.category])
 
                             //active/inactive
                             $("#kt_modal_update_product_form input[id='inactive']").on('change', function () {

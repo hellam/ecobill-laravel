@@ -621,9 +621,6 @@
                                 <!--begin::Input group-->
                                 <div class="row g-9 mb-7 align-items-end">
                                     <!--begin::Col-->
-                                    <div class="col-md-12 fv-row">
-                                        {!! image_view('image', 'image',asset('assets/media/avatars/placeholder.jpg'),'', false) !!}
-                                    </div>
                                     <!--end::Col-->
                                 </div>
                                 <!--end::Input group-->

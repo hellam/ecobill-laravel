@@ -165,6 +165,7 @@ const KTProductsServerSide = function () {
 
                             $('#kt_modal_update_product_form').show({backdrop: 'static', keyboard: false});//show form
                             const product = response.data;
+                            console.log(product)
                             //
                             $("#kt_modal_update_product_form input[name='barcode']").val(product.barcode);
                             $("#kt_modal_update_product_form input[name='name']").val(product.name);

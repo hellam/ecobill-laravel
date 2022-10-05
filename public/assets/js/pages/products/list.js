@@ -175,13 +175,13 @@ const KTProductsServerSide = function () {
                             $("#kt_modal_update_product_form select[name='type']").val(product.type).trigger('change');
                             $("#kt_modal_update_product_form textarea[name='description']").val(product.description);
 
+
                             $("#kt_modal_update_product_form input[name='inactive']").val(product.inactive);
                             if (product.inactive === 0) {
                                 $("#kt_modal_update_product_form input[id='inactive']").prop("checked", true);
                             } else {
                                 $("#kt_modal_update_product_form input[id='inactive']").prop("checked", false)
                             }
-                            console.log(product.category)
 
                             handleCategoryAPISelect('#kt_modal_update_product', product.category)
 

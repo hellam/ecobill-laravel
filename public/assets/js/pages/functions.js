@@ -402,8 +402,8 @@ function handleCategoryAPISelect(select_parent, preselect = null) {
 
     $(select_parent + ' .select_cat').html("").trigger('change');
     if (preselect) {
-        const option = new Option(preselect?.name, preselect?.id,   true, true);
-        $(select_parent + ' .select_cat').select2().append(option).trigger('change');
+        const option = new Option(preselect?.name, preselect?.id, true, true);
+        $(select_parent + ' .select_cat').append(option).trigger('change');
     }
 
     $(select_parent + ' .select_cat').select2({
@@ -443,5 +443,5 @@ function handleCategoryAPISelect(select_parent, preselect = null) {
             }
         );
         $(select_parent + ' .tax_id').val($('.select_cat').find(':selected').data('default-tax-id')).trigger('change')
-    }).val(0).trigger('change');
+    })
 }

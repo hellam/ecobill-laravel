@@ -19,14 +19,6 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\URL;
 use Yoeunes\Toastr\Facades\Toastr;
-use function App\CentralLogics\error_web_processor;
-use function App\CentralLogics\get_security_configs;
-use function App\CentralLogics\is_first_time;
-use function App\CentralLogics\is_password_expired;
-use function App\CentralLogics\log_activity;
-use function App\CentralLogics\logout;
-use function App\CentralLogics\success_web_processor;
-use function App\CentralLogics\validation_error_processor;
 
 class LoginController extends Controller
 {

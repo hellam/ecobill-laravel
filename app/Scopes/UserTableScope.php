@@ -5,7 +5,6 @@ namespace App\Scopes;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;
-use function App\CentralLogics\get_user_ref;
 
 class UserTableScope implements Scope
 {

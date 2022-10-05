@@ -84,6 +84,13 @@ class Product extends Model
         return $this->belongsTo(Category::class, 'tax_id');
     }
 
+    public static function subscriptions($query){
+        return $query->where('type', 1);
+    }
+    public static function products($query){
+        return $query->where('type', 0);
+    }
+
     public function type_name(): string
     {
         return $this->type == 0 ? 'product' : 'subscription';

@@ -5,7 +5,6 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use function App\CentralLogics\is_account_inactive;
 
 class UserMiddleware
 {

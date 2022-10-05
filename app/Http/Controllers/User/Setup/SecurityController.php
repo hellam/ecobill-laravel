@@ -10,9 +10,6 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
-use function App\CentralLogics\error_web_processor;
-use function App\CentralLogics\set_update_parameters;
-use function App\CentralLogics\success_web_processor;
 
 class SecurityController extends Controller
 {

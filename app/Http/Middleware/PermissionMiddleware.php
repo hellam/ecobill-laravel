@@ -5,16 +5,11 @@ namespace App\Http\Middleware;
 use App\CentralLogics\UserValidators;
 use App\Http\Controllers\User\Utils\MakerCheckerTrxController;
 use App\Models\Permission;
-use Carbon\Carbon;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Yoeunes\Toastr\Facades\Toastr;
-use function App\CentralLogics\check_permission;
-use function App\CentralLogics\error_web_processor;
-use function App\CentralLogics\log_activity;
-use function App\CentralLogics\requires_maker_checker;
 
 class PermissionMiddleware
 {

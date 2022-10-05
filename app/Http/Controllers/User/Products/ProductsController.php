@@ -7,20 +7,12 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Tax;
-use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
-use function App\CentralLogics\error_web_processor;
-use function App\CentralLogics\get_user_ref;
-use function App\CentralLogics\log_activity;
-use function App\CentralLogics\set_create_parameters;
-use function App\CentralLogics\set_update_parameters;
-use function App\CentralLogics\store_base64_image;
-use function App\CentralLogics\success_web_processor;
 
 class ProductsController extends Controller
 {
@@ -149,6 +141,7 @@ class ProductsController extends Controller
     public function edit($id)
     {
         $product = Product::with('category:id,name,id')->find($id);
+        $product->image = get_file_url('products',$product->image);
         if (isset($product)) {
             return success_web_processor($product, __('messages.msg_item_found', ['attribute' => __('messages.product')]));
         }

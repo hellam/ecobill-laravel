@@ -1,13 +1,8 @@
 "use strict";
 
 // Class definition
-var KTModalUpdateProduct = function () {
-    var element;
-    var submitButton;
-    var cancelButton;
-    var closeButton;
-    var form;
-    var modal;
+const KTProductsUpdate = function () {
+    let element, submitButton, cancelButton, closeButton, form, modal;
 
     // Init form inputs
     var initForm = function () {
@@ -174,5 +169,5 @@ var KTModalUpdateProduct = function () {
 
 // On document ready
 KTUtil.onDOMContentLoaded(function () {
-    KTModalUpdateProduct.init();
+    KTProductsUpdate.init();
 });

@@ -235,14 +235,7 @@
                         <thead>
                         <!--begin::Table row-->
                         <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
-                            <th class="w-10px pe-2">
-                                <div
-                                    class="form-check form-check-sm form-check-custom form-check-solid me-3">
-                                    <input class="form-check-input" type="checkbox" data-kt-check="true"
-                                           data-kt-check-target="#kt_products_table .form-check-input"
-                                           value="1"/>
-                                </div>
-                            </th>
+                            <th class="w-10px pe-2">#</th>
                             <th class="min-w-125px">{{__('messages.name')}}</th>
                             <th class="min-w-125px">{{__('messages.barcode')}}</th>
                             <th class="min-w-125px">{{__('messages.price')}}</th>
@@ -555,7 +548,7 @@
         </div>
         <!--end::Modal - Product - Add-->
 
-        <!--begin::Modal - Product - Edit-->
+        <!--begin::Modal - Product - Update-->
         <div class="modal fade" id="kt_modal_update_product" tabindex="-1">
             <!--begin::Modal dialog-->
             <div class="modal-dialog modal-dialog-centered mw-650px">
@@ -799,7 +792,7 @@
                 </div>
             </div>
         </div>
-        <!--end::Modal - Product - Edit-->
+        <!--end::Modal - Product - Update-->
 
         <!--end::Modals-->
     </div>
@@ -809,5 +802,5 @@
 @push('custom_scripts')
     <script src="{{asset('assets/js/pages/products/list.js')}}"></script>
     <script src="{{asset('assets/js/pages/products/add.js')}}"></script>
-{{--    <script src="{{asset('assets/js/pages/products/update.js')}}"></script>--}}
+    {{--    <script src="{{asset('assets/js/pages/products/update.js')}}"></script>--}}
 @endpush

@@ -10,7 +10,7 @@ function handleDeleteRows(deleteButtons, delete_url, dt = null) {
 
             // Get rule name
             const name = parent.querySelectorAll('td')[1].innerText;
-            delete_url = d.getAttribute(delete_url) ?? parent.querySelector(delete_url).value;
+            let delete_uri = d.getAttribute(delete_url) ?? parent.querySelector(delete_url).value;
             Swal.fire({
                 text: "Are you sure you want to delete " + name,
                 icon: "warning",
@@ -31,7 +31,7 @@ function handleDeleteRows(deleteButtons, delete_url, dt = null) {
                         buttonsStyling: false,
                         showConfirmButton: false,
                     })
-                    handleDelete(delete_url, '', dt)
+                    handleDelete(delete_uri, '', dt)
 
                 } else if (result.dismiss === 'cancel') {
                     Swal.fire({
@@ -49,13 +49,13 @@ function handleDeleteRows(deleteButtons, delete_url, dt = null) {
     });
 }
 
-function handleDelete(delete_url, remarks, dt) {
+function handleDelete(delete_uri, remarks, dt) {
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         type: 'DELETE',
-        url: delete_url,
+        url: delete_uri,
         data: {
             remarks: remarks
         },
@@ -112,7 +112,7 @@ function handleDelete(delete_url, remarks, dt) {
                 }).then(function (result) {
                     // delete row data from server and re-draw datatable
                     if (result.isConfirmed) {
-                        handleDelete(delete_url, result.value)
+                        handleDelete(delete_uri, result.value, dt)
                     }
                 });
             }

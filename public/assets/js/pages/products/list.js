@@ -1,7 +1,7 @@
 "use strict";
 
 // Class definition
-const MUBDatatablesServerSide = function () {
+const KTProductsServerSide = function () {
     // Shared variables
     var table;
     var dt;
@@ -34,6 +34,7 @@ const MUBDatatablesServerSide = function () {
                 {
                     targets: 0,
                     orderable: false,
+                    searchable: false,
                     render: function (data, type, row) {
                         var response = row.id;
                         return `
@@ -54,6 +55,7 @@ const MUBDatatablesServerSide = function () {
                     targets: -1,
                     data: 'action',
                     orderable: false,
+                    searchable: false,
                     className: 'text-end',
                     render: function (data, type, row) {
                         return `
@@ -72,7 +74,7 @@ const MUBDatatablesServerSide = function () {
                             <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4" data-kt-menu="true">
                                 <!--begin::Menu item-->
                                 <div class="menu-item px-3">
-                                    <a href="#" class="menu-link px-3" data-kt-product-table-filter="edit_row">
+                                    <a href="#" class="menu-link px-3" data-kt-product-table-actions="edit_row">
                                         Edit
                                     </a>
                                 </div>
@@ -80,7 +82,7 @@ const MUBDatatablesServerSide = function () {
 
                                 <!--begin::Menu item-->
                                 <div class="menu-item px-3">
-                                    <a href="#" class="menu-link px-3" data-kt-product-table-filter="delete_row">
+                                    <a href="#" class="menu-link px-3" data-kt-product-table-actions="delete_row">
                                         Delete
                                     </a>
                                 </div>
@@ -101,10 +103,117 @@ const MUBDatatablesServerSide = function () {
 
         // Re-init functions on every table re-draw -- more info: https://datatables.net/reference/event/draw
         dt.on('draw', function () {
-            handleDeleteRows('[data-kt-product-table-filter="delete_row"]', "input[class='delete_url']", dt);
+            handleDeleteRows('[data-kt-product-table-actions="delete_row"]', "input[class='delete_url']", dt);
             KTMenu.createInstances();
             handleSearchDatatable('[data-kt-product-table-filter="search"]', dt);
+            handleUpdateRows();
         });
+    };
+
+    //Edit Button
+    const handleUpdateRows = function () {
+        // Select all delete buttons
+        const editButtons = document.querySelectorAll('[data-kt-product-table-actions="edit_row"]');
+
+        // Make the DIV element draggable:
+        const element = document.querySelector('#kt_modal_update_product');
+        dragElement(element);
+        editButtons.forEach(d => {
+            // edit button on click
+            d.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                $('#kt_modal_update_product_form').hide();//hide form
+                $('.loader_container').show();//show loader
+                $("#kt_modal_update_product").modal('show');//show modal
+                // Select parent row
+                const parent = e.target.closest('tr');
+
+                // Get rule name
+                const update_url = parent.querySelector("input[class='update_url']").value;
+                const edit_url = parent.querySelector("input[class='edit_url']").value;
+                form.setAttribute("data-kt-action", update_url);
+
+                $.ajax({
+                    type: 'GET',
+                    url: edit_url,
+                    success: function (json) {
+                        var response = JSON.parse(JSON.stringify(json));
+                        if (response.status !== true) {
+                            Swal.fire({
+                                text: response.message,
+                                icon: "error",
+                                buttonsStyling: false,
+                                confirmButtonText: "Ok!",
+                                customClass: {
+                                    confirmButton: "btn btn-primary"
+                                }
+                            });
+
+                        } else {
+
+                            $('#kt_modal_update_product_form').show({backdrop: 'static', keyboard: false});//show form
+                            const branch = response.data;
+                            //
+                            $("#kt_modal_update_product_form input[name='name']").val(branch.name);
+                            $("#kt_modal_update_product_form input[name='email']").val(branch.email);
+                            $("#kt_modal_update_product_form input[name='bcc_email']").val(branch.bcc_email);
+                            $("#kt_modal_update_product_form input[name='phone']").val(branch.phone);
+                            $("#kt_modal_update_product_form input[name='tax_no']").val(branch.tax_no);
+                            $("#kt_modal_update_product_form select[name='default_bank_account']").val(branch.default_bank_account).trigger('change');
+                            $("#kt_modal_update_product_form select[name='tax_period']").val(branch.tax_period).trigger('change');
+                            $("#kt_modal_update_product_form input[name='default_currency']").val(branch.default_currency);
+                            $("#kt_modal_update_product_form select[name='fiscal_year']").val(branch.fiscal_year).trigger('change');
+                            $("#kt_modal_update_product_form select[name='timezone']").val(branch.timezone).trigger('change');
+                            $("#kt_modal_update_product_form textarea[name='address']").val(branch.address);
+
+                            $("#kt_modal_update_product_form input[name='inactive']").val(branch.inactive);
+                            if (branch.inactive === 0) {
+                                $("#kt_modal_update_product_form input[id='inactive']").prop("checked", true);
+                            } else {
+                                $("#kt_modal_update_product_form input[id='inactive']").prop("checked", false)
+                            }
+
+                            //main branch cannot be deactivated
+                            if (branch.is_main) {
+                                $("#kt_modal_update_product_form input[id='inactive']").attr("disabled", true);
+                                $("#kt_modal_update_product_form input[id='inactive']").after('<span id="inactive_disabled" style="color: red;">Main Branch cannot be Deactivated</span>');
+                            } else {
+                                $("#kt_modal_update_product_form input[id='inactive']").attr("disabled", false);
+                                $("#kt_modal_update_product_form #inactive_disabled").remove();
+                            }
+
+                            //active/inactive
+                            $("#kt_modal_update_product_form input[id='inactive']").on('change', function () {
+                                if ($(this).is(':checked'))
+                                    $("#kt_modal_update_product_form input[name='inactive']").val(0)
+                                else {
+                                    $("#kt_modal_update_product_form input[name='inactive']").val(1)
+                                }
+                            })
+                        }
+
+                        $('.loader_container').hide();//hide loader
+
+                    },
+                    error: function () {
+                        Swal.fire({
+                            text: 'A network error occured. Please consult your network administrator.',
+                            icon: "error",
+                            buttonsStyling: false,
+                            confirmButtonText: "Ok!",
+                            customClass: {
+                                confirmButton: "btn btn-primary"
+                            }
+                        });
+
+                    }
+                });
+
+
+            })
+        });
+
     };
 
 
@@ -117,7 +226,8 @@ const MUBDatatablesServerSide = function () {
                 initDatatable();
                 dt.search('').draw();
                 handleSearchDatatable('[data-kt-product-table-filter="search"]', dt);
-                handleDeleteRows('[data-kt-product-table-filter="delete_row"]', "input[class='delete_url']", dt);
+                handleDeleteRows('[data-kt-product-table-actions="delete_row"]', "input[class='delete_url']", dt);
+                handleUpdateRows();
             }
         }
     }
@@ -125,5 +235,5 @@ const MUBDatatablesServerSide = function () {
 
 // On document ready
 KTUtil.onDOMContentLoaded(function () {
-    MUBDatatablesServerSide.init();
+    KTProductsServerSide.init();
 });

@@ -199,6 +199,7 @@ return [
     'recent' => 'Recent',
     'request_type' => 'Request Type',
     'role' => 'Role',
+    'packages' => 'Packages',
     'price' => 'Price',
     'product' => 'Product',
     'password' => 'Password',

@@ -379,16 +379,11 @@ class UserValidators
     public static function subscriptionCreateValidation(Request $request)
     {
         return self::ValidatorMake($request->all(), [
-            'barcode' => 'required|unique:' . Product::class . ',barcode,NULL,id,client_ref,' . get_user_ref(),
+            'product_id' => 'required|unique:' . Product::class . ',id,client_ref,' . get_user_ref(),
             'name' => 'required|unique:' . Product::class . ',name,NULL,id,client_ref,' . get_user_ref(),
-//            'image' => 'string',
             'description' => 'required',
-            'price' => 'required',
-            'cost' => 'required',
-            'order' => 'required',
-            'category_id' => 'required|exists:' . Category::class . ',id,client_ref,' . get_user_ref(),
-            'tax_id' => 'required|numeric',
-            'type' => 'required|numeric',
+            'features' => 'required',
+            'validity' => 'required'
         ]);
     }
 

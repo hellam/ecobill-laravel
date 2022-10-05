@@ -68,8 +68,9 @@ Route::group(['as' => 'user.'], function () {
                 Route::delete('delete/{id}', 'destroy')->name('delete')->middleware('permission:5012,' . ST_PRODUCT_SETUP)->whereNumber('id');
             });
 
-            Route::controller(User\Products\SubscriptionsController::class)->group(function () {
-                Route::get('/', 'index')->name('all')->middleware('permission:502');
+            Route::controller(User\Products\SubscriptionsController::class)->prefix('sub-packages')->as('sub_packages.')->group(function () {
+                Route::get('/', 'index')->name('all')->middleware('permission:503');
+                Route::post('/', 'create')->name('create')->middleware('permission:5030,'. ST_SUBSCRIPTION_SETUP);
             });
 
             Route::controller(User\Products\CategoryController::class)->prefix('categories')->as('categories.')->group(function () {

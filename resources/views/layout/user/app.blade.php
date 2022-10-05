@@ -4248,6 +4248,8 @@
             $(modal + ' #image').val("")
         }
     }
+
+    new Tagify(document.querySelector('.tagify'));
 </script>
 <script src="{{asset('assets/js/pages/functions.js')}}"></script>
 @stack('custom_scripts')

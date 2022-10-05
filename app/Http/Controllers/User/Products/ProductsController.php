@@ -148,7 +148,7 @@ class ProductsController extends Controller
      */
     public function edit($id)
     {
-        $product = Product::find($id);
+        $product = Product::with('category:id,name,id')->find($id);
         if (isset($product)) {
             return success_web_processor($product, __('messages.msg_item_found', ['attribute' => __('messages.product')]));
         }

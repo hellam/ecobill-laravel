@@ -623,13 +623,17 @@
                                     <!--begin::Col-->
                                     <div class="image-upload">
                                         <div class="avatar-edit">
-                                            <input type="file" id="upload" accept=".png, .jpg, .jpeg" onchange="previewImageUpload('#kt_modal_update_product')"/>
+                                            <input type="file" id="upload" accept=".png, .jpg, .jpeg"
+                                                   onchange="previewImageUpload('#kt_modal_update_product')"/>
                                             <input type="hidden" id="image" name="image"/>
+                                            <input type="hidden" id="delete" name="delete"/>
                                             <label for="upload"><i class="fa fa-pen"></i></label>
                                         </div>
-                                        <button type="button" onclick="removeImage('#kt_modal_update_product')"><i class="fa fa-trash"></i></button>
+                                        <button type="button" onclick="removeImage('#kt_modal_update_product')"><i
+                                                class="fa fa-trash"></i></button>
                                         <div class="avatar-preview">
-                                            <img id="imagePrev" src="" onerror="this.src='{{asset('assets/media/avatars/placeholder.jpg')}}'">
+                                            <img id="imagePrev" src=""
+                                                 onerror="this.src='{{asset('assets/media/avatars/placeholder.jpg')}}'">
                                         </div>
                                     </div>
                                     <!--end::Col-->

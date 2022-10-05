@@ -4235,6 +4235,7 @@
         reader.addEventListener("load", function () {
             preview.attr('src', reader.result);
             $(modal + ' #image').val(reader.result)
+            $(modal + ' #delete').val(0)
         }, false);
 
         if (file) {
@@ -4246,6 +4247,7 @@
         if (document.querySelector(modal + " #imagePrev").src !== '{{asset('assets/media/avatars/placeholder.jpg')}}') {
             document.querySelector(modal + " #imagePrev").src = '{{asset('assets/media/avatars/placeholder.jpg')}}';
             $(modal + ' #image').val("")
+            $(modal + ' #delete').val(1)
         }
     }
 

@@ -31,7 +31,7 @@ use Illuminate\Support\Facades\Auth;
  * @property string|null $updated_by
  * @property string|null $supervised_by
  * @property Carbon|null $supervised_at
- * @property bool|null $inactive
+ * @property int $inactive
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  *
@@ -48,7 +48,7 @@ class Product extends Model
         'category_id' => 'int',
         'tax_id' => 'int',
         'type' => 'int',
-        'inactive' => 'bool'
+        'inactive' => 'int'
     ];
 
     protected $dates = [

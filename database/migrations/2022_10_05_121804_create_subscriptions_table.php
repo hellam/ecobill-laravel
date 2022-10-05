@@ -13,15 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('roles', function (Blueprint $table) {
+        Schema::create('subscriptions', function (Blueprint $table) {
             $table->id();
-            $table->string("name");
-            $table->longText("permissions");
-            $table->string("client_ref");
-            $table->string("created_by",100)->nullable();
-            $table->string("updated_by",100)->nullable();
-            $table->string('supervised_by',100)->nullable();
-            $table->timestamp('supervised_at')->nullable();
+            $table->bigInteger('product_id');
             $table->timestamps();
         });
     }
@@ -33,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('roles');
+        Schema::dropIfExists('subscriptions');
     }
 };

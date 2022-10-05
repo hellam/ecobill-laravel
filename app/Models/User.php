@@ -7,7 +7,6 @@ use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
-use function App\CentralLogics\get_active_branch;
 
 /**
  * Class User

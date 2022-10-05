@@ -1,7 +1,5 @@
 <?php
 
-namespace App\CentralLogics;
-
 use App\Models\AuditTrail;
 use App\Models\BusinessSetting;
 use App\Models\MakerCheckerRule;
@@ -261,6 +259,15 @@ function array_equal($a, $b): bool
         && is_array($b)
         && count($a) == count($b)
         && array_diff($a, $b) === array_diff($b, $a)
+    );
+}
+
+function get_file_url($folder, $filename= ''){
+    return route('user.files',
+        [
+            'folder' => $folder,
+            'fileName' => $filename ?? 'null'
+        ]
     );
 }
 

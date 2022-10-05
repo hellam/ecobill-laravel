@@ -10,10 +10,6 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use function App\CentralLogics\error_web_processor;
-use function App\CentralLogics\get_user_ref;
-use function App\CentralLogics\log_activity;
-use function App\CentralLogics\success_web_processor;
 
 class CurrencyController extends Controller
 {

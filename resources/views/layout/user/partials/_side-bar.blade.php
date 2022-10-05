@@ -463,7 +463,7 @@
             </div>
             <!--end:Menu item-->
 
-            @if(\App\CentralLogics\checkif_has_any_permission(600,650))
+            @if(checkif_has_any_permission(600,650))
                 <!--begin:Menu item-->
                 <div data-kt-menu-trigger="click"
                      class="menu-item menu-accordion @if(Route::is('user.reports*'))hover show @endif">
@@ -676,7 +676,7 @@
                 <!--end:Menu item-->
             @endif
 
-            @if(\App\CentralLogics\checkif_has_any_permission(600,650))
+            @if(checkif_has_any_permission(600,650))
                 <!--begin:Menu item-->
                 <div data-kt-menu-trigger="click"
                      class="menu-item menu-accordion @if(Route::is('user.utils*'))hover show @endif">
@@ -728,7 +728,7 @@
                 <!--end:Menu item-->
             @endif
 
-            @if(\App\CentralLogics\checkif_has_any_permission(700,799) && session('branch_is_main'))
+            @if(checkif_has_any_permission(700,799) && session('branch_is_main'))
                 <!--begin:Menu item-->
                 <div data-kt-menu-trigger="click"
                      class="menu-item menu-accordion @if(Route::is('user.setup*'))hover show @endif">

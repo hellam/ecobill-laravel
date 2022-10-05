@@ -9,12 +9,6 @@ use App\Models\ChartGroup;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
-use function App\CentralLogics\error_web_processor;
-use function App\CentralLogics\get_user_ref;
-use function App\CentralLogics\log_activity;
-use function App\CentralLogics\set_create_parameters;
-use function App\CentralLogics\set_update_parameters;
-use function App\CentralLogics\success_web_processor;
 
 class GLClassController extends Controller
 {

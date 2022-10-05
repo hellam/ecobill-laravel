@@ -1,5 +1,4 @@
 <?php
-namespace App\CentralLogics;
 function format_delete_data($data, $route): string
 {
     switch ($route) {

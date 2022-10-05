@@ -3,7 +3,6 @@
 namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
-use function App\CentralLogics\check_password_re_use;
 
 class PasswordHistoryRule implements Rule
 {

@@ -3,21 +3,11 @@
 namespace App\Http\Middleware;
 
 use App\Models\BranchUser;
-use App\Models\User;
-use Carbon\Carbon;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Session;
 use Yoeunes\Toastr\Facades\Toastr;
-use function App\CentralLogics\{get_active_branch,
-    is_account_expired,
-    is_account_inactive,
-    is_account_locked,
-    is_first_time,
-    is_password_expired,
-    logout};
 
 class AccountSecurityMiddleware
 {

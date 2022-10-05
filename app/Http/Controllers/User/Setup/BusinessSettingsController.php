@@ -9,10 +9,6 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
-use function App\CentralLogics\error_web_processor;
-use function App\CentralLogics\get_user_ref;
-use function App\CentralLogics\store_base64_image;
-use function App\CentralLogics\success_web_processor;
 
 class BusinessSettingsController extends Controller
 {

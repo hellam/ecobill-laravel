@@ -74,6 +74,16 @@ class Product extends Model
         'inactive'
     ];
 
+    public function _image()
+    {
+        return route('user.files',
+            [
+                'folder' => 'products',
+                'fileName' => $general_settings['logo'] ?? 'null'
+            ]
+        );
+    }
+
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class, 'category_id');
@@ -82,6 +92,13 @@ class Product extends Model
     public function tax(): BelongsTo
     {
         return $this->belongsTo(Category::class, 'tax_id');
+    }
+
+    public static function subscriptions($query){
+        return $query->where('type', 1);
+    }
+    public static function products($query){
+        return $query->where('type', 0);
     }
 
     public function type_name(): string

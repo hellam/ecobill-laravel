@@ -5,13 +5,8 @@ namespace App\Http\Controllers\User\Products;
 use App\CentralLogics\UserValidators;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
-use App\Models\MakerCheckerRule;
-use App\Models\PaymentTerm;
-use App\Models\Permission;
 use App\Models\Product;
-use App\Models\Role;
 use App\Models\Tax;
-use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -19,13 +14,6 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
-use function App\CentralLogics\error_web_processor;
-use function App\CentralLogics\get_user_ref;
-use function App\CentralLogics\log_activity;
-use function App\CentralLogics\set_create_parameters;
-use function App\CentralLogics\set_update_parameters;
-use function App\CentralLogics\store_base64_image;
-use function App\CentralLogics\success_web_processor;
 
 class CategoryController extends Controller
 {

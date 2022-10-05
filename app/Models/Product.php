@@ -74,16 +74,6 @@ class Product extends Model
         'inactive'
     ];
 
-    public function _image()
-    {
-        return route('user.files',
-            [
-                'folder' => 'products',
-                'fileName' => $general_settings['logo'] ?? 'null'
-            ]
-        );
-    }
-
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class, 'category_id');

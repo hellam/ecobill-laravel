@@ -201,7 +201,7 @@ class ProductsController extends Controller
      */
     public function destroy($id)
     {
-        $products = Category::find($id);
+        $products = Product::find($id);
         if (isset($products)) {
             //TODO: check if product has transactions
 //            $products = Product::where('category_id', $id)->count();

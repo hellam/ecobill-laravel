@@ -181,8 +181,9 @@ const KTProductsServerSide = function () {
                             } else {
                                 $("#kt_modal_update_product_form input[id='inactive']").prop("checked", false)
                             }
+                            console.log(product.category)
 
-                            handleCategoryAPISelect('#kt_modal_update_product', [product.category])
+                            handleCategoryAPISelect('#kt_modal_update_product', product.category)
 
                             //active/inactive
                             $("#kt_modal_update_product_form input[id='inactive']").on('change', function () {

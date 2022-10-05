@@ -453,7 +453,7 @@
                             <span class="menu-bullet">
                                 <span class="bullet bullet-dot"></span>
                             </span>
-                            <span class="menu-title">{{__('messages.subscriptions').' '.__('messages.packages')}}</span>
+                            <span class="menu-title">{{__('messages.subscription').' '.__('messages.packages')}}</span>
                         </a>
                         <!--end:Menu link-->
                     </div>

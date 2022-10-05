@@ -118,11 +118,81 @@
             animation-delay: 0.9s;
         }
 
+        .image-upload {
+            position: relative;
+            margin: 30px auto;
+        }
+
+        .image-upload .avatar-edit {
+            position: absolute;
+            left: 120px;
+            z-index: 1;
+            top: 10px;
+            text-align: center;
+        }
+
+        .image-upload button {
+            position: absolute;
+            z-index: 1;
+            top: 100px;
+            text-align: center;
+            border-radius: 100%;
+            border: 0;
+            width: 34px;
+            height: 34px;
+            left: 120px;
+        }
+
+        .image-upload .avatar-edit i {
+            margin-top: 8px;
+        }
+
+        .image-upload .avatar-edit input {
+            display: none;
+        }
+
+        .image-upload .avatar-edit input + label {
+            display: inline-block;
+            width: 34px;
+            height: 34px;
+            margin-bottom: 0;
+            border-radius: 100%;
+            background: #FFFFFF;
+            border: 1px solid transparent;
+            box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.12);
+            cursor: pointer;
+            font-weight: normal;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .image-upload .avatar-edit input + label:hover {
+            background: #f1f1f1;
+            border-color: #d6d6d6;
+        }
+
+        .image-upload .avatar-preview {
+            width: 150px;
+            height: 150px;
+            position: relative;
+            border-radius: 100%;
+            border: 6px solid #F8F8F8;
+            box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+        }
+
+        .image-upload .avatar-preview > img {
+            width: 100%;
+            height: 100%;
+            border-radius: 100%;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
     </style>
     <!-- End: Loader -->
-{{--    <noscript>--}}
-{{--        <META HTTP-EQUIV="Refresh" CONTENT="0;URL=ShowErrorPage.html">--}}
-{{--    </noscript>--}}
+    {{--    <noscript>--}}
+    {{--        <META HTTP-EQUIV="Refresh" CONTENT="0;URL=ShowErrorPage.html">--}}
+    {{--    </noscript>--}}
 
     @stack('custom_styles')
 </head>
@@ -162,7 +232,8 @@
                 <div class="aside-user d-flex align-items-sm-center justify-content-center py-5">
                     <!--begin::Symbol-->
                     <div class="symbol symbol-50px">
-                        <img src="{{Auth::user()->logo()}}" alt="" onerror="this.src = '{{asset('assets/media/avatars/logo.png')}}'" class="company_logo"/>
+                        <img src="{{Auth::user()->logo()}}" alt=""
+                             onerror="this.src = '{{asset('assets/media/avatars/logo.png')}}'" class="company_logo"/>
                     </div>
                     <!--end::Symbol-->
                     <!--begin::Wrapper-->
@@ -215,12 +286,15 @@
                                         <div class="menu-content d-flex align-items-center px-3">
                                             <!--begin::Avatar-->
                                             <div class="symbol symbol-50px me-5">
-                                                <img src="{{Auth::user()->logo()}}" alt="" onerror="this.src = '{{asset('assets/media/avatars/logo.png')}}'" class="company_logo"/>
+                                                <img src="{{Auth::user()->logo()}}" alt=""
+                                                     onerror="this.src = '{{asset('assets/media/avatars/logo.png')}}'"
+                                                     class="company_logo"/>
                                             </div>
                                             <!--end::Avatar-->
                                             <!--begin::Username-->
                                             <div class="d-flex flex-column">
-                                                <div class="fw-bold d-flex align-items-center fs-5">{{auth('user')->user()->username}}
+                                                <div
+                                                    class="fw-bold d-flex align-items-center fs-5">{{auth('user')->user()->username}}
                                                     <span class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">Pro</span>
                                                 </div>
                                                 <a href="#" class="fw-semibold text-muted text-hover-primary fs-7">max@kt.com</a>
@@ -4150,8 +4224,30 @@
         url = url.replace(':id', this.value);
         location.href = url
     })
-
     //# End Make Modals Draggable
+</script>
+<script>
+    function previewImageUpload(modal) {
+        let preview = $(modal + " #imagePrev");
+        let file = document.querySelector(modal + " #upload").files[0];
+        let reader = new FileReader();
+
+        reader.addEventListener("load", function () {
+            preview.attr('src', reader.result);
+            $(modal + ' #image').val(reader.result)
+        }, false);
+
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    }
+
+    function removeImage(modal) {
+        if (document.querySelector(modal + " #imagePrev").src !== '{{asset('assets/media/avatars/placeholder.jpg')}}') {
+            document.querySelector(modal + " #imagePrev").src = '{{asset('assets/media/avatars/placeholder.jpg')}}';
+            $(modal + ' #image').val("")
+        }
+    }
 </script>
 <script src="{{asset('assets/js/pages/functions.js')}}"></script>
 @stack('custom_scripts')

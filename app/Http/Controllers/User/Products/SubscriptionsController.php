@@ -6,6 +6,7 @@ use App\CentralLogics\UserValidators;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Subscription;
 use App\Models\Tax;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -25,7 +26,7 @@ class SubscriptionsController extends Controller
     {
         $products = Product::count() ?? 0;
         $tax = Tax::all();
-        return view('user.products.products', compact('products', 'tax'));
+        return view('user.products.subscriptions', compact('products', 'tax'));
     }
 
 
@@ -101,23 +102,21 @@ class SubscriptionsController extends Controller
         }
 
         $post_data = [
-            'barcode' => $request->barcode,
+            'product_id' => $request->product_id,
             'name' => $request->name,
             'image' => $fileName,
             'description' => $request->description,
+            'features' => $request->features,
             'price' => $request->price,
             'cost' => $request->cost,
-            'order' => $request->order,
-            'category_id' => $request->category_id,
-            'tax_id' => $request->tax_id,
-            'type' => $request->type,
+            'validity' => $request->validity,
             'client_ref' => get_user_ref()
         ];
 
         //set_create_parameters($created_at, $created_by, ...)
         $post_data = array_merge($post_data, set_create_parameters($created_at, $created_by, $supervised_by, $supervised_at));
 
-        $subscription = Product::create($post_data);
+        $subscription = Subscription::create($post_data);
 
         if ($created_at == null) {
             //if not supervised, log data from create request

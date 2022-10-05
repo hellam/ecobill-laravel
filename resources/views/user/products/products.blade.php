@@ -621,8 +621,16 @@
                                 <!--begin::Input group-->
                                 <div class="row g-9 mb-7 align-items-end">
                                     <!--begin::Col-->
-                                    <div class="col-md-12 fv-row">
-                                        {!! image_view('image', 'image',asset('assets/media/avatars/placeholder.jpg'),'', false) !!}
+                                    <div class="image-upload">
+                                        <div class="avatar-edit">
+                                            <input type="file" id="upload" accept=".png, .jpg, .jpeg" onchange="previewImageUpload('#kt_modal_update_product')"/>
+                                            <input type="hidden" id="image" name="image"/>
+                                            <label for="upload"><i class="fa fa-pen"></i></label>
+                                        </div>
+                                        <button type="button" onclick="removeImage('#kt_modal_update_product')"><i class="fa fa-trash"></i></button>
+                                        <div class="avatar-preview">
+                                            <img id="imagePrev" src="" onerror="this.src='{{asset('assets/media/avatars/placeholder.jpg')}}'">
+                                        </div>
                                     </div>
                                     <!--end::Col-->
                                 </div>

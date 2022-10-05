@@ -68,6 +68,10 @@ Route::group(['as' => 'user.'], function () {
                 Route::delete('delete/{id}', 'destroy')->name('delete')->middleware('permission:5012,' . ST_PRODUCT_SETUP)->whereNumber('id');
             });
 
+            Route::controller(User\Products\SubscriptionsController::class)->group(function () {
+                Route::get('/', 'index')->name('all')->middleware('permission:502');
+            });
+
             Route::controller(User\Products\CategoryController::class)->prefix('categories')->as('categories.')->group(function () {
                 Route::get('/', 'index')->name('all')->middleware('permission:502');
                 Route::get('/dt-api', 'dt_api')->name('dt_api')->middleware('permission:502');

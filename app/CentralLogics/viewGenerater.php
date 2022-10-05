@@ -121,7 +121,7 @@ function image_view($name, $id, $default, $value, $is_profile = true)
                     </div>
                         <button type="button" id="trash"><i class="fa fa-trash"></i></button>
                     <div class="avatar-preview">
-                        <img id="imagePreview" src="' . asset($value) . '" onerror="this.src=\'' . asset($default) . '\'">
+                        <img id="imagePreview" src="' . $value=='' ? '':asset($value) . '" onerror="this.src=\'' . asset($default) . '\'">
                 </div>
             </div>
             <script>

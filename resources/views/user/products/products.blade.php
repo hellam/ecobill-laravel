@@ -342,6 +342,7 @@
                                     </div>
                                     <!--end::Col-->
                                 </div>
+                                <!--end::Input group-->
                                 <!--begin::Input group-->
                                 <div class="row g-9 mb-7 align-items-end">
                                     <!--begin::Col-->
@@ -618,6 +619,15 @@
                                  data-kt-scroll-wrappers="#kt_modal_update_product_scroll"
                                  data-kt-scroll-offset="300px">
                                 <!--begin::Input group-->
+                                <div class="row g-9 mb-7 align-items-end">
+                                    <!--begin::Col-->
+                                    <div class="col-md-12 fv-row">
+                                        {!! image_view('image', 'image',asset('assets/media/avatars/placeholder.jpg'),'', false) !!}
+                                    </div>
+                                    <!--end::Col-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
                                 <div class="row g-9 mb-7">
                                     <!--begin::Col-->
                                     <div class="col-md-12 fv-row">
@@ -784,6 +794,13 @@
                                     <!--end::Input-->
                                 </div>
                                 <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <input type="hidden" name="inactive">
+                                <label class="form-check form-switch form-check-custom form-check-solid">
+                                    <span class="fs-6 fw-bold">Active</span>
+                                    <input class="form-check-input mx-2" type="checkbox" id="inactive">
+                                </label>
+                                <!--end::Input group-->
                             </div>
                             <!--end::Scroll-->
                         </div>
@@ -820,5 +837,5 @@
 @push('custom_scripts')
     <script src="{{asset('assets/js/pages/products/list.js')}}"></script>
     <script src="{{asset('assets/js/pages/products/add.js')}}"></script>
-    {{--    <script src="{{asset('assets/js/pages/products/update.js')}}"></script>--}}
+    <script src="{{asset('assets/js/pages/products/update.js')}}"></script>
 @endpush

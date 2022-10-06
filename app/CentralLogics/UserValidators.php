@@ -373,6 +373,7 @@ class UserValidators
             'order' => 'required|numeric',
             'category_id' => 'required|exists:' . Category::class . ',id,client_ref,' . get_user_ref(),
             'tax_id' => 'required|numeric',
+            'type' => 'required|numeric',//TODO: validate if type subscription has packages
         ]);
     }
 

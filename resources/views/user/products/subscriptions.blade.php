@@ -368,7 +368,7 @@
                                         <select name="product_id"
                                                 aria-label="{{__('messages.select').' '.__('messages.product')}}"
                                                 data-control="select2"
-                                                data-kt-src="{{route('user.products.select_api', 'all')}}"
+                                                data-kt-src="{{route('user.products.select_api', 1)}}"
                                                 data-placeholder="{{__('messages.select').' '.__('messages.product')}}"
                                                 data-dropdown-parent="#kt_modal_add_package"
                                                 class="form-select form-select-solid fw-bolder select_api">

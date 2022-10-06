@@ -108,7 +108,7 @@ class SubscriptionsController extends Controller
             'name' => $request->name,
             'image' => $fileName,
             'description' => $request->description,
-            'features' => $request->features,
+            'features' => $features,
             'price' => $request->price,
             'cost' => $request->cost,
             'validity' => $request->validity,

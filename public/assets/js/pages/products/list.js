@@ -167,7 +167,7 @@ const KTProductsServerSide = function () {
                             const product = response.data;
 
                             //
-                            $("#kt_modal_update_product_form #imagePrev").attr('src',product.image);
+                            $("#kt_modal_update_product_form #imagePrev").attr('src', product.image);
                             $("#kt_modal_update_product_form input[name='barcode']").val(product.barcode);
                             $("#kt_modal_update_product_form input[name='name']").val(product.name);
                             $("#kt_modal_update_product_form input[name='cost']").val(product.cost);
@@ -210,7 +210,6 @@ const KTProductsServerSide = function () {
                                 confirmButton: "btn btn-primary"
                             }
                         });
-
                     }
                 });
 

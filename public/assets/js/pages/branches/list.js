@@ -19,7 +19,6 @@ const KTBranchesServerSide = function () {
                 {data: 'DT_RowIndex', name: 'id'},
                 {data: 'name'},
                 {data: 'address'},
-                {data: 'default_currency'},
                 {data: 'timezone'},
                 {data: 'fiscal_year'},
                 {data: 'inactive'},

@@ -456,7 +456,7 @@ function handleAPISelect(select_parent, preselect = null) {
     }
 
     $(select_parent + ' .select_api').select2({
-        placeholder: 'Select Category',
+        placeholder: 'Select Product',
         minimumInputLength: 0,
         escapeMarkup: function (markup) {
             return markup;
@@ -478,10 +478,22 @@ function handleAPISelect(select_parent, preselect = null) {
                         return {
                             text: item.name,
                             id: item.id,
+                            'data-kt-cost': item.cost,
+                            'data-kt-price': item.price,
                         }
                     })
                 }
             }
         }
+    }).on('select2:select', function (e) {
+        let data = e.params.data;
+        $(this).children('[value="' + data['id'] + '"]').attr(
+            {
+                'data-kt-cost': data["data-kt-cost"],
+                'data-kt-price': data["data-kt-price"],
+            }
+        );
+        $(select_parent + ' [name="cost"]').val($(select_parent + ' .select_api').find(':selected').data('kt-cost'))
+        $(select_parent + ' [name="price"]').val($(select_parent + ' .select_api').find(':selected').data('kt-price'))
     })
 }

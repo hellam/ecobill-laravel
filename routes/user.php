@@ -90,7 +90,7 @@ Route::group(['as' => 'user.'], function () {
 
         Route::group(['prefix' => 'customers', 'as' => 'customers.'], function () {
             Route::controller(User\Customers\CustomersController::class)->middleware('permission:401')->group(function () {
-                Route::get('/', 'index')->name('list');
+                Route::get('/', 'index')->name('all');
                 Route::get('/dt-api', 'dt_api')->name('dt_api');
             });
         });

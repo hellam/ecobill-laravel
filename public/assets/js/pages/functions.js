@@ -446,7 +446,7 @@ function handleCategoryAPISelect(select_parent, preselect = null) {
     })
 }
 
-function handleAPISelect(select_parent, preselect = null) {
+function handleProductsAPISelect(select_parent, preselect = null) {
     const element = document.querySelector(select_parent + ' .select_api');
 
     $(select_parent + ' .select_api').html("").trigger('change');

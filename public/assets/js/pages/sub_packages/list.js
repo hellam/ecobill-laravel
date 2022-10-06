@@ -173,14 +173,6 @@ const KTPackagesServerSide = function () {
 
                             handleProductsAPISelect('#kt_modal_update_package', package_.product)
 
-                            // let tagify = new Tagify(document.querySelector('#kt_modal_update_package_form input[name="features"]'));
-                            let tags = [package_.features];
-                            tagify.addTags(tags);
-
-                            $('#kt_modal_update_package').on('hidden.bs.modal', function (e) {
-                                tagify.destroy()
-                            });
-
                             //active/inactive
                             $("#kt_modal_update_package_form input[id='inactive']").on('change', function () {
                                 if ($(this).is(':checked'))
@@ -230,6 +222,7 @@ const KTPackagesServerSide = function () {
                 handleSearchDatatable('[data-kt-package-table-filter="search"]', dt);
                 handleDeleteRows('[data-kt-package-table-actions="delete_row"]', "input[class='delete_url']", dt);
                 handleUpdateRows();
+                createCKEditor('#kt_modal_update_package')
             }
         }
     }

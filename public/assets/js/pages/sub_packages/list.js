@@ -3,7 +3,7 @@
 // Class definition
 const KTPackagesServerSide = function () {
     // Shared variables
-    let table, dt, form, submitButton, cancelButton, closeButton, modal, CKEditor, ckeditor;
+    let table, dt, form, submitButton, cancelButton, closeButton, modal;
 
     // Private functions
     const initDatatable = function () {
@@ -110,17 +110,6 @@ const KTPackagesServerSide = function () {
         });
     };
 
-    function createCKEditor() {
-        ClassicEditor
-            .create(document.querySelector('#kt_modal_update_package #kt_docs_ckeditor_classic'))
-            .then(editor => {
-                ckeditor = editor;
-                CKEditor = editor.getData();
-            })
-            .catch(error => {
-            });
-    }
-
     //Edit Button
     const handleUpdateRows = function () {
         // Select all delete buttons
@@ -165,7 +154,6 @@ const KTPackagesServerSide = function () {
 
                             $('#kt_modal_update_package_form').show({backdrop: 'static', keyboard: false});//show form
                             const package_ = response.data;
-                            ckeditor.setData(package_.features)
 
                             //
                             $("#kt_modal_update_package_form #imagePrev").attr('src', package_.image);
@@ -175,6 +163,7 @@ const KTPackagesServerSide = function () {
                             $("#kt_modal_update_package_form input[name='validity']").val(package_.validity);
                             $("#kt_modal_update_package_form select[name='order']").val(package_.order).trigger('change');
                             $("#kt_modal_update_package_form textarea[name='description']").val(package_.description);
+                            CKEDITOR.instances.features_update.setData(package_.features)
 
                             $("#kt_modal_update_package_form input[name='inactive']").val(package_.inactive);
                             if (package_.inactive === 0) {
@@ -286,11 +275,10 @@ const KTPackagesServerSide = function () {
                 'PUT',
                 modal,
                 $('#kt_packages_table'),
-                ["product_id", "order"],
-                [true, CKEditor]
+                ["product_id", "order"]
             );
 
-            createCKEditor()
+            createCKEditor('features_update')
         }
     }
 }();

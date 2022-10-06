@@ -339,7 +339,8 @@
                                     <label class="fs-6 fw-bold mb-2 required">{{__('messages.features')}}</label>
                                     <!--end::Label-->
                                     <!--begin::Input-->
-                                    <textarea class="form-control form-control-solid" name="features" id="kt_docs_ckeditor_classic"></textarea>
+                                    <textarea class="form-control form-control-solid"
+                                              id="features_add"></textarea>
                                     <!--end::Input-->
                                 </div>
                                 <!--end::Input group-->
@@ -590,8 +591,7 @@
                                     <label class="fs-6 fw-bold mb-2 required">{{__('messages.features')}}</label>
                                     <!--end::Label-->
                                     <!--begin::Input-->
-                                    <textarea class="form-control form-control-solid" name="features" id="kt_docs_ckeditor_classic">
-                                    </textarea>
+                                    <textarea class="form-control form-control-solid" id="features_update"></textarea>
                                     <!--end::Input-->
                                 </div>
                                 <!--end::Input group-->

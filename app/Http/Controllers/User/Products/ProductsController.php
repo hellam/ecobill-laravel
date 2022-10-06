@@ -185,6 +185,7 @@ class ProductsController extends Controller
         $products->cost = $request->cost;
         $products->order = $request->order;
         $products->category_id = $request->category_id;
+        $products->type = $request->type;
         $products->tax_id = $request->tax_id;
         $products->inactive = $request->inactive;
         $products->update();

@@ -20,10 +20,10 @@ const KTPackagesServerSide = function () {
             columns: [
                 {data: 'DT_RowIndex'},
                 {data: 'name'},
+                {data: 'product'},
                 {data: 'price'},
                 {data: 'cost'},
-                {data: 'category'},
-                {data: 'type'},
+                {data: 'validity'},
                 {data: 'inactive'},
                 {data: 'actions'},
             ],
@@ -41,15 +41,6 @@ const KTPackagesServerSide = function () {
                                 <input type="hidden" class="update_url" value="${response.update_url}" />
                                 <input type="hidden" class="delete_url" value="${response.delete_url}" />
                             </div>`;
-                    }
-                },
-                {
-                    targets: 1,
-                    render: function (data, type, row) {
-                        return `
-                            ${row.name}<br/>
-                            <small><i class="fa fa-barcode"></i> ${row.barcode}</small>
-                        `;
                     }
                 },
                 {
@@ -87,7 +78,7 @@ const KTPackagesServerSide = function () {
                             <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4" data-kt-menu="true">
                                 <!--begin::Menu item-->
                                 <div class="menu-item px-3">
-                                    <a href="#" class="menu-link px-3" data-kt-product-table-actions="edit_row">
+                                    <a href="#" class="menu-link px-3" data-kt-package-table-actions="edit_row">
                                         Edit
                                     </a>
                                 </div>
@@ -95,7 +86,7 @@ const KTPackagesServerSide = function () {
 
                                 <!--begin::Menu item-->
                                 <div class="menu-item px-3">
-                                    <a href="#" class="menu-link px-3" data-kt-product-table-actions="delete_row">
+                                    <a href="#" class="menu-link px-3" data-kt-package-table-actions="delete_row">
                                         Delete
                                     </a>
                                 </div>
@@ -112,9 +103,9 @@ const KTPackagesServerSide = function () {
 
         // Re-init functions on every table re-draw -- more info: https://datatables.net/reference/event/draw
         dt.on('draw', function () {
-            handleDeleteRows('[data-kt-product-table-actions="delete_row"]', "input[class='delete_url']", dt);
+            handleDeleteRows('[data-kt-package-table-actions="delete_row"]', "input[class='delete_url']", dt);
             KTMenu.createInstances();
-            handleSearchDatatable('[data-kt-product-table-filter="search"]', dt);
+            handleSearchDatatable('[data-kt-package-table-filter="search"]', dt);
             handleUpdateRows();
         });
     };
@@ -122,19 +113,19 @@ const KTPackagesServerSide = function () {
     //Edit Button
     const handleUpdateRows = function () {
         // Select all delete buttons
-        const editButtons = document.querySelectorAll('[data-kt-product-table-actions="edit_row"]');
+        const editButtons = document.querySelectorAll('[data-kt-package-table-actions="edit_row"]');
 
         // Make the DIV element draggable:
-        const element = document.querySelector('#kt_modal_update_product');
+        const element = document.querySelector('#kt_modal_update_package');
         dragElement(element);
         editButtons.forEach(d => {
             // edit button on click
             d.addEventListener('click', function (e) {
                 e.preventDefault();
 
-                $('#kt_modal_update_product_form').hide();//hide form
+                $('#kt_modal_update_package_form').hide();//hide form
                 $('.loader_container').show();//show loader
-                $("#kt_modal_update_product").modal('show');//show modal
+                $("#kt_modal_update_package").modal('show');//show modal
                 // Select parent row
                 const parent = e.target.closest('tr');
 
@@ -161,36 +152,34 @@ const KTPackagesServerSide = function () {
 
                         } else {
 
-                            $('#kt_modal_update_product_form').show({backdrop: 'static', keyboard: false});//show form
-                            const product = response.data;
+                            $('#kt_modal_update_package_form').show({backdrop: 'static', keyboard: false});//show form
+                            const package_ = response.data;
 
                             //
-                            $("#kt_modal_update_product_form #imagePrev").attr('src',product.image);
-                            $("#kt_modal_update_product_form input[name='barcode']").val(product.barcode);
-                            $("#kt_modal_update_product_form input[name='name']").val(product.name);
-                            $("#kt_modal_update_product_form input[name='cost']").val(product.cost);
-                            $("#kt_modal_update_product_form input[name='price']").val(product.price);
-                            $("#kt_modal_update_product_form select[name='order']").val(product.order).trigger('change');
-                            $("#kt_modal_update_product_form select[name='tax_id']").val(product.tax_id).trigger('change');
-                            $("#kt_modal_update_product_form select[name='type']").val(product.type).trigger('change');
-                            $("#kt_modal_update_product_form textarea[name='description']").val(product.description);
+                            $("#kt_modal_update_package_form #imagePrev").attr('src',package_.image);
+                            $("#kt_modal_update_package_form input[name='name']").val(package_.name);
+                            $("#kt_modal_update_package_form input[name='cost']").val(package_.cost);
+                            $("#kt_modal_update_package_form input[name='price']").val(package_.price);
+                            $("#kt_modal_update_package_form select[name='validity']").val(package_.validity);
+                            $("#kt_modal_update_package_form select[name='description']").val(package_.description);
+                            $("#kt_modal_update_package_form select[name='features']").val(package_.features);
 
 
-                            $("#kt_modal_update_product_form input[name='inactive']").val(product.inactive);
-                            if (product.inactive === 0) {
-                                $("#kt_modal_update_product_form input[id='inactive']").prop("checked", true);
+                            $("#kt_modal_update_package_form input[name='inactive']").val(package_.inactive);
+                            if (package_.inactive === 0) {
+                                $("#kt_modal_update_package_form input[id='inactive']").prop("checked", true);
                             } else {
-                                $("#kt_modal_update_product_form input[id='inactive']").prop("checked", false)
+                                $("#kt_modal_update_package_form input[id='inactive']").prop("checked", false)
                             }
 
-                            handleCategoryAPISelect('#kt_modal_update_product', product.category)
+                            handleProductsAPISelect('#kt_modal_update_package', package_.product)
 
                             //active/inactive
-                            $("#kt_modal_update_product_form input[id='inactive']").on('change', function () {
+                            $("#kt_modal_update_package_form input[id='inactive']").on('change', function () {
                                 if ($(this).is(':checked'))
-                                    $("#kt_modal_update_product_form input[name='inactive']").val(0)
+                                    $("#kt_modal_update_package_form input[name='inactive']").val(0)
                                 else {
-                                    $("#kt_modal_update_product_form input[name='inactive']").val(1)
+                                    $("#kt_modal_update_package_form input[name='inactive']").val(1)
                                 }
                             })
                         }
@@ -210,8 +199,8 @@ const KTPackagesServerSide = function () {
                         });
 
                         $('.loader_container').hide();//hide loader
-                        $('#kt_modal_update_product_form').hide({backdrop: false});//hide form
-                        $("#kt_modal_update_product").modal('hide');//show modal
+                        $('#kt_modal_update_package_form').hide({backdrop: false});//hide form
+                        $("#kt_modal_update_package").modal('hide');//show modal
 
                     }
                 });
@@ -226,7 +215,7 @@ const KTPackagesServerSide = function () {
     // Public methods
     return {
         init: function () {
-            form = document.querySelector('#kt_modal_update_product_form');
+            form = document.querySelector('#kt_modal_update_package_form');
 
             if ($('#kt_packages_table').length) {
                 initDatatable();

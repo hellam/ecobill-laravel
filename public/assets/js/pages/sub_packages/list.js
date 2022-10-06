@@ -173,14 +173,13 @@ const KTPackagesServerSide = function () {
 
                             handleProductsAPISelect('#kt_modal_update_package', package_.product)
 
-                            let tagify = new Tagify(document.querySelector('#kt_modal_update_package_form input[name="features"]'));
+                            // let tagify = new Tagify(document.querySelector('#kt_modal_update_package_form input[name="features"]'));
+                            let tags = [package_.features];
+                            tagify.addTags(tags);
 
-                            try{
-                                let tags = ["test", "tes1"];
-                                tagify.addTags(tags);
-                            }catch (e){
+                            $('#kt_modal_update_package').on('hidden.bs.modal', function (e) {
                                 tagify.destroy()
-                            }
+                            });
 
                             //active/inactive
                             $("#kt_modal_update_package_form input[id='inactive']").on('change', function () {

@@ -371,7 +371,7 @@
                                                 data-kt-src="{{route('user.products.categories.select_api')}}"
                                                 data-placeholder="{{__('messages.select').' '.__('messages.product')}}"
                                                 data-dropdown-parent="#kt_modal_add_package"
-                                                class="form-select form-select-solid fw-bolder select_cat">
+                                                class="form-select form-select-solid fw-bolder select_api">
                                             <option value="1">Test</option>
                                         </select>
                                         <!--end::Input-->

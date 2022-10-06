@@ -585,7 +585,7 @@
                         <!--begin::Modal header-->
                         <div class="modal-header" id="kt_modal_update_product_header">
                             <!--begin::Modal title-->
-                            <h2 class="fw-bolder">{{__('messages.edit').' '.__('messages.product')}}</h2>
+                            <h2 class="fw-bolder">{{__('messages.update').' '.__('messages.product')}}</h2>
                             <!--end::Modal title-->
                             <!--begin::Close-->
                             <div id="kt_modal_update_product_close"

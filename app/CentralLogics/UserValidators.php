@@ -14,6 +14,7 @@ use App\Models\MakerCheckerRule;
 use App\Models\PaymentTerm;
 use App\Models\Product;
 use App\Models\Role;
+use App\Models\Subscription;
 use App\Models\Tax;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -379,8 +380,8 @@ class UserValidators
     public static function subscriptionCreateValidation(Request $request)
     {
         return self::ValidatorMake($request->all(), [
-            'product_id' => 'required|unique:' . Product::class . ',id,client_ref,' . get_user_ref(),
-            'name' => 'required|unique:' . Product::class . ',name,NULL,id,client_ref,' . get_user_ref(),
+            'product_id' => 'required',
+            'name' => 'required|unique:' . Subscription::class . ',name,NULL,id,client_ref,' . get_user_ref(),
             'description' => 'required',
             'features' => 'required',
             'validity' => 'required'

@@ -43,6 +43,9 @@ const KTPackagesUpdate = function () {
                                 message: 'Product is required'
                             }
                         }
+                    },
+                    order: {
+                        validators: {}
                     }
                 },
                 $('#kt_modal_update_package_form'),
@@ -52,7 +55,7 @@ const KTPackagesUpdate = function () {
                 'PUT',
                 modal,
                 $('#kt_packages_table'),
-                ["product_id", "features"],
+                ["product_id", "features", "order"],
             );
         }
     }

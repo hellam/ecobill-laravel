@@ -291,6 +291,33 @@
                                         <!--end::Input-->
                                     </div>
                                     <!--end::Col-->
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-bold mb-2">
+                                            <span>{{__('messages.order')}}</span>
+                                            <i class="fas fa-exclamation-circle ms-1 fs-7"
+                                               data-bs-toggle="tooltip"
+                                               title="Order of product"></i>
+                                        </label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <select name="order"
+                                                aria-label="{{__('messages.select').' '.__('messages.order')}}"
+                                                data-control="select2"
+                                                data-placeholder="{{__('messages.select').' '.__('messages.order')}}"
+                                                data-dropdown-parent="#kt_modal_add_package"
+                                                class="form-select form-select-solid fw-bolder">
+                                            <option></option>
+                                            <option value="1" selected>1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Col-->
                                 </div>
                                 <!--end::Input group-->
                                 <!--begin::Input group-->
@@ -517,6 +544,33 @@
                                         <!--end::Input-->
                                     </div>
                                     <!--end::Col-->
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-bold mb-2">
+                                            <span>{{__('messages.order')}}</span>
+                                            <i class="fas fa-exclamation-circle ms-1 fs-7"
+                                               data-bs-toggle="tooltip"
+                                               title="Order of product"></i>
+                                        </label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <select name="order"
+                                                aria-label="{{__('messages.select').' '.__('messages.order')}}"
+                                                data-control="select2"
+                                                data-placeholder="{{__('messages.select').' '.__('messages.order')}}"
+                                                data-dropdown-parent="#kt_modal_update_package"
+                                                class="form-select form-select-solid fw-bolder">
+                                            <option></option>
+                                            <option value="1" selected>1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                        </select>
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Col-->
                                 </div>
                                 <!--end::Input group-->
                                 <!--begin::Input group-->
@@ -538,9 +592,8 @@
                                     <label class="fs-6 fw-bold mb-2 required">{{__('messages.features')}}</label>
                                     <!--end::Label-->
                                     <!--begin::Input-->
-                                    <input class="form-control form-control-solid"
-                                           placeholder="Type a feature and press enter"
-                                           name="features"/>
+                                    <textarea class="form-control form-control-solid" name="kt_docs_ckeditor_classic" id="kt_docs_ckeditor_classic">
+                                    </textarea>
                                     <!--end::Input-->
                                 </div>
                                 <!--end::Input group-->

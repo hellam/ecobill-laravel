@@ -497,3 +497,12 @@ function handleProductsAPISelect(select_parent, preselect = null) {
         $(select_parent + ' [name="price"]').val($(select_parent + ' .select_api').find(':selected').data('kt-price'))
     })
 }
+
+function createCKEditor(modal) {
+    ClassicEditor
+        .create(document.querySelector(modal + ' #kt_docs_ckeditor_classic'))
+        .then(editor => {
+        })
+        .catch(error => {
+        });
+}

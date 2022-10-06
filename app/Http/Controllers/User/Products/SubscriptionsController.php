@@ -57,13 +57,12 @@ class SubscriptionsController extends Controller
      */
     public function select_api(Request $request): JsonResponse
     {
-        $product = Product::select('barcode','name', 'id', 'default_tax_id')
+        $product = Product::select('name', 'id', 'default_tax_id')
             ->orderBy('name')
             ->limit(10)
             ->get();
         if ($request->has('search'))
             $product = Category::select('name', 'id', 'default_tax_id')
-                ->where('barcode', 'like', '%' . $request->search . '%')
                 ->where('name', 'like', '%' . $request->search . '%')
                 ->orWhere('description', 'like', '%' . $request->search . '%')
                 ->orderBy('name')

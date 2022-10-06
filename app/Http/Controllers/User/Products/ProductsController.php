@@ -56,17 +56,18 @@ class ProductsController extends Controller
      */
     public function select_api(Request $request, $type): JsonResponse
     {
-        $product = Product::select('name', 'id', 'tax_id', 'cost','price')
+        $product = Product::select('barcode', 'name', 'id', 'tax_id', 'cost', 'price')
             ->orderBy('name')
             ->limit(10);
         if ($request->filled('search'))
-            $product = Category::select('name', 'id', 'tax_id', 'cost','price')
+            $product = Category::select('barcode', 'name', 'id', 'tax_id', 'cost', 'price')
+                ->where('barcode', 'like', '%' . $request->search . '%')
                 ->where('name', 'like', '%' . $request->search . '%')
                 ->orWhere('description', 'like', '%' . $request->search . '%')
                 ->orderBy('name')
                 ->limit(10);
 
-        if($type != 'all')
+        if ($type != 'all')
             $product->where('type', '=', $type);
 
         $product = $product->get();

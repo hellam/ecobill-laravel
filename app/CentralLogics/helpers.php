@@ -308,6 +308,7 @@ function delete_file($folderName, $old_fileName)
         } catch (\Exception $e) {
         }
     }
+    return '';
 }
 
 function get_base64_image($base64_image): array

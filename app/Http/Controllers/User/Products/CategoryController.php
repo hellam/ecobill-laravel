@@ -157,11 +157,11 @@ class CategoryController extends Controller
         $category = Category::find($id);
         $category = set_update_parameters($category, $created_at, $created_by, $supervised_by, $supervised_at);
 
-        $fileName = $request->delete == 0 ? $category->image : '';
+        $fileName = $request->delete == 0 ? $category->image : delete_file('products', $category->image);
         if ($request->filled('image')) {
             $requestImage = $request->image; //your base64 encoded
             try {
-                $fileName = store_base64_image($requestImage, $fileName, get_user_ref().'/products');
+                $fileName = store_base64_image($requestImage, $fileName, get_user_ref().'/categories');
             } catch (\Exception $exception) {
                 return error_web_processor('Invalid image file',
                     200, ['field' => 'image', 'error' => 'Invalid Image file']);

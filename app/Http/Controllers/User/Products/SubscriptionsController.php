@@ -163,7 +163,7 @@ class SubscriptionsController extends Controller
         $products = Product::find($id);
         $products = set_update_parameters($products, $created_at, $created_by, $supervised_by, $supervised_at);
 
-        $fileName = $request->delete == 0 ? $products->image : '';
+        $fileName = $request->delete == 0 ? $products->image : delete_file('packages', $products->image);
         if ($request->filled('image')) {
             $requestImage = $request->image; //your base64 encoded
             try {

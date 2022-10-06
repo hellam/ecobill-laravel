@@ -167,7 +167,7 @@ class SubscriptionsController extends Controller
         if ($request->filled('image')) {
             $requestImage = $request->image; //your base64 encoded
             try {
-                $fileName = store_base64_image($requestImage, $fileName, get_user_ref() . '/products');
+                $fileName = store_base64_image($requestImage, $fileName, get_user_ref() . '/packages');
             } catch (\Exception $exception) {
                 return error_web_processor('Invalid image file',
                     200, ['field' => 'image', 'error' => 'Invalid Image file']);

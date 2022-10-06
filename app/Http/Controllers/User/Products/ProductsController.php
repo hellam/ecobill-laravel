@@ -69,7 +69,7 @@ class ProductsController extends Controller
         if($type != 'all')
             $product->where('type', '=', $type);
 
-        $product->get();
+        $product = $product->get();
 
         return response()->json($product, 200);
     }

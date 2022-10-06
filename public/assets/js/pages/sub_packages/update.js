@@ -55,7 +55,7 @@ const KTPackagesUpdate = function () {
                 'PUT',
                 modal,
                 $('#kt_packages_table'),
-                ["product_id", "features", "order"],
+                ["product_id", "order"],
             );
         }
     }

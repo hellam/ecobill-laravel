@@ -56,10 +56,11 @@ const KTSubscriptionPackagesAdd = function () {
                 'POST',
                 modal,
                 $('#kt_packages_table'),
-                ["product_id", "features", "order"],
+                ["product_id", "order"],
             );
 
             handleProductsAPISelect('#kt_modal_add_package')
+            createCKEditor('#kt_modal_add_package')
         }
     };
 }();

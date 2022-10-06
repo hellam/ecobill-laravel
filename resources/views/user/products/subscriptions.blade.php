@@ -339,9 +339,8 @@
                                     <label class="fs-6 fw-bold mb-2 required">{{__('messages.features')}}</label>
                                     <!--end::Label-->
                                     <!--begin::Input-->
-                                    <input class="form-control form-control-solid tagify"
-                                           placeholder="Type a feature and press enter"
-                                           name="features"/>
+                                    <textarea class="form-control form-control-solid" name="features" id="kt_docs_ckeditor_classic">
+                                    </textarea>
                                     <!--end::Input-->
                                 </div>
                                 <!--end::Input group-->
@@ -592,7 +591,7 @@
                                     <label class="fs-6 fw-bold mb-2 required">{{__('messages.features')}}</label>
                                     <!--end::Label-->
                                     <!--begin::Input-->
-                                    <textarea class="form-control form-control-solid" name="kt_docs_ckeditor_classic" id="kt_docs_ckeditor_classic">
+                                    <textarea class="form-control form-control-solid" name="features" id="kt_docs_ckeditor_classic">
                                     </textarea>
                                     <!--end::Input-->
                                 </div>

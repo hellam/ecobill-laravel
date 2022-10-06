@@ -60,7 +60,7 @@ class ProductsController extends Controller
             ->orderBy('name')
             ->limit(10);
         if ($request->filled('search'))
-            $product = Category::select('barcode', 'name', 'id', 'tax_id', 'cost', 'price')
+            $product = Product::select('barcode', 'name', 'id', 'tax_id', 'cost', 'price')
                 ->where('barcode', 'like', '%' . $request->search . '%')
                 ->where('name', 'like', '%' . $request->search . '%')
                 ->orWhere('description', 'like', '%' . $request->search . '%')

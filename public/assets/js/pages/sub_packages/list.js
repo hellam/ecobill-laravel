@@ -3,7 +3,7 @@
 // Class definition
 const KTPackagesServerSide = function () {
     // Shared variables
-    var table, dt, form;
+    let table, dt, form;
 
     // Private functions
     const initDatatable = function () {
@@ -156,13 +156,12 @@ const KTPackagesServerSide = function () {
                             const package_ = response.data;
 
                             //
-                            $("#kt_modal_update_package_form #imagePrev").attr('src',package_.image);
+                            $("#kt_modal_update_package_form #imagePrev").attr('src', package_.image);
                             $("#kt_modal_update_package_form input[name='name']").val(package_.name);
                             $("#kt_modal_update_package_form input[name='cost']").val(package_.cost);
                             $("#kt_modal_update_package_form input[name='price']").val(package_.price);
-                            $("#kt_modal_update_package_form select[name='validity']").val(package_.validity);
-                            $("#kt_modal_update_package_form select[name='description']").val(package_.description);
-                            $("#kt_modal_update_package_form select[name='features']").val(package_.features);
+                            $("#kt_modal_update_package_form input[name='validity']").val(package_.validity);
+                            $("#kt_modal_update_package_form textarea[name='description']").val(package_.description);
 
 
                             $("#kt_modal_update_package_form input[name='inactive']").val(package_.inactive);
@@ -173,6 +172,15 @@ const KTPackagesServerSide = function () {
                             }
 
                             handleProductsAPISelect('#kt_modal_update_package', package_.product)
+
+                            let tagify = new Tagify(document.querySelector('#kt_modal_update_package_form input[name="features"]'));
+
+                            try{
+                                let tags = ["test", "tes1"];
+                                tagify.addTags(tags);
+                            }catch (e){
+                                tagify.destroy()
+                            }
 
                             //active/inactive
                             $("#kt_modal_update_package_form input[id='inactive']").on('change', function () {

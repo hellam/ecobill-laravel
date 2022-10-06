@@ -383,7 +383,7 @@
                         <!--begin::Modal header-->
                         <div class="modal-header" id="kt_modal_update_package_header">
                             <!--begin::Modal title-->
-                            <h2 class="fw-bolder">{{__('messages.edit').' '.__('messages.product')}}</h2>
+                            <h2 class="fw-bolder">{{__('messages.update').' '.__('messages.subscription').' '.__('messages.package')}}</h2>
                             <!--end::Modal title-->
                             <!--begin::Close-->
                             <div id="kt_modal_update_package_close"
@@ -424,6 +424,7 @@
                                             <input type="file" id="upload" accept=".png, .jpg, .jpeg"
                                                    onchange="previewImageUpload('#kt_modal_update_package')"/>
                                             <input type="hidden" id="image" name="image"/>
+                                            <input type="hidden" id="delete" name="delete"/>
                                             <label for="upload"><i class="fa fa-pen"></i></label>
                                         </div>
                                         <button type="button" onclick="removeImage('#kt_modal_update_package')"><i
@@ -537,7 +538,7 @@
                                     <label class="fs-6 fw-bold mb-2 required">{{__('messages.features')}}</label>
                                     <!--end::Label-->
                                     <!--begin::Input-->
-                                    <input class="form-control form-control-solid tagify"
+                                    <input class="form-control form-control-solid"
                                            placeholder="Type a feature and press enter"
                                            name="features"/>
                                     <!--end::Input-->
@@ -586,5 +587,5 @@
 @push('custom_scripts')
     <script src="{{asset('assets/js/pages/sub_packages/add.js')}}"></script>
     <script src="{{asset('assets/js/pages/sub_packages/list.js')}}"></script>
-    {{--    <script src="{{asset('assets/js/pages/sub_packages/update.js')}}"></script>--}}
+    <script src="{{asset('assets/js/pages/sub_packages/update.js')}}"></script>
 @endpush

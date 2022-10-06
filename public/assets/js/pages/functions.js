@@ -317,7 +317,7 @@ function submitFormData(str, form, modal, submitButton, table, select_fields, me
                         // Hide modal
                         if (modal !== null)
                             modal.hide();
-                        if(ckeditor !== null)
+                        if (ckeditor !== null)
                             CKEDITOR.instances[ckeditor].setData()
                         // Enable submit button after loading
                         submitButton.disabled = false;
@@ -375,7 +375,7 @@ function submitFormData(str, form, modal, submitButton, table, select_fields, me
                         submitFormData(str, form, modal, submitButton, table, select_fields, method, ckeditor);
                     } else {
                         form.reset(); // Reset form
-                        if(ckeditor !== null)
+                        if (ckeditor !== null)
                             CKEDITOR.instances[ckeditor].setData()
                         if (select_fields !== null)
                             select_fields.forEach(select => {

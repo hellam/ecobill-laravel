@@ -55,6 +55,8 @@ const KTSubscriptionPackagesAdd = function () {
                 $('#kt_packages_table'),
                 ["product_id", "features"],
             );
+
+            handleAPISelect('#kt_modal_add_package')
         }
     };
 }();

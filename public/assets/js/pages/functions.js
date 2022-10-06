@@ -445,3 +445,43 @@ function handleCategoryAPISelect(select_parent, preselect = null) {
         $(select_parent + ' .tax_id').val($('.select_cat').find(':selected').data('default-tax-id')).trigger('change')
     })
 }
+
+function handleAPISelect(select_parent, preselect = null) {
+    const element = document.querySelector(select_parent + ' .select_api');
+
+    $(select_parent + ' .select_api').html("").trigger('change');
+    if (preselect) {
+        const option = new Option(preselect?.name, preselect?.id, true, true);
+        $(select_parent + ' .select_api').append(option).trigger('change');
+    }
+
+    $(select_parent + ' .select_api').select2({
+        placeholder: 'Select Category',
+        minimumInputLength: 0,
+        escapeMarkup: function (markup) {
+            return markup;
+        },
+        ajax: {
+            url: element.getAttribute("data-kt-src"),
+            dataType: 'json',
+            type: 'GET',
+            contentType: 'application/json',
+            delay: 50,
+            data: function (params) {
+                return {
+                    search: params.term
+                };
+            },
+            processResults: function (data) {
+                return {
+                    results: $.map(data, function (item) {
+                        return {
+                            text: item.name,
+                            id: item.id,
+                        }
+                    })
+                }
+            }
+        }
+    })
+}

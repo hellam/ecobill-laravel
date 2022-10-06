@@ -25,8 +25,7 @@ class SubscriptionsController extends Controller
     public function index(): Factory|View|Application
     {
         $sub_packages = Subscription::count() ?? 0;
-        $tax = Tax::all();
-        return view('user.products.subscriptions', compact('sub_packages', 'tax'));
+        return view('user.products.subscriptions', compact('sub_packages'));
     }
 
 
@@ -55,12 +54,12 @@ class SubscriptionsController extends Controller
      */
     public function select_api(Request $request): JsonResponse
     {
-        $product = Product::select('name', 'id')
+        $product = Subscription::select('name', 'id')
             ->orderBy('name')
             ->limit(10)
             ->get();
         if ($request->has('search'))
-            $product = Category::select('name', 'id')
+            $product = Subscription::select('name', 'id')
                 ->where('name', 'like', '%' . $request->search . '%')
                 ->orWhere('description', 'like', '%' . $request->search . '%')
                 ->orderBy('name')
@@ -122,14 +121,14 @@ class SubscriptionsController extends Controller
             log_activity(
                 ST_SUBSCRIPTION_SETUP,
                 $request->getClientIp(),
-                'Create Subscription',
+                'Create Subscription Package',
                 json_encode($post_data),
                 auth('user')->id(),
                 $subscription->id
             );
         }
 
-        return success_web_processor(['id' => $subscription->id], __('messages.msg_saved_success', ['attribute' => __('messages.subscription')]));
+        return success_web_processor(['id' => $subscription->id], __('messages.msg_saved_success', ['attribute' => __('messages.package')]));
     }
 
     /**
@@ -137,12 +136,12 @@ class SubscriptionsController extends Controller
      */
     public function edit($id)
     {
-        $product = Product::with('category:id,name,id')->find($id);
-        $product->image = get_file_url('products',$product->image);
-        if (isset($product)) {
-            return success_web_processor($product, __('messages.msg_item_found', ['attribute' => __('messages.product')]));
+        $subscription = Subscription::with('product:id,name,barcode,id')->find($id);
+        $subscription->image = get_file_url('packages',$subscription->image);
+        if (isset($subscription)) {
+            return success_web_processor($subscription, __('messages.msg_item_found', ['attribute' => __('messages.package')]));
         }
-        return error_web_processor(trans('messages.msg_item_not_found', ['attribute' => __('messages.product')]));
+        return error_web_processor(trans('messages.msg_item_not_found', ['attribute' => __('messages.package')]));
     }
 
     /**

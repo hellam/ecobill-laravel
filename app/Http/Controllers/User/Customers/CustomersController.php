@@ -15,6 +15,7 @@ class CustomersController extends Controller
      */
     public function index(): Factory|View|Application
     {
-        return view('user.utils.unsupervised_data');
+        $customers = 0;
+        return view('user.customers.customers', compact('customers'));
     }
 }

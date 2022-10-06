@@ -374,7 +374,8 @@
             <!--begin:Menu item-->
             <div class="menu-item">
                 <!--begin:Menu link-->
-                <a class="menu-link" href="#">
+                <a class="menu-link @if(Route::is('user.customers*'))active @endif"
+                   href="{{route('user.customers.all')}}">
                     <span class="menu-icon">
                         <!--begin::Svg Icon | path: icons/duotune/communication/com013.svg-->
                         <span class="svg-icon svg-icon-2">

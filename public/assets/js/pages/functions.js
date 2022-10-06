@@ -182,7 +182,7 @@ function handleFormSubmit(form, fields, form_jquery, cancelButton, closeButton, 
                         str = form_jquery.serialize() + "&features=" + CKEDITOR.instances[ckeditor].getData()
                     else
                         str = form_jquery.serialize();
-                    submitFormData(str, form, modal, submitButton, table, select_fields, method);
+                    submitFormData(str, form, modal, submitButton, table, select_fields, method, ckeditor);
                 } else {
                     Swal.fire({
                         text: "Sorry, looks like there are some errors detected, please try again.",
@@ -254,7 +254,7 @@ function handleFormSubmit(form, fields, form_jquery, cancelButton, closeButton, 
     });
 }
 
-function submitFormData(str, form, modal, submitButton, table, select_fields, method) {
+function submitFormData(str, form, modal, submitButton, table, select_fields, method, ckeditor) {
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -317,6 +317,8 @@ function submitFormData(str, form, modal, submitButton, table, select_fields, me
                         // Hide modal
                         if (modal !== null)
                             modal.hide();
+                        if(ckeditor !== null)
+                            CKEDITOR.instances[ckeditor].setData()
                         // Enable submit button after loading
                         submitButton.disabled = false;
                         form.reset(); // Reset form
@@ -370,9 +372,11 @@ function submitFormData(str, form, modal, submitButton, table, select_fields, me
                         // console.log(str)
                         // if (result.value)
                         str = str + "&remarks=" + result.value
-                        submitFormData(str, form, modal, submitButton, table, select_fields, method);
+                        submitFormData(str, form, modal, submitButton, table, select_fields, method, ckeditor);
                     } else {
                         form.reset(); // Reset form
+                        if(ckeditor !== null)
+                            CKEDITOR.instances[ckeditor].setData()
                         if (select_fields !== null)
                             select_fields.forEach(select => {
                                 $(form.querySelector(`[name=${select}]`)).val(null).trigger('change');

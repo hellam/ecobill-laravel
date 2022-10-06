@@ -192,16 +192,16 @@ class SubscriptionsController extends Controller
      */
     public function destroy($id)
     {
-        $products = Product::find($id);
-        if (isset($products)) {
-            //TODO: check if product has transactions
+        $subscription = Subscription::find($id);
+        if (isset($subscription)) {
+            //TODO: check if subscription has transactions
 //            $products = Product::where('category_id', $id)->count();
 //            if ($products > 0) {
 //                return error_web_processor(__('messages.msg_delete_not_allowed', ['attribute' => __('messages.category'), 'attribute1' => __('messages.products')]));
 //            }
-            $products->delete();
-            return success_web_processor(null, __('messages.msg_deleted_success', ['attribute' => __('messages.product')]));
+            $subscription->delete();
+            return success_web_processor(null, __('messages.msg_deleted_success', ['attribute' => __('messages.package')]));
         }
-        return error_web_processor(__('messages.msg_item_not_found', ['attribute' => __('messages.product')]));
+        return error_web_processor(__('messages.msg_item_not_found', ['attribute' => __('messages.package')]));
     }
 }

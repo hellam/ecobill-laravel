@@ -37,9 +37,9 @@ class SubscriptionsController extends Controller
         return (new DataTables)->eloquent($subscription)
             ->addIndexColumn()
             ->addColumn('id', function ($row) {
-                return ["id" => $row->id, "edit_url" => route('user.products.subscription.edit', [$row->id]),
-                    "update_url" => route('user.products.subscription.update', [$row->id]),
-                    "delete_url" => route('user.products.subscription.delete', [$row->id])];
+                return ["id" => $row->id, "edit_url" => route('user.products.sub_packages.edit', [$row->id]),
+                    "update_url" => route('user.products.sub_packages.update', [$row->id]),
+                    "delete_url" => route('user.products.sub_packages.delete', [$row->id])];
             })->editColumn('inactive', function ($row) {
                 return $row->inactive == 0 ? '<div class="badge badge-sm badge-light-success">Active</div>' : '<div class="badge badge-sm badge-light-danger">Inactive</div>';
             })->addColumn('product', function ($row) {

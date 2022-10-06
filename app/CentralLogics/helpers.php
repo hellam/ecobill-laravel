@@ -263,12 +263,16 @@ function array_equal($a, $b): bool
 
 function get_file_url($folder, $filename = '')
 {
-    return route('user.files',
-        [
-            'folder' => $folder,
-            'fileName' => $filename ?? 'null'
-        ]
-    );
+    try {
+        return route('user.files',
+            [
+                'folder' => $folder,
+                'fileName' => $filename ?? 'null'
+            ]
+        );
+    }catch (\Exception $e) {
+        return '';
+    }
 }
 
 function store_base64_image($requestImage, $fileName, $folderName)

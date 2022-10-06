@@ -61,7 +61,7 @@ Route::group(['as' => 'user.'], function () {
             Route::controller(User\Products\ProductsController::class)->group(function () {
                 Route::get('/', 'index')->name('all')->middleware('permission:501');
                 Route::get('/dt-api', 'dt_api')->name('dt_api')->middleware('permission:501');
-                Route::get('/select-api', 'select_api')->name('select_api')->middleware('permission:501');
+                Route::get('/select-api/{type}', 'select_api')->name('select_api')->middleware('permission:501')->whereIn('type', ['all', '0','1']);
                 Route::post('/', 'create')->name('create')->middleware('permission:5010,' . ST_PRODUCT_SETUP);
                 Route::get('edit/{id}', 'edit')->name('edit')->middleware('permission:5011')->whereNumber('id');
                 Route::put('update/{id}', 'update')->name('update')->middleware('permission:5011,' . ST_PRODUCT_SETUP)->whereNumber('id');

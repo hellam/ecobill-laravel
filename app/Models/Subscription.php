@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Created by Reliese Model.
+ */
+
 namespace App\Models;
 
 use App\Scopes\ClientRefScope;
@@ -25,9 +29,10 @@ use Illuminate\Support\Facades\Auth;
  * @property string|null $updated_by
  * @property string|null $supervised_by
  * @property Carbon|null $supervised_at
- * @property int $inactive
+ * @property bool|null $inactive
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ * @property int|null $order
  *
  * @package App\Models
  */
@@ -40,7 +45,8 @@ class Subscription extends Model
 		'price' => 'float',
 		'cost' => 'float',
 		'validity' => 'int',
-		'inactive' => 'int'
+		'inactive' => 'bool',
+		'order' => 'int'
 	];
 
 	protected $dates = [
@@ -61,7 +67,8 @@ class Subscription extends Model
 		'updated_by',
 		'supervised_by',
 		'supervised_at',
-		'inactive'
+		'inactive',
+		'order'
 	];
 
     public function product(): BelongsTo

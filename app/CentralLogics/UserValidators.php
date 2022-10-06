@@ -342,6 +342,7 @@ class UserValidators
             'name' => 'required|unique:' . Category::class . ',name,' . $id . ',id,client_ref,' . get_user_ref(),
             'description' => 'required',
             'default_tax_id' => 'required|numeric',
+            'inactive' => 'in:1,0',
         ]);
     }
 
@@ -374,6 +375,7 @@ class UserValidators
             'category_id' => 'required|exists:' . Category::class . ',id,client_ref,' . get_user_ref(),
             'tax_id' => 'required|numeric',
             'type' => 'required|numeric',//TODO: validate if type subscription has packages
+            'inactive' => 'in:1,0',
         ]);
     }
 
@@ -384,8 +386,23 @@ class UserValidators
             'product_id' => 'required',
             'name' => 'required|unique:' . Subscription::class . ',name,NULL,id,client_ref,' . get_user_ref(),
             'description' => 'required',
+            'order' => 'required',
             'features' => 'required',
             'validity' => 'required'
+        ]);
+    }
+
+    public static function subscriptionUpdateValidation(Request $request)
+    {
+        $id = Route::current()->id;
+        return self::ValidatorMake($request->all(), [
+            'product_id' => 'required',
+            'name' => 'required|unique:' . Subscription::class . ',name,' . $id . ',id,client_ref,' . get_user_ref(),
+            'description' => 'required',
+            'order' => 'required',
+            'features' => 'required',
+            'validity' => 'required',
+            'inactive' => 'in:1,0',
         ]);
     }
 

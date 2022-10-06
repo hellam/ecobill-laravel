@@ -99,7 +99,8 @@ class SubscriptionsController extends Controller
         }
 
         $features = '';
-        foreach ($request->features as $feature) {
+        $features_ = json_decode($request->features, true);
+        foreach ($features_ as $feature) {
             $features .= (string)$feature['value'].',';
         }
 

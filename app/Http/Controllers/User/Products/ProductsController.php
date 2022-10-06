@@ -54,19 +54,22 @@ class ProductsController extends Controller
      * Show the form for editing the specified resource.
      *
      */
-    public function select_api(Request $request): JsonResponse
+    public function select_api(Request $request, $type): JsonResponse
     {
         $product = Product::select('name', 'id', 'default_tax_id')
             ->orderBy('name')
-            ->limit(10)
-            ->get();
-        if ($request->has('search'))
+            ->limit(10);
+        if ($request->filled('search'))
             $product = Category::select('name', 'id', 'default_tax_id')
                 ->where('name', 'like', '%' . $request->search . '%')
                 ->orWhere('description', 'like', '%' . $request->search . '%')
                 ->orderBy('name')
-                ->limit(10)
-                ->get();
+                ->limit(10);
+
+        if($type != 'all')
+            $product->where('type', '=', $type);
+
+        $product->get();
 
         return response()->json($product, 200);
     }
@@ -164,7 +167,7 @@ class ProductsController extends Controller
         $products = Product::find($id);
         $products = set_update_parameters($products, $created_at, $created_by, $supervised_by, $supervised_at);
 
-        $fileName = $request->delete == 0 ? $products->image : '';
+        $fileName = $request->delete == 0 ? $products->image : delete_file('products', $products->image);
         if ($request->filled('image')) {
             $requestImage = $request->image; //your base64 encoded
             try {

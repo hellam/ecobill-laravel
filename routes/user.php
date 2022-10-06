@@ -88,6 +88,13 @@ Route::group(['as' => 'user.'], function () {
             });
         });
 
+        Route::group(['prefix' => 'customers', 'as' => 'customers.'], function () {
+            Route::controller(User\Customers\CustomersController::class)->middleware('permission:401')->group(function () {
+                Route::get('/', 'index')->name('list');
+                Route::get('/dt-api', 'dt_api')->name('dt_api');
+            });
+        });
+
         Route::group(['prefix' => 'reports', 'as' => 'reports.'], function () {
             Route::controller(User\Reports\AuditTrailController::class)->middleware('permission:601')->prefix('audit-trail')->as('audit_trail.')->group(function () {
                 Route::get('/', 'index')->name('list');

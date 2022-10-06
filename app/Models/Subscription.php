@@ -45,7 +45,7 @@ class Subscription extends Model
 		'price' => 'float',
 		'cost' => 'float',
 		'validity' => 'int',
-		'inactive' => 'bool',
+		'inactive' => 'int',
 		'order' => 'int'
 	];
 

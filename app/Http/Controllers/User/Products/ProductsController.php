@@ -201,7 +201,7 @@ class ProductsController extends Controller
     {
         $products = Product::find($id);
         if (isset($products)) {
-            //TODO: check if product has transactions
+            //TODO: check if product has transactions and subscriptions
 //            $products = Product::where('category_id', $id)->count();
 //            if ($products > 0) {
 //                return error_web_processor(__('messages.msg_delete_not_allowed', ['attribute' => __('messages.category'), 'attribute1' => __('messages.products')]));

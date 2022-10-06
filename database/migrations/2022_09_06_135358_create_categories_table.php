@@ -17,7 +17,7 @@ return new class extends Migration
             $table->bigInteger('id', true);
             $table->string('name', 250);
             $table->string('image', 255);
-            $table->text('description')->nullable();
+            $table->longText('description')->nullable();
             $table->bigInteger('default_tax_id');
             $table->string("client_ref",100)->nullable();
             $table->string("created_by",100)->nullable();

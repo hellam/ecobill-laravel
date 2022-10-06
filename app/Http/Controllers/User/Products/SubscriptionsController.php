@@ -33,21 +33,19 @@ class SubscriptionsController extends Controller
     //Data table API
     public function dt_api(Request $request): JsonResponse
     {
-        $audit_trail = Product::with('category', 'tax')->orderBy('name');
-        return (new DataTables)->eloquent($audit_trail)
+        $subscription = Subscription::with('product')->orderBy('name');
+        return (new DataTables)->eloquent($subscription)
             ->addIndexColumn()
             ->addColumn('id', function ($row) {
-                return ["id" => $row->id, "edit_url" => route('user.products.edit', [$row->id]),
-                    "update_url" => route('user.products.update', [$row->id]),
-                    "delete_url" => route('user.products.delete', [$row->id])];
+                return ["id" => $row->id, "edit_url" => route('user.products.subscription.edit', [$row->id]),
+                    "update_url" => route('user.products.subscription.update', [$row->id]),
+                    "delete_url" => route('user.products.subscription.delete', [$row->id])];
             })->editColumn('inactive', function ($row) {
                 return $row->inactive == 0 ? '<div class="badge badge-sm badge-light-success">Active</div>' : '<div class="badge badge-sm badge-light-danger">Inactive</div>';
-            })->addColumn('category', function ($row) {
-                return $row->category->name;
-            })->addColumn('tax', function ($row) {
-                return $row->tax->name.': '.$row->tax->rate.'%';
-            })->editColumn('type', function ($row) {
-                return $row->type_name();
+            })->addColumn('product', function ($row) {
+                return $row->product->name;
+            })->editColumn('validity', function ($row) {
+                return $row->validity .' days';
             })->make(true);
     }
 
@@ -57,12 +55,12 @@ class SubscriptionsController extends Controller
      */
     public function select_api(Request $request): JsonResponse
     {
-        $product = Product::select('name', 'id', 'default_tax_id')
+        $product = Product::select('name', 'id')
             ->orderBy('name')
             ->limit(10)
             ->get();
         if ($request->has('search'))
-            $product = Category::select('name', 'id', 'default_tax_id')
+            $product = Category::select('name', 'id')
                 ->where('name', 'like', '%' . $request->search . '%')
                 ->orWhere('description', 'like', '%' . $request->search . '%')
                 ->orderBy('name')

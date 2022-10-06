@@ -138,7 +138,8 @@ function handleSearchDatatable(input, dt) {
     });
 }
 
-function handleFormSubmit(form, fields, form_jquery, cancelButton, closeButton, submitButton, method, modal = null, table = null, select_fields = null) {
+function handleFormSubmit(form, fields, form_jquery, cancelButton, closeButton, submitButton, method, modal = null, table = null, select_fields = null, ckeditor = []) {
+    console.log(ckeditor)
     let validator = FormValidation.formValidation(
         form,
         {
@@ -177,7 +178,11 @@ function handleFormSubmit(form, fields, form_jquery, cancelButton, closeButton, 
 
                 if (status === 'Valid') {
                     submitButton.setAttribute('data-kt-indicator', 'on');
-                    let str = form_jquery.serialize();
+                    let str;
+                    if (ckeditor[0])
+                        str = form_jquery.serialize() + "&features=" + ckeditor[1];
+                    else
+                        str = form_jquery.serialize();
                     submitFormData(str, form, modal, submitButton, table, select_fields, method);
                 } else {
                     Swal.fire({
@@ -496,13 +501,4 @@ function handleProductsAPISelect(select_parent, preselect = null) {
         $(select_parent + ' [name="cost"]').val($(select_parent + ' .select_api').find(':selected').data('kt-cost'))
         $(select_parent + ' [name="price"]').val($(select_parent + ' .select_api').find(':selected').data('kt-price'))
     })
-}
-
-function createCKEditor(modal) {
-    ClassicEditor
-        .create(document.querySelector(modal + ' #kt_docs_ckeditor_classic'))
-        .then(editor => {
-        })
-        .catch(error => {
-        });
 }

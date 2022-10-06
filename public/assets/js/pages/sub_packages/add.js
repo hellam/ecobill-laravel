@@ -2,7 +2,23 @@
 
 // Class definition
 const KTSubscriptionPackagesAdd = function () {
-    let submitButton, cancelButton, closeButton, form, modal;
+    let submitButton, cancelButton, closeButton, form, modal, CKEditor, features;
+
+    function createCKEditor() {
+        ClassicEditor
+            .create(document.querySelector('#kt_modal_add_package #kt_docs_ckeditor_classic'))
+            .then(editor => {
+                CKEditor = editor;
+
+                CKEditor = ClassicEditor.replace( 'kt_docs_ckeditor_classic' );
+                CKEditor.on( 'change', function( evt ) {
+                    console.log(evt.editor.getData())
+                })
+
+            })
+            .catch(error => {
+            });
+    }
 
     return {
         // Public functions
@@ -17,12 +33,15 @@ const KTSubscriptionPackagesAdd = function () {
             handleFormSubmit(
                 form,
                 {
-                    features: {
+                    name: {
                         validators: {
                             notEmpty: {
-                                message: 'Features required'
+                                message: 'Name is required'
                             }
                         }
+                    },
+                    features: {
+                        validators: {}
                     },
                     description: {
                         validators: {
@@ -57,10 +76,11 @@ const KTSubscriptionPackagesAdd = function () {
                 modal,
                 $('#kt_packages_table'),
                 ["product_id", "order"],
+                [true, CKEditor]
             );
 
             handleProductsAPISelect('#kt_modal_add_package')
-            createCKEditor('#kt_modal_add_package')
+            createCKEditor()
         }
     };
 }();

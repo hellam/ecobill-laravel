@@ -3,7 +3,7 @@
 // Class definition
 const KTPackagesServerSide = function () {
     // Shared variables
-    let table, dt, form;
+    let table, dt, form, submitButton, cancelButton, closeButton, modal, CKEditor, ckeditor;
 
     // Private functions
     const initDatatable = function () {
@@ -110,6 +110,17 @@ const KTPackagesServerSide = function () {
         });
     };
 
+    function createCKEditor() {
+        ClassicEditor
+            .create(document.querySelector('#kt_modal_update_package #kt_docs_ckeditor_classic'))
+            .then(editor => {
+                ckeditor = editor;
+                CKEditor = editor.getData();
+            })
+            .catch(error => {
+            });
+    }
+
     //Edit Button
     const handleUpdateRows = function () {
         // Select all delete buttons
@@ -154,6 +165,7 @@ const KTPackagesServerSide = function () {
 
                             $('#kt_modal_update_package_form').show({backdrop: 'static', keyboard: false});//show form
                             const package_ = response.data;
+                            ckeditor.setData(package_.features)
 
                             //
                             $("#kt_modal_update_package_form #imagePrev").attr('src', package_.image);
@@ -161,8 +173,8 @@ const KTPackagesServerSide = function () {
                             $("#kt_modal_update_package_form input[name='cost']").val(package_.cost);
                             $("#kt_modal_update_package_form input[name='price']").val(package_.price);
                             $("#kt_modal_update_package_form input[name='validity']").val(package_.validity);
+                            $("#kt_modal_update_package_form select[name='order']").val(package_.order).trigger('change');
                             $("#kt_modal_update_package_form textarea[name='description']").val(package_.description);
-
 
                             $("#kt_modal_update_package_form input[name='inactive']").val(package_.inactive);
                             if (package_.inactive === 0) {
@@ -172,7 +184,6 @@ const KTPackagesServerSide = function () {
                             }
 
                             handleProductsAPISelect('#kt_modal_update_package', package_.product)
-
                             //active/inactive
                             $("#kt_modal_update_package_form input[id='inactive']").on('change', function () {
                                 if ($(this).is(':checked'))
@@ -210,7 +221,6 @@ const KTPackagesServerSide = function () {
 
     };
 
-
     // Public methods
     return {
         init: function () {
@@ -222,8 +232,65 @@ const KTPackagesServerSide = function () {
                 handleSearchDatatable('[data-kt-package-table-filter="search"]', dt);
                 handleDeleteRows('[data-kt-package-table-actions="delete_row"]', "input[class='delete_url']", dt);
                 handleUpdateRows();
-                createCKEditor('#kt_modal_update_package')
             }
+
+
+            modal = new bootstrap.Modal(document.querySelector('#kt_modal_update_package'));
+            cancelButton = form.querySelector('#kt_modal_update_package_cancel');
+            submitButton = form.querySelector('#kt_modal_update_package_submit');
+            closeButton = document.querySelector('#kt_modal_update_package_close');
+
+
+            handleFormSubmit(
+                form,
+                {
+                    name: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Name is required'
+                            }
+                        }
+                    },
+                    features: {
+                        validators: {}
+                    },
+                    description: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Description is required'
+                            }
+                        }
+                    },
+                    validity: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Validity is required'
+                            }
+                        }
+                    },
+                    product_id: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Product is required'
+                            }
+                        }
+                    },
+                    order: {
+                        validators: {}
+                    }
+                },
+                $('#kt_modal_update_package_form'),
+                cancelButton,
+                closeButton,
+                submitButton,
+                'PUT',
+                modal,
+                $('#kt_packages_table'),
+                ["product_id", "order"],
+                [true, CKEditor]
+            );
+
+            createCKEditor()
         }
     }
 }();

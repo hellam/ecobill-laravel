@@ -88,7 +88,7 @@
                 <div class="card-body pt-0">
                     <!--begin::Table-->
                     <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_packages_table"
-                           data-kt-dt_api="{{route('user.products.sub_packages.dt_api')}}">
+                           data-kt-dt_api="">
                         <!--begin::Table head-->
                         <thead>
                         <!--begin::Table row-->

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->bigInteger('product_id');
             $table->string('name', 100);
             $table->string('image', 255);
-            $table->string('description', 255)->nullable();
+            $table->longText('description', 255)->nullable();
             $table->longText('features')->nullable();
             $table->double('price')->nullable();
             $table->double('cost')->default(0)->nullable();

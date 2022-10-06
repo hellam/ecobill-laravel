@@ -102,6 +102,7 @@ class TaxController extends Controller
         $tax->name = $request->name;
         $tax->description = $request->description;
         $tax->rate = $request->rate;
+        $tax->inactive = $request->inactive;
         $tax->update();
 
         return success_web_processor(null, __('messages.msg_updated_success', ['attribute' => __('messages.tax')]));

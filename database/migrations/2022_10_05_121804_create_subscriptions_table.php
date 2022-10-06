@@ -22,6 +22,7 @@ return new class extends Migration
             $table->longText('features')->nullable();
             $table->double('price')->nullable();
             $table->double('cost')->default(0)->nullable();
+            $table->tinyInteger('order')->default(1)->nullable();
             $table->integer('validity')->default(0)->comment('days');
             $table->string("client_ref",100)->nullable();
             $table->string("created_by",100)->nullable();

@@ -98,19 +98,14 @@ class SubscriptionsController extends Controller
             }
         }
 
-        $features = '';
-        $features_ = json_decode($request->features, true);
-        foreach ($features_ as $feature) {
-            $features .= (string)$feature['value'].',';
-        }
-
         $post_data = [
             'product_id' => $request->product_id,
             'name' => $request->name,
             'image' => $fileName,
             'description' => $request->description,
-            'features' => $features,
+            'features' => $request->features,
             'price' => $request->price,
+            'order' => $request->order,
             'cost' => $request->cost,
             'validity' => $request->validity,
             'client_ref' => get_user_ref()
@@ -157,16 +152,16 @@ class SubscriptionsController extends Controller
     public function update(Request $request, $id, $created_at = null, $created_by = null,
                                    $supervised_by = null, $supervised_at = null): JsonResponse|string
     {
-        $validator = UserValidators::productUpdateValidation($request);
+        $validator = UserValidators::subscriptionUpdateValidation($request);
 
         if ($validator != '') {
             return $validator;
         }
 
-        $products = Product::find($id);
-        $products = set_update_parameters($products, $created_at, $created_by, $supervised_by, $supervised_at);
+        $subscription = Subscription::find($id);
+        $subscription = set_update_parameters($subscription, $created_at, $created_by, $supervised_by, $supervised_at);
 
-        $fileName = $request->delete == 0 ? $products->image : delete_file('packages', $products->image);
+        $fileName = $request->delete == 0 ? $subscription->image : delete_file('packages', $subscription->image);
         if ($request->filled('image')) {
             $requestImage = $request->image; //your base64 encoded
             try {
@@ -176,16 +171,17 @@ class SubscriptionsController extends Controller
                     200, ['field' => 'image', 'error' => 'Invalid Image file']);
             }
         }
-        $products->name = $request->name;
-        $products->image = $fileName;
-        $products->description = $request->description;
-        $products->price = $request->price;
-        $products->cost = $request->cost;
-        $products->order = $request->order;
-        $products->category_id = $request->category_id;
-        $products->tax_id = $request->tax_id;
-        $products->inactive = $request->inactive;
-        $products->update();
+        $subscription->product_id = $request->product_id;
+        $subscription->name = $request->name;
+        $subscription->image = $fileName;
+        $subscription->description = $request->description;
+        $subscription->features = $request->features;
+        $subscription->price = $request->price;
+        $subscription->cost = $request->cost;
+        $subscription->order = $request->order;
+        $subscription->validity = $request->validity;
+        $subscription->inactive = $request->inactive;
+        $subscription->update();
 
         return success_web_processor(null, __('messages.msg_updated_success', ['attribute' => __('messages.product')]));
     }

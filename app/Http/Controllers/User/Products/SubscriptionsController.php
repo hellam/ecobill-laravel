@@ -98,12 +98,17 @@ class SubscriptionsController extends Controller
             }
         }
 
+        $features = '';
+        foreach ($request->features as $feature) {
+            $features .= (string)$feature['value'].',';
+        }
+
         $post_data = [
             'product_id' => $request->product_id,
             'name' => $request->name,
             'image' => $fileName,
             'description' => $request->description,
-            'features' => $request->features,
+            'features' => $features,
             'price' => $request->price,
             'cost' => $request->cost,
             'validity' => $request->validity,

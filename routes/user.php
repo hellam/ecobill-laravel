@@ -98,6 +98,16 @@ Route::group(['as' => 'user.'], function () {
                 Route::put('update/{id}', 'update')->name('update')->middleware('permission:4011,' . ST_CUSTOMER_SETUP)->whereNumber('id');
                 Route::delete('delete/{id}', 'destroy')->name('delete')->middleware('permission:4012,' . ST_CUSTOMER_SETUP)->whereNumber('id');
             });
+
+            Route::controller(User\Customers\CustomerBranchController::class)->prefix('branch')->as('branch.')->group(function () {
+                Route::get('/', 'index')->name('all')->middleware('permission:401');
+                Route::get('/dt-api', 'dt_api')->name('dt_api')->middleware('permission:401');
+                Route::get('/select-api', 'select_api')->name('select_api')->middleware('permission:401');
+                Route::post('/', 'create')->name('create')->middleware('permission:4010,' . ST_CUSTOMER_SETUP);
+                Route::get('edit/{id}', 'edit')->name('edit')->middleware('permission:4011')->whereNumber('id');
+                Route::put('update/{id}', 'update')->name('update')->middleware('permission:4011,' . ST_CUSTOMER_SETUP)->whereNumber('id');
+                Route::delete('delete/{id}', 'destroy')->name('delete')->middleware('permission:4012,' . ST_CUSTOMER_SETUP)->whereNumber('id');
+            });
         });
 
         Route::group(['prefix' => 'reports', 'as' => 'reports.'], function () {

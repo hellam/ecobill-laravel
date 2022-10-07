@@ -151,8 +151,8 @@ const KTCustomersServerSide = function () {
                             $('#kt_modal_update_customer_form').show({backdrop: 'static', keyboard: false});//show form
                             const customer = response.data;
                             //
-                            $("#kt_modal_update_customer_form input[name='f_name']").val(customer.f_name);
-                            $("#kt_modal_update_customer_form input[name='l_name']").val(customer.l_name);
+                            $("#kt_modal_update_customer_form input[name='first_name']").val(customer.f_name);
+                            $("#kt_modal_update_customer_form input[name='last_name']").val(customer.l_name);
                             $("#kt_modal_update_customer_form input[name='short_name']").val(customer.short_name).attr('disabled', true);
                             $("#kt_modal_update_customer_form input[name='customer_branch_id']").val(customer.customer_branch.id);
                             $("#kt_modal_update_customer_form input[name='company']").val(customer.company);

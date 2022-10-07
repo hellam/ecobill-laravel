@@ -509,3 +509,45 @@ function handleProductsAPISelect(select_parent, preselect = null) {
 function createCKEditor(input_id) {
     CKEDITOR.replace(input_id);
 }
+
+
+function handleCustomerAPISelect(select_parent, preselect = null) {
+    const element = document.querySelector(select_parent + ' .select_customer');
+
+    $(select_parent + ' .select_customer').html("").trigger('change');
+    if (preselect) {
+        const option = new Option(preselect?.barcode + "|" + preselect?.name, preselect?.id, true, true);
+        $(select_parent + ' .select_customer').append(option).trigger('change');
+    }
+
+    $(select_parent + ' .select_customer').select2({
+        placeholder: 'Select Customer',
+        minimumInputLength: 0,
+        escapeMarkup: function (markup) {
+            return markup;
+        },
+        ajax: {
+            url: element.getAttribute("data-kt-src"),
+            dataType: 'json',
+            type: 'GET',
+            contentType: 'application/json',
+            delay: 50,
+            data: function (params) {
+                return {
+                    search: params.term
+                };
+            },
+            processResults: function (data) {
+                return {
+                    results: $.map(data, function (item) {
+                        return {
+                            text: item.short_name + '|' + item.f_name + ' ' + item.l_name,
+                            id: item.id
+                        }
+                    })
+                }
+            }
+        }
+    })
+}
+

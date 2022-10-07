@@ -38,8 +38,8 @@ class CustomersController extends Controller
     //Data table API
     public function dt_api(Request $request)
     {
-        $debtors = Customer::with('customer_branch:id,phone,email,id')->orderBy('f_name');
-        return (new DataTables)->eloquent($debtors)
+        $customers = Customer::orderBy('f_name');
+        return (new DataTables)->eloquent($customers)
             ->addIndexColumn()
             ->addColumn('id', function ($row) {
                 return ["id" => $row->id, "edit_url" => route('user.customers.edit', [$row->id]),
@@ -51,7 +51,7 @@ class CustomersController extends Controller
                 return Carbon::parse($row->created_at)->format('Y/m/d');
             })->filterColumn('f_name', function ($query, $keyword) {
                 $keywords = trim($keyword);
-                $query->orWhere('f_name','like', "%$keywords%")->orWhere('l_name','like', "%$keywords%");
+                $query->orWhere('f_name', 'like', "%$keywords%")->orWhere('l_name', 'like', "%$keywords%");
             })
             ->make(true);
     }
@@ -129,8 +129,7 @@ class CustomersController extends Controller
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();
-            return error_web_processor($e,
-                200);
+            return error_web_processor($e);
         }
 
         return success_web_processor(['id' => $customer->id], __('messages.msg_saved_success', ['attribute' => __('messages.customer')]));
@@ -142,13 +141,13 @@ class CustomersController extends Controller
      */
     public function edit($id): JsonResponse
     {
-        $customer = DebtorMaster::find($id);
+        $customer = Customer::find($id);
         if (isset($customer)) {
-            $debtor = DebtorMaster::with('contacts')->where(['inactive' => 0, 'id' => $id])->first();
+            $customer = Customer::with('customer_branch:id,phone,email,id')->find($id);
 
-            return Helpers::success_web_processor($debtor, __('messages.msg_item_found', ['attribute' => __('messages.customer')]));
+            return success_web_processor($customer, __('messages.msg_item_found', ['attribute' => __('messages.customer')]));
         }
-        return Helpers::error_web_processor(trans('messages.msg_item_not_found', ['attribute' => __('messages.customer')]));
+        return error_web_processor(trans('messages.msg_item_not_found', ['attribute' => __('messages.customer')]));
     }
 
     /**
@@ -157,24 +156,26 @@ class CustomersController extends Controller
      */
     public function select_api(Request $request): JsonResponse
     {
-        $customer = DebtorMaster::select('f_name', 'l_name', 'company', 'debtor_ref', 'id')
+        $customer = Customer::select('f_name', 'l_name', 'company', 'short_name', 'id')
+            ->where('inactive', 0)
             ->orderBy('f_name')->orderBy('l_name')
             ->limit(10)
             ->get();
-        if ($request->has('search'))
-            $customer = DebtorMaster::select('f_name', 'l_name', 'company', 'debtor_ref', 'id')
+        if ($request->filled('search'))
+            $customer = Customer::select('f_name', 'l_name', 'company', 'short_name', 'id')
+                ->where('inactive', 0)
                 ->where('f_name', 'like', '%' . $request->search . '%')
                 ->orWhere('l_name', 'like', '%' . $request->search . '%')
                 ->orWhere('company', 'like', '%' . $request->search . '%')
-                ->orWhere('debtor_ref', $request->search . '%')
+                ->orWhere('short_name', $request->search . '%')
                 ->orderBy('f_name')->orderBy('l_name')
                 ->limit(10)
                 ->get();
 
         //push edit url to array
-        foreach ($customer as $key => $item) {
-            $customer[$key]['edit_url'] = route('user.messaging.debtor.edit', ['id' => $item->id]);
-        }
+//        foreach ($customer as $key => $item) {
+//            $customer[$key]['edit_url'] = route('user.messaging.debtor.edit', ['id' => $item->id]);
+//        }
 
         return response()->json($customer, 200);
     }
@@ -185,56 +186,48 @@ class CustomersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $input = $request->all();
-        $rules = [];
-        foreach ($input['email'] as $key => $val) {
-            $rules['email.' . $key] = 'required|email:rfc,dns,spoof|unique:' . Contacts::class . ',email,' . $request->contact[$key] . ',client_ref,' . Helpers::get_user_ref();
-            $rules['phone.' . $key] = 'required|min:13|max:13|unique:' . Contacts::class . ',phone,' . $request->contact[$key] . ',client_ref,' . Helpers::get_user_ref();
-        }
-        $rules['f_name'] = 'required';
-        $rules['l_name'] = 'required';
-        $rules['address'] = 'required';
-        $rules['country'] = 'required';
-        $rules['email'] = 'required|array|min:1';
-        $rules['phone'] = 'required|array|min:1';
+        $validator = UserValidators::customerUpdateValidation($request);
 
-        $validator = Validator::make($input, $rules, [
-            'debtor_ref.required' => __('validation.required', ['attribute' => 'short name']),
-            'phone.*.required' => __('validation.required', ['attribute' => 'phone']),
-            'phone.*.unique' => __('validation.unique', ['attribute' => 'phone']),
-            'phone.*.min' => __('validation.min', ['attribute' => 'phone']),
-            'phone.*.max' => __('validation.max', ['attribute' => 'phone']),
-            'email.*.required' => __('validation.required', ['attribute' => 'email']),
-            'email.*.email' => __('validation.email', ['attribute' => 'email']),
-            'email.*.unique' => __('validation.unique', ['attribute' => 'email']),
-            'debtor_ref.unique' => __('validation.unique', ['attribute' => 'short name']),
-            'f_name.required' => __('validation.required', ['attribute' => 'first name']),
-            'l_name.required' => __('validation.required', ['attribute' => 'last name']),
-        ]);
-
-        if ($validator->fails()) {
-            return Helpers::error_web_processor(__('messages.field_correction'),
-                200, Helpers::validation_error_processor($validator));
+        if ($validator != '') {
+            return $validator;
         }
 
-        $debtor = DebtorMaster::find($id);
-        if ($debtor) {
-            $debtor->f_name = $request->f_name;
-            $debtor->l_name = $request->l_name;
-            $debtor->address = $request->address;
-            $debtor->company = $request->company;
-            $debtor->country = $request->country;
-            $debtor->update();
+        $customer = Customer::find($id);
+        if ($customer) {
+            try {
+                DB::beginTransaction();
+                $customer->f_name = $request->first_name;
+                $customer->l_name = $request->last_name;
+                $customer->country = $request->country;
+                $customer->tax_id = $request->tax_id;
+                $customer->currency = $request->currency;
+                $customer->payment_terms = $request->payment_terms;
+                $customer->credit_limit = $request->credit_limit;
+                $customer->credit_status = $request->credit_status;
+                $customer->sales_type = $request->sales_type;
+                $customer->discount = $request->discount;
+                $customer->language = $request->language;
+                $customer->address = $request->address;
+                $customer->company = $request->company;
+                $customer->update();
 
-            foreach ($input['email'] as $key => $val) {
-                $contact = Contacts::find($request->contact[$key]);
-                if ($contact) {
-                    $contact->email = $request->email[$key];
-                    $contact->phone = $request->phone[$key];
-                    $contact->update();
-                }
+
+                $customer_branch = CustomerBranch::find($request->customer_branch_id);
+
+                $customer_branch->f_name = $request->first_name;
+                $customer_branch->l_name = $request->last_name;
+                $customer_branch->address = $request->address;
+                $customer_branch->branch = $request->company;
+                $customer_branch->country = $request->country;
+                $customer_branch->email = $request->email;
+                $customer_branch->phone = $request->phone;
+                $customer_branch->update();
+                DB::commit();
+            } catch (\Exception $e) {
+                DB::rollBack();
+                return error_web_processor($e);
             }
-            return Helpers::success_web_processor(null, __('messages.msg_updated_success', ['attribute' => __('messages.customer')]));
+            return success_web_processor(null, __('messages.msg_updated_success', ['attribute' => __('messages.customer')]));
         }
 
         return Helpers::error_web_processor(__('messages.msg_item_not_found', ['attribute' => __('messages.customer')]));

@@ -57,12 +57,14 @@ class CategoryController extends Controller
     {
         $category = Category::select('name', 'id', 'default_tax_id')
             ->orderBy('name')
+            ->where('inactive', 0)
             ->limit(10)
             ->get();
         if ($request->has('search'))
             $category = Category::select('name', 'id', 'default_tax_id')
                 ->where('name', 'like', '%' . $request->search . '%')
                 ->orWhere('description', 'like', '%' . $request->search . '%')
+                ->where('inactive', 0)
                 ->orderBy('name')
                 ->limit(10)
                 ->get();

@@ -55,11 +55,13 @@ class SubscriptionsController extends Controller
     public function select_api(Request $request): JsonResponse
     {
         $product = Subscription::select('name', 'id')
+            ->where('inactive', 0)
             ->orderBy('name')
             ->limit(10)
             ->get();
         if ($request->has('search'))
             $product = Subscription::select('name', 'id')
+                ->where('inactive', 0)
                 ->where('name', 'like', '%' . $request->search . '%')
                 ->orWhere('description', 'like', '%' . $request->search . '%')
                 ->orderBy('name')

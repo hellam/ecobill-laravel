@@ -411,17 +411,17 @@ class UserValidators
     public static function customerCreateValidation(Request $request)
     {
         return self::ValidatorMake($request->all(), [
-            'first_name' => 'required',
-            'last_name' => 'required',
+            'first_name' => 'required|string',
+            'last_name' => 'required|string',
             'short_name' => 'required|unique:' . Customer::class . ',short_name,NULL,id,client_ref,' . get_user_ref(),
             'country' => 'required',
-            'tax_id' => 'required',
-            'currency' => 'required',
-            'payment_terms' => 'required',
+            'tax_id' => 'required|exists:'. Tax::class . ',id,client_ref,' . get_user_ref(),
+            'currency' => 'required|exists:' . Currency::class . ',abbreviation,client_ref,'. get_user_ref(),
+            'payment_terms' => 'required|exists:'. PaymentTerm::class . ',id,client_ref,'. get_user_ref(),
             'credit_limit' => 'required',
             'credit_status' => 'required|in:0,1',
             'sales_type' => 'required',
-            'discount' => 'required',
+            'discount' => 'required|numeric',
             'language' => 'required',
             'email' => 'required|unique:' . CustomerBranch::class . ',email,NULL,id,client_ref,'.get_user_ref().'|email:rfc,dns',//TODO: Add spoof
             'phone' => 'required|unique:' . CustomerBranch::class . ',phone,NULL,id,client_ref,'.get_user_ref().'|min:13|max:13',

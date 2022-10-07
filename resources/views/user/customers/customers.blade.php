@@ -343,7 +343,8 @@
                                             <option></option>
                                             @foreach($currency as $curr)
                                                 <option
-                                                    value="{{$curr->abbreviation}}">{{$curr->abbreviation.' - '.$curr->name}}</option>
+                                                    value="{{$curr->abbreviation}}"
+                                                    @if($curr->abbreviation == session('currency'))selected @endif>{{$curr->abbreviation.' - '.$curr->name}}</option>
                                             @endforeach
                                         </select>
                                         <!--end::Input-->
@@ -361,7 +362,6 @@
                                                 data-placeholder="{{__('messages.pay_terms')}}..."
                                                 data-dropdown-parent="#kt_modal_add_customer"
                                                 class="form-select form-select-solid fw-bolder">
-                                            <option></option>
                                             @foreach($payment_terms as $pay_terms)
                                                 <option value="{{$pay_terms->id}}">{{$pay_terms->terms}}</option>
                                             @endforeach
@@ -406,7 +406,6 @@
                                                 data-placeholder="{{__('messages.sales_type')}}..."
                                                 data-dropdown-parent="#kt_modal_add_customer"
                                                 class="form-select form-select-solid fw-bolder">
-                                            <option></option>
                                             @foreach(SALES_TYPES as $key => $value)
                                                 <option value="{{$key}}">{{$value}}</option>
                                             @endforeach
@@ -430,7 +429,6 @@
                                                 data-placeholder="{{__('messages.credit_status')}}..."
                                                 data-dropdown-parent="#kt_modal_add_customer"
                                                 class="form-select form-select-solid fw-bolder">
-                                            <option></option>
                                             <option value="1">Eligible</option>
                                             <option value="0">Not Eligible</option>
                                         </select>

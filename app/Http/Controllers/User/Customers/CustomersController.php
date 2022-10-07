@@ -79,8 +79,8 @@ class CustomersController extends Controller
             'credit_limit' => $request->credit_limit,
             'credit_status' => $request->credit_status,
             'sales_type' => $request->sales_type,
-            'discount' => $request->sales_type,
-            'language' => $request->sales_type,
+            'discount' => $request->discount,
+            'language' => $request->language,
             'client_ref' => get_user_ref(),
         ];
 

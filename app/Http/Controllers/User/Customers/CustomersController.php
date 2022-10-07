@@ -112,8 +112,8 @@ class CustomersController extends Controller
 
         $post_data = [
             'customer_id' => $customer->id,
-            'f_name' => $request->f_name,
-            'l_name' => $request->l_name,
+            'f_name' => $request->first_name,
+            'l_name' => $request->last_name,
             'short_name' => $request->short_name,
             'branch' => $request->company,
             'country' => $request->country,

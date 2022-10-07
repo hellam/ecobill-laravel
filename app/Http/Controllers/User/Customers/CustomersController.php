@@ -42,19 +42,16 @@ class CustomersController extends Controller
         return (new DataTables)->eloquent($debtors)
             ->addIndexColumn()
             ->addColumn('id', function ($row) {
-                return ["id" => $row->id, "edit_url" => route('user.messaging.debtor.edit', [$row->id]),
-                    "update_url" => route('user.messaging.debtor.update', [$row->id]),
-                    "delete_url" => route('user.messaging.debtor.delete', [$row->id])];
-            })
-//            ->editColumn('contact', function ($row) {
-//                $row->contact ? $outp = '<small>' . $row->contact->email . '</small><br/>' . $row->contact->phone : $outp = "< Contact Deleted >";
-//                return $outp;
-//            })
-            ->editColumn('created_at', function ($row) {
+                return ["id" => $row->id, "edit_url" => route('user.customers.edit', [$row->id]),
+                    "update_url" => route('user.customers.update', [$row->id]),
+                    "delete_url" => route('user.customers.delete', [$row->id])];
+            })->editColumn('inactive', function ($row) {
+                return $row->inactive == 0 ? '<div class="badge badge-sm badge-light-success">Active</div>' : '<div class="badge badge-sm badge-light-danger">Inactive</div>';
+            })->editColumn('created_at', function ($row) {
                 return Carbon::parse($row->created_at)->format('Y/m/d');
-            })->filterColumn('name', function ($query, $keyword) {
+            })->filterColumn('f_name', function ($query, $keyword) {
                 $keywords = trim($keyword);
-                $query->whereRaw("CONCAT(debtor_master.f_name, ' ', debtor_master.l_name) like ?", ["%{$keywords}%"]);
+                $query->orWhere('f_name','like', "%$keywords%")->orWhere('l_name','like', "%$keywords%");
             })
             ->make(true);
     }

@@ -342,6 +342,8 @@
                                                 class="form-select form-select-solid fw-bolder">
                                             <option></option>
                                             @foreach($currency as $curr)
+                                                <option
+                                                    value="{{$curr->abbreviation}}">{{$curr->abbreviation.' - '.$curr->name}}</option>
                                             @endforeach
                                         </select>
                                         <!--end::Input-->
@@ -360,6 +362,9 @@
                                                 data-dropdown-parent="#kt_modal_add_customer"
                                                 class="form-select form-select-solid fw-bolder">
                                             <option></option>
+                                            @foreach($payment_terms as $pay_terms)
+                                                <option value="{{$pay_terms->id}}">{{$pay_terms->terms}}</option>
+                                            @endforeach
                                         </select>
                                         <!--end::Input-->
                                     </div>
@@ -381,7 +386,10 @@
                                                 data-dropdown-parent="#kt_modal_add_customer"
                                                 class="form-select form-select-solid fw-bolder">
                                             <option></option>
-                                            <option value="null">Default</option>
+                                            <option value="null" selected>Default</option>
+                                            @foreach($tax as $tx)
+                                                <option value="{{$tx->id}}">{{$tx->name}}</option>
+                                            @endforeach
                                         </select>
                                         <!--end::Input-->
                                     </div>
@@ -399,6 +407,9 @@
                                                 data-dropdown-parent="#kt_modal_add_customer"
                                                 class="form-select form-select-solid fw-bolder">
                                             <option></option>
+                                            @foreach(SALES_TYPES as $key => $value)
+                                                <option value="{{$key}}">{{$value}}</option>
+                                            @endforeach
                                         </select>
                                         <!--end::Input-->
                                     </div>
@@ -468,8 +479,9 @@
                                                 data-placeholder="{{__('messages.language')}}..."
                                                 data-dropdown-parent="#kt_modal_add_customer"
                                                 class="form-select form-select-solid fw-bolder">
-                                            <option></option>
-                                            <option value="EN" selected>English</option>
+                                            @foreach(LANG as $key => $value)
+                                                <option value="{{$key}}" selected>{{$value}}</option>
+                                            @endforeach
                                         </select>
                                         <!--end::Input-->
                                     </div>

@@ -105,6 +105,7 @@ return [
     'class' => 'Class',
     'combination' => 'Combination',
     'cost' => 'Cost',
+    'created_date' => 'Created at',
     'credit_status' => 'Credit Status',
     'credit_limit' => 'Credit Limit',
     'country' => 'Country',

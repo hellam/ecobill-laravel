@@ -170,6 +170,7 @@ function handleFormSubmit(form, fields, form_jquery, cancelButton, closeButton, 
 
     submitButton.addEventListener('click', function (e) {
         e.preventDefault();
+        console.log(form_jquery.serialize())
 
         // Validate form before submit
         if (validator) {

@@ -516,7 +516,7 @@ function handleCustomerAPISelect(select_parent, preselect = null) {
 
     $(select_parent + ' .select_customer').html("").trigger('change');
     if (preselect) {
-        const option = new Option(preselect?.barcode + "|" + preselect?.name, preselect?.id, true, true);
+        const option = new Option(preselect?.short_name + "|" + preselect?.f_name + " " + preselect?.l_name, preselect?.id, true, true);
         $(select_parent + ' .select_customer').append(option).trigger('change');
     }
 

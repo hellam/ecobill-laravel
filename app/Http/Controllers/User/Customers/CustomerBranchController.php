@@ -21,7 +21,7 @@ class CustomerBranchController extends Controller
     public function index(): Factory|View|Application
     {
         $customer_branch = CustomerBranch::count() ?? 0;
-        return view('users.customers.branch', compact('customer_branch'));
+        return view('user.customers.branch', compact('customer_branch'));
     }
 
     //Data table API

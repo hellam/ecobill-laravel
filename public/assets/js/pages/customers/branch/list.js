@@ -104,7 +104,7 @@ const KTCustomersServerSide = function () {
         dt.on('draw', function () {
             KTMenu.createInstances();
             handleSearchDatatable('[data-kt-customer-branch-table-filter="search"]', dt);
-            // handleUpdateRows();
+            handleUpdateRows();
             handleDeleteRows('[data-kt-customer-branch-table-actions="delete_row"]', 'input[class="delete_url"]', dt);
         });
     };
@@ -112,19 +112,19 @@ const KTCustomersServerSide = function () {
     //Edit Button
     const handleUpdateRows = function () {
         // Select all delete buttons
-        const editButtons = document.querySelectorAll('[data-kt-customer-table-actions="edit_row"]');
+        const editButtons = document.querySelectorAll('[data-kt-customer-branch-table-actions="edit_row"]');
 
         // Make the DIV element draggable:
-        const element = document.querySelector('#kt_modal_update_customer');
+        const element = document.querySelector('#kt_modal_update_customer_branch');
         dragElement(element);
         editButtons.forEach(d => {
             // edit button on click
             d.addEventListener('click', function (e) {
                 e.preventDefault();
 
-                $('#kt_modal_update_customer_form').hide();//hide form
+                $('#kt_modal_update_customer_branch_form').hide();//hide form
                 $('.loader_container').show();//show loader
-                $("#kt_modal_update_customer").modal('show');//show modal
+                $("#kt_modal_update_customer_branch").modal('show');//show modal
                 // Select parent row
                 const parent = e.target.closest('tr');
 
@@ -151,45 +151,33 @@ const KTCustomersServerSide = function () {
 
                         } else {
 
-                            $('#kt_modal_update_customer_form').show({backdrop: 'static', keyboard: false});//show form
-                            const customer = response.data;
+                            $('#kt_modal_update_customer_branch_form').show({backdrop: 'static', keyboard: false});//show form
+                            const customer_branch = response.data;
+
+                            handleCustomerAPISelect('#kt_modal_update_customer_branch', customer_branch.customer)
                             //
-                            $("#kt_modal_update_customer_form input[name='first_name']").val(customer.f_name);
-                            $("#kt_modal_update_customer_form input[name='last_name']").val(customer.l_name);
-                            $("#kt_modal_update_customer_form input[name='short_name']").val(customer.short_name).attr('disabled', true);
-                            $("#kt_modal_update_customer_form input[name='customer_branch_id']").val(customer.customer_branch.id);
-                            $("#kt_modal_update_customer_form input[name='company']").val(customer.company);
-                            $("#kt_modal_update_customer_form input[name='address']").val(customer.address);
-                            $("#kt_modal_update_customer_form select[name='country']").val(customer.country).trigger('change');
-                            $("#kt_modal_update_customer_form input[name='phone']").val(customer.customer_branch.phone);
-                            $("#kt_modal_update_customer_form input[name='email']").val(customer.customer_branch.email);
-                            $("#kt_modal_update_customer_form select[name='currency']").val(customer.currency).trigger('change');
-                            $("#kt_modal_update_customer_form select[name='payment_terms']").val(customer.payment_terms).trigger('change');
-                            $("#kt_modal_update_customer_form select[name='sales_type']").val(customer.sales_type).trigger('change');
-                            $("#kt_modal_update_customer_form select[name='credit_status']").val(customer.credit_status).trigger('change');
-                            $("#kt_modal_update_customer_form input[name='credit_limit']").val(customer.credit_limit);
-                            $("#kt_modal_update_customer_form input[name='discount']").val(customer.discount);
-                            $("#kt_modal_update_customer_form select[name='language']").val(customer.language).trigger('change');
+                            $("#kt_modal_update_customer_branch_form input[name='first_name']").val(customer_branch.f_name);
+                            $("#kt_modal_update_customer_branch_form input[name='last_name']").val(customer_branch.l_name);
+                            $("#kt_modal_update_customer_branch_form input[name='short_name']").val(customer_branch.short_name).attr('disabled', true);
+                            $("#kt_modal_update_customer_branch_form input[name='company']").val(customer_branch.branch);
+                            $("#kt_modal_update_customer_branch_form input[name='address']").val(customer_branch.address);
+                            $("#kt_modal_update_customer_branch_form select[name='country']").val(customer_branch.country).trigger('change');
+                            $("#kt_modal_update_customer_branch_form input[name='phone']").val(customer_branch.phone);
+                            $("#kt_modal_update_customer_branch_form input[name='email']").val(customer_branch.email);
 
-                            if (customer.tax_id === null) {
-                                $("#kt_modal_update_customer_form select[name='tax_id']").val("null").trigger('change');
+                            $("#kt_modal_update_customer_branch_form input[name='inactive']").val(customer_branch.inactive);
+                            if (customer_branch.inactive == 0) {
+                                $("#kt_modal_update_customer_branch_form input[id='inactive']").prop("checked", true);
                             } else {
-                                $("#kt_modal_update_customer_form select[name='tax_id']").val(customer.tax_id).trigger('change');
-                            }
-
-                            $("#kt_modal_update_customer_form input[name='inactive']").val(customer.inactive);
-                            if (customer.inactive == 0) {
-                                $("#kt_modal_update_customer_form input[id='inactive']").prop("checked", true);
-                            } else {
-                                $("#kt_modal_update_customer_form input[id='inactive']").prop("checked", false)
+                                $("#kt_modal_update_customer_branch_form input[id='inactive']").prop("checked", false)
                             }
 
                             //active/inactive
-                            $("#kt_modal_update_customer_form input[id='inactive']").on('change', function () {
+                            $("#kt_modal_update_customer_branch_form input[id='inactive']").on('change', function () {
                                 if ($(this).is(':checked'))
-                                    $("#kt_modal_update_customer_form input[name='inactive']").val(0)
+                                    $("#kt_modal_update_customer_branch_form input[name='inactive']").val(0)
                                 else {
-                                    $("#kt_modal_update_customer_form input[name='inactive']").val(1)
+                                    $("#kt_modal_update_customer_branch_form input[name='inactive']").val(1)
                                 }
                             })
                         }
@@ -220,12 +208,12 @@ const KTCustomersServerSide = function () {
     // Public methods
     return {
         init: function () {
-            form = document.querySelector('#kt_modal_update_customer_form');
+            form = document.querySelector('#kt_modal_update_customer_branch_form');
             if ($('#kt_customer_branches_table').length) {
                 initDatatable();
                 dt.search('').draw();
                 handleSearchDatatable('[data-kt-customer-branch-table-filter="search"]', dt);
-                // handleUpdateRows();
+                handleUpdateRows();
                 handleDeleteRows('[data-kt-customer-branch-table-actions="delete_row"]', 'input[class="delete_url"]', dt);
             }
         }

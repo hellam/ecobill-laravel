@@ -4,8 +4,11 @@ namespace App\Http\Controllers\User\Customers;
 
 use App\CentralLogics\UserValidators;
 use App\Http\Controllers\Controller;
+use App\Models\Currency;
 use App\Models\Customer;
 use App\Models\CustomerBranch;
+use App\Models\PaymentTerm;
+use App\Models\Tax;
 use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -23,23 +26,21 @@ class CustomersController extends Controller
      */
     public function index(): Factory|View|Application
     {
-        $customers = 0;
-        return view('user.customers.customers', compact('customers'));
+        $customers = Customer::count() ?? 0;
+        $currency = Currency::all();
+        $payment_terms = PaymentTerm::all();
+        $tax = Tax::all();
+
+        return view('user.customers.customers', compact('customers',
+            'currency', 'payment_terms', 'tax'));
     }
 
     //Data table API
     public function dt_api(Request $request)
     {
-        $debtors = Customer::select(
-            'debtor_master.id',
-            'debtor_master.company',
-            'debtor_master.debtor_ref',
-            'debtor_master.created_at',
-            DB::raw('CONCAT(debtor_master.f_name, " ", debtor_master.l_name) as name'))
-//            ->with('contact')
-            ->where('inactive', 0)->orderBy('name');
+        $debtors = Customer::with('customer_branch:id,phone,email,id')->orderBy('f_name');
         return (new DataTables)->eloquent($debtors)
-            // ->addIndexColumn()
+             ->addIndexColumn()
             ->addColumn('id', function ($row) {
                 return ["id" => $row->id, "edit_url" => route('user.messaging.debtor.edit', [$row->id]),
                     "update_url" => route('user.messaging.debtor.update', [$row->id]),

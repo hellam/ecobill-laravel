@@ -21,7 +21,7 @@ class CustomerBranchController extends Controller
     public function index(): Factory|View|Application
     {
         $customer_branch = CustomerBranch::count() ?? 0;
-        return view('user.customers.branch', compact('customer_branch'));
+        return view('users.customers.branch', compact('customer_branch'));
     }
 
     //Data table API
@@ -37,7 +37,7 @@ class CustomerBranchController extends Controller
             })->editColumn('country', function ($row) {
                 return CountryListFacade::getOne($row->country);
             })->addColumn('customer', function ($row) {
-                return $row->customer->f_name.' '.$row->customer->l_name;
+                return $row->customer->f_name . ' ' . $row->customer->l_name;
             })->editColumn('inactive', function ($row) {
                 return $row->inactive == 0 ? '<div class="badge badge-sm badge-light-success">Active</div>' : '<div class="badge badge-sm badge-light-danger">Inactive</div>';
             })->editColumn('created_at', function ($row) {
@@ -60,68 +60,38 @@ class CustomerBranchController extends Controller
         }
 
         $post_data = [
+            'customer_id' => $request->customer_id,
             'f_name' => $request->first_name,
             'l_name' => $request->last_name,
             'short_name' => $request->short_name,
-            'address' => $request->address,
-            'company' => $request->company,
+            'branch' => $request->branch,
             'country' => $request->country,
-            'tax_id' => $request->tax_id == 'null' ? null : $request->tax_id,
-            'currency' => $request->currency,
-            'payment_terms' => $request->payment_terms,
-            'credit_limit' => $request->credit_limit,
-            'credit_status' => $request->credit_status,
-            'sales_type' => $request->sales_type,
-            'discount' => $request->discount,
-            'language' => $request->language,
+            'phone' => $request->phone,
+            'email' => $request->email,
+            'address' => $request->address,
             'client_ref' => get_user_ref(),
         ];
 
         //set_create_parameters($created_at, $created_by, ...)
-        $post_data1 = array_merge($post_data, set_create_parameters($created_at, $created_by, $supervised_by, $supervised_at));
-
-        try {
-            DB::beginTransaction();
-            $customer = Customer::create($post_data1);
-
-            $post_data = [
-                'customer_id' => $customer->id,
-                'f_name' => $request->first_name,
-                'l_name' => $request->last_name,
-                'short_name' => $request->short_name,
-                'branch' => $request->company,
-                'country' => $request->country,
-                'phone' => $request->phone,
-                'email' => $request->email,
-                'address' => $request->address,
-                'client_ref' => get_user_ref(),
-            ];
-
-            //set_create_parameters($created_at, $created_by, ...)
-            $post_data2 = array_merge($post_data, set_create_parameters($created_at, $created_by, $supervised_by, $supervised_at));
+        $post_data = array_merge($post_data, set_create_parameters($created_at, $created_by, $supervised_by, $supervised_at));
 
 
-            if ($created_at == null) {
-                //if not supervised, log data from create request
-                //Creator log
-                log_activity(
-                    ST_SUBSCRIPTION_SETUP,
-                    $request->getClientIp(),
-                    'Create Customer and Contacts',
-                    json_encode($post_data1),
-                    auth('user')->id(),
-                    $customer->id
-                );
-            }
-            $contact = CustomerBranch::create($post_data2);
+        $customer_branch = CustomerBranch::create($post_data);
 
-            DB::commit();
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return error_web_processor($e);
+        if ($created_at == null) {
+            //if not supervised, log data from create request
+            //Creator log
+            log_activity(
+                ST_SUBSCRIPTION_SETUP,
+                $request->getClientIp(),
+                'Create Customer Branch',
+                json_encode($post_data),
+                auth('user')->id(),
+                $customer_branch->id
+            );
         }
 
-        return success_web_processor(['id' => $customer->id], __('messages.msg_saved_success', ['attribute' => __('messages.customer')]));
+        return success_web_processor(['id' => $customer_branch->id], __('messages.msg_saved_success', ['attribute' => __('messages.customer_branch')]));
     }
 
     /**
@@ -130,13 +100,13 @@ class CustomerBranchController extends Controller
      */
     public function edit($id): JsonResponse
     {
-        $customer = Customer::find($id);
-        if (isset($customer)) {
-            $customer = Customer::with('customer_branch')->find($id);
+        $customer_branch = CustomerBranch::find($id);
+        if (isset($customer_branch)) {
+            $customer_branch = CustomerBranch::with('customer:id,f_name,l_name')->find($id);
 
-            return success_web_processor($customer, __('messages.msg_item_found', ['attribute' => __('messages.customer')]));
+            return success_web_processor($customer_branch, __('messages.msg_item_found', ['attribute' => __('messages.customer_branch')]));
         }
-        return error_web_processor(trans('messages.msg_item_not_found', ['attribute' => __('messages.customer')]));
+        return error_web_processor(trans('messages.msg_item_not_found', ['attribute' => __('messages.customer_branch')]));
     }
 
     /**
@@ -145,17 +115,17 @@ class CustomerBranchController extends Controller
      */
     public function select_api(Request $request): JsonResponse
     {
-        $customer = Customer::select('f_name', 'l_name', 'company', 'short_name', 'id')
+        $customer = CustomerBranch::select('f_name', 'l_name', 'branch', 'short_name', 'id')
             ->where('inactive', 0)
             ->orderBy('f_name')->orderBy('l_name')
             ->limit(10)
             ->get();
         if ($request->filled('search'))
-            $customer = Customer::select('f_name', 'l_name', 'company', 'short_name', 'id')
+            $customer = CustomerBranch::select('f_name', 'l_name', 'branch', 'short_name', 'id')
                 ->where('inactive', 0)
                 ->where('f_name', 'like', '%' . $request->search . '%')
                 ->orWhere('l_name', 'like', '%' . $request->search . '%')
-                ->orWhere('company', 'like', '%' . $request->search . '%')
+                ->orWhere('branch', 'like', '%' . $request->search . '%')
                 ->orWhere('short_name', $request->search . '%')
                 ->orderBy('f_name')->orderBy('l_name')
                 ->limit(10)
@@ -175,48 +145,23 @@ class CustomerBranchController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validator = UserValidators::customerUpdateValidation($request);
+        $validator = UserValidators::customerBranchUpdateValidation($request);
 
         if ($validator != '') {
             return $validator;
         }
 
-        $customer = Customer::find($id);
-        if ($customer) {
-            try {
-                DB::beginTransaction();
-                $customer->f_name = $request->first_name;
-                $customer->l_name = $request->last_name;
-                $customer->country = $request->country;
-                $customer->tax_id = $request->tax_id == 'null' ? null : $request->tax_id;
-                $customer->currency = $request->currency;
-                $customer->payment_terms = $request->payment_terms;
-                $customer->credit_limit = $request->credit_limit;
-                $customer->credit_status = $request->credit_status;
-                $customer->sales_type = $request->sales_type;
-                $customer->discount = $request->discount;
-                $customer->language = $request->language;
-                $customer->address = $request->address;
-                $customer->company = $request->company;
-                $customer->inactive = $request->inactive;
-                $customer->update();
-
-
-                $customer_branch = CustomerBranch::find($request->customer_branch_id);
-
+        $customer_branch = CustomerBranch::find($id);
+        if ($customer_branch) {
                 $customer_branch->f_name = $request->first_name;
                 $customer_branch->l_name = $request->last_name;
                 $customer_branch->address = $request->address;
-                $customer_branch->branch = $request->company;
+                $customer_branch->branch = $request->branch;
                 $customer_branch->country = $request->country;
                 $customer_branch->email = $request->email;
                 $customer_branch->phone = $request->phone;
+                $customer_branch->inactive = $request->inactive;
                 $customer_branch->update();
-                DB::commit();
-            } catch (\Exception $e) {
-                DB::rollBack();
-                return error_web_processor($e);
-            }
             return success_web_processor(null, __('messages.msg_updated_success', ['attribute' => __('messages.customer')]));
         }
 
@@ -229,15 +174,16 @@ class CustomerBranchController extends Controller
      */
     public function destroy($id)
     {
-        $customer = Customer::find($id);
-        if ($customer) {
-            $customer_branch = CustomerBranch::where('customer_id', $customer->id)->count();
-            if ($customer_branch > 0) {
-                return error_web_processor(__('messages.msg_delete_not_allowed', ['attribute' => __('messages.customer'), 'attribute1' => __('messages.customer_branch')]));
-            }
-            $customer->delete();
-            return success_web_processor(null, __('messages.msg_deleted_success', ['attribute' => __('messages.customer')]));
+        $customer_branch = CustomerBranch::find($id);
+        if ($customer_branch) {
+            //TODO: check if customer_branch has transactions
+//            $customer_branch = CustomerBranch::where('customer_id', $customer->id)->count();
+//            if ($customer_branch > 0) {
+//                return error_web_processor(__('messages.msg_delete_not_allowed', ['attribute' => __('messages.customer'), 'attribute1' => __('messages.customer_branch')]));
+//            }
+            $customer_branch->delete();
+            return success_web_processor(null, __('messages.msg_deleted_success', ['attribute' => __('messages.customer_branch')]));
         }
-        return error_web_processor(__('messages.msg_item_not_found', ['attribute' => __('messages.customer')]));
+        return error_web_processor(__('messages.msg_item_not_found', ['attribute' => __('messages.customer_branch')]));
     }
 }

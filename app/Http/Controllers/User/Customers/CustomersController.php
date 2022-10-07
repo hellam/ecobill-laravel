@@ -115,15 +115,15 @@ class CustomersController extends Controller
                 //if not supervised, log data from create request
                 //Creator log
                 log_activity(
-                    ST_SUBSCRIPTION_SETUP,
+                    ST_CUSTOMER_SETUP,
                     $request->getClientIp(),
-                    'Create Customer and Contacts',
+                    'Create Customer and Branch',
                     json_encode($post_data1),
                     auth('user')->id(),
                     $customer->id
                 );
             }
-            $contact = CustomerBranch::create($post_data2);
+            CustomerBranch::create($post_data2);
 
             DB::commit();
         } catch (\Exception $e) {

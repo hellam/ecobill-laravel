@@ -416,15 +416,15 @@ class UserValidators
             'short_name' => 'required|unique:' . Customer::class . ',short_name,NULL,id,client_ref,' . get_user_ref(),
             'country' => 'required',
             'tax_id' => 'required',
-            'currency' => 'required|exists:' . Currency::class . ',abbreviation,client_ref,'. get_user_ref(),
-            'payment_terms' => 'required|exists:'. PaymentTerm::class . ',id,client_ref,'. get_user_ref(),
+            'currency' => 'required|exists:' . Currency::class . ',abbreviation,client_ref,' . get_user_ref(),
+            'payment_terms' => 'required|exists:' . PaymentTerm::class . ',id,client_ref,' . get_user_ref(),
             'credit_limit' => 'required',
             'credit_status' => 'required|in:0,1',
             'sales_type' => 'required',
             'discount' => 'required|numeric',
             'language' => 'required',
-            'email' => 'required|unique:' . CustomerBranch::class . ',email,NULL,id,client_ref,'.get_user_ref().'|email:rfc,dns',//TODO: Add spoof
-            'phone' => 'required|unique:' . CustomerBranch::class . ',phone,NULL,id,client_ref,'.get_user_ref().'|min:13|max:13',
+            'email' => 'required|unique:' . CustomerBranch::class . ',email,NULL,id,client_ref,' . get_user_ref() . '|email:rfc,dns',//TODO: Add spoof
+            'phone' => 'required|unique:' . CustomerBranch::class . ',phone,NULL,id,client_ref,' . get_user_ref() . '|min:13|max:13',
         ]);
     }
 
@@ -436,18 +436,18 @@ class UserValidators
             'first_name' => 'required|string',
             'last_name' => 'required|string',
             'country' => 'required',
-            'customer_branch_id' => 'required|exists:'.CustomerBranch::class . ',id,client_ref,'. get_user_ref(),
+            'customer_branch_id' => 'required|exists:' . CustomerBranch::class . ',id,client_ref,' . get_user_ref(),
             'tax_id' => 'required',
-            'currency' => 'required|exists:' . Currency::class . ',abbreviation,client_ref,'. get_user_ref(),
-            'payment_terms' => 'required|exists:'. PaymentTerm::class . ',id,client_ref,'. get_user_ref(),
+            'currency' => 'required|exists:' . Currency::class . ',abbreviation,client_ref,' . get_user_ref(),
+            'payment_terms' => 'required|exists:' . PaymentTerm::class . ',id,client_ref,' . get_user_ref(),
             'credit_limit' => 'required',
             'credit_status' => 'required|in:0,1',
             'sales_type' => 'required',
             'discount' => 'required|numeric',
             'language' => 'required',
             'inactive' => 'required|in:0,1',
-            'email' => 'required|unique:' . CustomerBranch::class . ',email,NULL,id,client_ref,'.get_user_ref().'|email:rfc,dns',//TODO: Add spoof
-            'phone' => 'required|unique:' . CustomerBranch::class . ',phone,NULL,id,client_ref,'.get_user_ref().'|min:13|max:13',
+            'email' => 'required|unique:' . CustomerBranch::class . ',email,' . $request->customer_branch_id . ',id,client_ref,' . get_user_ref() . '|email:rfc,dns',//TODO: Add spoof
+            'phone' => 'required|unique:' . CustomerBranch::class . ',phone,' . $request->customer_branch_id . ',id,client_ref,' . get_user_ref() . '|min:13|max:13',
         ]);
     }
 

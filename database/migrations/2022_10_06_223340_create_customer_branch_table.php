@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
             $table->string('address')->nullable();
+            $table->string('inactive')->default(0);
             $table->string('client_ref',100)->nullable();
             $table->string("created_by",100)->nullable();
             $table->string("updated_by",100)->nullable();

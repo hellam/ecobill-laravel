@@ -100,7 +100,9 @@ const KTCustomersServerSide = function () {
         // Re-init functions on every table re-draw -- more info: https://datatables.net/reference/event/draw
         dt.on('draw', function () {
             KTMenu.createInstances();
-            // handleUpdateRows();
+            handleSearchDatatable('[data-kt-customer-table-filter="search"]', dt);
+            handleUpdateRows();
+            handleDeleteRows('[data-kt-customer-table-actions="delete_row"]', 'input[class="delete_url"]', dt);
         });
     };
 
@@ -224,7 +226,9 @@ const KTCustomersServerSide = function () {
             if ($('#kt_customers_table').length) {
                 initDatatable();
                 dt.search('').draw();
-                // handleUpdateRows();
+                handleSearchDatatable('[data-kt-customer-table-filter="search"]', dt);
+                handleUpdateRows();
+                handleDeleteRows('[data-kt-customer-table-actions="delete_row"]', 'input[class="delete_url"]', dt);
             }
         }
     }

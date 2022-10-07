@@ -34,10 +34,18 @@
             <!--begin::Page title-->
             <div class="page-title d-flex flex-column py-1">
                 <!--begin::Title-->
-                <h1 class="d-flex align-items-center my-1">
-                    <span
-                        class="text-dark fw-bolder fs-1">{{__('messages.customers')}}</span>
-                </h1>
+                <ul class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bold">
+                    <!--begin::Nav item-->
+                    <li class="nav-item">
+                        <a class="nav-link text-active-primary py-5 me-6 active" href="#">{{__('messages.customers')}}</a>
+                    </li>
+                    <!--end::Nav item-->
+                    <!--begin::Nav item-->
+                    <li class="nav-item">
+                        <a class="nav-link text-active-primary py-5 me-6" href="#">{{__('messages.customer').' '.__('messages.branches')}}</a>
+                    </li>
+                    <!--end::Nav item-->
+                </ul>
                 <!--end::Title-->
             </div>
             <!--end::Page title-->
@@ -67,7 +75,7 @@
                                 </svg>
                             </span>
                             <!--end::Svg Icon-->
-                            <input type="text" data-kt-package-table-filter="search"
+                            <input type="text" data-kt-customer-table-filter="search"
                                    class="form-control form-control-solid w-250px ps-15"
                                    placeholder="{{__('messages.search',['attribute'=>__('messages.package')])}}"/>
                         </div>

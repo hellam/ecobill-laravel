@@ -32,11 +32,7 @@ const KTCustomersUpdate = function () {
                         }
                     },
                     short_name: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Short Name is required'
-                            }
-                        }
+                        validators: {}
                     },
                     address: {
                         validators: {}

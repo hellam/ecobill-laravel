@@ -223,6 +223,15 @@ Route::group(['as' => 'user.'], function () {
                     Route::put('update/{id}', 'update')->name('update')->middleware('permission:3011,' . ST_BANK_ACCOUNT_SETUP)->whereNumber('id');
                     Route::delete('delete/{id}', 'destroy')->name('delete')->middleware('permission:3012,' . ST_BANK_ACCOUNT_SETUP)->whereNumber('id');
                 });
+                Route::controller(User\Banking\Accounts\BankAccountDepositController::class)->prefix('deposit')->as('deposit')->group(function () {
+                    Route::get('/', 'index')->middleware('permission:303');
+                });
+                Route::controller(User\Banking\Accounts\BankAccountPaymentsController::class)->prefix('expense')->as('expense')->group(function () {
+                    Route::get('/', 'index')->middleware('permission:304');
+                });
+                Route::controller(User\Banking\Accounts\BankAccountDepositController::class)->prefix('transfer')->as('transfer')->group(function () {
+                    Route::get('/', 'index')->middleware('permission:305');
+                });
             });
 
             Route::controller(User\Banking\CurrencyController::class)->prefix('currency')->as('currency.')->group(function () {

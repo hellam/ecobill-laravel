@@ -74,9 +74,9 @@ class CustomersController extends Controller
         }
 
         $post_data = [
-            'f_name' => $request->f_name,
-            'l_name' => $request->l_name,
-            'short_name' => $request->debtor_ref,
+            'f_name' => $request->first_name,
+            'l_name' => $request->last_name,
+            'short_name' => $request->short_name,
             'address' => $request->address,
             'company' => $request->company,
             'country' => $request->country,

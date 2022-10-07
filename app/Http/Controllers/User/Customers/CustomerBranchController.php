@@ -21,7 +21,7 @@ class CustomerBranchController extends Controller
     public function index(): Factory|View|Application
     {
         $customer_branch = CustomerBranch::count() ?? 0;
-        return view('user.customers.branch', compact('customer_branch'));
+        return view('users.customers.branch', compact('customer_branch'));
     }
 
     //Data table API
@@ -91,7 +91,7 @@ class CustomerBranchController extends Controller
             );
         }
 
-        return success_web_processor(['id' => $customer_branch->id], __('messages.msg_saved_success', ['attribute' => __('messages.customer')]));
+        return success_web_processor(['id' => $customer_branch->id], __('messages.msg_saved_success', ['attribute' => __('messages.customer_branch')]));
     }
 
     /**
@@ -100,13 +100,13 @@ class CustomerBranchController extends Controller
      */
     public function edit($id): JsonResponse
     {
-        $customer = Customer::find($id);
-        if (isset($customer)) {
-            $customer = Customer::with('customer_branch')->find($id);
+        $customer_branch = CustomerBranch::find($id);
+        if (isset($customer_branch)) {
+            $customer_branch = CustomerBranch::with('customer:id,f_name,l_name')->find($id);
 
-            return success_web_processor($customer, __('messages.msg_item_found', ['attribute' => __('messages.customer')]));
+            return success_web_processor($customer_branch, __('messages.msg_item_found', ['attribute' => __('messages.customer_branch')]));
         }
-        return error_web_processor(trans('messages.msg_item_not_found', ['attribute' => __('messages.customer')]));
+        return error_web_processor(trans('messages.msg_item_not_found', ['attribute' => __('messages.customer_branch')]));
     }
 
     /**
@@ -115,17 +115,17 @@ class CustomerBranchController extends Controller
      */
     public function select_api(Request $request): JsonResponse
     {
-        $customer = Customer::select('f_name', 'l_name', 'company', 'short_name', 'id')
+        $customer = CustomerBranch::select('f_name', 'l_name', 'branch', 'short_name', 'id')
             ->where('inactive', 0)
             ->orderBy('f_name')->orderBy('l_name')
             ->limit(10)
             ->get();
         if ($request->filled('search'))
-            $customer = Customer::select('f_name', 'l_name', 'company', 'short_name', 'id')
+            $customer = CustomerBranch::select('f_name', 'l_name', 'branch', 'short_name', 'id')
                 ->where('inactive', 0)
                 ->where('f_name', 'like', '%' . $request->search . '%')
                 ->orWhere('l_name', 'like', '%' . $request->search . '%')
-                ->orWhere('company', 'like', '%' . $request->search . '%')
+                ->orWhere('branch', 'like', '%' . $request->search . '%')
                 ->orWhere('short_name', $request->search . '%')
                 ->orderBy('f_name')->orderBy('l_name')
                 ->limit(10)
@@ -145,7 +145,7 @@ class CustomerBranchController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validator = UserValidators::customerUpdateValidation($request);
+        $validator = UserValidators::customerBranchUpdateValidation($request);
 
         if ($validator != '') {
             return $validator;

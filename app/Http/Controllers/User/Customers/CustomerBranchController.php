@@ -27,13 +27,13 @@ class CustomerBranchController extends Controller
     //Data table API
     public function dt_api(Request $request)
     {
-        $customers = Customer::orderBy('f_name');
+        $customers = CustomerBranch::orderBy('f_name');
         return (new DataTables)->eloquent($customers)
             ->addIndexColumn()
             ->addColumn('id', function ($row) {
-                return ["id" => $row->id, "edit_url" => route('user.customers.edit', [$row->id]),
-                    "update_url" => route('user.customers.update', [$row->id]),
-                    "delete_url" => route('user.customers.delete', [$row->id])];
+                return ["id" => $row->id, "edit_url" => route('user.customers.branch.edit', [$row->id]),
+                    "update_url" => route('user.customers.branch.update', [$row->id]),
+                    "delete_url" => route('user.customers.branch.delete', [$row->id])];
             })->editColumn('country', function ($row) {
                 return CountryListFacade::getOne($row->country);
             })->editColumn('inactive', function ($row) {

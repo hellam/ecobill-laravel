@@ -1,4 +1,9 @@
 <?php
+
+/**
+ * Created by Reliese Model.
+ */
+
 namespace App\Models;
 
 use App\Scopes\ClientRefScope;
@@ -27,12 +32,17 @@ use Illuminate\Support\Facades\Auth;
  * @property Carbon|null $supervised_at
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ * @property int|null $inactive
  *
  * @package App\Models
  */
 class CustomerBranch extends Model
 {
 	protected $table = 'customer_branch';
+
+	protected $casts = [
+		'inactive' => 'int'
+	];
 
 	protected $dates = [
 		'supervised_at'
@@ -52,7 +62,8 @@ class CustomerBranch extends Model
 		'created_by',
 		'updated_by',
 		'supervised_by',
-		'supervised_at'
+		'supervised_at',
+		'inactive'
 	];
 
     public function customer(): BelongsTo

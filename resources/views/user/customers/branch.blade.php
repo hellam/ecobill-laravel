@@ -19,7 +19,15 @@
             </li>
             <!--end::Item-->
             <!--begin::Item-->
-            <li class="breadcrumb-item text-dark">{{__('messages.customers')}}</li>
+            <li class="breadcrumb-item text-muted">{{__('messages.customers')}}</li>
+            <!--end::Item-->
+            <!--begin::Item-->
+            <li class="breadcrumb-item">
+                <span class="bullet bg-gray-200 w-5px h-2px"></span>
+            </li>
+            <!--end::Item-->
+            <!--begin::Item-->
+            <li class="breadcrumb-item text-dark">{{__('messages.customer').' '.__('messages.branches')}}</li>
             <!--end::Item-->
         </ul>
         <!--end::Breadcrumb-->
@@ -37,14 +45,14 @@
                 <ul class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bold">
                     <!--begin::Nav item-->
                     <li class="nav-item">
-                        <a class="nav-link text-active-primary py-5 me-6 active"
+                        <a class="nav-link text-active-primary py-5 me-6"
                            href="{{route('user.customers.all')}}">{{__('messages.customers')}}</a>
                     </li>
                     <!--end::Nav item-->
                     <!--begin::Nav item-->
                     <li class="nav-item">
-                        <a class="nav-link text-active-primary py-5 me-6"
-                           href="#">{{__('messages.customer').' '.__('messages.branches')}}</a>
+                        <a class="nav-link text-active-primary py-5 me-6 active"
+                           href="{{route('user.customers.branch')}}">{{__('messages.customer').' '.__('messages.branches')}}</a>
                     </li>
                     <!--end::Nav item-->
                 </ul>
@@ -57,7 +65,7 @@
         <!--begin::Card-->
         <div class="card shadow">
             <!--begin::Products Wrapper-->
-            @if($customers)
+            @if($customer_branch)
                 <!--begin::Card header-->
                 <div class="card-header border-0 pt-6">
                     <!--begin::Card title-->

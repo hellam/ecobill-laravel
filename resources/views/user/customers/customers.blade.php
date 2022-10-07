@@ -44,7 +44,7 @@
                     <!--begin::Nav item-->
                     <li class="nav-item">
                         <a class="nav-link text-active-primary py-5 me-6"
-                           href="#">{{__('messages.customer').' '.__('messages.branches')}}</a>
+                           href="{{route('user.customers.branch')}}">{{__('messages.customer').' '.__('messages.branches')}}</a>
                     </li>
                     <!--end::Nav item-->
                 </ul>

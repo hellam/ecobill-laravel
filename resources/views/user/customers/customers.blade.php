@@ -105,13 +105,13 @@
                         <thead>
                         <!--begin::Table row-->
                         <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
-                            <th class="w-10px pe-2">#</th>
-                            <th class="min-w-125px">{{__('messages.customer').' '.__('messages.name')}}</th>
-                            <th class="min-w-125px">{{__('messages.short').' '.__('messages.name')}}</th>
-                            <th class="min-w-125px">{{__('messages.country')}}</th>
-                            <th class="min-w-125px">{{__('messages.company')}}</th>
-                            <th class="min-w-125px">{{__('messages.created_date')}}</th>
-                            <th class="text-end min-w-70px">{{__('messages.actions')}}</th>
+                            <th>#</th>
+                            <th>{{__('messages.customer').' '.__('messages.name')}}</th>
+                            <th>{{__('messages.short').' '.__('messages.name')}}</th>
+                            <th>{{__('messages.country')}}</th>
+                            <th>{{__('messages.company')}}</th>
+                            <th>{{__('messages.status')}}</th>
+                            <th class="text-end">{{__('messages.actions')}}</th>
                         </tr>
                         <!--end::Table row-->
                         </thead>
@@ -656,7 +656,6 @@
                                 <!--end::Input group-->
                                 <!--begin::Input group-->
                                 <div class="row g-9 mb-7">
-
                                     <!--begin::Col-->
                                     <div class="col-md-6 fv-row">
                                         <!--begin::Label-->

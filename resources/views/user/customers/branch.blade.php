@@ -85,7 +85,7 @@
                                 </svg>
                             </span>
                             <!--end::Svg Icon-->
-                            <input type="text" data-kt-customer-table-filter="search"
+                            <input type="text" data-kt-customer-branch-table-filter="search"
                                    class="form-control form-control-solid w-250px ps-15"
                                    placeholder="{{__('messages.search',['attribute'=>__('messages.customer').' '.__('messages.branch')])}}"/>
                         </div>
@@ -113,13 +113,13 @@
                         <thead>
                         <!--begin::Table row-->
                         <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
-                            <th class="w-10px pe-2">#</th>
-                            <th class="min-w-125px">{{__('messages.customer').' '.__('messages.name')}}</th>
-                            <th class="min-w-125px">{{__('messages.short').' '.__('messages.name')}}</th>
-                            <th class="min-w-125px">{{__('messages.country')}}</th>
-                            <th class="min-w-125px">{{__('messages.company')}}</th>
-                            <th class="min-w-125px">{{__('messages.created_date')}}</th>
-                            <th class="text-end min-w-70px">{{__('messages.actions')}}</th>
+                            <th>#</th>
+                            <th>{{__('messages.customer').' '.__('messages.branch')}}</th>
+                            <th>{{__('messages.short').' '.__('messages.name')}}</th>
+                            <th>{{__('messages.country')}}</th>
+                            <th>{{__('messages.company').' '.__('messages.branch')}}</th>
+                            <th>{{__('messages.status')}}</th>
+                            <th class="text-end">{{__('messages.actions')}}</th>
                         </tr>
                         <!--end::Table row-->
                         </thead>
@@ -205,7 +205,8 @@
                         <!--begin::Modal body-->
                         <div class="modal-body py-10 px-lg-17">
                             <!--begin::Scroll-->
-                            <div class="scroll-y me-n7 pe-7" id="kt_modal_add_customer_branch_scroll" data-kt-scroll="true"
+                            <div class="scroll-y me-n7 pe-7" id="kt_modal_add_customer_branch_scroll"
+                                 data-kt-scroll="true"
                                  data-kt-scroll-activate="{default: false, lg: true}"
                                  data-kt-scroll-max-height="auto"
                                  data-kt-scroll-dependencies="#kt_modal_add_customer_branch_header"
@@ -235,12 +236,130 @@
                                     <div class="col-md-6 fv-row">
                                         <!--begin::Label-->
                                         <label
+                                            class="required fs-6 fw-bold mb-2">{{__('messages.first').' '.__('messages.name')}}</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <input type="text" class="form-control form-control-solid"
+                                               placeholder="{{__('messages.first').' '.__('messages.name')}}"
+                                               name="first_name"/>
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Col-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="row g-9 mb-7">
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Label-->
+                                        <label
                                             class="required fs-6 fw-bold mb-2">{{__('messages.last').' '.__('messages.name')}}</label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
                                         <input type="text" class="form-control form-control-solid"
                                                placeholder="{{__('messages.last').' '.__('messages.name')}}"
                                                name="last_name"/>
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Col-->
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Label-->
+                                        <label
+                                            class="required fs-6 fw-bold mb-2">{{__('messages.short').' '.__('messages.name')}}</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <input type="text" class="form-control form-control-solid"
+                                               placeholder="{{__('messages.short').' '.__('messages.name')}}"
+                                               name="short_name"/>
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Col-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="row g-9 mb-7">
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Label-->
+                                        <label
+                                            class="fs-6 fw-bold mb-2">{{__('messages.company').' '.__('messages.branch')}}</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <input type="text" class="form-control form-control-solid"
+                                               placeholder="{{__('messages.company').' '.__('messages.branch')}}"
+                                               name="branch"/>
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Col-->
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-bold mb-2">
+                                            <span class="required">{{__('messages.country')}}</span>
+                                            <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
+                                               title="{{__('messages.country')}} 0f origin"></i>
+                                        </label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <select name="country" aria-label="{{__('messages.select_country')}}"
+                                                data-control="select2"
+                                                data-placeholder="{{__('messages.select_country')}}..."
+                                                data-dropdown-parent="#kt_modal_add_customer_branch"
+                                                class="form-select form-select-solid fw-bolder">
+                                            <option></option>
+                                            @foreach(\Monarobase\CountryList\CountryListFacade::getList() as $key => $country)
+                                                <option value="{{$key}}">{{$country}}</option>
+                                            @endforeach
+                                        </select>
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Col-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="row g-9 mb-7">
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Label-->
+                                        <label
+                                            class="required fs-6 fw-bold mb-2">{{__('messages.phone_number')}}</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <input type="tel" class="form-control form-control-solid"
+                                               placeholder="{{__('messages.phone_number')}}"
+                                               name="phone"/>
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Col-->
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Label-->
+                                        <label
+                                            class="required fs-6 fw-bold mb-2">{{__('messages.email')}}</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <input type="email" class="form-control form-control-solid"
+                                               placeholder="{{__('messages.email')}}"
+                                               name="email"/>
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Col-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="row g-9 mb-7">
+                                    <!--begin::Col-->
+                                    <div class="col-md-12 fv-row">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-bold mb-2">
+                                            <span>{{__('messages.address')}}</span>
+                                        </label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <input type="text" class="form-control form-control-solid"
+                                               placeholder="{{__('messages.address')}}"
+                                               name="address"/>
                                         <!--end::Input-->
                                     </div>
                                     <!--end::Col-->

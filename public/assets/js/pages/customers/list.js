@@ -21,7 +21,7 @@ const KTCustomersServerSide = function () {
                 {data: 'short_name'},
                 {data: 'country'},
                 {data: 'company'},
-                {data: 'created_at'},
+                {data: 'inactive'},
                 {data: 'actions'},
             ],
             columnDefs: [

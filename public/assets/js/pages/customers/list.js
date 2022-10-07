@@ -158,8 +158,8 @@ const KTCustomersServerSide = function () {
                             $("#kt_modal_update_customer_form input[name='company']").val(customer.company);
                             $("#kt_modal_update_customer_form input[name='address']").val(customer.address);
                             $("#kt_modal_update_customer_form select[name='country']").val(customer.country).trigger('change');
-                            $("#kt_modal_update_customer_form input[name='phone']").val(customer.phone);
-                            $("#kt_modal_update_customer_form input[name='email']").val(customer.email);
+                            $("#kt_modal_update_customer_form input[name='phone']").val(customer.customer_branch.phone);
+                            $("#kt_modal_update_customer_form input[name='email']").val(customer.customer_branch.email);
                             $("#kt_modal_update_customer_form select[name='currency']").val(customer.currency).trigger('change');
                             $("#kt_modal_update_customer_form select[name='payment_terms']").val(customer.payment_terms).trigger('change');
                             $("#kt_modal_update_customer_form select[name='sales_type']").val(customer.sales_type).trigger('change');
@@ -175,19 +175,10 @@ const KTCustomersServerSide = function () {
                             }
 
                             $("#kt_modal_update_customer_form input[name='inactive']").val(customer.inactive);
-                            if (customer.inactive === 0) {
+                            if (customer.inactive == 0) {
                                 $("#kt_modal_update_customer_form input[id='inactive']").prop("checked", true);
                             } else {
                                 $("#kt_modal_update_customer_form input[id='inactive']").prop("checked", false)
-                            }
-
-                            //main customer cannot be deactivated
-                            if (customer.is_main) {
-                                $("#kt_modal_update_customer_form input[id='inactive']").attr("disabled", true);
-                                $("#kt_modal_update_customer_form input[id='inactive']").after('<span id="inactive_disabled" style="color: red;">Main customer cannot be Deactivated</span>');
-                            } else {
-                                $("#kt_modal_update_customer_form input[id='inactive']").attr("disabled", false);
-                                $("#kt_modal_update_customer_form #inactive_disabled").remove();
                             }
 
                             //active/inactive

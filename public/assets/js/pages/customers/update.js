@@ -17,14 +17,14 @@ const KTCustomersUpdate = function () {
             handleFormSubmit(
                 form,
                 {
-                    fname: {
+                    first_name: {
                         validators: {
                             notEmpty: {
                                 message: 'First Name is required'
                             }
                         }
                     },
-                    lname: {
+                    last_name: {
                         validators: {
                             notEmpty: {
                                 message: 'Last Name is required'

@@ -205,7 +205,7 @@
                                         <!--begin::Input-->
                                         <input type="text" class="form-control form-control-solid"
                                                placeholder="{{__('messages.first').' '.__('messages.name')}}"
-                                               name="fname"/>
+                                               name="first_name"/>
                                         <!--end::Input-->
                                     </div>
                                     <!--end::Col-->
@@ -218,7 +218,7 @@
                                         <!--begin::Input-->
                                         <input type="text" class="form-control form-control-solid"
                                                placeholder="{{__('messages.last').' '.__('messages.name')}}"
-                                               name="lname"/>
+                                               name="last_name"/>
                                         <!--end::Input-->
                                     </div>
                                     <!--end::Col-->

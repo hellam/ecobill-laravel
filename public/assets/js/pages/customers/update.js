@@ -119,7 +119,7 @@ const KTCustomersUpdate = function () {
                 cancelButton,
                 closeButton,
                 submitButton,
-                'POST',
+                'PUT',
                 modal,
                 $('#kt_customers_table'),
                 ["language", "credit_status", "sales_type", "tax_id", "payment_terms", "currency", "country"]

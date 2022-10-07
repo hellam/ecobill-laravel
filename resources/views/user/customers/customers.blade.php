@@ -357,7 +357,7 @@
                                             class="required fs-6 fw-bold mb-2">{{__('messages.pay_terms')}}</label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
-                                        <select name="pay_terms" aria-label="{{__('messages.pay_terms')}}"
+                                        <select name="payment_terms" aria-label="{{__('messages.pay_terms')}}"
                                                 data-control="select2"
                                                 data-placeholder="{{__('messages.pay_terms')}}..."
                                                 data-dropdown-parent="#kt_modal_add_customer"
@@ -380,7 +380,7 @@
                                             class="required fs-6 fw-bold mb-2">{{__('messages.tax')}}</label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
-                                        <select name="tax" aria-label="{{__('messages.tax')}}"
+                                        <select name="tax_id" aria-label="{{__('messages.tax')}}"
                                                 data-control="select2"
                                                 data-placeholder="{{__('messages.tax')}}..."
                                                 data-dropdown-parent="#kt_modal_add_customer"

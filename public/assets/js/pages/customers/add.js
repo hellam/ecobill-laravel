@@ -69,14 +69,14 @@ const KTCustomersAdd = function () {
                             }
                         }
                     },
-                    pay_terms: {
+                    payment_terms: {
                         validators: {
                             notEmpty: {
                                 message: 'Payment terms required'
                             }
                         }
                     },
-                    tax: {
+                    tax_id: {
                         validators: {
                             notEmpty: {
                                 message: 'Tax is required'

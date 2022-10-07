@@ -34,10 +34,18 @@
             <!--begin::Page title-->
             <div class="page-title d-flex flex-column py-1">
                 <!--begin::Title-->
-                <h1 class="d-flex align-items-center my-1">
-                    <span
-                        class="text-dark fw-bolder fs-1">{{__('messages.customers')}}</span>
-                </h1>
+                <ul class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bold">
+                    <!--begin::Nav item-->
+                    <li class="nav-item">
+                        <a class="nav-link text-active-primary py-5 me-6 active" href="#">{{__('messages.customers')}}</a>
+                    </li>
+                    <!--end::Nav item-->
+                    <!--begin::Nav item-->
+                    <li class="nav-item">
+                        <a class="nav-link text-active-primary py-5 me-6" href="#">{{__('messages.customer').' '.__('messages.branches')}}</a>
+                    </li>
+                    <!--end::Nav item-->
+                </ul>
                 <!--end::Title-->
             </div>
             <!--end::Page title-->
@@ -67,7 +75,7 @@
                                 </svg>
                             </span>
                             <!--end::Svg Icon-->
-                            <input type="text" data-kt-package-table-filter="search"
+                            <input type="text" data-kt-customer-table-filter="search"
                                    class="form-control form-control-solid w-250px ps-15"
                                    placeholder="{{__('messages.search',['attribute'=>__('messages.package')])}}"/>
                         </div>
@@ -89,20 +97,19 @@
                 <!--begin::Card body-->
                 <div class="card-body pt-0">
                     <!--begin::Table-->
-                    <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_packages_table"
-                           data-kt-dt_api="{{route('user.products.sub_packages.dt_api')}}">
+                    <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_customers_table"
+                           data-kt-dt_api="{{route('user.customers.dt_api')}}">
                         <!--begin::Table head-->
                         <thead>
                         <!--begin::Table row-->
                         <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
                             <th class="w-10px pe-2">#</th>
-                            <th>{{__('messages.name')}}</th>
-                            <th>{{__('messages.product')}}</th>
-                            <th>{{__('messages.price')}}</th>
-                            <th>{{__('messages.cost')}}</th>
-                            <th>{{__('messages.validity')}}</th>
-                            <th>{{__('messages.status')}}</th>
-                            <th class="text-end">{{__('messages.actions')}}</th>
+                            <th class="min-w-125px">{{__('messages.customer').' '.__('messages.name')}}</th>
+                            <th class="min-w-125px">{{__('messages.short').' '.__('messages.name')}}</th>
+                            <th class="min-w-125px">{{__('messages.country')}}</th>
+                            <th class="min-w-125px">{{__('messages.company')}}</th>
+                            <th class="min-w-125px">{{__('messages.created_date')}}</th>
+                            <th class="text-end min-w-70px">{{__('messages.actions')}}</th>
                         </tr>
                         <!--end::Table row-->
                         </thead>
@@ -515,7 +522,7 @@
         <!--end::Modal - Customer - Add-->
 
         <!--begin::Modal - Customer - Update-->
-        <div class="modal fade" id="kt_modal_update_package" tabindex="-1">
+        <div class="modal fade" id="kt_modal_update_customer" tabindex="-1">
             <!--begin::Modal dialog-->
             <div class="modal-dialog modal-dialog-centered mw-650px">
                 <!--begin::Modal content-->
@@ -546,15 +553,16 @@
                         </div>
                     </div>
                     <!--begin::Form-->
-                    <form class="form" action="#" id="kt_modal_update_package_form"
-                          data-kt-redirect="#">
+                    <form class="form" action="#" id="kt_modal_update_customer_form"
+                          data-kt-action=""
+                          data-kt-redirect="">
                         <!--begin::Modal header-->
-                        <div class="modal-header" id="kt_modal_update_package_header">
+                        <div class="modal-header" id="kt_modal_update_customer_header">
                             <!--begin::Modal title-->
-                            <h2 class="fw-bolder">{{__('messages.update').' '.__('messages.subscription').' '.__('messages.package')}}</h2>
+                            <h2 class="fw-bolder">{{__('messages.update').' '.__('messages.customer')}}</h2>
                             <!--end::Modal title-->
                             <!--begin::Close-->
-                            <div id="kt_modal_update_package_close"
+                            <div id="kt_modal_update_customer_close"
                                  class="btn btn-icon btn-sm btn-active-icon-primary">
                                 <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
                                 <span class="svg-icon svg-icon-1">
@@ -577,30 +585,111 @@
                         <!--begin::Modal body-->
                         <div class="modal-body py-10 px-lg-17">
                             <!--begin::Scroll-->
-                            <div class="scroll-y me-n7 pe-7" id="kt_modal_update_package_scroll"
-                                 data-kt-scroll="true"
+                            <div class="scroll-y me-n7 pe-7" id="kt_modal_update_customer_scroll" data-kt-scroll="true"
                                  data-kt-scroll-activate="{default: false, lg: true}"
                                  data-kt-scroll-max-height="auto"
-                                 data-kt-scroll-dependencies="#kt_modal_update_package_header"
-                                 data-kt-scroll-wrappers="#kt_modal_update_package_scroll"
+                                 data-kt-scroll-dependencies="#kt_modal_update_customer_header"
+                                 data-kt-scroll-wrappers="#kt_modal_update_customer_scroll"
                                  data-kt-scroll-offset="300px">
                                 <!--begin::Input group-->
-                                <div class="row g-9 mb-7 align-items-end">
+                                <div class="row g-9 mb-7">
                                     <!--begin::Col-->
-                                    <div class="image-upload">
-                                        <div class="avatar-edit">
-                                            <input type="file" id="upload" accept=".png, .jpg, .jpeg"
-                                                   onchange="previewImageUpload('#kt_modal_update_package')"/>
-                                            <input type="hidden" id="image" name="image"/>
-                                            <input type="hidden" id="delete" name="delete"/>
-                                            <label for="upload"><i class="fa fa-pen"></i></label>
-                                        </div>
-                                        <button type="button" onclick="removeImage('#kt_modal_update_package')"><i
-                                                class="fa fa-trash"></i></button>
-                                        <div class="avatar-preview">
-                                            <img id="imagePrev" src=""
-                                                 onerror="this.src='{{asset('assets/media/avatars/placeholder.jpg')}}'">
-                                        </div>
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Label-->
+                                        <label
+                                            class="required fs-6 fw-bold mb-2">{{__('messages.first').' '.__('messages.name')}}</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <input type="text" class="form-control form-control-solid"
+                                               placeholder="{{__('messages.first').' '.__('messages.name')}}"
+                                               name="first_name"/>
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Col-->
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Label-->
+                                        <label
+                                            class="required fs-6 fw-bold mb-2">{{__('messages.last').' '.__('messages.name')}}</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <input type="text" class="form-control form-control-solid"
+                                               placeholder="{{__('messages.last').' '.__('messages.name')}}"
+                                               name="last_name"/>
+                                        <input name="customer_branch_id" type="hidden">
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Col-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <!--begin::Input group-->
+                                <div class="row g-9 mb-7">
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Label-->
+                                        <label
+                                            class="required fs-6 fw-bold mb-2">{{__('messages.short').' '.__('messages.name')}}</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <input type="text" class="form-control form-control-solid"
+                                               placeholder="{{__('messages.short').' '.__('messages.name')}}"
+                                               name="short_name"/>
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Col-->
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-bold mb-2">{{__('messages.company')}}</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <input type="text" class="form-control form-control-solid"
+                                               placeholder="{{__('messages.company')}}"
+                                               name="company"/>
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Col-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="row g-9 mb-7">
+
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-bold mb-2">
+                                            <span>{{__('messages.address')}}</span>
+                                        </label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <input type="text" class="form-control form-control-solid"
+                                               placeholder="{{__('messages.address')}}"
+                                               name="address"/>
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Col-->
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-bold mb-2">
+                                            <span class="required">{{__('messages.country')}}</span>
+                                            <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
+                                               title="{{__('messages.country')}} 0f origin"></i>
+                                        </label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <select name="country" aria-label="{{__('messages.select_country')}}"
+                                                data-control="select2"
+                                                data-placeholder="{{__('messages.select_country')}}..."
+                                                data-dropdown-parent="#kt_modal_update_customer"
+                                                class="form-select form-select-solid fw-bolder">
+                                            <option></option>
+                                            @foreach(\Monarobase\CountryList\CountryListFacade::getList() as $key => $country)
+                                                <option value="{{$key}}">{{$country}}</option>
+                                            @endforeach
+                                        </select>
+                                        <!--end::Input-->
                                     </div>
                                     <!--end::Col-->
                                 </div>
@@ -611,29 +700,25 @@
                                     <div class="col-md-6 fv-row">
                                         <!--begin::Label-->
                                         <label
-                                            class="required fs-6 fw-bold mb-2">{{__('messages.subscription').' '.__('messages.name')}}</label>
+                                            class="required fs-6 fw-bold mb-2">{{__('messages.phone_number')}}</label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
-                                        <input type="text" class="form-control form-control-solid"
-                                               placeholder="{{__('messages.subscription').' '.__('messages.name')}}"
-                                               name="name"/>
+                                        <input type="tel" class="form-control form-control-solid"
+                                               placeholder="{{__('messages.phone_number')}}"
+                                               name="phone"/>
                                         <!--end::Input-->
                                     </div>
                                     <!--end::Col-->
                                     <!--begin::Col-->
                                     <div class="col-md-6 fv-row">
                                         <!--begin::Label-->
-                                        <label class="required fs-6 fw-bold mb-2">{{__('messages.product')}}</label>
+                                        <label
+                                            class="required fs-6 fw-bold mb-2">{{__('messages.email')}}</label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
-                                        <select name="product_id"
-                                                aria-label="{{__('messages.select').' '.__('messages.product')}}"
-                                                data-control="select2"
-                                                data-kt-src="{{route('user.products.select_api', 1)}}"
-                                                data-placeholder="{{__('messages.select').' '.__('messages.product')}}"
-                                                data-dropdown-parent="#kt_modal_update_package"
-                                                class="form-select form-select-solid fw-bolder select_api">
-                                        </select>
+                                        <input type="email" class="form-control form-control-solid"
+                                               placeholder="{{__('messages.email')}}"
+                                               name="email"/>
                                         <!--end::Input-->
                                     </div>
                                     <!--end::Col-->
@@ -644,70 +729,40 @@
                                     <!--begin::Col-->
                                     <div class="col-md-6 fv-row">
                                         <!--begin::Label-->
-                                        <label class="fs-6 fw-bold mb-2">
-                                            <span>{{__('messages.cost')}}</span>
-                                        </label>
+                                        <label
+                                            class="required fs-6 fw-bold mb-2">{{__('messages.currency')}}</label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
-                                        <input type="text" class="form-control form-control-solid"
-                                               placeholder="{{__('messages.cost')}}"
-                                               name="cost"/>
-                                        <!--end::Input-->
-                                    </div>
-                                    <!--end::Col-->
-                                    <!--begin::Col-->
-                                    <div class="col-md-6 fv-row">
-                                        <!--begin::Label-->
-                                        <label class="fs-6 fw-bold mb-2">{{__('messages.price')}}</label>
-                                        <!--end::Label-->
-                                        <!--begin::Input-->
-                                        <input type="text" class="form-control form-control-solid"
-                                               placeholder="{{__('messages.price')}}"
-                                               name="price"/>
-                                        <!--end::Input-->
-                                    </div>
-                                    <!--end::Col-->
-                                </div>
-                                <!--end::Input group-->
-                                <!--begin::Input group-->
-                                <div class="row g-9 mb-7">
-                                    <!--begin::Col-->
-                                    <div class="col-md-6 fv-row">
-                                        <!--begin::Label-->
-                                        <label class="fs-6 fw-bold mb-2 required">
-                                            <span>{{__('messages.validity')}} in days</span>
-                                        </label>
-                                        <!--end::Label-->
-                                        <!--begin::Input-->
-                                        <input type="text" class="form-control form-control-solid"
-                                               placeholder="{{__('messages.validity')}} in days"
-                                               name="validity"/>
-                                        <!--end::Input-->
-                                    </div>
-                                    <!--end::Col-->
-                                    <!--begin::Col-->
-                                    <div class="col-md-6 fv-row">
-                                        <!--begin::Label-->
-                                        <label class="fs-6 fw-bold mb-2">
-                                            <span>{{__('messages.order')}}</span>
-                                            <i class="fas fa-exclamation-circle ms-1 fs-7"
-                                               data-bs-toggle="tooltip"
-                                               title="Order of product"></i>
-                                        </label>
-                                        <!--end::Label-->
-                                        <!--begin::Input-->
-                                        <select name="order"
-                                                aria-label="{{__('messages.select').' '.__('messages.order')}}"
+                                        <select name="currency" aria-label="{{__('messages.currency')}}"
                                                 data-control="select2"
-                                                data-placeholder="{{__('messages.select').' '.__('messages.order')}}"
-                                                data-dropdown-parent="#kt_modal_update_package"
+                                                data-placeholder="{{__('messages.currency')}}..."
+                                                data-dropdown-parent="#kt_modal_update_customer"
                                                 class="form-select form-select-solid fw-bolder">
                                             <option></option>
-                                            <option value="1" selected>1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
+                                            @foreach($currency as $curr)
+                                                <option
+                                                    value="{{$curr->abbreviation}}"
+                                                    @if($curr->abbreviation == session('currency'))selected @endif>{{$curr->abbreviation.' - '.$curr->name}}</option>
+                                            @endforeach
+                                        </select>
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Col-->
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Label-->
+                                        <label
+                                            class="required fs-6 fw-bold mb-2">{{__('messages.pay_terms')}}</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <select name="payment_terms" aria-label="{{__('messages.pay_terms')}}"
+                                                data-control="select2"
+                                                data-placeholder="{{__('messages.pay_terms')}}..."
+                                                data-dropdown-parent="#kt_modal_update_customer"
+                                                class="form-select form-select-solid fw-bolder">
+                                            @foreach($payment_terms as $pay_terms)
+                                                <option value="{{$pay_terms->id}}">{{$pay_terms->terms}}</option>
+                                            @endforeach
                                         </select>
                                         <!--end::Input-->
                                     </div>
@@ -715,26 +770,118 @@
                                 </div>
                                 <!--end::Input group-->
                                 <!--begin::Input group-->
-                                <div class="fv-row mb-7">
-                                    <!--begin::Label-->
-                                    <label class="fs-6 fw-bold mb-2"
-                                           for="description">{{__('messages.description')}}</label>
-                                    <!--end::Label-->
-                                    <!--begin::Input-->
-                                    <textarea class="form-control form-control-solid"
-                                              placeholder="{{__('messages.description')}}"
-                                              name="description"></textarea>
-                                    <!--end::Input-->
+                                <div class="row g-9 mb-7">
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Label-->
+                                        <label
+                                            class="required fs-6 fw-bold mb-2">{{__('messages.tax')}}</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <select name="tax_id" aria-label="{{__('messages.tax')}}"
+                                                data-control="select2"
+                                                data-placeholder="{{__('messages.tax')}}..."
+                                                data-dropdown-parent="#kt_modal_update_customer"
+                                                class="form-select form-select-solid fw-bolder">
+                                            <option></option>
+                                            <option value="null" selected>Default</option>
+                                            @foreach($tax as $tx)
+                                                <option value="{{$tx->id}}">{{$tx->name}}</option>
+                                            @endforeach
+                                        </select>
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Col-->
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Label-->
+                                        <label
+                                            class="required fs-6 fw-bold mb-2">{{__('messages.sales_type')}}</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <select name="sales_type" aria-label="{{__('messages.sales_type')}}"
+                                                data-control="select2"
+                                                data-placeholder="{{__('messages.sales_type')}}..."
+                                                data-dropdown-parent="#kt_modal_update_customer"
+                                                class="form-select form-select-solid fw-bolder">
+                                            @foreach(SALES_TYPES as $key => $value)
+                                                <option value="{{$key}}">{{$value}}</option>
+                                            @endforeach
+                                        </select>
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Col-->
                                 </div>
                                 <!--end::Input group-->
                                 <!--begin::Input group-->
-                                <div class="fv-row mb-7">
-                                    <!--begin::Label-->
-                                    <label class="fs-6 fw-bold mb-2 required">{{__('messages.features')}}</label>
-                                    <!--end::Label-->
-                                    <!--begin::Input-->
-                                    <textarea class="form-control form-control-solid" id="features_update"></textarea>
-                                    <!--end::Input-->
+                                <div class="row g-9 mb-7">
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Label-->
+                                        <label
+                                            class="required fs-6 fw-bold mb-2">{{__('messages.credit_status')}}</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <select name="credit_status" aria-label="{{__('messages.credit_status')}}"
+                                                data-control="select2"
+                                                data-placeholder="{{__('messages.credit_status')}}..."
+                                                data-dropdown-parent="#kt_modal_update_customer"
+                                                class="form-select form-select-solid fw-bolder">
+                                            <option value="1">Eligible</option>
+                                            <option value="0">Not Eligible</option>
+                                        </select>
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Col-->
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Label-->
+                                        <label
+                                            class="required fs-6 fw-bold mb-2">{{__('messages.credit_limit')}}</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <input type="number" class="form-control form-control-solid"
+                                               placeholder="{{__('messages.credit_limit')}}"
+                                               name="credit_limit"/>
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Col-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="row g-9 mb-7">
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Label-->
+                                        <label
+                                            class="required fs-6 fw-bold mb-2">{{__('messages.discount')}}(%)</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <input type="number" class="form-control form-control-solid"
+                                               placeholder="{{__('messages.discount')}} in %"
+                                               name="discount" value="0"/>
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Col-->
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Label-->
+                                        <label
+                                            class="required fs-6 fw-bold mb-2">{{__('messages.language')}}</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <select name="language" aria-label="{{__('messages.language')}}"
+                                                data-control="select2"
+                                                data-placeholder="{{__('messages.language')}}..."
+                                                data-dropdown-parent="#kt_modal_update_customer"
+                                                class="form-select form-select-solid fw-bolder">
+                                            @foreach(LANG as $key => $value)
+                                                <option value="{{$key}}" selected>{{$value}}</option>
+                                            @endforeach
+                                        </select>
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Col-->
                                 </div>
                                 <!--end::Input group-->
                                 <!--begin::Input group-->
@@ -751,13 +898,13 @@
                         <!--begin::Modal footer-->
                         <div class="modal-footer flex-center">
                             <!--begin::Button-->
-                            <button type="reset" id="kt_modal_update_package_cancel" class="btn btn-light me-3">
+                            <button type="reset" id="kt_modal_update_customer_cancel" class="btn btn-light me-3">
                                 Discard
                             </button>
                             <!--end::Button-->
                             <!--begin::Button-->
-                            <button type="submit" id="kt_modal_update_package_submit" class="btn btn-primary">
-                                <span class="indicator-label">Update</span>
+                            <button type="submit" id="kt_modal_update_customer_submit" class="btn btn-primary">
+                                <span class="indicator-label">Submit</span>
                                 <span class="indicator-progress">Please wait...
 														<span
                                                             class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
@@ -780,5 +927,5 @@
 @push('custom_scripts')
     <script src="{{asset('assets/js/pages/customers/add.js')}}"></script>
     <script src="{{asset('assets/js/pages/customers/list.js')}}"></script>
-    {{--    <script src="{{asset('assets/js/pages/customer/update.js')}}"></script>--}}
+    <script src="{{asset('assets/js/pages/customers/update.js')}}"></script>
 @endpush

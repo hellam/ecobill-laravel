@@ -32,11 +32,7 @@ const KTCustomersUpdate = function () {
                         }
                     },
                     short_name: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Short Name is required'
-                            }
-                        }
+                        validators: {}
                     },
                     address: {
                         validators: {}
@@ -126,7 +122,7 @@ const KTCustomersUpdate = function () {
                 'POST',
                 modal,
                 $('#kt_customers_table'),
-                ["language", "credit_status", "sales_type", "tax", "pay_terms", "currency", "country"]
+                ["language", "credit_status", "sales_type", "tax_id", "payment_terms", "currency", "country"]
             );
         }
     };

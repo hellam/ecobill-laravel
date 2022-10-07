@@ -49,11 +49,7 @@ class CustomersController extends Controller
                 return $row->inactive == 0 ? '<div class="badge badge-sm badge-light-success">Active</div>' : '<div class="badge badge-sm badge-light-danger">Inactive</div>';
             })->editColumn('created_at', function ($row) {
                 return Carbon::parse($row->created_at)->format('Y/m/d');
-            })->filterColumn('f_name', function ($query, $keyword) {
-                $keywords = trim($keyword);
-                $query->orWhere('f_name', 'like', "%$keywords%")->orWhere('l_name', 'like', "%$keywords%");
-            })
-            ->make(true);
+            })->make(true);
     }
 
     /**

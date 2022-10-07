@@ -510,7 +510,6 @@ function createCKEditor(input_id) {
     CKEDITOR.replace(input_id);
 }
 
-
 function handleCustomerAPISelect(select_parent, preselect = null) {
     const element = document.querySelector(select_parent + ' .select_customer');
 

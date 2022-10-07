@@ -92,41 +92,49 @@ class CustomersController extends Controller
         ];
 
         //set_create_parameters($created_at, $created_by, ...)
-        $post_data = array_merge($post_data, set_create_parameters($created_at, $created_by, $supervised_by, $supervised_at));
+        $post_data1 = array_merge($post_data, set_create_parameters($created_at, $created_by, $supervised_by, $supervised_at));
+
+        try {
+            DB::beginTransaction();
+            $customer = Customer::create($post_data1);
+
+            $post_data = [
+                'customer_id' => $customer->id,
+                'f_name' => $request->first_name,
+                'l_name' => $request->last_name,
+                'short_name' => $request->short_name,
+                'branch' => $request->company,
+                'country' => $request->country,
+                'phone' => $request->phone,
+                'email' => $request->email,
+                'address' => $request->address,
+                'client_ref' => get_user_ref(),
+            ];
+
+            //set_create_parameters($created_at, $created_by, ...)
+            $post_data2 = array_merge($post_data, set_create_parameters($created_at, $created_by, $supervised_by, $supervised_at));
 
 
-        $customer = Customer::create($post_data);
+            if ($created_at == null) {
+                //if not supervised, log data from create request
+                //Creator log
+                log_activity(
+                    ST_SUBSCRIPTION_SETUP,
+                    $request->getClientIp(),
+                    'Create Customer and Contacts',
+                    json_encode($post_data1),
+                    auth('user')->id(),
+                    $customer->id
+                );
+            }
+            $contact = CustomerBranch::create($post_data2);
 
-        if ($created_at == null) {
-            //if not supervised, log data from create request
-            //Creator log
-            log_activity(
-                ST_SUBSCRIPTION_SETUP,
-                $request->getClientIp(),
-                'Create Customer and Contacts',
-                json_encode($post_data),
-                auth('user')->id(),
-                $customer->id
-            );
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return error_web_processor($e,
+                200);
         }
-
-        $post_data = [
-            'customer_id' => $customer->id,
-            'f_name' => $request->first_name,
-            'l_name' => $request->last_name,
-            'short_name' => $request->short_name,
-            'branch' => $request->company,
-            'country' => $request->country,
-            'phone' => $request->phone,
-            'email' => $request->email,
-            'address' => $request->address,
-            'client_ref' => get_user_ref(),
-        ];
-
-        //set_create_parameters($created_at, $created_by, ...)
-        $post_data = array_merge($post_data, set_create_parameters($created_at, $created_by, $supervised_by, $supervised_at));
-
-        $contact = CustomerBranch::create($post_data);
 
         return success_web_processor(['id' => $customer->id], __('messages.msg_saved_success', ['attribute' => __('messages.customer')]));
     }

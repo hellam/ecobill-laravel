@@ -1,5 +1,5 @@
 @extends('layout.user.app')
-@section('title', 'Customers')
+@section('title', 'Deposits')
 @section('page_title')
     <!--begin::Page title-->
     <div class="page-title d-flex justify-content-center flex-column me-5">
@@ -19,7 +19,7 @@
             </li>
             <!--end::Item-->
             <!--begin::Item-->
-            <li class="breadcrumb-item text-muted">{{__('messages.customers')}}</li>
+            <li class="breadcrumb-item text-muted">{{__('messages.banking_gl')}}</li>
             <!--end::Item-->
             <!--begin::Item-->
             <li class="breadcrumb-item">
@@ -27,7 +27,7 @@
             </li>
             <!--end::Item-->
             <!--begin::Item-->
-            <li class="breadcrumb-item text-dark">{{__('messages.customer').' '.__('messages.branches')}}</li>
+            <li class="breadcrumb-item text-dark">{{__('messages.deposit')}}</li>
             <!--end::Item-->
         </ul>
         <!--end::Breadcrumb-->

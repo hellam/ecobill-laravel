@@ -118,6 +118,7 @@ return [
     'day' => 'Day',
     'description' => 'Description',
     'default' => 'Default',
+    'deposit' => 'Deposit',
     'default_currency' => 'Default Currency',
     'discount' => 'Discount',
     'digits' => 'Digits',

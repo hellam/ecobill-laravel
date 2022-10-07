@@ -217,7 +217,7 @@
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
-                                    <span class="menu-title">{{__('messages.deposits')}}</span>
+                                    <span class="menu-title">{{__('messages.deposit')}}</span>
                                 </a>
                                 <!--end:Menu link-->
                             </div>

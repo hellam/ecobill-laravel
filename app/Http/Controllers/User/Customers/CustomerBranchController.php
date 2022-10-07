@@ -5,7 +5,7 @@ namespace App\Http\Controllers\User\Customers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class CustomersBranhController extends Controller
+class CustomerBranchController extends Controller
 {
     //
 }

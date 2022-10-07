@@ -152,6 +152,9 @@ define('SALES_TYPES',[
     '1' =>'Retail',
     '2' =>'Wholesale',
 ]);
+define('LANG',[
+    'en' =>'English',
+]);
 define('TIME_ZONE', array(
     'Asia/Kabul' => 'UTC +04:36 Asia/Kabul - Afghanistan',
     'Europe/Tirane' => 'UTC +01:19 Europe/Tirane - Albania',

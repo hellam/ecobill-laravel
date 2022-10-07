@@ -49,6 +49,13 @@ define('ST_QUOTATION', "ST_123");
 define('ST_CREDIT_NOTE', "ST_124");
 ////////////////////////////////
 
+#CUSTOMERS
+define('ST_150', "Customer Setup");
+
+define('ST_CUSTOMER_SETUP', "ST_150");
+///////////////////////////////
+
+
 #PRODUCTS
 define('ST_140', "Category Setup");
 define('ST_141', "Product Setup");

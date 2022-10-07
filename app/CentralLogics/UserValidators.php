@@ -10,6 +10,8 @@ use App\Models\ChartAccount;
 use App\Models\ChartClass;
 use App\Models\ChartGroup;
 use App\Models\Currency;
+use App\Models\Customer;
+use App\Models\CustomerBranch;
 use App\Models\MakerCheckerRule;
 use App\Models\PaymentTerm;
 use App\Models\Product;
@@ -403,6 +405,29 @@ class UserValidators
             'features' => 'required',
             'validity' => 'required',
             'inactive' => 'in:1,0',
+        ]);
+    }
+
+    public static function customerCreateValidation(Request $request)
+    {
+        return self::ValidatorMake($request->all(), [
+            'f_name' => 'required',
+            'l_name' => 'required',
+            'short_name' => 'required|unique:' . Customer::class . ',short_name,NULL,id,client_ref,' . get_user_ref(),
+            'country' => 'required',
+            'tax_id' => 'required',
+            'currency' => 'required',
+            'payment_terms' => 'required',
+            'credit_limit' => 'required',
+            'credit_status' => 'required',
+            'sales_type' => 'required',
+            'discount' => 'required',
+            'language' => 'required',
+            'email' => 'required|unique:' . CustomerBranch::class . ',email,NULL,id,client_ref,'.get_user_ref().'|email:rfc,dns,spoof',
+            'phone' => 'required|unique:' . CustomerBranch::class . ',phone,NULL,id,client_ref,'.get_user_ref().'|min:13|max:13',
+        ], [
+            'f_name.required' => __('validation.required', ['attribute' => 'first name']),
+            'l_name.required' => __('validation.required', ['attribute' => 'last name']),
         ]);
     }
 

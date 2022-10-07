@@ -88,7 +88,7 @@ class Customer extends Model
 
     public function tax(): BelongsTo
     {
-        return $this->belongsTo(Category::class, 'tax_id');
+        return $this->belongsTo(Tax::class, 'tax_id');
     }
 
     public static function booted()

@@ -451,6 +451,26 @@ class UserValidators
         ]);
     }
 
+    public static function customerBranchCreateValidation(Request $request)
+    {
+        return self::ValidatorMake($request->all(), [
+            'first_name' => 'required|string',
+            'last_name' => 'required|string',
+            'short_name' => 'required|string',
+            'country' => 'required','tax_id' => 'required',
+            'currency' => 'required|exists:' . Currency::class . ',abbreviation,client_ref,' . get_user_ref(),
+            'payment_terms' => 'required|exists:' . PaymentTerm::class . ',id,client_ref,' . get_user_ref(),
+            'credit_limit' => 'required',
+            'credit_status' => 'required|in:0,1',
+            'sales_type' => 'required',
+            'discount' => 'required|numeric',
+            'language' => 'required',
+            'inactive' => 'required|in:0,1',
+            'email' => 'required|unique:' . CustomerBranch::class . ',email,' . $request->customer_branch_id . ',id,client_ref,' . get_user_ref() . '|email:rfc,dns',//TODO: Add spoof
+            'phone' => 'required|unique:' . CustomerBranch::class . ',phone,' . $request->customer_branch_id . ',id,client_ref,' . get_user_ref() . '|min:13|max:13',
+        ]);
+    }
+
     public static function securityUpdateValidation(Request $request)
     {
         $type = Route::current()->type;

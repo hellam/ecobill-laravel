@@ -27,7 +27,7 @@ class CustomerBranchController extends Controller
     //Data table API
     public function dt_api(Request $request)
     {
-        $customers = CustomerBranch::orderBy('f_name');
+        $customers = CustomerBranch::with('customer:id,f_name,l_name')->orderBy('f_name');
         return (new DataTables)->eloquent($customers)
             ->addIndexColumn()
             ->addColumn('id', function ($row) {
@@ -36,6 +36,8 @@ class CustomerBranchController extends Controller
                     "delete_url" => route('user.customers.branch.delete', [$row->id])];
             })->editColumn('country', function ($row) {
                 return CountryListFacade::getOne($row->country);
+            })->addColumn('customer', function ($row) {
+                return $row->customer->f_name.' '.$row->customer->l_name;
             })->editColumn('inactive', function ($row) {
                 return $row->inactive == 0 ? '<div class="badge badge-sm badge-light-success">Active</div>' : '<div class="badge badge-sm badge-light-danger">Inactive</div>';
             })->editColumn('created_at', function ($row) {
@@ -51,7 +53,7 @@ class CustomerBranchController extends Controller
     public function create(Request $request, $created_at = null, $created_by = null,
                                    $supervised_by = null, $supervised_at = null): JsonResponse
     {
-        $validator = UserValidators::customerCreateValidation($request);
+        $validator = UserValidators::customerBranchCreateValidation($request);
 
         if ($validator != '') {
             return $validator;

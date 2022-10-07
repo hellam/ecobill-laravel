@@ -423,7 +423,7 @@ class UserValidators
             'sales_type' => 'required',
             'discount' => 'required',
             'language' => 'required',
-            'email' => 'required|unique:' . CustomerBranch::class . ',email,NULL,id,client_ref,'.get_user_ref().'|email:rfc,dns,spoof',
+            'email' => 'required|unique:' . CustomerBranch::class . ',email,NULL,id,client_ref,'.get_user_ref().'|email:rfc,dns',//spoof
             'phone' => 'required|unique:' . CustomerBranch::class . ',phone,NULL,id,client_ref,'.get_user_ref().'|min:13|max:13',
         ], [
             'f_name.required' => __('validation.required', ['attribute' => 'first name']),

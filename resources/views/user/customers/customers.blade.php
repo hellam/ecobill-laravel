@@ -261,7 +261,7 @@
                                     <div class="col-md-6 fv-row">
                                         <!--begin::Label-->
                                         <label class="fs-6 fw-bold mb-2">
-                                            <span class="required">{{__('messages.address')}}</span>
+                                            <span>{{__('messages.address')}}</span>
                                         </label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
@@ -341,6 +341,8 @@
                                                 data-dropdown-parent="#kt_modal_add_customer"
                                                 class="form-select form-select-solid fw-bolder">
                                             <option></option>
+                                            @foreach($currency as $curr)
+                                            @endforeach
                                         </select>
                                         <!--end::Input-->
                                     </div>
@@ -445,11 +447,11 @@
                                     <div class="col-md-6 fv-row">
                                         <!--begin::Label-->
                                         <label
-                                            class="required fs-6 fw-bold mb-2">{{__('messages.discount')}}</label>
+                                            class="required fs-6 fw-bold mb-2">{{__('messages.discount')}}(%)</label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
                                         <input type="number" class="form-control form-control-solid"
-                                               placeholder="{{__('messages.discount')}}"
+                                               placeholder="{{__('messages.discount')}} in %"
                                                name="discount" value="0"/>
                                         <!--end::Input-->
                                     </div>
@@ -768,5 +770,5 @@
 @push('custom_scripts')
     <script src="{{asset('assets/js/pages/customers/add.js')}}"></script>
     <script src="{{asset('assets/js/pages/customers/list.js')}}"></script>
-{{--    <script src="{{asset('assets/js/pages/customer/update.js')}}"></script>--}}
+    {{--    <script src="{{asset('assets/js/pages/customer/update.js')}}"></script>--}}
 @endpush

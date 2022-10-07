@@ -182,8 +182,8 @@ class CustomersController extends Controller
         $input = $request->all();
         $rules = [];
         foreach ($input['email'] as $key => $val) {
-            $rules['email.' . $key] = 'required|email:rfc,dns,spoof|unique:' . Contacts::class . ',email,' . $request->contact[$key].',client_ref,'.Helpers::get_user_ref();
-            $rules['phone.' . $key] = 'required|min:13|max:13|unique:' . Contacts::class . ',phone,' . $request->contact[$key].',client_ref,'.Helpers::get_user_ref();
+            $rules['email.' . $key] = 'required|email:rfc,dns,spoof|unique:' . Contacts::class . ',email,' . $request->contact[$key] . ',client_ref,' . Helpers::get_user_ref();
+            $rules['phone.' . $key] = 'required|min:13|max:13|unique:' . Contacts::class . ',phone,' . $request->contact[$key] . ',client_ref,' . Helpers::get_user_ref();
         }
         $rules['f_name'] = 'required';
         $rules['l_name'] = 'required';

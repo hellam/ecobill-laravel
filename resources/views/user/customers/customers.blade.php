@@ -19,14 +19,6 @@
             </li>
             <!--end::Item-->
             <!--begin::Item-->
-            <li class="breadcrumb-item text-muted">{{__('messages.customers')}}</li>
-            <!--end::Item-->
-            <!--begin::Item-->
-            <li class="breadcrumb-item">
-                <span class="bullet bg-gray-200 w-5px h-2px"></span>
-            </li>
-            <!--end::Item-->
-            <!--begin::Item-->
             <li class="breadcrumb-item text-dark">{{__('messages.customers')}}</li>
             <!--end::Item-->
         </ul>
@@ -124,7 +116,7 @@
                 </div>
                 <!--end::Products Wrapper-->
             @else
-                <!--begin::No Packages Wrapper-->
+                <!--begin::No Customers Wrapper-->
                 <div class="card-px text-center py-20 my-10">
                     <!--begin::Title-->
                     <h2 class="fs-2x fw-bolder mb-10">{{__('messages.welcome_to_module',['attribute'=>__('messages.customers')])}}</h2>
@@ -150,7 +142,7 @@
                     </div>
                     <!--end::Illustration-->
                 </div>
-                <!--end::No Packages Wrapper-->
+                <!--end::No Customers Wrapper-->
             @endif
         </div>
         <!--end::Card-->
@@ -163,7 +155,6 @@
             <div class="modal-dialog modal-dialog-centered mw-650px">
                 <!--begin::Modal content-->
                 <div class="modal-content">
-                    <
                     <!--begin::Form-->
                     <form class="form" action="#" id="kt_modal_add_customer_form"
                           data-kt-action=""
@@ -388,6 +379,7 @@
                                                 data-dropdown-parent="#kt_modal_add_customer"
                                                 class="form-select form-select-solid fw-bolder">
                                             <option></option>
+                                            <option value="null">Default</option>
                                         </select>
                                         <!--end::Input-->
                                     </div>
@@ -776,5 +768,5 @@
 @push('custom_scripts')
     <script src="{{asset('assets/js/pages/customers/add.js')}}"></script>
     <script src="{{asset('assets/js/pages/customers/list.js')}}"></script>
-    <script src="{{asset('assets/js/pages/customer/update.js')}}"></script>
+{{--    <script src="{{asset('assets/js/pages/customer/update.js')}}"></script>--}}
 @endpush

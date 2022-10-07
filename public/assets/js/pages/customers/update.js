@@ -1,18 +1,18 @@
 "use strict";
 
 // Class definition
-const KTCustomersAdd = function () {
+const KTCustomersUpdate = function () {
     let submitButton, cancelButton, closeButton, form, modal;
 
     return {
         // Public functions
         init: function () {
             // Elements
-            modal = new bootstrap.Modal(document.querySelector('#kt_modal_add_customer'));
-            form = document.querySelector('#kt_modal_add_customer_form');
-            submitButton = form.querySelector('#kt_modal_add_customer_submit');
-            cancelButton = form.querySelector('#kt_modal_add_customer_cancel');
-            closeButton = form.querySelector('#kt_modal_add_customer_close');
+            modal = new bootstrap.Modal(document.querySelector('#kt_modal_update_customer'));
+            form = document.querySelector('#kt_modal_update_customer_form');
+            submitButton = form.querySelector('#kt_modal_update_customer_submit');
+            cancelButton = form.querySelector('#kt_modal_update_customer_cancel');
+            closeButton = form.querySelector('#kt_modal_update_customer_close');
 
             handleFormSubmit(
                 form,
@@ -119,7 +119,7 @@ const KTCustomersAdd = function () {
                         }
                     }
                 },
-                $('#kt_modal_add_customer_form'),
+                $('#kt_modal_update_customer_form'),
                 cancelButton,
                 closeButton,
                 submitButton,
@@ -134,5 +134,5 @@ const KTCustomersAdd = function () {
 
 // On document ready
 KTUtil.onDOMContentLoaded(function () {
-    KTCustomersAdd.init();
+    KTCustomersUpdate.init();
 });

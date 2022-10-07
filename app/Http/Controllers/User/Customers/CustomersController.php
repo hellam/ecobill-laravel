@@ -16,6 +16,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Monarobase\CountryList\CountryListFacade;
 use Yajra\DataTables\DataTables;
 
 class CustomersController extends Controller
@@ -45,6 +46,8 @@ class CustomersController extends Controller
                 return ["id" => $row->id, "edit_url" => route('user.customers.edit', [$row->id]),
                     "update_url" => route('user.customers.update', [$row->id]),
                     "delete_url" => route('user.customers.delete', [$row->id])];
+            })->editColumn('country', function ($row) {
+                return CountryListFacade::getOne($row->country);
             })->editColumn('inactive', function ($row) {
                 return $row->inactive == 0 ? '<div class="badge badge-sm badge-light-success">Active</div>' : '<div class="badge badge-sm badge-light-danger">Inactive</div>';
             })->editColumn('created_at', function ($row) {

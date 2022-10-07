@@ -139,7 +139,7 @@ class CustomersController extends Controller
     {
         $customer = Customer::find($id);
         if (isset($customer)) {
-            $customer = Customer::with('customer_branch:id,phone,email,id')->find($id);
+            $customer = Customer::with('customer_branch')->find($id);
 
             return success_web_processor($customer, __('messages.msg_item_found', ['attribute' => __('messages.customer')]));
         }

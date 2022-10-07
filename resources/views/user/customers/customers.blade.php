@@ -608,6 +608,7 @@
                                         <input type="text" class="form-control form-control-solid"
                                                placeholder="{{__('messages.last').' '.__('messages.name')}}"
                                                name="last_name"/>
+                                        <input name="customer_branch_id" type="hidden">
                                         <!--end::Input-->
                                     </div>
                                     <!--end::Col-->

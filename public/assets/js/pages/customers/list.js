@@ -76,8 +76,6 @@ const KTCustomersServerSide = function () {
                                     </a>
                                 </div>
                                 <!--end::Menu item-->
-                            <!--begin::Menu-->
-                            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4" data-kt-menu="true">
                                 <!--begin::Menu item-->
                                 <div class="menu-item px-3">
                                     <a href="#" class="menu-link px-3 test" data-kt-customer-table-actions="delete_row">
@@ -151,17 +149,23 @@ const KTCustomersServerSide = function () {
                             $('#kt_modal_update_customer_form').show({backdrop: 'static', keyboard: false});//show form
                             const customer = response.data;
                             //
-                            $("#kt_modal_update_customer_form input[name='name']").val(customer.name);
-                            $("#kt_modal_update_customer_form input[name='email']").val(customer.email);
-                            $("#kt_modal_update_customer_form input[name='bcc_email']").val(customer.bcc_email);
+                            $("#kt_modal_update_customer_form input[name='f_name']").val(customer.f_name);
+                            $("#kt_modal_update_customer_form input[name='l_name']").val(customer.l_name);
+                            $("#kt_modal_update_customer_form input[name='short_name']").val(customer.short_name).attr('disabled', true);
+                            $("#kt_modal_update_customer_form input[name='customer_branch_id']").val(customer.customer_branch.id);
+                            $("#kt_modal_update_customer_form input[name='company']").val(customer.company);
+                            $("#kt_modal_update_customer_form input[name='address']").val(customer.address);
+                            $("#kt_modal_update_customer_form select[name='country']").val(customer.country).trigger('change');
                             $("#kt_modal_update_customer_form input[name='phone']").val(customer.phone);
-                            $("#kt_modal_update_customer_form input[name='tax_no']").val(customer.tax_no);
-                            $("#kt_modal_update_customer_form select[name='default_bank_account']").val(customer.default_bank_account).trigger('change');
-                            $("#kt_modal_update_customer_form select[name='tax_period']").val(customer.tax_period).trigger('change');
-                            $("#kt_modal_update_customer_form input[name='default_currency']").val(customer.default_currency);
-                            $("#kt_modal_update_customer_form select[name='fiscal_year']").val(customer.fiscal_year).trigger('change');
-                            $("#kt_modal_update_customer_form select[name='timezone']").val(customer.timezone).trigger('change');
-                            $("#kt_modal_update_customer_form textarea[name='address']").val(customer.address);
+                            $("#kt_modal_update_customer_form input[name='email']").val(customer.email);
+                            $("#kt_modal_update_customer_form select[name='currency']").val(customer.currency).trigger('change');
+                            $("#kt_modal_update_customer_form select[name='payment_terms']").val(customer.payment_terms).trigger('change');
+                            $("#kt_modal_update_customer_form select[name='tax_id']").val(customer.tax_id).trigger('change');
+                            $("#kt_modal_update_customer_form select[name='sales_type']").val(customer.sales_type).trigger('change');
+                            $("#kt_modal_update_customer_form select[name='credit_status']").val(customer.credit_status).trigger('change');
+                            $("#kt_modal_update_customer_form input[name='credit_limit']").val(customer.credit_limit);
+                            $("#kt_modal_update_customer_form input[name='discount']").val(customer.discount);
+                            $("#kt_modal_update_customer_form select[name='language']").val(customer.language).trigger('change');
 
                             $("#kt_modal_update_customer_form input[name='inactive']").val(customer.inactive);
                             if (customer.inactive === 0) {

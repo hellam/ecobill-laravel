@@ -470,6 +470,7 @@ class UserValidators
             'first_name' => 'required|string',
             'last_name' => 'required|string',
             'country' => 'required',
+            'inactive' => 'required|in:0,1',
             'email' => 'required|unique:' . CustomerBranch::class . ',email,' . $id . ',id,client_ref,' . get_user_ref() . '|email:rfc,dns',//TODO: Add spoof
             'phone' => 'required|unique:' . CustomerBranch::class . ',phone,' . $id . ',id,client_ref,' . get_user_ref() . '|min:13|max:13',
         ]);

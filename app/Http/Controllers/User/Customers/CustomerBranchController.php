@@ -151,42 +151,17 @@ class CustomerBranchController extends Controller
             return $validator;
         }
 
-        $customer = Customer::find($id);
-        if ($customer) {
-            try {
-                DB::beginTransaction();
-                $customer->f_name = $request->first_name;
-                $customer->l_name = $request->last_name;
-                $customer->country = $request->country;
-                $customer->tax_id = $request->tax_id == 'null' ? null : $request->tax_id;
-                $customer->currency = $request->currency;
-                $customer->payment_terms = $request->payment_terms;
-                $customer->credit_limit = $request->credit_limit;
-                $customer->credit_status = $request->credit_status;
-                $customer->sales_type = $request->sales_type;
-                $customer->discount = $request->discount;
-                $customer->language = $request->language;
-                $customer->address = $request->address;
-                $customer->company = $request->company;
-                $customer->inactive = $request->inactive;
-                $customer->update();
-
-
-                $customer_branch = CustomerBranch::find($request->customer_branch_id);
-
+        $customer_branch = CustomerBranch::find($id);
+        if ($customer_branch) {
                 $customer_branch->f_name = $request->first_name;
                 $customer_branch->l_name = $request->last_name;
                 $customer_branch->address = $request->address;
-                $customer_branch->branch = $request->company;
+                $customer_branch->branch = $request->branch;
                 $customer_branch->country = $request->country;
                 $customer_branch->email = $request->email;
                 $customer_branch->phone = $request->phone;
+                $customer_branch->inactive = $request->inactive;
                 $customer_branch->update();
-                DB::commit();
-            } catch (\Exception $e) {
-                DB::rollBack();
-                return error_web_processor($e);
-            }
             return success_web_processor(null, __('messages.msg_updated_success', ['attribute' => __('messages.customer')]));
         }
 
@@ -199,15 +174,16 @@ class CustomerBranchController extends Controller
      */
     public function destroy($id)
     {
-        $customer = Customer::find($id);
-        if ($customer) {
-            $customer_branch = CustomerBranch::where('customer_id', $customer->id)->count();
-            if ($customer_branch > 0) {
-                return error_web_processor(__('messages.msg_delete_not_allowed', ['attribute' => __('messages.customer'), 'attribute1' => __('messages.customer_branch')]));
-            }
-            $customer->delete();
-            return success_web_processor(null, __('messages.msg_deleted_success', ['attribute' => __('messages.customer')]));
+        $customer_branch = CustomerBranch::find($id);
+        if ($customer_branch) {
+            //TODO: check if customer_branch has transactions
+//            $customer_branch = CustomerBranch::where('customer_id', $customer->id)->count();
+//            if ($customer_branch > 0) {
+//                return error_web_processor(__('messages.msg_delete_not_allowed', ['attribute' => __('messages.customer'), 'attribute1' => __('messages.customer_branch')]));
+//            }
+            $customer_branch->delete();
+            return success_web_processor(null, __('messages.msg_deleted_success', ['attribute' => __('messages.customer_branch')]));
         }
-        return error_web_processor(__('messages.msg_item_not_found', ['attribute' => __('messages.customer')]));
+        return error_web_processor(__('messages.msg_item_not_found', ['attribute' => __('messages.customer_branch')]));
     }
 }

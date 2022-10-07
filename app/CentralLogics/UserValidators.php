@@ -411,8 +411,8 @@ class UserValidators
     public static function customerCreateValidation(Request $request)
     {
         return self::ValidatorMake($request->all(), [
-            'f_name' => 'required',
-            'l_name' => 'required',
+            'first_name' => 'required',
+            'last_name' => 'required',
             'short_name' => 'required|unique:' . Customer::class . ',short_name,NULL,id,client_ref,' . get_user_ref(),
             'country' => 'required',
             'tax_id' => 'required',
@@ -423,11 +423,8 @@ class UserValidators
             'sales_type' => 'required',
             'discount' => 'required',
             'language' => 'required',
-            'email' => 'required|unique:' . CustomerBranch::class . ',email,NULL,id,client_ref,'.get_user_ref().'|email:rfc,dns',//spoof
+            'email' => 'required|unique:' . CustomerBranch::class . ',email,NULL,id,client_ref,'.get_user_ref().'|email:rfc,dns',//TODO: Add spoof
             'phone' => 'required|unique:' . CustomerBranch::class . ',phone,NULL,id,client_ref,'.get_user_ref().'|min:13|max:13',
-        ], [
-            'f_name.required' => __('validation.required', ['attribute' => 'first name']),
-            'l_name.required' => __('validation.required', ['attribute' => 'last name']),
         ]);
     }
 

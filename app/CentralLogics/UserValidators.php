@@ -419,7 +419,7 @@ class UserValidators
             'currency' => 'required',
             'payment_terms' => 'required',
             'credit_limit' => 'required',
-            'credit_status' => 'required',
+            'credit_status' => 'required|in:0,1',
             'sales_type' => 'required',
             'discount' => 'required',
             'language' => 'required',

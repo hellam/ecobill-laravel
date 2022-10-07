@@ -6,6 +6,7 @@ use App\Scopes\ClientRefScope;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Auth;
 
 /**
@@ -79,6 +80,11 @@ class Customer extends Model
 		'supervised_at',
 		'inactive'
 	];
+
+    public function customer_branch(): HasMany
+    {
+        return $this->hasMany(CustomerBranch::class, 'customer_id');
+    }
 
     public function tax(): BelongsTo
     {

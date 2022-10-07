@@ -102,7 +102,7 @@ class CustomerBranchController extends Controller
     {
         $customer_branch = CustomerBranch::find($id);
         if (isset($customer_branch)) {
-            $customer_branch = CustomerBranch::with('customer:id,f_name,l_name')->find($id);
+            $customer_branch = CustomerBranch::with('customer:id,f_name,l_name,short_name')->find($id);
 
             return success_web_processor($customer_branch, __('messages.msg_item_found', ['attribute' => __('messages.customer_branch')]));
         }

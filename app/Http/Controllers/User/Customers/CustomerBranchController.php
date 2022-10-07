@@ -37,7 +37,7 @@ class CustomerBranchController extends Controller
             })->editColumn('country', function ($row) {
                 return CountryListFacade::getOne($row->country);
             })->addColumn('customer', function ($row) {
-                return $row->customer->f_name.' '.$row->customer->l_name;
+                return $row->customer->f_name . ' ' . $row->customer->l_name;
             })->editColumn('inactive', function ($row) {
                 return $row->inactive == 0 ? '<div class="badge badge-sm badge-light-success">Active</div>' : '<div class="badge badge-sm badge-light-danger">Inactive</div>';
             })->editColumn('created_at', function ($row) {
@@ -60,68 +60,38 @@ class CustomerBranchController extends Controller
         }
 
         $post_data = [
+            'customer_id' => $request->customer_id,
             'f_name' => $request->first_name,
             'l_name' => $request->last_name,
             'short_name' => $request->short_name,
-            'address' => $request->address,
-            'company' => $request->company,
+            'branch' => $request->branch,
             'country' => $request->country,
-            'tax_id' => $request->tax_id == 'null' ? null : $request->tax_id,
-            'currency' => $request->currency,
-            'payment_terms' => $request->payment_terms,
-            'credit_limit' => $request->credit_limit,
-            'credit_status' => $request->credit_status,
-            'sales_type' => $request->sales_type,
-            'discount' => $request->discount,
-            'language' => $request->language,
+            'phone' => $request->phone,
+            'email' => $request->email,
+            'address' => $request->address,
             'client_ref' => get_user_ref(),
         ];
 
         //set_create_parameters($created_at, $created_by, ...)
-        $post_data1 = array_merge($post_data, set_create_parameters($created_at, $created_by, $supervised_by, $supervised_at));
-
-        try {
-            DB::beginTransaction();
-            $customer = Customer::create($post_data1);
-
-            $post_data = [
-                'customer_id' => $customer->id,
-                'f_name' => $request->first_name,
-                'l_name' => $request->last_name,
-                'short_name' => $request->short_name,
-                'branch' => $request->company,
-                'country' => $request->country,
-                'phone' => $request->phone,
-                'email' => $request->email,
-                'address' => $request->address,
-                'client_ref' => get_user_ref(),
-            ];
-
-            //set_create_parameters($created_at, $created_by, ...)
-            $post_data2 = array_merge($post_data, set_create_parameters($created_at, $created_by, $supervised_by, $supervised_at));
+        $post_data = array_merge($post_data, set_create_parameters($created_at, $created_by, $supervised_by, $supervised_at));
 
 
-            if ($created_at == null) {
-                //if not supervised, log data from create request
-                //Creator log
-                log_activity(
-                    ST_SUBSCRIPTION_SETUP,
-                    $request->getClientIp(),
-                    'Create Customer and Contacts',
-                    json_encode($post_data1),
-                    auth('user')->id(),
-                    $customer->id
-                );
-            }
-            $contact = CustomerBranch::create($post_data2);
+        $customer_branch = CustomerBranch::create($post_data);
 
-            DB::commit();
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return error_web_processor($e);
+        if ($created_at == null) {
+            //if not supervised, log data from create request
+            //Creator log
+            log_activity(
+                ST_SUBSCRIPTION_SETUP,
+                $request->getClientIp(),
+                'Create Customer Branch',
+                json_encode($post_data),
+                auth('user')->id(),
+                $customer_branch->id
+            );
         }
 
-        return success_web_processor(['id' => $customer->id], __('messages.msg_saved_success', ['attribute' => __('messages.customer')]));
+        return success_web_processor(['id' => $customer_branch->id], __('messages.msg_saved_success', ['attribute' => __('messages.customer')]));
     }
 
     /**

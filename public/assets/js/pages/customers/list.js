@@ -43,7 +43,6 @@ const KTCustomersServerSide = function () {
                 {
                     targets: 1,
                     orderable: false,
-                    searchable: false,
                     render: function (data, type, row) {
                         return row.f_name + " " + row.l_name
                     }
@@ -90,6 +89,11 @@ const KTCustomersServerSide = function () {
                     className: 'text-end',
                     render: function (data, type, row) {
                         return decodeHtml(row.inactive)
+                    },
+                }, {
+                    targets: 3,
+                    render: function (data, type, row) {
+                        return decodeHtml(row.country)
                     },
                 }
             ],

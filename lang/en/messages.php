@@ -95,6 +95,7 @@ return [
     'bank_account' => 'Bank Account',
     'barcode' => 'Barcode',
     'bcc_email' => 'BCC Email',
+    'customer_branch' => 'Customer Branch',
     'category' => 'Category',
     'contact_details' => 'Contact Details',
     'company' => 'Company',

@@ -49,11 +49,7 @@ class CustomersController extends Controller
                 return $row->inactive == 0 ? '<div class="badge badge-sm badge-light-success">Active</div>' : '<div class="badge badge-sm badge-light-danger">Inactive</div>';
             })->editColumn('created_at', function ($row) {
                 return Carbon::parse($row->created_at)->format('Y/m/d');
-            })->filterColumn('f_name', function ($query, $keyword) {
-                $keywords = trim($keyword);
-                $query->orWhere('f_name', 'like', "%$keywords%")->orWhere('l_name', 'like', "%$keywords%");
-            })
-            ->make(true);
+            })->make(true);
     }
 
     /**
@@ -83,8 +79,8 @@ class CustomersController extends Controller
             'credit_limit' => $request->credit_limit,
             'credit_status' => $request->credit_status,
             'sales_type' => $request->sales_type,
-            'discount' => $request->sales_type,
-            'language' => $request->sales_type,
+            'discount' => $request->discount,
+            'language' => $request->language,
             'client_ref' => get_user_ref(),
         ];
 
@@ -143,7 +139,7 @@ class CustomersController extends Controller
     {
         $customer = Customer::find($id);
         if (isset($customer)) {
-            $customer = Customer::with('customer_branch:id,phone,email,id')->find($id);
+            $customer = Customer::with('customer_branch')->find($id);
 
             return success_web_processor($customer, __('messages.msg_item_found', ['attribute' => __('messages.customer')]));
         }

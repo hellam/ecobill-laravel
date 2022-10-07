@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\Auth;
 
 /**
@@ -42,46 +43,51 @@ use Illuminate\Support\Facades\Auth;
  */
 class Customer extends Model
 {
-	protected $table = 'customers';
+    protected $table = 'customers';
 
-	protected $casts = [
-		'tax_id' => 'int',
-		'payment_terms' => 'int',
-		'credit_limit' => 'float',
-		'credit_status' => 'int',
-		'discount' => 'float'
-	];
+    protected $casts = [
+        'tax_id' => 'int',
+        'payment_terms' => 'int',
+        'credit_limit' => 'float',
+        'credit_status' => 'int',
+        'discount' => 'float'
+    ];
 
-	protected $dates = [
-		'supervised_at'
-	];
+    protected $dates = [
+        'supervised_at'
+    ];
 
-	protected $fillable = [
-		'f_name',
-		'l_name',
-		'short_name',
-		'address',
-		'company',
-		'country',
-		'image',
-		'tax_id',
-		'currency',
-		'payment_terms',
-		'credit_limit',
-		'credit_status',
-		'sales_type',
-		'discount',
-		'notes',
-		'language',
-		'client_ref',
-		'created_by',
-		'updated_by',
-		'supervised_by',
-		'supervised_at',
-		'inactive'
-	];
+    protected $fillable = [
+        'f_name',
+        'l_name',
+        'short_name',
+        'address',
+        'company',
+        'country',
+        'image',
+        'tax_id',
+        'currency',
+        'payment_terms',
+        'credit_limit',
+        'credit_status',
+        'sales_type',
+        'discount',
+        'notes',
+        'language',
+        'client_ref',
+        'created_by',
+        'updated_by',
+        'supervised_by',
+        'supervised_at',
+        'inactive'
+    ];
 
-    public function customer_branch(): HasMany
+    public function customer_branch(): HasOne
+    {
+        return $this->hasOne(CustomerBranch::class, 'customer_id');
+    }
+
+    public function customer_branches(): HasMany
     {
         return $this->hasMany(CustomerBranch::class, 'customer_id');
     }
@@ -93,7 +99,7 @@ class Customer extends Model
 
     public static function booted()
     {
-        if (Auth::guard('user')->check()){
+        if (Auth::guard('user')->check()) {
             static::addGlobalScope(new ClientRefScope());
         }
     }

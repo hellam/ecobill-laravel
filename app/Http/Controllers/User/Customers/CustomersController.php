@@ -40,7 +40,7 @@ class CustomersController extends Controller
     {
         $debtors = Customer::with('customer_branch:id,phone,email,id')->orderBy('f_name');
         return (new DataTables)->eloquent($debtors)
-             ->addIndexColumn()
+            ->addIndexColumn()
             ->addColumn('id', function ($row) {
                 return ["id" => $row->id, "edit_url" => route('user.messaging.debtor.edit', [$row->id]),
                     "update_url" => route('user.messaging.debtor.update', [$row->id]),
@@ -80,7 +80,7 @@ class CustomersController extends Controller
             'address' => $request->address,
             'company' => $request->company,
             'country' => $request->country,
-            'tax_id' => $request->tax_id,
+            'tax_id' => $request->tax_id == 'null' ? null : $request->tax_id,
             'currency' => $request->currency,
             'payment_terms' => $request->payment_terms,
             'credit_limit' => $request->credit_limit,

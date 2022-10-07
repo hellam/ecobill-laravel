@@ -415,7 +415,7 @@ class UserValidators
             'last_name' => 'required|string',
             'short_name' => 'required|unique:' . Customer::class . ',short_name,NULL,id,client_ref,' . get_user_ref(),
             'country' => 'required',
-            'tax_id' => 'required|exists:'. Tax::class . ',id,client_ref,' . get_user_ref(),
+            'tax_id' => 'required',
             'currency' => 'required|exists:' . Currency::class . ',abbreviation,client_ref,'. get_user_ref(),
             'payment_terms' => 'required|exists:'. PaymentTerm::class . ',id,client_ref,'. get_user_ref(),
             'credit_limit' => 'required',

@@ -162,12 +162,17 @@ const KTCustomersServerSide = function () {
                             $("#kt_modal_update_customer_form input[name='email']").val(customer.email);
                             $("#kt_modal_update_customer_form select[name='currency']").val(customer.currency).trigger('change');
                             $("#kt_modal_update_customer_form select[name='payment_terms']").val(customer.payment_terms).trigger('change');
-                            $("#kt_modal_update_customer_form select[name='tax_id']").val(customer.tax_id).trigger('change');
                             $("#kt_modal_update_customer_form select[name='sales_type']").val(customer.sales_type).trigger('change');
                             $("#kt_modal_update_customer_form select[name='credit_status']").val(customer.credit_status).trigger('change');
                             $("#kt_modal_update_customer_form input[name='credit_limit']").val(customer.credit_limit);
                             $("#kt_modal_update_customer_form input[name='discount']").val(customer.discount);
                             $("#kt_modal_update_customer_form select[name='language']").val(customer.language).trigger('change');
+
+                            if (customer.tax_id === null) {
+                                $("#kt_modal_update_customer_form select[name='tax_id']").val("null").trigger('change');
+                            } else {
+                                $("#kt_modal_update_customer_form select[name='tax_id']").val(customer.tax_id).trigger('change');
+                            }
 
                             $("#kt_modal_update_customer_form input[name='inactive']").val(customer.inactive);
                             if (customer.inactive === 0) {

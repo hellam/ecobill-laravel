@@ -230,7 +230,7 @@ class CustomersController extends Controller
             return success_web_processor(null, __('messages.msg_updated_success', ['attribute' => __('messages.customer')]));
         }
 
-        return Helpers::error_web_processor(__('messages.msg_item_not_found', ['attribute' => __('messages.customer')]));
+        return error_web_processor(__('messages.msg_item_not_found', ['attribute' => __('messages.customer')]));
     }
 
     /**
@@ -239,15 +239,15 @@ class CustomersController extends Controller
      */
     public function destroy($id)
     {
-        $debtor = DebtorMaster::find($id);
-        if (isset($debtor)) {
-            $contacts = Contacts::where('debtor_id', $debtor->id)->count();
-            if ($contacts > 0) {
-                return Helpers::error_web_processor(__('messages.msg_delete_not_allowed', ['attribute' => __('messages.customer'), 'attribute1' => __('messages.contacts')]));
+        $customer = Customer::find($id);
+        if ($customer) {
+            $customer_branch = CustomerBranch::where('customer_id', $customer->id)->count();
+            if ($customer_branch > 0) {
+                return error_web_processor(__('messages.msg_delete_not_allowed', ['attribute' => __('messages.customer'), 'attribute1' => __('messages.customer_branch')]));
             }
-            $debtor->delete();
-            return Helpers::success_web_processor(null, __('messages.msg_deleted_success', ['attribute' => __('messages.customer')]));
+            $customer->delete();
+            return success_web_processor(null, __('messages.msg_deleted_success', ['attribute' => __('messages.customer')]));
         }
-        return Helpers::error_web_processor(__('messages.msg_item_not_found', ['attribute' => __('messages.customer')]));
+        return error_web_processor(__('messages.msg_item_not_found', ['attribute' => __('messages.customer')]));
     }
 }

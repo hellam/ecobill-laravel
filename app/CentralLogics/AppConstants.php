@@ -149,6 +149,11 @@ define('TRX_TYPES', [
     ST_SYSTEM_EVENT => ST_305,
 ]);
 
+define('SALES_TYPES',[
+    '1' =>'Retail',
+    '2' =>'Wholesale',
+]);
+
 define('TIME_ZONE', array(
     'Asia/Kabul' => 'UTC +04:36 Asia/Kabul - Afghanistan',
     'Europe/Tirane' => 'UTC +01:19 Europe/Tirane - Albania',

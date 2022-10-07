@@ -205,6 +205,7 @@ class CustomersController extends Controller
                 $customer->language = $request->language;
                 $customer->address = $request->address;
                 $customer->company = $request->company;
+                $customer->inactive = $request->inactive;
                 $customer->update();
 
 

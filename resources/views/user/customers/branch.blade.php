@@ -473,14 +473,8 @@
                                             class="required fs-6 fw-bold mb-2">{{__('messages.customer')}}</label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
-                                        <select name="customer_id"
-                                                aria-label="{{__('messages.select').' '.__('messages.customer')}}"
-                                                data-control="select2"
-                                                data-kt-src="{{route('user.customers.select_api')}}"
-                                                data-placeholder="{{__('messages.select').' '.__('messages.customer')}}"
-                                                data-dropdown-parent="#kt_modal_update_customer_branch"
-                                                class="form-select form-select-solid fw-bolder select_customer">
-                                        </select>
+                                        <input type="text" class="form-control form-control-solid"
+                                               name="customer"/>
                                         <!--end::Input-->
                                     </div>
                                     <!--end::Col-->

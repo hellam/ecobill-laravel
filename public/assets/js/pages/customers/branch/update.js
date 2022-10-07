@@ -17,13 +17,6 @@ const KTCustomersUpdate = function () {
             handleFormSubmit(
                 form,
                 {
-                    customer_id: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Customer is required'
-                            }
-                        }
-                    },
                     first_name: {
                         validators: {
                             notEmpty: {

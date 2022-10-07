@@ -154,12 +154,11 @@ const KTCustomersServerSide = function () {
                             $('#kt_modal_update_customer_branch_form').show({backdrop: 'static', keyboard: false});//show form
                             const customer_branch = response.data;
 
-                            handleCustomerAPISelect('#kt_modal_update_customer_branch', customer_branch.customer)
-                            //
+                            $("#kt_modal_update_customer_branch_form input[name='customer']").val(customer_branch.customer.short_name + "|" + customer_branch.customer.f_name + " " + customer_branch.customer.l_name).attr('disabled', true);
                             $("#kt_modal_update_customer_branch_form input[name='first_name']").val(customer_branch.f_name);
                             $("#kt_modal_update_customer_branch_form input[name='last_name']").val(customer_branch.l_name);
                             $("#kt_modal_update_customer_branch_form input[name='short_name']").val(customer_branch.short_name).attr('disabled', true);
-                            $("#kt_modal_update_customer_branch_form input[name='company']").val(customer_branch.branch);
+                            $("#kt_modal_update_customer_branch_form input[name='branch']").val(customer_branch.branch);
                             $("#kt_modal_update_customer_branch_form input[name='address']").val(customer_branch.address);
                             $("#kt_modal_update_customer_branch_form select[name='country']").val(customer_branch.country).trigger('change');
                             $("#kt_modal_update_customer_branch_form input[name='phone']").val(customer_branch.phone);

@@ -16,7 +16,7 @@ const KTCustomersServerSide = function () {
                 url: td.getAttribute('data-kt-dt_api'),
             },
             columns: [
-                {data: 'DT_RowIndex',},
+                {data: 'DT_RowIndex'},
                 {data: 'f_name'},
                 {data: 'short_name'},
                 {data: 'country'},

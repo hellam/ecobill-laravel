@@ -59,11 +59,7 @@ const KTCustomersUpdate = function () {
                         }
                     },
                     currency: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Currency is required'
-                            }
-                        }
+                        validators: {}
                     },
                     payment_terms: {
                         validators: {
@@ -122,7 +118,7 @@ const KTCustomersUpdate = function () {
                 'PUT',
                 modal,
                 $('#kt_customers_table'),
-                ["language", "credit_status", "sales_type", "tax_id", "payment_terms", "currency", "country"]
+                ["language", "credit_status", "sales_type", "tax_id", "payment_terms", "country"]
             );
         }
     };

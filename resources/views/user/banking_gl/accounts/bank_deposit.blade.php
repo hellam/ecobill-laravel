@@ -224,15 +224,13 @@
                 </div>
                 <!--end::Input group-->
 
-                <div class="row">
-                    <!--begin::Button-->
-                    <button type="submit" id="kt_modal_update_currency_submit" class="btn btn-primary align-right">
-                        <span class="indicator-label">Submit</span>
-                        <span class="indicator-progress">Please wait...
+                <!--begin::Button-->
+                <button type="submit" id="kt_modal_update_currency_submit" class="btn btn-primary float-end">
+                    <span class="indicator-label">Submit</span>
+                    <span class="indicator-progress">Please wait...
                                 <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                    </button>
-                    <!--end::Button-->
-                </div>
+                </button>
+                <!--end::Button-->
             </div>
             <!--end::Body-->
         </div>

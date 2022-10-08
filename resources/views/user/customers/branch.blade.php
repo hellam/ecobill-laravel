@@ -350,7 +350,7 @@
                                 <!--begin::Input group-->
                                 <div class="row g-9 mb-7">
                                     <!--begin::Col-->
-                                    <div class="col-md-12 fv-row">
+                                    <div class="col-md-6 fv-row">
                                         <!--begin::Label-->
                                         <label class="fs-6 fw-bold mb-2">
                                             <span>{{__('messages.address')}}</span>
@@ -360,6 +360,28 @@
                                         <input type="text" class="form-control form-control-solid"
                                                placeholder="{{__('messages.address')}}"
                                                name="address"/>
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Col-->
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Label-->
+                                        <label
+                                            class="required fs-6 fw-bold mb-2">{{__('messages.currency')}}</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <select name="currency" aria-label="{{__('messages.currency')}}"
+                                                data-control="select2"
+                                                data-placeholder="{{__('messages.currency')}}..."
+                                                data-dropdown-parent="#kt_modal_add_customer"
+                                                class="form-select form-select-solid fw-bolder">
+                                            <option></option>
+                                            @foreach($currency as $curr)
+                                                <option
+                                                    value="{{$curr->abbreviation}}"
+                                                    @if($curr->abbreviation == session('currency'))selected @endif>{{$curr->abbreviation.' - '.$curr->name}}</option>
+                                            @endforeach
+                                        </select>
                                         <!--end::Input-->
                                     </div>
                                     <!--end::Col-->

@@ -52,6 +52,13 @@ const KTCustomerBranchAdd = function () {
                             }
                         }
                     },
+                    currency: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Currency is required'
+                            }
+                        }
+                    },
                     phone: {
                         validators: {
                             notEmpty: {
@@ -74,7 +81,7 @@ const KTCustomerBranchAdd = function () {
                 'POST',
                 modal,
                 $('#kt_customer_branches_table'),
-                ["customer_id", "country"]
+                ["customer_id", "country", "currency"]
             );
 
             handleCustomerAPISelect('#kt_modal_add_customer_branch')

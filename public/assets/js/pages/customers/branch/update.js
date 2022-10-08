@@ -38,6 +38,13 @@ const KTCustomersUpdate = function () {
                             }
                         }
                     },
+                    currency: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Currency is required'
+                            }
+                        }
+                    },
                     phone: {
                         validators: {
                             notEmpty: {
@@ -60,7 +67,7 @@ const KTCustomersUpdate = function () {
                 'PUT',
                 modal,
                 $('#kt_customer_branches_table'),
-                ["customer_id", "country"]
+                ["customer_id", "country", "currency"]
             );
         }
     };

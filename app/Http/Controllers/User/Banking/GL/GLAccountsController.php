@@ -115,21 +115,18 @@ class GLAccountsController extends Controller
      */
     public function select_api(Request $request, $scope): JsonResponse
     {
-        $chart_accounts = ChartAccount::select('account_code', 'account_name', 'id')
-            ->where('inactive', 0)
-            ->orderBy('account_name')
-            ->limit(10);
+        $chart_accounts = ChartAccount::select('account_code', 'account_name', 'id');
         if ($request->filled('search'))
             $chart_accounts = ChartAccount::select('account_code', 'account_name', 'id')
-                ->where('inactive', 0)
                 ->where('account_name', 'like', '%' . $request->search . '%')
-                ->orWhere('account_code', 'like', '%' . $request->search . '%')
-                ->limit(10);
+                ->orWhere('account_code', 'like', '%' . $request->search . '%');
 
         if ($scope != 'all')
             $chart_accounts = $chart_accounts->whereNotIn('account_code', BankAccount::select('chart_code')->get()->toArray());
 
-        $chart_accounts->get();
+        $chart_accounts = $chart_accounts->where('inactive', 0)
+            ->orderBy('account_name')
+            ->limit(10)->get();
 
         return response()->json($chart_accounts, 200);
     }

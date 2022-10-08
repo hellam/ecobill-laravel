@@ -514,6 +514,10 @@ function decode_form_data($data, $trx_type, $method)
 
 }
 
+function getFx($from, $to){
+
+}
+
 function number_suffix($number): string
 {
     $ends = array('th', 'st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th', 'th');

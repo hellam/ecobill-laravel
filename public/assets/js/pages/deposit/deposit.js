@@ -64,6 +64,7 @@ const KTDepositAdd = function () {
         init: function () {
             initializeRepeater()
             handleBankAPISelect()
+            handleGLAccountsAPISelect()
         }
     }
 }();

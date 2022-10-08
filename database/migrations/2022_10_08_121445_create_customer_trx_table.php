@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('trx_type',45);
             $table->bigInteger('customer_id');
             $table->bigInteger('customer_branch_id');
-            $table->timestamp('trx_date');
-            $table->timestamp('due_date');
+            $table->timestamp('trx_date')->nullable();
+            $table->timestamp('due_date')->nullable();
             $table->string('reference',100);
             $table->bigInteger('order_id')->default(0);
             $table->double('amount')->default(0);

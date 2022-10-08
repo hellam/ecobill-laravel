@@ -19,12 +19,12 @@ class GLAccountsController extends Controller
 {
     public function index(): Factory|View|Application
     {
-        $gl_classes = ChartClass::select('class_name','id')->get();
-        $gl_groups = ChartGroup::select('name','id')->get();
+        $gl_classes = ChartClass::select('class_name', 'id')->get();
+        $gl_groups = ChartGroup::select('name', 'id')->get();
         $gl_accounts_count = ChartAccount::count() ?? 0;
         $gl_groups_count = ChartGroup::count() ?? 0;
         $gl_classes_count = ChartClass::count() ?? 0;
-        return view('user.banking_gl.gl_maintenance', compact('gl_accounts_count', 'gl_groups_count', 'gl_classes_count','gl_classes', 'gl_groups'));
+        return view('user.banking_gl.gl_maintenance', compact('gl_accounts_count', 'gl_groups_count', 'gl_classes_count', 'gl_classes', 'gl_groups'));
     }
 
     //Data table API
@@ -109,27 +109,27 @@ class GLAccountsController extends Controller
     }
 
 
-
     /**
      * Show the form for editing the specified resource.
      *
      */
-    public function select_api(Request $request): JsonResponse
+    public function select_api(Request $request, $scope): JsonResponse
     {
         $chart_accounts = ChartAccount::select('account_code', 'account_name', 'id')
-            ->whereNotIn('account_code', BankAccount::select('chart_code')->get()->toArray())
             ->where('inactive', 0)
             ->orderBy('account_name')
-            ->limit(10)
-            ->get();
+            ->limit(10);
         if ($request->filled('search'))
             $chart_accounts = ChartAccount::select('account_code', 'account_name', 'id')
-                ->whereNotIn('account_code', BankAccount::select('chart_code')->get()->toArray())
                 ->where('inactive', 0)
                 ->where('account_name', 'like', '%' . $request->search . '%')
                 ->orWhere('account_code', 'like', '%' . $request->search . '%')
-                ->limit(10)
-                ->get();
+                ->limit(10);
+
+        if ($scope != 'all')
+            $chart_accounts = $chart_accounts->whereNotIn('account_code', BankAccount::select('chart_code')->get()->toArray());
+
+        $chart_accounts->get();
 
         return response()->json($chart_accounts, 200);
     }

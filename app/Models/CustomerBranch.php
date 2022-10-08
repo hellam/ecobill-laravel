@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Auth;
  * @property string|null $country
  * @property string|null $phone
  * @property string|null $email
+ * @property string|null $currency
  * @property string|null $address
  * @property string|null $client_ref
  * @property string|null $created_by
@@ -58,6 +59,7 @@ class CustomerBranch extends Model
 		'phone',
 		'email',
 		'address',
+		'currency',
 		'client_ref',
 		'created_by',
 		'updated_by',

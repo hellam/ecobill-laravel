@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User\Customers;
 
 use App\CentralLogics\UserValidators;
 use App\Http\Controllers\Controller;
+use App\Models\Currency;
 use App\Models\Customer;
 use App\Models\CustomerBranch;
 use Carbon\Carbon;
@@ -21,7 +22,8 @@ class CustomerBranchController extends Controller
     public function index(): Factory|View|Application
     {
         $customer_branch = CustomerBranch::count() ?? 0;
-        return view('user.customers.branch', compact('customer_branch'));
+        $currency = Currency::all();
+        return view('user.customers.branch', compact('customer_branch','currency'));
     }
 
     //Data table API
@@ -68,6 +70,7 @@ class CustomerBranchController extends Controller
             'country' => $request->country,
             'phone' => $request->phone,
             'email' => $request->email,
+            'currency' => $request->currency,
             'address' => $request->address,
             'client_ref' => get_user_ref(),
         ];

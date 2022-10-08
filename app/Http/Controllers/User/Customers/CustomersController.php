@@ -104,6 +104,7 @@ class CustomersController extends Controller
                 'phone' => $request->phone,
                 'email' => $request->email,
                 'address' => $request->address,
+                'currency' => $request->currency,
                 'client_ref' => get_user_ref(),
             ];
 

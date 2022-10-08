@@ -92,6 +92,7 @@ return [
     'auto_update' => 'Auto Update',
     'auto_exchange_update' => 'Auto Exchange Rate Update',
     'default_bank_account' => 'Default Bank Account',
+    'bank' => 'Bank',
     'bank_account' => 'Bank Account',
     'barcode' => 'Barcode',
     'bcc_email' => 'BCC Email',

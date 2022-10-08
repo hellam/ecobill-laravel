@@ -174,6 +174,7 @@
                                     aria-label="Select Account"
                                     data-kt-src="{{route('user.banking_gl.banking.accounts.select_api')}}"
                                     data-placeholder="Select Account"
+                                    data-kt-default="{{session('branch_bank')}}"
                                     class="form-select form-select-sm form-select-solid fw-bolder select_bank">
                             </select>
                             <!--end::Input-->

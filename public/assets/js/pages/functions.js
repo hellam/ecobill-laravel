@@ -606,6 +606,9 @@ function handleBankAPISelect(preselect = null) {
     const element = document.querySelector('.select_bank');
 
     $('.select_bank').html("").trigger('change');
+    let def_bank = $('.select_bank').attr('data-kt-default')
+    if (preselect === null)
+        preselect = JSON.parse(def_bank)
     if (preselect) {
         const option = new Option(preselect?.account_name + " - " + preselect?.currency, preselect?.id, true, true);
         $('.select_bank').append(option).trigger('change');

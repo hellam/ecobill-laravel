@@ -42,18 +42,18 @@ const KTDepositAdd = function () {
                     'name="name"/>\n' +
                     '<!--end::Input-->')
             } else {
+                let src_url = $(this).attr('data-kt-src')
                 $('#changing_div label').text('Customer')
                 $('#select_input').html('' +
-                    '<select name="from"\n' +
-                    ' aria-label="Select From"\n' +
+                    '<select name="customer"\n' +
+                    ' aria-label="Select Customer"\n' +
                     ' data-control="select2"\n' +
-                    ' data-kt-src="#"\n' +
-                    ' data-placeholder="Select Country"\n' +
-                    ' class="form-select form-select-sm form-select-solid fw-bolder">\n' +
-                    '<option value="0">Miscellaneous</option>\n' +
-                    '<option value="1">Customer</option>\n' +
+                    ' data-kt-src="' + src_url + '"\n' +
+                    ' data-placeholder="Select Customer"\n' +
+                    ' class="form-select form-select-sm form-select-solid fw-bolder select_customer_branch">\n' +
                     '</select>')
                 $('#select_input select').select2()
+                handleCustomerBranchAPISelect()
             }
         })
     }

@@ -561,3 +561,43 @@ function handleCustomerAPISelect(select_parent, preselect = null) {
         $(select_parent + ' [name="email"]').val($(select_parent + ' .select_customer').find(':selected').data('kt-email'))
     })
 }
+
+function handleCustomerBranchAPISelect(preselect = null) {
+    const element = document.querySelector('.select_customer_branch');
+
+    $('.select_customer_branch').html("").trigger('change');
+    if (preselect) {
+        const option = new Option(preselect?.short_name + "|" + preselect?.f_name + " " + preselect?.l_name, preselect?.id, true, true);
+        $('.select_customer_branch').append(option).trigger('change');
+    }
+
+    $('.select_customer_branch').select2({
+        placeholder: 'Select Customer',
+        minimumInputLength: 0,
+        escapeMarkup: function (markup) {
+            return markup;
+        },
+        ajax: {
+            url: element.getAttribute("data-kt-src"),
+            dataType: 'json',
+            type: 'GET',
+            contentType: 'application/json',
+            delay: 50,
+            data: function (params) {
+                return {
+                    search: params.term
+                };
+            },
+            processResults: function (data) {
+                return {
+                    results: $.map(data, function (item) {
+                        return {
+                            text: item.short_name + '|' + item.f_name + ' ' + item.l_name,
+                            id: item.id
+                        }
+                    })
+                }
+            }
+        }
+    })
+}

@@ -196,9 +196,9 @@
                                     <div class="col-md-3">
                                         <!--begin::Select2-->
                                         <div>
-                                            <select class="form-select gl_select"
+                                            <select class="form-select form-select-solid gl_select"
                                                     name="gl_account"
-                                                    data-kt-src="{{route('user.banking_gl.gl_accounts.select_api')}}"
+                                                    data-kt-src="{{route('user.banking_gl.gl_accounts.select_api', 'no_bank')}}"
                                                     data-placeholder="Select GL Account"
                                                     data-kt-add-deposit="deposit_option">
                                             </select>

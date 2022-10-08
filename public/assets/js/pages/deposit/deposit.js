@@ -6,21 +6,25 @@ const KTDepositAdd = function () {
     let submitButton, form;
 
     function initializeRepeater() {
-        $('.form-select').select2()
-        $("#kt_deposit_items_row").repeater({
-            initEmpty: !1,
-            defaultValues: {"text-input": "foo"},
+        $('#kt_deposit_items_row').repeater({
+            initEmpty: false,
+            defaultValues: {
+                'text-input': 'foo'
+            },
             show: function () {
-                $(this).slideDown()
-                $('.form-select').next().remove();
-                $('.form-select').select2({
-                    allowClear: true
-                });
+                $(this).slideDown();
+                // Re-init select2
+                $(this).find('[data-kt-add-deposit="deposit_option"]').select2();
+                handleGLAccountsAPISelect()
             },
-            hide: function (remove) {
-                $(this).slideUp(remove)
+            hide: function (deleteElement) {
+                $(this).slideUp(deleteElement);
             },
-        })
+            ready: function () {
+                // Init select2
+                $('[data-kt-add-deposit="deposit_option"]').select2();
+            }
+        });
 
         $("#date_picker").daterangepicker({
                 singleDatePicker: true,

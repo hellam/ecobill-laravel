@@ -20,7 +20,7 @@ const KTDepositAdd = function () {
                         return markup;
                     },
                     ajax: {
-                        url: $(this).attr("data-kt-src"),
+                        url: $(this).find('[data-kt-add-deposit="deposit_option"]').attr("data-kt-src"),
                         dataType: 'json',
                         type: 'GET',
                         contentType: 'application/json',
@@ -94,7 +94,7 @@ const KTDepositAdd = function () {
         init: function () {
             initializeRepeater()
             handleBankAPISelect()
-            // handleGLAccountsAPISelect()
+            handleGLAccountsAPISelect()
         }
     }
 }();

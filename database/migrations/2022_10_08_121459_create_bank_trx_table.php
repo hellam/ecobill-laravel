@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('reference',100);
             $table->bigInteger('bank_id');
             $table->double('amount')->default(0);
-            $table->timestamp('trx_date');
-            $table->timestamp('reconciled');
+            $table->timestamp('trx_date')->nullable();
+            $table->timestamp('reconciled')->nullable();
             $table->string('client_ref',100)->nullable();
             $table->string("created_by",100)->nullable();
             $table->string("updated_by",100)->nullable();

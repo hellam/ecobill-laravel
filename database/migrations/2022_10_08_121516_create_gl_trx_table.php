@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('trans_no');
             $table->string('trx_type',45);
-            $table->timestamp('trx_date');
+            $table->timestamp('trx_date')->nullable();
             $table->bigInteger('chart_code');
             $table->string('narration',255);
             $table->double('amount')->default(0);

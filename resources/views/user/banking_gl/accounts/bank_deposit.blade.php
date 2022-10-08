@@ -196,15 +196,11 @@
                                     <div class="col-md-3">
                                         <!--begin::Select2-->
                                         <div>
-                                            <select class="form-select"
+                                            <select class="form-select gl_select"
                                                     name="gl_account"
+                                                    data-kt-src="{{route('user.banking_gl.gl_accounts.select_api')}}"
                                                     data-placeholder="Select GL Account"
                                                     data-kt-add-deposit="deposit_option">
-                                                <option></option>
-                                                <option value="color">Color</option>
-                                                <option value="size">Size</option>
-                                                <option value="material">Material</option>
-                                                <option value="style">Style</option>
                                             </select>
                                         </div>
                                         <!--end::Select2-->

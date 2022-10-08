@@ -14,6 +14,6 @@ class BankAccountDepositController extends Controller
     public function index(): Factory|View|Application
     {
         $currency = Currency::all();
-        return view('user.banking_gl.accounts.bank_deposit');
+        return view('user.banking_gl.accounts.bank_deposit', compact('currency'));
     }
 }

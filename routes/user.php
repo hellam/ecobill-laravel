@@ -227,6 +227,7 @@ Route::group(['as' => 'user.'], function () {
                 });
                 Route::controller(User\Banking\Accounts\BankAccountDepositController::class)->prefix('deposit')->as('deposit')->group(function () {
                     Route::get('/', 'index')->middleware('permission:303');
+                    Route::post('/', 'create')->middleware('permission:303,' . ST_ACCOUNT_DEPOSIT);
                 });
                 Route::controller(User\Banking\Accounts\BankAccountPaymentsController::class)->prefix('expense')->as('expense')->group(function () {
                     Route::get('/', 'index')->middleware('permission:304');

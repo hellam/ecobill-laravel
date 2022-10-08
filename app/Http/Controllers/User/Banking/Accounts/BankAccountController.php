@@ -8,7 +8,6 @@ use App\Models\BankAccount;
 use App\Models\Branch;
 use App\Models\ChartAccount;
 use App\Models\Currency;
-use App\Models\CustomerBranch;
 use App\Scopes\BranchScope;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;

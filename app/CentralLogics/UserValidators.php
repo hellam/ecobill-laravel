@@ -23,6 +23,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class UserValidators
 {
@@ -445,8 +446,8 @@ class UserValidators
             'discount' => 'required|numeric',
             'language' => 'required',
             'inactive' => 'required|in:0,1',
-            'email' => 'required|unique:' . CustomerBranch::class . ',email,' . $request->customer_branch_id . ',id,customer_id,' . $id . ',client_ref,' . get_user_ref() . '|email:rfc,dns',//TODO: Add spoof
-            'phone' => 'required|unique:' . CustomerBranch::class . ',phone,' . $request->customer_branch_id . ',id,customer_id,' . $id . ',client_ref,' . get_user_ref() . '|min:13|max:13',
+            'email' => 'required|email:rfc,dns|' . Rule::unique(CustomerBranch::class)->where(fn($query) => $query->where('client_ref', get_user_ref()))->ignore($id,'customer_id'),//TODO: Add spoof
+            'phone' => 'required|min:13|max:13|' . Rule::unique(CustomerBranch::class)->where(fn($query) => $query->where('client_ref', get_user_ref()))->ignore($id,'customer_id'),
         ]);
     }
 
@@ -457,10 +458,10 @@ class UserValidators
             'first_name' => 'required|string',
             'last_name' => 'required|string',
             'currency' => 'required|exists:' . Currency::class . ',abbreviation,client_ref,' . get_user_ref(),
-            'short_name' => 'required|unique:' . CustomerBranch::class . ',short_name,NULL,id,client_ref,'.get_user_ref(),
+            'short_name' => 'required|unique:' . CustomerBranch::class . ',short_name,NULL,id,client_ref,' . get_user_ref(),
             'country' => 'required',
-            'email' => 'required|unique:' . CustomerBranch::class . ',email,NULL,id,customer_id,' . $request->customer_id . ',client_ref,' . get_user_ref() . '|email:rfc,dns',//TODO: Add spoof
-            'phone' => 'required|unique:' . CustomerBranch::class . ',phone,NULL,id,customer_id,' . $request->customer_id . ',client_ref,' . get_user_ref() . '|min:13|max:13',
+            'email' => 'required|email:rfc,dns|' . Rule::unique(CustomerBranch::class)->where(fn($query) => $query->where('client_ref', get_user_ref()))->ignore($request->customer_id,'customer_id'),//TODO: Add spoof
+            'phone' => 'required|min:13|max:13|' . Rule::unique(CustomerBranch::class)->where(fn($query) => $query->where('client_ref', get_user_ref()))->ignore($request->customer_id,'customer_id'),
         ]);
     }
 
@@ -473,8 +474,8 @@ class UserValidators
             'last_name' => 'required|string',
             'country' => 'required',
             'inactive' => 'required|in:0,1',
-            'email' => 'required|unique:' . CustomerBranch::class . ',email,' . $id . ',id,customer_id,'.$customer_id.',client_ref,' . get_user_ref() . '|email:rfc,dns',//TODO: Add spoof
-            'phone' => 'required|unique:' . CustomerBranch::class . ',phone,' . $id . ',id,customer_id,'.$customer_id.',client_ref,' . get_user_ref() . '|min:13|max:13',
+            'email' => 'required|email:rfc,dns|' . Rule::unique(CustomerBranch::class)->where(fn($query) => $query->where('client_ref', get_user_ref()))->ignore($customer_id,'customer_id'),//TODO: Add spoof
+            'phone' => 'required|min:13|max:13|' . Rule::unique(CustomerBranch::class)->where(fn($query) => $query->where('client_ref', get_user_ref()))->ignore($customer_id,'customer_id'),
         ]);
     }
 

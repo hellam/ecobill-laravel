@@ -146,6 +146,7 @@
                             <select name="into"
                                     aria-label="Select Currency"
                                     data-kt-src=""
+                                    data-control="select2"
                                     data-placeholder="Select Currency"
                                     class="form-select form-select-sm form-select-solid fw-bolder">
                                 <option></option>
@@ -198,7 +199,7 @@
                                         <div>
                                             <select class="form-select form-select-solid gl_select"
                                                     name="gl_account"
-                                                    data-kt-src="{{route('user.banking_gl.gl_accounts.select_api', 'all')}}"
+                                                    data-kt-src="{{route('user.banking_gl.gl_accounts.select_api', 'no_bank')}}"
                                                     data-placeholder="Select GL Account"
                                                     data-kt-add-deposit="deposit_option">
                                             </select>

@@ -14,8 +14,34 @@ const KTDepositAdd = function () {
             show: function () {
                 $(this).slideDown();
                 // Re-init select2
-                $(this).find('[data-kt-add-deposit="deposit_option"]').select2();
-                handleGLAccountsAPISelect()
+                $(this).find('[data-kt-add-deposit="deposit_option"]').select2({
+                    minimumInputLength: 0,
+                    escapeMarkup: function (markup) {
+                        return markup;
+                    },
+                    ajax: {
+                        url: $(this).attr("data-kt-src"),
+                        dataType: 'json',
+                        type: 'GET',
+                        contentType: 'application/json',
+                        delay: 50,
+                        data: function (params) {
+                            return {
+                                search: params.term
+                            };
+                        },
+                        processResults: function (data) {
+                            return {
+                                results: $.map(data, function (item) {
+                                    return {
+                                        text: item.account_code + ' - ' + item.account_name,
+                                        id: item.id
+                                    }
+                                })
+                            }
+                        }
+                    }
+                });
             },
             hide: function (deleteElement) {
                 $(this).slideUp(deleteElement);
@@ -68,7 +94,7 @@ const KTDepositAdd = function () {
         init: function () {
             initializeRepeater()
             handleBankAPISelect()
-            handleGLAccountsAPISelect()
+            // handleGLAccountsAPISelect()
         }
     }
 }();

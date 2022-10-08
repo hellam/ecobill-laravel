@@ -104,7 +104,7 @@
                             <select name="from"
                                     aria-label="Select From"
                                     data-control="select2"
-                                    data-kt-src="#"
+                                    data-kt-src="{{route('user.customers.branch.select_api')}}"
                                     data-placeholder="Select Country"
                                     class="form-select form-select-sm form-select-solid fw-bolder">
                                 <option value="0">Miscellaneous</option>
@@ -138,19 +138,16 @@
                     <div class="row mb-6 mx-2 fv-row">
                         <!--begin::Label-->
                         <label
-                            class="col-lg-4 col-form-label fw-semibold fs-7 required">{{__('messages.into')}}</label>
+                            class="col-lg-4 col-form-label fw-semibold fs-7">{{__('messages.into')}}</label>
                         <!--end::Label-->
                         <!--begin::Col-->
                         <div class="col-lg-8">
                             <!--begin::Input-->
                             <select name="into"
                                     aria-label="Select Account"
-                                    data-control="select2"
-                                    data-kt-src="#"
+                                    data-kt-src="{{route('user.banking_gl.banking.accounts.select_api')}}"
                                     data-placeholder="Select Account"
-                                    class="form-select form-select-sm form-select-solid fw-bolder">
-                                <option></option>
-                                <option>KCB Mpesa</option>
+                                    class="form-select form-select-sm form-select-solid fw-bolder select_bank">
                             </select>
                             <!--end::Input-->
                         </div>

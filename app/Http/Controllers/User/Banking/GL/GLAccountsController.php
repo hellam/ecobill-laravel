@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User\Banking\GL;
 
 use App\CentralLogics\UserValidators;
 use App\Http\Controllers\Controller;
+use App\Models\BankAccount;
 use App\Models\ChartAccount;
 use App\Models\ChartClass;
 use App\Models\ChartGroup;
@@ -105,6 +106,30 @@ class GLAccountsController extends Controller
             return success_web_processor($chart_account, __('messages.msg_item_found', ['attribute' => __('messages.gl_account')]));
         }
         return error_web_processor(trans('messages.msg_item_not_found', ['attribute' => __('messages.gl_account')]));
+    }
+
+
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     */
+    public function select_api(Request $request): JsonResponse
+    {
+        $bank_account = ChartAccount::select('account_codee', 'account_name', 'id')
+            ->where('inactive', 0)
+            ->orderBy('account_name')
+            ->limit(10)
+            ->get();
+        if ($request->filled('search'))
+            $bank_account = ChartAccount::select('account_codee', 'account_name', 'id')
+                ->where('inactive', 0)
+                ->where('account_name', 'like', '%' . $request->search . '%')
+                ->orWhere('account_code', 'like', '%' . $request->search . '%')
+                ->limit(10)
+                ->get();
+
+        return response()->json($bank_account, 200);
     }
 
     /**

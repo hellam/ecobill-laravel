@@ -8,6 +8,7 @@ use App\Models\BankAccount;
 use App\Models\Branch;
 use App\Models\ChartAccount;
 use App\Models\Currency;
+use App\Models\CustomerBranch;
 use App\Scopes\BranchScope;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -97,6 +98,29 @@ class BankAccountController extends Controller
             return success_web_processor($bank_account, __('messages.msg_item_found', ['attribute' => __('messages.bank_account')]));
         }
         return error_web_processor(trans('messages.msg_item_not_found', ['attribute' => __('messages.bank_account')]));
+    }
+
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     */
+    public function select_api(Request $request): JsonResponse
+    {
+        $bank_account = BankAccount::select('account_name', 'account_number', 'currency', 'chart_code', 'id')
+            ->where('inactive', 0)
+            ->orderBy('account_name')
+            ->limit(10)
+            ->get();
+        if ($request->filled('search'))
+            $bank_account = BankAccount::select('account_name', 'account_number', 'currency', 'chart_code', 'id')
+                ->where('inactive', 0)
+                ->where('account_name', 'like', '%' . $request->search . '%')
+                ->orWhere('account_number', 'like', '%' . $request->search . '%')
+                ->limit(10)
+                ->get();
+
+        return response()->json($bank_account, 200);
     }
 
     /**

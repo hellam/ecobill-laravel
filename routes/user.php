@@ -219,6 +219,7 @@ Route::group(['as' => 'user.'], function () {
                 Route::controller(User\Banking\Accounts\BankAccountController::class)->prefix('accounts')->as('accounts.')->group(function () {
                     Route::get('/', 'index')->name('all')->middleware('permission:301');
                     Route::post('/', 'create')->name('create')->middleware('permission:3010,' . ST_BANK_ACCOUNT_SETUP);
+                    Route::get('select_api', 'select_api')->name('select_api')->middleware('permission:3011');
                     Route::get('edit/{id}', 'edit')->name('edit')->middleware('permission:3011')->whereNumber('id');
                     Route::put('update/{id}', 'update')->name('update')->middleware('permission:3011,' . ST_BANK_ACCOUNT_SETUP)->whereNumber('id');
                     Route::delete('delete/{id}', 'destroy')->name('delete')->middleware('permission:3012,' . ST_BANK_ACCOUNT_SETUP)->whereNumber('id');

@@ -172,11 +172,6 @@ class CustomersController extends Controller
                 ->limit(10)
                 ->get();
 
-        //push edit url to array
-//        foreach ($customer as $key => $item) {
-//            $customer[$key]['edit_url'] = route('user.messaging.debtor.edit', ['id' => $item->id]);
-//        }
-
         return response()->json($customer, 200);
     }
 

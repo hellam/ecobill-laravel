@@ -13,7 +13,6 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Monarobase\CountryList\CountryListFacade;
 use Yajra\DataTables\DataTables;
 
@@ -133,11 +132,6 @@ class CustomerBranchController extends Controller
                 ->orderBy('f_name')->orderBy('l_name')
                 ->limit(10)
                 ->get();
-
-        //push edit url to array
-//        foreach ($customer as $key => $item) {
-//            $customer[$key]['edit_url'] = route('user.messaging.debtor.edit', ['id' => $item->id]);
-//        }
 
         return response()->json($customer, 200);
     }

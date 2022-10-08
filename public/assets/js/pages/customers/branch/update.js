@@ -39,11 +39,7 @@ const KTCustomersUpdate = function () {
                         }
                     },
                     currency: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Currency is required'
-                            }
-                        }
+                        validators: {}
                     },
                     phone: {
                         validators: {
@@ -67,7 +63,7 @@ const KTCustomersUpdate = function () {
                 'PUT',
                 modal,
                 $('#kt_customer_branches_table'),
-                ["customer_id", "country", "currency"]
+                ["customer_id", "country"]
             );
         }
     };

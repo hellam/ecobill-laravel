@@ -160,6 +160,7 @@ const KTCustomersServerSide = function () {
                             $("#kt_modal_update_customer_branch_form input[name='short_name']").val(customer_branch.short_name).attr('disabled', true);
                             $("#kt_modal_update_customer_branch_form input[name='branch']").val(customer_branch.branch);
                             $("#kt_modal_update_customer_branch_form input[name='address']").val(customer_branch.address);
+                            $("#kt_modal_update_customer_branch_form input[name='currency']").val(customer_branch.currency).attr('disabled', true);
                             $("#kt_modal_update_customer_branch_form select[name='country']").val(customer_branch.country).trigger('change');
                             $("#kt_modal_update_customer_branch_form input[name='phone']").val(customer_branch.phone);
                             $("#kt_modal_update_customer_branch_form input[name='email']").val(customer_branch.email);

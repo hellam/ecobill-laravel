@@ -150,7 +150,8 @@
                                     class="form-select form-select-sm form-select-solid fw-bolder">
                                 <option></option>
                                 @foreach($currency as $curr)
-                                    <option value="{{$curr->abbreviation}}">{{$curr->abbreviation.'|'.$curr->name}}</option>
+                                    <option
+                                        value="{{$curr->abbreviation}}">{{$curr->abbreviation.'|'.$curr->name}}</option>
                                 @endforeach
                             </select>
                             <!--end::Input-->
@@ -190,38 +191,51 @@
                     <!--begin::Form group-->
                     <div class="form-group">
                         <div data-repeater-list="deposit_options" class="d-flex flex-column gap-3">
-                            <div data-repeater-item="" class="form-group d-flex flex-wrap align-items-center gap-5">
-                                <!--begin::Select2-->
-                                <div class=" w-md-25 w-lg-25 w-xl-25 w-100">
-                                    <select class="form-select"
-                                            name="gl_account"
-                                            data-placeholder="Select GL Account"
-                                            data-kt-add-deposit="deposit_option">
-                                        <option></option>
-                                        <option value="color">Color</option>
-                                        <option value="size">Size</option>
-                                        <option value="material">Material</option>
-                                        <option value="style">Style</option>
-                                    </select>
+                            <div data-repeater-item="" class="form-group">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <!--begin::Select2-->
+                                        <div>
+                                            <select class="form-select"
+                                                    name="gl_account"
+                                                    data-placeholder="Select GL Account"
+                                                    data-kt-add-deposit="deposit_option">
+                                                <option></option>
+                                                <option value="color">Color</option>
+                                                <option value="size">Size</option>
+                                                <option value="material">Material</option>
+                                                <option value="style">Style</option>
+                                            </select>
+                                        </div>
+                                        <!--end::Select2-->
+                                    </div>
+                                    <!--begin::Input-->
+                                    <div class="col-md-4">
+                                        <input type="number" class="form-control"
+                                               name="amount"
+                                               placeholder="Amount"/>
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--begin::Input-->
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control"
+                                               name="narration"
+                                               placeholder="Narration">
+                                    </div>
+                                    <!--end::Input-->
+                                    <div class="col-md-1">
+                                        <button type="button" data-repeater-delete=""
+                                                class="btn btn-sm btn-icon btn-light-danger"><i
+                                                class="fa fa-times"></i>
+                                        </button>
+                                    </div>
                                 </div>
-                                <!--end::Select2-->
-                                <!--begin::Input-->
-                                <input type="number" class="form-control w-md-25 w-lg-25 w-xl-25 w-100" name="amount"
-                                       placeholder="Amount"/>
-                                <!--end::Input-->
-                                <!--begin::Input-->
-                                <input type="text" class="form-control w-md-25 w-lg-25 w-xl-25 w-100" name="narration"
-                                       placeholder="Narration">
-                                <!--end::Input-->
-                                <button type="button" data-repeater-delete=""
-                                        class="btn btn-sm btn-icon btn-light-danger"><i class="fa fa-times"></i>
-                                </button>
                             </div>
                         </div>
                     </div>
                     <!--end::Form group-->
                     <!--begin::Form group-->
-                    <div class="form-group mt-5">
+                    <div class="form-group mt-5  d-flex justify-content-center text-center">
                         <button type="button" data-repeater-create="" class="btn btn-sm btn-primary">
                             <i class="fa fa-add"></i>Add Row
                         </button>

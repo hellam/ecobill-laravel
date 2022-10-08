@@ -446,33 +446,35 @@ class UserValidators
             'discount' => 'required|numeric',
             'language' => 'required',
             'inactive' => 'required|in:0,1',
-            'email' => 'required|unique:' . CustomerBranch::class . ',email,' . $request->customer_branch_id . ',id,client_ref,' . get_user_ref() . '|email:rfc,dns',//TODO: Add spoof
-            'phone' => 'required|unique:' . CustomerBranch::class . ',phone,' . $request->customer_branch_id . ',id,client_ref,' . get_user_ref() . '|min:13|max:13',
+            'email' => 'required|unique:' . CustomerBranch::class . ',email,' . $id . ',customer_id,client_ref,' . get_user_ref() . '|email:rfc,dns',//TODO: Add spoof
+            'phone' => 'required|unique:' . CustomerBranch::class . ',phone,' . $id . ',customer_id,client_ref,' . get_user_ref() . '|min:13|max:13',
         ]);
     }
 
     public static function customerBranchCreateValidation(Request $request)
     {
         return self::ValidatorMake($request->all(), [
+            'customer_id' => 'required|exists:' . Customer::class . ',id,client_ref,' . get_user_ref(),
             'first_name' => 'required|string',
             'last_name' => 'required|string',
             'short_name' => 'required|unique:' . CustomerBranch::class . ',short_name,NULL,id,client_ref,'.get_user_ref(),
             'country' => 'required',
-            'email' => 'required|unique:' . CustomerBranch::class . ',email,NULL,id,client_ref,' . get_user_ref() . '|email:rfc,dns',//TODO: Add spoof
-            'phone' => 'required|unique:' . CustomerBranch::class . ',phone,NULL,id,client_ref,' . get_user_ref() . '|min:13|max:13',
+            'email' => 'required|unique:' . CustomerBranch::class . ',email,' . $request->customer_id . ',customer_id,client_ref,' . get_user_ref() . '|email:rfc,dns',//TODO: Add spoof
+            'phone' => 'required|unique:' . CustomerBranch::class . ',phone,' . $request->customer_id . ',customer_id,client_ref,' . get_user_ref() . '|min:13|max:13',
         ]);
     }
 
     public static function customerBranchUpdateValidation(Request $request)
     {
         $id = Route::current()->id;
+        $customer_id = CustomerBranch::findOrFail($id)->customer_id;
         return self::ValidatorMake($request->all(), [
             'first_name' => 'required|string',
             'last_name' => 'required|string',
             'country' => 'required',
             'inactive' => 'required|in:0,1',
-            'email' => 'required|unique:' . CustomerBranch::class . ',email,' . $id . ',id,client_ref,' . get_user_ref() . '|email:rfc,dns',//TODO: Add spoof
-            'phone' => 'required|unique:' . CustomerBranch::class . ',phone,' . $id . ',id,client_ref,' . get_user_ref() . '|min:13|max:13',
+            'email' => 'required|unique:' . CustomerBranch::class . ',email,' . $customer_id . ',customer_id,client_ref,' . get_user_ref() . '|email:rfc,dns',//TODO: Add spoof
+            'phone' => 'required|unique:' . CustomerBranch::class . ',phone,' . $customer_id . ',customer_id,client_ref,' . get_user_ref() . '|min:13|max:13',
         ]);
     }
 

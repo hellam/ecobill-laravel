@@ -438,7 +438,6 @@ class UserValidators
             'country' => 'required',
             'customer_branch_id' => 'required|exists:' . CustomerBranch::class . ',id,client_ref,' . get_user_ref(),
             'tax_id' => 'required',
-            'currency' => 'required|exists:' . Currency::class . ',abbreviation,client_ref,' . get_user_ref(),
             'payment_terms' => 'required|exists:' . PaymentTerm::class . ',id,client_ref,' . get_user_ref(),
             'credit_limit' => 'required',
             'credit_status' => 'required|in:0,1',
@@ -457,6 +456,7 @@ class UserValidators
             'customer_id' => 'required|exists:' . Customer::class . ',id,client_ref,' . get_user_ref(),
             'first_name' => 'required|string',
             'last_name' => 'required|string',
+            'currency' => 'required|exists:' . Currency::class . ',abbreviation,client_ref,' . get_user_ref(),
             'short_name' => 'required|unique:' . CustomerBranch::class . ',short_name,NULL,id,client_ref,'.get_user_ref(),
             'country' => 'required',
             'email' => 'required|unique:' . CustomerBranch::class . ',email,' . $request->customer_id . ',customer_id,client_ref,' . get_user_ref() . '|email:rfc,dns',//TODO: Add spoof

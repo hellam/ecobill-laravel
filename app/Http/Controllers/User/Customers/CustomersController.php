@@ -200,7 +200,6 @@ class CustomersController extends Controller
                 $customer->l_name = $request->last_name;
                 $customer->country = $request->country;
                 $customer->tax_id = $request->tax_id == 'null' ? null : $request->tax_id;
-                $customer->currency = $request->currency;
                 $customer->payment_terms = $request->payment_terms;
                 $customer->credit_limit = $request->credit_limit;
                 $customer->credit_status = $request->credit_status;

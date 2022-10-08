@@ -567,7 +567,7 @@ function handleCustomerBranchAPISelect(preselect = null) {
 
     $('.select_customer_branch').html("").trigger('change');
     if (preselect) {
-        const option = new Option(preselect?.short_name + "|" + preselect?.f_name + " " + preselect?.l_name, preselect?.id, true, true);
+        const option = new Option(preselect?.short_name + " | " + preselect?.f_name + " " + preselect?.l_name, preselect?.id, true, true);
         $('.select_customer_branch').append(option).trigger('change');
     }
 
@@ -592,7 +592,7 @@ function handleCustomerBranchAPISelect(preselect = null) {
                 return {
                     results: $.map(data, function (item) {
                         return {
-                            text: item.short_name + '|' + item.f_name + ' ' + item.l_name,
+                            text: item.short_name + ' | ' + item.f_name + ' ' + item.l_name,
                             id: item.id
                         }
                     })

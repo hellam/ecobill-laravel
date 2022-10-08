@@ -152,7 +152,7 @@
                                 <option></option>
                                 @foreach($currency as $curr)
                                     <option
-                                        value="{{$curr->abbreviation}}">{{$curr->abbreviation.'|'.$curr->name}}</option>
+                                        value="{{$curr->abbreviation}}">{{$curr->name}}</option>
                                 @endforeach
                             </select>
                             <!--end::Input-->

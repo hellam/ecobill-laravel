@@ -58,10 +58,12 @@ const KTDepositAdd = function () {
         })
     }
 
+
     // Public methods
     return {
         init: function () {
             initializeRepeater()
+            handleBankAPISelect()
         }
     }
 }();

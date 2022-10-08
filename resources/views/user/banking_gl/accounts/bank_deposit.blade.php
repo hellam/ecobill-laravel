@@ -145,12 +145,9 @@
                             <!--begin::Input-->
                             <select name="into"
                                     aria-label="Select Account"
-                                    data-control="select2"
-                                    data-kt-src="#"
+                                    data-kt-src="{{route('user.banking_gl.banking.accounts.select_api')}}"
                                     data-placeholder="Select Account"
-                                    class="form-select form-select-sm form-select-solid fw-bolder">
-                                <option></option>
-                                <option>KCB Mpesa</option>
+                                    class="form-select form-select-sm form-select-solid fw-bolder select_bank">
                             </select>
                             <!--end::Input-->
                         </div>

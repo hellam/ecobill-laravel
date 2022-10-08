@@ -601,3 +601,42 @@ function handleCustomerBranchAPISelect(preselect = null) {
         }
     })
 }
+
+function handleBankAPISelect(preselect = null) {
+    const element = document.querySelector('.select_bank');
+
+    $('.select_bank').html("").trigger('change');
+    if (preselect) {
+        const option = new Option(preselect?.account_name + "|" + preselect?.account_number, preselect?.id, true, true);
+        $('.select_bank').append(option).trigger('change');
+    }
+
+    $('.select_bank').select2({
+        minimumInputLength: 0,
+        escapeMarkup: function (markup) {
+            return markup;
+        },
+        ajax: {
+            url: element.getAttribute("data-kt-src"),
+            dataType: 'json',
+            type: 'GET',
+            contentType: 'application/json',
+            delay: 50,
+            data: function (params) {
+                return {
+                    search: params.term
+                };
+            },
+            processResults: function (data) {
+                return {
+                    results: $.map(data, function (item) {
+                        return {
+                            text: item.account_number + '|' + item.account_name,
+                            id: item.id
+                        }
+                    })
+                }
+            }
+        }
+    })
+}

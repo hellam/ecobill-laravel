@@ -541,12 +541,24 @@ function handleCustomerAPISelect(select_parent, preselect = null) {
                     results: $.map(data, function (item) {
                         return {
                             text: item.short_name + '|' + item.f_name + ' ' + item.l_name,
-                            id: item.id
+                            id: item.id,
+                            'data-kt-phone': item.customer_branch.phone,
+                            'data-kt-email': item.customer_branch.email,
                         }
                     })
                 }
             }
         }
+    }).on('select2:select', function (e) {
+        let data = e.params.data;
+        $(this).children('[value="' + data['id'] + '"]').attr(
+            {
+                'data-kt-phone': data["data-kt-phone"],
+                'data-kt-email': data["data-kt-email"],
+            }
+        );
+        $(select_parent + ' [name="phone"]').val($(select_parent + ' .select_customer').find(':selected').data('kt-phone'))
+        $(select_parent + ' [name="email"]').val($(select_parent + ' .select_customer').find(':selected').data('kt-email'))
     })
 }
 

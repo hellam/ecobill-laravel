@@ -73,6 +73,11 @@ class Branch extends Model
 		'inactive'
 	];
 
+    public function bank_account(): BelongsTo
+    {
+        return $this->belongsTo(BankAccount::class, 'default_bank_account');
+    }
+
     public function fiscalyear(): BelongsTo
     {
         return $this->belongsTo(FiscalYear::class, 'fiscal_year');

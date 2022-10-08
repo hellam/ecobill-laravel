@@ -194,7 +194,7 @@ Route::group(['as' => 'user.'], function () {
                 Route::get('/', 'index')->name('all')->middleware('permission:307');
                 Route::post('/', 'create')->name('create')->middleware('permission:3070,' . ST_GL_ACCOUNT_SETUP);
                 Route::get('/dt-api', 'dt_api')->name('dt_api')->middleware('permission:307');
-                Route::get('select_api', 'select_api')->name('select_api')->middleware('permission:307');
+                Route::get('select_api/{scope}', 'select_api')->name('select_api')->middleware('permission:307')->whereIn('scope',['all','no_bank']);
                 Route::get('edit/{id}', 'edit')->name('edit')->middleware('permission:3071')->whereNumber('id');
                 Route::put('update/{id}', 'update')->name('update')->middleware('permission:3071,' . ST_GL_ACCOUNT_SETUP)->whereNumber('id');
                 Route::delete('delete/{id}', 'destroy')->name('delete')->middleware('permission:3072,' . ST_GL_ACCOUNT_SETUP)->whereNumber('id');
@@ -227,6 +227,7 @@ Route::group(['as' => 'user.'], function () {
                 });
                 Route::controller(User\Banking\Accounts\BankAccountDepositController::class)->prefix('deposit')->as('deposit')->group(function () {
                     Route::get('/', 'index')->middleware('permission:303');
+                    Route::post('/', 'create')->middleware('permission:303,' . ST_ACCOUNT_DEPOSIT);
                 });
                 Route::controller(User\Banking\Accounts\BankAccountPaymentsController::class)->prefix('expense')->as('expense')->group(function () {
                     Route::get('/', 'index')->middleware('permission:304');

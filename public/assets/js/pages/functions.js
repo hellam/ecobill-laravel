@@ -561,4 +561,3 @@ function handleCustomerAPISelect(select_parent, preselect = null) {
         $(select_parent + ' [name="email"]').val($(select_parent + ' .select_customer').find(':selected').data('kt-email'))
     })
 }
-

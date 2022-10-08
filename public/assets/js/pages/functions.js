@@ -607,7 +607,7 @@ function handleBankAPISelect(preselect = null) {
 
     $('.select_bank').html("").trigger('change');
     if (preselect) {
-        const option = new Option(preselect?.account_name + "|" + preselect?.account_number, preselect?.id, true, true);
+        const option = new Option(preselect?.account_name + " - " + preselect?.currency, preselect?.id, true, true);
         $('.select_bank').append(option).trigger('change');
     }
 
@@ -631,7 +631,7 @@ function handleBankAPISelect(preselect = null) {
                 return {
                     results: $.map(data, function (item) {
                         return {
-                            text: item.account_number + '|' + item.account_name,
+                            text: item.account_name + '|' + item.currency,
                             id: item.id
                         }
                     })

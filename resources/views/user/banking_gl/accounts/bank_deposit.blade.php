@@ -138,12 +138,36 @@
                     <div class="row mb-6 mx-2 fv-row">
                         <!--begin::Label-->
                         <label
-                            class="col-lg-4 col-form-label fw-semibold fs-7">{{__('messages.into')}}</label>
+                            class="col-lg-4 col-form-label fw-semibold fs-7">{{__('messages.currency')}}</label>
                         <!--end::Label-->
                         <!--begin::Col-->
                         <div class="col-lg-8">
                             <!--begin::Input-->
                             <select name="into"
+                                    aria-label="Select Currency"
+                                    data-kt-src=""
+                                    data-placeholder="Select Currency"
+                                    class="form-select form-select-sm form-select-solid fw-bolder">
+                                <option></option>
+                                @foreach($currency as $curr)
+                                    <option value="{{$curr->abbreviation}}">{{$curr->abbreviation.'|'.$curr->name}}</option>
+                                @endforeach
+                            </select>
+                            <!--end::Input-->
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <!--end::Input group-->
+                    <!--begin::Input group-->
+                    <div class="row mb-6 mx-2 fv-row">
+                        <!--begin::Label-->
+                        <label
+                            class="col-lg-4 col-form-label fw-semibold fs-7">{{__('messages.bank')}} Acc</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <!--begin::Input-->
+                            <select name="bank_account"
                                     aria-label="Select Account"
                                     data-kt-src="{{route('user.banking_gl.banking.accounts.select_api')}}"
                                     data-placeholder="Select Account"

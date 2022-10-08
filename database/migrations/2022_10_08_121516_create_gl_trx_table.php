@@ -15,6 +15,17 @@ return new class extends Migration
     {
         Schema::create('gl_trx', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('trans_no');
+            $table->string('trx_type',45);
+            $table->timestamp('trx_date');
+            $table->bigInteger('chart_code');
+            $table->string('narration',255);
+            $table->double('amount')->default(0);
+            $table->string('client_ref',100)->nullable();
+            $table->string("created_by",100)->nullable();
+            $table->string("updated_by",100)->nullable();
+            $table->string('supervised_by',100)->nullable();
+            $table->timestamp('supervised_at')->nullable();
             $table->timestamps();
         });
     }

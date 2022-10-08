@@ -117,7 +117,7 @@ class CustomerBranchController extends Controller
      */
     public function select_api(Request $request): JsonResponse
     {
-        $customer = CustomerBranch::select('f_name', 'l_name', 'branch', 'short_name', 'id')
+        $customer = CustomerBranch::select('f_name', 'l_name', 'branch', 'currency', 'short_name', 'id')
             ->where('inactive', 0)
             ->orderBy('f_name')->orderBy('l_name')
             ->limit(10)

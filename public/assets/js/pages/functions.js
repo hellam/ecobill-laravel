@@ -607,8 +607,15 @@ function handleCustomerBranchAPISelect(preselect = null) {
                 'data-kt-currency': data["data-kt-currency"],
             }
         );
-        console.log($('.select_customer_branch').find(':selected').data('kt-currency'))
-        $('#currency').val($('.select_customer_branch').find(':selected').data('kt-currency')).trigger('change')
+        let customer_currency = $('.select_customer_branch').find(':selected').data('kt-currency')
+        let currency = $('#currency').find(':selected').val();
+        let into_bank = $('.select_bank').find(':selected');
+        $('#currency').val(customer_currency).trigger('change')
+
+        if (customer_currency !== into_bank) {
+            console.log('into_bank', into_bank.attr('data-kt-currency'))
+            console.log('customer', customer_currency)
+        }
     })
 }
 
@@ -625,6 +632,7 @@ function handleBankAPISelect(preselect = null) {
 
     if (preselect) {
         const option = new Option(preselect?.account_name + " - " + preselect?.currency, preselect?.id, true, true);
+        option.setAttribute("data-kt-currency", preselect?.currency);
         $('.select_bank').append(option).trigger('change');
         $('#currency').val(preselect?.currency).trigger('change')
     }
@@ -651,11 +659,19 @@ function handleBankAPISelect(preselect = null) {
                         return {
                             text: item.account_name + ' - ' + item.currency,
                             id: item.id,
+                            'data-kt-currency': item.currency
                         }
                     })
                 }
             }
         }
+    }).on('select2:select', function (e) {
+        let data = e.params.data;
+        $(this).children('[value="' + data['id'] + '"]').attr(
+            {
+                'data-kt-currency': data["data-kt-currency"],
+            }
+        );
     })
 }
 

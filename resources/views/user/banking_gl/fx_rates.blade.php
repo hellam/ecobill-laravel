@@ -130,8 +130,8 @@
                             <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
                                 <th>#</th>
                                 <th>{{__('messages.currency')}}</th>
-                                <th>{{__('messages.buy_rate')}}</th>
-                                <th>{{__('messages.sell_rate')}}</th>
+                                <th>{{session('currency').' '.__('messages.buy_rate')}}</th>
+                                <th>{{session('currency').' '.__('messages.sell_rate')}}</th>
                                 <th>{{__('messages.date')}}</th>
                                 <th class="text-end">{{__('messages.actions')}}</th>
                             </tr>
@@ -284,7 +284,7 @@
                                     <!--begin::Label-->
                                     <label class="fs-6 fw-bold mb-2" for="buy_rate">
                                         <span
-                                            class="required">{{__('messages.buy_rate')}}</span>
+                                            class="required">{{session('currency').' '.__('messages.buy_rate')}}</span>
                                     </label>
                                     <!--end::Label-->
                                     <!--begin::Input-->
@@ -299,7 +299,7 @@
                                     <!--begin::Label-->
                                     <label class="fs-6 fw-bold mb-2" for="sell_rate">
                                         <span
-                                            class="required">{{__('messages.sell_rate')}}</span>
+                                            class="required">{{session('currency').' '.__('messages.sell_rate')}}</span>
                                     </label>
                                     <!--end::Label-->
                                     <!--begin::Input-->
@@ -455,7 +455,7 @@
                                     <!--begin::Label-->
                                     <label class="fs-6 fw-bold mb-2" for="buy_rate">
                                         <span
-                                            class="required">{{__('messages.buy_rate')}}</span>
+                                            class="required">{{session('currency').' '.__('messages.buy_rate')}}</span>
                                     </label>
                                     <!--end::Label-->
                                     <!--begin::Input-->
@@ -470,7 +470,7 @@
                                     <!--begin::Label-->
                                     <label class="fs-6 fw-bold mb-2" for="sell_rate">
                                         <span
-                                            class="required">{{__('messages.sell_rate')}}</span>
+                                            class="required">{{session('currency').' '.__('messages.sell_rate')}}</span>
                                     </label>
                                     <!--end::Label-->
                                     <!--begin::Input-->

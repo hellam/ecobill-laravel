@@ -205,8 +205,7 @@ function calculateSum() {
         }
 
     });
-    // $('#total').html(current_currency + " " + sum)
-    $('#total').html(new Intl.NumberFormat('ja-JP', { style: 'currency', currency: current_currency }).format(sum))
+    $('#total').html(new Intl.NumberFormat('ja-JP', {style: 'currency', currency: current_currency}).format(sum))
     return sum
 }
 

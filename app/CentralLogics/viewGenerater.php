@@ -1,5 +1,5 @@
 <?php
-function input_field($name, $description, $value, $required = false): string
+function input_field($name, $description, $value, $required = false, $type = 'text'): string
 {
     return '<div class="row mb-6">
                                 <!--begin::Label-->
@@ -7,7 +7,7 @@ function input_field($name, $description, $value, $required = false): string
                                 <!--end::Label-->
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                    <input type="text" name="' . $name . '" class="form-control form-control-lg form-control-solid" placeholder="' . $description . '" value="' . $value . '" ' . ($required ? "required" : " ") . '>
+                                    <input type="' . $type . '" name="' . $name . '" class="form-control form-control-lg form-control-solid" placeholder="' . $description . '" value="' . $value . '" ' . ($required ? "required" : " ") . '>
                                 <div class="fv-plugins-message-container invalid-feedback"></div></div>
                                 <!--end::Col-->
                             </div>';
@@ -121,7 +121,7 @@ function image_view($name, $id, $default, $value, $is_profile = true)
                     </div>
                         <button type="button" id="trash"><i class="fa fa-trash"></i></button>
                     <div class="avatar-preview">
-                        <img id="imagePreview" src="' . ($value=='' ? '':asset($value)) . '" onerror="this.src=\'' . asset($default) . '\'">
+                        <img id="imagePreview" src="' . ($value == '' ? '' : asset($value)) . '" onerror="this.src=\'' . asset($default) . '\'">
                 </div>
             </div>
             <script>
@@ -151,7 +151,7 @@ function image_view($name, $id, $default, $value, $is_profile = true)
     return $output;
 }
 
-function select($name, $description, $data, $error = '')
+function select($name, $description, $data, $error = '', $default = null)
 {
     $output = '<!--begin::Input-->
     <div class="row mb-6">
@@ -168,7 +168,7 @@ function select($name, $description, $data, $error = '')
                     class="form-select form-select-solid fw-bolder">
                 <option selected disabled> ' . $description . '</option>';
     foreach ($data as $key => $value)
-        $output .= '<option value="' . $key . '">' . $value . '</option>';
+        $output .= $default == $key ? '<option selected value="' . $key . '">' . $value . '</option>' : '<option value="' . $key . '">' . $value . '</option>';
 
     $output .= '</select>
             <!--end::Input-->

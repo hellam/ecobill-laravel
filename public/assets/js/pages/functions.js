@@ -607,6 +607,7 @@ function handleCustomerBranchAPISelect(preselect = null) {
                 'data-kt-currency': data["data-kt-currency"],
             }
         );
+        console.log($('.select_customer_branch').find(':selected').data('kt-currency'))
         $('#currency').val($('.select_customer_branch').find(':selected').data('kt-currency')).trigger('change')
     })
 }

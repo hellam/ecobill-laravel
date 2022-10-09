@@ -96,10 +96,6 @@ function addFXField() {
                             '<div class="col-md-6" id="current_to_default">' +
                             '<!--begin::Input group-->\n' +
                             '<div class="row mb-6 mx-2 fv-row" id="cust_to_bank">\n' +
-                            '    <!--begin::Label-->\n' +
-                            '    <label\n' +
-                            '        class="col-lg-4 col-form-label fw-semibold fs-7">From ' + current_currency + " to " + default_currency + '</label>\n' +
-                            '    <!--end::Label-->\n' +
                             '    <!--begin::Col-->\n' +
                             '    <div class="col-lg-8">\n' +
                             '        <!--begin::Input-->\n' +
@@ -109,6 +105,10 @@ function addFXField() {
                             '        <!--end::Input-->\n' +
                             '    </div>\n' +
                             '    <!--end::Col-->\n' +
+                            '    <!--begin::Label-->\n' +
+                            '    <label\n' +
+                            '        class="col-lg-4 col-form-label fw-semibold fs-7">' + current_currency + " = 1 " + default_currency + '</label>\n' +
+                            '    <!--end::Label-->\n' +
                             '</div>\n' +
                             '<!--end::Input group-->' +
                             '</div>'

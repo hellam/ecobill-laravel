@@ -53,140 +53,141 @@
         <!--begin::Row-->
         <!--begin::Card-->
         <div class="card shadow">
-            <!--begin::Card Header-->
-            <div class="card-header pt-6">
-                <div class="col-md-4">
-                    <!--begin::Input group-->
-                    <div class="row mb-6 mx-2 fv-row">
-                        <!--begin::Label-->
-                        <label
-                            class="col-lg-4 col-form-label fw-semibold fs-7">{{__('messages.date')}}</label>
-                        <!--end::Label-->
-                        <!--begin::Col-->
-                        <div class="col-lg-8">
-                            <!--begin::Input-->
-                            <input type="text" class="form-control form-control-sm form-control-solid"
-                                   placeholder="{{__('messages.date')}}"
-                                   name="date" id="date_picker"/>
-                            <!--end::Input-->
-                        </div>
-                        <!--end::Col-->
-                    </div>
-                    <!--end::Input group-->
-                    <!--begin::Input group-->
-                    <div class="row mb-6 mx-2 fv-row">
-                        <!--begin::Label-->
-                        <label
-                            class="col-lg-4 col-form-label fw-semibold fs-7">{{__('messages.reference')}}</label>
-                        <!--end::Label-->
-                        <!--begin::Col-->
-                        <div class="col-lg-8">
-                            <!--begin::Input-->
-                            <input type="text" class="form-control form-control-sm form-control-solid"
-                                   placeholder="{{__('messages.reference')}}"
-                                   name="name"/>
-                            <!--end::Input-->
-                        </div>
-                        <!--end::Col-->
-                    </div>
-                    <!--end::Input group-->
-                </div>
-                <div class="col-md-4">
-                    <!--begin::Input group-->
-                    <div class="row mb-6 mx-2 fv-row">
-                        <!--begin::Label-->
-                        <label
-                            class="col-lg-4 col-form-label fw-semibold fs-7">{{__('messages.from')}}</label>
-                        <!--end::Label-->
-                        <!--begin::Col-->
-                        <div class="col-lg-8">
-                            <!--begin::Input-->
-                            <select name="from"
-                                    aria-label="Select From"
-                                    data-control="select2"
-                                    data-kt-src="{{route('user.customers.branch.select_api')}}"
-                                    data-placeholder="Select Country"
-                                    class="form-select form-select-sm form-select-solid fw-bolder">
-                                <option value="0">Miscellaneous</option>
-                                <option value="1">Customer</option>
-                            </select>
-                            <!--end::Input-->
-                        </div>
-                        <!--end::Col-->
-                    </div>
-                    <!--end::Input group-->
-                    <!--begin::Input group-->
-                    <div class="row mb-6 mx-2 fv-row" id="changing_div">
-                        <!--begin::Label-->
-                        <label
-                            class="col-lg-4 col-form-label fw-semibold fs-7">{{__('messages.name')}}</label>
-                        <!--end::Label-->
-                        <!--begin::Col-->
-                        <div class="col-lg-8" id="select_input">
-                            <!--begin::Input-->
-                            <input type="text" class="form-control form-control-sm form-control-solid"
-                                   placeholder="{{__('messages.name')}}"
-                                   name="name"/>
-                            <!--end::Input-->
-                        </div>
-                        <!--end::Col-->
-                    </div>
-                    <!--end::Input group-->
-                </div>
-                <div class="col-md-4">
-                    <!--begin::Input group-->
-                    <div class="row mb-6 mx-2 fv-row">
-                        <!--begin::Label-->
-                        <label
-                            class="col-lg-4 col-form-label fw-semibold fs-7">{{__('messages.currency')}}</label>
-                        <!--end::Label-->
-                        <!--begin::Col-->
-                        <div class="col-lg-8">
-                            <!--begin::Input-->
-                            <select name="currency"
-                                    id="currency"
-                                    aria-label="Select Currency"
-                                    data-kt-src=""
-                                    data-control="select2"
-                                    data-placeholder="Select Currency"
-                                    class="form-select form-select-sm form-select-solid fw-bolder">
-                                <option></option>
-                                @foreach($currency as $curr)
-                                    <option
-                                        value="{{$curr->abbreviation}}">{{$curr->name.' - '.$curr->abbreviation}}</option>
-                                @endforeach
-                            </select>
-                            <!--end::Input-->
-                        </div>
-                        <!--end::Col-->
-                    </div>
-                    <!--end::Input group-->
-                    <!--begin::Input group-->
-                    <div class="row mb-6 mx-2 fv-row">
-                        <!--begin::Label-->
-                        <label
-                            class="col-lg-4 col-form-label fw-semibold fs-7">Into {{__('messages.bank')}}</label>
-                        <!--end::Label-->
-                        <!--begin::Col-->
-                        <div class="col-lg-8">
-                            <!--begin::Input-->
-                            <select name="bank_account"
-                                    aria-label="Select Account"
-                                    data-kt-src="{{route('user.banking_gl.banking.accounts.select_api')}}"
-                                    data-placeholder="Select Account"
-                                    data-kt-default="{{session('branch_bank')}}"
-                                    class="form-select form-select-sm form-select-solid fw-bolder select_bank">
-                            </select>
-                            <!--end::Input-->
-                        </div>
-                        <!--end::Col-->
-                    </div>
-                    <!--end::Input group-->
-                </div>
-            </div>
-            <!--end::Header-->
             <!--begin::Body-->
             <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <!--begin::Input group-->
+                        <div class="row mb-6 mx-2 fv-row">
+                            <!--begin::Label-->
+                            <label
+                                class="col-lg-4 col-form-label fw-semibold fs-7">{{__('messages.date')}}</label>
+                            <!--end::Label-->
+                            <!--begin::Col-->
+                            <div class="col-lg-8">
+                                <!--begin::Input-->
+                                <input type="text" class="form-control form-control-sm form-control-solid"
+                                       placeholder="{{__('messages.date')}}"
+                                       name="date" id="date_picker"/>
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Col-->
+                        </div>
+                        <!--end::Input group-->
+                        <!--begin::Input group-->
+                        <div class="row mb-6 mx-2 fv-row">
+                            <!--begin::Label-->
+                            <label
+                                class="col-lg-4 col-form-label fw-semibold fs-7">{{__('messages.reference')}}</label>
+                            <!--end::Label-->
+                            <!--begin::Col-->
+                            <div class="col-lg-8">
+                                <!--begin::Input-->
+                                <input type="text" class="form-control form-control-sm form-control-solid"
+                                       placeholder="{{__('messages.reference')}}"
+                                       name="name"/>
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Col-->
+                        </div>
+                        <!--end::Input group-->
+                    </div>
+                    <div class="col-md-4">
+                        <!--begin::Input group-->
+                        <div class="row mb-6 mx-2 fv-row">
+                            <!--begin::Label-->
+                            <label
+                                class="col-lg-4 col-form-label fw-semibold fs-7">{{__('messages.from')}}</label>
+                            <!--end::Label-->
+                            <!--begin::Col-->
+                            <div class="col-lg-8">
+                                <!--begin::Input-->
+                                <select name="from"
+                                        aria-label="Select From"
+                                        data-control="select2"
+                                        data-kt-src="{{route('user.customers.branch.select_api')}}"
+                                        data-placeholder="Select Country"
+                                        class="form-select form-select-sm form-select-solid fw-bolder">
+                                    <option value="0">Miscellaneous</option>
+                                    <option value="1">Customer</option>
+                                </select>
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Col-->
+                        </div>
+                        <!--end::Input group-->
+                        <!--begin::Input group-->
+                        <div class="row mb-6 mx-2 fv-row" id="changing_div">
+                            <!--begin::Label-->
+                            <label
+                                class="col-lg-4 col-form-label fw-semibold fs-7">{{__('messages.name')}}</label>
+                            <!--end::Label-->
+                            <!--begin::Col-->
+                            <div class="col-lg-8" id="select_input">
+                                <!--begin::Input-->
+                                <input type="text" class="form-control form-control-sm form-control-solid"
+                                       placeholder="{{__('messages.name')}}"
+                                       name="name"/>
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Col-->
+                        </div>
+                        <!--end::Input group-->
+                    </div>
+                    <div class="col-md-4">
+                        <!--begin::Input group-->
+                        <div class="row mb-6 mx-2 fv-row">
+                            <!--begin::Label-->
+                            <label
+                                class="col-lg-4 col-form-label fw-semibold fs-7">{{__('messages.currency')}}</label>
+                            <!--end::Label-->
+                            <!--begin::Col-->
+                            <div class="col-lg-8">
+                                <!--begin::Input-->
+                                <select name="currency"
+                                        id="currency"
+                                        aria-label="Select Currency"
+                                        data-kt-src=""
+                                        data-control="select2"
+                                        data-placeholder="Select Currency"
+                                        class="form-select form-select-sm form-select-solid fw-bolder">
+                                    <option></option>
+                                    @foreach($currency as $curr)
+                                        <option
+                                            value="{{$curr->abbreviation}}">{{$curr->name.' - '.$curr->abbreviation}}</option>
+                                    @endforeach
+                                </select>
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Col-->
+                        </div>
+                        <!--end::Input group-->
+                        <!--begin::Input group-->
+                        <div class="row mb-6 mx-2 fv-row">
+                            <!--begin::Label-->
+                            <label
+                                class="col-lg-4 col-form-label fw-semibold fs-7">Into {{__('messages.bank')}}</label>
+                            <!--end::Label-->
+                            <!--begin::Col-->
+                            <div class="col-lg-8">
+                                <!--begin::Input-->
+                                <select name="into_bank"
+                                        aria-label="Select Account"
+                                        data-kt-src="{{route('user.banking_gl.banking.accounts.select_api')}}"
+                                        data-placeholder="Select Account"
+                                        data-kt-default="{{session('branch_bank')}}"
+                                        class="form-select form-select-sm form-select-solid fw-bolder select_bank">
+                                </select>
+                                <!--end::Input-->
+                            </div>
+                            <!--end::Col-->
+                        </div>
+                        <!--end::Input group-->
+                    </div>
+                </div>
+                <div class="row">
+                </div>
+                <div class="separator my-6"></div>
                 <h4 class="text-center mb-7">Deposit Items</h4>
                 <!--begin::Input group-->
                 <!--begin::Repeater-->

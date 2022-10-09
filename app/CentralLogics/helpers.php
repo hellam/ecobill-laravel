@@ -270,7 +270,7 @@ function get_file_url($folder, $filename = '')
                 'fileName' => $filename ?? 'null'
             ]
         );
-    }catch (\Exception $e) {
+    } catch (\Exception $e) {
         return '';
     }
 }
@@ -386,6 +386,13 @@ function get_company_default_currency()
     $general_settings = json_decode(BusinessSetting::where('key', 'general_settings')->first()->value, true);
 
     return $general_settings['default_currency'] ?? 'USD';
+}
+
+function get_company_setting($key_type)
+{
+    $general_settings = json_decode(BusinessSetting::where('key', 'general_settings')->first()->value, true);
+
+    return $general_settings[$key_type] ?? 'USD';
 }
 
 function checkif_has_any_permission($start, $end)
@@ -514,8 +521,25 @@ function decode_form_data($data, $trx_type, $method)
 
 }
 
-function getFx($from, $to){
+function getFx($from, $to)
+{
+    if ($from == $to)
+        return toRateDecimal(1);
 
+}
+
+
+function toPriceDecimal($value, ): string
+{
+    return number_format($value, (get_company_setting('price_dec')/1) ?? 2, get_company_setting('dec_sep'), get_company_setting('tho_sep'));
+}
+function toRateDecimal($value): string
+{
+    return number_format($value, (get_company_setting('rates_dec')/1) ?? 2, '.', '');
+}
+function toQtyDecimal($value): string
+{
+    return number_format($value, (get_company_setting('qty_dec')/1) ?? 2, '.', '');
 }
 
 function number_suffix($number): string

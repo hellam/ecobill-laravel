@@ -580,12 +580,12 @@ define('TIME_ZONE', array(
     'Europe/Mariehamn' => 'UTC +01:39 Europe/Mariehamn - Åland Islands'
 ));
 define('DATE_FORMAT', array(
-    'DDMMYYYY',
-    'MMDDYYYY',
-    'YYYYMMDD',
-    'DD MMM YYYY',
-    'MMM DD YYYY',
-    'YYYY MMM DD'));
+    'DDMMYYYY'=>'DDMMYYYY',
+    'MMDDYYYY'=>'MMDDYYYY',
+    'YYYYMMDD'=>'YYYYMMDD',
+    'DD MMM YYYY'=>'DD MMM YYYY',
+    'MMM DD YYYY'=>'MMM DD YYYY',
+    'YYYY MMM DD'=>'YYYY MMM DD'));
 define('CURRENCY', [
     "AED" => "United Arab Emirates dirham",
     "AFN" => "Afghan afghani",

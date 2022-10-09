@@ -156,21 +156,18 @@ class CustomersController extends Controller
      */
     public function select_api(Request $request): JsonResponse
     {
-        $customer = Customer::with('customer_branch')->select('f_name', 'l_name', 'company', 'short_name', 'id')
-            ->where('inactive', 0)
-            ->orderBy('f_name')->orderBy('l_name')
-            ->limit(10)
-            ->get();
+        $customer = Customer::with('customer_branch')->select('f_name', 'l_name', 'company', 'short_name', 'id');
         if ($request->filled('search'))
             $customer = Customer::with('customer_branch')->select('f_name', 'l_name', 'company', 'short_name', 'id')
-                ->where('inactive', 0)
                 ->where('f_name', 'like', '%' . $request->search . '%')
                 ->orWhere('l_name', 'like', '%' . $request->search . '%')
                 ->orWhere('company', 'like', '%' . $request->search . '%')
-                ->orWhere('short_name', $request->search . '%')
-                ->orderBy('f_name')->orderBy('l_name')
-                ->limit(10)
-                ->get();
+                ->orWhere('short_name', $request->search . '%');
+
+        $customer = $customer->where('inactive', 0)
+            ->orderBy('f_name')->orderBy('l_name')
+            ->limit(10)
+            ->get();
 
         return response()->json($customer, 200);
     }

@@ -290,6 +290,21 @@ class UserValidators
         ]);
     }
 
+    public static function fxRateGetValidation(Request $request)
+    {
+        return self::ValidatorMake($request->all(), [
+            'from' => 'required|exists:' . Currency::class . ',abbreviation,client_ref,' . get_user_ref(),
+            'to' => 'required|exists:' . Currency::class . ',abbreviation,client_ref,' . get_user_ref(),
+        ]);
+    }
+
+    public static function bankAccountsGetValidation(Request $request)
+    {
+        return self::ValidatorMake($request->all(), [
+            'currency' => 'required|exists:' . Currency::class . ',abbreviation,client_ref,' . get_user_ref(),
+        ]);
+    }
+
     public static function payTermsCreateValidation(Request $request)
     {
         return self::ValidatorMake($request->all(), [
@@ -446,8 +461,8 @@ class UserValidators
             'discount' => 'required|numeric',
             'language' => 'required',
             'inactive' => 'required|in:0,1',
-            'email' => 'required|email:rfc,dns|' . Rule::unique(CustomerBranch::class)->where(fn($query) => $query->where('client_ref', get_user_ref()))->ignore($id,'customer_id'),//TODO: Add spoof
-            'phone' => 'required|min:13|max:13|' . Rule::unique(CustomerBranch::class)->where(fn($query) => $query->where('client_ref', get_user_ref()))->ignore($id,'customer_id'),
+            'email' => 'required|email:rfc,dns|' . Rule::unique(CustomerBranch::class)->where(fn($query) => $query->where('client_ref', get_user_ref()))->ignore($id, 'customer_id'),//TODO: Add spoof
+            'phone' => 'required|min:13|max:13|' . Rule::unique(CustomerBranch::class)->where(fn($query) => $query->where('client_ref', get_user_ref()))->ignore($id, 'customer_id'),
         ]);
     }
 
@@ -460,8 +475,8 @@ class UserValidators
             'currency' => 'required|exists:' . Currency::class . ',abbreviation,client_ref,' . get_user_ref(),
             'short_name' => 'required|unique:' . CustomerBranch::class . ',short_name,NULL,id,client_ref,' . get_user_ref(),
             'country' => 'required',
-            'email' => 'required|email:rfc,dns|' . Rule::unique(CustomerBranch::class)->where(fn($query) => $query->where('client_ref', get_user_ref()))->ignore($request->customer_id,'customer_id'),//TODO: Add spoof
-            'phone' => 'required|min:13|max:13|' . Rule::unique(CustomerBranch::class)->where(fn($query) => $query->where('client_ref', get_user_ref()))->ignore($request->customer_id,'customer_id'),
+            'email' => 'required|email:rfc,dns|' . Rule::unique(CustomerBranch::class)->where(fn($query) => $query->where('client_ref', get_user_ref()))->ignore($request->customer_id, 'customer_id'),//TODO: Add spoof
+            'phone' => 'required|min:13|max:13|' . Rule::unique(CustomerBranch::class)->where(fn($query) => $query->where('client_ref', get_user_ref()))->ignore($request->customer_id, 'customer_id'),
         ]);
     }
 
@@ -474,8 +489,25 @@ class UserValidators
             'last_name' => 'required|string',
             'country' => 'required',
             'inactive' => 'required|in:0,1',
-            'email' => 'required|email:rfc,dns|' . Rule::unique(CustomerBranch::class)->where(fn($query) => $query->where('client_ref', get_user_ref()))->ignore($customer_id,'customer_id'),//TODO: Add spoof
-            'phone' => 'required|min:13|max:13|' . Rule::unique(CustomerBranch::class)->where(fn($query) => $query->where('client_ref', get_user_ref()))->ignore($customer_id,'customer_id'),
+            'email' => 'required|email:rfc,dns|' . Rule::unique(CustomerBranch::class)->where(fn($query) => $query->where('client_ref', get_user_ref()))->ignore($customer_id, 'customer_id'),//TODO: Add spoof
+            'phone' => 'required|min:13|max:13|' . Rule::unique(CustomerBranch::class)->where(fn($query) => $query->where('client_ref', get_user_ref()))->ignore($customer_id, 'customer_id'),
+        ]);
+    }
+
+
+
+    public static function accountDepositCreateValidation(Request $request)
+    {
+        return self::ValidatorMake($request->all(), [
+            'date' => 'required|date_format:d/m/Y',
+            'customer_id' => 'required|exists:' . Customer::class . ',id,client_ref,' . get_user_ref(),
+            'first_name' => 'required|string',
+            'last_name' => 'required|string',
+            'currency' => 'required|exists:' . Currency::class . ',abbreviation,client_ref,' . get_user_ref(),
+            'short_name' => 'required|unique:' . CustomerBranch::class . ',short_name,NULL,id,client_ref,' . get_user_ref(),
+            'country' => 'required',
+            'email' => 'required|email:rfc,dns|' . Rule::unique(CustomerBranch::class)->where(fn($query) => $query->where('client_ref', get_user_ref()))->ignore($request->customer_id, 'customer_id'),//TODO: Add spoof
+            'phone' => 'required|min:13|max:13|' . Rule::unique(CustomerBranch::class)->where(fn($query) => $query->where('client_ref', get_user_ref()))->ignore($request->customer_id, 'customer_id'),
         ]);
     }
 

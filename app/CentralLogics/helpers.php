@@ -2,6 +2,7 @@
 
 use App\Models\AuditTrail;
 use App\Models\BusinessSetting;
+use App\Models\ExchangeRate;
 use App\Models\MakerCheckerRule;
 use App\Models\PasswordHistory;
 use App\Models\SecurityConfig;
@@ -521,25 +522,45 @@ function decode_form_data($data, $trx_type, $method)
 
 }
 
-function getFx($from, $to)
+function getFxRate($from, $to, $date = null)
 {
+    $date = $date == null ? Carbon::now() : $date;
+
     if ($from == $to)
         return toRateDecimal(1);
 
-}
+    if ($from == session('currency'))//direct conversion: use sell rate
+    {
+        $fx = ExchangeRate::where('currency', $to)
+            ->where('date', '<=', $date)
+            ->orderBy('date', 'desc')
+            ->orderBy('id', 'desc')
+            ->first();
+        return toRateDecimal($fx->sell_rate ?? 1);
+    } elseif ($to == session('currency')) {//direct conversion use buy rate
+        $fx = ExchangeRate::where('currency', $from)
+            ->where('date', '<=', $date)
+            ->orderBy('date', 'desc')
+            ->orderBy('id', 'desc')
+            ->first();
+        return toRateDecimal($fx->buy_rate ?? 1);
+    } else {//convert to home currency (sell_rate) and convert to second currency (buy_rate)
 
+        $fx_from = ExchangeRate::where('currency', $from)
+            ->where('date', '<=', $date)
+            ->orderBy('date', 'desc')
+            ->orderBy('id', 'desc')
+            ->first();
 
-function toPriceDecimal($value, ): string
-{
-    return number_format($value, (get_company_setting('price_dec')/1) ?? 2, get_company_setting('dec_sep'), get_company_setting('tho_sep'));
-}
-function toRateDecimal($value): string
-{
-    return number_format($value, (get_company_setting('rates_dec')/1) ?? 2, '.', '');
-}
-function toQtyDecimal($value): string
-{
-    return number_format($value, (get_company_setting('qty_dec')/1) ?? 2, '.', '');
+        $fx_to = ExchangeRate::where('currency', $to)
+            ->where('date', '<=', $date)
+            ->orderBy('date', 'desc')
+            ->orderBy('id', 'desc')
+            ->first();
+        $final_rate = ($fx_from->sell_rate ?? 1) * ($fx_to->buy_rate ?? 1);
+
+        return toRateDecimal($final_rate);
+    }
 }
 
 function number_suffix($number): string

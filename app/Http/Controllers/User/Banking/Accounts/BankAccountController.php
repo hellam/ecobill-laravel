@@ -106,18 +106,27 @@ class BankAccountController extends Controller
      */
     public function select_api(Request $request): JsonResponse
     {
-        $bank_account = BankAccount::select('account_name', 'account_number', 'currency', 'chart_code', 'id')
-            ->where('inactive', 0)
+        if ($request->filled('currency')) {
+            $validator = UserValidators::bankAccountsGetValidation($request);
+
+            if ($validator != '') {
+                return error_web_processor(__('messages.msg_invalid_cry'));
+            }
+        }
+        $bank_account = BankAccount::select('account_name', 'account_number', 'currency', 'chart_code', 'id');
+        if ($request->filled('search'))
+            $bank_account = BankAccount::select('account_name', 'account_number', 'currency', 'chart_code', 'id')
+                ->where('account_name', 'like', '%' . $request->search . '%')
+                ->orWhere('account_number', 'like', '%' . $request->search . '%');
+
+        if ($request->filled('currency')) {
+            $bank_account = $bank_account->where('currency', $request->currency);
+        }
+
+        $bank_account = $bank_account->where('inactive', 0)
             ->orderBy('account_name')
             ->limit(10)
             ->get();
-        if ($request->filled('search'))
-            $bank_account = BankAccount::select('account_name', 'account_number', 'currency', 'chart_code', 'id')
-                ->where('inactive', 0)
-                ->where('account_name', 'like', '%' . $request->search . '%')
-                ->orWhere('account_number', 'like', '%' . $request->search . '%')
-                ->limit(10)
-                ->get();
 
         return response()->json($bank_account, 200);
     }

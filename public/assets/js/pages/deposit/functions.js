@@ -64,8 +64,8 @@ function handleCustomerBranchAPISelect(preselect = null) {
 }
 
 function addFXField() {
-    blockUI.block()
     if (current_currency !== default_currency) {
+        blockUI.block()
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -76,10 +76,57 @@ function addFXField() {
                 from: current_currency,
                 to: default_currency
             },
-            success: function (json) {
-                let response = JSON.parse(json)
-                console.log(response)
+            success: function (response) {
+                if (response.status !== true) {
+                    Swal.fire({
+                        text: response.message,
+                        icon: "error",
+                        buttonsStyling: false,
+                        confirmButtonText: "Ok!",
+                        customClass: {
+                            confirmButton: "btn btn-primary"
+                        }
+                    });
+                }else{
+                    blockUI.release()
+                    blockUI.destroy()
+                    if ($('#current_to_default').length) {
+                    } else {
+                        $('#rates_area').append(
+                            '<div class="col-md-4" id="current_to_default">' +
+                            '<!--begin::Input group-->\n' +
+                            '<div class="row mb-6 mx-2 fv-row" id="cust_to_bank">\n' +
+                            '    <!--begin::Label-->\n' +
+                            '    <label\n' +
+                            '        class="col-lg-4 col-form-label fw-semibold fs-7">' + current_currency + " to " + default_currency + '</label>\n' +
+                            '    <!--end::Label-->\n' +
+                            '    <!--begin::Col-->\n' +
+                            '    <div class="col-lg-8">\n' +
+                            '        <!--begin::Input-->\n' +
+                            '        <input type="text" class="form-control form-control-sm form-control-solid"\n' +
+                            '               placeholder="' + current_currency + " to " + default_currency + '"\n' +
+                            '               name="name"/>\n' +
+                            '        <!--end::Input-->\n' +
+                            '    </div>\n' +
+                            '    <!--end::Col-->\n' +
+                            '</div>\n' +
+                            '<!--end::Input group-->' +
+                            '</div>'
+                        );
+                    }
+                }
             },
+            error: function () {
+                Swal.fire({
+                    text: 'A network error occured. Please consult your network administrator.',
+                    icon: "error",
+                    buttonsStyling: false,
+                    confirmButtonText: "Ok!",
+                    customClass: {
+                        confirmButton: "btn btn-primary"
+                    }
+                });
+            }
         })
     } else {
         if ($('#current_to_default').length) {

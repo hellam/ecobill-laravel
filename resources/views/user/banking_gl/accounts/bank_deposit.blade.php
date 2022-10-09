@@ -177,6 +177,7 @@
                                         data-kt-src="{{route('user.banking_gl.banking.accounts.select_api')}}"
                                         data-placeholder="Select Account"
                                         class="form-select form-select-sm form-select-solid fw-bolder select_bank">
+                                    <option></option>
                                 </select>
                                 <!--end::Input-->
                             </div>

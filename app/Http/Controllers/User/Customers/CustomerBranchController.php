@@ -22,7 +22,7 @@ class CustomerBranchController extends Controller
     {
         $customer_branch = CustomerBranch::count() ?? 0;
         $currency = Currency::all();
-        return view('user.customers.branch', compact('customer_branch','currency'));
+        return view('user.customers.branch', compact('customer_branch', 'currency'));
     }
 
     //Data table API
@@ -117,21 +117,18 @@ class CustomerBranchController extends Controller
      */
     public function select_api(Request $request): JsonResponse
     {
-        $customer = CustomerBranch::select('f_name', 'l_name', 'branch', 'currency', 'short_name', 'id')
-            ->where('inactive', 0)
-            ->orderBy('f_name')->orderBy('l_name')
-            ->limit(10)
-            ->get();
+        $customer = CustomerBranch::select('f_name', 'l_name', 'branch', 'currency', 'short_name', 'id');
         if ($request->filled('search'))
             $customer = CustomerBranch::select('f_name', 'l_name', 'branch', 'short_name', 'id')
-                ->where('inactive', 0)
                 ->where('f_name', 'like', '%' . $request->search . '%')
                 ->orWhere('l_name', 'like', '%' . $request->search . '%')
                 ->orWhere('branch', 'like', '%' . $request->search . '%')
-                ->orWhere('short_name', $request->search . '%')
-                ->orderBy('f_name')->orderBy('l_name')
-                ->limit(10)
-                ->get();
+                ->orWhere('short_name', $request->search . '%');
+
+        $customer = $customer->where('inactive', 0)
+            ->orderBy('f_name')->orderBy('l_name')
+            ->limit(10)
+            ->get();
 
         return response()->json($customer, 200);
     }
@@ -150,15 +147,15 @@ class CustomerBranchController extends Controller
 
         $customer_branch = CustomerBranch::find($id);
         if ($customer_branch) {
-                $customer_branch->f_name = $request->first_name;
-                $customer_branch->l_name = $request->last_name;
-                $customer_branch->address = $request->address;
-                $customer_branch->branch = $request->branch;
-                $customer_branch->country = $request->country;
-                $customer_branch->email = $request->email;
-                $customer_branch->phone = $request->phone;
-                $customer_branch->inactive = $request->inactive;
-                $customer_branch->update();
+            $customer_branch->f_name = $request->first_name;
+            $customer_branch->l_name = $request->last_name;
+            $customer_branch->address = $request->address;
+            $customer_branch->branch = $request->branch;
+            $customer_branch->country = $request->country;
+            $customer_branch->email = $request->email;
+            $customer_branch->phone = $request->phone;
+            $customer_branch->inactive = $request->inactive;
+            $customer_branch->update();
             return success_web_processor(null, __('messages.msg_updated_success', ['attribute' => __('messages.customer')]));
         }
 

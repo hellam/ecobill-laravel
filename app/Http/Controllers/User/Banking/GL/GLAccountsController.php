@@ -122,7 +122,7 @@ class GLAccountsController extends Controller
                 ->orWhere('account_code', 'like', '%' . $request->search . '%');
 
         if ($scope != 'all')
-            $chart_accounts = $chart_accounts->whereNotIn('account_code', BankAccount::select('chart_code')->get()->toArray());
+            $chart_accounts = $chart_accounts->whereNotIn('account_code', array_merge(BankAccount::select('chart_code')->get()->toArray(),BankAccount::select('charge_chart_code')->get()->toArray()));
 
         $chart_accounts = $chart_accounts->where('inactive', 0)
             ->orderBy('account_name')

@@ -3,10 +3,10 @@
 // Class definition
 const KTDepositAdd = function () {
     // Shared variables
-    let submitButton, form;
+    let total = 0;
 
     function initializeRepeater() {
-        $('#kt_deposit_items_row').repeater({
+        let repeater = $('#kt_deposit_items_row').repeater({
             initEmpty: false,
             defaultValues: {
                 'text-input': 'foo'
@@ -42,9 +42,14 @@ const KTDepositAdd = function () {
                         }
                     }
                 });
+                calculateSum()
+                handleSum()
             },
             hide: function (deleteElement) {
-                $(this).slideUp(deleteElement);
+                $(this).slideUp(function () {
+                    deleteElement();
+                    calculateSum()
+                });
             },
             ready: function () {
                 // Init select2
@@ -52,11 +57,11 @@ const KTDepositAdd = function () {
             }
         });
 
+
         $("#date_picker").daterangepicker({
                 singleDatePicker: true,
                 showDropdowns: true,
                 minYear: 1901,
-                maxYear: parseInt(moment().format("YYYY-MMMM-DD")),
                 locale: {
                     format: '' + $("#date_picker").attr("data-kt-date-format") + ''
                 }
@@ -103,6 +108,7 @@ const KTDepositAdd = function () {
             initializeRepeater()
             handleBankAPISelect()
             handleGLAccountsAPISelect()
+            handleSum()
         }
     }
 }();

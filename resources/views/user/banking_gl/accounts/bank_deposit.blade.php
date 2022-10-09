@@ -214,7 +214,7 @@
                                     </div>
                                     <!--begin::Input-->
                                     <div class="col-md-4">
-                                        <input type="number" class="form-control"
+                                        <input type="number" class="form-control amount"
                                                name="amount"
                                                placeholder="Amount"/>
                                         <!--end::Input-->
@@ -228,7 +228,7 @@
                                     <!--end::Input-->
                                     <div class="col-md-1">
                                         <button type="button" data-repeater-delete=""
-                                                class="btn btn-sm btn-icon btn-light-danger"><i
+                                                class="btn btn-sm btn-icon btn-light-danger delete_row"><i
                                                 class="fa fa-times"></i>
                                         </button>
                                     </div>
@@ -247,6 +247,9 @@
                 </div>
                 <!--end::Repeater-->
                 <!--end::Input group-->
+                <div class="fv-row my-10">
+                    <h3>Total: <span id="total">0</span></h3>
+                </div>
                 <!--begin::Input group-->
                 <div class="fv-row my-10">
                     <!--begin::Label-->
@@ -257,7 +260,7 @@
                     <!--begin::Input-->
                     <textarea type="text" class="form-control form-control-solid"
                               placeholder="{{__('messages.comments')}}"
-                              name="comments"></textarea>
+                              name="comments" id="comments"></textarea>
                     <!--end::Input-->
                 </div>
                 <!--end::Input group-->

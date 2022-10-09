@@ -189,43 +189,24 @@ function handleBankAPISelect(preselect = null) {
     })
 }
 
-function handleGLAccountsAPISelect(preselect = null) {
-    const element = document.querySelector('.gl_select');
-
-    $('.gl_select').html("").trigger('change');
-    if (preselect) {
-        const option = new Option(preselect?.account_name + " - " + preselect?.currency, preselect?.id, true, true);
-        $('.gl_select').append(option).trigger('change');
-    }
-
-    $('.gl_select').select2({
-        minimumInputLength: 0,
-        escapeMarkup: function (markup) {
-            return markup;
-        },
-        ajax: {
-            url: element.getAttribute("data-kt-src"),
-            dataType: 'json',
-            type: 'GET',
-            contentType: 'application/json',
-            delay: 50,
-            data: function (params) {
-                return {
-                    search: params.term
-                };
-            },
-            processResults: function (data) {
-                return {
-                    results: $.map(data, function (item) {
-                        return {
-                            text: item.account_code + ' - ' + item.account_name,
-                            id: item.id
-                        }
-                    })
-                }
-            }
-        }
-    })
+function handleSum() {
+    $('.amount').each(function () {
+        $(this).keyup(function () {
+            calculateSum()
+        });
+    });
 }
 
+function calculateSum() {
+    let sum = 0
+    $('.amount').each(function () {
+        if (!isNaN(this.value) && this.value.length !== 0) {
+            sum += parseFloat(this.value);
+        }
+
+    });
+    // $('#total').html(current_currency + " " + sum)
+    $('#total').html(new Intl.NumberFormat('ja-JP', { style: 'currency', currency: current_currency }).format(sum))
+    return sum
+}
 

@@ -176,6 +176,7 @@
                                         aria-label="Select Account"
                                         data-kt-src="{{route('user.banking_gl.banking.accounts.select_api')}}"
                                         data-placeholder="Select Account"
+                                        data-kt-fx-url="{{route('user.banking_gl.fx.rate')}}"
                                         class="form-select form-select-sm form-select-solid fw-bolder select_bank">
                                     <option></option>
                                 </select>

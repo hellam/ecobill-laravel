@@ -63,6 +63,7 @@ const KTDepositAdd = function () {
 
         $('[name="from"]').on('change', function (e) {
             let value = e.target.value
+            $('#currency').attr('disabled', false)
             if (value == 0) {
                 $('#changing_div label').text('Name')
                 $('#select_input').html('' +

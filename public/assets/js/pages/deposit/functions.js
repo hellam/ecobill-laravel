@@ -5,9 +5,8 @@ let blockUI = new KTBlockUI(document.querySelector('#kt_block_ui_1_target'), {
 
 let current_currency = $('[name="currency"]').attr('data-kt-default')
 
-$('[name="currency"]').on('select2:select', function (e) {
+$('[name="currency"]').on('change', function (e) {
     current_currency = e.target.value
-    console.log(current_currency)
 })
 
 function handleCustomerBranchAPISelect(preselect = null) {
@@ -63,7 +62,6 @@ function handleCustomerBranchAPISelect(preselect = null) {
 
 function handleBankAPISelect(preselect = null) {
     const element = document.querySelector('.select_bank');
-    let input_group;
 
     $('.select_bank').html("").trigger('change');
 

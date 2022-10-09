@@ -564,6 +564,10 @@ function handleCustomerAPISelect(select_parent, preselect = null) {
 
 function handleCustomerBranchAPISelect(preselect = null) {
     const element = document.querySelector('.select_customer_branch');
+    let loader_image = $('#rates_area').attr('data-kt-loader')
+    let blockUI = new KTBlockUI(document.querySelector('#kt_block_ui_1_target'), {
+        message: '<div class="blockui-message"><img src="' + loader_image + '" width="30" height="30" alt=""></div>',
+    })
 
     $('.select_customer_branch').html("").trigger('change');
     if (preselect) {
@@ -607,14 +611,31 @@ function handleCustomerBranchAPISelect(preselect = null) {
                 'data-kt-currency': data["data-kt-currency"],
             }
         );
+
         let customer_currency = $('.select_customer_branch').find(':selected').data('kt-currency')
         let currency = $('#currency').find(':selected').val();
         let into_bank = $('.select_bank').find(':selected');
+        let into_bank_currency = into_bank.attr('data-kt-currency')
         $('#currency').val(customer_currency).trigger('change')
 
-        if (customer_currency !== into_bank) {
-            console.log('into_bank', into_bank.attr('data-kt-currency'))
-            console.log('customer', customer_currency)
+        if (customer_currency !== into_bank_currency) {
+            blockUI.block()
+            setTimeout(function () {
+                blockUI.release();
+                blockUI.destroy();
+            }, 300)
+
+            blockUI.on("kt.blockui.released", function () {
+                $('#rates_area').append(
+                    '<div class="col-md-4" id="' + customer_currency + "_" + into_bank_currency + '">' +
+                    '<!--begin::Label-->\n' +
+                    '<label class="col-lg-4 col-form-label fw-semibold fs-7">' + customer_currency + " to " + into_bank_currency + '</label>\n' +
+                    '<!--end::Label-->' +
+                    '</div>'
+                )
+            });
+        } else {
+            $('#' + customer_currency + '_' + into_bank_currency).remove()
         }
     })
 }

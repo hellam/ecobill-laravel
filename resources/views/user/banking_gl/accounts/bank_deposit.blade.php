@@ -52,7 +52,7 @@
         <!--end::Toolbar-->
         <!--begin::Row-->
         <!--begin::Card-->
-        <div class="card shadow">
+        <div class="card shadow" id="kt_block_ui_1_target">
             <!--begin::Body-->
             <div class="card-body">
                 <div class="row">
@@ -185,7 +185,8 @@
                         <!--end::Input group-->
                     </div>
                 </div>
-                <div class="row">
+                <div class="row mx-2 fv-row" id="rates_area" data-kt-loader="{{asset('assets/media/loaders/loader.gif')}}">
+
                 </div>
                 <div class="separator my-6"></div>
                 <h4 class="text-center mb-7">Deposit Items</h4>

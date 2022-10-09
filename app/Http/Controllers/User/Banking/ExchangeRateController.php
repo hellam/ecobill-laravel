@@ -72,7 +72,7 @@ class ExchangeRateController extends Controller
         $validator = UserValidators::fxRateGetValidation($request);
 
         if ($validator != '') {
-            return $validator;
+            return error_web_processor(__('messages.msg_invalid_cry'));
         }
 
         return success_web_processor(['fx_rate' => getFxRate($request->from, $request->to)], __('messages.msg_item_found', ['attribute' => __('messages.fx')]));

@@ -41,7 +41,7 @@ class BusinessSettingsController extends Controller
                 $output .= isset($general_settings['default_currency']) ? view_field('Default Currency', $general_settings['default_currency']) : select('default_currency', 'Select Currency', CURRENCY, 'This cannot be changes in future');
                 $output .= select('date_format', 'Select Date Format', DATE_FORMAT, '', $general_settings['date_format'] ?? null);
                 $output .= input_field('date_sep', 'Date Separator', $general_settings['date_sep'] ?? '/', true);
-                $output .= input_field('date_sep', 'Thousand Separator', $general_settings['tho_sep'] ?? ',', true);
+                $output .= input_field('tho_sep', 'Thousand Separator', $general_settings['tho_sep'] ?? ',', true);
                 $output .= input_field('dec_sep', 'Decimal Separator', $general_settings['dec_sep'] ?? '.', true);
                 $output .= input_field('price_dec', 'Price Decimals', $general_settings['price_dec'] ?? '2', true,'number');
                 $output .= input_field('qty_dec', 'Quantity Decimals', $general_settings['qty_dec'] ?? '2', true,'number');

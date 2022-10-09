@@ -522,8 +522,10 @@ function decode_form_data($data, $trx_type, $method)
 
 }
 
-function getFx($from, $to, $date)
+function getFxRate($from, $to, $date = null)
 {
+    $date = $date == null ? Carbon::now() : $date;
+
     if ($from == $to)
         return toRateDecimal(1);
 

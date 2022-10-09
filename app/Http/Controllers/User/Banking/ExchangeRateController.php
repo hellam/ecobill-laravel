@@ -14,7 +14,7 @@ class ExchangeRateController extends Controller
     public function index()
     {
         $fx_count = ExchangeRate::count() ?? 0;
-        $currency = Currency::where('abbreviation','!=', session('currency'))->get();
+        $currency = Currency::where('abbreviation', '!=', session('currency'))->get();
         $exchangeRates = ExchangeRate::with('curr')->get();
         return view('user.banking_gl.fx_rates', compact('fx_count', 'currency', 'exchangeRates'));
     }
@@ -65,6 +65,17 @@ class ExchangeRateController extends Controller
         }
 
         return success_web_processor(['id' => $fx->id], __('messages.msg_saved_success', ['attribute' => __('messages.fx')]));
+    }
+
+    public function get_fx_rate(Request $request)
+    {
+        $validator = UserValidators::fxRateGetValidation($request);
+
+        if ($validator != '') {
+            return $validator;
+        }
+
+        return success_web_processor(['fx_rate' => getFxRate($request->from, $request->to)], __('messages.msg_item_found', ['attribute' => __('messages.fx')]));
     }
 
     /**

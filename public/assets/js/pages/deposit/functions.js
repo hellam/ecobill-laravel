@@ -65,7 +65,6 @@ function handleCustomerBranchAPISelect(preselect = null) {
 
 function addFXField() {
     if (current_currency !== default_currency) {
-        console.log(current_currency, default_currency)
         blockUI.block()
         $.ajax({
             headers: {
@@ -88,7 +87,7 @@ function addFXField() {
                             confirmButton: "btn btn-primary"
                         }
                     });
-                }else{
+                } else {
                     blockUI.release()
                     blockUI.destroy()
                     if ($('#current_to_default').length) {

@@ -68,7 +68,7 @@
                                 <!--begin::Input-->
                                 <input type="text" class="form-control form-control-sm form-control-solid"
                                        placeholder="{{__('messages.date')}}"
-                                       name="date" id="date_picker"/>
+                                       name="date" id="date_picker" data-kt-date-format="{{get_date_format()}}"/>
                                 <!--end::Input-->
                             </div>
                             <!--end::Col-->

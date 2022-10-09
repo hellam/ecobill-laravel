@@ -56,7 +56,10 @@ const KTDepositAdd = function () {
                 singleDatePicker: true,
                 showDropdowns: true,
                 minYear: 1901,
-                maxYear: parseInt(moment().format("YYYY"), 10)
+                maxYear: parseInt(moment().format("YYYY-MMMM-DD")),
+                locale: {
+                    format: '' + $("#date_picker").attr("data-kt-date-format") + ''
+                }
             }, function (start, end, label) {
             }
         );

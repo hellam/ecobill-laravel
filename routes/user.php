@@ -247,7 +247,7 @@ Route::group(['as' => 'user.'], function () {
 
             Route::controller(User\Banking\ExchangeRateController::class)->prefix('fx')->as('fx.')->group(function () {
                 Route::get('/', 'index')->name('all')->middleware('permission:312');
-                Route::post('/fx-rate', 'get_fx_rate')->name('fx_rate')->middleware('permission:312');
+                Route::post('/fx-rate', 'get_fx_rate')->name('rate')->middleware('permission:312');
                 Route::post('/', 'create')->name('create')->middleware('permission:3120,' . ST_EXCHANGE_RATE_SETUP);
                 Route::get('edit/{id}', 'edit')->name('edit')->middleware('permission:3121')->whereNumber('id');
                 Route::put('update/{id}', 'update')->name('update')->middleware('permission:3121,' . ST_EXCHANGE_RATE_SETUP)->whereNumber('id');

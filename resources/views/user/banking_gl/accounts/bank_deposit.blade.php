@@ -144,6 +144,7 @@
                         <div class="col-lg-8">
                             <!--begin::Input-->
                             <select name="currency"
+                                    id="currency"
                                     aria-label="Select Currency"
                                     data-kt-src=""
                                     data-control="select2"
@@ -152,8 +153,7 @@
                                 <option></option>
                                 @foreach($currency as $curr)
                                     <option
-                                        value="{{$curr->abbreviation}}"
-                                        @if(session('currency') == $curr->abbreviation)selected @endif>{{$curr->name.' - '.$curr->abbreviation}}</option>
+                                        value="{{$curr->abbreviation}}">{{$curr->name.' - '.$curr->abbreviation}}</option>
                                 @endforeach
                             </select>
                             <!--end::Input-->
@@ -165,7 +165,7 @@
                     <div class="row mb-6 mx-2 fv-row">
                         <!--begin::Label-->
                         <label
-                            class="col-lg-4 col-form-label fw-semibold fs-7">{{__('messages.bank')}} Acc</label>
+                            class="col-lg-4 col-form-label fw-semibold fs-7">Into {{__('messages.bank')}}</label>
                         <!--end::Label-->
                         <!--begin::Col-->
                         <div class="col-lg-8">

@@ -593,12 +593,21 @@ function handleCustomerBranchAPISelect(preselect = null) {
                     results: $.map(data, function (item) {
                         return {
                             text: item.short_name + ' | ' + item.f_name + ' ' + item.l_name,
-                            id: item.id
+                            id: item.id,
+                            'data-kt-currency': item.currency,
                         }
                     })
                 }
             }
         }
+    }).on('select2:select', function (e) {
+        let data = e.params.data;
+        $(this).children('[value="' + data['id'] + '"]').attr(
+            {
+                'data-kt-currency': data["data-kt-currency"],
+            }
+        );
+        $('#currency').val($('.select_customer_branch').find(':selected').data('kt-currency')).trigger('change')
     })
 }
 
@@ -608,10 +617,15 @@ function handleBankAPISelect(preselect = null) {
     $('.select_bank').html("").trigger('change');
     let def_bank = $('.select_bank').attr('data-kt-default')
     if (preselect === null)
-        preselect = JSON.parse(def_bank)
+        try {
+            preselect = JSON.parse(def_bank)
+        } catch (e) {
+        }
+
     if (preselect) {
         const option = new Option(preselect?.account_name + " - " + preselect?.currency, preselect?.id, true, true);
         $('.select_bank').append(option).trigger('change');
+        $('#currency').val(preselect?.currency).trigger('change')
     }
 
     $('.select_bank').select2({
@@ -635,7 +649,7 @@ function handleBankAPISelect(preselect = null) {
                     results: $.map(data, function (item) {
                         return {
                             text: item.account_name + ' - ' + item.currency,
-                            id: item.id
+                            id: item.id,
                         }
                     })
                 }
@@ -681,4 +695,9 @@ function handleGLAccountsAPISelect(preselect = null) {
             }
         }
     })
+}
+
+function handleAddFXFields() {
+    let user_curr, bank_curr, system_curr;
+
 }

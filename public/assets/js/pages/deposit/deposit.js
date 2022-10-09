@@ -95,7 +95,6 @@ const KTDepositAdd = function () {
             initializeRepeater()
             handleBankAPISelect()
             handleGLAccountsAPISelect()
-            handleAddFXFields()
         }
     }
 }();

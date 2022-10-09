@@ -149,12 +149,13 @@
                                         aria-label="Select Currency"
                                         data-kt-src=""
                                         data-control="select2"
+                                        data-kt-default="{{session('currency')}}"
                                         data-placeholder="Select Currency"
                                         class="form-select form-select-sm form-select-solid fw-bolder">
                                     <option></option>
                                     @foreach($currency as $curr)
-                                        <option
-                                            value="{{$curr->abbreviation}}">{{$curr->name.' - '.$curr->abbreviation}}</option>
+                                        <option @if($curr->abbreviation === session('currency'))selected @endif
+                                        value="{{$curr->abbreviation}}">{{$curr->name.' - '.$curr->abbreviation}}</option>
                                     @endforeach
                                 </select>
                                 <!--end::Input-->
@@ -175,7 +176,6 @@
                                         aria-label="Select Account"
                                         data-kt-src="{{route('user.banking_gl.banking.accounts.select_api')}}"
                                         data-placeholder="Select Account"
-                                        data-kt-default="{{session('branch_bank')}}"
                                         class="form-select form-select-sm form-select-solid fw-bolder select_bank">
                                 </select>
                                 <!--end::Input-->
@@ -185,7 +185,7 @@
                         <!--end::Input group-->
                     </div>
                 </div>
-                <div class="row mx-2 fv-row" id="rates_area" data-kt-loader="{{asset('assets/media/loaders/loader.gif')}}">
+                <div class="row" id="rates_area" data-kt-loader="{{asset('assets/media/loaders/loader.gif')}}">
 
                 </div>
                 <div class="separator my-6"></div>
@@ -279,4 +279,5 @@
 @push('custom_scripts')
     <script src="{{ asset('assets/plugins/custom/formrepeater/formrepeater.bundle.js') }}"></script>
     <script src="{{ asset('assets/js/pages/deposit/deposit.js') }}"></script>
+    <script src="{{ asset('assets/js/pages/deposit/functions.js') }}"></script>
 @endpush

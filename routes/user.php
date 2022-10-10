@@ -65,8 +65,8 @@ Route::group(['as' => 'user.'], function () {
 
         Route::group(['prefix' => 'billing', 'as' => 'billing.'], function () {
             Route::controller(User\Billing\InvoiceController::class)->prefix('invoice')->as('invoice')->group(function () {
-                Route::get('/', 'index')->name('index')->middleware('permission:201');
-                Route::post('/', 'create')->name('create')->middleware('permission:201,' . ST_INVOICE);
+                Route::get('/', 'index')->middleware('permission:201');
+                Route::post('/', 'create')->middleware('permission:201,' . ST_INVOICE);
             });
         });
 

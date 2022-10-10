@@ -31,11 +31,11 @@ function get_date_format($is_timestamp=false){
     elseif($format=='YYYYMMDD')
         $format = 'Y'.$sep.'m'.$sep.'d';
     elseif($format=='DD MMM YYYY')
-        $format = 'd Mmm Y';
+        $format = 'd F Y';
     elseif($format=='MMM DD YYYY')
-        $format = 'Mmm d Y';
-    elseif($format=='Y Mmm d')
-        $format = 'Y Mmm d';
+        $format = 'F d Y';
+    elseif($format=='YYYY MMM DD')
+        $format = 'Y F d';
 
     if ($is_timestamp)
         $format =$format.' H:m:s';

@@ -225,7 +225,7 @@ Route::group(['as' => 'user.'], function () {
                     Route::put('update/{id}', 'update')->name('update')->middleware('permission:3011,' . ST_BANK_ACCOUNT_SETUP)->whereNumber('id');
                     Route::delete('delete/{id}', 'destroy')->name('delete')->middleware('permission:3012,' . ST_BANK_ACCOUNT_SETUP)->whereNumber('id');
                 });
-                Route::controller(User\Banking\Accounts\BankAccountDepositController::class)->prefix('deposit')->as('deposit.')->group(function () {
+                Route::controller(User\Banking\Accounts\BankAccountDepositController::class)->prefix('deposit')->as('deposit')->group(function () {
                     Route::get('/', 'index')->middleware('permission:303');
                     Route::post('/', 'create')->middleware('permission:303,' . ST_ACCOUNT_DEPOSIT);
                 });

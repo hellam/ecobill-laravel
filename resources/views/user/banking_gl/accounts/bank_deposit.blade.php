@@ -19,7 +19,7 @@
             </li>
             <!--end::Item-->
             <!--begin::Item-->
-            <li class="breadcrumb-item text-muted">{{__('messages.banking_gL')}}</li>
+            <li class="breadcrumb-item text-muted">{{__('messages.banking')}}</li>
             <!--end::Item-->
             <!--begin::Item-->
             <li class="breadcrumb-item">

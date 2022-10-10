@@ -218,6 +218,7 @@ return [
     'reference' => 'Reference',
     'request_type' => 'Request Type',
     'role' => 'Role',
+    'payee' => 'Payee',
     'packages' => 'Packages',
     'package' => 'Package',
     'price' => 'Price',

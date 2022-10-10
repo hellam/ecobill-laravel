@@ -439,3 +439,18 @@ function submitDeposit(submitButton, form, serialized_form) {
         }
     });
 }
+
+function refGen(type, url) {
+    $.ajax({
+        type: "GET",
+        url: url,
+        data: type,
+        success: function (response) {
+            if (response.status === true) {
+                $('[name="reference"]').val(response.data.ref_no)
+            }
+        },
+        error: function () {
+        },
+    })
+}

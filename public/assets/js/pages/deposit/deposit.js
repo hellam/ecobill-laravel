@@ -110,6 +110,7 @@ const KTDepositAdd = function () {
             handleGLAccountsAPISelect()
             handleSum()
             handleSubmit()
+            refGen('deposit', $('[name="reference"]').attr('data-kt-src'))
         }
     }
 }();

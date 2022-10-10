@@ -35,7 +35,7 @@ const KTDepositAdd = function () {
                                 results: $.map(data, function (item) {
                                     return {
                                         text: item.account_code + ' - ' + item.account_name,
-                                        id: item.id
+                                        id: item.account_code
                                     }
                                 })
                             }

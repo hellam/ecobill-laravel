@@ -247,7 +247,7 @@
                     </div>
                     <!--end::Repeater-->
                     <!--end::Input group-->
-                    <div class="fv-row my-10 text-end">
+                    <div class="fv-row my-10 text-end mx-14">
                         <h3>Total: <span id="total">0.00</span></h3>
                     </div>
                     <!--begin::Input group-->

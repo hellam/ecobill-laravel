@@ -9,6 +9,7 @@ let current_currency = $('[name="currency"]').attr('data-kt-default')
 $('[name="currency"]').on('change', function (e) {
     current_currency = e.target.value
     $('.select_bank').val(null).trigger('change')
+    calculateSum()
 })
 
 function handleCustomerBranchAPISelect(preselect = null) {
@@ -205,7 +206,83 @@ function calculateSum() {
         }
 
     });
+
     $('#total').html(new Intl.NumberFormat('ja-JP', {style: 'currency', currency: current_currency}).format(sum))
     return sum
 }
 
+
+function handleSubmit() {
+    let form, submitButton;
+    form = $('#kt_add_deposit_form');
+    submitButton = document.querySelector('#kt_add_deposit_submit')
+
+    form.on('submit', function (e) {
+        e.preventDefault()
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type: "POST",
+            url: form.attr("data-kt-action"),
+            data: form.serializeArray(),
+            success: function (json) {
+                var response = JSON.parse(JSON.stringify(json));
+                if (response.status !== true) {
+                    var errors = response.data;
+                    console.log(errors)
+                    for (const [key, value] of Object.entries(errors)) {
+                    }
+                    Swal.fire({
+                        text: response.message,
+                        icon: "error",
+                        buttonsStyling: false,
+                        confirmButtonText: "Ok!",
+                        customClass: {
+                            confirmButton: "btn btn-primary"
+                        }
+                    });
+
+                } else {
+                    Swal.fire({
+                        text: response.message,
+                        icon: "success",
+                        buttonsStyling: false,
+                        confirmButtonText: "Ok!",
+                        customClass: {
+                            confirmButton: "btn btn-primary"
+                        }
+                    }).then(function (result) {
+                        if (result.isConfirmed) {
+                            // Enable submit button after loading
+                            submitButton.disabled = false;
+                            form[0].reset(); // Reset form
+                        }
+                    });
+                }
+                submitButton.removeAttribute('data-kt-indicator');
+
+                // Enable submit button after loading
+                submitButton.disabled = false;
+
+            },
+            error: function () {
+                Swal.fire({
+                    text: 'A network error occurred. Please consult your network administrator.',
+                    icon: "error",
+                    buttonsStyling: false,
+                    confirmButtonText: "Ok!",
+                    customClass: {
+                        confirmButton: "btn btn-primary"
+                    }
+                });
+
+                submitButton.removeAttribute('data-kt-indicator');
+
+                // Enable submit button after loading
+                submitButton.disabled = false;
+
+            }
+        });
+    })
+}

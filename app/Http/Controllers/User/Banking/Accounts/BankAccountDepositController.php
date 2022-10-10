@@ -122,7 +122,7 @@ class BankAccountDepositController extends Controller
 
             DB::commit();
         } catch (\Exception $e) {
-            return error_web_processor(__('messages.msg_something_went_wrong'));
+            return error_web_processor($e);
         }
 
         return success_web_processor(['id' => $trans_no], __('messages.msg_saved_success', ['attribute' => __('messages.deposit')]));

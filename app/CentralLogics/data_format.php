@@ -23,12 +23,19 @@ function get_date_format($is_timestamp=false){
     $format = get_company_setting('date_format');
     $sep = get_company_setting('date_sep');
 
+
     if($format=='DDMMYYYY')
-        $format = 'DD'.$sep.'MM'.$sep.'YYYY';
+        $format = 'd'.$sep.'m'.$sep.'Y';
     elseif($format=='MMDDYYYY')
-        $format = 'MM'.$sep.'DD'.$sep.'YYYY';
+        $format = 'm'.$sep.'d'.$sep.'Y';
     elseif($format=='YYYYMMDD')
-        $format = 'YYYY'.$sep.'MM'.$sep.'DD';
+        $format = 'Y'.$sep.'m'.$sep.'d';
+    elseif($format=='DD MMM YYYY')
+        $format = 'd Mmm Y';
+    elseif($format=='MMM DD YYYY')
+        $format = 'Mmm d Y';
+    elseif($format=='Y Mmm d')
+        $format = 'Y Mmm d';
 
     if ($is_timestamp)
         $format =$format.' H:m:s';

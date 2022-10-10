@@ -4,7 +4,6 @@ namespace App\Http\Controllers\User\Banking\Accounts;
 
 use App\CentralLogics\UserValidators;
 use App\Http\Controllers\Controller;
-use App\Models\BankAccount;
 use App\Models\Currency;
 use App\Models\Customer;
 use App\Models\CustomerBranch;
@@ -34,7 +33,7 @@ class BankAccountDepositController extends Controller
         $validator = UserValidators::accountDepositCreateValidation($request);
 
         if ($validator != '') {
-            return error_web_processor(json_encode(BankAccount::find($request->into_bank)));
+            return $validator;
         }
 
 //        $post_data = [

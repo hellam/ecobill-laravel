@@ -106,8 +106,8 @@
                                     <select name="from"
                                             aria-label="Select From"
                                             data-control="select2"
+                                            data-placeholder="Select From"
                                             data-kt-src="{{route('user.customers.branch.select_api')}}"
-                                            data-placeholder="Select Country"
                                             class="form-select form-select-sm form-select-solid fw-bolder">
                                         <option value="0">Miscellaneous</option>
                                         <option value="1">Customer</option>
@@ -198,7 +198,7 @@
                     <div id="kt_deposit_items_row">
                         <!--begin::Form group-->
                         <div class="form-group">
-                            <div data-repeater-list="deposit_options" class="d-flex flex-column gap-3">
+                            <div data-repeater-list="deposit_options" class="d-flex flex-column gap-3 deposit_options">
                                 <div data-repeater-item="" class="form-group">
                                     <div class="row">
                                         <div class="col-md-3 fv-column">
@@ -248,7 +248,7 @@
                     <!--end::Repeater-->
                     <!--end::Input group-->
                     <div class="fv-row my-10">
-                        <h3>Total: <span id="total">0</span></h3>
+                        <h3>Total: <span id="total">0.00</span></h3>
                     </div>
                     <!--begin::Input group-->
                     <div class="fv-row my-10">

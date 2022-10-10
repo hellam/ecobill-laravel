@@ -63,7 +63,7 @@ const KTDepositAdd = function () {
                 showDropdowns: true,
                 minYear: 1901,
                 locale: {
-                    format: '' + $("#date_picker").attr("data-kt-date-format") + ''
+                    format: 'MMMM-DD-YYYY'
                 }
             }, function (start, end, label) {
             }

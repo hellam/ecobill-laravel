@@ -564,19 +564,29 @@ function getFxRate($from, $to, $date = null)
     }
 }
 
-function generate_reff_no($type, $save = false)
+function generate_reff_no($type, $save = false, int $reference = null)
 {
-    $refno = Ref::where(['type' => $type])->max('id');
-    $reference = $refno + 1;
-    if ($save)
-        Ref::create([
-            'id' => $reference,
-            'type' => $type,
-            'reference' => $reference,
-            'client_ref' => get_user_ref(),
-        ]);
+
+    if($reference == null){
+        $refno = Ref::where(['type' => $type])->max('id');
+        $reference = $refno + 1;
+    }
+
+    if ($save) {
+        try {
+            Ref::create([
+                'id' => $reference,
+                'type' => $type,
+                'reference' => $reference,
+                'client_ref' => get_user_ref(),
+            ]);
+        } catch (\Exception $e) {
+            return 0;
+        }
+    }
 
     return $reference;
+
 }
 
 function number_suffix($number): string

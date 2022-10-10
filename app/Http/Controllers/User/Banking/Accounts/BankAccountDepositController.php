@@ -5,9 +5,11 @@ namespace App\Http\Controllers\User\Banking\Accounts;
 use App\CentralLogics\UserValidators;
 use App\Http\Controllers\Controller;
 use App\Models\BankAccount;
+use App\Models\BankTrx;
 use App\Models\Currency;
 use App\Models\Customer;
 use App\Models\CustomerBranch;
+use App\Models\CustomerTrx;
 use App\Models\GlTrx;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -70,7 +72,7 @@ class BankAccountDepositController extends Controller
                 $gl_trx_post = array_merge($post_data, [
                     'chart_code' => $chart_code,
                     'narration' => $narration ?? '',
-                    'amount' => convert_currency_to_second_currency($amount, $fx_rate),
+                    'amount' => -convert_currency_to_second_currency($amount, $fx_rate),
                 ]);
 
                 GlTrx::create($gl_trx_post);
@@ -79,74 +81,47 @@ class BankAccountDepositController extends Controller
             //Record Bank Account GL Transaction
             $bank_gl_trx_post = array_merge($post_data, [
                 'chart_code' => $bank->chart_code,
-                'narration' => '',
+                'narration' => $request->filled('customer_branch_id') ? $customer_branch->f_name . ' ' . $customer_branch->l_name . ' [' . $customer_branch->id . ']' : $request->misc ?? '',
                 'amount' => convert_currency_to_second_currency($total, $fx_rate)
             ]);
             GlTrx::create($bank_gl_trx_post);
 
-
-            $customer_trx_post_data = [
-                'customer_id' => $customer_branch->customer_id,
-                'customer_branch_id' => $request->customer_branch_id,
-                'reference' => $trans_no,
-            ];
-            $bank_trx_post_data = [
+            //Record Bank Transaction
+            $bank_trx_post_data = array_merge($post_data, [
                 'reference' => $trans_no,
                 'bank_id' => $request->into_bank,
                 'amount' => $total,
-            ];
+            ]);
+            BankTrx::create($bank_trx_post_data);
+
+            //Record Customer Transaction
+            if ($request->filled('customer_branch_id')) {
+                $customer_trx_post_data = array_merge($post_data, [
+                    'customer_id' => $customer_branch->customer_id,
+                    'customer_branch_id' => $request->customer_branch_id,
+                    'reference' => $trans_no,
+                ]);
+                CustomerTrx::create($customer_trx_post_data);
+            }
+
+            if ($created_at == null) {
+                //if not supervised, log data from create request
+                //Creator log
+                log_activity(
+                    ST_ACCOUNT_DEPOSIT,
+                    $request->getClientIp(),
+                    'Bank deposit',
+                    json_encode($bank_trx_post_data),
+                    auth('user')->id(),
+                    $trans_no
+                );
+            }
 
             DB::commit();
         } catch (\Exception $e) {
             return error_web_processor('Something went wrong! Please try again later');
         }
 
-//
-//        //set_create_parameters($created_at, $created_by, ...)
-//        $post_data1 = array_merge($post_data, set_create_parameters($created_at, $created_by, $supervised_by, $supervised_at));
-//
-//        try {
-//            DB::beginTransaction();
-//            $customer = Customer::create($post_data1);
-//
-//            $post_data = [
-//                'customer_id' => $customer->id,
-//                'f_name' => $request->first_name,
-//                'l_name' => $request->last_name,
-//                'short_name' => $request->short_name,
-//                'branch' => $request->company,
-//                'country' => $request->country,
-//                'phone' => $request->phone,
-//                'email' => $request->email,
-//                'address' => $request->address,
-//                'currency' => $request->currency,
-//                'client_ref' => get_user_ref(),
-//            ];
-//
-//            //set_create_parameters($created_at, $created_by, ...)
-//            $post_data2 = array_merge($post_data, set_create_parameters($created_at, $created_by, $supervised_by, $supervised_at));
-//
-//
-//            if ($created_at == null) {
-//                //if not supervised, log data from create request
-//                //Creator log
-//                log_activity(
-//                    ST_CUSTOMER_SETUP,
-//                    $request->getClientIp(),
-//                    'Create Customer and Branch',
-//                    json_encode($post_data1),
-//                    auth('user')->id(),
-//                    $customer->id
-//                );
-//            }
-//            CustomerBranch::create($post_data2);
-//
-//            DB::commit();
-//        } catch (\Exception $e) {
-//            DB::rollBack();
-//            return error_web_processor($e);
-//        }
-
-        return success_web_processor(['id' => 1], __('messages.msg_saved_success', ['attribute' => __('messages.deposit')]));
+        return success_web_processor(['id' => $trans_no], __('messages.msg_saved_success', ['attribute' => __('messages.deposit')]));
     }
 }

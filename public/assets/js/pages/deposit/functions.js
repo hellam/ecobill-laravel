@@ -365,6 +365,7 @@ function submitDeposit(submitButton, form, serialized_form) {
                         // Enable submit button after loading
                         submitButton.disabled = false;
                         form[0].reset(); // Reset form
+                        refGen('deposit', $('[name="reference"]').attr('data-kt-src'))
                         $("#date_picker").val(moment().format($("#date_picker").attr("data-kt-date-format")))
                         $('[name="from"]').val(0).trigger('change')
                         $('[name="currency"]').val($('[name="currency"]').attr('data-kt-default')).trigger('change')
@@ -408,6 +409,7 @@ function submitDeposit(submitButton, form, serialized_form) {
                         blockUI.release()
                         blockUI.destroy()
                         form[0].reset(); // Reset form
+                        refGen('deposit', $('[name="reference"]').attr('data-kt-src'))
                         $("#date_picker").val(moment().format($("#date_picker").attr("data-kt-date-format")))
                         $('[name="from"]').val(0).trigger('change')
                         $('[name="currency"]').val($('[name="currency"]').attr('data-kt-default')).trigger('change')

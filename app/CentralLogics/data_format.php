@@ -16,41 +16,42 @@ function format_date($date,$is_timestamp=false){
     if ($is_timestamp)
         $format =$format.' H:m:s';
 
-    return Carbon::parse($date)->format($format);
+    return Carbon::parse($date)->isoFormat($format);
 }
 
 function get_date_format($is_timestamp=false){
     $format = get_company_setting('date_format');
     $sep = get_company_setting('date_sep');
 
-    if($format=='dmY')
-        $format = 'd'.$sep.'m'.$sep.'Y';
-    elseif($format=='mdY')
-        $format = 'm'.$sep.'d'.$sep.'Y';
-    elseif($format=='Ymd')
-        $format = 'Y'.$sep.'m'.$sep.'d';
+    if($format=='DDMMYYYY')
+        $format = 'DD'.$sep.'MM'.$sep.'YYYY';
+    elseif($format=='MMDDYYYY')
+        $format = 'MM'.$sep.'DD'.$sep.'YYYY';
+    elseif($format=='YYYYMMDD')
+        $format = 'YYYY'.$sep.'MM'.$sep.'DD';
 
     if ($is_timestamp)
         $format =$format.' H:m:s';
 
     return $format;
 }
+
 function get_js_date_format($is_timestamp=false){
     $format = get_company_setting('date_format');
     $sep = get_company_setting('date_sep');
 
-    if($format=='dmY')
-        $format = 'dd'.$sep.'mm'.$sep.'YYYY';
-    elseif($format=='mdY')
-        $format = 'mm'.$sep.'dd'.$sep.'YYYY';
-    elseif($format=='Ymd')
-        $format = 'YYYY'.$sep.'mm'.$sep.'dd';
-    elseif($format=='d Mmm Y')
-        $format = 'dd'.$sep.'MMMM'.$sep.'YYYY';
-    elseif($format=='MMMM d Y')
-        $format = 'dd'.$sep.'MMMM'.$sep.'YYYY';
-    elseif($format=='Y Mmm d')
-        $format = 'YYYY'.$sep.'MMMM'.$sep.'dd';
+    if($format=='DDMMYYYY')
+        $format = 'DD'.$sep.'MM'.$sep.'YYYY';
+    elseif($format=='MMDDYYYY')
+        $format = 'MM'.$sep.'DD'.$sep.'YYYY';
+    elseif($format=='YYYYMMDD')
+        $format = 'YYYY'.$sep.'MM'.$sep.'DD';
+    elseif($format=='DD MMM YYYY')
+        $format = 'DD MMMM YYYY';
+    elseif($format=='MMM DD YYYY')
+        $format = 'MMMM DD YYYY';
+    elseif($format=='YYYY MMM DD')
+        $format = 'YYYY MMMM DD';
 
 
     if ($is_timestamp)

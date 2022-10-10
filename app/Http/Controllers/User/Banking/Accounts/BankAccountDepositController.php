@@ -51,6 +51,7 @@ class BankAccountDepositController extends Controller
         try {
             DB::beginTransaction();
 
+
             $trans_no = generate_reff_no(ST_ACCOUNT_DEPOSIT, true, $request->reference);
 
             $post_data = [

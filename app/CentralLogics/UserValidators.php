@@ -506,10 +506,13 @@ class UserValidators
             'into_bank' => 'required|exists:' . BankAccount::class . ',id,client_ref,' . get_user_ref(),
             'fx_rate' => Rule::requiredIf(fn() => (BankAccount::find($request->into_bank)?->currency != session('currency'))),
             'deposit_options.*.chat_code' => 'required|exists:' . ChartAccount::class . ',account_code,client_ref,' . get_user_ref(),
-            'deposit_options.*.amount' => 'required|numeric|minZ:1',
+            'deposit_options.*.amount' => 'required|numeric|min:1',
         ], [
             'deposit_options.*.chat_code.required' => __('validation.required', ['attribute' => 'Chat Code']),
+            'deposit_options.*.chat_code.exists' => __('validation.exists', ['attribute' => 'Chat Code']),
             'deposit_options.*.amount.required' => __('validation.required', ['attribute' => 'Amount']),
+            'deposit_options.*.amount.numeric' => __('validation.numeric', ['attribute' => 'Amount']),
+            'deposit_options.*.amount.min' => __('validation.min', ['attribute' => 'Amount']),
         ]);
     }
 

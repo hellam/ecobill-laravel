@@ -60,7 +60,7 @@ Route::group(['as' => 'user.'], function () {
         Route::get('/ref_generate/{type}', function () {
             $type = Route::current()->type;
             return success_web_processor(['ref_no' => generate_reff_no($type)], 'Success');
-        })->name('switch_branch')->middleware('permission:100');
+        })->name('ref_gen')->middleware('permission:100');
 
         Route::group(['prefix' => 'products', 'as' => 'products.'], function () {
             Route::controller(User\Products\ProductsController::class)->group(function () {

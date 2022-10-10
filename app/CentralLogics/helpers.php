@@ -5,6 +5,7 @@ use App\Models\BusinessSetting;
 use App\Models\ExchangeRate;
 use App\Models\MakerCheckerRule;
 use App\Models\PasswordHistory;
+use App\Models\Ref;
 use App\Models\SecurityConfig;
 use App\Rules\PasswordHistoryRule;
 use Illuminate\Http\Request;
@@ -561,6 +562,21 @@ function getFxRate($from, $to, $date = null)
 
         return toRateDecimal($final_rate);
     }
+}
+
+function generate_reff_no($type, $save = false)
+{
+    $refno = Ref::where(['type' => $type])->max('id');
+    $reference = $refno + 1;
+    if ($save)
+        Ref::create([
+            'id' => $reference,
+            'type' => $type,
+            'reference' => $reference,
+            'client_ref' => get_user_ref(),
+        ]);
+
+    return $reference;
 }
 
 function number_suffix($number): string

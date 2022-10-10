@@ -36,23 +36,23 @@ class BankAccountDepositController extends Controller
             return $validator;
         }
 
-//        $post_data = [
-//            'date' => $request->first_name,
-//            'l_name' => $request->last_name,
-//            'short_name' => $request->short_name,
-//            'address' => $request->address,
-//            'company' => $request->company,
-//            'country' => $request->country,
-//            'tax_id' => $request->tax_id == 'null' ? null : $request->tax_id,
-//            'currency' => $request->currency,
-//            'payment_terms' => $request->payment_terms,
-//            'credit_limit' => $request->credit_limit,
-//            'credit_status' => $request->credit_status,
-//            'sales_type' => $request->sales_type,
-//            'discount' => $request->discount,
-//            'language' => $request->language,
-//            'client_ref' => get_user_ref(),
-//        ];
+        $post_data = [
+            'date' => $request->date,
+            'reference' => $request->last_name,
+            'short_name' => $request->short_name,
+            'address' => $request->address,
+            'company' => $request->company,
+            'country' => $request->country,
+            'tax_id' => $request->tax_id == 'null' ? null : $request->tax_id,
+            'currency' => $request->currency,
+            'payment_terms' => $request->payment_terms,
+            'credit_limit' => $request->credit_limit,
+            'credit_status' => $request->credit_status,
+            'sales_type' => $request->sales_type,
+            'discount' => $request->discount,
+            'language' => $request->language,
+            'client_ref' => get_user_ref(),
+        ];
 //
 //        //set_create_parameters($created_at, $created_by, ...)
 //        $post_data1 = array_merge($post_data, set_create_parameters($created_at, $created_by, $supervised_by, $supervised_at));
@@ -99,6 +99,6 @@ class BankAccountDepositController extends Controller
 //            return error_web_processor($e);
 //        }
 
-        return success_web_processor(['id' => 1], __('messages.msg_saved_success', ['attribute' => __('messages.customer')]));
+        return success_web_processor(['id' => 1], __('messages.msg_saved_success', ['attribute' => __('messages.deposit')]));
     }
 }

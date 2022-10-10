@@ -571,7 +571,7 @@ function convert_currency_to_second_currency($amount, $fx_rate = null)
 
 function generate_reff_no($type, $save = false, int $reference = null)
 {
-    $refno = Ref::where(['type' => $type])->max('id');
+    $refno = Ref::where('type', (string)$type)->max('id');
     $refno = ($refno ?? 1000000) + 1;
     if ($reference == null) $reference = $refno;
 

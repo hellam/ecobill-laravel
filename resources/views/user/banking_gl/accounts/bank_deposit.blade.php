@@ -86,7 +86,7 @@
                                     <!--begin::Input-->
                                     <input type="number" class="form-control form-control-sm form-control-solid"
                                            placeholder="{{__('messages.reference')}}"
-                                           name="reference"/>
+                                           name="reference" data-kt-src="{{route('user.ref_gen', 'deposit')}}"/>
                                     <!--end::Input-->
                                 </div>
                                 <!--end::Col-->
@@ -192,7 +192,7 @@
 
                     </div>
                     <div class="separator my-6"></div>
-                    <h4 class="text-center mb-7">Deposit Items</h4>
+                    <h4 class="text-center mb-7 deposit_header">Deposit Items</h4>
                     <!--begin::Input group-->
                     <!--begin::Repeater-->
                     <div id="kt_deposit_items_row">
@@ -239,7 +239,7 @@
                         <!--end::Form group-->
                         <!--begin::Form group-->
                         <div class="form-group mt-5  d-flex justify-content-center text-center">
-                            <button type="button" data-repeater-create="" class="btn btn-sm btn-primary">
+                            <button type="button" data-repeater-create="" class="btn btn-sm btn-primary" id="add_row">
                                 <i class="fa fa-add"></i>Add Row
                             </button>
                         </div>

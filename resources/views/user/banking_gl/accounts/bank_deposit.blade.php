@@ -82,7 +82,7 @@
                                     class="col-lg-4 col-form-label fw-semibold fs-7">{{__('messages.reference')}}</label>
                                 <!--end::Label-->
                                 <!--begin::Col-->
-                                <div class="col-lg-8">
+                                <div class="col-lg-8 fv-row">
                                     <!--begin::Input-->
                                     <input type="text" class="form-control form-control-sm form-control-solid"
                                            placeholder="{{__('messages.reference')}}"
@@ -101,7 +101,7 @@
                                     class="col-lg-4 col-form-label fw-semibold fs-7">{{__('messages.from')}}</label>
                                 <!--end::Label-->
                                 <!--begin::Col-->
-                                <div class="col-lg-8">
+                                <div class="col-lg-8 fv-row">
                                     <!--begin::Input-->
                                     <select name="from"
                                             aria-label="Select From"
@@ -124,7 +124,7 @@
                                     class="col-lg-4 col-form-label fw-semibold fs-7">{{__('messages.name')}}</label>
                                 <!--end::Label-->
                                 <!--begin::Col-->
-                                <div class="col-lg-8" id="select_input">
+                                <div class="col-lg-8 fv-row" id="select_input">
                                     <!--begin::Input-->
                                     <input type="text" class="form-control form-control-sm form-control-solid"
                                            placeholder="{{__('messages.name')}}"
@@ -143,7 +143,7 @@
                                     class="col-lg-4 col-form-label fw-semibold fs-7">{{__('messages.currency')}}</label>
                                 <!--end::Label-->
                                 <!--begin::Col-->
-                                <div class="col-lg-8">
+                                <div class="col-lg-8 fv-row">
                                     <!--begin::Input-->
                                     <select name="currency"
                                             id="currency"
@@ -171,7 +171,7 @@
                                     class="col-lg-4 col-form-label fw-semibold fs-7">Into {{__('messages.bank')}}</label>
                                 <!--end::Label-->
                                 <!--begin::Col-->
-                                <div class="col-lg-8">
+                                <div class="col-lg-8 fv-row">
                                     <!--begin::Input-->
                                     <select name="into_bank"
                                             aria-label="Select Account"

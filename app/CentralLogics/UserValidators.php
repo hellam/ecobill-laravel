@@ -495,7 +495,6 @@ class UserValidators
         ]);
     }
 
-
     public static function accountDepositCreateValidation(Request $request)
     {
         return self::ValidatorMake($request->all(), [

@@ -13,8 +13,8 @@ class BankAccountPaymentsController extends Controller
     /**
      * @return Factory|View|Application
      */
-    public function index(): Factory|View|Application
-    {
-        return view('user.banking_gl.accounts.expense');
-    }
+//    public function index(): Factory|View|Application
+//    {
+//        return view('user.banking_gl.accounts.expense');
+//    }
 }

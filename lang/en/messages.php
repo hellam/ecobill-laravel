@@ -184,6 +184,7 @@ return [
     'msg_item_found' => ':attribute found',
     'msg_item_not_found' => ':attribute not found',
     'msg_invalid_cry' => 'Invalid Currency',
+    'msg_something_went_wrong' => 'Something went wrong! Please try again later.',
     'msg_kicked_out' => 'Someone logged in from another device',
     'msg_password_updated' => 'Password updated successfully',
     'msg_remarks_required' => 'Remarks required',

@@ -569,7 +569,7 @@ function generate_reff_no($type, $save = false, int $reference = null)
 
     if($reference == null){
         $refno = Ref::where(['type' => $type])->max('id');
-        $reference = $refno + 1;
+        $reference = ($refno??1000000) + 1;
     }
 
     if ($save) {

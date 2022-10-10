@@ -507,7 +507,7 @@ class UserValidators
             'fx_rate' => Rule::requiredIf(fn() => (BankAccount::find($request->into_bank)?->currency != session('currency'))),
             'deposit_options.*.chat_code' => 'required|exists:' . ChartAccount::class . ',account_code,client_ref,' . get_user_ref(),
             'deposit_options.*.amount' => 'required|numeric|minZ:1',
-        ], $messages = [
+        ], [
             'deposit_options.*.chat_code.required' => __('validation.required', ['attribute' => 'Chat Code']),
             'deposit_options.*.amount.required' => __('validation.required', ['attribute' => 'Amount']),
         ]);
@@ -579,9 +579,9 @@ class UserValidators
     }
 
 
-    public static function ValidatorMake(array $request_array, array $rules)
+    public static function ValidatorMake(array $request_array, array $rules, $messages = [])
     {
-        $validator = Validator::make($request_array, $rules);
+        $validator = Validator::make($request_array, $rules, $messages);
         if ($validator->fails()) {
             return error_web_processor(__('messages.field_correction'),
                 200, validation_error_processor($validator));

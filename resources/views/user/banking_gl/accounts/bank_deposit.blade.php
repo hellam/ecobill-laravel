@@ -207,7 +207,7 @@
                                                 <select class="form-select form-select-solid gl_select"
                                                         name="chat_code"
                                                         data-kt-src="{{route('user.banking_gl.gl_accounts.select_api', 'no_bank')}}"
-                                                        data-placeholder="Select GL Account"
+                                                        data-placeholder="Select Category"
                                                         data-kt-add-deposit="deposit_option">
                                                 </select>
                                             </div>

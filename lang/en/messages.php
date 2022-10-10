@@ -234,6 +234,7 @@ return [
     'sales_type' => 'Sales Type',
     'search' => 'Search',
     'select' => 'Select',
+    'company_settings' => 'Company Settings',
     'select_country' => 'Select Country',
     'sell_rate' => 'Sell Rate',
     'short' => 'Short',

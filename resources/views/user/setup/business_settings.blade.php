@@ -4,7 +4,7 @@
     <!--begin::Page title-->
     <div class="page-title d-flex justify-content-center flex-column me-5">
         <!--begin::Title-->
-        <h1 class="d-flex flex-column text-dark fw-bold fs-3 mb-0">{{__('messages.business_settings')}}</h1>
+        <h1 class="d-flex flex-column text-dark fw-bold fs-3 mb-0">{{__('messages.company_settings')}}</h1>
         <!--end::Title-->
         <!--begin::Breadcrumb-->
         <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 pt-1">
@@ -27,7 +27,7 @@
             </li>
             <!--end::Item-->
             <!--begin::Item-->
-            <li class="breadcrumb-item text-dark">{{__('messages.business_settings')}}</li>
+            <li class="breadcrumb-item text-dark">{{__('messages.company_settings')}}</li>
             <!--end::Item-->
         </ul>
         <!--end::Breadcrumb-->
@@ -43,7 +43,7 @@
             <div class="page-title d-flex flex-column py-1">
                 <!--begin::Title-->
                 <h1 class="d-flex align-items-center my-1">
-                    <span class="text-dark fw-bolder fs-1">{{__('messages.business_settings')}}</span>
+                    <span class="text-dark fw-bolder fs-1">{{__('messages.company_settings')}}</span>
                 </h1>
                 <!--end::Title-->
             </div>

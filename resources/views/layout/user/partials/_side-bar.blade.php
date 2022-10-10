@@ -766,7 +766,7 @@
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
-                                <span class="menu-title">{{__('messages.business_settings')}}</span>
+                                <span class="menu-title">{{__('messages.company_settings')}}</span>
                             </a>
                             <!--end:Menu link-->
                         </div>
@@ -779,7 +779,7 @@
 												<span class="menu-bullet">
 													<span class="bullet bullet-dot"></span>
 												</span>
-                                <span class="menu-title">{{__('messages.branches')}}</span>
+                                <span class="menu-title">{{__('messages.company').' '.__('messages.branches')}}</span>
                             </a>
                             <!--end:Menu link-->
                         </div>

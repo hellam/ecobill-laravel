@@ -215,17 +215,17 @@
                                         </div>
                                         <!--begin::Input-->
                                         <div class="col-md-4">
+                                            <input type="text" class="form-control"
+                                                   name="narration"
+                                                   placeholder="Description">
+                                        </div>
+                                        <!--end::Input-->
+                                        <!--begin::Input-->
+                                        <div class="col-md-4">
                                             <input type="number" class="form-control amount" name="amount"
                                                    placeholder="Amount"/>
                                             <!--end::Input-->
                                         </div>
-                                        <!--begin::Input-->
-                                        <div class="col-md-4">
-                                            <input type="text" class="form-control"
-                                                   name="narration"
-                                                   placeholder="Narration">
-                                        </div>
-                                        <!--end::Input-->
                                         <div class="col-md-1">
                                             <button type="button" data-repeater-delete=""
                                                     class="btn btn-sm btn-icon btn-light-danger delete_row"><i
@@ -247,7 +247,7 @@
                     </div>
                     <!--end::Repeater-->
                     <!--end::Input group-->
-                    <div class="fv-row my-10">
+                    <div class="fv-row my-10 text-end">
                         <h3>Total: <span id="total">0.00</span></h3>
                     </div>
                     <!--begin::Input group-->

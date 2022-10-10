@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Created by Reliese Model.
- */
-
 namespace App\Models;
 
 use App\Scopes\ClientRefScope;
@@ -12,16 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
 /**
- * Class BankTrx
+ * Class GlTrx
  *
  * @property int $id
  * @property int $trans_no
  * @property string $trx_type
- * @property string $reference
- * @property int $bank_id
- * @property float $amount
  * @property Carbon|null $trx_date
- * @property Carbon|null $reconciled
+ * @property int $chart_code
+ * @property string $narration
+ * @property float $amount
  * @property string|null $client_ref
  * @property string|null $created_by
  * @property string|null $updated_by
@@ -32,30 +27,28 @@ use Illuminate\Support\Facades\Auth;
  *
  * @package App\Models
  */
-class BankTrx extends Model
+class GlTrx extends Model
 {
-	protected $table = 'bank_trx';
+	protected $table = 'gl_trx';
 
 	protected $casts = [
 		'trans_no' => 'int',
-		'bank_id' => 'int',
+		'chart_code' => 'int',
 		'amount' => 'float'
 	];
 
 	protected $dates = [
 		'trx_date',
-		'reconciled',
 		'supervised_at'
 	];
 
 	protected $fillable = [
 		'trans_no',
 		'trx_type',
-		'reference',
-		'bank_id',
-		'amount',
 		'trx_date',
-		'reconciled',
+		'chart_code',
+		'narration',
+		'amount',
 		'client_ref',
 		'created_by',
 		'updated_by',

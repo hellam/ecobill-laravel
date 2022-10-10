@@ -6,12 +6,14 @@
 
 namespace App\Models;
 
+use App\Scopes\ClientRefScope;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class CustomerTrxDetail
- * 
+ *
  * @property int $id
  * @property int $trans_no
  * @property string $trx_type
@@ -59,4 +61,11 @@ class CustomerTrxDetail extends Model
 		'qty_done',
 		'client_ref'
 	];
+
+    public static function booted()
+    {
+        if (Auth::guard('user')->check()){
+            static::addGlobalScope(new ClientRefScope());
+        }
+    }
 }

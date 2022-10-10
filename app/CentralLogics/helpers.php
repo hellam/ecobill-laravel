@@ -564,13 +564,16 @@ function getFxRate($from, $to, $date = null)
     }
 }
 
+function convert_currency_to_second_currency($amount, $fx_rate = null)
+{
+    return $amount / ($fx_rate ?? 1);
+}
+
 function generate_reff_no($type, $save = false, int $reference = null)
 {
-
-    if ($reference == null) {
-        $refno = Ref::where(['type' => $type])->max('id');
-        $reference = ($refno ?? 1000000) + 1;
-    }
+    $refno = Ref::where(['type' => $type])->max('id');
+    $refno = ($refno ?? 1000000) + 1;
+    if ($reference == null) $reference = $refno;
 
     if ($save) {
         try {
@@ -581,11 +584,25 @@ function generate_reff_no($type, $save = false, int $reference = null)
                 'client_ref' => get_user_ref(),
             ]);
         } catch (\Exception $e) {
-            return 0;
+            $refno = Ref::where(['type' => $type])->max('id');
+            $refno = ($refno ?? 1000000) + 1;
+            if ($reference == null) $reference = $refno;
+            Ref::create([
+                'id' => $reference,
+                'type' => $type,
+                'reference' => $reference,
+                'client_ref' => get_user_ref(),
+            ]);
         }
+        return $refno;
     }
 
     return $reference;
+
+}
+
+function saveRefNo()
+{
 
 }
 

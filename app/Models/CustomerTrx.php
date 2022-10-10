@@ -1,17 +1,15 @@
 <?php
 
-/**
- * Created by Reliese Model.
- */
-
 namespace App\Models;
 
+use App\Scopes\ClientRefScope;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class CustomerTrx
- * 
+ *
  * @property int $id
  * @property int $trans_no
  * @property string $trx_type
@@ -78,4 +76,11 @@ class CustomerTrx extends Model
 		'supervised_by',
 		'supervised_at'
 	];
+
+    public static function booted()
+    {
+        if (Auth::guard('user')->check()){
+            static::addGlobalScope(new ClientRefScope());
+        }
+    }
 }

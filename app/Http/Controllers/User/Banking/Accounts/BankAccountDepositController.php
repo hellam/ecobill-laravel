@@ -4,9 +4,11 @@ namespace App\Http\Controllers\User\Banking\Accounts;
 
 use App\CentralLogics\UserValidators;
 use App\Http\Controllers\Controller;
+use App\Models\BankAccount;
 use App\Models\Currency;
 use App\Models\Customer;
 use App\Models\CustomerBranch;
+use App\Models\GlTrx;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -36,23 +38,69 @@ class BankAccountDepositController extends Controller
             return $validator;
         }
 
+        $customer_branch = null;
+        if ($request->filled('customer_branch_id'))
+            $customer_branch = CustomerBranch::find($request->customer_branch_id);
+        $bank = BankAccount::find($request->into_bank);
+
+        $trans_no = generate_reff_no(ST_ACCOUNT_DEPOSIT, true, $request->reference);
+
         $post_data = [
-            'date' => $request->date,
-            'reference' => $request->last_name,
-            'short_name' => $request->short_name,
-            'address' => $request->address,
-            'company' => $request->company,
-            'country' => $request->country,
-            'tax_id' => $request->tax_id == 'null' ? null : $request->tax_id,
-            'currency' => $request->currency,
-            'payment_terms' => $request->payment_terms,
-            'credit_limit' => $request->credit_limit,
-            'credit_status' => $request->credit_status,
-            'sales_type' => $request->sales_type,
-            'discount' => $request->discount,
-            'language' => $request->language,
+            'trans_no' => $trans_no,
+            'trx_type' => ST_ACCOUNT_DEPOSIT,
+            'trx_date' => $request->date,
             'client_ref' => get_user_ref(),
         ];
+        $post_data = array_merge($post_data, set_create_parameters($created_at, $created_by, $supervised_by, $supervised_at));
+
+        $total = 0;
+        $fx_rate = $request->filled('fx_rate') ? $request->fx_rate : 1;
+
+        try {
+            DB::beginTransaction();
+
+            //Record entered GL Transactions
+            foreach ($request->deposit_options as $key => $val) {
+                $chart_code = $request->deposit_options[$key]['chat_code'];
+                $amount = $request->deposit_options[$key]['amount'];
+                $narration = $request->deposit_options[$key]['narration'];
+
+                $total += $amount;
+
+                $gl_trx_post = array_merge($post_data, [
+                    'chart_code' => $chart_code,
+                    'narration' => $narration ?? '',
+                    'amount' => convert_currency_to_second_currency($amount, $fx_rate),
+                ]);
+
+                GlTrx::create($gl_trx_post);
+            }
+
+            //Record Bank Account GL Transaction
+            $bank_gl_trx_post = array_merge($post_data, [
+                'chart_code' => $bank->chart_code,
+                'narration' => '',
+                'amount' => convert_currency_to_second_currency($total, $fx_rate)
+            ]);
+            GlTrx::create($bank_gl_trx_post);
+
+
+            $customer_trx_post_data = [
+                'customer_id' => $customer_branch->customer_id,
+                'customer_branch_id' => $request->customer_branch_id,
+                'reference' => $trans_no,
+            ];
+            $bank_trx_post_data = [
+                'reference' => $trans_no,
+                'bank_id' => $request->into_bank,
+                'amount' => $total,
+            ];
+
+            DB::commit();
+        } catch (\Exception $e) {
+            return error_web_processor('Something went wrong! Please try again later');
+        }
+
 //
 //        //set_create_parameters($created_at, $created_by, ...)
 //        $post_data1 = array_merge($post_data, set_create_parameters($created_at, $created_by, $supervised_by, $supervised_at));

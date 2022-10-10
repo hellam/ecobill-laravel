@@ -225,7 +225,8 @@
                             <!--begin:Menu item-->
                             <div class="menu-item">
                                 <!--begin:Menu link-->
-                                <a class="menu-link" href="#">
+                                <a class="menu-link @if(Route::is('user.banking_gl.banking.expense'))active @endif"
+                                   href="{{route('user.banking_gl.banking.expense')}}">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>

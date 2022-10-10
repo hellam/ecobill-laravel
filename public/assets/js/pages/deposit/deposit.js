@@ -82,13 +82,13 @@ const KTDepositAdd = function () {
                     '<!--begin::Input-->\n' +
                     '<input type="text" class="form-control form-control-sm form-control-solid"\n' +
                     'placeholder="Name"\n' +
-                    'name="name"/>\n' +
+                    'name="misc"/>\n' +
                     '<!--end::Input-->')
             } else {
                 let src_url = $(this).attr('data-kt-src')
                 $('#changing_div label').text('Customer')
                 $('#select_input').html('' +
-                    '<select name="customer"\n' +
+                    '<select name="customer_branch_id"\n' +
                     ' aria-label="Select Customer"\n' +
                     ' data-control="select2"\n' +
                     ' data-kt-src="' + src_url + '"\n' +
@@ -109,6 +109,7 @@ const KTDepositAdd = function () {
             handleBankAPISelect()
             handleGLAccountsAPISelect()
             handleSum()
+            handleSubmit()
         }
     }
 }();

@@ -501,7 +501,7 @@ class UserValidators
             'date' => 'required|date_format:' . get_date_format(),
             'reference' => 'required|unique:' . Ref::class . ',reference,NULL,id,client_ref,' . get_user_ref() . ',type,' . ST_ACCOUNT_DEPOSIT,
             'from' => 'required|in:0,1',
-            'misc' => 'required_if:from,0',
+//            'misc' => 'required_if:from,0',
             'customer_branch_id' => 'required_if:from,1|exists:' . CustomerBranch::class . ',id,client_ref,' . get_user_ref(),
             'into_bank' => 'required|exists:' . BankAccount::class . ',id,client_ref,' . get_user_ref(),
             'fx_rate' => Rule::requiredIf(fn() => (BankAccount::find($request->into_bank)?->currency != session('currency'))),

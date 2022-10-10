@@ -296,10 +296,9 @@ function handleSubmit() {
                             if (field_name.is("select")) {
                                 field_name.closest('.fv-row')
                                     .after('<small style="color: red;" id="err_' + value.field + '">' + value.error + '</small>')
-                                field_name.on('change', function (){
-                                    console.log($('#err_' + value.field).length)
+                                field_name.on('change', function () {
+                                    // console.log($('#err_' + value.field).length)
                                 })
-
                             } else {
                                 field_name
                                     .after('<small style="color: red;" id="err_' + value.field + '">' + value.error + '</small>')

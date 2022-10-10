@@ -62,6 +62,14 @@ Route::group(['as' => 'user.'], function () {
             return success_web_processor(['ref_no' => generate_reff_no($type)], 'Success');
         })->name('ref_gen')->middleware('permission:100');
 
+
+        Route::group(['prefix' => 'billing', 'as' => 'billing.'], function () {
+            Route::controller(User\Billing\InvoiceController::class)->prefix('invoice')->as('invoice')->group(function () {
+                Route::get('/', 'index')->name('index')->middleware('permission:201');
+                Route::post('/', 'create')->name('create')->middleware('permission:201,' . ST_INVOICE);
+            });
+        });
+
         Route::group(['prefix' => 'products', 'as' => 'products.'], function () {
             Route::controller(User\Products\ProductsController::class)->group(function () {
                 Route::get('/', 'index')->name('all')->middleware('permission:501');

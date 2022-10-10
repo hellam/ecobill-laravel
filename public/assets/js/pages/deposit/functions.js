@@ -257,110 +257,80 @@ function handleSubmit() {
 
     form.on('submit', function (e) {
         e.preventDefault()
+        let serialized_form = form.serializeArray()
+
         let small_errors = $('small')
         if (small_errors.length) {
             small_errors.remove()
         }
         blockUI.block()
-        $.ajax({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            type: "POST",
-            url: form.attr("data-kt-action"),
-            data: form.serializeArray(),
-            success: function (json) {
-                var response = JSON.parse(JSON.stringify(json));
-                if (response.status !== true) {
-                    var errors = response.data;
-                    blockUI.release()
-                    blockUI.destroy()
-                    for (const [key, value] of Object.entries(errors)) {
-                        $('#err_' + value.field).remove();
-                        let input = $("input[name='" + value.field + "']"),
-                            select = $("select[name='" + value.field + "']");
-                        if (input.length) {
-                            input.closest('.fv-row')
-                                .after('<small style="color: red;" id="err_' + value.field + '">' + value.error + '</small>')
-                                .on('keyup', function (e) {
-                                    $('#err_' + value.field).remove();
-                                })
-                        }
-                        if (select.length) {
-                            select.closest('.fv-row')
-                                .after('<small style="color: red;" id="err_' + value.field + '">' + value.error + '</small>')
-                                .on('change', function (e) {
-                                    $('#err_' + value.field).remove();
-                                })
-                        }
-                        if (value.field.includes('deposit_options')) {
-                            let field = value.field.split('.')
-                            field = field[0] + "[" + field[1] + "][" + field[2] + "]"
-                            let field_id = field[0] + "_" + field[1] + "_" + field[2] + "_" + key
-                            let field_name = $('[name="' + field + '"]')
-                            if (field_name.is("select")) {
-                                if ($('#err_' + field_id).length) {
-                                    $('#err_' + field_id).html(value.error)
-                                } else {
-                                    field_name.closest('.fv-row')
-                                        .after('<small style="color: red;" id="err_' + field_id + '">' + value.error + '</small>')
-                                        .on('change', function () {
-                                            $('#err_' + field_id).remove();
-                                        })
-                                }
+        submitDeposit(submitButton, form, serialized_form)
+
+    })
+}
+
+function submitDeposit(submitButton, form, serialized_form) {
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        type: "POST",
+        url: form.attr("data-kt-action"),
+        data: serialized_form,
+        success: function (json) {
+            var response = JSON.parse(JSON.stringify(json));
+            if (response.status !== true) {
+                var errors = response.data;
+                blockUI.release()
+                blockUI.destroy()
+                for (const [key, value] of Object.entries(errors)) {
+                    $('#err_' + value.field).remove();
+                    let input = $("input[name='" + value.field + "']"),
+                        select = $("select[name='" + value.field + "']");
+                    if (input.length) {
+                        input.closest('.fv-row')
+                            .after('<small style="color: red;" id="err_' + value.field + '">' + value.error + '</small>')
+                            .on('keyup', function (e) {
+                                $('#err_' + value.field).remove();
+                            })
+                    }
+                    if (select.length) {
+                        select.closest('.fv-row')
+                            .after('<small style="color: red;" id="err_' + value.field + '">' + value.error + '</small>')
+                            .on('change', function (e) {
+                                $('#err_' + value.field).remove();
+                            })
+                    }
+                    if (value.field.includes('deposit_options')) {
+                        let field = value.field.split('.')
+                        field = field[0] + "[" + field[1] + "][" + field[2] + "]"
+                        let field_id = field[0] + "_" + field[1] + "_" + field[2] + "_" + key
+                        let field_name = $('[name="' + field + '"]')
+                        if (field_name.is("select")) {
+                            if ($('#err_' + field_id).length) {
+                                $('#err_' + field_id).html(value.error)
                             } else {
-                                if ($('#err_' + field_id).length) {
-                                    $('#err_' + field_id).html(value.error)
-                                } else {
-                                    field_name
-                                        .after('<small style="color: red;" id="err_' + field_id + '">' + value.error + '</small>')
-                                        .on('keyup', function () {
-                                            $('#err_' + field_id).remove();
-                                        })
-                                }
+                                field_name.closest('.fv-row')
+                                    .after('<small style="color: red;" id="err_' + field_id + '">' + value.error + '</small>')
+                                    .on('change', function () {
+                                        $('#err_' + field_id).remove();
+                                    })
+                            }
+                        } else {
+                            if ($('#err_' + field_id).length) {
+                                $('#err_' + field_id).html(value.error)
+                            } else {
+                                field_name
+                                    .after('<small style="color: red;" id="err_' + field_id + '">' + value.error + '</small>')
+                                    .on('keyup', function () {
+                                        $('#err_' + field_id).remove();
+                                    })
                             }
                         }
                     }
-                    Swal.fire({
-                        text: response.message,
-                        icon: "error",
-                        buttonsStyling: false,
-                        confirmButtonText: "Ok!",
-                        customClass: {
-                            confirmButton: "btn btn-primary"
-                        }
-                    });
-
-                } else {
-                    blockUI.release()
-                    blockUI.destroy()
-                    Swal.fire({
-                        text: response.message,
-                        icon: "success",
-                        buttonsStyling: false,
-                        confirmButtonText: "Ok!",
-                        customClass: {
-                            confirmButton: "btn btn-primary"
-                        }
-                    }).then(function (result) {
-                        if (result.isConfirmed) {
-                            // Enable submit button after loading
-                            submitButton.disabled = false;
-                            form[0].reset(); // Reset form
-                        }
-                    });
                 }
-                submitButton.removeAttribute('data-kt-indicator');
-
-                // Enable submit button after loading
-                submitButton.disabled = false;
-
-            },
-            error: function () {
-                blockUI.release()
-                blockUI.destroy()
                 Swal.fire({
-                    text: 'A network error occurred. Please consult your network administrator.',
+                    text: response.message,
                     icon: "error",
                     buttonsStyling: false,
                     confirmButtonText: "Ok!",
@@ -369,12 +339,93 @@ function handleSubmit() {
                     }
                 });
 
-                submitButton.removeAttribute('data-kt-indicator');
-
-                // Enable submit button after loading
-                submitButton.disabled = false;
-
+            } else {
+                blockUI.release()
+                blockUI.destroy()
+                Swal.fire({
+                    text: response.message,
+                    icon: "success",
+                    buttonsStyling: false,
+                    confirmButtonText: "Ok!",
+                    customClass: {
+                        confirmButton: "btn btn-primary"
+                    }
+                }).then(function (result) {
+                    if (result.isConfirmed) {
+                        // Enable submit button after loading
+                        submitButton.disabled = false;
+                        form[0].reset(); // Reset form
+                        $("#date_picker").val(moment().format($("#date_picker").attr("data-kt-date-format")))
+                        $('[name="from"]').val(0).trigger('change')
+                        $('[name="currency"]').val($('[name="currency"]').attr('data-kt-default')).trigger('change')
+                        $('#total').text(0.00)
+                        $('.gl_select').val(null).trigger('change')
+                        $('.deposit_options').children().not(':first').remove();
+                    }
+                });
             }
-        });
-    })
+            submitButton.removeAttribute('data-kt-indicator');
+
+            // Enable submit button after loading
+            submitButton.disabled = false;
+
+        },
+        statusCode: {
+            203: function () {
+                Swal.fire({
+                    text: "Please provide remarks",
+                    icon: "info",
+                    input: 'textarea',
+                    inputAttributes: {
+                        autocapitalize: 'off'
+                    },
+                    allowOutsideClick: false,
+                    showCancelButton: true,
+                    buttonsStyling: false,
+                    confirmButtonText: "Submit",
+                    cancelButtonText: "Cancel",
+                    // showLoaderOnConfirm: true,
+                    customClass: {
+                        confirmButton: "btn fw-bold btn-danger",
+                        cancelButton: "btn fw-bold btn-active-light-primary"
+                    }
+                }).then(function (result) {
+                    // delete row data from server and re-draw datatable
+                    if (result.isConfirmed) {
+                        serialized_form.push({name: 'remarks', value: result.value});
+                        submitDeposit(submitButton, form, serialized_form);
+                    } else {
+                        blockUI.release()
+                        blockUI.destroy()
+                        form[0].reset(); // Reset form
+                        $("#date_picker").val(moment().format($("#date_picker").attr("data-kt-date-format")))
+                        $('[name="from"]').val(0).trigger('change')
+                        $('[name="currency"]').val($('[name="currency"]').attr('data-kt-default')).trigger('change')
+                        $('#total').text(0.00)
+                        $('.gl_select').val(null).trigger('change')
+                        $('.deposit_options').children().not(':first').remove();
+                    }
+                });
+            }
+        },
+        error: function () {
+            blockUI.release()
+            blockUI.destroy()
+            Swal.fire({
+                text: 'A network error occurred. Please consult your network administrator.',
+                icon: "error",
+                buttonsStyling: false,
+                confirmButtonText: "Ok!",
+                customClass: {
+                    confirmButton: "btn btn-primary"
+                }
+            });
+
+            submitButton.removeAttribute('data-kt-indicator');
+
+            // Enable submit button after loading
+            submitButton.disabled = false;
+
+        }
+    });
 }

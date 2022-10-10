@@ -35,6 +35,29 @@ function get_date_format($is_timestamp=false){
 
     return $format;
 }
+function get_js_date_format($is_timestamp=false){
+    $format = get_company_setting('date_format');
+    $sep = get_company_setting('date_sep');
+
+    if($format=='dmY')
+        $format = 'dd'.$sep.'mm'.$sep.'YYYY';
+    elseif($format=='mdY')
+        $format = 'mm'.$sep.'dd'.$sep.'YYYY';
+    elseif($format=='Ymd')
+        $format = 'YYYY'.$sep.'mm'.$sep.'dd';
+    elseif($format=='d Mmm Y')
+        $format = 'dd'.$sep.'MMMM'.$sep.'YYYY';
+    elseif($format=='MMMM d Y')
+        $format = 'dd'.$sep.'MMMM'.$sep.'YYYY';
+    elseif($format=='Y Mmm d')
+        $format = 'YYYY'.$sep.'MMMM'.$sep.'dd';
+
+
+    if ($is_timestamp)
+        $format =$format.' H:m:s';
+
+    return $format;
+}
 
 function toPriceDecimal($value, ): string
 {

@@ -32,7 +32,7 @@
             </a>
             <!--end:Menu item-->
             <!--begin:Menu item-->
-            <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+            <div data-kt-menu-trigger="click" class="menu-item menu-accordion @if(Route::is('user.billing.*'))hover show @endif">
                 <!--begin:Menu link-->
                 <span class="menu-link">
                     <span class="menu-icon">
@@ -59,7 +59,8 @@
                     <!--begin:Menu item-->
                     <div class="menu-item">
                         <!--begin:Menu link-->
-                        <a class="menu-link" href="#">
+                        <a class="menu-link @if(Route::is('user.billing.invoice'))active @endif"
+                           href="{{route('user.billing.invoice')}}">
                             <span class="menu-bullet">
                                 <span class="bullet bullet-dot"></span>
                             </span>
@@ -225,8 +226,7 @@
                             <!--begin:Menu item-->
                             <div class="menu-item">
                                 <!--begin:Menu link-->
-                                <a class="menu-link @if(Route::is('user.banking_gl.banking.expense'))active @endif"
-                                   href="{{route('user.banking_gl.banking.expense')}}">
+                                <a class="menu-link" href="#">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>

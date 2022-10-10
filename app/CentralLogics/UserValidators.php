@@ -514,6 +514,7 @@ class UserValidators
             'deposit_options.*.amount.required' => __('validation.required', ['attribute' => 'Amount']),
             'deposit_options.*.amount.numeric' => __('validation.numeric', ['attribute' => 'Amount']),
             'deposit_options.*.amount.min' => __('validation.min', ['attribute' => 'Amount']),
+            'deposit_options.*' => "At least one deposit option is required",
         ]);
     }
 

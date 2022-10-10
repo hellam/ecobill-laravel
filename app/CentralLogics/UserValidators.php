@@ -15,6 +15,7 @@ use App\Models\CustomerBranch;
 use App\Models\MakerCheckerRule;
 use App\Models\PaymentTerm;
 use App\Models\Product;
+use App\Models\Ref;
 use App\Models\Role;
 use App\Models\Subscription;
 use App\Models\Tax;
@@ -494,20 +495,16 @@ class UserValidators
         ]);
     }
 
-
-
     public static function accountDepositCreateValidation(Request $request)
     {
         return self::ValidatorMake($request->all(), [
-            'date' => 'required|date_format:d/m/Y',
-            'customer_id' => 'required|exists:' . Customer::class . ',id,client_ref,' . get_user_ref(),
-            'first_name' => 'required|string',
-            'last_name' => 'required|string',
-            'currency' => 'required|exists:' . Currency::class . ',abbreviation,client_ref,' . get_user_ref(),
-            'short_name' => 'required|unique:' . CustomerBranch::class . ',short_name,NULL,id,client_ref,' . get_user_ref(),
-            'country' => 'required',
-            'email' => 'required|email:rfc,dns|' . Rule::unique(CustomerBranch::class)->where(fn($query) => $query->where('client_ref', get_user_ref()))->ignore($request->customer_id, 'customer_id'),//TODO: Add spoof
-            'phone' => 'required|min:13|max:13|' . Rule::unique(CustomerBranch::class)->where(fn($query) => $query->where('client_ref', get_user_ref()))->ignore($request->customer_id, 'customer_id'),
+            'date' => 'required|date_format:' . get_date_format(),
+            'reference' => 'required|unique:' . Ref::class . ',reference,NULL,id,client_ref,' . get_user_ref() . ',type,' . ST_ACCOUNT_DEPOSIT,
+            'from' => 'required|in:0,1',
+            'misc' => 'required_if:from,0',
+            'customer_branch_id' => 'required_if:from,1|exists:' . CustomerBranch::class . ',id,client_ref,' . get_user_ref(),
+            'into_bank' => 'required|exists:' . BankAccount::class . ',id,client_ref,' . get_user_ref(),
+            'fx_rate' => Rule::requiredIf(BankAccount::find($request->into_bank)->currency ?? '' != session('currency')),
         ]);
     }
 

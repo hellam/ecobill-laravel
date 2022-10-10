@@ -211,6 +211,44 @@ function calculateSum() {
     return sum
 }
 
+function handleGLAccountsAPISelect(preselect = null) {
+    const element = document.querySelector('.gl_select');
+
+    $('.gl_select').html("").trigger('change');
+    if (preselect) {
+        const option = new Option(preselect?.account_name + " - " + preselect?.currency, preselect?.account_code, true, true);
+        $('.gl_select').append(option).trigger('change');
+    }
+
+    $('.gl_select').select2({
+        minimumInputLength: 0,
+        escapeMarkup: function (markup) {
+            return markup;
+        },
+        ajax: {
+            url: element.getAttribute("data-kt-src"),
+            dataType: 'json',
+            type: 'GET',
+            contentType: 'application/json',
+            delay: 50,
+            data: function (params) {
+                return {
+                    search: params.term
+                };
+            },
+            processResults: function (data) {
+                return {
+                    results: $.map(data, function (item) {
+                        return {
+                            text: item.account_code + ' - ' + item.account_name,
+                            id: item.account_code
+                        }
+                    })
+                }
+            }
+        }
+    })
+}
 
 function handleSubmit() {
     let form, submitButton;
@@ -219,6 +257,7 @@ function handleSubmit() {
 
     form.on('submit', function (e) {
         e.preventDefault()
+        blockUI.block()
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -230,7 +269,8 @@ function handleSubmit() {
                 var response = JSON.parse(JSON.stringify(json));
                 if (response.status !== true) {
                     var errors = response.data;
-                    console.log(errors)
+                    blockUI.release()
+                    blockUI.destroy()
                     for (const [key, value] of Object.entries(errors)) {
                         $('#err_' + value.field).remove();
                         let input = $("input[name='" + value.field + "']"),
@@ -249,6 +289,22 @@ function handleSubmit() {
                                     $('#err_' + value.field).remove();
                                 })
                         }
+                        if (value.field.includes('deposit_options')) {
+                            let field = value.field.split('.')
+                            field = field[0] + "[" + field[1] + "][" + field[2] + "]"
+                            let field_name = $('[name="' + field + '"]')
+                            if (field_name.is("select")) {
+                                field_name.closest('.fv-row')
+                                    .after('<small style="color: red;" id="err_' + value.field + '">' + value.error + '</small>')
+                                field_name.on('change', function (){
+                                    console.log($('#err_' + value.field).length)
+                                })
+
+                            } else {
+                                field_name
+                                    .after('<small style="color: red;" id="err_' + value.field + '">' + value.error + '</small>')
+                            }
+                        }
                     }
                     Swal.fire({
                         text: response.message,
@@ -261,6 +317,8 @@ function handleSubmit() {
                     });
 
                 } else {
+                    blockUI.release()
+                    blockUI.destroy()
                     Swal.fire({
                         text: response.message,
                         icon: "success",
@@ -284,6 +342,8 @@ function handleSubmit() {
 
             },
             error: function () {
+                blockUI.release()
+                blockUI.destroy()
                 Swal.fire({
                     text: 'A network error occurred. Please consult your network administrator.',
                     icon: "error",

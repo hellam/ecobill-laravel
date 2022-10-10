@@ -201,9 +201,9 @@
                             <div data-repeater-list="deposit_options" class="d-flex flex-column gap-3">
                                 <div data-repeater-item="" class="form-group">
                                     <div class="row">
-                                        <div class="col-md-3">
+                                        <div class="col-md-3 fv-column">
                                             <!--begin::Select2-->
-                                            <div>
+                                            <div class="fv-row">
                                                 <select class="form-select form-select-solid gl_select"
                                                         name="chat_code"
                                                         data-kt-src="{{route('user.banking_gl.gl_accounts.select_api', 'no_bank')}}"

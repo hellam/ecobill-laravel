@@ -84,7 +84,7 @@
                                 <!--begin::Col-->
                                 <div class="col-lg-8 fv-row">
                                     <!--begin::Input-->
-                                    <input type="text" class="form-control form-control-sm form-control-solid"
+                                    <input type="number" class="form-control form-control-sm form-control-solid"
                                            placeholder="{{__('messages.reference')}}"
                                            name="reference"/>
                                     <!--end::Input-->

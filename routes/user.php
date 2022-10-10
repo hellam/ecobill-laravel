@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\User;
+use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Route;
@@ -56,6 +57,10 @@ Route::group(['as' => 'user.'], function () {
 
         Route::get('/', [User\DashboardController::class, 'index'])->name('dashboard')->middleware('permission:100');
         Route::get('/switch_branch/{branch}', [User\Setup\BranchController::class, 'switch_branch'])->name('switch_branch')->middleware('permission:100');
+        Route::get('/ref_generate/{type}', function () {
+            $type = Route::current()->type;
+            return success_web_processor(['ref_no' => generate_reff_no($type)], 'Success');
+        })->name('switch_branch')->middleware('permission:100');
 
         Route::group(['prefix' => 'products', 'as' => 'products.'], function () {
             Route::controller(User\Products\ProductsController::class)->group(function () {
@@ -194,7 +199,7 @@ Route::group(['as' => 'user.'], function () {
                 Route::get('/', 'index')->name('all')->middleware('permission:307');
                 Route::post('/', 'create')->name('create')->middleware('permission:3070,' . ST_GL_ACCOUNT_SETUP);
                 Route::get('/dt-api', 'dt_api')->name('dt_api')->middleware('permission:307');
-                Route::get('select_api/{scope}', 'select_api')->name('select_api')->middleware('permission:307')->whereIn('scope',['all','no_bank']);
+                Route::get('select_api/{scope}', 'select_api')->name('select_api')->middleware('permission:307')->whereIn('scope', ['all', 'no_bank']);
                 Route::get('edit/{id}', 'edit')->name('edit')->middleware('permission:3071')->whereNumber('id');
                 Route::put('update/{id}', 'update')->name('update')->middleware('permission:3071,' . ST_GL_ACCOUNT_SETUP)->whereNumber('id');
                 Route::delete('delete/{id}', 'destroy')->name('delete')->middleware('permission:3072,' . ST_GL_ACCOUNT_SETUP)->whereNumber('id');

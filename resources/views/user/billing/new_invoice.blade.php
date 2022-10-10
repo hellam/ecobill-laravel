@@ -62,59 +62,80 @@
                         <!--begin::Form-->
                         <form action="" id="kt_invoice_form">
                             <!--begin::Wrapper-->
-                            <div class="d-flex flex-column align-items-start flex-xxl-row">
-                                <!--begin::Input group-->
-                                <div class="d-flex align-items-center flex-equal fw-row me-4 order-2" data-bs-toggle="tooltip" data-bs-trigger="hover" title="Specify invoice date">
-                                    <!--begin::Date-->
-                                    <div class="fs-6 fw-bold text-gray-700 text-nowrap">Date:</div>
-                                    <!--end::Date-->
-                                    <!--begin::Input-->
-                                    <div class="position-relative d-flex align-items-center w-150px">
-                                        <!--begin::Datepicker-->
-                                        <input class="form-control form-control-transparent fw-bold pe-5" placeholder="Select date" name="invoice_date" />
-                                        <!--end::Datepicker-->
-                                        <!--begin::Icon-->
-                                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
-                                        <span class="svg-icon svg-icon-2 position-absolute ms-4 end-0">
-																	<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-																		<path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="currentColor" />
-																	</svg>
-																</span>
-                                        <!--end::Svg Icon-->
-                                        <!--end::Icon-->
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <!--begin::Input group-->
+                                    <div
+                                        class="d-flex flex-equal fw-row"
+                                        data-bs-toggle="tooltip" data-bs-trigger="hover" title="Enter invoice number">
+                                        <span class="fs-2x fw-bold text-gray-800">Invoice #</span>
+                                        <input type="text"
+                                               class="form-control form-control-flush fw-bold text-muted fs-3 w-125px"
+                                               value="2021001" placehoder="..."/>
                                     </div>
-                                    <!--end::Input-->
-                                </div>
-                                <!--end::Input group-->
-                                <!--begin::Input group-->
-                                <div class="d-flex flex-center flex-equal fw-row text-nowrap order-1 order-xxl-2 me-4" data-bs-toggle="tooltip" data-bs-trigger="hover" title="Enter invoice number">
-                                    <span class="fs-2x fw-bold text-gray-800">Invoice #</span>
-                                    <input type="text" class="form-control form-control-flush fw-bold text-muted fs-3 w-125px" value="2021001" placehoder="..." />
-                                </div>
-                                <!--end::Input group-->
-                                <!--begin::Input group-->
-                                <div class="d-flex align-items-center justify-content-end flex-equal order-3 fw-row" data-bs-toggle="tooltip" data-bs-trigger="hover" title="Specify invoice due date">
-                                    <!--begin::Date-->
-                                    <div class="fs-6 fw-bold text-gray-700 text-nowrap">Due Date:</div>
-                                    <!--end::Date-->
-                                    <!--begin::Input-->
-                                    <div class="position-relative d-flex align-items-center w-150px">
-                                        <!--begin::Datepicker-->
-                                        <input class="form-control form-control-transparent fw-bold pe-5" placeholder="Select date" name="invoice_due_date" />
-                                        <!--end::Datepicker-->
-                                        <!--begin::Icon-->
-                                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
-                                        <span class="svg-icon svg-icon-2 position-absolute end-0 ms-4">
-																	<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-																		<path d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z" fill="currentColor" />
-																	</svg>
-																</span>
-                                        <!--end::Svg Icon-->
-                                        <!--end::Icon-->
+                                    <!--end::Input group-->
+                                    <!--begin::Input group-->
+                                    <div class="d-flex align-items-center flex-equal fw-row"
+                                         data-bs-toggle="tooltip" data-bs-trigger="hover" title="Specify invoice date">
+                                        <!--begin::Date-->
+                                        <div class="fs-6 fw-bold text-gray-700 text-nowrap">Date:</div>
+                                        <!--end::Date-->
+                                        <!--begin::Input-->
+                                        <div class="position-relative d-flex align-items-center w-150px">
+                                            <!--begin::Datepicker-->
+                                            <input class="form-control form-control-transparent fw-bold pe-5"
+                                                   placeholder="Select date" name="invoice_date"/>
+                                            <!--end::Datepicker-->
+                                            <!--begin::Icon-->
+                                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
+                                            <span class="svg-icon svg-icon-2 position-absolute ms-4 end-0">
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                 xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                                                    fill="currentColor"/>
+                                            </svg>
+                                        </span>
+                                            <!--end::Svg Icon-->
+                                            <!--end::Icon-->
+                                        </div>
+                                        <!--end::Input-->
                                     </div>
-                                    <!--end::Input-->
+                                    <!--end::Input group-->
+                                    <!--begin::Input group-->
+                                    <div class="d-flex align-items-center flex-equal fw-row"
+                                         data-bs-toggle="tooltip" data-bs-trigger="hover"
+                                         title="Specify invoice due date">
+                                        <!--begin::Date-->
+                                        <div class="fs-6 fw-bold text-gray-700 text-nowrap">Due Date:</div>
+                                        <!--end::Date-->
+                                        <!--begin::Input-->
+                                        <div class="position-relative d-flex align-items-center w-150px">
+                                            <!--begin::Datepicker-->
+                                            <input class="form-control form-control-transparent fw-bold pe-5"
+                                                   placeholder="Select date" name="invoice_due_date"/>
+                                            <!--end::Datepicker-->
+                                            <!--begin::Icon-->
+                                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
+                                            <span class="svg-icon svg-icon-2 position-absolute end-0 ms-4">
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                 xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                                                    fill="currentColor"/>
+                                            </svg>
+                                        </span>
+                                            <!--end::Svg Icon-->
+                                            <!--end::Icon-->
+                                        </div>
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Input group-->
                                 </div>
-                                <!--end::Input group-->
+                                <div class="col-md-6 text-end">
+                                    <img src="{{Auth::user()->logo()}}" alt=""
+                                         onerror="this.src = '{{asset('assets/media/avatars/logo.png')}}'" class="w-25"/>
+                                </div>
                             </div>
                             <!--end::Top-->
                             <!--begin::Separator-->
@@ -129,17 +150,20 @@
                                         <label class="form-label fs-6 fw-bold text-gray-700 mb-3">Bill From</label>
                                         <!--begin::Input group-->
                                         <div class="mb-5">
-                                            <input type="text" class="form-control form-control-solid" placeholder="Name" />
+                                            <input type="text" class="form-control form-control-solid"
+                                                   placeholder="Name"/>
                                         </div>
                                         <!--end::Input group-->
                                         <!--begin::Input group-->
                                         <div class="mb-5">
-                                            <input type="text" class="form-control form-control-solid" placeholder="Email" />
+                                            <input type="text" class="form-control form-control-solid"
+                                                   placeholder="Email"/>
                                         </div>
                                         <!--end::Input group-->
                                         <!--begin::Input group-->
                                         <div class="mb-5">
-                                            <textarea name="notes" class="form-control form-control-solid" rows="3" placeholder="Who is this invoice from?"></textarea>
+                                            <textarea name="notes" class="form-control form-control-solid" rows="3"
+                                                      placeholder="Who is this invoice from?"></textarea>
                                         </div>
                                         <!--end::Input group-->
                                     </div>
@@ -149,17 +173,20 @@
                                         <label class="form-label fs-6 fw-bold text-gray-700 mb-3">Bill To</label>
                                         <!--begin::Input group-->
                                         <div class="mb-5">
-                                            <input type="text" class="form-control form-control-solid" placeholder="Name" />
+                                            <input type="text" class="form-control form-control-solid"
+                                                   placeholder="Name"/>
                                         </div>
                                         <!--end::Input group-->
                                         <!--begin::Input group-->
                                         <div class="mb-5">
-                                            <input type="text" class="form-control form-control-solid" placeholder="Email" />
+                                            <input type="text" class="form-control form-control-solid"
+                                                   placeholder="Email"/>
                                         </div>
                                         <!--end::Input group-->
                                         <!--begin::Input group-->
                                         <div class="mb-5">
-                                            <textarea name="notes" class="form-control form-control-solid" rows="3" placeholder="What is this invoice for?"></textarea>
+                                            <textarea name="notes" class="form-control form-control-solid" rows="3"
+                                                      placeholder="What is this invoice for?"></textarea>
                                         </div>
                                         <!--end::Input group-->
                                     </div>
@@ -185,25 +212,41 @@
                                         <tbody>
                                         <tr class="border-bottom border-bottom-dashed" data-kt-element="item">
                                             <td class="pe-7">
-                                                <input type="text" class="form-control form-control-solid mb-2" name="name[]" placeholder="Item name" />
-                                                <input type="text" class="form-control form-control-solid" name="description[]" placeholder="Description" />
+                                                <input type="text" class="form-control form-control-solid mb-2"
+                                                       name="name[]" placeholder="Item name"/>
+                                                <input type="text" class="form-control form-control-solid"
+                                                       name="description[]" placeholder="Description"/>
                                             </td>
                                             <td class="ps-0">
-                                                <input class="form-control form-control-solid" type="number" min="1" name="quantity[]" placeholder="1" value="1" data-kt-element="quantity" />
+                                                <input class="form-control form-control-solid" type="number" min="1"
+                                                       name="quantity[]" placeholder="1" value="1"
+                                                       data-kt-element="quantity"/>
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control form-control-solid text-end" name="price[]" placeholder="0.00" value="0.00" data-kt-element="price" />
+                                                <input type="text" class="form-control form-control-solid text-end"
+                                                       name="price[]" placeholder="0.00" value="0.00"
+                                                       data-kt-element="price"/>
                                             </td>
                                             <td class="pt-8 text-end text-nowrap">$
                                                 <span data-kt-element="total">0.00</span></td>
                                             <td class="pt-5 text-end">
-                                                <button type="button" class="btn btn-sm btn-icon btn-active-color-primary" data-kt-element="remove-item">
+                                                <button type="button"
+                                                        class="btn btn-sm btn-icon btn-active-color-primary"
+                                                        data-kt-element="remove-item">
                                                     <!--begin::Svg Icon | path: icons/duotune/general/gen027.svg-->
                                                     <span class="svg-icon svg-icon-3">
-																					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-																						<path d="M5 9C5 8.44772 5.44772 8 6 8H18C18.5523 8 19 8.44772 19 9V18C19 19.6569 17.6569 21 16 21H8C6.34315 21 5 19.6569 5 18V9Z" fill="currentColor" />
-																						<path opacity="0.5" d="M5 5C5 4.44772 5.44772 4 6 4H18C18.5523 4 19 4.44772 19 5V5C19 5.55228 18.5523 6 18 6H6C5.44772 6 5 5.55228 5 5V5Z" fill="currentColor" />
-																						<path opacity="0.5" d="M9 4C9 3.44772 9.44772 3 10 3H14C14.5523 3 15 3.44772 15 4V4H9V4Z" fill="currentColor" />
+																					<svg width="24" height="24"
+                                                                                         viewBox="0 0 24 24" fill="none"
+                                                                                         xmlns="http://www.w3.org/2000/svg">
+																						<path
+                                                                                            d="M5 9C5 8.44772 5.44772 8 6 8H18C18.5523 8 19 8.44772 19 9V18C19 19.6569 17.6569 21 16 21H8C6.34315 21 5 19.6569 5 18V9Z"
+                                                                                            fill="currentColor"/>
+																						<path opacity="0.5"
+                                                                                              d="M5 5C5 4.44772 5.44772 4 6 4H18C18.5523 4 19 4.44772 19 5V5C19 5.55228 18.5523 6 18 6H6C5.44772 6 5 5.55228 5 5V5Z"
+                                                                                              fill="currentColor"/>
+																						<path opacity="0.5"
+                                                                                              d="M9 4C9 3.44772 9.44772 3 10 3H14C14.5523 3 15 3.44772 15 4V4H9V4Z"
+                                                                                              fill="currentColor"/>
 																					</svg>
 																				</span>
                                                     <!--end::Svg Icon-->
@@ -216,13 +259,18 @@
                                         <tfoot>
                                         <tr class="border-top border-top-dashed align-top fs-6 fw-bold text-gray-700">
                                             <th class="text-primary">
-                                                <button class="btn btn-link py-1" data-kt-element="add-item">Add item</button>
+                                                <button class="btn btn-link py-1" data-kt-element="add-item">Add item
+                                                </button>
                                             </th>
                                             <th colspan="2" class="border-bottom border-bottom-dashed ps-0">
                                                 <div class="d-flex flex-column align-items-start">
                                                     <div class="fs-5">Subtotal</div>
-                                                    <button class="btn btn-link py-1" data-bs-toggle="tooltip" data-bs-trigger="hover" title="Coming soon">Add tax</button>
-                                                    <button class="btn btn-link py-1" data-bs-toggle="tooltip" data-bs-trigger="hover" title="Coming soon">Add discount</button>
+                                                    <button class="btn btn-link py-1" data-bs-toggle="tooltip"
+                                                            data-bs-trigger="hover" title="Coming soon">Add tax
+                                                    </button>
+                                                    <button class="btn btn-link py-1" data-bs-toggle="tooltip"
+                                                            data-bs-trigger="hover" title="Coming soon">Add discount
+                                                    </button>
                                                 </div>
                                             </th>
                                             <th colspan="2" class="border-bottom border-bottom-dashed text-end">$
@@ -243,25 +291,38 @@
                                 <table class="table d-none" data-kt-element="item-template">
                                     <tr class="border-bottom border-bottom-dashed" data-kt-element="item">
                                         <td class="pe-7">
-                                            <input type="text" class="form-control form-control-solid mb-2" name="name[]" placeholder="Item name" />
-                                            <input type="text" class="form-control form-control-solid" name="description[]" placeholder="Description" />
+                                            <input type="text" class="form-control form-control-solid mb-2"
+                                                   name="name[]" placeholder="Item name"/>
+                                            <input type="text" class="form-control form-control-solid"
+                                                   name="description[]" placeholder="Description"/>
                                         </td>
                                         <td class="ps-0">
-                                            <input class="form-control form-control-solid" type="number" min="1" name="quantity[]" placeholder="1" data-kt-element="quantity" />
+                                            <input class="form-control form-control-solid" type="number" min="1"
+                                                   name="quantity[]" placeholder="1" data-kt-element="quantity"/>
                                         </td>
                                         <td>
-                                            <input type="text" class="form-control form-control-solid text-end" name="price[]" placeholder="0.00" data-kt-element="price" />
+                                            <input type="text" class="form-control form-control-solid text-end"
+                                                   name="price[]" placeholder="0.00" data-kt-element="price"/>
                                         </td>
                                         <td class="pt-8 text-end">$
                                             <span data-kt-element="total">0.00</span></td>
                                         <td class="pt-5 text-end">
-                                            <button type="button" class="btn btn-sm btn-icon btn-active-color-primary" data-kt-element="remove-item">
+                                            <button type="button" class="btn btn-sm btn-icon btn-active-color-primary"
+                                                    data-kt-element="remove-item">
                                                 <!--begin::Svg Icon | path: icons/duotune/general/gen027.svg-->
                                                 <span class="svg-icon svg-icon-3">
-																			<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-																				<path d="M5 9C5 8.44772 5.44772 8 6 8H18C18.5523 8 19 8.44772 19 9V18C19 19.6569 17.6569 21 16 21H8C6.34315 21 5 19.6569 5 18V9Z" fill="currentColor" />
-																				<path opacity="0.5" d="M5 5C5 4.44772 5.44772 4 6 4H18C18.5523 4 19 4.44772 19 5V5C19 5.55228 18.5523 6 18 6H6C5.44772 6 5 5.55228 5 5V5Z" fill="currentColor" />
-																				<path opacity="0.5" d="M9 4C9 3.44772 9.44772 3 10 3H14C14.5523 3 15 3.44772 15 4V4H9V4Z" fill="currentColor" />
+																			<svg width="24" height="24"
+                                                                                 viewBox="0 0 24 24" fill="none"
+                                                                                 xmlns="http://www.w3.org/2000/svg">
+																				<path
+                                                                                    d="M5 9C5 8.44772 5.44772 8 6 8H18C18.5523 8 19 8.44772 19 9V18C19 19.6569 17.6569 21 16 21H8C6.34315 21 5 19.6569 5 18V9Z"
+                                                                                    fill="currentColor"/>
+																				<path opacity="0.5"
+                                                                                      d="M5 5C5 4.44772 5.44772 4 6 4H18C18.5523 4 19 4.44772 19 5V5C19 5.55228 18.5523 6 18 6H6C5.44772 6 5 5.55228 5 5V5Z"
+                                                                                      fill="currentColor"/>
+																				<path opacity="0.5"
+                                                                                      d="M9 4C9 3.44772 9.44772 3 10 3H14C14.5523 3 15 3.44772 15 4V4H9V4Z"
+                                                                                      fill="currentColor"/>
 																			</svg>
 																		</span>
                                                 <!--end::Svg Icon-->
@@ -278,7 +339,8 @@
                                 <!--begin::Notes-->
                                 <div class="mb-0">
                                     <label class="form-label fs-6 fw-bold text-gray-700">Notes</label>
-                                    <textarea name="notes" class="form-control form-control-solid" rows="3" placeholder="Thanks for your business"></textarea>
+                                    <textarea name="notes" class="form-control form-control-solid" rows="3"
+                                              placeholder="Thanks for your business"></textarea>
                                 </div>
                                 <!--end::Notes-->
                             </div>
@@ -298,7 +360,7 @@
 @stop
 
 @push('custom_scripts')
-{{--    <script src="{{ asset('assets/plugins/custom/formrepeater/formrepeater.bundle.js') }}"></script>--}}
-{{--    <script src="{{ asset('assets/js/pages/deposit/deposit.js') }}"></script>--}}
-{{--    <script src="{{ asset('assets/js/pages/deposit/functions.js') }}"></script>--}}
+    {{--    <script src="{{ asset('assets/plugins/custom/formrepeater/formrepeater.bundle.js') }}"></script>--}}
+    {{--    <script src="{{ asset('assets/js/pages/deposit/deposit.js') }}"></script>--}}
+    {{--    <script src="{{ asset('assets/js/pages/deposit/functions.js') }}"></script>--}}
 @endpush

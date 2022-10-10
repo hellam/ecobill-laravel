@@ -294,6 +294,7 @@ function submitDeposit(submitButton, form, serialized_form) {
                                 $('#err_' + value.field).remove();
                             })
                     }
+
                     if (select.length) {
                         select.closest('.fv-row')
                             .after('<small style="color: red;" id="err_' + value.field + '">' + value.error + '</small>')
@@ -301,7 +302,8 @@ function submitDeposit(submitButton, form, serialized_form) {
                                 $('#err_' + value.field).remove();
                             })
                     }
-                    if (value.field.includes('deposit_options')) {
+
+                    if (value.field.includes('deposit_options.')) {
                         let field = value.field.split('.')
                         field = field[0] + "[" + field[1] + "][" + field[2] + "]"
                         let field_id = field[0] + "_" + field[1] + "_" + field[2] + "_" + key
@@ -328,6 +330,14 @@ function submitDeposit(submitButton, form, serialized_form) {
                             }
                         }
                     }
+
+                    if (value.field === 'deposit_options') {
+                        $('.deposit_header').after('<div style="color: red;" id="err_deposit_options" class="text-center">' + value.error + '</div>')
+                        $('#add_row').on('click', function () {
+                            $('#err_deposit_options').remove()
+                        })
+                    }
+
                 }
                 Swal.fire({
                     text: response.message,

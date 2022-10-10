@@ -45,21 +45,22 @@ class BankAccountDepositController extends Controller
             $customer_branch = CustomerBranch::find($request->customer_branch_id);
         $bank = BankAccount::find($request->into_bank);
 
-        $trans_no = generate_reff_no(ST_ACCOUNT_DEPOSIT, true, $request->reference);
-
-        $post_data = [
-            'trans_no' => $trans_no,
-            'trx_type' => ST_ACCOUNT_DEPOSIT,
-            'trx_date' => $request->date,
-            'client_ref' => get_user_ref(),
-        ];
-        $post_data = array_merge($post_data, set_create_parameters($created_at, $created_by, $supervised_by, $supervised_at));
-
         $total = 0;
         $fx_rate = $request->filled('fx_rate') ? $request->fx_rate : 1;
 
         try {
             DB::beginTransaction();
+
+            $trans_no = generate_reff_no(ST_ACCOUNT_DEPOSIT, true, $request->reference);
+
+            $post_data = [
+                'trans_no' => $trans_no,
+                'trx_type' => ST_ACCOUNT_DEPOSIT,
+                'trx_date' => $request->date,
+                'client_ref' => get_user_ref(),
+            ];
+            $post_data = array_merge($post_data, set_create_parameters($created_at, $created_by, $supervised_by, $supervised_at));
+
 
             //Record entered GL Transactions
             foreach ($request->deposit_options as $key => $val) {

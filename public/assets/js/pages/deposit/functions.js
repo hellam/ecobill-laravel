@@ -257,6 +257,10 @@ function handleSubmit() {
 
     form.on('submit', function (e) {
         e.preventDefault()
+        let small_errors = $('small')
+        if (small_errors.length) {
+            small_errors.remove()
+        }
         blockUI.block()
         $.ajax({
             headers: {
@@ -292,17 +296,28 @@ function handleSubmit() {
                         if (value.field.includes('deposit_options')) {
                             let field = value.field.split('.')
                             field = field[0] + "[" + field[1] + "][" + field[2] + "]"
+                            let field_id = field[0] + "_" + field[1] + "_" + field[2] + "_" + key
                             let field_name = $('[name="' + field + '"]')
                             if (field_name.is("select")) {
-                                field_name.closest('.fv-row')
-                                    .after('<small style="color: red;" id="err_' + value.field + '">' + value.error + '</small>')
-                                field_name.on('change', function (){
-                                    console.log($('#err_' + value.field).length)
-                                })
-
+                                if ($('#err_' + field_id).length) {
+                                    $('#err_' + field_id).html(value.error)
+                                } else {
+                                    field_name.closest('.fv-row')
+                                        .after('<small style="color: red;" id="err_' + field_id + '">' + value.error + '</small>')
+                                        .on('change', function () {
+                                            $('#err_' + field_id).remove();
+                                        })
+                                }
                             } else {
-                                field_name
-                                    .after('<small style="color: red;" id="err_' + value.field + '">' + value.error + '</small>')
+                                if ($('#err_' + field_id).length) {
+                                    $('#err_' + field_id).html(value.error)
+                                } else {
+                                    field_name
+                                        .after('<small style="color: red;" id="err_' + field_id + '">' + value.error + '</small>')
+                                        .on('keyup', function () {
+                                            $('#err_' + field_id).remove();
+                                        })
+                                }
                             }
                         }
                     }

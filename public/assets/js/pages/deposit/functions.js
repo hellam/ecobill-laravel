@@ -365,7 +365,7 @@ function submitDeposit(submitButton, form, serialized_form) {
                         // Enable submit button after loading
                         submitButton.disabled = false;
                         form[0].reset(); // Reset form
-                        refGen('deposit', $('[name="reference"]').attr('data-kt-src'))
+                        refGen($('[name="reference"]').attr('data-kt-src'))
                         $("#date_picker").val(moment().format($("#date_picker").attr("data-kt-date-format")))
                         $('[name="from"]').val(0).trigger('change')
                         $('[name="currency"]').val($('[name="currency"]').attr('data-kt-default')).trigger('change')
@@ -442,11 +442,10 @@ function submitDeposit(submitButton, form, serialized_form) {
     });
 }
 
-function refGen(type, url) {
+function refGen(url) {
     $.ajax({
         type: "GET",
         url: url,
-        data: type,
         success: function (response) {
             if (response.status === true) {
                 $('[name="reference"]').val(response.data.ref_no)

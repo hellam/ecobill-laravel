@@ -86,7 +86,7 @@
                                     <!--begin::Input-->
                                     <input type="number" class="form-control form-control-sm form-control-solid"
                                            placeholder="{{__('messages.reference')}}"
-                                           name="reference" data-kt-src="{{route('user.ref_gen', 'deposit')}}"/>
+                                           name="reference" data-kt-src="{{route('user.ref_gen', ST_ACCOUNT_DEPOSIT)}}"/>
                                     <!--end::Input-->
                                 </div>
                                 <!--end::Col-->

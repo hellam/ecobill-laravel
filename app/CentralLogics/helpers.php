@@ -394,7 +394,7 @@ function get_company_setting($key_type)
 {
     $general_settings = json_decode(BusinessSetting::where('key', 'general_settings')->first()->value, true);
 
-    return $general_settings[$key_type] ?? 'USD';
+    return $general_settings[$key_type] ?? 'N/A';
 }
 
 function checkif_has_any_permission($start, $end)

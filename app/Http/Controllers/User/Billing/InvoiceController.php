@@ -16,8 +16,8 @@ class InvoiceController extends Controller
      */
     public function index(): Factory|View|Application
     {
-        $current = Currency::all();
+        $currency = Currency::all();
         $payment_terms = PaymentTerm::all();
-        return view('user.billing.new_invoice', compact('current', 'payment_terms'));
+        return view('user.billing.new_invoice', compact('currency', 'payment_terms'));
     }
 }

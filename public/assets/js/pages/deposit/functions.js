@@ -118,6 +118,7 @@ function addFXField() {
 
                     $('[name="fx_rate"]').val(response.data.fx_rate)
                     $('#label_fx').html("1 " + default_currency + " = " + current_currency)
+                    $('#total').after('<div></div>')
                 }
             },
             error: function () {
@@ -133,8 +134,9 @@ function addFXField() {
             }
         })
     } else {
-        if ($('#current_to_default').length) {
+        if ($('#current_to_default').length && $('#exchange_rate').length) {
             $('#current_to_default').remove()
+            $('#exchange_rate').remove()
         }
     }
 }

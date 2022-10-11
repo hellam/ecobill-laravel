@@ -537,14 +537,14 @@ function getFxRate($from, $to, $date = null)
             ->orderBy('date', 'desc')
             ->orderBy('id', 'desc')
             ->first();
-        return toRateDecimal($fx->buy_rate ?? 1);
+        return toRateDecimal($fx->sell_rate ?? 1);
     } elseif ($to == session('currency')) {//direct conversion: use sell rate
         $fx = ExchangeRate::where('currency', $from)
             ->where('date', '<=', $date)
             ->orderBy('date', 'desc')
             ->orderBy('id', 'desc')
             ->first();
-        return toRateDecimal($fx->sell_rate ?? 1);
+        return toRateDecimal($fx->buy_rate ?? 1);
     } else {//convert to home currency (sell_rate) and convert to second currency (buy_rate)
 
         $fx_from = ExchangeRate::where('currency', $from)
@@ -566,7 +566,7 @@ function getFxRate($from, $to, $date = null)
 
 function convert_currency_to_second_currency($amount, $fx_rate = null)
 {
-    return $amount / ($fx_rate ?? 1);
+    return $amount * ($fx_rate ?? 1);
 }
 
 function generate_reff_no($type, $save = false, int $reference = null)

@@ -39,7 +39,7 @@ class ExchangeRateController extends Controller
 
         $post_data = [
             'currency' => $request->currency,
-            'buy_rate' => $request->buy_rate,
+            'buy_rate' => $request->sell_rate,
             'sell_rate' => $request->sell_rate,
             'date' => $request->date,
             'branch_id' => session('branch'),
@@ -107,7 +107,7 @@ class ExchangeRateController extends Controller
         $fx = set_update_parameters($fx, $created_at, $created_by, $supervised_by, $supervised_at);
 
         $fx->currency = $request->currency;
-        $fx->buy_rate = $request->buy_rate;
+        $fx->buy_rate = $request->sell_rate;
         $fx->sell_rate = $request->sell_rate;
         $fx->date = $request->date;
         $fx->update();

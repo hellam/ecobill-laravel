@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('contact_phone',20)->nullable();
             $table->string('contact_email',100)->nullable();
             $table->string('delivery_to',255)->nullable();
-            $table->integer('payment_terms');
+            $table->bigInteger('payment_terms');
             $table->double('amount')->default(0);
             $table->double('alloc')->default(0);
             $table->tinyInteger('is_tax_included')->default(0);

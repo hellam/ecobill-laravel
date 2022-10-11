@@ -266,6 +266,7 @@
                                                 aria-label="Select Currency"
                                                 data-control="select2"
                                                 data-kt-src="#"
+                                                id="add_currency"
                                                 data-placeholder="Select Currency"
                                                 data-dropdown-parent="#kt_modal_add_fx"
                                                 class="form-select form-select-solid fw-bolder">
@@ -279,21 +280,21 @@
                                     </div>
                                 </div>
                                 <!--end::Input group-->
-                                <!--begin::Input group-->
-                                <div class="fv-row mb-7">
-                                    <!--begin::Label-->
-                                    <label class="fs-6 fw-bold mb-2" for="buy_rate">
-                                        <span
-                                            class="required">{{session('currency').' '.__('messages.buy_rate')}}</span>
-                                    </label>
-                                    <!--end::Label-->
-                                    <!--begin::Input-->
-                                    <input type="number" class="form-control form-control-solid"
-                                           placeholder="{{__('messages.buy_rate')}}"
-                                           name="buy_rate"/>
-                                    <!--end::Input-->
-                                </div>
-                                <!--end::Input group-->
+                                {{--                                <!--begin::Input group-->--}}
+                                {{--                                <div class="fv-row mb-7">--}}
+                                {{--                                    <!--begin::Label-->--}}
+                                {{--                                    <label class="fs-6 fw-bold mb-2" for="buy_rate">--}}
+                                {{--                                        <span--}}
+                                {{--                                            class="required">{{session('currency').' '.__('messages.buy_rate')}}</span>--}}
+                                {{--                                    </label>--}}
+                                {{--                                    <!--end::Label-->--}}
+                                {{--                                    <!--begin::Input-->--}}
+                                {{--                                    <input type="number" class="form-control form-control-solid"--}}
+                                {{--                                           placeholder="{{__('messages.buy_rate')}}"--}}
+                                {{--                                           name="buy_rate"/>--}}
+                                {{--                                    <!--end::Input-->--}}
+                                {{--                                </div>--}}
+                                {{--                                <!--end::Input group-->--}}
                                 <!--begin::Input group-->
                                 <div class="fv-row mb-7">
                                     <!--begin::Label-->
@@ -305,8 +306,9 @@
                                     <!--begin::Input-->
                                     <input type="number" class="form-control form-control-solid"
                                            placeholder="{{__('messages.sell_rate')}}"
-                                           name="sell_rate"/>
+                                           name="sell_rate" data-kt-default="{{session('currency')}}" id="sell_rate"/>
                                     <!--end::Input-->
+                                    <span class="text-success" id="default_add_conversion"></span>
                                 </div>
                                 <!--end::Input group-->
                                 <!--begin::Input group-->
@@ -437,6 +439,7 @@
                                                 aria-label="Select Currency"
                                                 data-control="select2"
                                                 data-kt-src="#"
+                                                id="currency_update"
                                                 data-placeholder="Select Currency"
                                                 data-dropdown-parent="#kt_modal_update_fx"
                                                 class="form-select form-select-solid fw-bolder">
@@ -450,21 +453,21 @@
                                     </div>
                                 </div>
                                 <!--end::Input group-->
-                                <!--begin::Input group-->
-                                <div class="fv-row mb-7">
-                                    <!--begin::Label-->
-                                    <label class="fs-6 fw-bold mb-2" for="buy_rate">
-                                        <span
-                                            class="required">{{session('currency').' '.__('messages.buy_rate')}}</span>
-                                    </label>
-                                    <!--end::Label-->
-                                    <!--begin::Input-->
-                                    <input type="number" class="form-control form-control-solid"
-                                           placeholder="{{__('messages.buy_rate')}}"
-                                           name="buy_rate"/>
-                                    <!--end::Input-->
-                                </div>
-                                <!--end::Input group-->
+                                {{--                                <!--begin::Input group-->--}}
+                                {{--                                <div class="fv-row mb-7">--}}
+                                {{--                                    <!--begin::Label-->--}}
+                                {{--                                    <label class="fs-6 fw-bold mb-2" for="buy_rate">--}}
+                                {{--                                        <span--}}
+                                {{--                                            class="required">{{session('currency').' '.__('messages.buy_rate')}}</span>--}}
+                                {{--                                    </label>--}}
+                                {{--                                    <!--end::Label-->--}}
+                                {{--                                    <!--begin::Input-->--}}
+                                {{--                                    <input type="number" class="form-control form-control-solid"--}}
+                                {{--                                           placeholder="{{__('messages.buy_rate')}}"--}}
+                                {{--                                           name="buy_rate"/>--}}
+                                {{--                                    <!--end::Input-->--}}
+                                {{--                                </div>--}}
+                                {{--                                <!--end::Input group-->--}}
                                 <!--begin::Input group-->
                                 <div class="fv-row mb-7">
                                     <!--begin::Label-->
@@ -476,8 +479,9 @@
                                     <!--begin::Input-->
                                     <input type="number" class="form-control form-control-solid"
                                            placeholder="{{__('messages.sell_rate')}}"
-                                           name="sell_rate"/>
+                                           name="sell_rate" data-kt-default="{{session('currency')}}" id="sell_update_rate"/>
                                     <!--end::Input-->
+                                    <span class="text-success" id="default_update_conversion"></span>
                                 </div>
                                 <!--end::Input group-->
                                 <!--begin::Input group-->

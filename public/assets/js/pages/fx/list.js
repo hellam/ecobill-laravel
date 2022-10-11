@@ -52,12 +52,13 @@ const KTFXServerSide = function () {
                             $('#kt_modal_update_fx_form').show({backdrop: 'static', keyboard: false});//show form
                             const fx = response.data;
                             //
-                            $("#kt_modal_update_fx_form input[name='buy_rate']").val(fx.buy_rate);
                             $("#kt_modal_update_fx_form input[name='sell_rate']").val(fx.sell_rate);
                             $("#kt_modal_update_fx_form input[name='date']").val(fx.date);
                             $("#kt_modal_update_fx_form select[name='currency']").val(fx.currency).trigger('change');
 
                             $("#update_date").val(moment(fx.date).format('DD/MM/YYYY H:mm:ss'))
+
+                            $('#default_update_conversion').html(fx.sell_rate + " " + $('#sell_update_rate').attr('data-kt-default') + " = 1 " +  fx.currency)
 
                             $("#kt_update_date_from").daterangepicker({
                                     singleDatePicker: true,
@@ -98,6 +99,33 @@ const KTFXServerSide = function () {
         });
 
     };
+
+    let sell_rate = $('#sell_update_rate'),
+        conversion_text = $('#default_update_conversion'),
+        default_currency = sell_rate.attr('data-kt-default'),
+        select_currency = $('#currency_update'),
+        to_currency,
+        sell_rate_val = sell_rate.val();
+
+    select_currency.on('change', function (e) {
+        to_currency = e.target.value
+        if (sell_rate_val === "" || sell_rate_val == 0) {
+            conversion_text.html("1 " + default_currency + " = 1 " + to_currency)
+        } else {
+            conversion_text.html(sell_rate_val + " " + default_currency + " = 1 " + to_currency)
+        }
+    })
+
+    sell_rate.on('keyup', function (e) {
+        sell_rate_val = e.target.value
+        if (select_currency.val() !== "")
+            if (sell_rate_val === "" || sell_rate_val == 0) {
+                conversion_text.html("1 " + default_currency + " = 1 " + to_currency)
+            } else {
+                conversion_text.html(sell_rate_val + " " + default_currency + " = 1 " + to_currency)
+            }
+    })
+
 
     // Public methods
     return {

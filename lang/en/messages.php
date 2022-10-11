@@ -152,6 +152,7 @@ return [
     'groups' => 'Groups',
     'group' => 'Group',
     'into' => 'Into',
+    'invoice' => 'Invoice',
     'history' => 'History',
     'home' => 'Home',
     'hundredths' => 'Hundredths',

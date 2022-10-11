@@ -64,7 +64,8 @@ const KTDepositAdd = function () {
                 minYear: 1901,
                 locale: {
                     format: '' + $("#date_picker").attr("data-kt-date-format") + ''
-                }
+                },
+                autoApply: true,
             }, function (start, end, label) {
             }
         );
@@ -93,7 +94,7 @@ const KTDepositAdd = function () {
                     ' data-control="select2"\n' +
                     ' data-kt-src="' + src_url + '"\n' +
                     ' data-placeholder="Select Customer"\n' +
-                    'data-dropdown-css-class="w-350px"'+
+                    'data-dropdown-css-class="w-350px"' +
                     ' class="form-select form-select-sm form-select-solid fw-bolder select_customer_branch">\n' +
                     '</select>')
                 $('#select_input select').select2()

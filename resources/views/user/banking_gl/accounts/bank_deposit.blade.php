@@ -55,7 +55,8 @@
         <div class="card shadow" id="kt_block_ui_1_target">
             <!--begin::Body-->
             <div class="card-body">
-                <form data-kt-action="{{route('user.banking_gl.banking.deposit')}}" id="kt_add_deposit_form">
+                <form data-kt-action="{{route('user.banking_gl.banking.deposit')}}"
+                      data-kt-default="{{session('currency')}}" id="kt_add_deposit_form">
                     <div class="row">
                         <div class="col-md-4">
                             <!--begin::Input group-->
@@ -86,7 +87,8 @@
                                     <!--begin::Input-->
                                     <input type="number" class="form-control form-control-sm form-control-solid"
                                            placeholder="{{__('messages.reference')}}"
-                                           name="reference" data-kt-src="{{route('user.ref_gen', ST_ACCOUNT_DEPOSIT)}}"/>
+                                           name="reference"
+                                           data-kt-src="{{route('user.ref_gen', ST_ACCOUNT_DEPOSIT)}}"/>
                                     <!--end::Input-->
                                 </div>
                                 <!--end::Col-->

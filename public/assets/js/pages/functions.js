@@ -562,3 +562,16 @@ function handleCustomerAPISelect(select_parent, preselect = null) {
     })
 }
 
+function refGen(url) {
+    $.ajax({
+        type: "GET",
+        url: url,
+        success: function (response) {
+            if (response.status === true) {
+                $('[name="reference"]').val(response.data.ref_no)
+            }
+        },
+        error: function () {
+        },
+    })
+}

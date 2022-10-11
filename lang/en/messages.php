@@ -126,6 +126,7 @@ return [
     'digits' => 'Digits',
     'double' => 'Double',
     'due_after' => 'Due after/on',
+    'due_date' => 'Due Date',
     'edit' => 'Edit',
     'email' => 'Email',
     'email_settings' => 'Email Settings',

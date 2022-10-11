@@ -76,8 +76,7 @@
                                     </div>
                                     <!--end::Input group-->
                                     <!--begin::Input group-->
-                                    <div class="d-flex align-items-center flex-equal fw-row"
-                                         data-bs-toggle="tooltip" data-bs-trigger="hover" title="Specify invoice date">
+                                    <div class="d-flex align-items-center flex-equal fw-row">
                                         <!--begin::Date-->
                                         <div class="fs-6 fw-bold text-gray-700 text-nowrap">Date:</div>
                                         <!--end::Date-->
@@ -85,7 +84,7 @@
                                         <div class="position-relative d-flex align-items-center w-150px">
                                             <!--begin::Datepicker-->
                                             <input class="form-control form-control-transparent fw-bold pe-5"
-                                                   placeholder="Select date" name="invoice_date"/>
+                                                   placeholder="Select date" name="invoice_date" data-bs-toggle="tooltip" data-bs-trigger="hover" title="Specify invoice date"/>
                                             <!--end::Datepicker-->
                                             <!--begin::Icon-->
                                             <!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
@@ -104,9 +103,7 @@
                                     </div>
                                     <!--end::Input group-->
                                     <!--begin::Input group-->
-                                    <div class="d-flex align-items-center flex-equal fw-row"
-                                         data-bs-toggle="tooltip" data-bs-trigger="hover"
-                                         title="Specify invoice due date">
+                                    <div class="d-flex align-items-center flex-equal fw-row">
                                         <!--begin::Date-->
                                         <div class="fs-6 fw-bold text-gray-700 text-nowrap">Due Date:</div>
                                         <!--end::Date-->
@@ -114,7 +111,8 @@
                                         <div class="position-relative d-flex align-items-center w-150px">
                                             <!--begin::Datepicker-->
                                             <input class="form-control form-control-transparent fw-bold pe-5"
-                                                   placeholder="Select date" name="invoice_due_date"/>
+                                                   placeholder="Select date" name="invoice_due_date" data-bs-toggle="tooltip" data-bs-trigger="hover"
+                                                   title="Specify invoice due date"/>
                                             <!--end::Datepicker-->
                                             <!--begin::Icon-->
                                             <!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
@@ -145,16 +143,16 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <!--begin::Input-->
-                                    <select name="from"
+                                    <select name="pay_terms"
                                             aria-label="Select Payment Terms"
                                             data-control="select2"
                                             data-placeholder="Select Payment Terms"
-                                            data-kt-src="{{route('user.customers.branch.select_api')}}"
+                                            data-kt-date-format="{{get_js_date_format()}}"
                                             class="form-select form-select-sm form-select-solid fw-bolder">
                                         <option></option>
                                         @foreach($payment_terms as $pay_terms)
                                             <option
-                                                value="{{$pay_terms->id}}">{{$pay_terms->terms}}</option>
+                                                value="{{$pay_terms->id}}" data-kt-days="{{$pay_terms->days}}" data-kt-type="{{$pay_terms->type}}">{{$pay_terms->terms}}</option>
                                         @endforeach
                                     </select>
                                     <!--end::Input-->

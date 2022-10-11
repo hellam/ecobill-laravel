@@ -71,7 +71,7 @@
                                         <span class="fs-2x fw-bold text-gray-800">{{__('messages.invoice')}} #</span>
                                         <input type="text" name="reference"
                                                class="form-control form-control-flush fw-bold text-muted fs-3 w-125px"
-                                               data-kt-src="{{route('user.ref_gen', ST_ACCOUNT_DEPOSIT)}}"
+                                               data-kt-src="{{route('user.ref_gen', ST_INVOICE)}}"
                                                placeholder="..."/>
                                     </div>
                                     <!--end::Input group-->
@@ -143,23 +143,6 @@
                             <!--begin::Separator-->
                             <div class="separator separator-dashed my-5"></div>
                             <div class="row">
-                                <div class="col-md-4 fv-row">
-                                    <!--begin::Input-->
-                                    <select name="from"
-                                            aria-label="Select Currency"
-                                            data-control="select2"
-                                            data-placeholder="Select Currency"
-                                            class="form-select form-select-sm form-select-solid fw-bolder">
-                                        <option></option>
-                                        @foreach($currency as $curr)
-                                            <option @if($curr->abbreviation === session('currency'))selected @endif
-                                            value="{{$curr->abbreviation}}">{{$curr->name.' - '.$curr->abbreviation}}</option>
-                                        @endforeach
-                                    </select>
-                                    <!--end::Input-->
-                                </div>
-                                <div class="col-md-4">
-                                </div>
                                 <div class="col-md-4">
                                     <!--begin::Input-->
                                     <select name="from"
@@ -171,7 +154,7 @@
                                         <option></option>
                                         @foreach($payment_terms as $pay_terms)
                                             <option
-                                            value="{{$pay_terms->id}}">{{$pay_terms->terms}}</option>
+                                                value="{{$pay_terms->id}}">{{$pay_terms->terms}}</option>
                                         @endforeach
                                     </select>
                                     <!--end::Input-->

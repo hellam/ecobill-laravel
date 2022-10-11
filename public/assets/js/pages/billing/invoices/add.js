@@ -2,7 +2,7 @@
 
 // Class definition
 const KTInvoiceAdd = function () {
-    let form = $('#kt_invoice_form');
+    let form = $('#kt_invoice_form'), pay_terms = $('[name="pay_terms"]');
 
     function handleInvoice() {
         $('[name="invoice_due_date"], [name="invoice_date"]').daterangepicker({
@@ -17,7 +17,35 @@ const KTInvoiceAdd = function () {
         }, function (start, end, label) {
         });
 
+        pay_terms.on('change', function () {
+            let no_days = $(this).find(":selected").attr('data-kt-days'),
+                type = $(this).find(":selected").attr('data-kt-type'),
+                invoice_date = $('[name="invoice_date"]'),
+                invoice_due_date = $('[name="invoice_due_date"]'),
+                date_format = '' + pay_terms.attr('data-kt-date-format') + ''
 
+            if (type == 1) {
+                // type 1 number of days
+                if (invoice_date.val()) {
+                    invoice_due_date.val(moment(invoice_date.val(), date_format).add(no_days, 'days').format(date_format))
+                } else {
+                    invoice_due_date.val(moment().format(date_format))
+                }
+            } else if (type == 2) {
+                // type 2 day in the following month
+                if (invoice_date.val()) {
+                    invoice_due_date.val(moment(invoice_date.val(), date_format).endOf('month').add(no_days, 'days').format(date_format))
+                } else {
+                    invoice_due_date.val(moment().format(date_format))
+                }
+            } else {
+                if (invoice_date.val()) {
+                    invoice_due_date.val(invoice_date.val())
+                } else {
+                    invoice_due_date.val(moment().format(date_format))
+                }
+            }
+        })
     }
 
     return {

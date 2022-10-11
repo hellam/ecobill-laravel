@@ -149,11 +149,12 @@
                                             aria-label="Select Currency"
                                             data-control="select2"
                                             data-placeholder="Select Currency"
-                                            data-kt-src="{{route('user.customers.branch.select_api')}}"
                                             class="form-select form-select-sm form-select-solid fw-bolder">
                                         <option></option>
-                                        <option value="0">Miscellaneous</option>
-                                        <option value="1">Customer</option>
+                                        @foreach($currency as $curr)
+                                            <option @if($curr->abbreviation === session('currency'))selected @endif
+                                            value="{{$curr->abbreviation}}">{{$curr->name.' - '.$curr->abbreviation}}</option>
+                                        @endforeach
                                     </select>
                                     <!--end::Input-->
                                 </div>
@@ -168,8 +169,10 @@
                                             data-kt-src="{{route('user.customers.branch.select_api')}}"
                                             class="form-select form-select-sm form-select-solid fw-bolder">
                                         <option></option>
-                                        <option value="0">Miscellaneous</option>
-                                        <option value="1">Customer</option>
+                                        @foreach($payment_terms as $pay_terms)
+                                            <option
+                                            value="{{$pay_terms->id}}">{{$pay_terms->terms}}</option>
+                                        @endforeach
                                     </select>
                                     <!--end::Input-->
                                 </div>

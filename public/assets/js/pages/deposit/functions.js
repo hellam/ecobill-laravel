@@ -74,8 +74,8 @@ function addFXField() {
             url: $('.select_bank').attr('data-kt-fx-url'),
             type: 'POST',
             data: {
-                from: current_currency,
-                to: default_currency
+                from: default_currency,
+                to: current_currency
             },
             success: function (response) {
                 if (response.status !== true) {
@@ -97,19 +97,19 @@ function addFXField() {
                             '<div class="col-md-4" id="current_to_default">' +
                             '<!--begin::Input group-->\n' +
                             '<div class="row mb-6 mx-2 fv-row" id="cust_to_bank">\n' +
-                            '    <!--begin::Col-->\n' +
-                            '    <div class="col-lg-7">\n' +
-                            '        <!--begin::Input-->\n' +
-                            '        <input type="text" class="form-control form-control-sm form-control-solid"\n' +
-                            '               placeholder="From ' + current_currency + " to " + default_currency + '"\n' +
-                            '               name="fx_rate"/>\n' +
-                            '        <!--end::Input-->\n' +
-                            '    </div>\n' +
-                            '    <!--end::Col-->\n' +
                             '    <!--begin::Label-->\n' +
                             '    <label\n' +
                             '        class="col-lg-5 col-form-label fw-semibold fs-7" id="label_fx"></label>\n' +
                             '    <!--end::Label-->\n' +
+                            '    <!--begin::Col-->\n' +
+                            '    <div class="col-lg-7">\n' +
+                            '        <!--begin::Input-->\n' +
+                            '        <input type="text" class="form-control form-control-sm form-control-solid"\n' +
+                            '               placeholder="From ' + default_currency + " to " + current_currency + '"\n' +
+                            '               name="fx_rate"/>\n' +
+                            '        <!--end::Input-->\n' +
+                            '    </div>\n' +
+                            '    <!--end::Col-->\n' +
                             '</div>\n' +
                             '<!--end::Input group-->' +
                             '</div>'
@@ -117,7 +117,7 @@ function addFXField() {
                     }
 
                     $('[name="fx_rate"]').val(response.data.fx_rate)
-                    $('#label_fx').html(current_currency + " = 1 " + default_currency)
+                    $('#label_fx').html("1 " + default_currency + " = " + current_currency)
                 }
             },
             error: function () {

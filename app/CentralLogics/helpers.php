@@ -530,38 +530,45 @@ function getFxRate($from, $to, $date = null)
     if ($from == $to)
         return toRateDecimal(1);
 
-    if ($from == session('currency'))//direct conversion: use buy rate
-    {
-        $fx = ExchangeRate::where('currency', $to)
-            ->where('date', '<=', $date)
-            ->orderBy('date', 'desc')
-            ->orderBy('id', 'desc')
-            ->first();
-        return toRateDecimal($fx->sell_rate ?? 1);
-    } elseif ($to == session('currency')) {//direct conversion: use sell rate
-        $fx = ExchangeRate::where('currency', $from)
-            ->where('date', '<=', $date)
-            ->orderBy('date', 'desc')
-            ->orderBy('id', 'desc')
-            ->first();
-        return toRateDecimal($fx->buy_rate ?? 1);
-    } else {//convert to home currency (sell_rate) and convert to second currency (buy_rate)
-
-        $fx_from = ExchangeRate::where('currency', $from)
-            ->where('date', '<=', $date)
-            ->orderBy('date', 'desc')
-            ->orderBy('id', 'desc')
-            ->first();
-
-        $fx_to = ExchangeRate::where('currency', $to)
-            ->where('date', '<=', $date)
-            ->orderBy('date', 'desc')
-            ->orderBy('id', 'desc')
-            ->first();
-        $final_rate = ($fx_from->sell_rate ?? 1) * ($fx_to->sell_rate ?? 1);
-
-        return toRateDecimal($final_rate);
-    }
+    $fx = ExchangeRate::where('currency', $to)
+        ->where('date', '<=', $date)
+        ->orderBy('date', 'desc')
+        ->orderBy('id', 'desc')
+        ->first();
+    return toRateDecimal($fx->buy_rate ?? 1);
+//
+//    if ($from == session('currency'))//direct conversion: use buy rate
+//    {
+//        $fx = ExchangeRate::where('currency', $to)
+//            ->where('date', '<=', $date)
+//            ->orderBy('date', 'desc')
+//            ->orderBy('id', 'desc')
+//            ->first();
+//        return toRateDecimal($fx->sell_rate ?? 1);
+//    } elseif ($to == session('currency')) {//direct conversion: use sell rate
+//        $fx = ExchangeRate::where('currency', $from)
+//            ->where('date', '<=', $date)
+//            ->orderBy('date', 'desc')
+//            ->orderBy('id', 'desc')
+//            ->first();
+//        return toRateDecimal($fx->buy_rate ?? 1);
+//    } else {//convert to home currency (sell_rate) and convert to second currency (buy_rate)
+//
+//        $fx_from = ExchangeRate::where('currency', $from)
+//            ->where('date', '<=', $date)
+//            ->orderBy('date', 'desc')
+//            ->orderBy('id', 'desc')
+//            ->first();
+//
+//        $fx_to = ExchangeRate::where('currency', $to)
+//            ->where('date', '<=', $date)
+//            ->orderBy('date', 'desc')
+//            ->orderBy('id', 'desc')
+//            ->first();
+//        $final_rate = ($fx_from->sell_rate ?? 1) * ($fx_to->sell_rate ?? 1);
+//
+//        return toRateDecimal($final_rate);
+//    }
 }
 
 function convert_currency_to_second_currency($amount, $fx_rate = null)

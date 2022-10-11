@@ -18,7 +18,7 @@ return new class extends Migration
             $table->bigInteger('trans_no');
             $table->string('trx_type',45);
             $table->string('barcode',100);
-            $table->string('description');
+            $table->string('description', 255);
             $table->double('qty_sent')->default(0);
             $table->double('unit_price')->default(0);
             $table->double('discount')->default(0);

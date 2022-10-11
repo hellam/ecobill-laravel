@@ -69,13 +69,13 @@ function get_js_date_format($is_timestamp=false){
 
 function toPriceDecimal($value, ): string
 {
-    return number_format($value, (get_company_setting('price_dec')/1) ?? 2, get_company_setting('dec_sep'), get_company_setting('tho_sep'));
+    return number_format((float)$value, (get_company_setting('price_dec')/1) ?? 2, get_company_setting('dec_sep'), get_company_setting('tho_sep'));
 }
 function toRateDecimal($value): string
 {
-    return number_format($value, (get_company_setting('rates_dec')/1) ?? 2, '.', '');
+    return number_format((float)$value, (get_company_setting('rates_dec')/1) ?? 2, '.', '');
 }
 function toQtyDecimal($value): string
 {
-    return number_format($value, (get_company_setting('qty_dec')/1) ?? 2, '.', '');
+    return number_format((float)$value, (get_company_setting('qty_dec')/1) ?? 2, '.', '');
 }

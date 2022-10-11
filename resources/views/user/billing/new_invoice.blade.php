@@ -56,11 +56,11 @@
             <!--begin::Content-->
             <div class="flex-lg-row-fluid mb-10 mb-lg-0 me-lg-7 me-xl-10">
                 <!--begin::Card-->
-                <div class="card">
+                <div class="card shadow">
                     <!--begin::Card body-->
                     <div class="card-body p-12">
                         <!--begin::Form-->
-                        <form action="" id="kt_invoice_form">
+                        <form action="" id="kt_invoice_form" data-kt-date-format="{{get_js_date_format()}}">
                             <!--begin::Wrapper-->
                             <div class="row">
                                 <div class="col-md-6">
@@ -68,10 +68,11 @@
                                     <div
                                         class="d-flex flex-equal fw-row"
                                         data-bs-toggle="tooltip" data-bs-trigger="hover" title="Enter invoice number">
-                                        <span class="fs-2x fw-bold text-gray-800">Invoice #</span>
-                                        <input type="text"
+                                        <span class="fs-2x fw-bold text-gray-800">{{__('messages.invoice')}} #</span>
+                                        <input type="text" name="reference"
                                                class="form-control form-control-flush fw-bold text-muted fs-3 w-125px"
-                                               value="2021001" placehoder="..."/>
+                                               data-kt-src="{{route('user.ref_gen', ST_ACCOUNT_DEPOSIT)}}"
+                                               placeholder="..."/>
                                     </div>
                                     <!--end::Input group-->
                                     <!--begin::Input group-->
@@ -134,12 +135,46 @@
                                 </div>
                                 <div class="col-md-6 text-end">
                                     <img src="{{Auth::user()->logo()}}" alt=""
-                                         onerror="this.src = '{{asset('assets/media/avatars/logo.png')}}'" class="w-25"/>
+                                         onerror="this.src = '{{asset('assets/media/avatars/logo.png')}}'"
+                                         class="w-25"/>
                                 </div>
                             </div>
                             <!--end::Top-->
                             <!--begin::Separator-->
-                            <div class="separator separator-dashed my-10"></div>
+                            <div class="separator separator-dashed my-5"></div>
+                            <div class="row">
+                                <div class="col-md-4 fv-row">
+                                    <!--begin::Input-->
+                                    <select name="from"
+                                            aria-label="Select Currency"
+                                            data-control="select2"
+                                            data-placeholder="Select Currency"
+                                            data-kt-src="{{route('user.customers.branch.select_api')}}"
+                                            class="form-select form-select-sm form-select-solid fw-bolder">
+                                        <option></option>
+                                        <option value="0">Miscellaneous</option>
+                                        <option value="1">Customer</option>
+                                    </select>
+                                    <!--end::Input-->
+                                </div>
+                                <div class="col-md-4">
+                                </div>
+                                <div class="col-md-4">
+                                    <!--begin::Input-->
+                                    <select name="from"
+                                            aria-label="Select Payment Terms"
+                                            data-control="select2"
+                                            data-placeholder="Select Payment Terms"
+                                            data-kt-src="{{route('user.customers.branch.select_api')}}"
+                                            class="form-select form-select-sm form-select-solid fw-bolder">
+                                        <option></option>
+                                        <option value="0">Miscellaneous</option>
+                                        <option value="1">Customer</option>
+                                    </select>
+                                    <!--end::Input-->
+                                </div>
+                            </div>
+                            <div class="separator separator-dashed mt-5 mb-10"></div>
                             <!--end::Separator-->
                             <!--begin::Wrapper-->
                             <div class="mb-0">
@@ -235,20 +270,20 @@
                                                         data-kt-element="remove-item">
                                                     <!--begin::Svg Icon | path: icons/duotune/general/gen027.svg-->
                                                     <span class="svg-icon svg-icon-3">
-																					<svg width="24" height="24"
-                                                                                         viewBox="0 0 24 24" fill="none"
-                                                                                         xmlns="http://www.w3.org/2000/svg">
-																						<path
-                                                                                            d="M5 9C5 8.44772 5.44772 8 6 8H18C18.5523 8 19 8.44772 19 9V18C19 19.6569 17.6569 21 16 21H8C6.34315 21 5 19.6569 5 18V9Z"
-                                                                                            fill="currentColor"/>
-																						<path opacity="0.5"
-                                                                                              d="M5 5C5 4.44772 5.44772 4 6 4H18C18.5523 4 19 4.44772 19 5V5C19 5.55228 18.5523 6 18 6H6C5.44772 6 5 5.55228 5 5V5Z"
-                                                                                              fill="currentColor"/>
-																						<path opacity="0.5"
-                                                                                              d="M9 4C9 3.44772 9.44772 3 10 3H14C14.5523 3 15 3.44772 15 4V4H9V4Z"
-                                                                                              fill="currentColor"/>
-																					</svg>
-																				</span>
+                                                        <svg width="24" height="24"
+                                                             viewBox="0 0 24 24" fill="none"
+                                                             xmlns="http://www.w3.org/2000/svg">
+                                                            <path
+                                                                d="M5 9C5 8.44772 5.44772 8 6 8H18C18.5523 8 19 8.44772 19 9V18C19 19.6569 17.6569 21 16 21H8C6.34315 21 5 19.6569 5 18V9Z"
+                                                                fill="currentColor"/>
+                                                            <path opacity="0.5"
+                                                                  d="M5 5C5 4.44772 5.44772 4 6 4H18C18.5523 4 19 4.44772 19 5V5C19 5.55228 18.5523 6 18 6H6C5.44772 6 5 5.55228 5 5V5Z"
+                                                                  fill="currentColor"/>
+                                                            <path opacity="0.5"
+                                                                  d="M9 4C9 3.44772 9.44772 3 10 3H14C14.5523 3 15 3.44772 15 4V4H9V4Z"
+                                                                  fill="currentColor"/>
+                                                        </svg>
+                                                    </span>
                                                     <!--end::Svg Icon-->
                                                 </button>
                                             </td>
@@ -259,7 +294,9 @@
                                         <tfoot>
                                         <tr class="border-top border-top-dashed align-top fs-6 fw-bold text-gray-700">
                                             <th class="text-primary">
-                                                <button class="btn btn-link py-1" data-kt-element="add-item">Add item
+                                                <button type="button" data-repeater-create=""
+                                                        class="btn btn-sm btn-primary" id="add_row">
+                                                    <i class="fa fa-add"></i>Add Item
                                                 </button>
                                             </th>
                                             <th colspan="2" class="border-bottom border-bottom-dashed ps-0">
@@ -360,7 +397,7 @@
 @stop
 
 @push('custom_scripts')
-    {{--    <script src="{{ asset('assets/plugins/custom/formrepeater/formrepeater.bundle.js') }}"></script>--}}
-    {{--    <script src="{{ asset('assets/js/pages/deposit/deposit.js') }}"></script>--}}
+    <script src="{{ asset('assets/plugins/custom/formrepeater/formrepeater.bundle.js') }}"></script>
+    <script src="{{ asset('assets/js/pages/billing/invoices/add.js') }}"></script>
     {{--    <script src="{{ asset('assets/js/pages/deposit/functions.js') }}"></script>--}}
 @endpush

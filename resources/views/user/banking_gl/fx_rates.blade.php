@@ -130,8 +130,7 @@
                             <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
                                 <th>#</th>
                                 <th>{{__('messages.currency')}}</th>
-                                <th>{{session('currency').' '.__('messages.buy_rate')}}</th>
-                                <th>{{session('currency').' '.__('messages.sell_rate')}}</th>
+                                <th>{{__('messages.exchange_rate')}}</th>
                                 <th>{{__('messages.date')}}</th>
                                 <th class="text-end">{{__('messages.actions')}}</th>
                             </tr>
@@ -144,7 +143,6 @@
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
                                     <td>{{$fx->curr->name}}</td>
-                                    <td>{{$fx->buy_rate}}</td>
                                     <td>{{$fx->sell_rate}}</td>
                                     <td>{{format_date($fx->date, true)}}</td>
                                     <td class="text-end">

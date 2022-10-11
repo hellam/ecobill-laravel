@@ -137,6 +137,7 @@ return [
     'error_429' => 'Too Many Attempts1',
     'expiry' => 'Expiry',
     'event' => 'Event',
+    'exchange_rate' => 'Exchange Rate',
     'features' => 'Features',
     'forgot_password' => 'Forgot Password?',
     'field_correction' => 'Sorry, looks like there are some errors detected, please check and try again.',

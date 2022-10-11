@@ -121,10 +121,10 @@ function addFXField() {
                     fx_rate = response.data.fx_rate
                     $('[name="fx_rate"]').val(fx_rate)
                     $('#label_fx').html(default_currency + " = 1 " + current_currency)
-                    $('#total').after('<div class="text-end my-5 text-muted" id="total_converted">'+"(Total: " + new Intl.NumberFormat('ja-JP', {
+                    $('#total').after('<div class="text-end my-5 text-muted" id="total_converted">' + "(Total: " + new Intl.NumberFormat('ja-JP', {
                         style: 'currency',
                         currency: default_currency
-                    }).format(total * fx_rate) + ")"+'</div>')
+                    }).format(total * fx_rate) + ")" + '</div>')
                 }
             },
             error: function () {

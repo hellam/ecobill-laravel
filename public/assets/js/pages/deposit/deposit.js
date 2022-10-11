@@ -74,7 +74,7 @@ const KTDepositAdd = function () {
             let value = e.target.value
             $('#currency').attr('disabled', false)
             if (value == 0) {
-                if ($('#current_to_default').length) {
+                if ($('#current_to_default').length && $('#currency').find(':selected').val() === $('#sell_rate').attr('data-kt-default')) {
                     $('#current_to_default').remove()
                 }
                 $('.select_bank').val(null).trigger('change')

@@ -5,11 +5,13 @@ let blockUI = new KTBlockUI(document.querySelector('#kt_block_ui_1_target'), {
 
 let default_currency = $('[name="currency"]').attr('data-kt-default')
 let current_currency = $('[name="currency"]').attr('data-kt-default')
+let total, fx_rate;
 
 $('[name="currency"]').on('change', function (e) {
     current_currency = e.target.value
     $('.select_bank').val(null).trigger('change')
     calculateSum()
+    addFXField()
 })
 
 function handleCustomerBranchAPISelect(preselect = null) {
@@ -60,13 +62,14 @@ function handleCustomerBranchAPISelect(preselect = null) {
 
         let customer_currency = $('.select_customer_branch').find(':selected').data('kt-currency')
         $('#currency').val(customer_currency).trigger('change').attr('disabled', true)
-        addFXField()
     })
 }
 
 function addFXField() {
     if (current_currency !== default_currency) {
         blockUI.block()
+        if ($('#total_converted'))
+            $('#total_converted').remove()
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -97,10 +100,6 @@ function addFXField() {
                             '<div class="col-md-4" id="current_to_default">' +
                             '<!--begin::Input group-->\n' +
                             '<div class="row mb-6 mx-2 fv-row" id="cust_to_bank">\n' +
-                            '    <!--begin::Label-->\n' +
-                            '    <label\n' +
-                            '        class="col-lg-5 col-form-label fw-semibold fs-7" id="label_fx"></label>\n' +
-                            '    <!--end::Label-->\n' +
                             '    <!--begin::Col-->\n' +
                             '    <div class="col-lg-7">\n' +
                             '        <!--begin::Input-->\n' +
@@ -110,15 +109,22 @@ function addFXField() {
                             '        <!--end::Input-->\n' +
                             '    </div>\n' +
                             '    <!--end::Col-->\n' +
+                            '    <!--begin::Label-->\n' +
+                            '    <label\n' +
+                            '        class="col-lg-5 col-form-label fw-semibold fs-7" id="label_fx"></label>\n' +
+                            '    <!--end::Label-->\n' +
                             '</div>\n' +
                             '<!--end::Input group-->' +
                             '</div>'
                         );
                     }
-
-                    $('[name="fx_rate"]').val(response.data.fx_rate)
-                    $('#label_fx').html("1 " + default_currency + " = " + current_currency)
-                    $('#total').after('<div></div>')
+                    fx_rate = response.data.fx_rate
+                    $('[name="fx_rate"]').val(fx_rate)
+                    $('#label_fx').html(default_currency + " = 1 " + current_currency)
+                    $('#total').after('<div class="text-end my-5 text-muted" id="total_converted">'+"(Total: " + new Intl.NumberFormat('ja-JP', {
+                        style: 'currency',
+                        currency: default_currency
+                    }).format(total * fx_rate) + ")"+'</div>')
                 }
             },
             error: function () {
@@ -134,9 +140,9 @@ function addFXField() {
             }
         })
     } else {
-        if ($('#current_to_default').length && $('#exchange_rate').length) {
+        if ($('#current_to_default').length || $('#total_converted').length) {
             $('#current_to_default').remove()
-            $('#exchange_rate').remove()
+            $('#total_converted').remove()
         }
     }
 }
@@ -188,7 +194,6 @@ function handleBankAPISelect(preselect = null) {
                 'data-kt-currency': data["data-kt-currency"],
             }
         );
-        addFXField()
     })
 }
 
@@ -206,10 +211,11 @@ function calculateSum() {
         if (!isNaN(this.value) && this.value.length !== 0) {
             sum += parseFloat(this.value);
         }
-
     });
 
     $('#total').html(new Intl.NumberFormat('ja-JP', {style: 'currency', currency: current_currency}).format(sum))
+    total = sum
+    totalHomeCurrency()
     return sum
 }
 
@@ -442,4 +448,12 @@ function submitDeposit(submitButton, form, serialized_form) {
 
         }
     });
+}
+
+function totalHomeCurrency() {
+    if ($('#total_converted').length)
+        $('#total_converted').html("(Total: " + new Intl.NumberFormat('ja-JP', {
+            style: 'currency',
+            currency: default_currency
+        }).format(total * fx_rate) + ")")
 }

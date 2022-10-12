@@ -22,7 +22,7 @@ class AccountSecurityMiddleware
     public function handle(Request $request, Closure $next)
     {
         if (Auth::guard('user')->check()) {
-            $branch_user = BranchUser::with('branch:id,name,is_main,default_currency,default_bank_account')
+            $branch_user = BranchUser::with('branch')
                 ->whereHas('branch', function ($q) {
                     $q->where('inactive', 0);
                 })->where(['branch_id' => get_active_branch(),'user_id' => auth('user')->id()])

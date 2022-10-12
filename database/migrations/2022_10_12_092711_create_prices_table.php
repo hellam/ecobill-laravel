@@ -13,15 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('attachments', function (Blueprint $table) {
+        Schema::create('prices', function (Blueprint $table) {
             $table->id();
-            $table->string('description',255);
-            $table->bigInteger('trans_no');
-            $table->timestamp('trx_date')->nullable();
-            $table->string('trx_type',45);
-            $table->string('file_name',100);
-            $table->bigInteger('file_size');
-            $table->string('file_type',60);
+            $table->string('barcode',250);
+            $table->bigInteger('sub_id')->nullable();
+            $table->integer('sales_type')->default(1);
+            $table->double('price')->default(0);
+            $table->string('client_ref',100)->nullable();
             $table->timestamps();
         });
     }
@@ -33,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('attachments');
+        Schema::dropIfExists('prices');
     }
 };

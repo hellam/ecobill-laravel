@@ -26,6 +26,7 @@ return new class extends Migration
             $table->double('amount')->default(0);
             $table->double('discount')->default(0);
             $table->double('alloc')->default(0);
+            $table->double('rate')->default(1);
             $table->bigInteger('payment_terms')->nullable();
             $table->tinyInteger('is_tax_included')->default(0);
             $table->string('client_ref',100)->nullable();

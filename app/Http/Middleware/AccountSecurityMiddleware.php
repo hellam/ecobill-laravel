@@ -51,6 +51,7 @@ class AccountSecurityMiddleware
             Session::put('branch_is_main', $branch_user->branch->is_main);
             Session::put('currency', $branch_user->branch->default_currency);
             Session::put('branch_bank', $branch_user->branch->bank_account);
+            Session::put('branch_obj', serialize($branch_user->branch));
         }
 
         return $next($request);

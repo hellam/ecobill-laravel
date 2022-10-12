@@ -13,15 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('attachments', function (Blueprint $table) {
+        Schema::create('sales_types', function (Blueprint $table) {
             $table->id();
-            $table->string('description',255);
-            $table->bigInteger('trans_no');
-            $table->timestamp('trx_date')->nullable();
-            $table->string('trx_type',45);
-            $table->string('file_name',100);
-            $table->bigInteger('file_size');
-            $table->string('file_type',60);
+            $table->string('name',255);
+            $table->tinyInteger('tax_included')->default(1);
+            $table->double('factor')->default(1);
+            $table->string('inactive')->default(0);
+            $table->string('client_ref',100)->nullable();
             $table->timestamps();
         });
     }
@@ -33,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('attachments');
+        Schema::dropIfExists('sales_types');
     }
 };

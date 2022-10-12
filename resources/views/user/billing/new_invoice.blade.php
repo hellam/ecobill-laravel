@@ -70,7 +70,8 @@
                                         <input type="text" name="reference"
                                                class="form-control form-control-flush fw-bold text-muted fs-3 w-125px"
                                                data-kt-src="{{route('user.ref_gen', ST_INVOICE)}}"
-                                               placeholder="..." data-bs-toggle="tooltip" data-bs-trigger="hover" title="Enter invoice number"/>
+                                               placeholder="..." data-bs-toggle="tooltip" data-bs-trigger="hover"
+                                               title="Enter invoice number"/>
                                     </div>
                                     <!--end::Input group-->
                                     <!--begin::Input group-->
@@ -125,14 +126,11 @@
                                         <!--end::Input group-->
                                         <!--begin::Input group-->
                                         <div class="mb-5">
-                                            <input type="text" class="form-control form-control-solid"
-                                                   placeholder="Email" value="{{unserialize(session('branch_obj'))->name}}"/>
-                                        </div>
-                                        <!--end::Input group-->
-                                        <!--begin::Input group-->
-                                        <div class="mb-5">
+                                            @php
+                                            $company = unserialize(session('branch_obj'))
+                                            @endphp
                                             <textarea name="notes" class="form-control form-control-solid" rows="3"
-                                                      placeholder="Who is this invoice from?"></textarea>
+                                                      placeholder="Company details">{{ $company->email.",\n". $company->phone.",\n". $company->address}}</textarea>
                                         </div>
                                         <!--end::Input group-->
                                     </div>
@@ -142,20 +140,23 @@
                                         <label class="form-label fs-6 fw-bold text-gray-700 mb-3">Bill To</label>
                                         <!--begin::Input group-->
                                         <div class="mb-5">
-                                            <input type="text" class="form-control form-control-solid"
-                                                   placeholder="Name"/>
+                                            <!--begin::Input-->
+                                            <select name="customer"
+                                                    id="customer"
+                                                    aria-label="Select Customer"
+                                                    data-kt-src="{{route('user.customers.select_api')}}"
+                                                    data-control="select2"
+                                                    data-placeholder="Select Customer"
+                                                    class="form-select form-select-sm form-select-solid fw-bolder select_customer">
+                                            </select>
+                                            <!--end::Input-->
                                         </div>
                                         <!--end::Input group-->
                                         <!--begin::Input group-->
                                         <div class="mb-5">
-                                            <input type="text" class="form-control form-control-solid"
-                                                   placeholder="Email"/>
-                                        </div>
-                                        <!--end::Input group-->
-                                        <!--begin::Input group-->
-                                        <div class="mb-5">
-                                            <textarea name="notes" class="form-control form-control-solid" rows="3"
-                                                      placeholder="What is this invoice for?"></textarea>
+                                            <textarea name="customer_details" class="form-control form-control-solid"
+                                                      rows="3" id="customer_details"
+                                                      placeholder="Customer details"></textarea>
                                         </div>
                                         <!--end::Input group-->
                                     </div>
@@ -193,10 +194,11 @@
                                             <!--begin::Input-->
                                             <div class="position-relative d-flex align-items-center w-150px">
                                                 <!--begin::Datepicker-->
-                                                <input class="form-control form-control-transparent fw-bold pe-5 min-w-35px"
-                                                       placeholder="Select date" name="invoice_due_date"
-                                                       data-bs-toggle="tooltip" data-bs-trigger="hover"
-                                                       title="Specify invoice due date"/>
+                                                <input
+                                                    class="form-control form-control-transparent fw-bold pe-5 min-w-50px"
+                                                    placeholder="Select date" name="invoice_due_date"
+                                                    data-bs-toggle="tooltip" data-bs-trigger="hover"
+                                                    title="Specify invoice due date"/>
                                                 <!--end::Datepicker-->
                                                 <!--begin::Icon-->
                                                 <!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
@@ -239,8 +241,6 @@
                                             <td class="pe-7">
                                                 <input type="text" class="form-control form-control-solid mb-2"
                                                        name="name[]" placeholder="Item name"/>
-                                                <input type="text" class="form-control form-control-solid"
-                                                       name="description[]" placeholder="Description"/>
                                             </td>
                                             <td class="ps-0">
                                                 <input class="form-control form-control-solid" type="number" min="1"

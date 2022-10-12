@@ -510,7 +510,7 @@ function createCKEditor(input_id) {
     CKEDITOR.replace(input_id);
 }
 
-function handleCustomerAPISelect(select_parent, preselect = null) {
+function handleCustomerAPISelect(select_parent, preselect = null, pass_data = []) {
     const element = document.querySelector(select_parent + ' .select_customer');
 
     $(select_parent + ' .select_customer').html("").trigger('change');
@@ -544,6 +544,8 @@ function handleCustomerAPISelect(select_parent, preselect = null) {
                             id: item.id,
                             'data-kt-phone': item.customer_branch.phone,
                             'data-kt-email': item.customer_branch.email,
+                            'data-kt-address': item.customer_branch.address,
+                            'data-kt-country': item.customer_branch.country,
                         }
                     })
                 }
@@ -551,14 +553,30 @@ function handleCustomerAPISelect(select_parent, preselect = null) {
         }
     }).on('select2:select', function (e) {
         let data = e.params.data;
-        $(this).children('[value="' + data['id'] + '"]').attr(
+        let data_kt = $(this).children('[value="' + data['id'] + '"]').attr(
             {
                 'data-kt-phone': data["data-kt-phone"],
                 'data-kt-email': data["data-kt-email"],
+                'data-kt-address': data["data-kt-address"],
+                'data-kt-country': data["data-kt-country"],
             }
         );
         $(select_parent + ' [name="phone"]').val($(select_parent + ' .select_customer').find(':selected').data('kt-phone'))
         $(select_parent + ' [name="email"]').val($(select_parent + ' .select_customer').find(':selected').data('kt-email'))
+
+        if (pass_data.length > 0) {
+            pass_data.forEach(input=>{
+                input = $(input)
+                if(input.is('select')){
+                    // input.val('test1').trigger('change')
+                }else if(input.is('textarea')){
+                    let selected = $(select_parent + ' .select_customer').find(':selected');
+                    input.val(selected.data('kt-email')+',\n'+selected.data('kt-phone')+',\n'+selected.data('kt-address')+','+selected.data('kt-country'))
+                }else if(input.is('input')){
+                    input.val('test')
+                }
+            })
+        }
     })
 }
 

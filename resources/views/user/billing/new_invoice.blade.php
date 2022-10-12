@@ -127,7 +127,7 @@
                                         <!--begin::Input group-->
                                         <div class="mb-5">
                                             @php
-                                            $company = unserialize(session('branch_obj'))
+                                                $company = unserialize(session('branch_obj'))
                                             @endphp
                                             <textarea name="notes" class="form-control form-control-solid" rows="3"
                                                       placeholder="Company details">{{ $company->email.",\n". $company->phone.",\n". $company->address}}</textarea>
@@ -223,7 +223,7 @@
                                 <!--begin::Table wrapper-->
                                 <div class="table-responsive mb-10">
                                     <!--begin::Table-->
-                                    <table class="table g-5 gs-0 mb-0 fw-bold text-gray-700" data-kt-element="items">
+                                    <table class="table g-5 gs-0 mb-0 fw-bold text-gray-700 repeater_items">
                                         <!--begin::Table head-->
                                         <thead>
                                         <tr class="border-bottom fs-7 fw-bold text-gray-700 text-uppercase">
@@ -236,30 +236,30 @@
                                         </thead>
                                         <!--end::Table head-->
                                         <!--begin::Table body-->
-                                        <tbody>
-                                        <tr class="border-bottom border-bottom-dashed" data-kt-element="item">
-                                            <td class="pe-7">
-                                                <input type="text" class="form-control form-control-solid mb-2"
-                                                       name="name[]" placeholder="Item name"/>
-                                            </td>
-                                            <td class="ps-0">
-                                                <input class="form-control form-control-solid" type="number" min="1"
-                                                       name="quantity[]" placeholder="1" value="1"
-                                                       data-kt-element="quantity"/>
-                                            </td>
-                                            <td>
-                                                <input type="text" class="form-control form-control-solid text-end"
-                                                       name="price[]" placeholder="0.00" value="0.00"
-                                                       data-kt-element="price"/>
-                                            </td>
-                                            <td class="pt-8 text-end text-nowrap">$
-                                                <span data-kt-element="total">0.00</span></td>
-                                            <td class="pt-5 text-end">
-                                                <button type="button"
-                                                        class="btn btn-sm btn-icon btn-active-color-primary"
-                                                        data-kt-element="remove-item">
-                                                    <!--begin::Svg Icon | path: icons/duotune/general/gen027.svg-->
-                                                    <span class="svg-icon svg-icon-3">
+                                        <tbody data-repeater-list="deposit_options">
+                                            <tr data-repeater-item class="border-bottom border-bottom-dashed">
+                                                <td class="pe-7">
+                                                    <input type="text" class="form-control form-control-solid mb-2"
+                                                           name="name[]" placeholder="Item name"/>
+                                                </td>
+                                                <td class="ps-0">
+                                                    <input class="form-control form-control-solid" type="number" min="1"
+                                                           name="quantity[]" placeholder="1" value="1"
+                                                           data-kt-element="quantity"/>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control form-control-solid text-end"
+                                                           name="price[]" placeholder="0.00" value="0.00"
+                                                           data-kt-element="price"/>
+                                                </td>
+                                                <td class="pt-8 text-end text-nowrap">$
+                                                    <span data-kt-element="total">0.00</span></td>
+                                                <td class="pt-5 text-end">
+                                                    <button type="button"
+                                                            class="btn btn-sm btn-icon btn-active-color-primary"
+                                                            data-repeater-delete="">
+                                                        <!--begin::Svg Icon | path: icons/duotune/general/gen027.svg-->
+                                                        <span class="svg-icon svg-icon-3">
                                                         <svg width="24" height="24"
                                                              viewBox="0 0 24 24" fill="none"
                                                              xmlns="http://www.w3.org/2000/svg">
@@ -274,17 +274,17 @@
                                                                   fill="currentColor"/>
                                                         </svg>
                                                     </span>
-                                                    <!--end::Svg Icon-->
-                                                </button>
-                                            </td>
-                                        </tr>
+                                                        <!--end::Svg Icon-->
+                                                    </button>
+                                                </td>
+                                            </tr>
                                         </tbody>
                                         <!--end::Table body-->
                                         <!--begin::Table foot-->
                                         <tfoot>
                                         <tr class="border-top border-top-dashed align-top fs-6 fw-bold text-gray-700">
                                             <th class="text-primary">
-                                                <button type="button" data-repeater-create=""
+                                                <button type="button" data-repeater-create
                                                         class="btn btn-sm btn-primary" id="add_row">
                                                     <i class="fa fa-add"></i>Add Item
                                                 </button>

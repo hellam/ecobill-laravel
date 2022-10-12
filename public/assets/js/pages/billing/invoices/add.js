@@ -50,54 +50,12 @@ const KTInvoiceAdd = function () {
     }
 
     function initializeRepeater() {
-        let repeater = $('#kt_deposit_items_row').repeater({
-            initEmpty: false,
-            defaultValues: {
-                'text-input': 'foo'
-            },
+        let repeater = $('table.repeater_items').repeater({
             show: function () {
                 $(this).slideDown();
-                // Re-init select2
-                $(this).find('[data-kt-add-deposit="deposit_option"]').select2({
-                    minimumInputLength: 0,
-                    escapeMarkup: function (markup) {
-                        return markup;
-                    },
-                    ajax: {
-                        url: $(this).find('[data-kt-add-deposit="deposit_option"]').attr("data-kt-src"),
-                        dataType: 'json',
-                        type: 'GET',
-                        contentType: 'application/json',
-                        delay: 50,
-                        data: function (params) {
-                            return {
-                                search: params.term
-                            };
-                        },
-                        processResults: function (data) {
-                            return {
-                                results: $.map(data, function (item) {
-                                    return {
-                                        text: item.account_code + ' - ' + item.account_name,
-                                        id: item.account_code
-                                    }
-                                })
-                            }
-                        }
-                    }
-                });
-                calculateSum()
-                handleSum()
             },
             hide: function (deleteElement) {
-                $(this).slideUp(function () {
-                    deleteElement();
-                    calculateSum()
-                });
-            },
-            ready: function () {
-                // Init select2
-                $('[data-kt-add-deposit="deposit_option"]').select2();
+                $(this).slideUp();
             }
         });
     }
@@ -107,6 +65,7 @@ const KTInvoiceAdd = function () {
             handleInvoice()
             refGen($('[name="reference"]').attr('data-kt-src'))
             handleCustomerAPISelect('#kt_invoice_form', null, ['#customer_details'])
+            initializeRepeater()
         }
     }
 }();

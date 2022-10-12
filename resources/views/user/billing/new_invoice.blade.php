@@ -126,7 +126,7 @@
                                         <!--begin::Input group-->
                                         <div class="mb-5">
                                             <input type="text" class="form-control form-control-solid"
-                                                   placeholder="Email" value="{{unserialize('branch_obj')}}"/>
+                                                   placeholder="Email" value="{{unserialize(session('branch_obj'))->name}}"/>
                                         </div>
                                         <!--end::Input group-->
                                         <!--begin::Input group-->

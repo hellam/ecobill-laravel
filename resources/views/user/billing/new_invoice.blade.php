@@ -120,13 +120,13 @@
                                         <!--begin::Input group-->
                                         <div class="mb-5">
                                             <input type="text" class="form-control form-control-solid"
-                                                   placeholder="Name"/>
+                                                   placeholder="Name" value="{{get_company_setting('company_name')}}"/>
                                         </div>
                                         <!--end::Input group-->
                                         <!--begin::Input group-->
                                         <div class="mb-5">
                                             <input type="text" class="form-control form-control-solid"
-                                                   placeholder="Email"/>
+                                                   placeholder="Email" value="{{unserialize('branch_obj')}}"/>
                                         </div>
                                         <!--end::Input group-->
                                         <!--begin::Input group-->
@@ -193,7 +193,7 @@
                                             <!--begin::Input-->
                                             <div class="position-relative d-flex align-items-center w-150px">
                                                 <!--begin::Datepicker-->
-                                                <input class="form-control form-control-transparent fw-bold pe-5"
+                                                <input class="form-control form-control-transparent fw-bold pe-5 min-w-35px"
                                                        placeholder="Select date" name="invoice_due_date"
                                                        data-bs-toggle="tooltip" data-bs-trigger="hover"
                                                        title="Specify invoice due date"/>

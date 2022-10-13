@@ -56,7 +56,7 @@ const KTFXServerSide = function () {
                             $("#kt_modal_update_fx_form input[name='date']").val(fx.date);
                             $("#kt_modal_update_fx_form select[name='currency']").val(fx.currency).trigger('change');
 
-                            $("#update_date").val(moment(fx.date).format('DD/MM/YYYY H:mm:ss'))
+                            $("#update_date").val(moment(fx.date).format(''+$("#kt_date_from").attr("data-kt-date-format")+' H:mm:ss'))
 
                             $('#default_update_conversion').html(fx.sell_rate + " " + $('#sell_update_rate').attr('data-kt-default') + " = 1 " +  fx.currency)
 
@@ -69,10 +69,10 @@ const KTFXServerSide = function () {
                                     maxYear: parseInt(moment().format("YYYY"), 10),
                                     timePicker24Hour: true,
                                     locale: {
-                                        format: 'DD/MM/YYYY HH:mm',
+                                        format: ''+$("#kt_date_from").attr("data-kt-date-format")+' H:mm:ss',
                                     },
                                 }, function (start, end, label) {
-                                    $("#update_date").val(start.format('DD/MM/YYYY H:mm:ss'))
+                                    $("#update_date").val(start.format(''+$("#kt_date_from").attr("data-kt-date-format")+' H:mm:ss'))
                                 }
                             );
                         }

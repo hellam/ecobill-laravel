@@ -5,7 +5,7 @@ const KTFXAdd = function () {
     // Shared variables
     let closeButton, discardButton, submitButton, form, modal;
 
-    $("#date").val(moment().format('DD/MM/YYYY H:mm:ss'))
+    $("#date").val(moment().format(''+$("#kt_date_from").attr("data-kt-date-format")+' H:mm:ss'))
 
     $("#kt_date_from").daterangepicker({
             singleDatePicker: true,
@@ -16,7 +16,7 @@ const KTFXAdd = function () {
             maxYear: parseInt(moment().format("YYYY"), 10),
             timePicker24Hour: true,
             locale: {
-                format: 'DD/MM/YYYY HH:mm',
+                format: ''+$("#kt_date_from").attr("data-kt-date-format")+' HH:mm:ss',
             },
         }, function (start, end, label) {
         }

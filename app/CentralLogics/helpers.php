@@ -525,13 +525,14 @@ function decode_form_data($data, $trx_type, $method)
 
 function getFxRate($from, $to, $date = null)
 {
-    $date = $date == null ? Carbon::now()->format('Y-m-d') : $date;
+    $date = $date == null ? Carbon::now()->format('Y-m-d H:i:s') : Carbon::parse($date)->format('Y-m-d H:i:s');
 
     if ($from == $to)
         return toRateDecimal(1);
 
     $fx = ExchangeRate::where('currency', $to)
         ->whereDate('date', '<=', $date)
+        ->whereTime('date', '<=', $date)
         ->orderBy('date', 'desc')
         ->orderBy('id', 'desc')
         ->first();

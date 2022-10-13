@@ -75,31 +75,17 @@
                                     </div>
                                     <!--end::Input group-->
                                     <!--begin::Input group-->
-                                    <div class="d-flex align-items-center flex-equal fw-row">
+                                    <div class="d-flex align-items-center">
                                         <!--begin::Date-->
-                                        <div class="fs-6 fw-bold text-gray-700 text-nowrap">Date:</div>
+                                        <div class="fs-6 fw-bold text-gray-700 text-nowrap me-3">Date:</div>
                                         <!--end::Date-->
                                         <!--begin::Input-->
-                                        <div class="position-relative d-flex align-items-center w-150px">
-                                            <!--begin::Datepicker-->
-                                            <input class="form-control form-control-transparent fw-bold pe-5"
-                                                   placeholder="Select date" name="invoice_date"
-                                                   data-bs-toggle="tooltip" data-bs-trigger="hover"
-                                                   title="Specify invoice date"/>
-                                            <!--end::Datepicker-->
-                                            <!--begin::Icon-->
-                                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
-                                            <span class="svg-icon svg-icon-2 position-absolute ms-4 end-0">
-                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                 xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
-                                                    fill="currentColor"/>
-                                            </svg>
-                                        </span>
-                                            <!--end::Svg Icon-->
-                                            <!--end::Icon-->
-                                        </div>
+                                        <!--begin::Datepicker-->
+                                        <input class="form-control form-control-sm form-control-solid fw-bold w-auto"
+                                               placeholder="Select date" name="invoice_date"
+                                               data-bs-toggle="tooltip" data-bs-trigger="hover"
+                                               title="Specify invoice date"/>
+                                        <!--end::Datepicker-->
                                         <!--end::Input-->
                                     </div>
                                     <!--end::Input group-->
@@ -189,30 +175,16 @@
                                         <!--begin::Input group-->
                                         <div class="d-flex align-items-center flex-md-end fw-row">
                                             <!--begin::Date-->
-                                            <div class="fs-6 fw-bold text-gray-700 text-nowrap">Due Date:</div>
+                                            <div class="fs-6 fw-bold text-gray-700 text-nowrap me-2">Due Date:</div>
                                             <!--end::Date-->
                                             <!--begin::Input-->
-                                            <div class="position-relative d-flex align-items-center w-150px">
-                                                <!--begin::Datepicker-->
-                                                <input
-                                                    class="form-control form-control-transparent fw-bold pe-5 min-w-50px"
-                                                    placeholder="Select date" name="invoice_due_date"
-                                                    data-bs-toggle="tooltip" data-bs-trigger="hover"
-                                                    title="Specify invoice due date"/>
-                                                <!--end::Datepicker-->
-                                                <!--begin::Icon-->
-                                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr072.svg-->
-                                                <span class="svg-icon svg-icon-2 position-absolute end-0 ms-4">
-                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                         xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
-                                                            fill="currentColor"/>
-                                                    </svg>
-                                                </span>
-                                                <!--end::Svg Icon-->
-                                                <!--end::Icon-->
-                                            </div>
+                                            <!--begin::Datepicker-->
+                                            <input
+                                                class="form-control form-control-sm form-control-solid fw-bold w-auto"
+                                                placeholder="Select date" name="invoice_due_date"
+                                                data-bs-toggle="tooltip" data-bs-trigger="hover"
+                                                title="Specify invoice due date"/>
+                                            <!--end::Datepicker-->
                                             <!--end::Input-->
                                         </div>
                                         <!--end::Input group-->
@@ -237,28 +209,30 @@
                                         <!--end::Table head-->
                                         <!--begin::Table body-->
                                         <tbody data-repeater-list="invoice_items">
-                                            <tr data-repeater-item class="border-bottom border-bottom-dashed">
-                                                <td class="pe-7">
-                                                    <input type="text" class="form-control form-control-solid mb-2"
-                                                           name="name" placeholder="Item name"/>
-                                                </td>
-                                                <td class="ps-0">
-                                                    <input class="form-control form-control-solid quantity" type="number" min="1"
-                                                           name="quantity" placeholder="1" value="1"/>
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="form-control form-control-solid text-end amount"
-                                                           name="price" placeholder="0.00" value="0.00"/>
-                                                </td>
-                                                <td class="pt-8 text-end text-nowrap">
-                                                    <span class="total">$0.00</span></td>
-                                                <td class="pt-5 text-end">
-                                                    <button type="button" data-repeater-delete=""
-                                                            class="btn btn-sm btn-icon btn-light-danger delete_row"><i
-                                                            class="fa fa-times"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
+                                        <tr data-repeater-item class="border-bottom border-bottom-dashed">
+                                            <td class="pe-7">
+                                                <input type="text" class="form-control form-control-solid mb-2"
+                                                       name="name" placeholder="Item name"/>
+                                            </td>
+                                            <td class="ps-0">
+                                                <input class="form-control form-control-solid quantity" type="number"
+                                                       min="1"
+                                                       name="quantity" placeholder="1" value="1"/>
+                                            </td>
+                                            <td>
+                                                <input type="text"
+                                                       class="form-control form-control-solid text-end amount"
+                                                       name="price" placeholder="0.00" value="0.00"/>
+                                            </td>
+                                            <td class="pt-8 text-end text-nowrap">
+                                                <span class="total">$0.00</span></td>
+                                            <td class="pt-5 text-end">
+                                                <button type="button" data-repeater-delete=""
+                                                        class="btn btn-sm btn-icon btn-light-danger delete_row"><i
+                                                        class="fa fa-times"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
                                         </tbody>
                                         <!--end::Table body-->
                                         <!--begin::Table foot-->

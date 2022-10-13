@@ -3,20 +3,21 @@
 // Class definition
 const KTFXAdd = function () {
     // Shared variables
-    let closeButton, discardButton, submitButton, form, modal;
+    let closeButton, discardButton, submitButton, form, modal,
+        time_zone = JSON.parse($('#kt_aside').attr('data-kt-branch-details'));
 
-    $("#date").val(moment().format(''+$("#kt_date_from").attr("data-kt-date-format")+' H:mm:ss'))
+    $("#date").val(moment().tz('' + time_zone.timezone + '').format('' + $("#kt_date_from").attr("data-kt-date-format") + ' H:mm:ss'))
 
     $("#kt_date_from").daterangepicker({
             singleDatePicker: true,
             timePicker: true,
             drops: 'up',
-            startDate: moment(),
+            startDate: moment().tz('' + time_zone.timezone + ''),
             showDropdowns: true,
             maxYear: parseInt(moment().format("YYYY"), 10),
             timePicker24Hour: true,
             locale: {
-                format: ''+$("#kt_date_from").attr("data-kt-date-format")+' HH:mm:ss',
+                format: '' + $("#kt_date_from").attr("data-kt-date-format") + ' HH:mm:ss',
             },
         }, function (start, end, label) {
         }
@@ -57,18 +58,18 @@ const KTFXAdd = function () {
             discardButton = form.querySelector('#kt_modal_add_fx_cancel');
             closeButton = form.querySelector('#kt_modal_add_fx_close');
 
-            $('#kt_modal_add_fx').on('hidden.bs.modal', function(){
+            $('#kt_modal_add_fx').on('hidden.bs.modal', function () {
                 sell_rate_val = 0
                 $('#default_add_conversion').text('')
             });
 
-            $('#kt_modal_add_fx').on('hidden.bs.modal', function(){
+            $('#kt_modal_add_fx').on('hidden.bs.modal', function () {
                 if (select_currency.val() !== "")
-                if (sell_rate_val === "" || sell_rate_val == 0) {
-                    conversion_text.html("1 " + default_currency + " = 1 " + to_currency)
-                } else {
-                    conversion_text.html(sell_rate_val + " " + default_currency + " = 1 " + to_currency)
-                }
+                    if (sell_rate_val === "" || sell_rate_val == 0) {
+                        conversion_text.html("1 " + default_currency + " = 1 " + to_currency)
+                    } else {
+                        conversion_text.html(sell_rate_val + " " + default_currency + " = 1 " + to_currency)
+                    }
             });
 
             handleFormSubmit(

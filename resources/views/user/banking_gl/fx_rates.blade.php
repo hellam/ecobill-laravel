@@ -319,6 +319,7 @@
                                     <!--end::Label-->
                                     <!--begin::Input-->
                                     <input class="form-control form-control-solid"
+                                           data-kt-date-format="{{get_js_date_format()}}"
                                            placeholder="{{__('messages.select').' '.__('messages.date_from')}}"
                                            id="kt_date_from"/>
                                     <input type="hidden" name="date" id="date">
@@ -492,6 +493,7 @@
                                     <!--end::Label-->
                                     <!--begin::Input-->
                                     <input class="form-control form-control-solid"
+                                           data-kt-date-format="{{get_js_date_format()}}"
                                            placeholder="{{__('messages.select').' '.__('messages.date_from')}}"
                                            id="kt_update_date_from"/>
                                     <input type="hidden" name="date" id="update_date">

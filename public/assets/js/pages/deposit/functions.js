@@ -125,6 +125,16 @@ function addFXField() {
                         style: 'currency',
                         currency: default_currency
                     }).format(total * fx_rate) + ")" + '</div>')
+
+                    $('[name="fx_rate"]').on('keyup', function () {
+                        if (!isNaN($(this).val()) && $(this).val().length !== 0) {
+                            fx_rate = $(this).val()
+                            totalHomeCurrency()
+                        }else{
+                            fx_rate = 1
+                            totalHomeCurrency()
+                        }
+                    })
                 }
             },
             error: function () {

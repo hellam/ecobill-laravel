@@ -72,7 +72,7 @@ const KTFXServerSide = function () {
                                         format: ''+$("#kt_date_from").attr("data-kt-date-format")+' H:mm:ss',
                                     },
                                 }, function (start, end, label) {
-                                    $("#update_date").val(start.format(''+$("#kt_date_from").attr("data-kt-date-format")+' H:mm:ss'))
+                                    $("#update_date").val(start.format(''+$("#kt_date_from").attr("data-kt-date-format")+' H:m:s'))
                                 }
                             );
                         }

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('trans_type_from', 45);
             $table->bigInteger('trans_no_to');
             $table->string('trans_type_to', 45);
+            $table->bigInteger('branch_id');
             $table->string('client_ref',100)->nullable();
             $table->string("created_by",100)->nullable();
             $table->string("updated_by",100)->nullable();

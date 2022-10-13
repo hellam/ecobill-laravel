@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('sales_trx_datails', function (Blueprint $table) {
+        Schema::create('sales_trx_details', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('trans_no');
             $table->string('trx_type',45);
@@ -24,6 +24,7 @@ return new class extends Migration
             $table->double('discount')->default(0);
             $table->double('invoiced')->default(0);
             $table->double('qty')->default(0);
+            $table->bigInteger('branch_id');
             $table->string('client_ref',100)->nullable();
             $table->timestamps();
         });
@@ -36,6 +37,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sales_trx_datails');
+        Schema::dropIfExists('sales_trx_details');
     }
 };

@@ -56,4 +56,6 @@ class AccountSecurityMiddleware
 
         return $next($request);
     }
+
+
 }

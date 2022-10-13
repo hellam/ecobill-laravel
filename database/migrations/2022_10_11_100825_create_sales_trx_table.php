@@ -30,6 +30,7 @@ return new class extends Migration
             $table->bigInteger('payment_terms');
             $table->double('amount')->default(0);
             $table->double('alloc')->default(0);
+            $table->bigInteger('branch_id');
             $table->tinyInteger('is_tax_included')->default(0);
             $table->string('client_ref',100)->nullable();
             $table->string("created_by",100)->nullable();

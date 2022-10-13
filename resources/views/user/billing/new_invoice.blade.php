@@ -236,45 +236,26 @@
                                         </thead>
                                         <!--end::Table head-->
                                         <!--begin::Table body-->
-                                        <tbody data-repeater-list="deposit_options">
+                                        <tbody data-repeater-list="invoice_items">
                                             <tr data-repeater-item class="border-bottom border-bottom-dashed">
                                                 <td class="pe-7">
                                                     <input type="text" class="form-control form-control-solid mb-2"
-                                                           name="name[]" placeholder="Item name"/>
+                                                           name="name" placeholder="Item name"/>
                                                 </td>
                                                 <td class="ps-0">
-                                                    <input class="form-control form-control-solid" type="number" min="1"
-                                                           name="quantity[]" placeholder="1" value="1"
-                                                           data-kt-element="quantity"/>
+                                                    <input class="form-control form-control-solid quantity" type="number" min="1"
+                                                           name="quantity" placeholder="1" value="1"/>
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control form-control-solid text-end"
-                                                           name="price[]" placeholder="0.00" value="0.00"
-                                                           data-kt-element="price"/>
+                                                    <input type="text" class="form-control form-control-solid text-end amount"
+                                                           name="price" placeholder="0.00" value="0.00"/>
                                                 </td>
-                                                <td class="pt-8 text-end text-nowrap">$
-                                                    <span data-kt-element="total">0.00</span></td>
+                                                <td class="pt-8 text-end text-nowrap">
+                                                    <span class="total">$0.00</span></td>
                                                 <td class="pt-5 text-end">
-                                                    <button type="button"
-                                                            class="btn btn-sm btn-icon btn-active-color-primary"
-                                                            data-repeater-delete="">
-                                                        <!--begin::Svg Icon | path: icons/duotune/general/gen027.svg-->
-                                                        <span class="svg-icon svg-icon-3">
-                                                        <svg width="24" height="24"
-                                                             viewBox="0 0 24 24" fill="none"
-                                                             xmlns="http://www.w3.org/2000/svg">
-                                                            <path
-                                                                d="M5 9C5 8.44772 5.44772 8 6 8H18C18.5523 8 19 8.44772 19 9V18C19 19.6569 17.6569 21 16 21H8C6.34315 21 5 19.6569 5 18V9Z"
-                                                                fill="currentColor"/>
-                                                            <path opacity="0.5"
-                                                                  d="M5 5C5 4.44772 5.44772 4 6 4H18C18.5523 4 19 4.44772 19 5V5C19 5.55228 18.5523 6 18 6H6C5.44772 6 5 5.55228 5 5V5Z"
-                                                                  fill="currentColor"/>
-                                                            <path opacity="0.5"
-                                                                  d="M9 4C9 3.44772 9.44772 3 10 3H14C14.5523 3 15 3.44772 15 4V4H9V4Z"
-                                                                  fill="currentColor"/>
-                                                        </svg>
-                                                    </span>
-                                                        <!--end::Svg Icon-->
+                                                    <button type="button" data-repeater-delete=""
+                                                            class="btn btn-sm btn-icon btn-light-danger delete_row"><i
+                                                            class="fa fa-times"></i>
                                                     </button>
                                                 </td>
                                             </tr>
@@ -300,8 +281,8 @@
                                                     </button>
                                                 </div>
                                             </th>
-                                            <th colspan="2" class="border-bottom border-bottom-dashed text-end">$
-                                                <span data-kt-element="sub-total">0.00</span></th>
+                                            <th colspan="2" class="border-bottom border-bottom-dashed text-end">
+                                                <span id="sub-total">$0.00</span></th>
                                         </tr>
                                         <tr class="align-top fw-bold text-gray-700">
                                             <th></th>

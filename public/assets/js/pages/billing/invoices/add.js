@@ -2,7 +2,10 @@
 
 // Class definition
 const KTInvoiceAdd = function () {
-    let form = $('#kt_invoice_form'), pay_terms = $('[name="pay_terms"]'), customer_select = $('[name="customer"]');
+    let form = $('#kt_invoice_form'),
+        pay_terms = $('[name="pay_terms"]'),
+        customer_select = $('[name="customer"]'),
+        sb_total = 0;
 
     function handleInvoice() {
         $('[name="invoice_due_date"], [name="invoice_date"]').daterangepicker({
@@ -50,14 +53,60 @@ const KTInvoiceAdd = function () {
     }
 
     function initializeRepeater() {
-        let repeater = $('table.repeater_items').repeater({
+        let repeater = $('.repeater_items').repeater({
             show: function () {
                 $(this).slideDown();
+                handleRowQuotient()
+                console.log(sb_total)
             },
-            hide: function (deleteElement) {
-                $(this).slideUp();
-            }
+            hide: function (setIndexes) {
+                setIndexes();
+                handleRowQuotient()
+                sb_total = handleSubtotal()
+                console.log(sb_total)
+            },
         });
+    }
+
+    function handleRowQuotient() {
+        $('.amount').each(function () {
+            $(this).keyup(function () {
+                let quotient = 0;
+                let quantity = $(this).closest('tr').find('.quantity').val()
+                if (!isNaN(this.value) && this.value.length !== 0 && quantity.length !== 0 && !isNaN(quantity)) {
+                    quotient = parseFloat(this.value) * parseFloat(quantity);
+                }
+                let row_total = $(this).closest('tr').find('.total')
+                row_total.html(new Intl.NumberFormat('ja-JP', {style: 'currency', currency: "USD"}).format(quotient))
+                sb_total = handleSubtotal()
+            });
+        });
+
+        $('.quantity').each(function () {
+            $(this).keyup(function () {
+                let quotient = 0;
+                let amount = $(this).closest('tr').find('.amount').val()
+                if (!isNaN(this.value) && this.value.length !== 0 && amount.length !== 0 && !isNaN(amount)) {
+                    quotient = parseFloat(this.value) * parseFloat(amount);
+                }
+                let row_total = $(this).closest('tr').find('.total')
+                row_total.html(new Intl.NumberFormat('ja-JP', {style: 'currency', currency: "USD"}).format(quotient))
+                sb_total = handleSubtotal()
+            });
+        });
+    }
+
+    function handleSubtotal() {
+        let sum = 0
+        $('tr').each(function () {
+            let quantity = $(this).find('.quantity').val()
+            let amount = $(this).find('.amount').val()
+            if (!isNaN(amount) && amount.length !== 0 && quantity.length !== 0 && !isNaN(quantity)) {
+                sum += parseFloat(amount) * parseFloat(quantity);
+            }
+        })
+        $('#sub-total').html(new Intl.NumberFormat('ja-JP', {style: 'currency', currency: "USD"}).format(sum))
+        return sum
     }
 
     return {
@@ -66,6 +115,8 @@ const KTInvoiceAdd = function () {
             refGen($('[name="reference"]').attr('data-kt-src'))
             handleCustomerAPISelect('#kt_invoice_form', null, ['#customer_details'])
             initializeRepeater()
+            handleRowQuotient()
+            handleSubtotal()
         }
     }
 }();

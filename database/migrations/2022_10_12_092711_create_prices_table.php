@@ -19,6 +19,7 @@ return new class extends Migration
             $table->bigInteger('sub_id')->nullable();
             $table->integer('sales_type')->default(1);
             $table->double('price')->default(0);
+            $table->bigInteger('branch_id');
             $table->string('client_ref',100)->nullable();
             $table->timestamps();
         });

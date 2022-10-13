@@ -22,6 +22,8 @@ return new class extends Migration
             $table->string('file_name',100);
             $table->bigInteger('file_size');
             $table->string('file_type',60);
+            $table->bigInteger('branch_id');
+            $table->string('client_ref',100)->nullable();
             $table->timestamps();
         });
     }

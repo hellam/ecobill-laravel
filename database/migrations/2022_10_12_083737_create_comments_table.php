@@ -19,6 +19,7 @@ return new class extends Migration
             $table->bigInteger('trx_no');
             $table->timestamp('trx_date');
             $table->longText('comment');
+            $table->bigInteger('branch_id');
             $table->string('client_ref',100)->nullable();
             $table->timestamps();
         });

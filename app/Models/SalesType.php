@@ -8,46 +8,34 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
 /**
- * Class Tax
+ * Class SalesType
  *
  * @property int $id
- * @property string|null $name
- * @property string|null $description
- * @property int|null $rate
+ * @property string $name
+ * @property int $tax_included
+ * @property float $factor
+ * @property string $inactive
  * @property string|null $client_ref
- * @property string|null $created_by
- * @property string|null $updated_by
- * @property string|null $supervised_by
- * @property Carbon|null $supervised_at
- * @property int $inactive
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  *
  * @package App\Models
  */
-class Tax extends Model
+class SalesType extends Model
 {
-	protected $table = 'tax';
+	protected $table = 'sales_types';
 
 	protected $casts = [
-		'rate' => 'int',
-		'inactive' => 'int'
-	];
-
-	protected $dates = [
-		'supervised_at'
+		'tax_included' => 'int',
+		'factor' => 'float'
 	];
 
 	protected $fillable = [
 		'name',
-		'description',
-		'rate',
-		'client_ref',
-		'created_by',
-		'updated_by',
-		'supervised_by',
-		'supervised_at',
-		'inactive'
+		'tax_included',
+		'factor',
+		'inactive',
+		'client_ref'
 	];
 
     public static function booted()
@@ -55,6 +43,5 @@ class Tax extends Model
         if (Auth::guard('user')->check()){
             static::addGlobalScope(new ClientRefScope());
         }
-
     }
 }

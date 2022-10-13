@@ -22,6 +22,7 @@ return new class extends Migration
             $table->double('amount')->default(0);
             $table->timestamp('trx_date')->nullable();
             $table->timestamp('reconciled')->nullable();
+            $table->bigInteger('branch_id');
             $table->string('client_ref',100)->nullable();
             $table->string("created_by",100)->nullable();
             $table->string("updated_by",100)->nullable();

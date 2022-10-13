@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
 /**
- * Class CustomerTrx
+ * Class SalesTrx
  *
  * @property int $id
  * @property int $trans_no
@@ -19,14 +19,16 @@ use Illuminate\Support\Facades\Auth;
  * @property Carbon|null $trx_date
  * @property Carbon|null $due_date
  * @property string $reference
- * @property int $order_id
+ * @property string|null $comments
+ * @property string|null $delivery_address
+ * @property string|null $contact_phone
+ * @property string|null $contact_email
+ * @property string|null $delivery_to
+ * @property int $payment_terms
  * @property float $amount
- * @property float $discount
  * @property float $alloc
- * @property float $rate
- * @property int|null $payment_terms
- * @property int $is_tax_included
  * @property int $branch_id
+ * @property int $is_tax_included
  * @property string|null $client_ref
  * @property string|null $created_by
  * @property string|null $updated_by
@@ -37,22 +39,19 @@ use Illuminate\Support\Facades\Auth;
  *
  * @package App\Models
  */
-class CustomerTrx extends Model
+class SalesTrx extends Model
 {
-	protected $table = 'customer_trx';
+	protected $table = 'sales_trx';
 
 	protected $casts = [
 		'trans_no' => 'int',
 		'customer_id' => 'int',
 		'customer_branch_id' => 'int',
-		'order_id' => 'int',
-		'amount' => 'float',
-		'discount' => 'float',
-		'alloc' => 'float',
-		'rate' => 'float',
 		'payment_terms' => 'int',
-		'is_tax_included' => 'int',
-		'branch_id' => 'int'
+		'amount' => 'float',
+		'alloc' => 'float',
+		'branch_id' => 'int',
+		'is_tax_included' => 'int'
 	];
 
 	protected $dates = [
@@ -69,14 +68,16 @@ class CustomerTrx extends Model
 		'trx_date',
 		'due_date',
 		'reference',
-		'order_id',
-		'amount',
-		'discount',
-		'alloc',
-		'rate',
+		'comments',
+		'delivery_address',
+		'contact_phone',
+		'contact_email',
+		'delivery_to',
 		'payment_terms',
-		'is_tax_included',
+		'amount',
+		'alloc',
 		'branch_id',
+		'is_tax_included',
 		'client_ref',
 		'created_by',
 		'updated_by',

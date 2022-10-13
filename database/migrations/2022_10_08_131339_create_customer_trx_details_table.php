@@ -26,6 +26,7 @@ return new class extends Migration
             $table->double('discount')->default(0);
             $table->double('cost')->default(0);
             $table->double('qty_done')->default(0);
+            $table->bigInteger('branch_id');
             $table->string('client_ref',100)->nullable();
             $table->timestamps();
         });

@@ -1,11 +1,8 @@
 <?php
 
-/**
- * Created by Reliese Model.
- */
-
 namespace App\Models;
 
+use App\Scopes\BranchScope;
 use App\Scopes\ClientRefScope;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -26,6 +23,7 @@ use Illuminate\Support\Facades\Auth;
  * @property float $discount
  * @property float $cost
  * @property float $qty_done
+ * @property int $branch_id
  * @property string|null $client_ref
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
@@ -44,7 +42,8 @@ class CustomerTrxDetail extends Model
 		'qty' => 'float',
 		'discount' => 'float',
 		'cost' => 'float',
-		'qty_done' => 'float'
+		'qty_done' => 'float',
+		'branch_id' => 'int'
 	];
 
 	protected $fillable = [
@@ -59,6 +58,7 @@ class CustomerTrxDetail extends Model
 		'discount',
 		'cost',
 		'qty_done',
+		'branch_id',
 		'client_ref'
 	];
 
@@ -66,6 +66,7 @@ class CustomerTrxDetail extends Model
     {
         if (Auth::guard('user')->check()){
             static::addGlobalScope(new ClientRefScope());
+            static::addGlobalScope(new BranchScope());
         }
     }
 }

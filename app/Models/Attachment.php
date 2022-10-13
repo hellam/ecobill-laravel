@@ -9,55 +9,47 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
 /**
- * Class GlTrx
+ * Class Attachment
  *
  * @property int $id
+ * @property string $description
  * @property int $trans_no
- * @property string $trx_type
  * @property Carbon|null $trx_date
- * @property int $chart_code
- * @property string $narration
- * @property float $amount
+ * @property string $trx_type
+ * @property string $file_name
+ * @property int $file_size
+ * @property string $file_type
  * @property int $branch_id
  * @property string|null $client_ref
- * @property string|null $created_by
- * @property string|null $updated_by
- * @property string|null $supervised_by
- * @property Carbon|null $supervised_at
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  *
  * @package App\Models
  */
-class GlTrx extends Model
+class Attachment extends Model
 {
-	protected $table = 'gl_trx';
+	protected $table = 'attachments';
 
 	protected $casts = [
 		'trans_no' => 'int',
-		'chart_code' => 'int',
-		'amount' => 'float',
+		'file_size' => 'int',
 		'branch_id' => 'int'
 	];
 
 	protected $dates = [
-		'trx_date',
-		'supervised_at'
+		'trx_date'
 	];
 
 	protected $fillable = [
+		'description',
 		'trans_no',
-		'trx_type',
 		'trx_date',
-		'chart_code',
-		'narration',
-		'amount',
+		'trx_type',
+		'file_name',
+		'file_size',
+		'file_type',
 		'branch_id',
-		'client_ref',
-		'created_by',
-		'updated_by',
-		'supervised_by',
-		'supervised_at'
+		'client_ref'
 	];
 
     public static function booted()

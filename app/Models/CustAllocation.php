@@ -9,15 +9,17 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
 /**
- * Class ExchangeRate
+ * Class CustAllocation
  *
  * @property int $id
- * @property string $currency
- * @property float $buy_rate
- * @property float $sell_rate
+ * @property float $amount
+ * @property Carbon $date_alloc
+ * @property int $trans_no_from
+ * @property string $trans_type_from
+ * @property int $trans_no_to
+ * @property string $trans_type_to
  * @property int $branch_id
- * @property Carbon $date
- * @property string $client_ref
+ * @property string|null $client_ref
  * @property string|null $created_by
  * @property string|null $updated_by
  * @property string|null $supervised_by
@@ -27,27 +29,30 @@ use Illuminate\Support\Facades\Auth;
  *
  * @package App\Models
  */
-class ExchangeRate extends Model
+class CustAllocation extends Model
 {
-	protected $table = 'exchange_rate';
+	protected $table = 'cust_allocations';
 
 	protected $casts = [
-		'buy_rate' => 'float',
-		'sell_rate' => 'float',
+		'amount' => 'float',
+		'trans_no_from' => 'int',
+		'trans_no_to' => 'int',
 		'branch_id' => 'int'
 	];
 
 	protected $dates = [
-		'date',
+		'date_alloc',
 		'supervised_at'
 	];
 
 	protected $fillable = [
-		'currency',
-		'buy_rate',
-		'sell_rate',
+		'amount',
+		'date_alloc',
+		'trans_no_from',
+		'trans_type_from',
+		'trans_no_to',
+		'trans_type_to',
 		'branch_id',
-		'date',
 		'client_ref',
 		'created_by',
 		'updated_by',
@@ -55,20 +60,11 @@ class ExchangeRate extends Model
 		'supervised_at'
 	];
 
-    public function branch(){
-        return $this->belongsTo(Branch::class, 'branch');
-    }
-
-    public function curr(){
-        return $this->belongsTo(Currency::class, 'currency','abbreviation');
-    }
-
     public static function booted()
     {
         if (Auth::guard('user')->check()){
-            static::addGlobalScope(new BranchScope());
             static::addGlobalScope(new ClientRefScope());
+            static::addGlobalScope(new BranchScope());
         }
-
     }
 }

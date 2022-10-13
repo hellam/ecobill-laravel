@@ -2,53 +2,52 @@
 
 namespace App\Models;
 
+use App\Scopes\BranchScope;
 use App\Scopes\ClientRefScope;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
 /**
- * Class ChartClass
+ * Class Price
  *
  * @property int $id
- * @property string|null $class_name
+ * @property string $barcode
+ * @property int|null $sub_id
+ * @property int $sales_type
+ * @property float $price
+ * @property int $branch_id
  * @property string|null $client_ref
- * @property string|null $created_by
- * @property string|null $updated_by
- * @property string|null $supervised_by
- * @property Carbon|null $supervised_at
- * @property int|null $inactive
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  *
  * @package App\Models
  */
-class ChartClass extends Model
+class Price extends Model
 {
-	protected $table = 'chart_class';
+	protected $table = 'prices';
 
 	protected $casts = [
-		'inactive' => 'int'
-	];
-
-	protected $dates = [
-		'supervised_at'
+		'sub_id' => 'int',
+		'sales_type' => 'int',
+		'price' => 'float',
+		'branch_id' => 'int'
 	];
 
 	protected $fillable = [
-		'class_name',
-		'client_ref',
-		'created_by',
-		'updated_by',
-		'supervised_by',
-		'supervised_at',
-		'inactive'
+		'barcode',
+		'sub_id',
+		'sales_type',
+		'price',
+		'branch_id',
+		'client_ref'
 	];
 
     public static function booted()
     {
         if (Auth::guard('user')->check()){
             static::addGlobalScope(new ClientRefScope());
+            static::addGlobalScope(new BranchScope());
         }
     }
 }

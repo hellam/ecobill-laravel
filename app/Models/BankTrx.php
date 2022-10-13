@@ -6,6 +6,7 @@
 
 namespace App\Models;
 
+use App\Scopes\BranchScope;
 use App\Scopes\ClientRefScope;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -22,6 +23,7 @@ use Illuminate\Support\Facades\Auth;
  * @property float $amount
  * @property Carbon|null $trx_date
  * @property Carbon|null $reconciled
+ * @property int $branch_id
  * @property string|null $client_ref
  * @property string|null $created_by
  * @property string|null $updated_by
@@ -39,7 +41,8 @@ class BankTrx extends Model
 	protected $casts = [
 		'trans_no' => 'int',
 		'bank_id' => 'int',
-		'amount' => 'float'
+		'amount' => 'float',
+		'branch_id' => 'int'
 	];
 
 	protected $dates = [
@@ -56,6 +59,7 @@ class BankTrx extends Model
 		'amount',
 		'trx_date',
 		'reconciled',
+		'branch_id',
 		'client_ref',
 		'created_by',
 		'updated_by',
@@ -67,6 +71,7 @@ class BankTrx extends Model
     {
         if (Auth::guard('user')->check()){
             static::addGlobalScope(new ClientRefScope());
+            static::addGlobalScope(new BranchScope());
         }
     }
 }

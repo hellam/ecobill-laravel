@@ -1,13 +1,12 @@
 <?php
 
-/**
- * Created by Reliese Model.
- */
-
 namespace App\Models;
 
+use App\Scopes\BranchScope;
+use App\Scopes\ClientRefScope;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class Price
@@ -17,6 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int|null $sub_id
  * @property int $sales_type
  * @property float $price
+ * @property int $branch_id
  * @property string|null $client_ref
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
@@ -30,7 +30,8 @@ class Price extends Model
 	protected $casts = [
 		'sub_id' => 'int',
 		'sales_type' => 'int',
-		'price' => 'float'
+		'price' => 'float',
+		'branch_id' => 'int'
 	];
 
 	protected $fillable = [
@@ -38,6 +39,15 @@ class Price extends Model
 		'sub_id',
 		'sales_type',
 		'price',
+		'branch_id',
 		'client_ref'
 	];
+
+    public static function booted()
+    {
+        if (Auth::guard('user')->check()){
+            static::addGlobalScope(new ClientRefScope());
+            static::addGlobalScope(new BranchScope());
+        }
+    }
 }

@@ -1,13 +1,12 @@
 <?php
 
-/**
- * Created by Reliese Model.
- */
-
 namespace App\Models;
 
+use App\Scopes\BranchScope;
+use App\Scopes\ClientRefScope;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class Attachment
@@ -20,6 +19,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $file_name
  * @property int $file_size
  * @property string $file_type
+ * @property int $branch_id
+ * @property string|null $client_ref
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  *
@@ -31,7 +32,8 @@ class Attachment extends Model
 
 	protected $casts = [
 		'trans_no' => 'int',
-		'file_size' => 'int'
+		'file_size' => 'int',
+		'branch_id' => 'int'
 	];
 
 	protected $dates = [
@@ -45,6 +47,16 @@ class Attachment extends Model
 		'trx_type',
 		'file_name',
 		'file_size',
-		'file_type'
+		'file_type',
+		'branch_id',
+		'client_ref'
 	];
+
+    public static function booted()
+    {
+        if (Auth::guard('user')->check()){
+            static::addGlobalScope(new ClientRefScope());
+            static::addGlobalScope(new BranchScope());
+        }
+    }
 }

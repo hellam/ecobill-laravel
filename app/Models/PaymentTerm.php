@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Created by Reliese Model.
- */
-
 namespace App\Models;
 
 use Carbon\Carbon;
@@ -11,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class PaymentTerm
- * 
+ *
  * @property int $id
  * @property string $terms
  * @property int $type

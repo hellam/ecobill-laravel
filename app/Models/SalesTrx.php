@@ -1,13 +1,12 @@
 <?php
 
-/**
- * Created by Reliese Model.
- */
-
 namespace App\Models;
 
+use App\Scopes\BranchScope;
+use App\Scopes\ClientRefScope;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class SalesTrx
@@ -28,6 +27,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $payment_terms
  * @property float $amount
  * @property float $alloc
+ * @property int $branch_id
  * @property int $is_tax_included
  * @property string|null $client_ref
  * @property string|null $created_by
@@ -50,6 +50,7 @@ class SalesTrx extends Model
 		'payment_terms' => 'int',
 		'amount' => 'float',
 		'alloc' => 'float',
+		'branch_id' => 'int',
 		'is_tax_included' => 'int'
 	];
 
@@ -75,6 +76,7 @@ class SalesTrx extends Model
 		'payment_terms',
 		'amount',
 		'alloc',
+		'branch_id',
 		'is_tax_included',
 		'client_ref',
 		'created_by',
@@ -82,4 +84,12 @@ class SalesTrx extends Model
 		'supervised_by',
 		'supervised_at'
 	];
+
+    public static function booted()
+    {
+        if (Auth::guard('user')->check()){
+            static::addGlobalScope(new ClientRefScope());
+            static::addGlobalScope(new BranchScope());
+        }
+    }
 }

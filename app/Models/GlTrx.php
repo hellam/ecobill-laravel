@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Scopes\BranchScope;
 use App\Scopes\ClientRefScope;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -17,6 +18,7 @@ use Illuminate\Support\Facades\Auth;
  * @property int $chart_code
  * @property string $narration
  * @property float $amount
+ * @property int $branch_id
  * @property string|null $client_ref
  * @property string|null $created_by
  * @property string|null $updated_by
@@ -34,7 +36,8 @@ class GlTrx extends Model
 	protected $casts = [
 		'trans_no' => 'int',
 		'chart_code' => 'int',
-		'amount' => 'float'
+		'amount' => 'float',
+		'branch_id' => 'int'
 	];
 
 	protected $dates = [
@@ -49,6 +52,7 @@ class GlTrx extends Model
 		'chart_code',
 		'narration',
 		'amount',
+		'branch_id',
 		'client_ref',
 		'created_by',
 		'updated_by',
@@ -60,6 +64,7 @@ class GlTrx extends Model
     {
         if (Auth::guard('user')->check()){
             static::addGlobalScope(new ClientRefScope());
+            static::addGlobalScope(new BranchScope());
         }
     }
 }

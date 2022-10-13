@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Scopes\BranchScope;
 use App\Scopes\ClientRefScope;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -22,8 +23,10 @@ use Illuminate\Support\Facades\Auth;
  * @property float $amount
  * @property float $discount
  * @property float $alloc
+ * @property float $rate
  * @property int|null $payment_terms
  * @property int $is_tax_included
+ * @property int $branch_id
  * @property string|null $client_ref
  * @property string|null $created_by
  * @property string|null $updated_by
@@ -46,8 +49,10 @@ class CustomerTrx extends Model
 		'amount' => 'float',
 		'discount' => 'float',
 		'alloc' => 'float',
+		'rate' => 'float',
 		'payment_terms' => 'int',
-		'is_tax_included' => 'int'
+		'is_tax_included' => 'int',
+		'branch_id' => 'int'
 	];
 
 	protected $dates = [
@@ -68,8 +73,10 @@ class CustomerTrx extends Model
 		'amount',
 		'discount',
 		'alloc',
+		'rate',
 		'payment_terms',
 		'is_tax_included',
+		'branch_id',
 		'client_ref',
 		'created_by',
 		'updated_by',
@@ -81,6 +88,7 @@ class CustomerTrx extends Model
     {
         if (Auth::guard('user')->check()){
             static::addGlobalScope(new ClientRefScope());
+            static::addGlobalScope(new BranchScope());
         }
     }
 }

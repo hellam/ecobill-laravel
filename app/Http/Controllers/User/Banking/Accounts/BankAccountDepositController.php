@@ -102,6 +102,7 @@ class BankAccountDepositController extends Controller
                 $customer_trx_post_data = array_merge($post_data, [
                     'customer_id' => $customer_branch->customer_id,
                     'customer_branch_id' => $request->customer_branch_id,
+                    'rate' => $fx_rate,
                     'amount' => $total,
                     'reference' => $trans_no,
                 ]);

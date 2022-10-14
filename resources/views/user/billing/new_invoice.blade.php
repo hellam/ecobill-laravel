@@ -227,7 +227,6 @@
                                             <td class="pe-7">
                                                 <select name="product"
                                                         aria-label="Select Product"
-                                                        data-control="select2"
                                                         data-kt-src="{{route('user.products.select_api', 1)}}"
                                                         data-placeholder="Select Product"
                                                         data-kt-add-product="product_select"

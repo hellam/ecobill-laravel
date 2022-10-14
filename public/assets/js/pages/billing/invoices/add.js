@@ -53,6 +53,12 @@ const KTInvoiceAdd = function () {
             }
         })
 
+        $('[name="invoice_date"]').on('change', function () {
+            if (!pay_terms.val()) {
+                $('[name="invoice_due_date"]').val($('[name="invoice_date"]').val())
+            }
+        })
+
     }
 
     function initializeRepeater() {

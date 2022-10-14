@@ -213,6 +213,26 @@
                                             <td class="pe-7">
                                                 <input type="text" class="form-control form-control-solid mb-2"
                                                        name="name" placeholder="Item name"/>
+                                                <div class="inner-repeater">
+                                                    <div data-repeater-list class="mb-5">
+                                                        <div data-repeater-item style="display:none;">
+                                                            <label class="form-label">Description</label>
+                                                            <div class="input-group has-validation pb-3">
+                                                                <textarea type="text" class="form-control"
+                                                                          placeholder="Enter description" name="description"></textarea>
+                                                                <button
+                                                                    class="btn btn-sm btn-icon btn-light-danger align-self-center ms-3"
+                                                                    data-repeater-delete type="button" style="border-top-left-radius: 0.425rem; border-bottom-left-radius: 0.425rem;">
+                                                                    <i class="fa fa-times"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <button class="btn btn-sm btn-light-primary" data-repeater-create
+                                                            type="button">
+                                                        <i class="la la-plus"></i> Add description
+                                                    </button>
+                                                </div>
                                             </td>
                                             <td class="ps-0">
                                                 <input class="form-control form-control-solid quantity" type="number"

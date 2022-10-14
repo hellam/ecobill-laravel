@@ -151,6 +151,7 @@ const KTInvoiceAdd = function () {
             handleRowQuotient()
             handleSubtotal()
             addFxField()
+            addBankField()
         }
     }
 }();

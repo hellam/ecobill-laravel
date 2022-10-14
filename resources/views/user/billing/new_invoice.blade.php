@@ -153,12 +153,14 @@
 
                                 <!--begin::Separator-->
                                 <div class="separator separator-dashed my-5"></div>
-                                <div class="row align-items-end">
-                                    <div class="col-md-4">
+                                <div class="row">
+                                    <div class="col-md-3">
                                         <!--begin::Input-->
                                         <div class="fv-row">
                                             <!--begin::Date-->
-                                            <div class="fs-6 fw-bold text-gray-700 text-nowrap me-2 mb-2">Payment Terms:</div>
+                                            <div class="fs-6 fw-bold text-gray-700 text-nowrap me-2 mb-2">Payment
+                                                Terms:
+                                            </div>
                                             <select name="pay_terms"
                                                     aria-label="Select Payment Terms"
                                                     data-control="select2"
@@ -175,12 +177,12 @@
                                             <!--end::Input-->
                                         </div>
                                     </div>
-                                    <div class="col-md-4" id="fx_area"></div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <!--begin::Input group-->
                                         <div class="fv-row">
                                             <!--begin::Date-->
-                                            <div class="fs-6 fw-bold text-gray-700 text-nowrap me-2 mb-2">Due Date:</div>
+                                            <div class="fs-6 fw-bold text-gray-700 text-nowrap me-2 mb-2">Due Date:
+                                            </div>
                                             <!--end::Date-->
                                             <!--begin::Input-->
                                             <!--begin::Datepicker-->
@@ -193,6 +195,12 @@
                                             <!--end::Input-->
                                         </div>
                                         <!--end::Input group-->
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="col-md-6 fv-row" id="fx_area"></div>
+                                            <div class="col-md-6 fv-row" id="bank_area"></div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="separator separator-dashed mt-5 mb-10"></div>

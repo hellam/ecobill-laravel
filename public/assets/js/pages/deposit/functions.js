@@ -130,7 +130,7 @@ function addFXField() {
                         if (!isNaN($(this).val()) && $(this).val().length !== 0) {
                             fx_rate = $(this).val()
                             totalHomeCurrency()
-                        }else{
+                        } else {
                             fx_rate = 1
                             totalHomeCurrency()
                         }

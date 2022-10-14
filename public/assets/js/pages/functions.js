@@ -510,6 +510,29 @@ function createCKEditor(input_id) {
     CKEDITOR.replace(input_id);
 }
 
+
+// Format options
+const optionFormat = (item) => {
+    if (!item.id) {
+        return item.text;
+    }
+
+    let span = document.createElement('span');
+    let template = '';
+
+    template += '<div class="d-flex align-items-center">';
+    template += '<div class="d-flex flex-column">'
+    template += '<span class="fs-4 fw-bold lh-1">' + item.text + '</span>';
+    template += '<span class="text-muted fs-5">' + item.currency + '</span>';
+    template += '</div>';
+    template += '</div>';
+
+    span.innerHTML = template;
+
+    return $(span);
+}
+
+
 function handleCustomerAPISelect(select_parent, preselect = null, pass_data = []) {
     const element = document.querySelector(select_parent + ' .select_customer');
 
@@ -525,6 +548,8 @@ function handleCustomerAPISelect(select_parent, preselect = null, pass_data = []
         escapeMarkup: function (markup) {
             return markup;
         },
+        templateSelection: optionFormat,
+        templateResult: optionFormat,
         ajax: {
             url: element.getAttribute("data-kt-src"),
             dataType: 'json',
@@ -542,10 +567,11 @@ function handleCustomerAPISelect(select_parent, preselect = null, pass_data = []
                         return {
                             text: item.short_name + '|' + item.f_name + ' ' + item.l_name,
                             id: item.id,
-                            'data-kt-phone': item.customer_branch.phone,
-                            'data-kt-email': item.customer_branch.email,
-                            'data-kt-address': item.customer_branch.address,
-                            'data-kt-country': item.customer_branch.country,
+                            phone: item.phone,
+                            email: item.email,
+                            address: item.address,
+                            country: item.country,
+                            currency: item.currency,
                         }
                     })
                 }
@@ -555,24 +581,26 @@ function handleCustomerAPISelect(select_parent, preselect = null, pass_data = []
         let data = e.params.data;
         let data_kt = $(this).children('[value="' + data['id'] + '"]').attr(
             {
-                'data-kt-phone': data["data-kt-phone"],
-                'data-kt-email': data["data-kt-email"],
-                'data-kt-address': data["data-kt-address"],
-                'data-kt-country': data["data-kt-country"],
+                'data-kt-phone': data["phone"],
+                'data-kt-email': data["email"],
+                'data-kt-address': data["address"],
+                'data-kt-country': data["country"],
+                'data-kt-currency': data["currency"],
             }
         );
         $(select_parent + ' [name="phone"]').val($(select_parent + ' .select_customer').find(':selected').data('kt-phone'))
         $(select_parent + ' [name="email"]').val($(select_parent + ' .select_customer').find(':selected').data('kt-email'))
 
         if (pass_data.length > 0) {
-            pass_data.forEach(input=>{
+            pass_data.forEach(input => {
                 input = $(input)
-                if(input.is('select')){
+                if (input.is('select')) {
                     // input.val('test1').trigger('change')
-                }else if(input.is('textarea')){
+                } else if (input.is('textarea')) {
                     let selected = $(select_parent + ' .select_customer').find(':selected');
-                    input.val(selected.data('kt-email')+',\n'+selected.data('kt-phone')+',\n'+selected.data('kt-address')+','+selected.data('kt-country'))
-                }else if(input.is('input')){
+                    console.log(selected)
+                    input.val(selected.data('kt-email') + ',\n' + selected.data('kt-phone') + ',\n' + selected.data('kt-address') + ',' + selected.data('kt-country'))
+                } else if (input.is('input')) {
                     input.val('test')
                 }
             })

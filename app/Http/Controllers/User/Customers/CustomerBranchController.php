@@ -117,9 +117,9 @@ class CustomerBranchController extends Controller
      */
     public function select_api(Request $request): JsonResponse
     {
-        $customer = CustomerBranch::select('f_name', 'l_name', 'branch', 'currency', 'short_name', 'id');
+        $customer = CustomerBranch::with('customer')->select('f_name', 'l_name', 'branch', 'currency', 'short_name', 'id');
         if ($request->filled('search'))
-            $customer = CustomerBranch::select('f_name', 'l_name', 'branch', 'short_name', 'id')
+            $customer = CustomerBranch::with('customer')->select('f_name', 'l_name', 'branch', 'short_name', 'id')
                 ->where('f_name', 'like', '%' . $request->search . '%')
                 ->orWhere('l_name', 'like', '%' . $request->search . '%')
                 ->orWhere('branch', 'like', '%' . $request->search . '%')

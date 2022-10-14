@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Scopes\BranchScope;
 use App\Scopes\ClientRefScope;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -20,6 +21,7 @@ use Illuminate\Support\Facades\Auth;
  * @property string|null $country
  * @property string|null $phone
  * @property string|null $email
+ * @property float|null $credit_limit
  * @property string|null $currency
  * @property string|null $address
  * @property string|null $client_ref
@@ -38,7 +40,8 @@ class CustomerBranch extends Model
 	protected $table = 'customer_branch';
 
 	protected $casts = [
-		'inactive' => 'int'
+		'inactive' => 'int',
+        'credit_limit' => 'float',
 	];
 
 	protected $dates = [
@@ -54,6 +57,7 @@ class CustomerBranch extends Model
 		'country',
 		'phone',
 		'email',
+		'credit_limit',
 		'address',
 		'currency',
 		'client_ref',
@@ -67,6 +71,12 @@ class CustomerBranch extends Model
     public function customer(): BelongsTo
     {
         return $this->belongsTo(Customer::class, 'customer_id');
+    }
+
+    public function customer_balances(){
+        return CustomerTrx::withoutGlobalScope(BranchScope::class)
+            ->where('customer_branch_id', $this->id)
+            ->sum('amount');
     }
 
     public static function booted()

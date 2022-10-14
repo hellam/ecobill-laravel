@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('country')->nullable();
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
+            $table->double('credit_limit')->default(0);
             $table->string('address')->nullable();
             $table->string('inactive')->default(0);
             $table->string('currency',20);

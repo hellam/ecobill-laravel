@@ -12,6 +12,8 @@ function addFxField() {
         console.log(current_currency, default_currency)
         if (default_currency !== current_currency) {
             blockUI.block()
+        }else{
+
         }
     })
 }

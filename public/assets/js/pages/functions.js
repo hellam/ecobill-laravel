@@ -517,6 +517,17 @@ const optionFormat = (item) => {
         return item.text;
     }
 
+    let credit_limit_color;
+
+    let credit_limit = new Intl.NumberFormat('ja-JP', {
+        style: "currency",
+        currency: item.currency
+    }).format(item.credit_limit)
+
+    if (item.credit_limit >= 0)
+        credit_limit_color = "text-success"
+    else credit_limit_color = "text-primary"
+
     let span = document.createElement('span');
     let template = '';
 
@@ -524,11 +535,8 @@ const optionFormat = (item) => {
     template += '<div class="d-flex flex-column">'
     template += '<span class="">' + item.text + '</span>';
     template += '<span class="text-muted">' +
-        item.currency + ' | Discount: ' + item.discount + '% | Credit Limit: ' +
-        new Intl.NumberFormat('ja-JP', {
-            style: "currency",
-            currency: item.currency
-        }).format(item.credit_limit) + ' | Tax: ' + item.tax + '%' + '</span>';
+        item.currency + ' | Discount: ' + item.discount + '% | Credit Limit: <span class="' + credit_limit_color + '">' +
+        credit_limit + '</span> | Tax: ' + item.tax + '%' + '</span>';
     template += '</div>';
     template += '</div>';
 
@@ -595,7 +603,7 @@ function handleCustomerAPISelect(select_parent, preselect = null, pass_data = []
                 'data-kt-country': data["country"],
                 'data-kt-currency': data["currency"],
                 'data-kt-discount': data["discount"],
-                'data-kt-credit-limit': data["credit_limit"],
+                'data-kt-credit-limit': data["c_limit"],
                 'data-kt-tax': data["tax"],
             }
         );

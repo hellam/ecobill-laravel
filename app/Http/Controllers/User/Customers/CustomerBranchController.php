@@ -133,7 +133,7 @@ class CustomerBranchController extends Controller
 
         //push edit url to array
         foreach ($customer as $key => $item) {
-            $customer[$key]['c_limit'] = $item->customer_balances() - $item->credit_limit;
+            $customer[$key]['c_limit'] = $item->customer_balances() ?? 0 - $item->credit_limit;
         }
 
         return response()->json($customer, 200);

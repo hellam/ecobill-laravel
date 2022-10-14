@@ -8,6 +8,9 @@ let default_currency = current_currency = parent_data_src.attr('data-kt-default-
 
 function addFxField() {
     $('.select_customer').on('select2:select', function () {
+        if($('.select_bank').length){
+            $('.select_bank').val(null).trigger('change')
+        }
         current_currency = $(this).find(':selected').attr('data-kt-currency')
         if (default_currency !== current_currency) {
             blockUI.block()

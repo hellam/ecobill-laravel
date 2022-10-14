@@ -517,6 +517,8 @@ const optionFormat = (item) => {
         return item.text;
     }
 
+    console.log(item)
+
     let span = document.createElement('span');
     let template = '';
 

@@ -8,6 +8,7 @@ use App\Models\Currency;
 use App\Models\Customer;
 use App\Models\CustomerBranch;
 use App\Models\PaymentTerm;
+use App\Models\SalesType;
 use App\Models\Tax;
 use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
@@ -30,10 +31,11 @@ class CustomersController extends Controller
         $customers = Customer::count() ?? 0;
         $currency = Currency::all();
         $payment_terms = PaymentTerm::all();
+        $sales_type = SalesType::all();
         $tax = Tax::all();
 
         return view('user.customers.customers', compact('customers',
-            'currency', 'payment_terms', 'tax'));
+            'currency', 'payment_terms', 'tax','sales_type'));
     }
 
     //Data table API

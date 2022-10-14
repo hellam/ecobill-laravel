@@ -586,7 +586,7 @@ function handleCustomerAPISelect(select_parent, preselect = null, pass_data = []
                             country: item.country,
                             currency: item.currency,
                             discount: item.customer.discount,
-                            credit_limit: item.customer.credit_limit,
+                            credit_limit: item.customer.c_limit ?? 0,
                             tax: item.customer.tax ?? 0,
                         }
                     })
@@ -603,7 +603,7 @@ function handleCustomerAPISelect(select_parent, preselect = null, pass_data = []
                 'data-kt-country': data["country"],
                 'data-kt-currency': data["currency"],
                 'data-kt-discount': data["discount"],
-                'data-kt-credit-limit': data["c_limit"],
+                'data-kt-credit-limit': data["credit_limit"],
                 'data-kt-tax': data["tax"],
             }
         );

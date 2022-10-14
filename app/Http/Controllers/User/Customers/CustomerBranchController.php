@@ -117,7 +117,7 @@ class CustomerBranchController extends Controller
      */
     public function select_api(Request $request): JsonResponse
     {
-        $customer = CustomerBranch::with('customer');
+        $customer = CustomerBranch::with('customer','customer.tax');
         if ($request->filled('search'))
             $customer = CustomerBranch::with('customer')
                 ->where('f_name', 'like', '%' . $request->search . '%')

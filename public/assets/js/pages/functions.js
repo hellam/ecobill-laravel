@@ -528,7 +528,7 @@ const optionFormat = (item) => {
         new Intl.NumberFormat('ja-JP', {
             style: "currency",
             currency: item.currency
-        }).format(item.credit_limit) + '</span>';
+        }).format(item.credit_limit) + ' | Tax: ' + item.tax + '%' + '</span>';
     template += '</div>';
     template += '</div>';
 
@@ -579,6 +579,7 @@ function handleCustomerAPISelect(select_parent, preselect = null, pass_data = []
                             currency: item.currency,
                             discount: item.customer.discount,
                             credit_limit: item.customer.credit_limit,
+                            tax: item.customer.tax ?? 0,
                         }
                     })
                 }
@@ -595,6 +596,7 @@ function handleCustomerAPISelect(select_parent, preselect = null, pass_data = []
                 'data-kt-currency': data["currency"],
                 'data-kt-discount': data["discount"],
                 'data-kt-credit-limit': data["credit_limit"],
+                'data-kt-tax': data["tax"],
             }
         );
         $(select_parent + ' [name="phone"]').val($(select_parent + ' .select_customer').find(':selected').data('kt-phone'))

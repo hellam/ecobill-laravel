@@ -54,7 +54,7 @@ const KTInvoiceAdd = function () {
         })
 
         $('[name="invoice_date"]').on('change', function () {
-            if (!pay_terms.val()) {
+            if (!pay_terms.val() || pay_terms.find(":selected").attr('data-kt-type') == 0) {
                 $('[name="invoice_due_date"]').val($('[name="invoice_date"]').val())
             }
         })
@@ -150,6 +150,7 @@ const KTInvoiceAdd = function () {
             initializeRepeater()
             handleRowQuotient()
             handleSubtotal()
+            addFxField()
         }
     }
 }();

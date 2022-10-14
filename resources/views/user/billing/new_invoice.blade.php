@@ -58,7 +58,7 @@
                 <!--begin::Card-->
                 <div class="card shadow">
                     <!--begin::Card body-->
-                    <div class="card-body p-12">
+                    <div class="card-body p-12" id="kt_block_ui_1_target">
                         <!--begin::Form-->
                         <form action="" id="kt_invoice_form" data-kt-date-format="{{get_js_date_format()}}">
                             <!--begin::Wrapper-->

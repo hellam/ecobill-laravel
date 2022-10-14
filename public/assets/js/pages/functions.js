@@ -609,7 +609,6 @@ function handleCustomerAPISelect(select_parent, preselect = null, pass_data = []
                     // input.val('test1').trigger('change')
                 } else if (input.is('textarea')) {
                     let selected = $(select_parent + ' .select_customer').find(':selected');
-                    console.log(selected)
                     input.val(selected.data('kt-email') + ',\n' + selected.data('kt-phone') + ',\n' + selected.data('kt-address') + ',' + selected.data('kt-country'))
                 } else if (input.is('input')) {
                     input.val('test')

@@ -522,8 +522,8 @@ const optionFormat = (item) => {
 
     template += '<div class="d-flex align-items-center">';
     template += '<div class="d-flex flex-column">'
-    template += '<span class="fs-4 fw-bold lh-1">' + item.text + '</span>';
-    template += '<span class="text-muted fs-5">' + item.currency + '</span>';
+    template += '<span class="">' + item.text + '</span>';
+    template += '<span class="text-muted">' + item.currency + '</span>';
     template += '</div>';
     template += '</div>';
 
@@ -579,7 +579,7 @@ function handleCustomerAPISelect(select_parent, preselect = null, pass_data = []
         }
     }).on('select2:select', function (e) {
         let data = e.params.data;
-        let data_kt = $(this).children('[value="' + data['id'] + '"]').attr(
+        $(this).children('[value="' + data['id'] + '"]').attr(
             {
                 'data-kt-phone': data["phone"],
                 'data-kt-email': data["email"],

@@ -1,6 +1,6 @@
 let parent_data_src = $('#kt_aside')
-let default_currency = parent_data_src.attr('data-kt-default-currency'),
-    current_currency, fx_rate,
+let default_currency = current_currency = parent_data_src.attr('data-kt-default-currency'),
+    fx_rate,
     loader_image = parent_data_src.attr('data-kt-loader'),
     blockUI = new KTBlockUI(document.querySelector('#kt_block_ui_1_target'), {
         message: '<div class="blockui-message"><img src="' + loader_image + '" width="30" height="30" alt=""></div>',

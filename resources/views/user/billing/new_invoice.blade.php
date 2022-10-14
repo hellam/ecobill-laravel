@@ -157,7 +157,8 @@
                                         <!--begin::Input-->
                                         <div class="d-flex align-items-center flex-md-end fw-row">
                                             <!--begin::Date-->
-                                            <div class="fs-6 fw-bold text-gray-700 text-nowrap me-2">Payment Terms:</div>
+                                            <div class="fs-6 fw-bold text-gray-700 text-nowrap me-2">Payment Terms:
+                                            </div>
                                             <select name="pay_terms"
                                                     aria-label="Select Payment Terms"
                                                     data-control="select2"
@@ -368,5 +369,5 @@
 @push('custom_scripts')
     <script src="{{ asset('assets/plugins/custom/formrepeater/formrepeater.bundle.js') }}"></script>
     <script src="{{ asset('assets/js/pages/billing/invoices/add.js') }}"></script>
-    {{--    <script src="{{ asset('assets/js/pages/deposit/functions.js') }}"></script>--}}
+    <script src="{{ asset('assets/js/pages/billing/invoices/functions.js') }}"></script>
 @endpush

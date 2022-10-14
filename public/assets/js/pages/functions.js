@@ -517,15 +517,18 @@ const optionFormat = (item) => {
         return item.text;
     }
 
-    console.log(item)
-
     let span = document.createElement('span');
     let template = '';
 
     template += '<div class="d-flex align-items-center">';
     template += '<div class="d-flex flex-column">'
     template += '<span class="">' + item.text + '</span>';
-    template += '<span class="text-muted">' + item.currency + '</span>';
+    template += '<span class="text-muted">' +
+        item.currency + ' | Discount: ' + item.discount + '% | Credit Limit: ' +
+        new Intl.NumberFormat('ja-JP', {
+            style: "currency",
+            currency: item.currency
+        }).format(item.credit_limit) + '</span>';
     template += '</div>';
     template += '</div>';
 
@@ -574,6 +577,8 @@ function handleCustomerAPISelect(select_parent, preselect = null, pass_data = []
                             address: item.address,
                             country: item.country,
                             currency: item.currency,
+                            discount: item.customer.discount,
+                            credit_limit: item.customer.credit_limit,
                         }
                     })
                 }
@@ -588,6 +593,8 @@ function handleCustomerAPISelect(select_parent, preselect = null, pass_data = []
                 'data-kt-address': data["address"],
                 'data-kt-country': data["country"],
                 'data-kt-currency': data["currency"],
+                'data-kt-discount': data["discount"],
+                'data-kt-credit-limit': data["credit_limit"],
             }
         );
         $(select_parent + ' [name="phone"]').val($(select_parent + ' .select_customer').find(':selected').data('kt-phone'))

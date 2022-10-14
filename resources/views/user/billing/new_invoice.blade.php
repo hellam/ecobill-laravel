@@ -153,13 +153,12 @@
 
                                 <!--begin::Separator-->
                                 <div class="separator separator-dashed my-5"></div>
-                                <div class="row">
+                                <div class="row align-items-end">
                                     <div class="col-md-4">
                                         <!--begin::Input-->
-                                        <div class="d-flex align-items-center flex-md-end fw-row">
+                                        <div class="fv-row">
                                             <!--begin::Date-->
-                                            <div class="fs-6 fw-bold text-gray-700 text-nowrap me-2">Payment Terms:
-                                            </div>
+                                            <div class="fs-6 fw-bold text-gray-700 text-nowrap me-2 mb-2">Payment Terms:</div>
                                             <select name="pay_terms"
                                                     aria-label="Select Payment Terms"
                                                     data-control="select2"
@@ -179,9 +178,9 @@
                                     <div class="col-md-4" id="fx_area"></div>
                                     <div class="col-md-4">
                                         <!--begin::Input group-->
-                                        <div class="d-flex align-items-center flex-md-end fw-row">
+                                        <div class="fv-row">
                                             <!--begin::Date-->
-                                            <div class="fs-6 fw-bold text-gray-700 text-nowrap me-2">Due Date:</div>
+                                            <div class="fs-6 fw-bold text-gray-700 text-nowrap me-2 mb-2">Due Date:</div>
                                             <!--end::Date-->
                                             <!--begin::Input-->
                                             <!--begin::Datepicker-->

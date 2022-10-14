@@ -39,7 +39,7 @@ function addFxField() {
                         } else {
                             $('#fx_area').html(
                                 '<!--begin::Input group-->\n' +
-                                '<div class="row mb-6 mx-2 fv-row" id="fx_input">\n' +
+                                '<div class="row fv-row" id="fx_input">\n' +
                                 '    <!--begin::Col-->\n' +
                                 '    <div class="col-lg-7">\n' +
                                 '        <!--begin::Input-->\n' +

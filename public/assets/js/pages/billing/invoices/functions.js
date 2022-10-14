@@ -8,14 +8,33 @@ let default_currency = current_currency = parent_data_src.attr('data-kt-default-
 
 function addFxField() {
     $('.select_customer').on('select2:select', function () {
+        /**
+         * on change of customer reset bank select if present
+         */
         if ($('.select_bank').length) {
             $('.select_bank').val(null).trigger('change')
         }
+        /**
+         * set selected payment term to customer's payment terms
+         * @type {*|jQuery}
+         */
         let pay_term = $(this).find(':selected').attr('data-kt-pay-terms')
         $('.select_terms').val(pay_term).trigger('change')
+
+        /**
+         * set default currency
+         * @type {*|jQuery}
+         */
         current_currency = $(this).find(':selected').attr('data-kt-currency')
+
+        /**
+         * if default currency is not equal to current currency for the selected user
+         */
         if (default_currency !== current_currency) {
             blockUI.block()
+            /**
+             * get fx rate
+             */
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -71,20 +90,6 @@ function addFxField() {
                         fx_rate = response.data.fx_rate
                         $('[name="fx_rate"]').val(fx_rate)
                         $('#label_fx').html(default_currency + " = 1 " + current_currency)
-                        // $('#total').after('<div class="text-end my-5 text-muted" id="total_converted">' + "(Total: " + new Intl.NumberFormat('ja-JP', {
-                        //     style: 'currency',
-                        //     currency: default_currency
-                        // }).format(total * fx_rate) + ")" + '</div>')
-
-                        // $('[name="fx_rate"]').on('keyup', function () {
-                        //     if (!isNaN($(this).val()) && $(this).val().length !== 0) {
-                        //         fx_rate = $(this).val()
-                        //         totalHomeCurrency()
-                        //     } else {
-                        //         fx_rate = 1
-                        //         totalHomeCurrency()
-                        //     }
-                        // })
                     }
                 },
                 error: function () {
@@ -100,10 +105,17 @@ function addFxField() {
                 }
             })
         } else {
+            /**
+             * if fx rate field is available and default currency is equal to
+             * current then remove fx rate field
+             */
             if ($('#fx_parent').length) {
                 $('#fx_area').removeClass('order-first')
                 $('#fx_parent').remove()
             }
+            /**
+             * order class order-first to bank area
+             */
             if ($('#bank_parent').length) {
                 $('#bank_area').addClass('order-first')
             }

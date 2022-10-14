@@ -511,7 +511,11 @@ function createCKEditor(input_id) {
 }
 
 
-// Format options
+/**
+ * format select option for customer
+ * @param item
+ * @returns {*|jQuery|HTMLElement}
+ */
 const optionFormat = (item) => {
     if (!item.id) {
         return item.text;
@@ -536,7 +540,7 @@ const optionFormat = (item) => {
     template += '<span class="">' + item.text + '</span>';
     template += '<span class="text-muted">' +
         item.currency + ' | Discount: ' + item.discount + '% | Credit Limit: <span class="' + credit_limit_color + '">' +
-        credit_limit + '</span> | Tax: ' + item.tax + '%' + '</span>';
+        credit_limit + '</span> | Tax: ' + item.tax_rate + '%' + '</span>';
     template += '</div>';
     template += '</div>';
 
@@ -587,7 +591,8 @@ function handleCustomerAPISelect(select_parent, preselect = null, pass_data = []
                             currency: item.currency,
                             discount: item.customer.discount,
                             credit_limit: item.c_limit ?? 0,
-                            tax: item.customer.tax ?? 0,
+                            tax_rate: item.customer.tax.rate ?? 0,
+                            tax_name: item.customer.tax.name ?? 0,
                             pay_terms: item.customer.payment_terms,
                         }
                     })
@@ -605,7 +610,8 @@ function handleCustomerAPISelect(select_parent, preselect = null, pass_data = []
                 'data-kt-currency': data["currency"],
                 'data-kt-discount': data["discount"],
                 'data-kt-credit-limit': data["credit_limit"],
-                'data-kt-tax': data["tax"],
+                'data-kt-tax-rate': data["tax_rate"],
+                'data-kt-tax-name': data["tax_name"],
                 'data-kt-pay-terms': data["pay_terms"],
             }
         );

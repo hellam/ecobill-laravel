@@ -531,8 +531,8 @@ function getFxRate($from, $to, $date = null)
         return toRateDecimal(1);
 
     $fx = ExchangeRate::where('currency', $to)
-        ->whereDate('date', '<=', $date)
-        ->whereTime('date', '<=', $date)
+        ->where('date', '<=', $date)
+//        ->whereTime('date', '<=', $date)
         ->orderBy('date', 'desc')
         ->orderBy('id', 'desc')
         ->first();

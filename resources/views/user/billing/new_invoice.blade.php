@@ -229,7 +229,7 @@
                                                         aria-label="Select Product"
                                                         data-kt-src="{{route('user.products.select_api', 1)}}"
                                                         data-placeholder="Select Product"
-                                                        data-kt-add-product="product_select"
+                                                        data-kt-product="product_select"
                                                         class="form-select form-select-sm form-select-solid fw-bolder select_api select_product">
                                                 </select>
                                                 {{--                                                <div class="inner-repeater">--}}

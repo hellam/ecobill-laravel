@@ -93,7 +93,36 @@ const KTInvoiceAdd = function () {
                 //     desc_add_btn.hide()
                 // }
                 // $(this).find('.select_product').select2()
-                handleProductsAPISelect('#kt_invoice_form')
+                $(this).find('[data-kt-product="product_select"]').select2({
+                    minimumInputLength: 0,
+                    escapeMarkup: function (markup) {
+                        return markup;
+                    },
+                    ajax: {
+                        url: $(this).find('[data-kt-product="product_select"]').attr("data-kt-src"),
+                        dataType: 'json',
+                        type: 'GET',
+                        contentType: 'application/json',
+                        delay: 50,
+                        data: function (params) {
+                            return {
+                                search: params.term
+                            };
+                        },
+                        processResults: function (data) {
+                            return {
+                                results: $.map(data, function (item) {
+                                    return {
+                                        text: item.barcode + ' | ' + item.name,
+                                        id: item.id,
+                                        'data-kt-cost': item.cost,
+                                        'data-kt-price': item.price,
+                                    }
+                                })
+                            }
+                        }
+                    }
+                });
                 // handleSelectProduct()
             },
             hide: function (setIndexes) {

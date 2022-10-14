@@ -103,7 +103,7 @@ function addFXField() {
                             '    <!--begin::Col-->\n' +
                             '    <div class="col-lg-7">\n' +
                             '        <!--begin::Input-->\n' +
-                            '        <input type="text" class="form-control form-control-sm form-control-solid"\n' +
+                            '        <input type="number" class="form-control form-control-sm form-control-solid"\n' +
                             '               placeholder="From ' + default_currency + " to " + current_currency + '"\n' +
                             '               name="fx_rate"/>\n' +
                             '        <!--end::Input-->\n' +

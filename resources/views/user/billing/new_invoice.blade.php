@@ -133,6 +133,7 @@
                                                     data-kt-src="{{route('user.customers.branch.select_api')}}"
                                                     data-control="select2"
                                                     data-placeholder="Select Customer"
+                                                    data-kt-fx-url="{{route('user.banking_gl.fx.rate')}}"
                                                     class="form-select form-select-sm form-select-solid fw-bolder select_customer">
                                             </select>
                                             <!--end::Input-->
@@ -175,8 +176,8 @@
                                             <!--end::Input-->
                                         </div>
                                     </div>
-                                    <div class="col-md-2"></div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-4" id="fx_area"></div>
+                                    <div class="col-md-4">
                                         <!--begin::Input group-->
                                         <div class="d-flex align-items-center flex-md-end fw-row">
                                             <!--begin::Date-->

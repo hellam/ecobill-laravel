@@ -510,7 +510,6 @@ function createCKEditor(input_id) {
     CKEDITOR.replace(input_id);
 }
 
-
 /**
  * format select option for customer
  * @param item
@@ -548,7 +547,6 @@ const optionFormat = (item) => {
 
     return $(span);
 }
-
 
 function handleCustomerAPISelect(select_parent, preselect = null, pass_data = []) {
     const element = document.querySelector(select_parent + ' .select_customer');

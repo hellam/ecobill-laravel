@@ -92,6 +92,9 @@ const KTInvoiceAdd = function () {
                 // if (description_count <= 1) {
                 //     desc_add_btn.hide()
                 // }
+                // $(this).find('.select_product').select2()
+                handleProductsAPISelect('#kt_invoice_form')
+                // handleSelectProduct()
             },
             hide: function (setIndexes) {
                 setIndexes();
@@ -152,6 +155,7 @@ const KTInvoiceAdd = function () {
             handleSubtotal()
             addFxField()
             addBankField()
+            handleProductsAPISelect('#kt_invoice_form')
         }
     }
 }();

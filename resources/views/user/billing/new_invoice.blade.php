@@ -225,8 +225,14 @@
                                         <tbody data-repeater-list="invoice_items">
                                         <tr data-repeater-item class="border-bottom border-bottom-dashed">
                                             <td class="pe-7">
-                                                <input type="text" class="form-control form-control-solid mb-2"
-                                                       name="name" placeholder="Item name"/>
+                                                <select name="product"
+                                                        aria-label="Select Product"
+                                                        data-control="select2"
+                                                        data-kt-src="{{route('user.products.select_api', 1)}}"
+                                                        data-placeholder="Select Product"
+                                                        data-kt-add-product="product_select"
+                                                        class="form-select form-select-sm form-select-solid fw-bolder select_api select_product">
+                                                </select>
                                                 {{--                                                <div class="inner-repeater">--}}
                                                 {{--                                                    <div data-repeater-list class="mb-5">--}}
                                                 {{--                                                        <div data-repeater-item style="display:none;">--}}

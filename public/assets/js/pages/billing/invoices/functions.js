@@ -163,9 +163,9 @@ function addBankField() {
 }
 
 function handleBankAPISelect(preselect = null) {
-    const element = document.querySelector('.select_bank');
+    const element = $('.select_bank');
 
-    $('.select_bank').html("").trigger('change');
+    element.html("").trigger('change');
 
     if (preselect) {
         const option = new Option(preselect?.account_name + " - " + preselect?.currency, preselect?.id, true, true);
@@ -173,13 +173,13 @@ function handleBankAPISelect(preselect = null) {
         $('.select_bank').append(option).trigger('change');
     }
 
-    $('.select_bank').select2({
+    element.select2({
         minimumInputLength: 0,
         escapeMarkup: function (markup) {
             return markup;
         },
         ajax: {
-            url: element.getAttribute("data-kt-src"),
+            url: element.attr("data-kt-src"),
             dataType: 'json',
             type: 'GET',
             contentType: 'application/json',
@@ -210,4 +210,11 @@ function handleBankAPISelect(preselect = null) {
             }
         );
     })
+}
+
+/**
+ * product select
+ */
+function handleSelectProduct() {
+
 }

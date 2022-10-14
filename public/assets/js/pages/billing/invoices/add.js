@@ -63,35 +63,35 @@ const KTInvoiceAdd = function () {
 
     function initializeRepeater() {
         let repeater = $('.repeater_items').repeater({
-            repeaters: [{
-                selector: '.inner-repeater',
-                initEmpty: true,
-                show: function () {
-                    let desc_add_btn = $(this).parents(".inner-repeater").find("button[data-repeater-create]")
-                    let description_count = $(this).parents(".inner-repeater").find("div[data-repeater-item]").length;
-                    if (description_count <= 1) {
-                        $(this).slideDown();
-                        desc_add_btn.hide()
-                    } else {
-                        $(this).remove();
-                    }
-                    $(this).slideDown();
-                },
-
-                hide: function (deleteElement) {
-                    let desc_add_btn = $(this).parents(".inner-repeater").find("button[data-repeater-create]")
-                    $(this).slideUp(deleteElement);
-                    desc_add_btn.show()
-                }
-            }],
+            // repeaters: [{
+            //     selector: '.inner-repeater',
+            //     initEmpty: true,
+            //     show: function () {
+            //         let desc_add_btn = $(this).parents(".inner-repeater").find("button[data-repeater-create]")
+            //         let description_count = $(this).parents(".inner-repeater").find("div[data-repeater-item]").length;
+            //         if (description_count <= 1) {
+            //             $(this).slideDown();
+            //             desc_add_btn.hide()
+            //         } else {
+            //             $(this).remove();
+            //         }
+            //         $(this).slideDown();
+            //     },
+            //
+            //     hide: function (deleteElement) {
+            //         let desc_add_btn = $(this).parents(".inner-repeater").find("button[data-repeater-create]")
+            //         $(this).slideUp(deleteElement);
+            //         desc_add_btn.show()
+            //     }
+            // }],
             show: function () {
                 $(this).slideDown();
                 handleRowQuotient()
-                let desc_add_btn = $(this).parents(".inner-repeater").find("button[data-repeater-create]")
-                let description_count = $(this).parents(".inner-repeater").find("div[data-repeater-item]").length;
-                if (description_count <= 1) {
-                    desc_add_btn.hide()
-                }
+                // let desc_add_btn = $(this).parents(".inner-repeater").find("button[data-repeater-create]")
+                // let description_count = $(this).parents(".inner-repeater").find("div[data-repeater-item]").length;
+                // if (description_count <= 1) {
+                //     desc_add_btn.hide()
+                // }
             },
             hide: function (setIndexes) {
                 setIndexes();

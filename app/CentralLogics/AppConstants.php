@@ -150,7 +150,7 @@ define('TRX_TYPES', [
 ]);
 define('SALES_TYPES',[
     '1' =>'Retail',
-    '2' =>'Wholesale',
+//    '2' =>'Wholesale',
 ]);
 define('LANG',[
     'en' =>'English',

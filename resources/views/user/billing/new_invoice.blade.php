@@ -155,20 +155,24 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <!--begin::Input-->
-                                        <select name="pay_terms"
-                                                aria-label="Select Payment Terms"
-                                                data-control="select2"
-                                                data-placeholder="Select Payment Terms"
-                                                data-kt-date-format="{{get_js_date_format()}}"
-                                                class="form-select form-select-sm form-select-solid fw-bolder">
-                                            <option></option>
-                                            @foreach($payment_terms as $pay_terms)
-                                                <option
-                                                    value="{{$pay_terms->id}}" data-kt-days="{{$pay_terms->days}}"
-                                                    data-kt-type="{{$pay_terms->type}}">{{$pay_terms->terms}}</option>
-                                            @endforeach
-                                        </select>
-                                        <!--end::Input-->
+                                        <div class="d-flex align-items-center flex-md-end fw-row">
+                                            <!--begin::Date-->
+                                            <div class="fs-6 fw-bold text-gray-700 text-nowrap me-2">Payment Terms:</div>
+                                            <select name="pay_terms"
+                                                    aria-label="Select Payment Terms"
+                                                    data-control="select2"
+                                                    data-placeholder="Select Payment Terms"
+                                                    data-kt-date-format="{{get_js_date_format()}}"
+                                                    class="form-select form-select-sm form-select-solid fw-bolder">
+                                                <option></option>
+                                                @foreach($payment_terms as $pay_terms)
+                                                    <option
+                                                        value="{{$pay_terms->id}}" data-kt-days="{{$pay_terms->days}}"
+                                                        data-kt-type="{{$pay_terms->type}}">{{$pay_terms->terms}}</option>
+                                                @endforeach
+                                            </select>
+                                            <!--end::Input-->
+                                        </div>
                                     </div>
                                     <div class="col-md-2"></div>
                                     <div class="col-md-6">
@@ -213,26 +217,26 @@
                                             <td class="pe-7">
                                                 <input type="text" class="form-control form-control-solid mb-2"
                                                        name="name" placeholder="Item name"/>
-                                                <div class="inner-repeater">
-                                                    <div data-repeater-list class="mb-5">
-                                                        <div data-repeater-item style="display:none;">
-                                                            <label class="form-label">Description</label>
-                                                            <div class="input-group has-validation pb-3">
-                                                                <textarea type="text" class="form-control"
-                                                                          placeholder="Enter description" name="description"></textarea>
-                                                                <button
-                                                                    class="btn btn-sm btn-icon btn-light-danger align-self-center ms-3"
-                                                                    data-repeater-delete type="button" style="border-top-left-radius: 0.425rem; border-bottom-left-radius: 0.425rem;">
-                                                                    <i class="fa fa-times"></i>
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <button class="btn btn-sm btn-light-primary" data-repeater-create
-                                                            type="button">
-                                                        <i class="la la-plus"></i> Add description
-                                                    </button>
-                                                </div>
+                                                {{--                                                <div class="inner-repeater">--}}
+                                                {{--                                                    <div data-repeater-list class="mb-5">--}}
+                                                {{--                                                        <div data-repeater-item style="display:none;">--}}
+                                                {{--                                                            <label class="form-label">Description</label>--}}
+                                                {{--                                                            <div class="input-group has-validation pb-3">--}}
+                                                {{--                                                                <textarea type="text" class="form-control"--}}
+                                                {{--                                                                          placeholder="Enter description" name="description"></textarea>--}}
+                                                {{--                                                                <button--}}
+                                                {{--                                                                    class="btn btn-sm btn-icon btn-light-danger align-self-center ms-3"--}}
+                                                {{--                                                                    data-repeater-delete type="button" style="border-top-left-radius: 0.425rem; border-bottom-left-radius: 0.425rem;">--}}
+                                                {{--                                                                    <i class="fa fa-times"></i>--}}
+                                                {{--                                                                </button>--}}
+                                                {{--                                                            </div>--}}
+                                                {{--                                                        </div>--}}
+                                                {{--                                                    </div>--}}
+                                                {{--                                                    <button class="btn btn-sm btn-light-primary" data-repeater-create--}}
+                                                {{--                                                            type="button">--}}
+                                                {{--                                                        <i class="la la-plus"></i> Add description--}}
+                                                {{--                                                    </button>--}}
+                                                {{--                                                </div>--}}
                                             </td>
                                             <td class="ps-0">
                                                 <input class="form-control form-control-solid quantity" type="number"

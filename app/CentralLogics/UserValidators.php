@@ -17,6 +17,7 @@ use App\Models\PaymentTerm;
 use App\Models\Product;
 use App\Models\Ref;
 use App\Models\Role;
+use App\Models\SalesType;
 use App\Models\Subscription;
 use App\Models\Tax;
 use App\Models\User;
@@ -437,7 +438,7 @@ class UserValidators
             'payment_terms' => 'required|exists:' . PaymentTerm::class . ',id,client_ref,' . get_user_ref(),
             'credit_limit' => 'required',
             'credit_status' => 'required|in:0,1',
-            'sales_type' => 'required',
+            'sales_type' => 'required|exists:' . SalesType::class . ',id,client_ref,' . get_user_ref(),
             'discount' => 'required|numeric',
             'language' => 'required',
             'email' => 'required|unique:' . CustomerBranch::class . ',email,NULL,id,client_ref,' . get_user_ref() . '|email:rfc,dns',//TODO: Add spoof

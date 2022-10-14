@@ -6,6 +6,7 @@ use App\CentralLogics\UserValidators;
 use App\Http\Controllers\Controller;
 use App\Models\BankAccount;
 use App\Models\BankTrx;
+use App\Models\Comment;
 use App\Models\Currency;
 use App\Models\Customer;
 use App\Models\CustomerBranch;
@@ -109,6 +110,16 @@ class BankAccountDepositController extends Controller
                 CustomerTrx::create($customer_trx_post_data);
             }
 
+            if ($request->filled('comments') )
+                Comment::create([
+                    'trx_type' => ST_ACCOUNT_DEPOSIT,
+                    'trans_no' => $trans_no,
+                    'trx_date' => $request->date,
+                    'comments' => $request->comments,
+                    'branch_id' => get_active_branch(),
+                    'client_ref' => get_user_ref(),
+                ]);
+
             if ($created_at == null) {
                 //if not supervised, log data from create request
                 //Creator log
@@ -124,7 +135,7 @@ class BankAccountDepositController extends Controller
 
             DB::commit();
         } catch (\Exception $e) {
-            return error_web_processor($e);
+            return error_web_processor(__('messages.msg_something_went_wrong'));
         }
 
         return success_web_processor(['id' => $trans_no], __('messages.msg_saved_success', ['attribute' => __('messages.deposit')]));

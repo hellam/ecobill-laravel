@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name',255);
             $table->tinyInteger('tax_included')->default(1);
             $table->double('factor')->default(1);
+            $table->tinyInteger('is_default')->default(0);
             $table->string('inactive')->default(0);
             $table->string('client_ref',100)->nullable();
             $table->timestamps();

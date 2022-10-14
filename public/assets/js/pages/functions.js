@@ -588,6 +588,7 @@ function handleCustomerAPISelect(select_parent, preselect = null, pass_data = []
                             discount: item.customer.discount,
                             credit_limit: item.c_limit ?? 0,
                             tax: item.customer.tax ?? 0,
+                            pay_terms: item.customer.payment_terms,
                         }
                     })
                 }
@@ -605,6 +606,7 @@ function handleCustomerAPISelect(select_parent, preselect = null, pass_data = []
                 'data-kt-discount': data["discount"],
                 'data-kt-credit-limit': data["credit_limit"],
                 'data-kt-tax': data["tax"],
+                'data-kt-pay-terms': data["pay_terms"],
             }
         );
         $(select_parent + ' [name="phone"]').val($(select_parent + ' .select_customer').find(':selected').data('kt-phone'))

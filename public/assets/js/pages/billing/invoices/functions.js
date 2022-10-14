@@ -8,9 +8,11 @@ let default_currency = current_currency = parent_data_src.attr('data-kt-default-
 
 function addFxField() {
     $('.select_customer').on('select2:select', function () {
-        if($('.select_bank').length){
+        if ($('.select_bank').length) {
             $('.select_bank').val(null).trigger('change')
         }
+        let pay_term = $(this).find(':selected').attr('data-kt-pay-terms')
+        $('.select_terms').val(pay_term).trigger('change')
         current_currency = $(this).find(':selected').attr('data-kt-currency')
         if (default_currency !== current_currency) {
             blockUI.block()
@@ -128,7 +130,7 @@ function addBankField() {
                 '    <!--begin::Input-->\n' +
                 '    <select name="into_bank"\n' +
                 '            aria-label="Select Account"\n' +
-                '            data-kt-src="'+select_url+'"\n' +
+                '            data-kt-src="' + select_url + '"\n' +
                 '            data-placeholder="Select Account"\n' +
                 '            class="form-select form-select-sm form-select-solid fw-bolder select_bank">\n' +
                 '        <option></option>\n' +

@@ -591,8 +591,8 @@ function handleCustomerAPISelect(select_parent, preselect = null, pass_data = []
                             currency: item.currency,
                             discount: item.customer.discount,
                             credit_limit: item.c_limit ?? 0,
-                            tax_rate: item.customer.tax.rate ?? 0,
-                            tax_name: item.customer.tax.name ?? 0,
+                            tax_rate: item.customer.tax?.rate ?? 0,
+                            tax_name: item.customer.tax?.name ?? 0,
                             pay_terms: item.customer.payment_terms,
                         }
                     })

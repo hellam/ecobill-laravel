@@ -602,7 +602,6 @@ function generate_reff_no($type, $save = false, int $reference = null)
                 'client_ref' => get_user_ref(),
             ]);
         }
-        return $refno;
     }
 
     return $reference;

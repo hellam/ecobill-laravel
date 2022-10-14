@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
  * @property string $name
  * @property int $tax_included
  * @property float $factor
+ * @property int $is_default
  * @property string $inactive
  * @property string|null $client_ref
  * @property Carbon|null $created_at
@@ -27,13 +28,15 @@ class SalesType extends Model
 
 	protected $casts = [
 		'tax_included' => 'int',
-		'factor' => 'float'
+		'factor' => 'float',
+		'is_default' => 'int'
 	];
 
 	protected $fillable = [
 		'name',
 		'tax_included',
 		'factor',
+		'is_default',
 		'inactive',
 		'client_ref'
 	];

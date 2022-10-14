@@ -113,9 +113,9 @@ class BankAccountDepositController extends Controller
             if ($request->filled('comments') )
                 Comment::create([
                     'trx_type' => ST_ACCOUNT_DEPOSIT,
-                    'trans_no' => $trans_no,
+                    'trx_no' => $trans_no,
                     'trx_date' => $request->date,
-                    'comments' => $request->comments,
+                    'comment' => $request->comments,
                     'branch_id' => get_active_branch(),
                     'client_ref' => get_user_ref(),
                 ]);
@@ -135,7 +135,7 @@ class BankAccountDepositController extends Controller
 
             DB::commit();
         } catch (\Exception $e) {
-            return error_web_processor(__('messages.msg_something_went_wrong'));
+            return error_web_processor($e.'-'.$trans_no);
         }
 
         return success_web_processor(['id' => $trans_no], __('messages.msg_saved_success', ['attribute' => __('messages.deposit')]));

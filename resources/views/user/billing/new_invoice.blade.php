@@ -164,6 +164,7 @@
                                             <select name="pay_terms"
                                                     aria-label="Select Payment Terms"
                                                     data-control="select2"
+                                                    data-kt-select-url="{{route('user.banking_gl.banking.accounts.select_api')}}"
                                                     data-placeholder="Select Payment Terms"
                                                     data-kt-date-format="{{get_js_date_format()}}"
                                                     class="form-select form-select-sm form-select-solid fw-bolder">

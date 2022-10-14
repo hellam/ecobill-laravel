@@ -56,7 +56,7 @@ function addFxField() {
                                 '    <!--end::Col-->\n' +
                                 '    <!--begin::Label-->\n' +
                                 '    <label\n' +
-                                '        class="col-lg-5 col-form-label fw-semibold fs-7" id="label_fx"></label>\n' +
+                                '        class="col-lg-5 col-form-label fw-semibold fs-9" id="label_fx"></label>\n' +
                                 '    <!--end::Label-->\n' +
                                 '</div>\n' +
                                 '</div>\n' +
@@ -109,6 +109,7 @@ function addFxField() {
 function addBankField() {
     $('[name="pay_terms"]').on('change', function () {
         let type = $(this).find(":selected").attr('data-kt-type')
+        let select_url = $(this).attr('data-kt-select-url')
         if (type == 0) {
             if (!$('#fx_parent').length) {
                 $('#bank_area').addClass('order-first')
@@ -124,9 +125,8 @@ function addBankField() {
                 '    <!--begin::Input-->\n' +
                 '    <select name="into_bank"\n' +
                 '            aria-label="Select Account"\n' +
-                '            data-kt-src="{{route(\'user.banking_gl.banking.accounts.select_api\')}}"\n' +
+                '            data-kt-src="'+select_url+'"\n' +
                 '            data-placeholder="Select Account"\n' +
-                '            data-kt-fx-url="{{route(\'user.banking_gl.fx.rate\')}}"\n' +
                 '            class="form-select form-select-sm form-select-solid fw-bolder select_bank">\n' +
                 '        <option></option>\n' +
                 '    </select>\n' +
@@ -135,11 +135,62 @@ function addBankField() {
                 '</div>\n' +
                 '<!--end::Col-->'
             )
+            handleBankAPISelect()
         } else {
             if ($('#bank_parent').length) {
                 $('#bank_area').removeClass('order-first')
                 $('#bank_parent').remove()
             }
         }
+    })
+}
+
+function handleBankAPISelect(preselect = null) {
+    const element = document.querySelector('.select_bank');
+
+    $('.select_bank').html("").trigger('change');
+
+    if (preselect) {
+        const option = new Option(preselect?.account_name + " - " + preselect?.currency, preselect?.id, true, true);
+        option.setAttribute("data-kt-currency", preselect?.currency);
+        $('.select_bank').append(option).trigger('change');
+    }
+
+    $('.select_bank').select2({
+        minimumInputLength: 0,
+        escapeMarkup: function (markup) {
+            return markup;
+        },
+        ajax: {
+            url: element.getAttribute("data-kt-src"),
+            dataType: 'json',
+            type: 'GET',
+            contentType: 'application/json',
+            delay: 50,
+            data: function (params) {
+                return {
+                    search: params.term,
+                    currency: current_currency
+                };
+            },
+            processResults: function (data) {
+                return {
+                    results: $.map(data, function (item) {
+                        return {
+                            text: item.account_name + ' - ' + item.currency,
+                            id: item.id,
+                            'data-kt-currency': item.currency
+                        }
+                    })
+                }
+            }
+        }
+    }).on('select2:select', function (e) {
+        let data = e.params.data;
+        $(this).children('[value="' + data['id'] + '"]').attr(
+            {
+                'data-kt-currency': data["data-kt-currency"],
+            }
+        );
     })
 }

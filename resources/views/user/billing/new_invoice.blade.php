@@ -378,7 +378,7 @@
                             <!--end::Wrapper-->
 
                             <!--begin::Button-->
-                            <button type="submit" id="kt_add_invoice_submit" class="btn btn-primary float-end">
+                            <button type="button" id="kt_add_invoice_submit" class="btn btn-primary float-end">
                                 <span class="indicator-label">Submit</span>
                                 <span class="indicator-progress">Please wait...
                                 <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>

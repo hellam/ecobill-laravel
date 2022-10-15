@@ -603,7 +603,7 @@ function handleSubmit() {
     form = $('#kt_invoice_form');
     submitButton = document.querySelector('#kt_add_invoice_submit')
 
-    form.on('submit', function (e) {
+    submitButton.addEventListener('click', function (e) {
         e.preventDefault()
         let serialized_form = form.serializeArray()
 
@@ -616,6 +616,7 @@ function handleSubmit() {
 
     })
 }
+
 
 function submitInvoice(submitButton, form, serialized_form) {
     $.ajax({

@@ -234,7 +234,10 @@ function handleCustomerSelect() {
         if (customer_tax_id !== null) {
             $('.tax_select').val(customer_tax_id).trigger('change')
         } else {
-            $('.tax_select').val($('.select_product').find(':selected').attr('data-kt-tax')).trigger('change')
+            $('.select_product').each(prod_selected => {
+                let this_tax = prod_selected.find(':selected').attr('data-kt-tax')
+                $(this).closest('tr').find('.tax_select').val(this_tax).trigger('change')
+            })
         }
     })
 }

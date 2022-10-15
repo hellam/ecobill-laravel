@@ -136,6 +136,7 @@ const KTInvoiceAdd = function () {
 
                 handleRowQuotient()
                 handleSelectProduct()
+                handleTaxChange()
             },
             hide: function (setIndexes) {
                 setIndexes();

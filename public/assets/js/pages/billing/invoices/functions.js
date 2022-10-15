@@ -4,15 +4,15 @@
  */
 let parent_data_src = $('#kt_aside')
 let default_currency = current_currency = parent_data_src.attr('data-kt-default-currency'),
-    fx_rate,
+    fx_rate = 1,
     form = $('#kt_invoice_form'),
     customer_tax_rate,
     customer_tax_name,
     customer_discount,
     customer_tax_id = null,
     sb_total = 0,
-    tax_type = form.attr('data-kt-tax-type')
-loader_image = parent_data_src.attr('data-kt-loader'),
+    tax_type = form.attr('data-kt-tax-type'),
+    loader_image = parent_data_src.attr('data-kt-loader'),
     blockUI = new KTBlockUI(document.querySelector('#kt_block_ui_1_target'), {
         message: '<div class="blockui-message"><img src="' + loader_image + '" width="30" height="30" alt=""></div>',
     })
@@ -104,6 +104,7 @@ function addFxField() {
                         fx_rate = response.data.fx_rate
                         $('[name="fx_rate"]').val(fx_rate)
                         $('#label_fx').html(default_currency + " = 1 " + current_currency)
+                        handleConvertWithFX()
                     }
                 },
                 error: function () {
@@ -126,6 +127,7 @@ function addFxField() {
             if ($('#fx_parent').length) {
                 $('#fx_area').removeClass('order-first')
                 $('#fx_parent').remove()
+                handleConvertWithFX()
             }
             /**
              * order class order-first to bank area
@@ -261,6 +263,21 @@ function handleCustomerSelect() {
                 $(this).closest('tr').find('.tax_select').val(this_tax).trigger('change')
             })
         }
+
+        /**
+         * change currency on row total because no keyup is applied on inputs when customer changes
+         */
+        $('.total').each(function () {
+            let total = 0
+            if ($(this).attr('data-kt-quotient-total')) {
+                total = $(this).attr('data-kt-quotient-total')
+            }
+
+            $(this).html(new Intl.NumberFormat('ja-JP', {
+                style: 'currency',
+                currency: current_currency
+            }).format(total))
+        })
     })
 }
 
@@ -282,7 +299,7 @@ function handleSelectProduct() {
         else
             $(this).closest('tr').find('.tax_select').val(customer_tax_id).trigger('change')
 
-        $(this).closest('tr').find('.amount').val(price).trigger('keyup')
+        $(this).closest('tr').find('.amount').val((price / fx_rate).toFixed(form.attr('data-kt-decimals'))).trigger('keyup')
     })
 }
 
@@ -293,15 +310,16 @@ function handleRowQuotient() {
     let quotient = 0;
     $('.amount').each(function () {
         $(this).on('keyup change', function () {
+            let row_total = $(this).closest('tr').find('.total')
             let quantity = $(this).closest('tr').find('.quantity').val()
             if (!isNaN(this.value) && this.value.length !== 0 && quantity.length !== 0 && !isNaN(quantity)) {
                 quotient = parseFloat(this.value) * parseFloat(quantity);
             }
-            let row_total = $(this).closest('tr').find('.total')
             row_total.html(new Intl.NumberFormat('ja-JP', {
                 style: 'currency',
                 currency: current_currency
             }).format(quotient))
+            row_total.attr('data-kt-quotient-total', quotient)
             sb_total = handleSubtotal()
             handleTaxTotal()
         });
@@ -309,15 +327,16 @@ function handleRowQuotient() {
 
     $('.quantity').each(function () {
         $(this).on('keyup change', function () {
+            let row_total = $(this).closest('tr').find('.total')
             let amount = $(this).closest('tr').find('.amount').val()
             if (!isNaN(this.value) && this.value.length !== 0 && amount.length !== 0 && !isNaN(amount)) {
                 quotient = parseFloat(this.value) * parseFloat(amount);
             }
-            let row_total = $(this).closest('tr').find('.total')
             row_total.html(new Intl.NumberFormat('ja-JP', {
                 style: 'currency',
                 currency: current_currency
             }).format(quotient))
+            row_total.attr('data-kt-quotient-total', quotient)
             sb_total = handleSubtotal()
             handleTaxTotal()
         });
@@ -386,3 +405,29 @@ function handleTaxChange() {
     })
 }
 
+/**
+ *
+ *
+ */
+function handleConvertWithFX() {
+    if ($('[name="fx_rate"]').length > 0) {
+        $('.repeater_items').find('tr').each(function () {
+            let amount = $(this).find('.amount')
+            amount.val((parseFloat(amount.val()) / fx_rate).toFixed(form.attr('data-kt-decimals'))).trigger('change')
+        })
+    } else {
+        $('.repeater_items').find('tr').each(function () {
+            let product = $(this).find('.select_product').find(':selected')
+            let quantity = $(this).find('.quantity')
+            let amount = $(this).find('.amount')
+            let price = product.attr('data-kt-price')
+            // // console.log(price)
+            if (!isNaN(price))
+                amount.val(price * quantity).trigger('change')
+        })
+    }
+    // $('#fx_rate').on('keyup change', function () {
+    //     fx_rate = $(this).val()
+    //     $()
+    // })
+}

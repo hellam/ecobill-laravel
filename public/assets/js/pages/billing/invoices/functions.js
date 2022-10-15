@@ -276,6 +276,8 @@ function handleCustomerSelect() {
 
             $(this).html(new Intl.NumberFormat('ja-JP', {
                 style: 'currency',
+                maximumFractionDigits: form.attr('data-kt-decimals'),
+                minimumFractionDigits: form.attr('data-kt-decimals'),
                 currency: current_currency
             }).format(total))
         })
@@ -320,6 +322,8 @@ function handleRowQuotient() {
             }
             row_total.html(new Intl.NumberFormat('ja-JP', {
                 style: 'currency',
+                maximumFractionDigits: form.attr('data-kt-decimals'),
+                minimumFractionDigits: form.attr('data-kt-decimals'),
                 currency: current_currency
             }).format(quotient))
             row_total.attr('data-kt-quotient-total', quotient)
@@ -338,6 +342,8 @@ function handleRowQuotient() {
             }
             row_total.html(new Intl.NumberFormat('ja-JP', {
                 style: 'currency',
+                maximumFractionDigits: form.attr('data-kt-decimals'),
+                minimumFractionDigits: form.attr('data-kt-decimals'),
                 currency: current_currency
             }).format(quotient))
             row_total.attr('data-kt-quotient-total', quotient)
@@ -361,7 +367,11 @@ function handleSubtotal() {
         }
         handleTaxTotal()
     })
-    $('#sub-total').html(new Intl.NumberFormat('ja-JP', {style: 'currency', currency: current_currency}).format(sum))
+    $('#sub-total').html(new Intl.NumberFormat('ja-JP', {
+        style: 'currency',
+        maximumFractionDigits: form.attr('data-kt-decimals'),
+        minimumFractionDigits: form.attr('data-kt-decimals'),
+        currency: current_currency}).format(sum))
     return sum
 }
 
@@ -390,6 +400,8 @@ function handleTaxTotal() {
 
     let num_format = new Intl.NumberFormat('ja-JP', {
         style: 'currency',
+        maximumFractionDigits: form.attr('data-kt-decimals'),
+        minimumFractionDigits: form.attr('data-kt-decimals'),
         currency: current_currency
     }).format(!isNaN(tax_total) ? tax_total : 0)
 
@@ -463,7 +475,11 @@ function handleTotal() {
     if (tax_type == 1) total = handleSubtotal()
     else total = handleSubtotal() + handleTaxTotal()
 
-    total = new Intl.NumberFormat('ja-JP', {style: 'currency', currency: current_currency}).format(total)
+    total = new Intl.NumberFormat('ja-JP', {
+        style: 'currency',
+        maximumFractionDigits: form.attr('data-kt-decimals'),
+        minimumFractionDigits: form.attr('data-kt-decimals'),
+        currency: current_currency}).format(total)
 
     $('#grand-total').html(total)
     return total

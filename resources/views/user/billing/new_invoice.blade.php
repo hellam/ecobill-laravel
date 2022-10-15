@@ -216,7 +216,8 @@
                                         <tr class="border-bottom fs-7 fw-bold text-gray-700 text-uppercase">
                                             <th class="min-w-300px w-300px">Item</th>
                                             <th class="min-w-80px w-80px">QTY</th>
-                                            <th class="min-w-150px w-150px">Price {{get_company_setting('tax_inclusive') == 1 ? 'After Tax' : 'Before Tax'}}</th>
+                                            <th class="min-w-150px w-150px">
+                                                Price {{get_company_setting('tax_inclusive') == 1 ? 'After Tax' : 'Before Tax'}}</th>
                                             <th class="min-w-100px w-100px">Tax</th>
                                             <th class="min-w-100px w-150px text-end">Total</th>
                                             <th class="min-w-75px w-75px text-end">Action</th>
@@ -260,8 +261,7 @@
                                             </td>
                                             <td class="ps-0">
                                                 <input class="form-control form-control-solid quantity" type="number"
-                                                       min="1"
-                                                       name="quantity" placeholder="1" value="1"/>
+                                                       min="1" name="quantity" placeholder="1" value="1"/>
                                             </td>
                                             <td>
                                                 <input type="text"

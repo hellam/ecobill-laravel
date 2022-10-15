@@ -92,6 +92,7 @@ const KTInvoiceAdd = function () {
                     desc_add_btn.hide()
                 }
                 $(this).find('[data-kt-repeater="select2"]').select2()
+                $(this).find('.quantity').val(1)
                 $(this).find('[data-kt-product="product_select"]').select2({
                     minimumInputLength: 0,
                     escapeMarkup: function (markup) {

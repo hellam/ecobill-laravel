@@ -248,6 +248,8 @@ function handleSelectProduct() {
         let price = $(this).find(':selected').attr('data-kt-price')
         if (customer_tax_id === null)
             $(this).closest('tr').find('.tax_select').val(tax_id).trigger('change')
+        else
+            $(this).closest('tr').find('.tax_select').val(customer_tax_id).trigger('change')
         $(this).closest('tr').find('.amount').val(price).trigger('keyup')
     })
 }

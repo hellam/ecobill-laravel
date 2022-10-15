@@ -436,11 +436,11 @@ function handleConvertWithFX() {
             let price = $(this).find('.select_product').find(':selected').attr('data-kt-price')
             if (!isNaN(amount.val()) && !isNaN(fx_rate) && amount.length !== 0 && fx_rate.length !== 0 && fx_rate != 0) {
                 let val = (price * quantity) / Math.abs(fx_rate)
-                val = roundFloat(val, 2)
+                val = roundFloat(val, form.attr('data-kt-decimals'))
                 Math.abs(amount.val(val).trigger('change'))
                 handleRowQuotient()
             } else {
-                Math.abs(amount.val(roundFloat(price * quantity, 2)).trigger('change'))
+                Math.abs(amount.val(roundFloat(price * quantity, form.attr('data-kt-decimals'))).trigger('change'))
             }
         })
     })

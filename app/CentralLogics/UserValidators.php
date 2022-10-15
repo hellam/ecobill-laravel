@@ -529,7 +529,7 @@ class UserValidators
             'address' => 'required',
             'pay_terms' => 'required',
             'due_date' => 'required|date_format:' . get_date_format(),
-            'into_bank' => 'required|exists:' . BankAccount::class . ',id,client_ref,' . get_user_ref(),
+            'into_bank' => Rule::requiredIf(fn() => (PaymentTerm::find($request->pay_terms)?->type == 0)).'|exists:' . BankAccount::class . ',id,client_ref,' . get_user_ref(),
             'fx_rate' => Rule::requiredIf(fn() => (CustomerBranch::find($request->customer)?->currency != session('currency'))).'|numeric',
             'invoice_items' => 'required|array|min:1',
             'invoice_items.*.product' => 'required|exists:' . Product::class . ',barcode,client_ref,' . get_user_ref(),

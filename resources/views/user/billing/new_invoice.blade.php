@@ -103,26 +103,6 @@
                                 <div class="row gx-10 mb-5">
                                     <!--begin::Col-->
                                     <div class="col-lg-6">
-                                        <label class="form-label fs-6 fw-bold text-gray-700 mb-3">Bill From</label>
-                                        <!--begin::Input group-->
-                                        <div class="mb-5">
-                                            <input type="text" class="form-control form-control-solid"
-                                                   placeholder="Name" value="{{get_company_setting('company_name')}}"/>
-                                        </div>
-                                        <!--end::Input group-->
-                                        <!--begin::Input group-->
-                                        <div class="mb-5">
-                                            @php
-                                                $company = unserialize(session('branch_obj'))
-                                            @endphp
-                                            <textarea name="notes" class="form-control form-control-solid" rows="3"
-                                                      placeholder="Company details">{{ $company->email.",\n". $company->phone.",\n". $company->address}}</textarea>
-                                        </div>
-                                        <!--end::Input group-->
-                                    </div>
-                                    <!--end::Col-->
-                                    <!--begin::Col-->
-                                    <div class="col-lg-6">
                                         <label class="form-label fs-6 fw-bold text-gray-700 mb-3">Bill To</label>
                                         <!--begin::Input group-->
                                         <div class="mb-5">
@@ -148,13 +128,42 @@
                                         <!--end::Input group-->
                                     </div>
                                     <!--end::Col-->
-                                </div>
-                                <!--end::Row-->
+                                    <!--begin::Col-->
+                                    <div class="col-lg-6">
+                                        {{--                                        <label class="form-label fs-6 fw-bold text-gray-700 mb-3">Bill From</label>--}}
+                                        {{--                                        <!--begin::Input group-->--}}
+                                        {{--                                        <div class="mb-5">--}}
+                                        {{--                                            <input type="text" class="form-control form-control-solid"--}}
+                                        {{--                                                   placeholder="Name" value="{{get_company_setting('company_name')}}"/>--}}
+                                        {{--                                        </div>--}}
+                                        {{--                                        <!--end::Input group-->--}}
+                                        {{--                                        <!--begin::Input group-->--}}
+                                        {{--                                        <div class="mb-5">--}}
+                                        {{--                                            @php--}}
+                                        {{--                                                $company = unserialize(session('branch_obj'))--}}
+                                        {{--                                            @endphp--}}
+                                        {{--                                            <textarea name="notes" class="form-control form-control-solid" rows="3"--}}
+                                        {{--                                                      placeholder="Company details">{{ $company->email.",\n". $company->phone.",\n". $company->address}}</textarea>--}}
+                                        {{--                                        </div>--}}
+                                        {{--                                        <!--end::Input group-->--}}
 
-                                <!--begin::Separator-->
-                                <div class="separator separator-dashed my-5"></div>
-                                <div class="row">
-                                    <div class="col-md-3">
+                                        <!--begin::Input group-->
+                                        <div class="fv-row mb-5">
+                                            <!--begin::Date-->
+                                            <div class="fs-6 fw-bold text-gray-700 text-nowrap me-2 mb-2">Due Date:
+                                            </div>
+                                            <!--end::Date-->
+                                            <!--begin::Input-->
+                                            <!--begin::Datepicker-->
+                                            <input
+                                                class="form-control form-control-sm form-control-solid fw-bold w-auto"
+                                                placeholder="Select date" name="invoice_due_date"
+                                                data-bs-toggle="tooltip" data-bs-trigger="hover"
+                                                title="Specify invoice due date"/>
+                                            <!--end::Datepicker-->
+                                            <!--end::Input-->
+                                        </div>
+                                        <!--end::Input group-->
                                         <!--begin::Input-->
                                         <div class="fv-row">
                                             <!--begin::Date-->
@@ -178,30 +187,22 @@
                                             <!--end::Input-->
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
-                                        <!--begin::Input group-->
-                                        <div class="fv-row">
-                                            <!--begin::Date-->
-                                            <div class="fs-6 fw-bold text-gray-700 text-nowrap me-2 mb-2">Due Date:
-                                            </div>
-                                            <!--end::Date-->
-                                            <!--begin::Input-->
-                                            <!--begin::Datepicker-->
-                                            <input
-                                                class="form-control form-control-sm form-control-solid fw-bold w-auto"
-                                                placeholder="Select date" name="invoice_due_date"
-                                                data-bs-toggle="tooltip" data-bs-trigger="hover"
-                                                title="Specify invoice due date"/>
-                                            <!--end::Datepicker-->
-                                            <!--end::Input-->
-                                        </div>
-                                        <!--end::Input group-->
-                                    </div>
-                                    <div class="col-md-6">
+                                    <!--end::Col-->
+                                </div>
+                                <!--end::Row-->
+
+                                <!--begin::Separator-->
+                                <div class="separator separator-dashed my-5"></div>
+                                <div class="row">
+                                    <div class="col-md-8">
                                         <div class="row">
                                             <div class="col-md-6 fv-row" id="fx_area"></div>
                                             <div class="col-md-6 fv-row" id="bank_area"></div>
                                         </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                    </div>
+                                    <div class="col-md-2">
                                     </div>
                                 </div>
                                 <div class="separator separator-dashed mt-5 mb-10"></div>
@@ -224,7 +225,7 @@
                                         <!--begin::Table body-->
                                         <tbody data-repeater-list="invoice_items">
                                         <tr data-repeater-item class="border-bottom border-bottom-dashed">
-                                            <td class="pe-7">
+                                            <td class="pe-5">
                                                 <select name="product"
                                                         aria-label="Select Product"
                                                         data-kt-src="{{route('user.products.select_api', 1)}}"
@@ -232,26 +233,28 @@
                                                         data-kt-product="product_select"
                                                         class="form-select form-select-sm form-select-solid fw-bolder select_api select_product">
                                                 </select>
-                                                {{--                                                <div class="inner-repeater">--}}
-                                                {{--                                                    <div data-repeater-list class="mb-5">--}}
-                                                {{--                                                        <div data-repeater-item style="display:none;">--}}
-                                                {{--                                                            <label class="form-label">Description</label>--}}
-                                                {{--                                                            <div class="input-group has-validation pb-3">--}}
-                                                {{--                                                                <textarea type="text" class="form-control"--}}
-                                                {{--                                                                          placeholder="Enter description" name="description"></textarea>--}}
-                                                {{--                                                                <button--}}
-                                                {{--                                                                    class="btn btn-sm btn-icon btn-light-danger align-self-center ms-3"--}}
-                                                {{--                                                                    data-repeater-delete type="button" style="border-top-left-radius: 0.425rem; border-bottom-left-radius: 0.425rem;">--}}
-                                                {{--                                                                    <i class="fa fa-times"></i>--}}
-                                                {{--                                                                </button>--}}
-                                                {{--                                                            </div>--}}
-                                                {{--                                                        </div>--}}
-                                                {{--                                                    </div>--}}
-                                                {{--                                                    <button class="btn btn-sm btn-light-primary" data-repeater-create--}}
-                                                {{--                                                            type="button">--}}
-                                                {{--                                                        <i class="la la-plus"></i> Add description--}}
-                                                {{--                                                    </button>--}}
-                                                {{--                                                </div>--}}
+                                                <div class="inner-repeater">
+                                                    <div data-repeater-list class="mb-5 mt-4">
+                                                        <div data-repeater-item style="display:none;">
+                                                            <label class="form-label">Description</label>
+                                                            <div class="input-group has-validation pb-3">
+                                                                <textarea type="text" class="form-control form-control-solid"
+                                                                          placeholder="Enter description"
+                                                                          name="description"></textarea>
+                                                                <button
+                                                                    class="btn btn-sm btn-icon btn-light-danger align-self-center ms-3"
+                                                                    data-repeater-delete type="button"
+                                                                    style="border-top-left-radius: 0.425rem; border-bottom-left-radius: 0.425rem;">
+                                                                    <i class="fa fa-times"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <button class="btn btn-sm btn-light-primary" data-repeater-create
+                                                            type="button">
+                                                        <i class="la la-plus"></i> Add description
+                                                    </button>
+                                                </div>
                                             </td>
                                             <td class="ps-0">
                                                 <input class="form-control form-control-solid quantity" type="number"

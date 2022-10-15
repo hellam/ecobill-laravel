@@ -1,11 +1,14 @@
 let parent_data_src = $('#kt_aside')
 let default_currency = current_currency = parent_data_src.attr('data-kt-default-currency'),
-    fx_rate,
+    fx_rate, tax_rate, tax_name, discount,
     loader_image = parent_data_src.attr('data-kt-loader'),
     blockUI = new KTBlockUI(document.querySelector('#kt_block_ui_1_target'), {
         message: '<div class="blockui-message"><img src="' + loader_image + '" width="30" height="30" alt=""></div>',
     })
 
+/**
+ * add fx select
+ */
 function addFxField() {
     $('.select_customer').on('select2:select', function () {
         /**
@@ -123,6 +126,9 @@ function addFxField() {
     })
 }
 
+/**
+ * add bank select
+ */
 function addBankField() {
     $('[name="pay_terms"]').on('change', function () {
         let type = $(this).find(":selected").attr('data-kt-type')
@@ -162,6 +168,9 @@ function addBankField() {
     })
 }
 
+/**
+ * bank select
+ */
 function handleBankAPISelect(preselect = null) {
     const element = $('.select_bank');
 
@@ -209,6 +218,17 @@ function handleBankAPISelect(preselect = null) {
                 'data-kt-currency': data["data-kt-currency"],
             }
         );
+    })
+}
+
+/**
+ * customer select
+ */
+function handleCustomerSelect() {
+    $('.select_customer').on('select2:select', function () {
+        tax_rate = $(this).find(':selected').attr('data-kt-tax-rate')
+        tax_name = $(this).find(':selected').attr('data-kt-tax-name')
+        discount = $(this).find(':selected').attr('data-kt-discount')
     })
 }
 

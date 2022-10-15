@@ -63,36 +63,36 @@ const KTInvoiceAdd = function () {
 
     function initializeRepeater() {
         let repeater = $('.repeater_items').repeater({
-            // repeaters: [{
-            //     selector: '.inner-repeater',
-            //     initEmpty: true,
-            //     show: function () {
-            //         let desc_add_btn = $(this).parents(".inner-repeater").find("button[data-repeater-create]")
-            //         let description_count = $(this).parents(".inner-repeater").find("div[data-repeater-item]").length;
-            //         if (description_count <= 1) {
-            //             $(this).slideDown();
-            //             desc_add_btn.hide()
-            //         } else {
-            //             $(this).remove();
-            //         }
-            //         $(this).slideDown();
-            //     },
-            //
-            //     hide: function (deleteElement) {
-            //         let desc_add_btn = $(this).parents(".inner-repeater").find("button[data-repeater-create]")
-            //         $(this).slideUp(deleteElement);
-            //         desc_add_btn.show()
-            //     }
-            // }],
+            repeaters: [{
+                selector: '.inner-repeater',
+                initEmpty: true,
+                show: function () {
+                    let desc_add_btn = $(this).parents(".inner-repeater").find("button[data-repeater-create]")
+                    let description_count = $(this).parents(".inner-repeater").find("div[data-repeater-item]").length;
+                    if (description_count <= 1) {
+                        $(this).slideDown();
+                        desc_add_btn.hide()
+                    } else {
+                        $(this).remove();
+                    }
+                    $(this).slideDown();
+                },
+
+                hide: function (deleteElement) {
+                    let desc_add_btn = $(this).parents(".inner-repeater").find("button[data-repeater-create]")
+                    $(this).slideUp(deleteElement);
+                    desc_add_btn.show()
+                }
+            }],
             show: function () {
                 $(this).slideDown();
                 handleRowQuotient()
-                // let desc_add_btn = $(this).parents(".inner-repeater").find("button[data-repeater-create]")
-                // let description_count = $(this).parents(".inner-repeater").find("div[data-repeater-item]").length;
-                // if (description_count <= 1) {
-                //     desc_add_btn.hide()
-                // }
-                // $(this).find('.select_product').select2()
+                let desc_add_btn = $(this).parents(".inner-repeater").find("button[data-repeater-create]")
+                let description_count = $(this).parents(".inner-repeater").find("div[data-repeater-item]").length;
+                if (description_count <= 1) {
+                    desc_add_btn.hide()
+                }
+                $(this).find('.select_product').select2()
                 $(this).find('[data-kt-product="product_select"]').select2({
                     minimumInputLength: 0,
                     escapeMarkup: function (markup) {
@@ -123,7 +123,6 @@ const KTInvoiceAdd = function () {
                         }
                     }
                 });
-                // handleSelectProduct()
             },
             hide: function (setIndexes) {
                 setIndexes();
@@ -179,6 +178,7 @@ const KTInvoiceAdd = function () {
             handleInvoice()
             refGen($('[name="reference"]').attr('data-kt-src'))
             handleCustomerAPISelect('#kt_invoice_form', null, ['#customer_details'])
+            handleCustomerSelect()
             initializeRepeater()
             handleRowQuotient()
             handleSubtotal()

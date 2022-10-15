@@ -239,7 +239,8 @@ function handleCustomerSelect() {
 function handleSelectProduct() {
     $('.select_product').on('select2:select', function () {
         let tax_id = $(this).find(':selected').attr('data-kt-tax')
+        let price = $(this).find(':selected').attr('data-kt-price')
         $(this).closest('tr').find('.tax_select').val(tax_id).trigger('change')
-        console.log(tax_id)
+        $(this).closest('tr').find('.amount').val(price).trigger('keyup')
     })
 }

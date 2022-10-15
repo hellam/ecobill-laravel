@@ -152,6 +152,10 @@ define('SALES_TYPES',[
     '1' =>'Retail',
 //    '2' =>'Wholesale',
 ]);
+define('DISCOUNTS',[
+    '1' =>'Percentage',
+    '2' =>'Amount',
+]);
 define('LANG',[
     'en' =>'English',
 ]);

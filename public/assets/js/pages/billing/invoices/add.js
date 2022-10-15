@@ -151,7 +151,7 @@ const KTInvoiceAdd = function () {
 
     function handleRowQuotient() {
         $('.amount').each(function () {
-            $(this).keyup(function () {
+            $(this).on('keyup change', function () {
                 let quotient = 0;
                 let quantity = $(this).closest('tr').find('.quantity').val()
                 if (!isNaN(this.value) && this.value.length !== 0 && quantity.length !== 0 && !isNaN(quantity)) {
@@ -164,7 +164,7 @@ const KTInvoiceAdd = function () {
         });
 
         $('.quantity').each(function () {
-            $(this).keyup(function () {
+            $(this).on('keyup change',function () {
                 let quotient = 0;
                 let amount = $(this).closest('tr').find('.amount').val()
                 if (!isNaN(this.value) && this.value.length !== 0 && amount.length !== 0 && !isNaN(amount)) {

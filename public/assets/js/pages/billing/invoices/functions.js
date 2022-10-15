@@ -234,9 +234,7 @@ function handleCustomerSelect() {
         if (customer_tax_id !== null) {
             $('.tax_select').val(customer_tax_id).trigger('change')
         } else {
-            // console.log($('.select_product option'))
             $('.select_product option').each(function () {
-                // console.log($(this).attr('data-kt-tax'))
                 let this_tax = $(this).attr('data-kt-tax')
                 $(this).closest('tr').find('.tax_select').val(this_tax).trigger('change')
             })

@@ -681,3 +681,17 @@ function refGen(url) {
         },
     })
 }
+
+/**
+ * round off float
+ * @param num
+ * @param dec
+ * @returns {number}
+ */
+function roundFloat(num,dec){
+    let d = 1;
+    for (let i=0; i<dec; i++){
+        d += "0";
+    }
+    return Math.round(num * d) / d;
+}

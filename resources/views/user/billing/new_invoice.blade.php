@@ -267,9 +267,17 @@
                                                        name="price" placeholder="0.00" value="0.00"/>
                                             </td>
                                             <td>
-                                                <input type="text"
-                                                       class="form-control form-control-solid text-end amount"
-                                                       name="price" placeholder="0.00" value="0.00"/>
+                                                <select name="tax"
+                                                        aria-label="Select Tax"
+                                                        data-kt-src="{{route('user.products.select_api', 1)}}"
+                                                        data-placeholder="Select Product"
+                                                        data-kt-product="product_select"
+                                                        class="form-select form-select-sm form-select-solid fw-bolder">
+                                                    <option></option>
+                                                    @foreach($tax as $tx)
+                                                        <option value="{{$tx->id}}">{{$tx->name}}</option>
+                                                    @endforeach
+                                                </select>
                                             </td>
                                             <td class="pt-8 text-end text-nowrap">
                                                 <span class="total">$0.00</span>

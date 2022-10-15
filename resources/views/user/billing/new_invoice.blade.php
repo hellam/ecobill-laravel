@@ -212,9 +212,10 @@
                                         <!--begin::Table head-->
                                         <thead>
                                         <tr class="border-bottom fs-7 fw-bold text-gray-700 text-uppercase">
-                                            <th class="min-w-300px w-475px">Item</th>
-                                            <th class="min-w-100px w-100px">QTY</th>
+                                            <th class="min-w-300px w-300px">Item</th>
+                                            <th class="min-w-80px w-80px">QTY</th>
                                             <th class="min-w-150px w-150px">Price</th>
+                                            <th class="min-w-100px w-100px">Tax</th>
                                             <th class="min-w-100px w-150px text-end">Total</th>
                                             <th class="min-w-75px w-75px text-end">Action</th>
                                         </tr>
@@ -265,8 +266,14 @@
                                                        class="form-control form-control-solid text-end amount"
                                                        name="price" placeholder="0.00" value="0.00"/>
                                             </td>
+                                            <td>
+                                                <input type="text"
+                                                       class="form-control form-control-solid text-end amount"
+                                                       name="price" placeholder="0.00" value="0.00"/>
+                                            </td>
                                             <td class="pt-8 text-end text-nowrap">
-                                                <span class="total">$0.00</span></td>
+                                                <span class="total">$0.00</span>
+                                            </td>
                                             <td class="pt-5 text-end">
                                                 <button type="button" data-repeater-delete=""
                                                         class="btn btn-sm btn-icon btn-light-danger delete_row"><i

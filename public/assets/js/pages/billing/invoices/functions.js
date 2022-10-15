@@ -452,7 +452,7 @@ function handleConvertWithFX() {
         $('.repeater_items').find('tr').each(function () {
             let amount = $(this).find('.amount')
             let quantity = $(this).find('.quantity').val()
-            let price = $(this).find('.select_product').find(':selected').attr('data-kt-price')
+            let price = $(this).find('.select_product').find(':selected').attr('data-kt-price') ?? 0
             if (!isNaN(amount.val()) && !isNaN(fx_rate) && amount.length !== 0 && fx_rate.length !== 0 && fx_rate != 0) {
                 let val = (price * quantity) / Math.abs(fx_rate)
                 val = roundFloat(val, form.attr('data-kt-decimals'))

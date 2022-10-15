@@ -166,6 +166,7 @@ const KTInvoiceAdd = function () {
             handleTaxTotal()
             handleTaxChange()
             handleHomeCurrencyTotal()
+            handleDiscount()
         }
     }
 }();

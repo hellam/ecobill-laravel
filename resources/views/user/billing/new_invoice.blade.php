@@ -139,7 +139,7 @@
                                         <!--begin::Input group-->
                                         <div class="mb-5">
                                             <textarea class="form-control form-control-solid" type="text"
-                                                   name="address" placeholder="Customer Address"></textarea>
+                                                      name="address" placeholder="Customer Address"></textarea>
                                         </div>
                                         <!--end::Input group-->
                                     </div>
@@ -320,6 +320,19 @@
                                                 <div class="d-flex flex-column align-items-start">
                                                     <div class="fs-5">Subtotal</div>
                                                     <div class="py-1" id="tax_table_head"></div>
+
+                                                    <!--begin::Input-->
+                                                    <select name="discount_type"
+                                                            aria-label="Select Discount"
+                                                            data-control="select2"
+                                                            data-placeholder="Select Discount"
+                                                            class="form-select form-select-sm form-select-solid fw-bolder select_discount">
+                                                        <option></option>
+                                                        @foreach($discount_options as $key=> $value)
+                                                            <option value="{{$key}}">{{$value}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    <!--end::Input-->
                                                     <button class="btn btn-link py-1" data-bs-toggle="tooltip"
                                                             data-bs-trigger="hover" title="Coming soon">Add discount
                                                     </button>

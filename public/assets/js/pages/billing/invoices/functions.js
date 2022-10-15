@@ -515,3 +515,31 @@ function handleHomeCurrencyTotal() {
     else
         $('#total_converted').html("")
 }
+
+/**
+ * handle discount
+ */
+function handleDiscount() {
+    let repeater = $('.discount_item').repeater({
+        show: function () {
+            let desc_add_btn = $(this).parents(".inner-repeater").find("button[data-repeater-create]")
+            let description_count = $(this).parents(".inner-repeater").find("div[data-repeater-item]").length;
+            if (description_count <= 1) {
+                $(this).slideDown();
+                desc_add_btn.hide()
+            } else {
+                $(this).remove();
+            }
+            $(this).slideDown();
+        },
+        hide: function (setIndexes) {
+            let desc_add_btn = $(this).parents(".inner-repeater").find("button[data-repeater-create]")
+            $(this).slideUp(setIndexes);
+            desc_add_btn.show()
+        },
+        ready: function () {
+            // Init select2
+            $('[data-kt-repeater="select2"]').select2();
+        }
+    });
+}

@@ -521,11 +521,13 @@ class UserValidators
     public static function newInvoiceCreateValidation(Request $request)
     {
         return self::ValidatorMake($request->all(), [
-            'date' => 'required|date_format:' . get_date_format(),
-            'reference' => 'required|numeric|unique:' . Ref::class . ',reference,NULL,id,client_ref,' . get_user_ref() . ',type,' . ST_ACCOUNT_DEPOSIT,
-            'from' => 'required|in:0,1',
-//            'misc' => 'required_if:from,0',
-            'customer_branch_id' => 'required_if:from,1|exists:' . CustomerBranch::class . ',id,client_ref,' . get_user_ref(),
+            'reference' => 'required|numeric|unique:' . Ref::class . ',reference,NULL,id,client_ref,' . get_user_ref() . ',type,' . ST_INVOICE,
+            'invoice_date' => 'required|date_format:' . get_date_format(),
+            'customer' => 'required|exists:' . CustomerBranch::class . ',id,client_ref,' . get_user_ref(),
+            'phone' => 'required|min:13|max:13',
+            'email' => 'required|email:rfc,dns',//TODO: Add spoof
+            'address' => 'required',
+            'pay_terms' => 'required',
             'into_bank' => 'required|exists:' . BankAccount::class . ',id,client_ref,' . get_user_ref(),
             'fx_rate' => Rule::requiredIf(fn() => (BankAccount::find($request->into_bank)?->currency != session('currency'))),
             'deposit_options' => 'required|array|min:1',

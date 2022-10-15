@@ -146,27 +146,8 @@
                                         {{--                                                      placeholder="Company details">{{ $company->email.",\n". $company->phone.",\n". $company->address}}</textarea>--}}
                                         {{--                                        </div>--}}
                                         {{--                                        <!--end::Input group-->--}}
-
-                                        <!--begin::Input group-->
-                                        <div class="fv-row mb-5">
-                                            <!--begin::Date-->
-                                            <div class="fs-6 fw-bold text-gray-700 text-nowrap me-2 mb-2">Due Date:
-                                            </div>
-                                            <!--end::Date-->
-                                            <!--begin::Input-->
-                                            <!--begin::Datepicker-->
-                                            <input
-                                                class="form-control form-control-sm form-control-solid fw-bold w-auto"
-                                                placeholder="Select date" name="invoice_due_date"
-                                                data-bs-toggle="tooltip" data-bs-trigger="hover"
-                                                title="Specify invoice due date"/>
-                                            <!--end::Datepicker-->
-                                            <!--end::Input-->
-                                        </div>
-                                        <!--end::Input group-->
                                         <!--begin::Input-->
-                                        <div class="fv-row">
-                                            <!--begin::Date-->
+                                        <div class="fv-row mb-5">
                                             <div class="fs-6 fw-bold text-gray-700 text-nowrap me-2 mb-2">Payment
                                                 Terms:
                                             </div>
@@ -184,8 +165,25 @@
                                                         data-kt-type="{{$pay_terms->type}}">{{$pay_terms->terms}}</option>
                                                 @endforeach
                                             </select>
+                                        </div>
+                                        <!--end::Input-->
+                                        <!--begin::Input group-->
+                                        <div class="fv-row">
+                                            <!--begin::Date-->
+                                            <div class="fs-6 fw-bold text-gray-700 text-nowrap me-2 mb-2">Due Date:
+                                            </div>
+                                            <!--end::Date-->
+                                            <!--begin::Input-->
+                                            <!--begin::Datepicker-->
+                                            <input
+                                                class="form-control form-control-sm form-control-solid fw-bold w-auto"
+                                                placeholder="Select date" name="invoice_due_date"
+                                                data-bs-toggle="tooltip" data-bs-trigger="hover"
+                                                title="Specify invoice due date"/>
+                                            <!--end::Datepicker-->
                                             <!--end::Input-->
                                         </div>
+                                        <!--end::Input group-->
                                     </div>
                                     <!--end::Col-->
                                 </div>
@@ -238,7 +236,8 @@
                                                         <div data-repeater-item style="display:none;">
                                                             <label class="form-label">Description</label>
                                                             <div class="input-group has-validation pb-3">
-                                                                <textarea type="text" class="form-control form-control-solid"
+                                                                <textarea type="text"
+                                                                          class="form-control form-control-solid"
                                                                           placeholder="Enter description"
                                                                           name="description"></textarea>
                                                                 <button

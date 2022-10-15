@@ -122,22 +122,24 @@
                                             <!--end::Input-->
                                         </div>
                                         <!--end::Input group-->
-                                        <!--begin::Input group-->
-                                        <div class="mb-5">
-                                            <input class="form-control form-control-solid" type="text"
-                                                   name="phone" placeholder="Customer Phone" />
+                                        <div class="row">
+                                            <!--begin::Input group-->
+                                            <div class="col-md-6 mb-5">
+                                                <input class="form-control form-control-solid" type="text"
+                                                       name="phone" placeholder="Customer Phone"/>
+                                            </div>
+                                            <!--end::Input group-->
+                                            <!--begin::Input group-->
+                                            <div class="col-md-6 mb-5">
+                                                <input class="form-control form-control-solid" type="email"
+                                                       name="email" placeholder="Customer Email"/>
+                                            </div>
+                                            <!--end::Input group-->
                                         </div>
-                                        <!--end::Input group-->
                                         <!--begin::Input group-->
                                         <div class="mb-5">
-                                            <input class="form-control form-control-solid" type="email"
-                                                   name="email" placeholder="Customer Email" />
-                                        </div>
-                                        <!--end::Input group-->
-                                        <!--begin::Input group-->
-                                        <div class="mb-5">
-                                            <input class="form-control form-control-solid" type="text"
-                                                   name="address" placeholder="Customer Address" />
+                                            <textarea class="form-control form-control-solid" type="text"
+                                                   name="address" placeholder="Customer Address"></textarea>
                                         </div>
                                         <!--end::Input group-->
                                     </div>
@@ -339,7 +341,10 @@
                                         </tr>
                                         <tr class="align-top fw-bold text-gray-700">
                                             <th></th>
-                                            <th colspan="2" class="fs-4 ps-0" id="total_converted"></th>
+                                            <th colspan="2" class="fs-4 ps-0"></th>
+                                            <th colspan="2" class="text-end fs-4 text-nowrap">
+                                                <span id="total_converted"></span>
+                                            </th>
                                         </tr>
                                         </tfoot>
                                         <!--end::Table foot-->

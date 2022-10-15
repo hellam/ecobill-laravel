@@ -422,7 +422,7 @@ function handleConvertWithFX() {
             let quantity = $(this).find('.quantity').val()
             let amount = $(this).find('.amount')
             let price = product.attr('data-kt-price')
-            // // console.log(price)
+
             if (!isNaN(price))
                 amount.val(price * quantity).trigger('change')
         })
@@ -434,10 +434,11 @@ function handleConvertWithFX() {
             let amount = $(this).find('.amount')
             let quantity = $(this).find('.quantity').val()
             let price = $(this).find('.select_product').find(':selected').attr('data-kt-price')
-            if (!isNaN(amount.val()) && !isNaN(fx_rate) && amount.length !== 0 && fx_rate.length !== 0) {
-                amount.val((price * quantity) / fx_rate)
+            if (!isNaN(amount.val()) && !isNaN(fx_rate) && amount.length !== 0 && fx_rate.length !== 0 && fx_rate != 0) {
+                Math.abs(amount.val((price * quantity) / Math.abs(fx_rate)).trigger('change'))
+                handleRowQuotient()
             } else {
-                amount.val(price * quantity)
+                Math.abs(amount.val(price * quantity).trigger('change'))
             }
         })
     })

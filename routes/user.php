@@ -175,7 +175,7 @@ Route::group(['as' => 'user.'], function () {
                 Route::get('/dt-api', 'dt_api')->name('dt_api')->middleware('permission:706');
                 Route::post('/', 'create')->name('create')->middleware('permission:7060,' . ST_ACCOUNT_MANAGEMENT);
                 Route::get('edit/{id}', 'edit')->name('edit')->middleware('permission:7061')->whereNumber('id');
-                Route::put('update/{id}', 'update')->name('update')->middleware('permission:7061,' . ST_BRANCH_SETUP)->whereNumber('id');
+                Route::put('update/{id}', 'update')->name('update')->middleware('permission:7061,' . ST_ACCOUNT_MANAGEMENT)->whereNumber('id');
             });
 
             Route::controller(User\Setup\UserRolesController::class)->prefix('user-role')->as('user_role.')->group(function () {
@@ -207,7 +207,7 @@ Route::group(['as' => 'user.'], function () {
                 Route::get('/', 'index')->name('all')->middleware('permission:307');
                 Route::post('/', 'create')->name('create')->middleware('permission:3070,' . ST_GL_ACCOUNT_SETUP);
                 Route::get('/dt-api', 'dt_api')->name('dt_api')->middleware('permission:307');
-                Route::get('select_api/{scope}', 'select_api')->name('select_api')->middleware('permission:307')->whereIn('scope', ['all', 'no_bank']);
+                Route::get('select_api/{scope}', 'select_api')->name('select_api')->middleware('permission:100')->whereIn('scope', ['all', 'no_bank']);
                 Route::get('edit/{id}', 'edit')->name('edit')->middleware('permission:3071')->whereNumber('id');
                 Route::put('update/{id}', 'update')->name('update')->middleware('permission:3071,' . ST_GL_ACCOUNT_SETUP)->whereNumber('id');
                 Route::delete('delete/{id}', 'destroy')->name('delete')->middleware('permission:3072,' . ST_GL_ACCOUNT_SETUP)->whereNumber('id');

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('barcode',100);
             $table->bigInteger('stock_id');
             $table->string('description');
+            $table->longText('long_description')->nullable();
             $table->double('unit_price')->default(0);
             $table->double('unit_tax')->default(0);
             $table->double('qty')->default(0);

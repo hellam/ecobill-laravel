@@ -518,6 +518,29 @@ class UserValidators
         ]);
     }
 
+    public static function newInvoiceCreateValidation(Request $request)
+    {
+        return self::ValidatorMake($request->all(), [
+            'date' => 'required|date_format:' . get_date_format(),
+            'reference' => 'required|numeric|unique:' . Ref::class . ',reference,NULL,id,client_ref,' . get_user_ref() . ',type,' . ST_ACCOUNT_DEPOSIT,
+            'from' => 'required|in:0,1',
+//            'misc' => 'required_if:from,0',
+            'customer_branch_id' => 'required_if:from,1|exists:' . CustomerBranch::class . ',id,client_ref,' . get_user_ref(),
+            'into_bank' => 'required|exists:' . BankAccount::class . ',id,client_ref,' . get_user_ref(),
+            'fx_rate' => Rule::requiredIf(fn() => (BankAccount::find($request->into_bank)?->currency != session('currency'))),
+            'deposit_options' => 'required|array|min:1',
+            'deposit_options.*.chat_code' => 'required|exists:' . ChartAccount::class . ',account_code,client_ref,' . get_user_ref(),
+            'deposit_options.*.amount' => 'required|numeric|min:1',
+        ], [
+            'deposit_options.*.chat_code.required' => __('validation.required', ['attribute' => 'Chat Code']),
+            'deposit_options.*.chat_code.exists' => __('validation.exists', ['attribute' => 'Chat Code']),
+            'deposit_options.*.amount.required' => __('validation.required', ['attribute' => 'Amount']),
+            'deposit_options.*.amount.numeric' => __('validation.numeric', ['attribute' => 'Amount']),
+            'deposit_options.*.amount.min' => __('validation.min', ['attribute' => 'Amount']),
+            'deposit_options.*' => "At least one deposit item is required",
+        ]);
+    }
+
     public static function securityUpdateValidation(Request $request)
     {
         $type = Route::current()->type;

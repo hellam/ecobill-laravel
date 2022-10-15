@@ -38,15 +38,16 @@ class BusinessSettingsController extends Controller
                 );
                 $output .= input_field('company_name', 'Company Name', $general_settings['company_name'], true);
                 $output .= input_field('inv_footer', 'Invoice Footer', $general_settings['inv_footer'], true);
+                $output .= select('tax_inclusive', 'Prices Inclusive of Tax', [1 => 'Yes', 0 => 'No'], '', $general_settings['tax_inclusive'] ?? 1);
                 $output .= isset($general_settings['default_currency']) ? view_field('Default Currency', $general_settings['default_currency']) : select('default_currency', 'Select Currency', CURRENCY, 'This cannot be changes in future');
                 $output .= select('date_format', 'Select Date Format', DATE_FORMAT, '', $general_settings['date_format'] ?? null);
                 $output .= input_field('date_sep', 'Date Separator', $general_settings['date_sep'] ?? '/', true);
                 $output .= input_field('tho_sep', 'Thousand Separator', $general_settings['tho_sep'] ?? ',', true);
                 $output .= input_field('dec_sep', 'Decimal Separator', $general_settings['dec_sep'] ?? '.', true);
-                $output .= input_field('price_dec', 'Price Decimals', $general_settings['price_dec'] ?? '2', true,'number');
-                $output .= input_field('qty_dec', 'Quantity Decimals', $general_settings['qty_dec'] ?? '2', true,'number');
-                $output .= input_field('rates_dec', 'Rates Decimals', $general_settings['rates_dec'] ?? '2', true,'number');
-                $output .= input_field('transaction_days', 'Transaction Days', $general_settings['transaction_days'] ?? '30', true,'number');
+                $output .= input_field('price_dec', 'Price Decimals', $general_settings['price_dec'] ?? '2', true, 'number');
+                $output .= input_field('qty_dec', 'Quantity Decimals', $general_settings['qty_dec'] ?? '2', true, 'number');
+                $output .= input_field('rates_dec', 'Rates Decimals', $general_settings['rates_dec'] ?? '2', true, 'number');
+                $output .= input_field('transaction_days', 'Transaction Days', $general_settings['transaction_days'] ?? '30', true, 'number');
                 $output .= input_field('def_print_destination', 'Default Print Destination', $general_settings['def_print_destination'] ?? 'office', true);
                 break;
             case 'sms':
@@ -93,6 +94,7 @@ class BusinessSettingsController extends Controller
                         'logo' => $fileName,
                         'company_name' => $request->company_name,
                         'inv_footer' => $request->inv_footer,
+                        'tax_inclusive' => $request->tax_inclusive,
                         'default_currency' => $array['default_currency'] ?? $request->default_currency,
                         'date_format' => $request->date_format,
                         'date_sep' => $request->date_sep,

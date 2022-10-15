@@ -227,7 +227,7 @@
                                             <td class="pe-5">
                                                 <select name="product"
                                                         aria-label="Select Product"
-                                                        data-kt-src="{{route('user.products.select_api', 1)}}"
+                                                        data-kt-src="{{route('user.products.select_api', 0)}}"
                                                         data-placeholder="Select Product"
                                                         data-kt-product="product_select"
                                                         class="form-select form-select-sm form-select-solid fw-bolder select_api select_product">
@@ -269,10 +269,9 @@
                                             <td>
                                                 <select name="tax"
                                                         aria-label="Select Tax"
-                                                        data-kt-src="{{route('user.products.select_api', 1)}}"
-                                                        data-placeholder="Select Product"
-                                                        data-kt-product="product_select"
-                                                        class="form-select form-select-sm form-select-solid fw-bolder">
+                                                        data-kt-repeater="select2"
+                                                        data-placeholder="Select Tax"
+                                                        class="form-select form-select-sm form-select-solid fw-bolder tax_select">
                                                     <option></option>
                                                     @foreach($tax as $tx)
                                                         <option value="{{$tx->id}}">{{$tx->name}}</option>

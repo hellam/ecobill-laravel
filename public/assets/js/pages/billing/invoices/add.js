@@ -86,13 +86,12 @@ const KTInvoiceAdd = function () {
             }],
             show: function () {
                 $(this).slideDown();
-                handleRowQuotient()
                 let desc_add_btn = $(this).parents(".inner-repeater").find("button[data-repeater-create]")
                 let description_count = $(this).parents(".inner-repeater").find("div[data-repeater-item]").length;
                 if (description_count <= 1) {
                     desc_add_btn.hide()
                 }
-                $(this).find('.select_product').select2()
+                $(this).find('[data-kt-repeater="select2"]').select2()
                 $(this).find('[data-kt-product="product_select"]').select2({
                     minimumInputLength: 0,
                     escapeMarkup: function (markup) {
@@ -115,20 +114,37 @@ const KTInvoiceAdd = function () {
                                     return {
                                         text: item.barcode + ' | ' + item.name,
                                         id: item.id,
-                                        'data-kt-cost': item.cost,
-                                        'data-kt-price': item.price,
+                                        cost: item.cost,
+                                        price: item.price,
+                                        tax_id: item.tax_id,
                                     }
                                 })
                             }
                         }
                     }
+                }).on('select2:select', function (e) {
+                    let data = e.params.data;
+                    $(this).children('[value="' + data['id'] + '"]').attr(
+                        {
+                            'data-kt-cost': data["cost"],
+                            'data-kt-price': data["price"],
+                            'data-kt-tax': data["tax_id"],
+                        }
+                    )
                 });
+
+                handleRowQuotient()
+                handleSelectProduct()
             },
             hide: function (setIndexes) {
                 setIndexes();
                 handleRowQuotient()
                 sb_total = handleSubtotal()
             },
+            ready: function () {
+                // Init select2
+                $('[data-kt-repeater="select2"]').select2();
+            }
         });
     }
 
@@ -185,6 +201,7 @@ const KTInvoiceAdd = function () {
             addFxField()
             addBankField()
             handleProductsAPISelect('#kt_invoice_form')
+            handleSelectProduct()
         }
     }
 }();

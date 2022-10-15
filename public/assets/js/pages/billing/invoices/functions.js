@@ -226,6 +226,7 @@ function handleBankAPISelect(preselect = null) {
  */
 function handleCustomerSelect() {
     $('.select_customer').on('select2:select', function () {
+        let tax_id = $(this).find(':selected').attr('data-kt-tax-rate') ?? null
         tax_rate = $(this).find(':selected').attr('data-kt-tax-rate')
         tax_name = $(this).find(':selected').attr('data-kt-tax-name')
         discount = $(this).find(':selected').attr('data-kt-discount')
@@ -236,5 +237,9 @@ function handleCustomerSelect() {
  * product select
  */
 function handleSelectProduct() {
-
+    $('.select_product').on('select2:select', function () {
+        let tax_id = $(this).find(':selected').attr('data-kt-tax')
+        $(this).closest('tr').find('.tax_select').val(tax_id).trigger('change')
+        console.log(tax_id)
+    })
 }

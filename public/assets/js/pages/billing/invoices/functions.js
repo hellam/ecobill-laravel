@@ -506,7 +506,7 @@ function handleTotal() {
  */
 function handleHomeCurrencyTotal() {
     if (default_currency !== current_currency)
-        $('#total_converted').html("(Total: " + new Intl.NumberFormat('ja-JP', {
+        $('#total_converted').html("(" + new Intl.NumberFormat('ja-JP', {
             style: 'currency',
             maximumFractionDigits: form.attr('data-kt-decimals'),
             minimumFractionDigits: form.attr('data-kt-decimals'),

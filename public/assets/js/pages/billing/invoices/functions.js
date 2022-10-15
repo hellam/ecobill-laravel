@@ -319,14 +319,15 @@ function handleRowQuotient() {
             let quantity = $(this).closest('tr').find('.quantity').val()
             if (!isNaN(this.value) && this.value.length !== 0 && quantity.length !== 0 && !isNaN(quantity)) {
                 quotient = parseFloat(this.value) * parseFloat(quantity);
+                quotient = Math.abs(quotient)
             }
             row_total.html(new Intl.NumberFormat('ja-JP', {
                 style: 'currency',
                 maximumFractionDigits: form.attr('data-kt-decimals'),
                 minimumFractionDigits: form.attr('data-kt-decimals'),
                 currency: current_currency
-            }).format(quotient))
-            row_total.attr('data-kt-quotient-total', quotient)
+            }).format(Math.abs(quotient)))
+            row_total.attr('data-kt-quotient-total', Math.abs(quotient))
             sb_total = handleSubtotal()
             handleTaxTotal()
             handleTotal()
@@ -339,14 +340,15 @@ function handleRowQuotient() {
             let amount = $(this).closest('tr').find('.amount').val()
             if (!isNaN(this.value) && this.value.length !== 0 && amount.length !== 0 && !isNaN(amount)) {
                 quotient = parseFloat(this.value) * parseFloat(amount);
+                quotient = Math.abs(quotient)
             }
             row_total.html(new Intl.NumberFormat('ja-JP', {
                 style: 'currency',
                 maximumFractionDigits: form.attr('data-kt-decimals'),
                 minimumFractionDigits: form.attr('data-kt-decimals'),
                 currency: current_currency
-            }).format(quotient))
-            row_total.attr('data-kt-quotient-total', quotient)
+            }).format(Math.abs(quotient)))
+            row_total.attr('data-kt-quotient-total', Math.abs(quotient))
             sb_total = handleSubtotal()
             handleTaxTotal()
             handleTotal()
@@ -364,9 +366,11 @@ function handleSubtotal() {
         let amount = $(this).find('.amount').val()
         if (!isNaN(amount) && amount.length !== 0 && quantity.length !== 0 && !isNaN(quantity)) {
             sum += parseFloat(amount) * parseFloat(quantity);
+            sum = Math.abs(sum)
         }
         handleTaxTotal()
     })
+
     $('#sub-total').html(new Intl.NumberFormat('ja-JP', {
         style: 'currency',
         maximumFractionDigits: form.attr('data-kt-decimals'),
@@ -398,6 +402,8 @@ function handleTaxTotal() {
             }
         }
     })
+
+    tax_total = Math.abs(tax_total)
 
     let num_format = new Intl.NumberFormat('ja-JP', {
         style: 'currency',

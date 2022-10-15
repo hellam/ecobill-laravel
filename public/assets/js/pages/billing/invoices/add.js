@@ -142,6 +142,8 @@ const KTInvoiceAdd = function () {
                 setIndexes();
                 handleRowQuotient()
                 sb_total = handleSubtotal()
+                handleTaxChange()
+                handleTotal()
             },
             ready: function () {
                 // Init select2

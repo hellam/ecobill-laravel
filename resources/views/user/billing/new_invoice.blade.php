@@ -316,39 +316,31 @@
                                                     <i class="fa fa-add"></i>Add Item
                                                 </button>
                                             </th>
-                                            <th colspan="2" class="border-bottom border-bottom-dashed ps-0">
+                                            <th colspan="2" class="ps-0">
                                                 <div class="d-flex flex-column align-items-start">
                                                     <div class="fs-5">Subtotal</div>
                                                     <div class="py-1" id="tax_table_head"></div>
-
-                                                    <!--begin::Input-->
-                                                    <select name="discount_type"
-                                                            aria-label="Select Discount"
-                                                            data-control="select2"
-                                                            data-placeholder="Select Discount"
-                                                            class="form-select form-select-sm form-select-solid fw-bolder select_discount">
-                                                        <option></option>
-                                                        @foreach($discount_options as $key=> $value)
-                                                            <option value="{{$key}}">{{$value}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                    <!--end::Input-->
-                                                    <button class="btn btn-link py-1" data-bs-toggle="tooltip"
-                                                            data-bs-trigger="hover" title="Coming soon">Add discount
+                                                    <button type="button" class="btn btn-link py-1" id="add_discount" data-bs-toggle="tooltip"
+                                                            data-bs-trigger="hover" title="Click to add discount" data-kt-discount="{{json_encode(DISCOUNTS)}}">Add
+                                                        discount
                                                     </button>
                                                 </div>
                                             </th>
-                                            <th colspan="2" class="border-bottom border-bottom-dashed text-end">
+                                            <th colspan="2" class="text-end">
                                                 <div class="d-flex flex-column align-items-end">
                                                     <span id="sub-total">$0.00</span>
                                                     <div class="py-1" id="tax_table_tax"></div>
                                                 </div>
                                             </th>
                                         </tr>
-                                        <tr class="align-top fw-bold text-gray-700">
+                                        <tr class="align-top border-top-dashed fw-bold text-gray-700" id="discount_area">
+
+                                        </tr>
+                                        <tr class="align-top border-top-dashed fw-bold text-gray-700">
                                             <th></th>
-                                            <th colspan="2" class="fs-4 ps-0">Total</th>
-                                            <th colspan="2" class="text-end fs-4 text-nowrap">
+                                            <th colspan="2" class="border-top border-top-dashed fs-4 ps-0">Total</th>
+                                            <th colspan="2"
+                                                class="border-top border-top-dashed text-end fs-4 text-nowrap">
                                                 <span id="grand-total">$0.00</span>
                                             </th>
                                         </tr>

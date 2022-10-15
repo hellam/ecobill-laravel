@@ -10,6 +10,9 @@ let default_currency = current_currency = parent_data_src.attr('data-kt-default-
     customer_tax_name,
     customer_discount,
     customer_tax_id = null,
+    discount = null,
+    total_discount,
+    discount_type,
     sb_total = 0,
     tax_type = form.attr('data-kt-tax-type'),
     loader_image = parent_data_src.attr('data-kt-loader'),
@@ -485,11 +488,23 @@ function handleConvertWithFX() {
  * handle show total
  */
 function handleTotal() {
-    let total, num_total
+    let total, num_total, initial_total
 
     if (tax_type == 1) total = handleSubtotal()
     else total = handleSubtotal() + handleTaxTotal()
+
+    initial_total = total
+
+    if (discount_type == 1) {
+        total = ((100 - discount) / 100) * total
+        total_discount = initial_total - total
+    } else if (discount_type == 2) {
+        total = total - discount
+        total_discount = initial_total - total
+    }
+
     num_total = total
+
     total = new Intl.NumberFormat('ja-JP', {
         style: 'currency',
         maximumFractionDigits: form.attr('data-kt-decimals'),
@@ -520,26 +535,69 @@ function handleHomeCurrencyTotal() {
  * handle discount
  */
 function handleDiscount() {
-    let repeater = $('.discount_item').repeater({
-        show: function () {
-            let desc_add_btn = $(this).parents(".inner-repeater").find("button[data-repeater-create]")
-            let description_count = $(this).parents(".inner-repeater").find("div[data-repeater-item]").length;
-            if (description_count <= 1) {
-                $(this).slideDown();
-                desc_add_btn.hide()
-            } else {
-                $(this).remove();
-            }
-            $(this).slideDown();
-        },
-        hide: function (setIndexes) {
-            let desc_add_btn = $(this).parents(".inner-repeater").find("button[data-repeater-create]")
-            $(this).slideUp(setIndexes);
-            desc_add_btn.show()
-        },
-        ready: function () {
-            // Init select2
-            $('[data-kt-repeater="select2"]').select2();
+    $('#add_discount').on('click', function (e) {
+        e.preventDefault()
+
+        let add_dis_btn = $(this).hide()
+        $('#discount_area').html(
+            '<th></th>\n' +
+            '<th colspan="2" class="fs-4 ps-0">\n' +
+            '    <!--begin::Input-->\n' +
+            '    <select name="discount_type"\n' +
+            '            aria-label="Select Discount"\n' +
+            '            data-placeholder="Select Discount"\n' +
+            '            class="form-select form-select-sm form-select-solid fw-bolder select_discount">\n' +
+            '        <option></option>\n' +
+            '    </select>\n' +
+            '    <!--end::Input-->\n' +
+            '</th>\n' +
+            '<th colspan="" class="text-end fs-4 text-nowrap">\n' +
+            '    <input type="text"\n' +
+            '           class="form-control form-control-solid text-end" id="discount_input" \n' +
+            '           name="discount" placeholder="0.00" value="0.00"/>\n' +
+            '</th>' +
+            '<th class="text-end">' +
+            '<button type="button" id="delete_discount" \n' +
+            '        class="btn btn-sm btn-icon btn-light-danger"><i\n' +
+            '        class="fa fa-times"></i>\n' +
+            '</button>' +
+            '</th>\n'
+        )
+
+
+        for (const [key, value] of Object.entries(JSON.parse($(this).attr('data-kt-discount')))) {
+            let newOption = new Option(value, key, false, false);
+            $('.select_discount').append(newOption).trigger('change');
         }
-    });
+
+        $('.select_discount').select2()
+
+        $('#delete_discount').on('click', function () {
+            $('#discount_area').html('')
+            add_dis_btn.show()
+            discount = null
+            discount_type = null
+            total_discount = 0
+            handleTotal()
+        })
+
+        $('.select_discount').on('select2:select', function () {
+            discount_type = $(this).find(':selected').val()
+            handleTotal()
+        })
+
+
+        $('#discount_input').on('keyup change', function () {
+            discount = $(this).val()
+            handleTotal()
+        })
+
+    })
+}
+
+/**
+ * handle form submit
+ */
+function handleSubmit() {
+
 }

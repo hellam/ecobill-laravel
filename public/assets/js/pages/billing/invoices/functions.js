@@ -371,7 +371,8 @@ function handleSubtotal() {
         style: 'currency',
         maximumFractionDigits: form.attr('data-kt-decimals'),
         minimumFractionDigits: form.attr('data-kt-decimals'),
-        currency: current_currency}).format(sum))
+        currency: current_currency
+    }).format(sum))
     return sum
 }
 
@@ -479,7 +480,8 @@ function handleTotal() {
         style: 'currency',
         maximumFractionDigits: form.attr('data-kt-decimals'),
         minimumFractionDigits: form.attr('data-kt-decimals'),
-        currency: current_currency}).format(total)
+        currency: current_currency
+    }).format(!isNaN(total) ? total : 0)
 
     $('#grand-total').html(total)
     return total

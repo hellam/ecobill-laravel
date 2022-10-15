@@ -290,9 +290,9 @@ function handleSelectProduct() {
  * handle quantity * price
  */
 function handleRowQuotient() {
+    let quotient = 0;
     $('.amount').each(function () {
         $(this).on('keyup change', function () {
-            let quotient = 0;
             let quantity = $(this).closest('tr').find('.quantity').val()
             if (!isNaN(this.value) && this.value.length !== 0 && quantity.length !== 0 && !isNaN(quantity)) {
                 quotient = parseFloat(this.value) * parseFloat(quantity);
@@ -309,7 +309,6 @@ function handleRowQuotient() {
 
     $('.quantity').each(function () {
         $(this).on('keyup change', function () {
-            let quotient = 0;
             let amount = $(this).closest('tr').find('.amount').val()
             if (!isNaN(this.value) && this.value.length !== 0 && amount.length !== 0 && !isNaN(amount)) {
                 quotient = parseFloat(this.value) * parseFloat(amount);
@@ -368,7 +367,7 @@ function handleTaxTotal() {
     let num_format = new Intl.NumberFormat('ja-JP', {
         style: 'currency',
         currency: current_currency
-    }).format(tax_total)
+    }).format(!isNaN(tax_total) ? tax_total : 0)
 
     if (tax_type == 1) {
         tax_table_head.html('(Tax Inclusive: ' + num_format + ')')

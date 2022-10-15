@@ -176,7 +176,7 @@
                                             <!--begin::Input-->
                                             <!--begin::Datepicker-->
                                             <input
-                                                class="form-control form-control-sm form-control-solid fw-bold w-auto"
+                                                class="form-control form-control-sm form-control-solid fw-bold"
                                                 placeholder="Select date" name="invoice_due_date"
                                                 data-bs-toggle="tooltip" data-bs-trigger="hover"
                                                 title="Specify invoice due date"/>

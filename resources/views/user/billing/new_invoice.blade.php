@@ -277,7 +277,8 @@
                                                         class="form-select form-select-sm form-select-solid fw-bolder tax_select">
                                                     <option></option>
                                                     @foreach($tax as $tx)
-                                                        <option value="{{$tx->id}}" data-kt-rate="{{$tx->rate}}">{{$tx->name}}</option>
+                                                        <option value="{{$tx->id}}"
+                                                                data-kt-rate="{{$tx->rate}}">{{$tx->name}}</option>
                                                     @endforeach
                                                 </select>
                                             </td>
@@ -322,7 +323,12 @@
                                             <th></th>
                                             <th colspan="2" class="fs-4 ps-0">Total</th>
                                             <th colspan="2" class="text-end fs-4 text-nowrap">
-                                                <span id="grand-total">$0.00</span></th>
+                                                <span id="grand-total">$0.00</span>
+                                            </th>
+                                        </tr>
+                                        <tr class="align-top fw-bold text-gray-700">
+                                            <th></th>
+                                            <th colspan="2" class="fs-4 ps-0" id="total_converted"></th>
                                         </tr>
                                         </tfoot>
                                         <!--end::Table foot-->

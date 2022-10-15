@@ -164,6 +164,7 @@ const KTInvoiceAdd = function () {
             handleSelectProduct()
             handleTaxTotal()
             handleTaxChange()
+            handleHomeCurrencyTotal()
         }
     }
 }();

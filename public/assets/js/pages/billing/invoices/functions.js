@@ -305,6 +305,7 @@ function handleSelectProduct() {
         $(this).closest('tr').find('.amount').val((price / fx_rate).toFixed(form.attr('data-kt-decimals'))).trigger('keyup')
 
         handleTotal()
+        handleHomeCurrencyTotal()
     })
 }
 
@@ -331,6 +332,7 @@ function handleRowQuotient() {
             sb_total = handleSubtotal()
             handleTaxTotal()
             handleTotal()
+            handleHomeCurrencyTotal()
         });
     });
 
@@ -352,6 +354,7 @@ function handleRowQuotient() {
             sb_total = handleSubtotal()
             handleTaxTotal()
             handleTotal()
+            handleHomeCurrencyTotal()
         });
     });
 }
@@ -429,6 +432,7 @@ function handleTaxChange() {
     $('.tax_select').on('change', function () {
         handleSubtotal()
         handleTotal()
+        handleHomeCurrencyTotal()
     })
 }
 
@@ -452,9 +456,12 @@ function handleConvertWithFX() {
             if (!isNaN(price))
                 amount.val(price * quantity).trigger('change')
         })
+
+        $('#total_converted').html("")
     }
 
     $('#fx_rate_value').on('keyup change', function () {
+        handleHomeCurrencyTotal()
         fx_rate = $(this).val()
         $('.repeater_items').find('tr').each(function () {
             let amount = $(this).find('.amount')
@@ -477,11 +484,11 @@ function handleConvertWithFX() {
  * handle show total
  */
 function handleTotal() {
-    let total
+    let total, num_total
 
     if (tax_type == 1) total = handleSubtotal()
     else total = handleSubtotal() + handleTaxTotal()
-
+    num_total = total
     total = new Intl.NumberFormat('ja-JP', {
         style: 'currency',
         maximumFractionDigits: form.attr('data-kt-decimals'),
@@ -490,5 +497,20 @@ function handleTotal() {
     }).format(!isNaN(total) ? total : 0)
 
     $('#grand-total').html(total)
-    return total
+    return num_total
+}
+
+/**
+ * show or hide home currency total
+ */
+function handleHomeCurrencyTotal() {
+    if (default_currency !== current_currency)
+        $('#total_converted').html("(Total: " + new Intl.NumberFormat('ja-JP', {
+            style: 'currency',
+            maximumFractionDigits: form.attr('data-kt-decimals'),
+            minimumFractionDigits: form.attr('data-kt-decimals'),
+            currency: default_currency
+        }).format(handleTotal() * fx_rate) + ")")
+    else
+        $('#total_converted').html("")
 }

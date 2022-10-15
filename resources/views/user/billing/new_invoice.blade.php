@@ -321,8 +321,8 @@
                                         <tr class="align-top fw-bold text-gray-700">
                                             <th></th>
                                             <th colspan="2" class="fs-4 ps-0">Total</th>
-                                            <th colspan="2" class="text-end fs-4 text-nowrap">$
-                                                <span data-kt-element="grand-total">0.00</span></th>
+                                            <th colspan="2" class="text-end fs-4 text-nowrap">
+                                                <span id="grand-total">$0.00</span></th>
                                         </tr>
                                         </tfoot>
                                         <!--end::Table foot-->

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('trx_type',45);
             $table->string('barcode',100);
             $table->string('description', 255);
+            $table->longText('long_description')->nullable();
             $table->double('qty_sent')->default(0);
             $table->double('unit_price')->default(0);
             $table->double('discount')->default(0);

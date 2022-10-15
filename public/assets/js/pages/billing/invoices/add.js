@@ -140,7 +140,7 @@ const KTInvoiceAdd = function () {
             hide: function (setIndexes) {
                 setIndexes();
                 handleRowQuotient()
-                sb_total = handleSubtotal()[0]
+                sb_total = handleSubtotal()
             },
             ready: function () {
                 // Init select2
@@ -162,6 +162,8 @@ const KTInvoiceAdd = function () {
             addBankField()
             handleProductsAPISelect('#kt_invoice_form')
             handleSelectProduct()
+            handleTaxTotal()
+            handleTaxChange()
         }
     }
 }();

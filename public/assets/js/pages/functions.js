@@ -459,7 +459,7 @@ function handleProductsAPISelect(select_parent, preselect = null) {
 
     $(select_parent + ' .select_api').html("").trigger('change');
     if (preselect) {
-        const option = new Option(preselect?.barcode + "|" + preselect?.name, preselect?.id, true, true);
+        const option = new Option(preselect?.barcode + "|" + preselect?.name, preselect?.barcode, true, true);
         $(select_parent + ' .select_api').append(option).trigger('change');
     }
 
@@ -485,7 +485,7 @@ function handleProductsAPISelect(select_parent, preselect = null) {
                     results: $.map(data, function (item) {
                         return {
                             text: item.barcode + ' | ' + item.name,
-                            id: item.id,
+                            id: item.barcode,
                             cost: item.cost,
                             price: item.price,
                             tax_id: item.tax_id,

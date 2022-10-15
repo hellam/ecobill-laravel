@@ -298,8 +298,12 @@ function handleRowQuotient() {
                 quotient = parseFloat(this.value) * parseFloat(quantity);
             }
             let row_total = $(this).closest('tr').find('.total')
-            row_total.html(new Intl.NumberFormat('ja-JP', {style: 'currency', currency: current_currency}).format(quotient))
-            sb_total = handleSubtotal()[1]
+            row_total.html(new Intl.NumberFormat('ja-JP', {
+                style: 'currency',
+                currency: current_currency
+            }).format(quotient))
+            sb_total = handleSubtotal()
+            handleTaxTotal()
         });
     });
 
@@ -311,8 +315,12 @@ function handleRowQuotient() {
                 quotient = parseFloat(this.value) * parseFloat(amount);
             }
             let row_total = $(this).closest('tr').find('.total')
-            row_total.html(new Intl.NumberFormat('ja-JP', {style: 'currency', currency: current_currency}).format(quotient))
-            sb_total = handleSubtotal()[1]
+            row_total.html(new Intl.NumberFormat('ja-JP', {
+                style: 'currency',
+                currency: current_currency
+            }).format(quotient))
+            sb_total = handleSubtotal()
+            handleTaxTotal()
         });
     });
 }
@@ -322,35 +330,60 @@ function handleRowQuotient() {
  */
 function handleSubtotal() {
     let sum = 0
-    let tax_sum = 0
     $('tr').each(function () {
         let quantity = $(this).find('.quantity').val()
         let amount = $(this).find('.amount').val()
         if (!isNaN(amount) && amount.length !== 0 && quantity.length !== 0 && !isNaN(quantity)) {
             sum += parseFloat(amount) * parseFloat(quantity);
-
-            if (tax_type == 1) {
-                let tax_rate = $(this).find('.tax_select').find(':selected').attr('data-kt-rate')
-                tax_sum += (parseFloat(amount) * parseFloat(quantity) * parseFloat(tax_rate)) / (parseFloat(tax_rate) + parseFloat("100"))
-            }
-            handleTaxTotal(tax_sum)
         }
+        handleTaxTotal()
     })
     $('#sub-total').html(new Intl.NumberFormat('ja-JP', {style: 'currency', currency: current_currency}).format(sum))
-    return [sum, tax_sum]
+    return sum
 }
 
 /**
- * calculate tex, whether inclusive or exclusive
+ * calculate tax, whether inclusive or exclusive
  */
-function handleTaxTotal(tax_total) {
+function handleTaxTotal() {
     let tax_table_head = $('#tax_table_head')
-    let num_format = new Intl.NumberFormat('ja-JP', {style: 'currency', currency: current_currency}).format(tax_total)
+    let tax_table_tax = $('#tax_table_tax')
+    let tax_total = 0
+
+    $('tr').each(function () {
+        let quantity = $(this).find('.quantity').val()
+        let amount = $(this).find('.amount').val()
+        if (!isNaN(amount) && amount.length !== 0 && quantity.length !== 0 && !isNaN(quantity)) {
+            let tax_rate = $(this).find('.tax_select').find(':selected').attr('data-kt-rate')
+            let total_amount = parseFloat(amount) * parseFloat(quantity)
+            let total_rate = parseFloat(tax_rate) + parseFloat("100")
+            if (tax_type == 1) {
+                tax_total += (total_amount * parseFloat(tax_rate)) / total_rate
+            } else {
+                tax_total += ((total_amount * total_rate) / parseFloat("100")) - total_amount
+            }
+        }
+    })
+
+    let num_format = new Intl.NumberFormat('ja-JP', {
+        style: 'currency',
+        currency: current_currency
+    }).format(tax_total)
+
     if (tax_type == 1) {
         tax_table_head.html('(Tax Inclusive: ' + num_format + ')')
     } else {
-
+        tax_table_head.html('(Tax: ')
+        tax_table_tax.html(num_format)
     }
 }
 
+/**
+ * handle tax change
+ */
+function handleTaxChange() {
+    $('.tax_select').on('change', function () {
+        handleSubtotal()
+    })
+}
 

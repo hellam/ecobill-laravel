@@ -372,7 +372,7 @@ function handleTaxTotal() {
     if (tax_type == 1) {
         tax_table_head.html('(Tax Inclusive: ' + num_format + ')')
     } else {
-        tax_table_head.html('(Tax: ')
+        tax_table_head.html('Tax: ')
         tax_table_tax.html(num_format)
     }
 }

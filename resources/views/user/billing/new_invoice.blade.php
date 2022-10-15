@@ -60,7 +60,9 @@
                     <!--begin::Card body-->
                     <div class="card-body p-12" id="kt_block_ui_1_target">
                         <!--begin::Form-->
-                        <form action="" id="kt_invoice_form" data-kt-date-format="{{get_js_date_format()}}">
+                        <form action="" id="kt_invoice_form"
+                              data-kt-date-format="{{get_js_date_format()}}"
+                              data-kt-tax-type="{{get_company_setting('tax_inclusive')}}">
                             <!--begin::Wrapper-->
                             <div class="row">
                                 <div class="col-md-6">
@@ -214,7 +216,7 @@
                                         <tr class="border-bottom fs-7 fw-bold text-gray-700 text-uppercase">
                                             <th class="min-w-300px w-300px">Item</th>
                                             <th class="min-w-80px w-80px">QTY</th>
-                                            <th class="min-w-150px w-150px">Price</th>
+                                            <th class="min-w-150px w-150px">Price {{get_company_setting('tax_inclusive') == 1 ? 'After Tax' : 'Before Tax'}}</th>
                                             <th class="min-w-100px w-100px">Tax</th>
                                             <th class="min-w-100px w-150px text-end">Total</th>
                                             <th class="min-w-75px w-75px text-end">Action</th>
@@ -227,7 +229,7 @@
                                             <td class="pe-5">
                                                 <select name="product"
                                                         aria-label="Select Product"
-                                                        data-kt-src="{{route('user.products.select_api', 1)}}"
+                                                        data-kt-src="{{route('user.products.select_api', 0)}}"
                                                         data-placeholder="Select Product"
                                                         data-kt-product="product_select"
                                                         class="form-select form-select-sm form-select-solid fw-bolder select_api select_product">
@@ -269,10 +271,9 @@
                                             <td>
                                                 <select name="tax"
                                                         aria-label="Select Tax"
-                                                        data-kt-src="{{route('user.products.select_api', 1)}}"
-                                                        data-placeholder="Select Product"
-                                                        data-kt-product="product_select"
-                                                        class="form-select form-select-sm form-select-solid fw-bolder">
+                                                        data-kt-repeater="select2"
+                                                        data-placeholder="Select Tax"
+                                                        class="form-select form-select-sm form-select-solid fw-bolder tax_select">
                                                     <option></option>
                                                     @foreach($tax as $tx)
                                                         <option value="{{$tx->id}}">{{$tx->name}}</option>

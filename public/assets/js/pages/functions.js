@@ -486,8 +486,9 @@ function handleProductsAPISelect(select_parent, preselect = null) {
                         return {
                             text: item.barcode + ' | ' + item.name,
                             id: item.id,
-                            'data-kt-cost': item.cost,
-                            'data-kt-price': item.price,
+                            cost: item.cost,
+                            price: item.price,
+                            tax_id: item.tax_id,
                         }
                     })
                 }
@@ -497,8 +498,9 @@ function handleProductsAPISelect(select_parent, preselect = null) {
         let data = e.params.data;
         $(this).children('[value="' + data['id'] + '"]').attr(
             {
-                'data-kt-cost': data["data-kt-cost"],
-                'data-kt-price': data["data-kt-price"],
+                'data-kt-cost': data["cost"],
+                'data-kt-price': data["price"],
+                'data-kt-tax': data["tax_id"],
             }
         );
         $(select_parent + ' [name="cost"]').val($(select_parent + ' .select_api').find(':selected').data('kt-cost'))
@@ -618,6 +620,7 @@ function handleCustomerAPISelect(select_parent, preselect = null, pass_data = []
                             discount: item.customer.discount,
                             credit_limit: item.c_limit ?? 0,
                             tax_rate: item.customer.tax?.rate ?? 0,
+                            tax_id: item.customer.tax_id,
                             tax_name: item.customer.tax?.name ?? 0,
                             pay_terms: item.customer.payment_terms,
                         }
@@ -638,6 +641,7 @@ function handleCustomerAPISelect(select_parent, preselect = null, pass_data = []
                 'data-kt-credit-limit': data["credit_limit"],
                 'data-kt-tax-rate': data["tax_rate"],
                 'data-kt-tax-name': data["tax_name"],
+                'data-kt-tax-id': data["tax_id"],
                 'data-kt-pay-terms': data["pay_terms"],
             }
         );

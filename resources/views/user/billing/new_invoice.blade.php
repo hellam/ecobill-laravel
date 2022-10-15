@@ -61,6 +61,7 @@
                     <div class="card-body p-12" id="kt_block_ui_1_target">
                         <!--begin::Form-->
                         <form action="" id="kt_invoice_form"
+                              data-kt-action="{{route('user.billing.invoice')}}"
                               data-kt-date-format="{{get_js_date_format()}}"
                               data-kt-decimals="{{get_company_setting('price_dec')}}"
                               data-kt-tax-type="{{get_company_setting('tax_inclusive')}}">
@@ -193,7 +194,7 @@
                                             <!--begin::Datepicker-->
                                             <input
                                                 class="form-control form-control-sm form-control-solid fw-bold"
-                                                placeholder="Select date" name="invoice_due_date"
+                                                placeholder="Select date" name="due_date"
                                                 data-bs-toggle="tooltip" data-bs-trigger="hover"
                                                 title="Specify invoice due date"/>
                                             <!--end::Datepicker-->
@@ -320,8 +321,10 @@
                                                 <div class="d-flex flex-column align-items-start">
                                                     <div class="fs-5">Subtotal</div>
                                                     <div class="py-1" id="tax_table_head"></div>
-                                                    <button type="button" class="btn btn-link py-1" id="add_discount" data-bs-toggle="tooltip"
-                                                            data-bs-trigger="hover" title="Click to add discount" data-kt-discount="{{json_encode(DISCOUNTS)}}">Add
+                                                    <button type="button" class="btn btn-link py-1" id="add_discount"
+                                                            data-bs-toggle="tooltip"
+                                                            data-bs-trigger="hover" title="Click to add discount"
+                                                            data-kt-discount="{{json_encode(DISCOUNTS)}}">Add
                                                         discount
                                                     </button>
                                                 </div>
@@ -333,7 +336,8 @@
                                                 </div>
                                             </th>
                                         </tr>
-                                        <tr class="align-top border-top-dashed fw-bold text-gray-700" id="discount_area">
+                                        <tr class="align-top border-top-dashed fw-bold text-gray-700"
+                                            id="discount_area">
 
                                         </tr>
                                         <tr class="align-top border-top-dashed fw-bold text-gray-700">
@@ -364,7 +368,7 @@
                                 </table>
                                 <!--begin::No Items-->
                                 <!--begin::Notes-->
-                                <div class="mb-0">
+                                <div class="mb-5">
                                     <label class="form-label fs-6 fw-bold text-gray-700">Notes</label>
                                     <textarea name="notes" class="form-control form-control-solid" rows="3"
                                               placeholder="Thanks for your business"></textarea>
@@ -372,6 +376,14 @@
                                 <!--end::Notes-->
                             </div>
                             <!--end::Wrapper-->
+
+                            <!--begin::Button-->
+                            <button type="submit" id="kt_add_invoice_submit" class="btn btn-primary float-end">
+                                <span class="indicator-label">Submit</span>
+                                <span class="indicator-progress">Please wait...
+                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                            </button>
+                            <!--end::Button-->
                         </form>
                         <!--end::Form-->
                     </div>

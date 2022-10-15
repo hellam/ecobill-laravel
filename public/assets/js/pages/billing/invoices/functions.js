@@ -88,7 +88,7 @@ function addFxField() {
                                 '        <!--begin::Input-->\n' +
                                 '        <input type="number" class="form-control form-control-sm form-control-solid"\n' +
                                 '               placeholder="From ' + default_currency + " to " + current_currency + '"\n' +
-                                '               name="fx_rate"/>\n' +
+                                '               name="fx_rate" id="fx_rate_value"/>\n' +
                                 '        <!--end::Input-->\n' +
                                 '    </div>\n' +
                                 '    <!--end::Col-->\n' +
@@ -412,13 +412,14 @@ function handleTaxChange() {
 function handleConvertWithFX() {
     if ($('[name="fx_rate"]').length > 0) {
         $('.repeater_items').find('tr').each(function () {
-            let amount = $(this).find('.amount')
+            let current_tr = $(this)
+            let amount = current_tr.find('.amount')
             amount.val((parseFloat(amount.val()) / fx_rate).toFixed(form.attr('data-kt-decimals'))).trigger('change')
         })
     } else {
         $('.repeater_items').find('tr').each(function () {
             let product = $(this).find('.select_product').find(':selected')
-            let quantity = $(this).find('.quantity')
+            let quantity = $(this).find('.quantity').val()
             let amount = $(this).find('.amount')
             let price = product.attr('data-kt-price')
             // // console.log(price)
@@ -426,8 +427,18 @@ function handleConvertWithFX() {
                 amount.val(price * quantity).trigger('change')
         })
     }
-    // $('#fx_rate').on('keyup change', function () {
-    //     fx_rate = $(this).val()
-    //     $()
-    // })
+
+    $('#fx_rate_value').on('keyup change', function () {
+        fx_rate = $(this).val()
+        $('.repeater_items').find('tr').each(function () {
+            let amount = $(this).find('.amount')
+            let quantity = $(this).find('.quantity').val()
+            let price = $(this).find('.select_product').find(':selected').attr('data-kt-price')
+            if (!isNaN(amount.val()) && !isNaN(fx_rate) && amount.length !== 0 && fx_rate.length !== 0) {
+                amount.val((price * quantity) / fx_rate)
+            } else {
+                amount.val(price * quantity)
+            }
+        })
+    })
 }

@@ -1,6 +1,6 @@
 let parent_data_src = $('#kt_aside')
 let default_currency = current_currency = parent_data_src.attr('data-kt-default-currency'),
-    fx_rate, tax_rate, tax_name, discount,
+    fx_rate, customer_tax_rate, customer_tax_name, customer_discount, customer_tax_id,
     loader_image = parent_data_src.attr('data-kt-loader'),
     blockUI = new KTBlockUI(document.querySelector('#kt_block_ui_1_target'), {
         message: '<div class="blockui-message"><img src="' + loader_image + '" width="30" height="30" alt=""></div>',
@@ -226,10 +226,14 @@ function handleBankAPISelect(preselect = null) {
  */
 function handleCustomerSelect() {
     $('.select_customer').on('select2:select', function () {
-        let tax_id = $(this).find(':selected').attr('data-kt-tax-rate') ?? null
-        tax_rate = $(this).find(':selected').attr('data-kt-tax-rate')
-        tax_name = $(this).find(':selected').attr('data-kt-tax-name')
-        discount = $(this).find(':selected').attr('data-kt-discount')
+        customer_tax_id = $(this).find(':selected').attr('data-kt-tax-id') ?? null
+        customer_tax_rate = $(this).find(':selected').attr('data-kt-tax-rate')
+        customer_tax_name = $(this).find(':selected').attr('data-kt-tax-name')
+        customer_discount = $(this).find(':selected').attr('data-kt-discount')
+
+        if (customer_tax_id !== null) {
+            $('.tax_select').val(customer_tax_id).trigger('change')
+        }
     })
 }
 
@@ -240,7 +244,8 @@ function handleSelectProduct() {
     $('.select_product').on('select2:select', function () {
         let tax_id = $(this).find(':selected').attr('data-kt-tax')
         let price = $(this).find(':selected').attr('data-kt-price')
-        $(this).closest('tr').find('.tax_select').val(tax_id).trigger('change')
+        if (customer_tax_id === null)
+            $(this).closest('tr').find('.tax_select').val(tax_id).trigger('change')
         $(this).closest('tr').find('.amount').val(price).trigger('keyup')
     })
 }

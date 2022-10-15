@@ -62,6 +62,7 @@
                         <!--begin::Form-->
                         <form action="" id="kt_invoice_form"
                               data-kt-date-format="{{get_js_date_format()}}"
+                              data-kt-decimals="{{get_company_setting('rates_dec')}}"
                               data-kt-tax-type="{{get_company_setting('tax_inclusive')}}">
                             <!--begin::Wrapper-->
                             <div class="row">

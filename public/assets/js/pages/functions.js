@@ -578,7 +578,7 @@ const optionFormat = (item) => {
  * @param preselect
  * @param pass_data
  */
-function handleCustomerAPISelect(select_parent, preselect = null, pass_data = []) {
+function handleCustomerAPISelect(select_parent, preselect = null) {
     const element = document.querySelector(select_parent + ' .select_customer');
 
     $(select_parent + ' .select_customer').html("").trigger('change');
@@ -647,20 +647,7 @@ function handleCustomerAPISelect(select_parent, preselect = null, pass_data = []
         );
         $(select_parent + ' [name="phone"]').val($(select_parent + ' .select_customer').find(':selected').data('kt-phone'))
         $(select_parent + ' [name="email"]').val($(select_parent + ' .select_customer').find(':selected').data('kt-email'))
-
-        if (pass_data.length > 0) {
-            pass_data.forEach(input => {
-                input = $(input)
-                if (input.is('select')) {
-                    // input.val('test1').trigger('change')
-                } else if (input.is('textarea')) {
-                    let selected = $(select_parent + ' .select_customer').find(':selected');
-                    input.val(selected.data('kt-email') + ',\n' + selected.data('kt-phone') + ',\n' + selected.data('kt-address') + ',' + selected.data('kt-country'))
-                } else if (input.is('input')) {
-                    input.val('test')
-                }
-            })
-        }
+        $(select_parent + ' [name="address"]').val($(select_parent + ' .select_customer').find(':selected').data('kt-address'))
     })
 }
 

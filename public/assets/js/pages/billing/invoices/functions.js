@@ -281,6 +281,7 @@ function handleCustomerSelect() {
                 currency: current_currency
             }).format(total))
         })
+
     })
 }
 

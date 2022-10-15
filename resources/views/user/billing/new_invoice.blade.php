@@ -124,9 +124,20 @@
                                         <!--end::Input group-->
                                         <!--begin::Input group-->
                                         <div class="mb-5">
-                                            <textarea name="customer_details" class="form-control form-control-solid"
-                                                      rows="3" id="customer_details"
-                                                      placeholder="Customer details"></textarea>
+                                            <input class="form-control form-control-solid" type="text"
+                                                   name="phone" placeholder="Customer Phone" />
+                                        </div>
+                                        <!--end::Input group-->
+                                        <!--begin::Input group-->
+                                        <div class="mb-5">
+                                            <input class="form-control form-control-solid" type="email"
+                                                   name="email" placeholder="Customer Email" />
+                                        </div>
+                                        <!--end::Input group-->
+                                        <!--begin::Input group-->
+                                        <div class="mb-5">
+                                            <input class="form-control form-control-solid" type="text"
+                                                   name="address" placeholder="Customer Address" />
                                         </div>
                                         <!--end::Input group-->
                                     </div>

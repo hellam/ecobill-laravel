@@ -1,7 +1,18 @@
+/**
+ * define variables
+ * @type {*|jQuery|HTMLElement}
+ */
 let parent_data_src = $('#kt_aside')
 let default_currency = current_currency = parent_data_src.attr('data-kt-default-currency'),
-    fx_rate, customer_tax_rate, customer_tax_name, customer_discount, customer_tax_id = null,
-    loader_image = parent_data_src.attr('data-kt-loader'),
+    fx_rate,
+    form = $('#kt_invoice_form'),
+    customer_tax_rate,
+    customer_tax_name,
+    customer_discount,
+    customer_tax_id = null,
+    sb_total = 0,
+    tax_type = form.attr('data-kt-tax-type')
+loader_image = parent_data_src.attr('data-kt-loader'),
     blockUI = new KTBlockUI(document.querySelector('#kt_block_ui_1_target'), {
         message: '<div class="blockui-message"><img src="' + loader_image + '" width="30" height="30" alt=""></div>',
     })
@@ -230,10 +241,21 @@ function handleCustomerSelect() {
         customer_tax_rate = $(this).find(':selected').attr('data-kt-tax-rate')
         customer_tax_name = $(this).find(':selected').attr('data-kt-tax-name')
         customer_discount = $(this).find(':selected').attr('data-kt-discount')
+        current_currency = $(this).find(':selected').attr('data-kt-currency')
+        handleSubtotal()
+        handleRowQuotient()
 
+        /**
+         * if customer tax is null set all products selected taxes to customer tax
+         */
         if (customer_tax_id !== null) {
             $('.tax_select').val(customer_tax_id).trigger('change')
-        } else {
+
+        }
+        /**
+         * else reset product taxes to default if customer tax is null
+         */
+        else {
             $('.select_product option').each(function () {
                 let this_tax = $(this).attr('data-kt-tax')
                 $(this).closest('tr').find('.tax_select').val(this_tax).trigger('change')
@@ -249,10 +271,86 @@ function handleSelectProduct() {
     $('.select_product').on('select2:select', function () {
         let tax_id = $(this).find(':selected').attr('data-kt-tax')
         let price = $(this).find(':selected').attr('data-kt-price')
+        /**
+         * if customer tax is null set default selected product tax
+         */
         if (customer_tax_id === null)
             $(this).closest('tr').find('.tax_select').val(tax_id).trigger('change')
+        /**
+         * else set product tax to customer selected tax
+         */
         else
             $(this).closest('tr').find('.tax_select').val(customer_tax_id).trigger('change')
+
         $(this).closest('tr').find('.amount').val(price).trigger('keyup')
     })
 }
+
+/**
+ * handle quantity * price
+ */
+function handleRowQuotient() {
+    $('.amount').each(function () {
+        $(this).on('keyup change', function () {
+            let quotient = 0;
+            let quantity = $(this).closest('tr').find('.quantity').val()
+            if (!isNaN(this.value) && this.value.length !== 0 && quantity.length !== 0 && !isNaN(quantity)) {
+                quotient = parseFloat(this.value) * parseFloat(quantity);
+            }
+            let row_total = $(this).closest('tr').find('.total')
+            row_total.html(new Intl.NumberFormat('ja-JP', {style: 'currency', currency: current_currency}).format(quotient))
+            sb_total = handleSubtotal()[1]
+        });
+    });
+
+    $('.quantity').each(function () {
+        $(this).on('keyup change', function () {
+            let quotient = 0;
+            let amount = $(this).closest('tr').find('.amount').val()
+            if (!isNaN(this.value) && this.value.length !== 0 && amount.length !== 0 && !isNaN(amount)) {
+                quotient = parseFloat(this.value) * parseFloat(amount);
+            }
+            let row_total = $(this).closest('tr').find('.total')
+            row_total.html(new Intl.NumberFormat('ja-JP', {style: 'currency', currency: current_currency}).format(quotient))
+            sb_total = handleSubtotal()[1]
+        });
+    });
+}
+
+/**
+ * handle subtotals from rows
+ */
+function handleSubtotal() {
+    let sum = 0
+    let tax_sum = 0
+    $('tr').each(function () {
+        let quantity = $(this).find('.quantity').val()
+        let amount = $(this).find('.amount').val()
+        if (!isNaN(amount) && amount.length !== 0 && quantity.length !== 0 && !isNaN(quantity)) {
+            sum += parseFloat(amount) * parseFloat(quantity);
+
+            if (tax_type == 1) {
+                let tax_rate = $(this).find('.tax_select').find(':selected').attr('data-kt-rate')
+                tax_sum += (parseFloat(amount) * parseFloat(quantity) * parseFloat(tax_rate)) / (parseFloat(tax_rate) + parseFloat("100"))
+            }
+            handleTaxTotal(tax_sum)
+        }
+    })
+    $('#sub-total').html(new Intl.NumberFormat('ja-JP', {style: 'currency', currency: current_currency}).format(sum))
+    return [sum, tax_sum]
+}
+
+/**
+ * calculate tex, whether inclusive or exclusive
+ */
+function handleTaxTotal(tax_total) {
+    let tax_table_head = $('#tax_table_head')
+    let num_format = new Intl.NumberFormat('ja-JP', {style: 'currency', currency: current_currency}).format(tax_total)
+    if (tax_type == 1) {
+        tax_table_head.html('(Tax Inclusive: ' + num_format + ')')
+    } else {
+
+    }
+}
+
+

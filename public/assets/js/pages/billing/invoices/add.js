@@ -140,54 +140,13 @@ const KTInvoiceAdd = function () {
             hide: function (setIndexes) {
                 setIndexes();
                 handleRowQuotient()
-                sb_total = handleSubtotal()
+                sb_total = handleSubtotal()[0]
             },
             ready: function () {
                 // Init select2
                 $('[data-kt-repeater="select2"]').select2();
             }
         });
-    }
-
-    function handleRowQuotient() {
-        $('.amount').each(function () {
-            $(this).on('keyup change', function () {
-                let quotient = 0;
-                let quantity = $(this).closest('tr').find('.quantity').val()
-                if (!isNaN(this.value) && this.value.length !== 0 && quantity.length !== 0 && !isNaN(quantity)) {
-                    quotient = parseFloat(this.value) * parseFloat(quantity);
-                }
-                let row_total = $(this).closest('tr').find('.total')
-                row_total.html(new Intl.NumberFormat('ja-JP', {style: 'currency', currency: "USD"}).format(quotient))
-                sb_total = handleSubtotal()
-            });
-        });
-
-        $('.quantity').each(function () {
-            $(this).on('keyup change',function () {
-                let quotient = 0;
-                let amount = $(this).closest('tr').find('.amount').val()
-                if (!isNaN(this.value) && this.value.length !== 0 && amount.length !== 0 && !isNaN(amount)) {
-                    quotient = parseFloat(this.value) * parseFloat(amount);
-                }
-                let row_total = $(this).closest('tr').find('.total')
-                row_total.html(new Intl.NumberFormat('ja-JP', {style: 'currency', currency: "USD"}).format(quotient))
-                sb_total = handleSubtotal()
-            });
-        });
-    }
-
-    function handleSubtotal() {
-        let sum = 0
-        $('tr').each(function () {
-            let quantity = $(this).find('.quantity').val()
-            let amount = $(this).find('.amount').val()
-            if (!isNaN(amount) && amount.length !== 0 && quantity.length !== 0 && !isNaN(quantity)) {
-                sum += parseFloat(amount) * parseFloat(quantity);
-            }
-        })
-        $('#sub-total').html(new Intl.NumberFormat('ja-JP', {style: 'currency', currency: "USD"}).format(sum))
-        return sum
     }
 
     return {

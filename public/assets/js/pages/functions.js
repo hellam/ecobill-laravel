@@ -519,35 +519,63 @@ const optionFormat = (item) => {
     if (!item.id) {
         return item.text;
     }
-
+    /**
+     * credit limit color initialization with no value
+     */
     let credit_limit_color;
 
+    /**
+     * credit limit format with item currency
+     */
     let credit_limit = new Intl.NumberFormat('ja-JP', {
         style: "currency",
         currency: item.currency
     }).format(item.credit_limit)
 
+    /**
+     * assign credit limit color
+     */
     if (item.credit_limit >= 0)
         credit_limit_color = "text-success"
     else credit_limit_color = "text-primary"
 
+    /**
+     * set tax visible or not
+     */
+    let tax_view = item.tax_rate != 0 ? '| Tax: ' + item.tax_rate + '%' : ''
+
+    /**
+     * create new span element and define element
+     */
     let span = document.createElement('span');
     let template = '';
 
+    /**
+     * add to template
+     */
     template += '<div class="d-flex align-items-center">';
     template += '<div class="d-flex flex-column">'
     template += '<span class="">' + item.text + '</span>';
     template += '<span class="text-muted">' +
         item.currency + ' | Discount: ' + item.discount + '% | Credit Limit: <span class="' + credit_limit_color + '">' +
-        credit_limit + '</span> | Tax: ' + item.tax_rate + '%' + '</span>';
+        credit_limit + '</span>' + tax_view + '</span>';
     template += '</div>';
     template += '</div>';
 
+    /**
+     * assign template to span
+     */
     span.innerHTML = template;
 
     return $(span);
 }
 
+/**
+ * handle customer select2
+ * @param select_parent
+ * @param preselect
+ * @param pass_data
+ */
 function handleCustomerAPISelect(select_parent, preselect = null, pass_data = []) {
     const element = document.querySelector(select_parent + ' .select_customer');
 
@@ -632,6 +660,10 @@ function handleCustomerAPISelect(select_parent, preselect = null, pass_data = []
     })
 }
 
+/**
+ * generate reference
+ * @param url
+ */
 function refGen(url) {
     $.ajax({
         type: "GET",

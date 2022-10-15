@@ -532,17 +532,14 @@ class UserValidators
             'into_bank' => 'required|exists:' . BankAccount::class . ',id,client_ref,' . get_user_ref(),
             'fx_rate' => Rule::requiredIf(fn() => (CustomerBranch::find($request->customer)?->currency != session('currency'))).'|numeric',
             'invoice_items' => 'required|array|min:1',
-            'invoice_items.*.product' => 'required|exists:' . ChartAccount::class . ',account_code,client_ref,' . get_user_ref(),
+            'invoice_items.*.product' => 'required|exists:' . Product::class . ',barcode,client_ref,' . get_user_ref(),
             'invoice_items.*.quantity' => 'required|numeric|min:1',
             'invoice_items.*.price' => 'required|numeric|min:1',
-            'invoice_items.*.tax' => 'required|numeric|min:1',
+            'invoice_items.*.tax' => 'required|numeric',
         ], [
-            'deposit_options.*.chat_code.required' => __('validation.required', ['attribute' => 'Chat Code']),
-            'deposit_options.*.chat_code.exists' => __('validation.exists', ['attribute' => 'Chat Code']),
-            'deposit_options.*.amount.required' => __('validation.required', ['attribute' => 'Amount']),
-            'deposit_options.*.amount.numeric' => __('validation.numeric', ['attribute' => 'Amount']),
-            'deposit_options.*.amount.min' => __('validation.min', ['attribute' => 'Amount']),
-            'deposit_options.*' => "At least one deposit item is required",
+            'invoice_items.array' => "At least one sales item is required",
+            'invoice_items.required' => "At least one sales item is required",
+            'invoice_items.min' => "At least one sales item is required",
         ]);
     }
 

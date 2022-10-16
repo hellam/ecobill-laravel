@@ -844,7 +844,6 @@ function handleShowScheduleSendDateTime() {
     })
 }
 
-
 /**
  * handle show or hide late penalty fee input
  */

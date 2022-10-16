@@ -822,7 +822,7 @@ function handleShowScheduleSendDateTime() {
     send_later_check.addEventListener('click', function () {
         if (this.checked) {
             $('#send_later_area').html(
-                '<input name="schedule_send_date" placeholder="Select schedule time" id="schedule_send_date" class="form-control form-control-sm form-control-solid">'
+                '<input name="schedule_send_date" placeholder="Select schedule time" id="schedule_send_date" class="form-control form-control-sm form-control-solid w-200px">'
             )
 
             $('#schedule_send_date').daterangepicker({
@@ -853,7 +853,7 @@ function handleShowLatePenaltyFee() {
     late_penalty_check.addEventListener('click', function () {
         if (this.checked) {
             $('#late_penalty_area').html(
-                '<input name="late_penalty" placeholder="0.00" id="late_penalty" class="form-control form-control-sm form-control-solid" value="0.00">'
+                '<input name="late_penalty" placeholder="0.00" id="late_penalty" class="form-control form-control-sm form-control-solid w-200px" value="0.00">'
             )
         } else {
             $('#late_penalty_area').html('')

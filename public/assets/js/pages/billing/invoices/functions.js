@@ -604,6 +604,12 @@ function handleSubmit() {
 
     submitButton.addEventListener('click', function (e) {
         e.preventDefault()
+        if (document.getElementById("sendEmail").checked) {
+            document.getElementById('sendEmailCopy').disabled = true;
+        }
+        if (document.getElementById("sendSMS").checked) {
+            document.getElementById('sendSMSCopy').disabled = true;
+        }
         let serialized_form = form.serializeArray()
 
         let small_errors = $('small')
@@ -806,4 +812,51 @@ function handleResetForm() {
     $('#discount_area').html('')
     $('#add_discount').show()
     $('#total_converted').html('')
+}
+
+/**
+ * handle show or hide send later date select field
+ */
+function handleShowScheduleSendDateTime() {
+    let send_later_check = document.getElementById("sendLaterCheck")
+    send_later_check.addEventListener('click', function () {
+        if (this.checked) {
+            $('#send_later_area').html(
+                '<input name="schedule_send_date" placeholder="Select schedule time" id="schedule_send_date" class="form-control form-control-sm form-control-solid">'
+            )
+
+            $('#schedule_send_date').daterangepicker({
+                timePicker: true,
+                singleDatePicker: true,
+                showDropdowns: true,
+                startDate: moment(),
+                minYear: 1901,
+                locale: {
+                    format: '' + form.attr('data-kt-date-format') + ' HH:mm:ss'
+                },
+                // autoApply: true,
+                maxYear: parseInt(moment().format('YYYY'), 10)
+            }, function (start, end, label) {
+            });
+        } else {
+            $('#send_later_area').html('')
+        }
+    })
+}
+
+
+/**
+ * handle show or hide late penalty fee input
+ */
+function handleShowLatePenaltyFee() {
+    let late_penalty_check = document.getElementById("latePenaltyCheck")
+    late_penalty_check.addEventListener('click', function () {
+        if (this.checked) {
+            $('#late_penalty_area').html(
+                '<input name="late_penalty" placeholder="0.00" id="late_penalty" class="form-control form-control-sm form-control-solid" value="0.00">'
+            )
+        } else {
+            $('#late_penalty_area').html('')
+        }
+    })
 }

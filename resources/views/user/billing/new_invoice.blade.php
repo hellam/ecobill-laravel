@@ -382,6 +382,85 @@
                                     </tr>
                                 </table>
                                 <!--begin::No Items-->
+                                <!--begin::Other inputs-->
+                                <div class="row">
+                                    <!--begin::Input group-->
+                                    <!--begin::Label-->
+                                    <label
+                                        class="col-lg-4 col-form-label fw-semibold fs-6">Send Reminders:</label>
+                                    <!--end::Label-->
+                                    <!--begin::Label-->
+                                    <div class="col-lg-8 d-flex align-items-center">
+                                        <div class="form-check form-check-custom form-check-solid fv-row">
+                                            <label
+                                                class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20 mx-6">
+                                                <input class="form-check-input h-20px w-20px" type="checkbox"
+                                                       name="email_reminder" value="1" id="sendEmail">
+                                                <input name="email_reminder" value="0" type="hidden"
+                                                       id="sendEmailCopy">
+                                                <span
+                                                    class="form-check-label">Email</span>
+                                            </label>
+
+                                            <label
+                                                class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20 mx-6">
+                                                <input class="form-check-input h-20px w-20px" type="checkbox"
+                                                       name="sms_reminder" value="1" id="sendSMS">
+                                                <input name="sms_reminder" value="0" type="hidden" id="sendSMSCopy">
+                                                <span
+                                                    class="form-check-label">SMS</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <!--end::Input group-->
+                                </div>
+                                <div class="row">
+                                    <!--begin::Input group-->
+                                    <!--begin::Label-->
+                                    <label
+                                        class="col-lg-4 col-form-label fw-semibold fs-6">Send Later:</label>
+                                    <!--end::Label-->
+                                    <!--begin::Label-->
+                                    <div class="col-lg-8 d-flex align-items-center">
+                                        <div class="form-check form-check-custom form-check-solid fv-row">
+                                            <label
+                                                class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20 mx-6">
+                                                <input class="form-check-input h-20px w-20px" type="checkbox"
+                                                       id="sendLaterCheck">
+                                                <span
+                                                    class="form-check-label">Yes</span>
+                                            </label>
+                                            <div class="fv-row" id="send_later_area">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--end::Input group-->
+                                </div>
+                                <div class="mb-5 row">
+                                    <!--begin::Input group-->
+                                    <!--begin::Label-->
+                                    <label
+                                        class="col-lg-4 col-form-label fw-semibold fs-6">Late Penalty:</label>
+                                    <!--end::Label-->
+                                    <!--begin::Label-->
+                                    <div class="col-lg-8 d-flex align-items-center">
+                                        <div class="form-check form-check-custom form-check-solid fv-row">
+                                            <label
+                                                class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20 mx-6">
+                                                <input class="form-check-input h-20px w-20px" type="checkbox"
+                                                       id="latePenaltyCheck">
+                                                <span
+                                                    class="form-check-label">Yes</span>
+                                            </label>
+                                            <div class="fv-row" id="late_penalty_area">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--end::Input group-->
+                                </div>
+                                <!--end::Other inputs-->
                                 <!--begin::Notes-->
                                 <div class="mb-5">
                                     <label class="form-label fs-6 fw-bold text-gray-700">Notes</label>
@@ -389,13 +468,6 @@
                                               placeholder="Thanks for your business"></textarea>
                                 </div>
                                 <!--end::Notes-->
-                                <!--begin::Other inputs-->
-                                <div class="mb-5">
-                                    <label class="form-label fs-6 fw-bold text-gray-700">Send</label>
-                                    <textarea name="notes" class="form-control form-control-solid" rows="3"
-                                              placeholder="Thanks for your business"></textarea>
-                                </div>
-                                <!--end::Other inputs-->
                             </div>
                             <!--end::Wrapper-->
 

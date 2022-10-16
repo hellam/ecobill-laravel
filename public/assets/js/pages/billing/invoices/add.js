@@ -170,6 +170,8 @@ const KTInvoiceAdd = function () {
             handleHomeCurrencyTotal()
             handleDiscount()
             handleSubmit()
+            handleShowScheduleSendDateTime()
+            handleShowLatePenaltyFee()
         }
     }
 }();

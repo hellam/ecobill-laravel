@@ -19,7 +19,7 @@ const KTGLGroupsServerSide = function () {
             columns: [
                 {data: 'DT_RowIndex', name: 'id'},
                 {data: 'name'},
-                {data: 'class_id'},
+                {data: 'class_name'},
                 {data: 'inactive'},
                 {data: 'actions'},
             ],

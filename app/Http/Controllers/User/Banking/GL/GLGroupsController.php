@@ -32,7 +32,7 @@ class GLGroupsController extends Controller
                 ];
             })
             ->addColumn('class_name', function ($row) {
-                return $row->classes->name;
+                return $row->classes->class_name;
             })
             ->editColumn('inactive', function ($row) {
                 return $row->inactive == 0 ? '<div class="badge badge-sm badge-light-success">Active</div>' : '<div class="badge badge-sm badge-light-danger">Inactive</div>';

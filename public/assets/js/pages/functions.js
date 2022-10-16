@@ -645,9 +645,9 @@ function handleCustomerAPISelect(select_parent, preselect = null) {
                 'data-kt-pay-terms': data["pay_terms"],
             }
         );
-        $(select_parent + ' [name="phone"]').val($(select_parent + ' .select_customer').find(':selected').data('kt-phone'))
-        $(select_parent + ' [name="email"]').val($(select_parent + ' .select_customer').find(':selected').data('kt-email'))
-        $(select_parent + ' [name="address"]').val($(select_parent + ' .select_customer').find(':selected').data('kt-address'))
+        $(select_parent + ' [name="phone"]').val($(select_parent + ' .select_customer').find(':selected').data('kt-phone')).trigger('change')
+        $(select_parent + ' [name="email"]').val($(select_parent + ' .select_customer').find(':selected').data('kt-email')).trigger('change')
+        $(select_parent + ' [name="address"]').val($(select_parent + ' .select_customer').find(':selected').data('kt-address')).trigger('change')
     })
 }
 

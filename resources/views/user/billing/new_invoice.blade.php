@@ -52,7 +52,7 @@
         <!--end::Toolbar-->
 
         <!--begin::Layout-->
-        <div class="d-flex flex-column flex-lg-row">
+        <div class="d-flex flex-column flex-lg-row overflow-hidden">
             <!--begin::Content-->
             <div class="flex-lg-row-fluid mb-10 mb-lg-0 me-lg-7 me-xl-10">
                 <!--begin::Card-->
@@ -69,7 +69,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <!--begin::Input group-->
-                                    <div class="d-flex flex-equal fw-row">
+                                    <div class="d-flex flex-equal fv-row">
                                         <span class="fs-2x fw-bold text-gray-800">{{__('messages.invoice')}} #</span>
                                         <input type="text" name="reference"
                                                class="form-control form-control-flush fw-bold text-muted fs-3 w-125px"
@@ -79,7 +79,7 @@
                                     </div>
                                     <!--end::Input group-->
                                     <!--begin::Input group-->
-                                    <div class="d-flex align-items-center">
+                                    <div class="d-flex align-items-center fv-row">
                                         <!--begin::Date-->
                                         <div class="fs-6 fw-bold text-gray-700 text-nowrap me-3">Date:</div>
                                         <!--end::Date-->
@@ -110,37 +110,45 @@
                                         <label class="form-label fs-6 fw-bold text-gray-700 mb-3">Bill To</label>
                                         <!--begin::Input group-->
                                         <div class="mb-5">
-                                            <!--begin::Input-->
-                                            <select name="customer"
-                                                    id="customer"
-                                                    aria-label="Select Customer"
-                                                    data-kt-src="{{route('user.customers.branch.select_api')}}"
-                                                    data-control="select2"
-                                                    data-placeholder="Select Customer"
-                                                    data-kt-fx-url="{{route('user.banking_gl.fx.rate')}}"
-                                                    class="form-select form-select-sm form-select-solid fw-bolder select_customer">
-                                            </select>
-                                            <!--end::Input-->
+                                            <div class=" fv-row">
+                                                <!--begin::Input-->
+                                                <select name="customer"
+                                                        id="customer"
+                                                        aria-label="Select Customer"
+                                                        data-kt-src="{{route('user.customers.branch.select_api')}}"
+                                                        data-control="select2"
+                                                        data-placeholder="Select Customer"
+                                                        data-kt-fx-url="{{route('user.banking_gl.fx.rate')}}"
+                                                        class="form-select form-select-sm form-select-solid fw-bolder select_customer">
+                                                </select>
+                                                <!--end::Input-->
+                                            </div>
                                         </div>
                                         <!--end::Input group-->
                                         <div class="row">
                                             <!--begin::Input group-->
                                             <div class="col-md-6 mb-5">
-                                                <input class="form-control form-control-solid" type="text"
-                                                       name="phone" placeholder="Customer Phone"/>
+                                                <div class="fv-row">
+                                                    <input class="form-control form-control-solid" type="text"
+                                                           name="phone" placeholder="Customer Phone"/>
+                                                </div>
                                             </div>
                                             <!--end::Input group-->
                                             <!--begin::Input group-->
                                             <div class="col-md-6 mb-5">
-                                                <input class="form-control form-control-solid" type="email"
-                                                       name="email" placeholder="Customer Email"/>
+                                                <div class="fv-row">
+                                                    <input class="form-control form-control-solid" type="email"
+                                                           name="email" placeholder="Customer Email"/>
+                                                </div>
                                             </div>
                                             <!--end::Input group-->
                                         </div>
                                         <!--begin::Input group-->
                                         <div class="mb-5">
-                                            <textarea class="form-control form-control-solid" type="text"
-                                                      name="address" placeholder="Customer Address"></textarea>
+                                            <div class="fv-row">
+                                                <textarea class="form-control form-control-solid" type="text"
+                                                          name="address" placeholder="Customer Address"></textarea>
+                                            </div>
                                         </div>
                                         <!--end::Input group-->
                                     </div>
@@ -164,24 +172,27 @@
                                         {{--                                        </div>--}}
                                         {{--                                        <!--end::Input group-->--}}
                                         <!--begin::Input-->
-                                        <div class="fv-row mb-5">
+                                        <div class="mb-5">
                                             <div class="fs-6 fw-bold text-gray-700 text-nowrap me-2 mb-2">Payment
                                                 Terms:
                                             </div>
-                                            <select name="pay_terms"
-                                                    aria-label="Select Payment Terms"
-                                                    data-control="select2"
-                                                    data-kt-select-url="{{route('user.banking_gl.banking.accounts.select_api')}}"
-                                                    data-placeholder="Select Payment Terms"
-                                                    data-kt-date-format="{{get_js_date_format()}}"
-                                                    class="form-select form-select-sm form-select-solid fw-bolder select_terms">
-                                                <option></option>
-                                                @foreach($payment_terms as $pay_terms)
-                                                    <option
-                                                        value="{{$pay_terms->id}}" data-kt-days="{{$pay_terms->days}}"
-                                                        data-kt-type="{{$pay_terms->type}}">{{$pay_terms->terms}}</option>
-                                                @endforeach
-                                            </select>
+                                            <div class=" fv-row">
+                                                <select name="pay_terms"
+                                                        aria-label="Select Payment Terms"
+                                                        data-control="select2"
+                                                        data-kt-select-url="{{route('user.banking_gl.banking.accounts.select_api')}}"
+                                                        data-placeholder="Select Payment Terms"
+                                                        data-kt-date-format="{{get_js_date_format()}}"
+                                                        class="form-select form-select-sm form-select-solid fw-bolder select_terms">
+                                                    <option></option>
+                                                    @foreach($payment_terms as $pay_terms)
+                                                        <option
+                                                            value="{{$pay_terms->id}}"
+                                                            data-kt-days="{{$pay_terms->days}}"
+                                                            data-kt-type="{{$pay_terms->type}}">{{$pay_terms->terms}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
                                         </div>
                                         <!--end::Input-->
                                         <!--begin::Input group-->
@@ -223,7 +234,7 @@
                                 <div class="separator separator-dashed mt-5 mb-10"></div>
                                 <!--end::Separator-->
                                 <!--begin::Table wrapper-->
-                                <div class="table-responsive mb-10">
+                                <div class="table-responsive mb-10 overflow-scroll">
                                     <h4 class="text-center invoice_header"></h4>
                                     <!--begin::Table-->
                                     <table class="table g-5 gs-0 mb-0 fw-bold text-gray-700 repeater_items">
@@ -343,7 +354,6 @@
                                         </tr>
                                         <tr class="align-top border-top-dashed fw-bold text-gray-700"
                                             id="discount_area">
-
                                         </tr>
                                         <tr class="align-top border-top-dashed fw-bold text-gray-700">
                                             <th></th>
@@ -379,6 +389,13 @@
                                               placeholder="Thanks for your business"></textarea>
                                 </div>
                                 <!--end::Notes-->
+                                <!--begin::Other inputs-->
+                                <div class="mb-5">
+                                    <label class="form-label fs-6 fw-bold text-gray-700">Send</label>
+                                    <textarea name="notes" class="form-control form-control-solid" rows="3"
+                                              placeholder="Thanks for your business"></textarea>
+                                </div>
+                                <!--end::Other inputs-->
                             </div>
                             <!--end::Wrapper-->
 

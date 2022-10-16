@@ -639,11 +639,12 @@ function submitInvoice(submitButton, form, serialized_form) {
                 for (const [key, value] of Object.entries(errors)) {
                     $('#err_' + value.field).remove();
                     let input = $("input[name='" + value.field + "']"),
-                        select = $("select[name='" + value.field + "']");
+                        select = $("select[name='" + value.field + "']"),
+                        textarea = $("textarea[name='" + value.field + "']");
                     if (input.length) {
                         input.closest('.fv-row')
                             .after('<small style="color: red;" id="err_' + value.field + '">' + value.error + '</small>')
-                            .on('keyup', function (e) {
+                            .on('keyup change', function (e) {
                                 $('#err_' + value.field).remove();
                             })
                     }
@@ -659,7 +660,6 @@ function submitInvoice(submitButton, form, serialized_form) {
                     if (value.field.includes('invoice_items.')) {
                         let field = value.field.split('.')
                         field = field[0] + "[" + field[1] + "][" + field[2] + "]"
-                        console.log(field)
                         let field_id = field[0] + "_" + field[1] + "_" + field[2] + "_" + key
                         let field_name = $('[name="' + field + '"]')
                         if (field_name.is("select")) {

@@ -114,7 +114,7 @@ const KTInvoiceAdd = function () {
                                 results: $.map(data, function (item) {
                                     return {
                                         text: item.barcode + ' | ' + item.name,
-                                        id: item.id,
+                                        id: item.barcode,
                                         cost: item.cost,
                                         price: item.price,
                                         tax_id: item.tax_id,

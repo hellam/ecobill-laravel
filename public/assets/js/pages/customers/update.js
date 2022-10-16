@@ -109,6 +109,34 @@ const KTCustomersUpdate = function () {
                                 message: 'Discount is required'
                             }
                         }
+                    },
+                    sales_account: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Sales Account is required'
+                            }
+                        }
+                    },
+                    receivable_account: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Receivable Account is required'
+                            }
+                        }
+                    },
+                    sales_discount_account: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Sales Discount Account is required'
+                            }
+                        }
+                    },
+                    payment_discount_account: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Payment Discount Account is required'
+                            }
+                        }
                     }
                 },
                 $('#kt_modal_update_customer_form'),
@@ -118,7 +146,19 @@ const KTCustomersUpdate = function () {
                 'PUT',
                 modal,
                 $('#kt_customers_table'),
-                ["language", "credit_status", "sales_type", "tax_id", "payment_terms", "country"]
+                [
+                    "language",
+                    "credit_status",
+                    "sales_type",
+                    "tax_id",
+                    "payment_terms",
+                    "currency",
+                    "country",
+                    "sales_account",
+                    "receivable_account",
+                    "sales_discount_account",
+                    "payment_discount_account"
+                ]
             );
         }
     };

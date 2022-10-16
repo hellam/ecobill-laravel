@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User\Customers;
 
 use App\CentralLogics\UserValidators;
 use App\Http\Controllers\Controller;
+use App\Models\ChartAccount;
 use App\Models\Currency;
 use App\Models\Customer;
 use App\Models\CustomerBranch;
@@ -32,10 +33,11 @@ class CustomersController extends Controller
         $currency = Currency::all();
         $payment_terms = PaymentTerm::all();
         $sales_type = SalesType::all();
+        $chart_accounts = ChartAccount::all();
         $tax = Tax::all();
 
         return view('user.customers.customers', compact('customers',
-            'currency', 'payment_terms', 'tax','sales_type'));
+            'currency', 'payment_terms', 'tax','sales_type','chart_accounts'));
     }
 
     //Data table API

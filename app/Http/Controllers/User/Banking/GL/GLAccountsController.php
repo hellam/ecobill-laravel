@@ -148,7 +148,7 @@ class GLAccountsController extends Controller
         $chart_account = set_update_parameters($chart_account, $created_at, $created_by,
             $supervised_by, $supervised_at);
 
-        $chart_account->account_code = $request->account_code;
+//        $chart_account->account_code = $request->account_code;
         $chart_account->account_name = $request->account_name;
         $chart_account->account_group = $request->account_group;
         $chart_account->inactive = $request->inactive;

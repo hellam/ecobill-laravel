@@ -23,6 +23,10 @@ return new class extends Migration
             $table->string('country')->nullable();
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
+            $table->bigInteger('sales_account')->default(0);
+            $table->bigInteger('receivable_account')->default(0);
+            $table->bigInteger('payment_discount_account')->default(0);
+            $table->bigInteger('sales_discount_account')->default(0);
             $table->double('credit_limit')->default(0);
             $table->string('address')->nullable();
             $table->string('inactive')->default(0);

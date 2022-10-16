@@ -224,6 +224,7 @@
                                 <!--end::Separator-->
                                 <!--begin::Table wrapper-->
                                 <div class="table-responsive mb-10">
+                                    <h4 class="text-center invoice_header"></h4>
                                     <!--begin::Table-->
                                     <table class="table g-5 gs-0 mb-0 fw-bold text-gray-700 repeater_items">
                                         <!--begin::Table head-->
@@ -240,16 +241,18 @@
                                         </thead>
                                         <!--end::Table head-->
                                         <!--begin::Table body-->
-                                        <tbody data-repeater-list="invoice_items">
+                                        <tbody data-repeater-list="invoice_items" class="invoice_items">
                                         <tr data-repeater-item class="border-bottom border-bottom-dashed">
                                             <td class="pe-5">
-                                                <select name="product"
-                                                        aria-label="Select Product"
-                                                        data-kt-src="{{route('user.products.select_api', 0)}}"
-                                                        data-placeholder="Select Product"
-                                                        data-kt-product="product_select"
-                                                        class="form-select form-select-sm form-select-solid fw-bolder select_api select_product">
-                                                </select>
+                                                <div class="fv-row">
+                                                    <select name="product"
+                                                            aria-label="Select Product"
+                                                            data-kt-src="{{route('user.products.select_api', 0)}}"
+                                                            data-placeholder="Select Product"
+                                                            data-kt-product="product_select"
+                                                            class="form-select form-select-sm form-select-solid fw-bolder select_api select_product">
+                                                    </select>
+                                                </div>
                                                 <div class="inner-repeater">
                                                     <div data-repeater-list class="mb-5 mt-4">
                                                         <div data-repeater-item style="display:none;">
@@ -284,17 +287,19 @@
                                                        name="price" placeholder="0.00" value="0.00"/>
                                             </td>
                                             <td>
-                                                <select name="tax"
-                                                        aria-label="Select Tax"
-                                                        data-kt-repeater="select2"
-                                                        data-placeholder="Select Tax"
-                                                        class="form-select form-select-sm form-select-solid fw-bolder tax_select">
-                                                    <option></option>
-                                                    @foreach($tax as $tx)
-                                                        <option value="{{$tx->id}}"
-                                                                data-kt-rate="{{$tx->rate}}">{{$tx->name}}</option>
-                                                    @endforeach
-                                                </select>
+                                                <div class="fv-row">
+                                                    <select name="tax"
+                                                            aria-label="Select Tax"
+                                                            data-kt-repeater="select2"
+                                                            data-placeholder="Select Tax"
+                                                            class="form-select form-select-sm form-select-solid fw-bolder tax_select">
+                                                        <option></option>
+                                                        @foreach($tax as $tx)
+                                                            <option value="{{$tx->id}}"
+                                                                    data-kt-rate="{{$tx->rate}}">{{$tx->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
                                             </td>
                                             <td class="pt-8 text-end text-nowrap">
                                                 <span class="total">$0.00</span>

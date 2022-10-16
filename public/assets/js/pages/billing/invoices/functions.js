@@ -596,11 +596,10 @@ function handleDiscount() {
 }
 
 /**
- * handle form submit
+ * handle invoice submit
  */
 function handleSubmit() {
-    let form, submitButton;
-    form = $('#kt_invoice_form');
+    let submitButton;
     submitButton = document.querySelector('#kt_add_invoice_submit')
 
     submitButton.addEventListener('click', function (e) {
@@ -617,7 +616,12 @@ function handleSubmit() {
     })
 }
 
-
+/**
+ * now submit invoice
+ * @param submitButton
+ * @param form
+ * @param serialized_form
+ */
 function submitInvoice(submitButton, form, serialized_form) {
     $.ajax({
         headers: {
@@ -652,9 +656,10 @@ function submitInvoice(submitButton, form, serialized_form) {
                             })
                     }
 
-                    if (value.field.includes('deposit_options.')) {
+                    if (value.field.includes('invoice_items.')) {
                         let field = value.field.split('.')
                         field = field[0] + "[" + field[1] + "][" + field[2] + "]"
+                        console.log(field)
                         let field_id = field[0] + "_" + field[1] + "_" + field[2] + "_" + key
                         let field_name = $('[name="' + field + '"]')
                         if (field_name.is("select")) {
@@ -680,10 +685,10 @@ function submitInvoice(submitButton, form, serialized_form) {
                         }
                     }
 
-                    if (value.field === 'deposit_options') {
-                        $('.deposit_header').after('<div style="color: red;" id="err_deposit_options" class="text-center">' + value.error + '</div>')
+                    if (value.field === 'invoice_items') {
+                        $('.invoice_header').after('<div style="color: red;" id="err_invoice_items" class="text-center">' + value.error + '</div>')
                         $('#add_row').on('click', function () {
-                            $('#err_deposit_options').remove()
+                            $('#err_invoice_items').remove()
                         })
                     }
 
@@ -713,14 +718,7 @@ function submitInvoice(submitButton, form, serialized_form) {
                     if (result.isConfirmed) {
                         // Enable submit button after loading
                         submitButton.disabled = false;
-                        form[0].reset(); // Reset form
-                        refGen($('[name="reference"]').attr('data-kt-src'))
-                        $("#date_picker").val(moment().format($("#date_picker").attr("data-kt-date-format")))
-                        $('[name="from"]').val(0).trigger('change')
-                        $('[name="currency"]').val($('[name="currency"]').attr('data-kt-default')).trigger('change')
-                        $('#total').text(0.00)
-                        $('.gl_select').val(null).trigger('change')
-                        $('.deposit_options').children().not(':first').remove();
+                        handleResetForm()
                     }
                 });
             }
@@ -757,14 +755,7 @@ function submitInvoice(submitButton, form, serialized_form) {
                     } else {
                         blockUI.release()
                         blockUI.destroy()
-                        form[0].reset(); // Reset form
-                        refGen('deposit', $('[name="reference"]').attr('data-kt-src'))
-                        $("#date_picker").val(moment().format($("#date_picker").attr("data-kt-date-format")))
-                        $('[name="from"]').val(0).trigger('change')
-                        $('[name="currency"]').val($('[name="currency"]').attr('data-kt-default')).trigger('change')
-                        $('#total').text(0.00)
-                        $('.gl_select').val(null).trigger('change')
-                        $('.deposit_options').children().not(':first').remove();
+                        handleResetForm()
                     }
                 });
             }
@@ -789,4 +780,30 @@ function submitInvoice(submitButton, form, serialized_form) {
 
         }
     });
+}
+
+/**
+ * reset invoice form after success on submit
+ */
+function handleResetForm() {
+    form[0].reset(); // Reset form
+    refGen($('[name="reference"]').attr('data-kt-src'))
+    $('[name="due_date"], [name="invoice_date"]').val(moment().format(form.attr("data-kt-date-format")))
+    $('[name="pay_terms"]').val(0).trigger('change')
+    if ($('#fx_parent').length)
+        $('#fx_parent').remove()
+    if ($('#bank_parent').length) {
+        $('#bank_parent').remove()
+    }
+    $('#total').text(0.00)
+    $('.select_product').val(null).trigger('change')
+    $('.select_customer').val(null).trigger('change')
+    $('.invoice_items').children().not(':first').remove();
+    discount_type = null
+    total_discount = 0.00
+    discount = 0
+    fx_rate = 1
+    $('#discount_area').html('')
+    $('#add_discount').show()
+    $('#total_converted').html('')
 }

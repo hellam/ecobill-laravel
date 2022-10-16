@@ -273,7 +273,7 @@ function handleSubmit() {
     form = $('#kt_add_deposit_form');
     submitButton = document.querySelector('#kt_add_deposit_submit')
 
-    form.on('submit', function (e) {
+    submitButton.addEventListener('click', function (e) {
         e.preventDefault()
         let serialized_form = form.serializeArray()
 

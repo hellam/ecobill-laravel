@@ -22,9 +22,9 @@ class CustomerBranchController extends Controller
     public function index(): Factory|View|Application
     {
         $customer_branch = CustomerBranch::count() ?? 0;
-        $chart_accounts = ChartAccount::all();
+        $gl_accounts = ChartAccount::all();
         $currency = Currency::all();
-        return view('user.customers.branch', compact('customer_branch', 'currency', 'chart_accounts'));
+        return view('user.customers.branch', compact('customer_branch', 'currency', 'gl_accounts'));
     }
 
     //Data table API

@@ -602,6 +602,13 @@ class UserValidators
             $rules = [
                 'provider' => 'required',
             ];
+        elseif ($type == 'gl_setup')
+            $rules = [
+                'sales_account' => 'required|exists:' . ChartAccount::class . ',account_code,client_ref,' . get_user_ref(),
+                'receivable_account' => 'required|exists:' . ChartAccount::class . ',account_code,client_ref,' . get_user_ref(),
+                'sales_discount_account' => 'required|exists:' . ChartAccount::class . ',account_code,client_ref,' . get_user_ref(),
+                'payment_discount_account' => 'required|exists:' . ChartAccount::class . ',account_code,client_ref,' . get_user_ref(),
+            ];
         elseif ($type == 'email')
             $rules = [
                 'security' => 'required',

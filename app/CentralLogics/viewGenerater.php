@@ -185,8 +185,7 @@ function group_select($name, $description, $data, $error = '', $default = null):
 {
     $output = '<style>
                 .select2-container--bootstrap5 .select2-dropdown .select2-results__option.select2-results__option--disabled {
-                    font-size: 10px !important;
-//                    color: red !important;
+                    font-size: 12px !important;
                 }
                 </style>
         <!--begin::Input-->

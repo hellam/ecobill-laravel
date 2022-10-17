@@ -1016,7 +1016,7 @@
                                         <select name="sales_account" aria-label="{{__('messages.language')}}"
                                                 data-control="select2"
                                                 data-placeholder="Select Sales Account..."
-                                                data-dropdown-parent="#kt_modal_add_customer"
+                                                data-dropdown-parent="#kt_modal_update_customer"
                                                 class="form-select form-select-solid fw-bolder">
                                             <option></option>
                                             @foreach($gl_accounts as $gl_account)
@@ -1037,7 +1037,7 @@
                                         <select name="receivable_account" aria-label="{{__('messages.language')}}"
                                                 data-control="select2"
                                                 data-placeholder="Select Receivable Account..."
-                                                data-dropdown-parent="#kt_modal_add_customer"
+                                                data-dropdown-parent="#kt_modal_update_customer"
                                                 class="form-select form-select-solid fw-bolder">
                                             <option></option>
                                             @foreach($gl_accounts as $gl_account)
@@ -1062,7 +1062,7 @@
                                         <select name="sales_discount_account" aria-label="{{__('messages.language')}}"
                                                 data-control="select2"
                                                 data-placeholder="Select Sales Discount Account..."
-                                                data-dropdown-parent="#kt_modal_add_customer"
+                                                data-dropdown-parent="#kt_modal_update_customer"
                                                 class="form-select form-select-solid fw-bolder">
                                             <option></option>
                                             @foreach($gl_accounts as $gl_account)
@@ -1083,7 +1083,7 @@
                                         <select name="payment_discount_account" aria-label="{{__('messages.language')}}"
                                                 data-control="select2"
                                                 data-placeholder="Select Payment Discount Account..."
-                                                data-dropdown-parent="#kt_modal_add_customer"
+                                                data-dropdown-parent="#kt_modal_update_customer"
                                                 class="form-select form-select-solid fw-bolder">
                                             <option></option>
                                             @foreach($gl_accounts as $gl_account)

@@ -385,14 +385,14 @@ function requires_maker_checker($permission_code): string|array
 
 function get_company_default_currency()
 {
-    $general_settings = json_decode(BusinessSetting::where('key', 'general_settings')->first()->value, true);
+    $general_settings = json_decode(BusinessSetting::where('key', 'general_settings')->first()?->value, true);
 
     return $general_settings['default_currency'] ?? 'USD';
 }
 
 function get_company_setting($value_key, $key = 'general_settings')
 {
-    $general_settings = json_decode(BusinessSetting::where('key', $key)->first()->value, true);
+    $general_settings = json_decode(BusinessSetting::where('key', $key)->first()?->value, true);
 
     return $general_settings[$value_key] ?? 'N/A';
 }

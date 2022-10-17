@@ -26,22 +26,22 @@ class BusinessSettingsController extends Controller
         $output .= @csrf_field();
         switch ($tab) {
             case 'general':
-                $general_settings = json_decode(BusinessSetting::where('key', 'general_settings')->first()->value, true);
+                $general_settings = json_decode(BusinessSetting::where('key', 'general_settings')->first()?->value, true);
                 $output .= image_view(
                     'actual_imageInput',
                     'actual_imageInput',
                     'assets/media/avatars/logo.png',
                     route('user.files',
                         [
-                            'folder' => 'users',
+                            'folder' => 'company',
                             'fileName' => $general_settings['logo'] ?? 'null'
                         ]
                     )
                 );
-                $output .= input_field('company_name', 'Company Name', $general_settings['company_name'], true);
-                $output .= input_field('inv_footer', 'Invoice Footer', $general_settings['inv_footer'], true);
+                $output .= input_field('company_name', 'Company Name', $general_settings['company_name']??'Company Name', true);
+                $output .= input_field('inv_footer', 'Invoice Footer', $general_settings['inv_footer']??'Thank you for your business', true);
                 $output .= select('tax_inclusive', 'Prices Inclusive of Tax', [1 => 'Yes', 0 => 'No'], '', $general_settings['tax_inclusive'] ?? 1);
-                $output .= isset($general_settings['default_currency']) ? view_field('Default Currency', $general_settings['default_currency']) : select('default_currency', 'Select Currency', CURRENCY, 'This cannot be changes in future');
+                $output .= isset($general_settings['default_currency']) ? view_field('Default Currency', $general_settings['default_currency']) : select('default_currency', 'Select Currency', CURRENCY, 'This cannot be changes in future', null,true);
                 $output .= select('date_format', 'Select Date Format', DATE_FORMAT, '', $general_settings['date_format'] ?? null);
                 $output .= input_field('date_sep', 'Date Separator', $general_settings['date_sep'] ?? '/', true);
                 $output .= input_field('tho_sep', 'Thousand Separator', $general_settings['tho_sep'] ?? ',', true);
@@ -85,22 +85,22 @@ class BusinessSettingsController extends Controller
         }
         switch ($tab) {
             case 'general':
-                $business_settings = BusinessSetting::where('key', 'general_settings')->firstOrFail();
+                $business_settings = BusinessSetting::where('key', 'general_settings')->first();
 
-                $array = json_decode($business_settings->value, true);
-                $fileName = $array['logo'] ?? '';
+                $array = json_decode($business_settings?->value, true);
+                $fileName = $array['logo'] ?? null;
                 if ($request->has('logo')) {
                     $requestImage = $request->logo; //your base64 encoded
                     try {
-                        $fileName = store_base64_image($requestImage, $fileName, get_user_ref() . '/users');
+                        $fileName = store_base64_image($requestImage, $fileName, get_user_ref() . '/company');
                     } catch (\Exception $exception) {
                         return error_web_processor('Invalid image file',
                             200, ['field' => 'logo', 'error' => 'Invalid Image file']);
                     }
                 }
 
-                $business_settings->key = 'general_settings';
-                $business_settings->value = json_encode(
+                $key = 'general_settings';
+                $value = json_encode(
                     [
                         'logo' => $fileName,
                         'company_name' => $request->company_name,
@@ -118,11 +118,12 @@ class BusinessSettingsController extends Controller
                         'def_print_destination' => $request->def_print_destination,
                     ]
                 );
-                $business_settings->save();
+                self::updateOrCreate($business_settings, $key, $value);
                 break;
             case 'gl_setup':
-                $accounts_settings = json_decode(BusinessSetting::where('key', 'gl_accounts_setup')->first()?->value??[], true);
-                $accounts_settings->value = json_encode(
+                $business_settings = BusinessSetting::where('key', 'gl_accounts_setup')->first();
+                $key = 'gl_accounts_setup';
+                $value = json_encode(
                     [
                         'sales_account' => $request->sales_account,
                         'receivable_account' => $request->receivable_account,
@@ -130,7 +131,7 @@ class BusinessSettingsController extends Controller
                         'payment_discount_account' => $request->payment_discount_account,
                     ]
                 );
-                $accounts_settings->save();
+                self::updateOrCreate($business_settings, $key, $value);
                 break;
             case 'sms':
                 break;
@@ -139,5 +140,18 @@ class BusinessSettingsController extends Controller
         }
 
         return success_web_processor(null, __('messages.msg_updated_success', ['attribute' => __('messages.business_settings')]));
+    }
+
+    public function updateOrCreate($obj, $key, $value){
+        if ($obj)
+            BusinessSetting::where('key', $key)->update([
+                'value' => $value,
+            ]);
+        else
+            BusinessSetting::create([
+                'key' => $key,
+                'value' => $value,
+                'client_ref' => get_user_ref(),
+            ]);
     }
 }

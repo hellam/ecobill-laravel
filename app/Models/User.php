@@ -127,10 +127,10 @@ class User extends Authenticatable
 
     public static function logo()
     {
-        $general_settings = json_decode(BusinessSetting::where('key', 'general_settings')->first()->value, true);
+        $general_settings = json_decode(BusinessSetting::where('key', 'general_settings')->first()?->value, true);
         return route('user.files',
             [
-                'folder' => 'users',
+                'folder' => 'company',
                 'fileName' => $general_settings['logo'] ?? 'null'
             ]
         );

@@ -55,8 +55,8 @@ class BusinessSettingsController extends Controller
                 $gl_accounts = ChartAccount::select('account_code', 'account_name')->get();
                 $data = array();
                 foreach ($gl_accounts as $account)
-                    $data[$account->account_code]  = $account->account_code;
-//                dd($data);
+                    $data[$account->account_code]  = $account->account_code . ' ' . $account->account_name;
+
                 $accounts_settings = json_decode(BusinessSetting::where('key', 'accounts_setup')->first()?->value, true);
                 $output .= select('sales_account', 'Sales Account', $data, '', $accounts_settings['sales_account'] ?? null);
                 $output .= select('receivable_account', 'Receivable Account', $data, '', $accounts_settings['receivable_account'] ?? null);

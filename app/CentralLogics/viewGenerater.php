@@ -145,7 +145,7 @@ function image_view($name, $id, $default, $value, $is_profile = true)
                         reader.readAsDataURL(file);
                       }
                  }';
-    $output .= $is_profile ? 'document.querySelector(".company_logo").src = "' . asset($value) . '"' : '';
+    $output .= $is_profile ? '$(".company_logo").attr("src", "' . asset($value) . '")' : '';
     $output .= '</script>';
 
     return $output;
@@ -208,7 +208,7 @@ function group_select($name, $description, $data, $error = '', $default = null):
             $output .= '<option disabled class="disabled-group">'.$value->name;
             foreach ($value->accounts as $account) {
                 $output .= '
-                                <option value="' . $account->account_code . '">
+                                <option data-kt-group="'.$value->name.'" value="' . $account->account_code . '">
                                     ' . $account->account_code . ' ' . $account->account_name . '
                                 </option>
                                 ';

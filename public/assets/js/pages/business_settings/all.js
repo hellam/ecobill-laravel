@@ -5,6 +5,7 @@ const KTBusinessSettingsAll = function () {
     let base_url = "business-settings/view/";
     let tab = 'general';
     let loader_container = $('#loader_container');
+    let action_url;
     //handle form
     const handleShowResults = function () {
         $('#kt_update_setting_form').attr('data-kt-action', location.href + '/view/' + tab)
@@ -19,7 +20,9 @@ const KTBusinessSettingsAll = function () {
                 const response = JSON.parse(JSON.stringify(json));
                 loader_container.addClass('d-none')
                 loader_container.after(response)
-                $('#kt_update_setting_form').find('select').select2()
+                $('#kt_update_setting_form').find('select').select2({
+                    // matcher: matchCustom
+                })
                 handleSubmit();
             },
             error: function () {
@@ -178,6 +181,34 @@ const KTBusinessSettingsAll = function () {
             }
         });
     }
+
+    // function matchCustom(params, data) {
+    //     // If there are no search terms, return all of the data
+    //     if ($.trim(params.term) === '') {
+    //         return data;
+    //     }
+    //
+    //     console.log(data)
+    //
+    //     // Do not display the item if there is no 'id' property
+    //     if (typeof data.id === 'undefined') {
+    //         return null;
+    //     }
+    //
+    //     // `params.term` should be the term that is used for searching
+    //     // `data.text` is the text that is displayed for the data object
+    //     if (data.text.indexOf(params.term) > -1) {
+    //         let modifiedData = $.extend({}, data, true);
+    //         modifiedData.text;
+    //
+    //         // You can return modified objects from here
+    //         // This includes matching the `children` how you want in nested data sets
+    //         return modifiedData;
+    //     }
+    //
+    //     // Return `null` if the term should not be displayed
+    //     return null;
+    // }
 
     // Public methods
     return {

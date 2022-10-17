@@ -27,9 +27,9 @@ function view_field($description, $value): string
                             </div>';
 }
 
-function div_start($class)
+function div_start($class, $attr='')
 {
-    return '<div class="' . $class . '">';
+    return '<div class="' . $class . '" ' . $attr . '>';
 }
 
 function div_end()
@@ -168,10 +168,10 @@ function select($name, $description, $data, $error = '', $default = null): strin
                 data-placeholder="' . $description . '"
                 class="form-select form-select-solid fw-bolder">
                 <option value=""></option>';
-                    foreach ($data as $key => $value)
-                        $output .= $default == $key ? '<option selected value="' . $key . '">' . $value . '</option>' : '<option value="' . $key . '">' . $value . '</option>';
+    foreach ($data as $key => $value)
+        $output .= $default == $key ? '<option selected value="' . $key . '">' . $value . '</option>' : '<option value="' . $key . '">' . $value . '</option>';
 
-                    $output .= '</select>
+    $output .= '</select>
                 <!--end::Input-->
             <div class="fv-plugins-message-container invalid-feedback">' . $error . '</div></div>
             <!--end::Col-->
@@ -205,13 +205,13 @@ function group_select($name, $description, $data, $error = '', $default = null):
                     <option value=""></option>';
     foreach ($data as $key => $value) {
         if (count($value->accounts) != 0) {
-            $output .= '<option disabled class="disabled-group">'.$value->name;
+            $output .= '<option disabled class="disabled-group">' . $value->name;
             foreach ($value->accounts as $account) {
                 $output .= $default == $account->account_code ? '
                                 <option selected value="' . $account->account_code . '">
                                     ' . $account->account_code . ' ' . $account->account_name . '
                                 </option>
-                                ': '
+                                ' : '
                                 <option value="' . $account->account_code . '">
                                     ' . $account->account_code . ' ' . $account->account_name . '
                                 </option>

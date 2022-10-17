@@ -207,7 +207,11 @@ function group_select($name, $description, $data, $error = '', $default = null):
         if (count($value->accounts) != 0) {
             $output .= '<option disabled class="disabled-group">'.$value->name;
             foreach ($value->accounts as $account) {
-                $output .= '
+                $output .= $default == $account->account_code ? '
+                                <option selected value="' . $account->account_code . '">
+                                    ' . $account->account_code . ' ' . $account->account_name . '
+                                </option>
+                                ': '
                                 <option value="' . $account->account_code . '">
                                     ' . $account->account_code . ' ' . $account->account_name . '
                                 </option>

@@ -56,10 +56,10 @@ class BusinessSettingsController extends Controller
                 $gl_accounts = ChartGroup::with('accounts:account_name,account_code,account_group')->get();
 //                var_dump($gl_accounts);
                 $accounts_settings = json_decode(BusinessSetting::where('key', 'accounts_setup')->first()?->value, true);
-                $output .= select('sales_account', 'Sales Account', $gl_accounts, '', $accounts_settings['sales_account'] ?? null);
-                $output .= select('receivable_account', 'Receivable Account', $gl_accounts, '', $accounts_settings['receivable_account'] ?? null);
-                $output .= select('sales_discount_account', 'Sales Discount Account', $gl_accounts, '', $accounts_settings['sales_discount_account'] ?? null);
-                $output .= select('payment_discount_account', 'Payment Discount Account', $gl_accounts, '', $accounts_settings['payment_discount_account'] ?? null);
+                $output .= group_select('sales_account', 'Sales Account', $gl_accounts, '', $accounts_settings['sales_account'] ?? null);
+                $output .= group_select('receivable_account', 'Receivable Account', $gl_accounts, '', $accounts_settings['receivable_account'] ?? null);
+                $output .= group_select('sales_discount_account', 'Sales Discount Account', $gl_accounts, '', $accounts_settings['sales_discount_account'] ?? null);
+                $output .= group_select('payment_discount_account', 'Payment Discount Account', $gl_accounts, '', $accounts_settings['payment_discount_account'] ?? null);
                 break;
             case 'sms':
                 $output .= 'Coming soon';

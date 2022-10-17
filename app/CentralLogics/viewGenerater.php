@@ -168,10 +168,10 @@ function select($name, $description, $data, $error = '', $default = null): strin
                 data-placeholder="' . $description . '"
                 class="form-select form-select-solid fw-bolder">
                 <option value=""></option>';
-    foreach ($data as $key => $value)
-        $output .= $default == $key ? '<option selected value="' . $key . '">' . $value . '</option>' : '<option value="' . $key . '">' . $value . '</option>';
+                    foreach ($data as $key => $value)
+                        $output .= $default == $key ? '<option selected value="' . $key . '">' . $value . '</option>' : '<option value="' . $key . '">' . $value . '</option>';
 
-    $output .= '</select>
+                    $output .= '</select>
                 <!--end::Input-->
             <div class="fv-plugins-message-container invalid-feedback">' . $error . '</div></div>
             <!--end::Col-->
@@ -198,10 +198,18 @@ function group_select($name, $description, $data, $error = '', $default = null):
                 data-placeholder="' . $description . '"
                 class="form-select form-select-solid fw-bolder">
                 <option value=""></option>';
-    foreach ($data as $key => $value)
-        $output .= $default == $key ? '<option selected value="' . $key . '">' . $value . '</option>' : '<option value="' . $key . '">' . $value . '</option>';
-
-    $output .= '</select>
+                foreach ($data as $key => $value){
+                    $output .= '<optgroup class="text-muted" label="'.$value->name.'">';
+                    foreach($value->accounts as $account){
+                        $output .= '
+                                <option value="">
+                                    '.$account->account_name.'
+                                </option>
+                        ';
+                    }
+                    $output .= '</optgroup>';
+                }
+                    $output .= '</select>
                 <!--end::Input-->
             <div class="fv-plugins-message-container invalid-feedback">' . $error . '</div></div>
             <!--end::Col-->

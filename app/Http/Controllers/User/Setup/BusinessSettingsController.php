@@ -64,7 +64,7 @@ class BusinessSettingsController extends Controller
                 $output .= select('payment_discount_account', 'Payment Discount Account', $data, '', $accounts_settings['payment_discount_account'] ?? null);
                 break;
             case 'email':
-                $output .= 'Email Settings';
+                $output .= 'Coming soon';
                 break;
         }
         $output .= div_end();

@@ -576,7 +576,6 @@ const optionFormat = (item) => {
  * handle customer select2
  * @param select_parent
  * @param preselect
- * @param pass_data
  */
 function handleCustomerAPISelect(select_parent, preselect = null) {
     const element = document.querySelector(select_parent + ' .select_customer');
@@ -616,13 +615,13 @@ function handleCustomerAPISelect(select_parent, preselect = null) {
                             email: item.email,
                             address: item.address,
                             country: item.country,
-                            currency: item.currency,
-                            discount: item.customer.discount,
+                            currency: item.currency ?? item.customer_branch.currency,
+                            discount: item?.customer?.discount ?? 0,
                             credit_limit: item.c_limit ?? 0,
-                            tax_rate: item.customer.tax?.rate ?? 0,
-                            tax_id: item.customer.tax_id,
-                            tax_name: item.customer.tax?.name ?? 0,
-                            pay_terms: item.customer.payment_terms,
+                            tax_rate: item?.customer?.tax?.rate ?? 0,
+                            tax_id: item?.customer?.tax_id,
+                            tax_name: item?.customer?.tax?.name ?? 0,
+                            pay_terms: item?.customer?.payment_terms,
                         }
                     })
                 }
@@ -648,6 +647,59 @@ function handleCustomerAPISelect(select_parent, preselect = null) {
         $(select_parent + ' [name="phone"]').val($(select_parent + ' .select_customer').find(':selected').data('kt-phone')).trigger('change')
         $(select_parent + ' [name="email"]').val($(select_parent + ' .select_customer').find(':selected').data('kt-email')).trigger('change')
         $(select_parent + ' [name="address"]').val($(select_parent + ' .select_customer').find(':selected').data('kt-address')).trigger('change')
+    })
+}
+
+/**
+ * Customer select2 with alternative
+ */
+function handleCustomerAPISelect2(select_parent) {
+    const element = document.querySelector(select_parent + ' .select_customer');
+
+    $(select_parent + ' .select_customer').select2({
+        placeholder: 'Select Customer',
+        minimumInputLength: 0,
+        escapeMarkup: function (markup) {
+            return markup;
+        },
+        ajax: {
+            url: element.getAttribute("data-kt-src"),
+            dataType: 'json',
+            type: 'GET',
+            contentType: 'application/json',
+            delay: 50,
+            data: function (params) {
+                return {
+                    search: params.term
+                };
+            },
+            processResults: function (data) {
+                return {
+                    results: $.map(data, function (item) {
+                        return {
+                            text: item.short_name + '|' + item.f_name + ' ' + item.l_name,
+                            id: item.id,
+                            phone: item.phone,
+                            email: item.email,
+                            address: item.address,
+                            country: item.country,
+                        }
+                    })
+                }
+            }
+        }
+    }).on('select2:select', function (e) {
+        let data = e.params.data;
+        $(this).children('[value="' + data['id'] + '"]').attr(
+            {
+                'data-kt-phone': data["phone"],
+                'data-kt-email': data["email"],
+                'data-kt-address': data["address"],
+                'data-kt-country': data["country"],
+            }
+        );
+        $(select_parent + ' [name="phone"]').val($(select_parent + ' .select_customer').find(':selected').data('kt-phone')).trigger('change')
+        $(select_parent + ' [name="email"]').val($(select_parent + ' .select_customer').find(':selected').data('kt-email')).trigger('change')
     })
 }
 

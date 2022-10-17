@@ -55,7 +55,7 @@ class BusinessSettingsController extends Controller
             case 'gl_setup':
                 $gl_accounts = ChartGroup::with('accounts:account_name,account_code,account_group')->get();
 
-                $accounts_settings = json_decode(BusinessSetting::where('key', 'accounts_setup')->first()?->value, true);
+                $accounts_settings = json_decode(BusinessSetting::where('key', 'gl_accounts_setup')->first()?->value, true);
                 $output .= group_select('sales_account', 'Sales Account', $gl_accounts, '', $accounts_settings['sales_account'] ?? null);
                 $output .= group_select('receivable_account', 'Receivable Account', $gl_accounts, '', $accounts_settings['receivable_account'] ?? null);
                 $output .= group_select('sales_discount_account', 'Sales Discount Account', $gl_accounts, '', $accounts_settings['sales_discount_account'] ?? null);
@@ -121,7 +121,7 @@ class BusinessSettingsController extends Controller
                 $business_settings->save();
                 break;
             case 'gl_setup':
-                $accounts_settings = json_decode(BusinessSetting::where('key', 'accounts_setup')->first()?->value, true);
+                $accounts_settings = json_decode(BusinessSetting::where('key', 'gl_accounts_setup')->first()?->value??[], true);
                 $accounts_settings->value = json_encode(
                     [
                         'sales_account' => $request->sales_account,

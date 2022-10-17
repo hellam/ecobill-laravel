@@ -390,11 +390,11 @@ function get_company_default_currency()
     return $general_settings['default_currency'] ?? 'USD';
 }
 
-function get_company_setting($key_type)
+function get_company_setting($value_key, $key = 'general_settings')
 {
-    $general_settings = json_decode(BusinessSetting::where('key', 'general_settings')->first()->value, true);
+    $general_settings = json_decode(BusinessSetting::where('key', $key)->first()->value, true);
 
-    return $general_settings[$key_type] ?? 'N/A';
+    return $general_settings[$value_key] ?? 'N/A';
 }
 
 function checkif_has_any_permission($start, $end)

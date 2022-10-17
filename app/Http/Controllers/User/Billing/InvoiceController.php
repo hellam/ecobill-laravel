@@ -59,7 +59,6 @@ class InvoiceController extends Controller
             ];
             $post_data = array_merge($post_data, set_create_parameters($created_at, $created_by, $supervised_by, $supervised_at));
 
-
             //save payment transaction if it's a cash sale
             if ($request->filled('into_bank')){
                 $payment_trans_no = generate_reff_no(ST_CUSTOMER_PAYMENT, true);

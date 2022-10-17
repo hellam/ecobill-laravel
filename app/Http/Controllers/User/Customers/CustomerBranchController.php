@@ -24,7 +24,7 @@ class CustomerBranchController extends Controller
         $customer_branch = CustomerBranch::count() ?? 0;
         $chart_accounts = ChartAccount::all();
         $currency = Currency::all();
-        return view('user.customers.branch', compact('customer_branch', 'currency','chart_accounts'));
+        return view('user.customers.branch', compact('customer_branch', 'currency', 'chart_accounts'));
     }
 
     //Data table API
@@ -69,6 +69,11 @@ class CustomerBranchController extends Controller
             'short_name' => $request->short_name,
             'branch' => $request->branch,
             'country' => $request->country,
+            'credit_limit' => $request->credit_limit,
+            'sales_account' => $request->sales_account,
+            'receivable_account' => $request->receivable_account,
+            'sales_discount_account' => $request->sales_discount_account,
+            'payment_discount_account' => $request->payment_discount_account,
             'phone' => $request->phone,
             'email' => $request->email,
             'currency' => $request->currency,
@@ -119,7 +124,7 @@ class CustomerBranchController extends Controller
      */
     public function select_api(Request $request): JsonResponse
     {
-        $customer = CustomerBranch::with('customer','customer.tax');
+        $customer = CustomerBranch::with('customer', 'customer.tax');
         if ($request->filled('search'))
             $customer = CustomerBranch::with('customer')
                 ->where('f_name', 'like', '%' . $request->search . '%')
@@ -160,6 +165,11 @@ class CustomerBranchController extends Controller
             $customer_branch->address = $request->address;
             $customer_branch->branch = $request->branch;
             $customer_branch->country = $request->country;
+            $customer_branch->credit_limit = $request->credit_limit;
+            $customer_branch->sales_account = $request->sales_account;
+            $customer_branch->receivable_account = $request->receivable_account;
+            $customer_branch->sales_discount_account = $request->sales_discount_account;
+            $customer_branch->payment_discount_account = $request->payment_discount_account;
             $customer_branch->email = $request->email;
             $customer_branch->phone = $request->phone;
             $customer_branch->inactive = $request->inactive;

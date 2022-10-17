@@ -21,8 +21,10 @@ use Illuminate\Support\Facades\Auth;
  * @property string|null $country
  * @property string|null $phone
  * @property string|null $email
- * @property float|null $credit_limit
- * @property string|null $currency
+ * @property int|null $sales_account
+ * @property int|null $receivable_account
+ * @property int|null $payment_discount_account
+ * @property int|null $sales_discount_account
  * @property string|null $address
  * @property string|null $client_ref
  * @property string|null $created_by
@@ -32,6 +34,8 @@ use Illuminate\Support\Facades\Auth;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property int|null $inactive
+ * @property string|null $currency
+ * @property float|null $credit_limit
  *
  * @package App\Models
  */
@@ -40,8 +44,12 @@ class CustomerBranch extends Model
 	protected $table = 'customer_branch';
 
 	protected $casts = [
+		'sales_account' => 'int',
+		'receivable_account' => 'int',
+		'payment_discount_account' => 'int',
+		'sales_discount_account' => 'int',
 		'inactive' => 'int',
-        'credit_limit' => 'float',
+		'credit_limit' => 'float'
 	];
 
 	protected $dates = [
@@ -57,15 +65,19 @@ class CustomerBranch extends Model
 		'country',
 		'phone',
 		'email',
-		'credit_limit',
+		'sales_account',
+		'receivable_account',
+		'payment_discount_account',
+		'sales_discount_account',
 		'address',
-		'currency',
 		'client_ref',
 		'created_by',
 		'updated_by',
 		'supervised_by',
 		'supervised_at',
-		'inactive'
+		'inactive',
+		'currency',
+		'credit_limit'
 	];
 
     public function customer(): BelongsTo

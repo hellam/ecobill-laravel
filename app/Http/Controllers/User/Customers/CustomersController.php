@@ -33,11 +33,11 @@ class CustomersController extends Controller
         $currency = Currency::all();
         $payment_terms = PaymentTerm::all();
         $sales_type = SalesType::all();
-        $chart_accounts = ChartAccount::all();
+        $gl_accounts = ChartAccount::all();
         $tax = Tax::all();
 
         return view('user.customers.customers', compact('customers',
-            'currency', 'payment_terms', 'tax','sales_type','chart_accounts'));
+            'currency', 'payment_terms', 'tax','sales_type','gl_accounts'));
     }
 
     //Data table API
@@ -105,6 +105,11 @@ class CustomersController extends Controller
                 'short_name' => $request->short_name,
                 'branch' => $request->company,
                 'country' => $request->country,
+                'credit_limit' => $request->credit_limit,
+                'sales_account' => $request->sales_account,
+                'receivable_account' => $request->receivable_account,
+                'sales_discount_account' => $request->sales_discount_account,
+                'payment_discount_account' => $request->payment_discount_account,
                 'phone' => $request->phone,
                 'email' => $request->email,
                 'address' => $request->address,
@@ -215,6 +220,11 @@ class CustomersController extends Controller
                 $customer_branch->address = $request->address;
                 $customer_branch->branch = $request->company;
                 $customer_branch->country = $request->country;
+                $customer_branch->credit_limit = $request->credit_limit;
+                $customer_branch->sales_account = $request->sales_account;
+                $customer_branch->receivable_account = $request->receivable_account;
+                $customer_branch->sales_discount_account = $request->sales_discount_account;
+                $customer_branch->payment_discount_account = $request->payment_discount_account;
                 $customer_branch->email = $request->email;
                 $customer_branch->phone = $request->phone;
                 $customer_branch->update();

@@ -151,7 +151,7 @@ function image_view($name, $id, $default, $value, $is_profile = true)
     return $output;
 }
 
-function select($name, $description, $data, $error = '', $default = null, $add_key_at_end = false): string
+function select($name, $description, $data, $error = '', $default = null): string
 {
     $output = '
         <!--begin::Input-->
@@ -168,11 +168,10 @@ function select($name, $description, $data, $error = '', $default = null, $add_k
                 data-placeholder="' . $description . '"
                 class="form-select form-select-solid fw-bolder">
                 <option value=""></option>';
-    foreach ($data as $key => $value) {
-        $value = $add_key_at_end ? $value.' ('.$key . ')': $value;
-        $output .= $default == $key ? '<option selected value="' . $key . '">' . $value . '</option>' : '<option value="' . $key . '">' . $value . '</option>';
-    }
-    $output .= '</select>
+                    foreach ($data as $key => $value)
+                        $output .= $default == $key ? '<option selected value="' . $key . '">' . $value . '</option>' : '<option value="' . $key . '">' . $value . '</option>';
+
+                    $output .= '</select>
                 <!--end::Input-->
             <div class="fv-plugins-message-container invalid-feedback">' . $error . '</div></div>
             <!--end::Col-->
@@ -185,13 +184,9 @@ function select($name, $description, $data, $error = '', $default = null, $add_k
 function group_select($name, $description, $data, $error = '', $default = null): string
 {
     $output = '<style>
-                .select2-results__group {
+                .select2-container--bootstrap5 .select2-dropdown .select2-results__option.select2-results__option--disabled {
                     font-size: 10px !important;
-                    color: #b0afae !important;
-                }
-                .select2-container--bootstrap5 .select2-dropdown .select2-results__options{
-                    max-height: 350px !important;
-                    overflow-y: auto;
+//                    color: red !important;
                 }
                 </style>
         <!--begin::Input-->
@@ -209,20 +204,20 @@ function group_select($name, $description, $data, $error = '', $default = null):
                     data-placeholder="' . $description . '"
                     class="form-select form-select-solid fw-bolder">
                     <option value=""></option>';
-                    foreach ($data as $key => $value){
-                        if(count($value->accounts) != 0){
-                            $output .= '<optgroup class="text-muted" label="'.$value->name.'">';
-                            foreach($value->accounts as $account){
-                                $output .= '
-                                        <option value="'.$account->account_code.'">
-                                            '.$account->account_code .' '.$account->account_name.'
-                                        </option>
+    foreach ($data as $key => $value) {
+        if (count($value->accounts) != 0) {
+            $output .= '<option disabled class="disabled-group">'.$value->name;
+            foreach ($value->accounts as $account) {
+                $output .= '
+                                <option value="' . $account->account_code . '">
+                                    ' . $account->account_code . ' ' . $account->account_name . '
+                                </option>
                                 ';
-                            }
-                            $output .= '</optgroup>';
-                        }
-                    }
-                    $output .= '</select>
+            }
+            $output .= '</option>';
+        }
+    }
+    $output .= '</select>
                 </div>
                 <!--end::Input-->
             <div class="fv-plugins-message-container invalid-feedback">' . $error . '</div></div>

@@ -53,7 +53,8 @@ class BusinessSettingsController extends Controller
                 $output .= input_field('def_print_destination', 'Default Print Destination', $general_settings['def_print_destination'] ?? 'office', true);
                 break;
             case 'gl_setup':
-                $gl_accounts = ChartGroup::with('accounts:id,account_code,account_name')->select('name')->get();
+                $gl_accounts = ChartGroup::with('accounts:account_name,account_code,account_group')->get();
+//                var_dump($gl_accounts);
                 $accounts_settings = json_decode(BusinessSetting::where('key', 'accounts_setup')->first()?->value, true);
                 $output .= select('sales_account', 'Sales Account', $gl_accounts, '', $accounts_settings['sales_account'] ?? null);
                 $output .= select('receivable_account', 'Receivable Account', $gl_accounts, '', $accounts_settings['receivable_account'] ?? null);

@@ -27,9 +27,9 @@ function view_field($description, $value): string
                             </div>';
 }
 
-function div_start($class)
+function div_start($class, $attr='')
 {
-    return '<div class="' . $class . '">';
+    return '<div class="' . $class . '" ' . $attr . '>';
 }
 
 function div_end()

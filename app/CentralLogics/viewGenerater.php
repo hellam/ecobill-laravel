@@ -195,28 +195,30 @@ function group_select($name, $description, $data, $error = '', $default = null):
             <label class="col-lg-4 col-form-label required fw-bold fs-6">' . $description . '</label>
             <!--end::Label-->
             <!--begin::Col-->
-            <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                <select name="' . $name . '"
-                aria-label="' . $description . '"
-                data-control="select2"
-                data-kt-src="#"
-                data-placeholder="' . $description . '"
-                class="form-select form-select-solid fw-bolder">
-                <option value=""></option>';
-                foreach ($data as $key => $value){
-                    if(count($value->accounts) != 0){
-                        $output .= '<optgroup class="text-muted" label="'.$value->name.'">';
-                        foreach($value->accounts as $account){
-                            $output .= '
-                                    <option value="'.$account->account_code.'">
-                                        '.$account->account_code .' '.$account->account_name.'
-                                    </option>
-                            ';
+            <div class="col-lg-8 fv-plugins-icon-container">
+                <div class="fv-row">
+                    <select name="' . $name . '"
+                    aria-label="' . $description . '"
+                    data-control="select2"
+                    data-kt-src="#"
+                    data-placeholder="' . $description . '"
+                    class="form-select form-select-solid fw-bolder">
+                    <option value=""></option>';
+                    foreach ($data as $key => $value){
+                        if(count($value->accounts) != 0){
+                            $output .= '<optgroup class="text-muted" label="'.$value->name.'">';
+                            foreach($value->accounts as $account){
+                                $output .= '
+                                        <option value="'.$account->account_code.'">
+                                            '.$account->account_code .' '.$account->account_name.'
+                                        </option>
+                                ';
+                            }
+                            $output .= '</optgroup>';
                         }
-                        $output .= '</optgroup>';
                     }
-                }
-                $output .= '</select>
+                    $output .= '</select>
+                </div>
                 <!--end::Input-->
             <div class="fv-plugins-message-container invalid-feedback">' . $error . '</div></div>
             <!--end::Col-->

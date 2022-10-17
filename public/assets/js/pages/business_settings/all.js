@@ -20,6 +20,7 @@ const KTBusinessSettingsAll = function () {
                 loader_container.addClass('d-none')
                 loader_container.after(response)
                 $('#kt_update_setting_form').find('select').select2()
+                handleSubmit();
             },
             error: function () {
                 loader_container.addClass('d-none')
@@ -43,9 +44,9 @@ const KTBusinessSettingsAll = function () {
     }
 
     function handleSubmit() {
-        $('#kt_update_setting_form').on('submit', function (e) {
+        document.getElementById('btn_save').addEventListener('click', function (e) {
             e.preventDefault()
-            let submit_url = $(this).attr('data-kt-action');
+            let submit_url = $('#kt_update_setting_form').attr('data-kt-action');
             let str = $('#kt_update_setting_form').serialize()
             handleForm(str, submit_url)
         })
@@ -55,7 +56,7 @@ const KTBusinessSettingsAll = function () {
         let submitButton = document.querySelector('#btn_save');
         submitButton.setAttribute('data-kt-indicator', 'on');
 
-        if ($('#actual_imageInput') && $('#actual_imageInput').val() !== '') {
+        if ($('#actual_imageInput').length && $('#actual_imageInput').val() !== '') {
             // str = str + '&logo=' + $('#actual_imageInput').val()
             str = $("#kt_update_setting_form").find("input[name!=actual_imageInput]").serialize();
             str = str + '&logo=' + $('#actual_imageInput').val()
@@ -73,16 +74,25 @@ const KTBusinessSettingsAll = function () {
                     var errors = response.data;
                     for (const [key, value] of Object.entries(errors)) {
                         $('#err_' + value.field).remove();
-                        if ($("input[name='" + value.field + "']").length) {
-                            $("input[name='" + value.field + "']")
+                        let input = "input[name='" + value.field + "']",
+                            textarea = "textarea[name='" + value.field + "']",
+                            select = "select[name='" + value.field + "']";
+                        if ($(input).length) {
+                            $(input)
                                 .after('<small style="color: red;" id="err_' + value.field + '">' + value.error + '</small>')
                                 .on('keyup', function (e) {
                                     $('#err_' + value.field).remove();
                                 })
-                        } else if ($("textarea[name='" + value.field + "']").length) {
-                            $("textarea[name='" + value.field + "']")
+                        } else if ($(textarea).length) {
+                            $(textarea)
                                 .after('<small style="color: red;" id="err_' + value.field + '">' + value.error + '</small>')
                                 .on('keyup', function (e) {
+                                    $('#err_' + value.field).remove();
+                                })
+                        } else if ($(select).length) {
+                            $(select).closest('.fv-row')
+                                .after('<small style="color: red;" id="err_' + value.field + '">' + value.error + '</small>')
+                                .on('change', function (e) {
                                     $('#err_' + value.field).remove();
                                 })
                         }
@@ -109,7 +119,7 @@ const KTBusinessSettingsAll = function () {
                         }
                     }).then(function (result) {
                         if (result.isConfirmed) {
-                            if (tab === 'general'){
+                            if (tab === 'general') {
                                 loader_container.removeClass('d-none')
                                 $('.view_data').remove()
                                 getView(tab)
@@ -174,7 +184,6 @@ const KTBusinessSettingsAll = function () {
         init: function () {
             handleShowResults();
             handleTabClick();
-            handleSubmit();
         }
     }
 }();

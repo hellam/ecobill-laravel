@@ -151,30 +151,62 @@ function image_view($name, $id, $default, $value, $is_profile = true)
     return $output;
 }
 
-function select($name, $description, $data, $error = '', $default = null)
+function select($name, $description, $data, $error = '', $default = null): string
 {
-    $output = '<!--begin::Input-->
-    <div class="row mb-6">
-                                <!--begin::Label-->
-                                <label class="col-lg-4 col-form-label required fw-bold fs-6">' . $description . '</label>
-                                <!--end::Label-->
-                                <!--begin::Col-->
-                                <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                <select name="' . $name . '"
-                    aria-label="' . $description . '"
-                    data-control="select2"
-                    data-kt-src="#"
-                    data-placeholder="' . $description . '"
-                    class="form-select form-select-solid fw-bolder">
-                <option selected disabled> ' . $description . '</option>';
+    $output = '
+        <!--begin::Input-->
+        <div class="row mb-6">
+            <!--begin::Label-->
+            <label class="col-lg-4 col-form-label required fw-bold fs-6">' . $description . '</label>
+            <!--end::Label-->
+            <!--begin::Col-->
+            <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                <select name="' . $name . '"
+                aria-label="' . $description . '"
+                data-control="select2"
+                data-kt-src="#"
+                data-placeholder="' . $description . '"
+                class="form-select form-select-solid fw-bolder">
+                <option value=""></option>';
     foreach ($data as $key => $value)
         $output .= $default == $key ? '<option selected value="' . $key . '">' . $value . '</option>' : '<option value="' . $key . '">' . $value . '</option>';
 
     $output .= '</select>
-            <!--end::Input-->
-                                <div class="fv-plugins-message-container invalid-feedback">' . $error . '</div></div>
-                                <!--end::Col-->
-                            </div>';
+                <!--end::Input-->
+            <div class="fv-plugins-message-container invalid-feedback">' . $error . '</div></div>
+            <!--end::Col-->
+        </div>
+    ';
+
+    return $output;
+}
+
+function group_select($name, $description, $data, $error = '', $default = null): string
+{
+    $output = '
+        <!--begin::Input-->
+        <div class="row mb-6">
+            <!--begin::Label-->
+            <label class="col-lg-4 col-form-label required fw-bold fs-6">' . $description . '</label>
+            <!--end::Label-->
+            <!--begin::Col-->
+            <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                <select name="' . $name . '"
+                aria-label="' . $description . '"
+                data-control="select2"
+                data-kt-src="#"
+                data-placeholder="' . $description . '"
+                class="form-select form-select-solid fw-bolder">
+                <option value=""></option>';
+    foreach ($data as $key => $value)
+        $output .= $default == $key ? '<option selected value="' . $key . '">' . $value . '</option>' : '<option value="' . $key . '">' . $value . '</option>';
+
+    $output .= '</select>
+                <!--end::Input-->
+            <div class="fv-plugins-message-container invalid-feedback">' . $error . '</div></div>
+            <!--end::Col-->
+        </div>
+    ';
 
     return $output;
 }

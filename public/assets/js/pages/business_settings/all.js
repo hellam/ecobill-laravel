@@ -27,7 +27,7 @@ const KTBusinessSettingsAll = function () {
     }
 
     function handleTabClick() {
-        const tabButtons = document.querySelectorAll('[data-kt-tab-action="general"],[data-kt-tab-action="sms"],[data-kt-tab-action="email"]');
+        const tabButtons = document.querySelectorAll('[data-kt-tab-action="general"],[data-kt-tab-action="sms"],[data-kt-tab-action="gl_setup"],[data-kt-tab-action="email"]');
         tabButtons.forEach(d => {
             d.addEventListener('click', function (e) {
                 e.preventDefault();

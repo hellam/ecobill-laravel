@@ -69,7 +69,7 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" data-bs-toggle="tab" data-kt-tab-action="sms"
-                               href="javascript:">{{__('messages.gl_settings')}}
+                               href="javascript:">{{__('messages.sms_settings')}}
                             </a>
                         </li>
                         <li class="nav-item">

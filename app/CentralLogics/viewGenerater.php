@@ -183,7 +183,12 @@ function select($name, $description, $data, $error = '', $default = null): strin
 
 function group_select($name, $description, $data, $error = '', $default = null): string
 {
-    $output = '
+    $output = '<style>
+                .select2-results__group {
+                    font-size: 10px !important;
+                    color: #b0afae !important;
+                }
+                </style>
         <!--begin::Input-->
         <div class="row mb-6">
             <!--begin::Label-->
@@ -199,17 +204,19 @@ function group_select($name, $description, $data, $error = '', $default = null):
                 class="form-select form-select-solid fw-bolder">
                 <option value=""></option>';
                 foreach ($data as $key => $value){
-                    $output .= '<optgroup class="text-muted" label="'.$value->name.'">';
-                    foreach($value->accounts as $account){
-                        $output .= '
-                                <option value="">
-                                    '.$account->account_name.'
-                                </option>
-                        ';
+                    if(count($value->accounts) != 0){
+                        $output .= '<optgroup class="text-muted" label="'.$value->name.'">';
+                        foreach($value->accounts as $account){
+                            $output .= '
+                                    <option value="'.$account->account_code.'">
+                                        '.$account->account_code .' '.$account->account_name.'
+                                    </option>
+                            ';
+                        }
+                        $output .= '</optgroup>';
                     }
-                    $output .= '</optgroup>';
                 }
-                    $output .= '</select>
+                $output .= '</select>
                 <!--end::Input-->
             <div class="fv-plugins-message-container invalid-feedback">' . $error . '</div></div>
             <!--end::Col-->

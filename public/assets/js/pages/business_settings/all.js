@@ -20,6 +20,7 @@ const KTBusinessSettingsAll = function () {
                 loader_container.addClass('d-none')
                 loader_container.after(response)
                 $('#kt_update_setting_form').find('select').select2()
+                handleSubmit();
             },
             error: function () {
                 loader_container.addClass('d-none')
@@ -43,9 +44,10 @@ const KTBusinessSettingsAll = function () {
     }
 
     function handleSubmit() {
-        $('#kt_update_setting_form').on('submit', function (e) {
+        document.getElementById('btn_save').addEventListener('click', function (e) {
             e.preventDefault()
-            let submit_url = $(this).attr('data-kt-action');
+            let submit_url = this.getAttribute('data-kt-action');
+            console.log(submit_url, $('#kt_update_setting_form').serialize())
             let str = $('#kt_update_setting_form').serialize()
             handleForm(str, submit_url)
         })
@@ -109,7 +111,7 @@ const KTBusinessSettingsAll = function () {
                         }
                     }).then(function (result) {
                         if (result.isConfirmed) {
-                            if (tab === 'general'){
+                            if (tab === 'general') {
                                 loader_container.removeClass('d-none')
                                 $('.view_data').remove()
                                 getView(tab)
@@ -174,7 +176,6 @@ const KTBusinessSettingsAll = function () {
         init: function () {
             handleShowResults();
             handleTabClick();
-            handleSubmit();
         }
     }
 }();

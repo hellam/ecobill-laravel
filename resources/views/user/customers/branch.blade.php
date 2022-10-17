@@ -386,8 +386,23 @@
                                     </div>
                                     <!--end::Col-->
                                 </div>
-                                <!--end::Input group--><!--begin::Input group-->
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
                                 <div class="row g-9 mb-7">
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-bold mb-2 required">
+                                            <span>{{__('messages.credit_limit')}}</span>
+                                        </label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <input type="text" class="form-control form-control-solid"
+                                               placeholder="{{__('messages.credit_limit')}}"
+                                               name="credit_limit"/>
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Col-->
                                     <!--begin::Col-->
                                     <div class="col-md-6 fv-row">
                                         <!--begin::Label-->
@@ -403,12 +418,18 @@
                                             <option></option>
                                             @foreach($gl_accounts as $gl_account)
                                                 <option
+                                                    @if(get_all_company_settings()['sales_account'] == $gl_account->account_code)selected
+                                                    @endif
                                                     value="{{$gl_account->account_code}}">{{$gl_account->account_code .' '. $gl_account->account_name}}</option>
                                             @endforeach
                                         </select>
                                         <!--end::Input-->
                                     </div>
                                     <!--end::Col-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="row g-9 mb-7">
                                     <!--begin::Col-->
                                     <div class="col-md-6 fv-row">
                                         <!--begin::Label-->
@@ -424,16 +445,14 @@
                                             <option></option>
                                             @foreach($gl_accounts as $gl_account)
                                                 <option
+                                                    @if(get_all_company_settings()['receivable_account'] == $gl_account->account_code)selected
+                                                    @endif
                                                     value="{{$gl_account->account_code}}">{{$gl_account->account_code .' '. $gl_account->account_name}}</option>
                                             @endforeach
                                         </select>
                                         <!--end::Input-->
                                     </div>
                                     <!--end::Col-->
-                                </div>
-                                <!--end::Input group-->
-                                <!--begin::Input group-->
-                                <div class="row g-9 mb-7">
                                     <!--begin::Col-->
                                     <div class="col-md-6 fv-row">
                                         <!--begin::Label-->
@@ -449,12 +468,18 @@
                                             <option></option>
                                             @foreach($gl_accounts as $gl_account)
                                                 <option
+                                                    @if(get_all_company_settings()['sales_discount_account'] == $gl_account->account_code)selected
+                                                    @endif
                                                     value="{{$gl_account->account_code}}">{{$gl_account->account_code .' '. $gl_account->account_name}}</option>
                                             @endforeach
                                         </select>
                                         <!--end::Input-->
                                     </div>
                                     <!--end::Col-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="row g-9 mb-7">
                                     <!--begin::Col-->
                                     <div class="col-md-6 fv-row">
                                         <!--begin::Label-->
@@ -470,6 +495,8 @@
                                             <option></option>
                                             @foreach($gl_accounts as $gl_account)
                                                 <option
+                                                    @if(get_all_company_settings()['payment_discount_account'] == $gl_account->account_code)selected
+                                                    @endif
                                                     value="{{$gl_account->account_code}}">{{$gl_account->account_code .' '. $gl_account->account_name}}</option>
                                             @endforeach
                                         </select>
@@ -732,6 +759,116 @@
                                         <input type="text" class="form-control form-control-solid"
                                                placeholder="{{__('messages.currency')}}"
                                                name="currency"/>
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Col-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="row g-9 mb-7">
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Label-->
+                                        <label class="fs-6 fw-bold mb-2 required">
+                                            <span>{{__('messages.credit_limit')}}</span>
+                                        </label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <input type="text" class="form-control form-control-solid"
+                                               placeholder="{{__('messages.credit_limit')}}"
+                                               name="credit_limit"/>
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Col-->
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Label-->
+                                        <label
+                                            class="required fs-6 fw-bold mb-2">Sales Account</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <select name="sales_account" aria-label="{{__('messages.language')}}"
+                                                data-control="select2"
+                                                data-placeholder="Select Sales Account..."
+                                                data-dropdown-parent="#kt_modal_add_customer_branch"
+                                                class="form-select form-select-solid fw-bolder">
+                                            <option></option>
+                                            @foreach($gl_accounts as $gl_account)
+                                                <option
+                                                    value="{{$gl_account->account_code}}">{{$gl_account->account_code .' '. $gl_account->account_name}}</option>
+                                            @endforeach
+                                        </select>
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Col-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="row g-9 mb-7">
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Label-->
+                                        <label
+                                            class="required fs-6 fw-bold mb-2">Receivable Account</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <select name="receivable_account" aria-label="{{__('messages.language')}}"
+                                                data-control="select2"
+                                                data-placeholder="Select Receivable Account..."
+                                                data-dropdown-parent="#kt_modal_add_customer_branch"
+                                                class="form-select form-select-solid fw-bolder">
+                                            <option></option>
+                                            @foreach($gl_accounts as $gl_account)
+                                                <option
+                                                    value="{{$gl_account->account_code}}">{{$gl_account->account_code .' '. $gl_account->account_name}}</option>
+                                            @endforeach
+                                        </select>
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Col-->
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Label-->
+                                        <label
+                                            class="required fs-6 fw-bold mb-2">Sales Discount Account</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <select name="sales_discount_account" aria-label="{{__('messages.language')}}"
+                                                data-control="select2"
+                                                data-placeholder="Select Sales Discount Account..."
+                                                data-dropdown-parent="#kt_modal_add_customer_branch"
+                                                class="form-select form-select-solid fw-bolder">
+                                            <option></option>
+                                            @foreach($gl_accounts as $gl_account)
+                                                <option
+                                                    value="{{$gl_account->account_code}}">{{$gl_account->account_code .' '. $gl_account->account_name}}</option>
+                                            @endforeach
+                                        </select>
+                                        <!--end::Input-->
+                                    </div>
+                                    <!--end::Col-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="row g-9 mb-7">
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Label-->
+                                        <label
+                                            class="required fs-6 fw-bold mb-2">Payment Discount Account</label>
+                                        <!--end::Label-->
+                                        <!--begin::Input-->
+                                        <select name="payment_discount_account" aria-label="{{__('messages.language')}}"
+                                                data-control="select2"
+                                                data-placeholder="Select Payment Discount Account..."
+                                                data-dropdown-parent="#kt_modal_add_customer_branch"
+                                                class="form-select form-select-solid fw-bolder">
+                                            <option></option>
+                                            @foreach($gl_accounts as $gl_account)
+                                                <option
+                                                    value="{{$gl_account->account_code}}">{{$gl_account->account_code .' '. $gl_account->account_name}}</option>
+                                            @endforeach
+                                        </select>
                                         <!--end::Input-->
                                     </div>
                                     <!--end::Col-->

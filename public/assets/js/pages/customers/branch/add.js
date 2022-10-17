@@ -72,6 +72,41 @@ const KTCustomerBranchAdd = function () {
                                 message: 'Email is required'
                             }
                         }
+                    },
+                    credit_limit: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Credit Limit is required'
+                            }
+                        }
+                    },
+                    sales_account: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Sales Account is required'
+                            }
+                        }
+                    },
+                    receivable_account: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Receivable Account is required'
+                            }
+                        }
+                    },
+                    sales_discount_account: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Sales Discount Account is required'
+                            }
+                        }
+                    },
+                    payment_discount_account: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Payment Discount Account is required'
+                            }
+                        }
                     }
                 },
                 $('#kt_modal_add_customer_branch_form'),
@@ -81,7 +116,15 @@ const KTCustomerBranchAdd = function () {
                 'POST',
                 modal,
                 $('#kt_customer_branches_table'),
-                ["customer_id", "country", "currency"]
+                [
+                    "customer_id",
+                    "country",
+                    "currency",
+                    "sales_account",
+                    "receivable_account",
+                    "sales_discount_account",
+                    "payment_discount_account"
+                ]
             );
 
             handleCustomerAPISelect('#kt_modal_add_customer_branch')

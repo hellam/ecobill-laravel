@@ -164,6 +164,11 @@ const KTCustomersServerSide = function () {
                             $("#kt_modal_update_customer_branch_form select[name='country']").val(customer_branch.country).trigger('change');
                             $("#kt_modal_update_customer_branch_form input[name='phone']").val(customer_branch.phone);
                             $("#kt_modal_update_customer_branch_form input[name='email']").val(customer_branch.email);
+                            $("#kt_modal_update_customer_branch_form input[name='credit_limit']").val(customer_branch.credit_limit);
+                            $("#kt_modal_update_customer_branch_form select[name='sales_account']").val(customer_branch.sales_account).trigger('change');
+                            $("#kt_modal_update_customer_branch_form select[name='receivable_account']").val(customer_branch.receivable_account).trigger('change');
+                            $("#kt_modal_update_customer_branch_form select[name='payment_discount_account']").val(customer_branch.payment_discount_account).trigger('change');
+                            $("#kt_modal_update_customer_branch_form select[name='sales_discount_account']").val(customer_branch.sales_discount_account).trigger('change');
 
                             $("#kt_modal_update_customer_branch_form input[name='inactive']").val(customer_branch.inactive);
                             if (customer_branch.inactive == 0) {

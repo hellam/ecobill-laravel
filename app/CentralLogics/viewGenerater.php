@@ -189,6 +189,10 @@ function group_select($name, $description, $data, $error = '', $default = null):
                     font-size: 10px !important;
                     color: #b0afae !important;
                 }
+                .select2-container--bootstrap5 .select2-dropdown .select2-results__options{
+                    max-height: 350px !important;
+                    overflow-y: auto;
+                }
                 </style>
         <!--begin::Input-->
         <div class="row mb-6">

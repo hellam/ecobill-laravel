@@ -145,7 +145,7 @@ function image_view($name, $id, $default, $value, $is_profile = true)
                         reader.readAsDataURL(file);
                       }
                  }';
-    $output .= $is_profile ? 'document.querySelector(".company_logo").src = "' . asset($value) . '"' : '';
+    $output .= $is_profile ? '$(".company_logo").attr("src", "' . asset($value) . '")' : '';
     $output .= '</script>';
 
     return $output;

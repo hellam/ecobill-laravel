@@ -495,7 +495,6 @@
                                     <!--end::Col-->
                                 </div>
                                 <!--end::Input group-->
-
                                 <!--begin::Input group-->
                                 <div class="row g-9 mb-7">
                                     <!--begin::Col-->
@@ -512,7 +511,7 @@
                                                 class="form-select form-select-solid fw-bolder">
                                             <option></option>
                                             @foreach($gl_accounts as $gl_account)
-                                                <option
+                                                <option @if(get_all_company_settings()['sales_account'] == $gl_account->account_code)selected @endif
                                                     value="{{$gl_account->account_code}}">{{$gl_account->account_code .' '. $gl_account->account_name}}</option>
                                             @endforeach
                                         </select>
@@ -533,7 +532,7 @@
                                                 class="form-select form-select-solid fw-bolder">
                                             <option></option>
                                             @foreach($gl_accounts as $gl_account)
-                                                <option
+                                                <option @if(get_all_company_settings()['receivable_account'] == $gl_account->account_code)selected @endif
                                                     value="{{$gl_account->account_code}}">{{$gl_account->account_code .' '. $gl_account->account_name}}</option>
                                             @endforeach
                                         </select>
@@ -558,7 +557,7 @@
                                                 class="form-select form-select-solid fw-bolder">
                                             <option></option>
                                             @foreach($gl_accounts as $gl_account)
-                                                <option
+                                                <option @if(get_all_company_settings()['sales_discount_account'] == $gl_account->account_code)selected @endif
                                                     value="{{$gl_account->account_code}}">{{$gl_account->account_code .' '. $gl_account->account_name}}</option>
                                             @endforeach
                                         </select>
@@ -579,7 +578,7 @@
                                                 class="form-select form-select-solid fw-bolder">
                                             <option></option>
                                             @foreach($gl_accounts as $gl_account)
-                                                <option
+                                                <option @if(get_all_company_settings()['payment_discount_account'] == $gl_account->account_code)selected @endif
                                                     value="{{$gl_account->account_code}}">{{$gl_account->account_code .' '. $gl_account->account_name}}</option>
                                             @endforeach
                                         </select>

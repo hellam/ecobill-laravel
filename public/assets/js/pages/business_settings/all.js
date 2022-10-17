@@ -4,6 +4,7 @@
 const KTBusinessSettingsAll = function () {
     let base_url = "business-settings/view/";
     let tab = 'general';
+    let loader_container = $('#loader_container');
     //handle form
     const handleShowResults = function () {
         $('#kt_update_setting_form').attr('data-kt-action', location.href + '/view/' + tab)
@@ -16,12 +17,13 @@ const KTBusinessSettingsAll = function () {
             url: base_url + tab,
             success: function (json) {
                 const response = JSON.parse(JSON.stringify(json));
-                $('#loader_container').addClass('d-none')
-                $('#loader_container').after(response)
+                loader_container.addClass('d-none')
+                loader_container.after(response)
+                $('#kt_update_setting_form').find('select').select2()
             },
             error: function () {
-                $('#loader_container').addClass('d-none')
-                $('#loader_container').after('<div class="view_data">Something went wrong! Please try again!</div>')
+                loader_container.addClass('d-none')
+                loader_container.after('<div class="view_data">Something went wrong! Please try again!</div>')
             }
         });
     }
@@ -31,7 +33,7 @@ const KTBusinessSettingsAll = function () {
         tabButtons.forEach(d => {
             d.addEventListener('click', function (e) {
                 e.preventDefault();
-                $('#loader_container').removeClass('d-none')
+                loader_container.removeClass('d-none')
                 $('.view_data').remove()
                 tab = $(this).attr("data-kt-tab-action")
                 getView(tab)
@@ -108,7 +110,7 @@ const KTBusinessSettingsAll = function () {
                     }).then(function (result) {
                         if (result.isConfirmed) {
                             if (tab === 'general'){
-                                $('#loader_container').removeClass('d-none')
+                                loader_container.removeClass('d-none')
                                 $('.view_data').remove()
                                 getView(tab)
                             }

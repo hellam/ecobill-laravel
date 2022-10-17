@@ -6,6 +6,7 @@ use App\CentralLogics\UserValidators;
 use App\Http\Controllers\Controller;
 use App\Models\BusinessSetting;
 use App\Models\ChartAccount;
+use App\Models\ChartGroup;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -52,16 +53,12 @@ class BusinessSettingsController extends Controller
                 $output .= input_field('def_print_destination', 'Default Print Destination', $general_settings['def_print_destination'] ?? 'office', true);
                 break;
             case 'gl_setup':
-                $gl_accounts = ChartAccount::select('account_code', 'account_name')->get();
-                $data = array();
-                foreach ($gl_accounts as $account)
-                    $data[$account->account_code] = $account->account_code . ' ' . $account->account_name;
-
+                $gl_accounts = ChartGroup::with('accounts:id,account_code,account_name')->select('name')->get();
                 $accounts_settings = json_decode(BusinessSetting::where('key', 'accounts_setup')->first()?->value, true);
-                $output .= select('sales_account', 'Sales Account', $data, '', $accounts_settings['sales_account'] ?? null);
-                $output .= select('receivable_account', 'Receivable Account', $data, '', $accounts_settings['receivable_account'] ?? null);
-                $output .= select('sales_discount_account', 'Sales Discount Account', $data, '', $accounts_settings['sales_discount_account'] ?? null);
-                $output .= select('payment_discount_account', 'Payment Discount Account', $data, '', $accounts_settings['payment_discount_account'] ?? null);
+                $output .= select('sales_account', 'Sales Account', $gl_accounts, '', $accounts_settings['sales_account'] ?? null);
+                $output .= select('receivable_account', 'Receivable Account', $gl_accounts, '', $accounts_settings['receivable_account'] ?? null);
+                $output .= select('sales_discount_account', 'Sales Discount Account', $gl_accounts, '', $accounts_settings['sales_discount_account'] ?? null);
+                $output .= select('payment_discount_account', 'Payment Discount Account', $gl_accounts, '', $accounts_settings['payment_discount_account'] ?? null);
                 break;
             case 'sms':
                 $output .= 'Coming soon';

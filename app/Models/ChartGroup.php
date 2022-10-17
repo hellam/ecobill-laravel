@@ -6,6 +6,7 @@ use App\Scopes\ClientRefScope;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Auth;
 
 /**
@@ -59,5 +60,10 @@ class ChartGroup extends Model
     public function classes(): BelongsTo
     {
         return $this->belongsTo(ChartClass::class, 'class_id');
+    }
+
+    public function accounts(): HasMany
+    {
+        return $this->hasMany(ChartAccount::class, 'account_group');
     }
 }

@@ -5,10 +5,9 @@ const KTBusinessSettingsAll = function () {
     let base_url = "business-settings/view/";
     let tab = 'general';
     let loader_container = $('#loader_container');
-    let action_url;
+
     //handle form
     const handleShowResults = function () {
-        $('#kt_update_setting_form').attr('data-kt-action', location.href + '/view/' + tab)
         getView(tab)
     }
 
@@ -49,7 +48,7 @@ const KTBusinessSettingsAll = function () {
     function handleSubmit() {
         document.getElementById('btn_save').addEventListener('click', function (e) {
             e.preventDefault()
-            let submit_url = $('#kt_update_setting_form').attr('data-kt-action');
+            let submit_url = $('.view_data').attr('data-kt-action');
             let str = $('#kt_update_setting_form').serialize()
             handleForm(str, submit_url)
         })

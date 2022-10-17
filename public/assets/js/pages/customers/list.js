@@ -171,10 +171,10 @@ const KTCustomersServerSide = function () {
                             $("#kt_modal_update_customer_form input[name='credit_limit']").val(customer.credit_limit);
                             $("#kt_modal_update_customer_form input[name='discount']").val(customer.discount);
                             $("#kt_modal_update_customer_form select[name='language']").val(customer.language).trigger('change');
-                            $("#kt_modal_update_customer_form select[name='sales_account']").val(customer.sales_account).trigger('change');
-                            $("#kt_modal_update_customer_form select[name='receivable_account']").val(customer.receivable_account).trigger('change');
-                            $("#kt_modal_update_customer_form select[name='payment_discount_account']").val(customer.payment_discount_account).trigger('change');
-                            $("#kt_modal_update_customer_form select[name='sales_discount_account']").val(customer.sales_discount_account).trigger('change');
+                            $("#kt_modal_update_customer_form select[name='sales_account']").val(customer.customer_branch.sales_account).trigger('change');
+                            $("#kt_modal_update_customer_form select[name='receivable_account']").val(customer.customer_branch.receivable_account).trigger('change');
+                            $("#kt_modal_update_customer_form select[name='payment_discount_account']").val(customer.customer_branch.payment_discount_account).trigger('change');
+                            $("#kt_modal_update_customer_form select[name='sales_discount_account']").val(customer.customer_branch.sales_discount_account).trigger('change');
 
                             if (customer.tax_id === null) {
                                 $("#kt_modal_update_customer_form select[name='tax_id']").val("null").trigger('change');

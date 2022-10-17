@@ -84,7 +84,7 @@
             <!--end::Card header-->
             <!--begin::Card body-->
             <div class="card-body pt-0">
-                <form data-kt-action="#" id="kt_update_setting_form">
+                <form data-kt-base-url="{{route('user.setup.business_settings.view', 'general')}}" id="kt_update_setting_form">
                     <div id="loader_container" class="min-vh-30 d-flex align-items-center justify-content-center">
                         <img src="{{asset('assets/media/loaders/loader.gif')}}" width="30" height="30" alt="">
                     </div>

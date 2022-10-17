@@ -396,6 +396,10 @@ function get_company_setting($value_key, $key = 'general_settings')
 
     return $general_settings[$value_key] ?? 'N/A';
 }
+function get_all_company_settings($key = 'gl_accounts_setup')
+{
+    return json_decode(BusinessSetting::where('key', $key)->first()?->value, true);
+}
 
 function checkif_has_any_permission($start, $end)
 {

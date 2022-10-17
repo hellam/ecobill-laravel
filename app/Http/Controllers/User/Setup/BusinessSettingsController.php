@@ -51,17 +51,20 @@ class BusinessSettingsController extends Controller
                 $output .= input_field('transaction_days', 'Transaction Days', $general_settings['transaction_days'] ?? '30', true, 'number');
                 $output .= input_field('def_print_destination', 'Default Print Destination', $general_settings['def_print_destination'] ?? 'office', true);
                 break;
-            case 'sms':
+            case 'gl_setup':
                 $gl_accounts = ChartAccount::select('account_code', 'account_name')->get();
                 $data = array();
                 foreach ($gl_accounts as $account)
-                    $data[$account->account_code]  = $account->account_code . ' ' . $account->account_name;
+                    $data[$account->account_code] = $account->account_code . ' ' . $account->account_name;
 
                 $accounts_settings = json_decode(BusinessSetting::where('key', 'accounts_setup')->first()?->value, true);
                 $output .= select('sales_account', 'Sales Account', $data, '', $accounts_settings['sales_account'] ?? null);
                 $output .= select('receivable_account', 'Receivable Account', $data, '', $accounts_settings['receivable_account'] ?? null);
                 $output .= select('sales_discount_account', 'Sales Discount Account', $data, '', $accounts_settings['sales_discount_account'] ?? null);
                 $output .= select('payment_discount_account', 'Payment Discount Account', $data, '', $accounts_settings['payment_discount_account'] ?? null);
+                break;
+            case 'sms':
+                $output .= 'Coming soon';
                 break;
             case 'email':
                 $output .= 'Coming soon';

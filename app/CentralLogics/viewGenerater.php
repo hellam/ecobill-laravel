@@ -145,7 +145,7 @@ function image_view($name, $id, $default, $value, $is_profile = true)
                         reader.readAsDataURL(file);
                       }
                  }';
-    $output .= $is_profile ? '$(".company_logo").attr("src", "' . asset($value) . '")' : '';
+    $output .= $is_profile ? 'document.querySelector(".company_logo").src = "' . asset($value) . '"' : '';
     $output .= '</script>';
 
     return $output;
@@ -168,10 +168,10 @@ function select($name, $description, $data, $error = '', $default = null): strin
                 data-placeholder="' . $description . '"
                 class="form-select form-select-solid fw-bolder">
                 <option value=""></option>';
-                    foreach ($data as $key => $value)
-                        $output .= $default == $key ? '<option selected value="' . $key . '">' . $value . '</option>' : '<option value="' . $key . '">' . $value . '</option>';
+    foreach ($data as $key => $value)
+        $output .= $default == $key ? '<option selected value="' . $key . '">' . $value . '</option>' : '<option value="' . $key . '">' . $value . '</option>';
 
-                    $output .= '</select>
+    $output .= '</select>
                 <!--end::Input-->
             <div class="fv-plugins-message-container invalid-feedback">' . $error . '</div></div>
             <!--end::Col-->
@@ -205,10 +205,14 @@ function group_select($name, $description, $data, $error = '', $default = null):
                     <option value=""></option>';
     foreach ($data as $key => $value) {
         if (count($value->accounts) != 0) {
-            $output .= '<option disabled class="disabled-group">'.$value->name;
+            $output .= '<option disabled class="disabled-group">' . $value->name;
             foreach ($value->accounts as $account) {
-                $output .= '
-                                <option data-kt-group="'.$value->name.'" value="' . $account->account_code . '">
+                $output .= $default == $account->account_code ? '
+                                <option selected value="' . $account->account_code . '">
+                                    ' . $account->account_code . ' ' . $account->account_name . '
+                                </option>
+                                ' : '
+                                <option value="' . $account->account_code . '">
                                     ' . $account->account_code . ' ' . $account->account_name . '
                                 </option>
                                 ';

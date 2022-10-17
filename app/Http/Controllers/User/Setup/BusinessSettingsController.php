@@ -21,7 +21,7 @@ class BusinessSettingsController extends Controller
 
     public function view($tab)
     {
-        $output = div_start('view_data');
+        $output = div_start('view_data', 'data-kt-action="' . route('user.setup.business_settings.update', $tab) . '"');
         $output .= div_start('card-body border-top p-9');
         $output .= @csrf_field();
         switch ($tab) {
@@ -38,10 +38,10 @@ class BusinessSettingsController extends Controller
                         ]
                     )
                 );
-                $output .= input_field('company_name', 'Company Name', $general_settings['company_name']??'Company Name', true);
-                $output .= input_field('inv_footer', 'Invoice Footer', $general_settings['inv_footer']??'Thank you for your business', true);
+                $output .= input_field('company_name', 'Company Name', $general_settings['company_name'] ?? 'Company Name', true);
+                $output .= input_field('inv_footer', 'Invoice Footer', $general_settings['inv_footer'] ?? 'Thank you for your business', true);
                 $output .= select('tax_inclusive', 'Prices Inclusive of Tax', [1 => 'Yes', 0 => 'No'], '', $general_settings['tax_inclusive'] ?? 1);
-                $output .= isset($general_settings['default_currency']) ? view_field('Default Currency', $general_settings['default_currency']) : select('default_currency', 'Select Currency', CURRENCY, 'This cannot be changes in future', null,true);
+                $output .= isset($general_settings['default_currency']) ? view_field('Default Currency', $general_settings['default_currency']) : select('default_currency', 'Select Currency', CURRENCY, 'This cannot be changes in future', null, true);
                 $output .= select('date_format', 'Select Date Format', DATE_FORMAT, '', $general_settings['date_format'] ?? null);
                 $output .= input_field('date_sep', 'Date Separator', $general_settings['date_sep'] ?? '/', true);
                 $output .= input_field('tho_sep', 'Thousand Separator', $general_settings['tho_sep'] ?? ',', true);
@@ -142,7 +142,8 @@ class BusinessSettingsController extends Controller
         return success_web_processor(null, __('messages.msg_updated_success', ['attribute' => __('messages.business_settings')]));
     }
 
-    public function updateOrCreate($obj, $key, $value){
+    public function updateOrCreate($obj, $key, $value)
+    {
         if ($obj)
             BusinessSetting::where('key', $key)->update([
                 'value' => $value,

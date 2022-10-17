@@ -495,6 +495,7 @@
                                     <!--end::Col-->
                                 </div>
                                 <!--end::Input group-->
+
                                 <!--begin::Input group-->
                                 <div class="row g-9 mb-7">
                                     <!--begin::Col-->
@@ -602,8 +603,8 @@
                             <button type="submit" id="kt_modal_add_customer_submit" class="btn btn-primary">
                                 <span class="indicator-label">Submit</span>
                                 <span class="indicator-progress">Please wait...
-														<span
-                                                            class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                    <span
+                                        class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                             </button>
                             <!--end::Button-->
                         </div>

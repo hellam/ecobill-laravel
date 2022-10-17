@@ -207,6 +207,7 @@ return [
     'new' => 'New',
     'new_bank_account' => 'New Bank Account',
     'gl_class' => 'GL Class',
+    'gl_settings' => 'General GL Setup',
     'gl_group' => 'GL Group',
     'gl_account' => 'GL Account',
     'new_gl_account' => 'New GL Account',

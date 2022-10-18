@@ -621,7 +621,8 @@ function handleSubmit() {
  * @param serialized_form
  */
 function submitInvoice(submitButton, form, serialized_form) {
-    serialized_form.push({name: 'attachments', value: attachments});
+    if (attachments.length > 0)
+        serialized_form.push({name: 'attachments', value: attachments});
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -642,6 +643,13 @@ function submitInvoice(submitButton, form, serialized_form) {
                         textarea = $("textarea[name='" + value.field + "']");
                     if (input.length) {
                         input.closest('.fv-row')
+                            .after('<small style="color: red;" id="err_' + value.field + '">' + value.error + '</small>')
+                            .on('keyup change', function (e) {
+                                $('#err_' + value.field).remove();
+                            })
+                    }
+                    if (textarea.length) {
+                        textarea.closest('.fv-row')
                             .after('<small style="color: red;" id="err_' + value.field + '">' + value.error + '</small>')
                             .on('keyup change', function (e) {
                                 $('#err_' + value.field).remove();

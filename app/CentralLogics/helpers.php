@@ -398,10 +398,10 @@ function get_company_setting($value_key, $key = 'general_settings')
 }
 
 /**
- * @param $key
+ * @param string $key
  * @return mixed
  */
-function get_all_company_settings($key = 'gl_accounts_setup'): mixed
+function get_all_company_settings(string $key = 'gl_accounts_setup'): mixed
 {
     return json_decode(BusinessSetting::where('key', $key)->first()?->value, true);
 }

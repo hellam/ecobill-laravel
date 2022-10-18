@@ -127,7 +127,7 @@ const KTCustomerBranchAdd = function () {
                 ]
             );
 
-            handleCustomerAPISelect('#kt_modal_add_customer_branch')
+            handleCustomerAPISelect2('#kt_modal_add_customer_branch')
         }
     };
 }();

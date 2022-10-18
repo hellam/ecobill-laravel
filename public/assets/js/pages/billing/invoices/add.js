@@ -156,7 +156,7 @@ const KTInvoiceAdd = function () {
         init: function () {
             handleInvoice()
             refGen($('[name="reference"]').attr('data-kt-src'))
-            handleCustomerAPISelect('#kt_invoice_form', null, ['#customer_details'])
+            handleCustomerAPISelect('#kt_invoice_form', null)
             handleCustomerSelect()
             initializeRepeater()
             handleRowQuotient()

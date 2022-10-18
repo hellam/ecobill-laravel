@@ -397,6 +397,27 @@ function get_company_setting($value_key, $key = 'general_settings')
     return $general_settings[$value_key] ?? 'N/A';
 }
 
+function get_discount(Request $request, $total)
+{
+    $discount = 0;
+    if ($request->filled('discount')) {
+        $discount = $request->discount;
+        if ($request->discount == 1) {//calculate % discount
+            $discount = ($request->discount * $total) / 100;
+        }
+    }
+    return $discount;
+}
+
+function calculate_tax($amount, $rate)
+{
+    if (get_company_setting('tax_inclusive') == 1) {//is inclusive tax
+        return ($amount * $rate) / (100 + $rate);
+    }
+    //is not exclusive tax
+    return (($amount * (100 + $rate)) / 100) - $amount;
+}
+
 /**
  * @param string $key
  * @return mixed

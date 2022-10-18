@@ -60,6 +60,7 @@ class BusinessSettingsController extends Controller
                 $output .= group_select('receivable_account', 'Receivable Account', $gl_accounts, '', $accounts_settings['receivable_account'] ?? null);
                 $output .= group_select('sales_discount_account', 'Sales Discount Account', $gl_accounts, '', $accounts_settings['sales_discount_account'] ?? null);
                 $output .= group_select('payment_discount_account', 'Payment Discount Account', $gl_accounts, '', $accounts_settings['payment_discount_account'] ?? null);
+                $output .= group_select('sales_tax', 'Sales Tax Account', $gl_accounts, '', $accounts_settings['sales_tax'] ?? null);
                 break;
             case 'sms':
                 $output .= 'Coming soon';
@@ -129,6 +130,7 @@ class BusinessSettingsController extends Controller
                         'receivable_account' => $request->receivable_account,
                         'sales_discount_account' => $request->sales_discount_account,
                         'payment_discount_account' => $request->payment_discount_account,
+                        'sales_tax' => $request->sales_tax,
                     ]
                 );
                 self::updateOrCreate($business_settings, $key, $value);

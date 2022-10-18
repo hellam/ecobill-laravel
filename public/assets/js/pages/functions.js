@@ -1,3 +1,9 @@
+/**
+ * handle row delete for datatable
+ * @param deleteButtons
+ * @param delete_url
+ * @param dt
+ */
 function handleDeleteRows(deleteButtons, delete_url, dt = null) {
     deleteButtons = document.querySelectorAll(deleteButtons)
     deleteButtons.forEach(d => {
@@ -49,6 +55,12 @@ function handleDeleteRows(deleteButtons, delete_url, dt = null) {
     });
 }
 
+/**
+ * perform row delete
+ * @param delete_uri
+ * @param remarks
+ * @param dt
+ */
 function handleDelete(delete_uri, remarks, dt) {
     $.ajax({
         headers: {
@@ -131,6 +143,11 @@ function handleDelete(delete_uri, remarks, dt) {
     });
 }
 
+/**
+ * handle datatable search
+ * @param input
+ * @param dt
+ */
 function handleSearchDatatable(input, dt) {
     const filterSearch = document.querySelector(input);
     filterSearch.addEventListener('keyup', function (e) {
@@ -138,6 +155,20 @@ function handleSearchDatatable(input, dt) {
     });
 }
 
+/**
+ * initialize form
+ * @param form
+ * @param fields
+ * @param form_jquery
+ * @param cancelButton
+ * @param closeButton
+ * @param submitButton
+ * @param method
+ * @param modal
+ * @param table
+ * @param select_fields
+ * @param ckeditor
+ */
 function handleFormSubmit(form, fields, form_jquery, cancelButton, closeButton, submitButton, method, modal = null, table = null, select_fields = null, ckeditor = null) {
     let validator = FormValidation.formValidation(
         form,
@@ -254,6 +285,17 @@ function handleFormSubmit(form, fields, form_jquery, cancelButton, closeButton, 
     });
 }
 
+/**
+ * perform submit of form data
+ * @param str
+ * @param form
+ * @param modal
+ * @param submitButton
+ * @param table
+ * @param select_fields
+ * @param method
+ * @param ckeditor
+ */
 function submitFormData(str, form, modal, submitButton, table, select_fields, method, ckeditor) {
     $.ajax({
         headers: {
@@ -405,6 +447,11 @@ function submitFormData(str, form, modal, submitButton, table, select_fields, me
     });
 }
 
+/**
+ * product category
+ * @param select_parent
+ * @param preselect
+ */
 function handleCategoryAPISelect(select_parent, preselect = null) {
     const element = document.querySelector(select_parent + ' .select_cat');
 
@@ -454,6 +501,11 @@ function handleCategoryAPISelect(select_parent, preselect = null) {
     })
 }
 
+/**
+ * products select2
+ * @param select_parent
+ * @param preselect
+ */
 function handleProductsAPISelect(select_parent, preselect = null) {
     const element = document.querySelector(select_parent + ' .select_api');
 
@@ -508,6 +560,10 @@ function handleProductsAPISelect(select_parent, preselect = null) {
     })
 }
 
+/**
+ * handle CKEditor
+ * @param input_id
+ */
 function createCKEditor(input_id) {
     CKEDITOR.replace(input_id);
 }
@@ -652,6 +708,7 @@ function handleCustomerAPISelect(select_parent, preselect = null) {
 
 /**
  * Customer select2 with alternative
+ * @param select_parent
  */
 function handleCustomerAPISelect2(select_parent) {
     const element = document.querySelector(select_parent + ' .select_customer');
@@ -727,9 +784,9 @@ function refGen(url) {
  * @param dec
  * @returns {number}
  */
-function roundFloat(num,dec){
+function roundFloat(num, dec) {
     let d = 1;
-    for (let i=0; i<dec; i++){
+    for (let i = 0; i < dec; i++) {
         d += "0";
     }
     return Math.round(num * d) / d;

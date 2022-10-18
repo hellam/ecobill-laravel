@@ -1,5 +1,9 @@
 @extends('layout.user.app')
 @section('title', 'New Invoice')
+@push('custom_styles')
+    <link href="{{asset('assets/plugins/snackbar/snackbar.min.css')}}" rel="stylesheet" type="text/css"
+          id="stylesheet"/>
+@endpush
 @section('page_title')
     <!--begin::Page title-->
     <div class="page-title d-flex justify-content-center flex-column me-5">
@@ -441,7 +445,7 @@
                                     <!--begin::Input group-->
                                     <!--begin::Label-->
                                     <label
-                                        class="col-lg-4 col-form-label fw-semibold fs-6">Late Penalty:</label>
+                                        class="col-lg-4 col-form-label fw-semibold fs-6">Late Penalty(%):</label>
                                     <!--end::Label-->
                                     <!--begin::Label-->
                                     <div class="col-lg-8 d-flex align-items-center">
@@ -459,6 +463,12 @@
                                         </div>
                                     </div>
                                     <!--end::Input group-->
+                                </div>
+                                <div class="mb-5">
+                                    <button class="btn btn-sm btn-light-primary" type="button" id="add_attachment">
+                                        <i class="la la-plus"></i> Add Attachment
+                                    </button>
+                                    <div id="attachment_area"></div>
                                 </div>
                                 <!--end::Other inputs-->
                                 <!--begin::Notes-->
@@ -496,4 +506,5 @@
     <script src="{{ asset('assets/plugins/custom/formrepeater/formrepeater.bundle.js') }}"></script>
     <script src="{{ asset('assets/js/pages/billing/invoices/add.js') }}"></script>
     <script src="{{ asset('assets/js/pages/billing/invoices/functions.js') }}"></script>
+    <script src="{{ asset('assets/plugins/snackbar/snackbar.min.js') }}"></script>
 @endpush

@@ -1,24 +1,16 @@
-/**
- * define variables
- * @type {*|jQuery|HTMLElement}
- */
-let parent_data_src = $('#kt_aside')
-let default_currency = current_currency = parent_data_src.attr('data-kt-default-currency'),
-    fx_rate = 1,
-    form = $('#kt_invoice_form'),
-    customer_tax_rate,
-    customer_tax_name,
-    customer_discount,
-    customer_tax_id = null,
-    discount = null,
-    total_discount,
-    discount_type,
-    sb_total = 0,
-    tax_type = form.attr('data-kt-tax-type'),
-    loader_image = parent_data_src.attr('data-kt-loader'),
+let
+    /**
+     * define variables
+     * @type {*|jQuery|HTMLElement}
+     */
+    parent_data_src = $('#kt_aside'),
+    default_currency = current_currency = parent_data_src.attr('data-kt-default-currency'), fx_rate = 1,
+    form = $('#kt_invoice_form'), customer_tax_rate, customer_tax_name, customer_discount, customer_tax_id = null,
+    discount = null, total_discount, discount_type, sb_total = 0, tax_type = form.attr('data-kt-tax-type'),
+    loader_image = parent_data_src.attr('data-kt-loader'), attachments = [],
     blockUI = new KTBlockUI(document.querySelector('#kt_block_ui_1_target'), {
         message: '<div class="blockui-message"><img src="' + loader_image + '" width="30" height="30" alt=""></div>',
-    })
+    });
 
 /**
  * add fx select
@@ -534,7 +526,7 @@ function handleHomeCurrencyTotal() {
 /**
  * handle discount
  */
-function handleDiscount() {
+function handleAddRemoveDiscount() {
     $('#add_discount').on('click', function (e) {
         e.preventDefault()
 
@@ -629,6 +621,7 @@ function handleSubmit() {
  * @param serialized_form
  */
 function submitInvoice(submitButton, form, serialized_form) {
+    serialized_form.push({name: 'attachments', value: attachments});
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -852,10 +845,104 @@ function handleShowLatePenaltyFee() {
     late_penalty_check.addEventListener('click', function () {
         if (this.checked) {
             $('#late_penalty_area').html(
-                '<input name="late_penalty" placeholder="0.00" id="late_penalty" class="form-control form-control-sm form-control-solid w-200px" value="0.00">'
+                '<input name="late_penalty" placeholder="Penalty in percentage" id="late_penalty" class="form-control form-control-sm form-control-solid w-200px">'
             )
         } else {
             $('#late_penalty_area').html('')
         }
+    })
+}
+
+/**
+ * handle files dropzone show, hide among other dropzone operations
+ */
+function handleAddRemoveAttachment() {
+    $('#add_attachment').on('click', function (e) {
+        e.preventDefault()
+
+        let btn = $(this).hide()
+        let attachment_area = $('#attachment_area').html(
+            '<!--begin::Dropzone-->\n' +
+            '<div class="dropzone" id="kt_attachment_zone">\n' +
+            '    <!--begin::Message-->\n' +
+            '    <div class="dz-message needsclick">\n' +
+            '        <!--begin::Icon-->\n' +
+            '        <i class="bi bi-file-earmark-arrow-up text-primary fs-3x"></i>\n' +
+            '        <!--end::Icon-->\n' +
+            '        <!--begin::Info-->\n' +
+            '        <div class="ms-4">\n' +
+            '            <h3 class="fs-5 fw-bold text-gray-900 mb-1">Drop attachments here or click to upload.</h3>\n' +
+            '            <span class="fs-7 fw-semibold text-gray-400">Upload up to 10 files</span>\n' +
+            '        </div>\n' +
+            '        <!--end::Info-->\n' +
+            '    </div>\n' +
+            '</div>\n' +
+            '<!--end::Dropzone-->' +
+            '<button class="btn btn-sm btn-primary mt-5" type="button" id="remove_attachment">\n' +
+            '    Remove Attachments\n' +
+            '</button>'
+        )
+
+        let attachment_zone = new Dropzone("#kt_attachment_zone", {
+            url: "#", // Set the url for your upload script location
+            paramName: "file", // The name that will be used to transfer the file
+            autoProcessQueue: false,
+            acceptedFiles: "image/*,application/pdf",
+            maxFiles: 1,
+            maxFilesize: 10, // MB
+            addRemoveLinks: true,
+            accept: function (file, done) {
+            },
+            init: function () {
+                this.on("addedfile", file => {
+                    let dropzone = this
+                    let files = this.files
+                    attachments = []
+                    files.map(single_file => {
+                        $(".dz-progress").remove();
+                        const reader = new FileReader()
+                        reader.readAsDataURL(single_file)
+                        reader.onload = function (event) {
+                            if (single_file.type === 'application/pdf' || single_file.type.includes('image/')) {
+                                if (!attachments.includes(event.target.result))
+                                    attachments.push('' + event.target.result + '')
+                                else {
+                                    Snackbar.show({
+                                        text: 'File already in queue!',
+                                        pos: 'bottom-center'
+                                    });
+                                    dropzone.removeFile(file);
+                                }
+                            } else {
+                                Snackbar.show({
+                                    text: 'Failed!! Only PDF and image type files accepted.',
+                                    pos: 'bottom-center'
+                                });
+                                dropzone.removeFile(file);
+                            }
+                        };
+                    })
+                });
+
+                this.on("removedfile", file => {
+                    let files = this.files
+                    attachments = []
+                    files.map(single_file => {
+                        const reader = new FileReader()
+                        reader.readAsDataURL(single_file)
+                        reader.onload = function (event) {
+                            if (single_file.type === 'application/pdf' || single_file.type.includes('image/'))
+                                attachments.push('' + event.target.result + '')
+                        };
+                    })
+                });
+            }
+        });
+
+        $('#remove_attachment').on('click', function () {
+            attachment_area.html('')
+            btn.show()
+            attachments = []
+        })
     })
 }

@@ -168,10 +168,11 @@ const KTInvoiceAdd = function () {
             handleTaxTotal()
             handleTaxChange()
             handleHomeCurrencyTotal()
-            handleDiscount()
+            handleAddRemoveDiscount()
             handleSubmit()
             handleShowScheduleSendDateTime()
             handleShowLatePenaltyFee()
+            handleAddRemoveAttachment()
         }
     }
 }();

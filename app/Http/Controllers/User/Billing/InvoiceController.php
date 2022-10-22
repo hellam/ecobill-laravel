@@ -4,9 +4,6 @@ namespace App\Http\Controllers\User\Billing;
 
 use App\CentralLogics\UserValidators;
 use App\Http\Controllers\Controller;
-use App\Models\BankAccount;
-use App\Models\BankTrx;
-use App\Models\Comment;
 use App\Models\Currency;
 use App\Models\CustomerBranch;
 use App\Models\CustomerTrx;
@@ -83,7 +80,7 @@ class InvoiceController extends Controller
                 $total += ($price * $qty);
                 $total_tax += calculate_tax(($price * $qty), $tax->rate);
                 $total_cost += $product->cost;
-                $taxes_with_totals[$tax_id] = $taxes_with_totals[$tax_id] ?? + calculate_tax(($price * $qty), $tax->rate);
+                $taxes_with_totals[$tax_id] = $taxes_with_totals[$tax_id] ?? +calculate_tax(($price * $qty), $tax->rate);
 
                 CustomerTrxDetail::create([
                     'trans_no' => $trans_no,
@@ -176,7 +173,7 @@ class InvoiceController extends Controller
             GlTrx::create(array_merge($post_data, [
                 'chart_code' => $customer_branch->sales_account ?? 4010,
                 'narration' => '',
-                'amount' => -convert_currency_to_second_currency($total_sale_exclusive, $fx_rate),
+                'amount' => -convert_currency_to_second_currency($total, $fx_rate),
             ]));
 
             #Sales Discount if > 0
@@ -188,11 +185,12 @@ class InvoiceController extends Controller
                 ]));
 
             #Sales Tax
-            GlTrx::create(array_merge($post_data, [
-                'chart_code' => get_all_company_settings()['sales_tax'] ?? 2150,
-                'narration' => '',
-                'amount' => -convert_currency_to_second_currency($total_tax, $fx_rate),
-            ]));
+            if ($total_tax > 0)
+                GlTrx::create(array_merge($post_data, [
+                    'chart_code' => get_all_company_settings()['sales_tax'] ?? 2150,
+                    'narration' => '',
+                    'amount' => -convert_currency_to_second_currency($total_tax, $fx_rate),
+                ]));
 
             ## End of Record INVOICE
 

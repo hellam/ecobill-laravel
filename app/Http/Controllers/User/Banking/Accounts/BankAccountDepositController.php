@@ -67,9 +67,9 @@ class BankAccountDepositController extends Controller
 
             //Record entered GL Transactions
             foreach ($request->deposit_options as $key => $val) {
-                $chart_code = $request->deposit_options[$key]['chat_code'];
-                $amount = $request->deposit_options[$key]['amount'];
-                $narration = $request->deposit_options[$key]['narration'];
+                $chart_code = $val['chat_code'];
+                $amount = $val['amount'];
+                $narration = $val['narration'];
 
                 $total += $amount;
 

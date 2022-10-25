@@ -320,42 +320,6 @@
                                                     <i class="fa fa-add"></i>Add Item
                                                 </button>
                                             </th>
-                                            <th colspan="2" class="ps-0">
-                                                <div class="d-flex flex-column align-items-start">
-                                                    <div class="fs-5">Subtotal</div>
-                                                    <div class="py-1" id="tax_table_head"></div>
-                                                    <button type="button" class="btn btn-link py-1" id="add_discount"
-                                                            data-bs-toggle="tooltip"
-                                                            data-bs-trigger="hover" title="Click to add discount"
-                                                            data-kt-discount="{{json_encode(DISCOUNTS)}}">Add
-                                                        discount
-                                                    </button>
-                                                </div>
-                                            </th>
-                                            <th colspan="2" class="text-end">
-                                                <div class="d-flex flex-column align-items-end">
-                                                    <span id="sub-total">$0.00</span>
-                                                    <div class="py-1" id="tax_table_tax"></div>
-                                                </div>
-                                            </th>
-                                        </tr>
-                                        <tr class="align-top border-top-dashed fw-bold text-gray-700"
-                                            id="discount_area">
-                                        </tr>
-                                        <tr class="align-top border-top-dashed fw-bold text-gray-700">
-                                            <th></th>
-                                            <th colspan="2" class="border-top border-top-dashed fs-4 ps-0">Total</th>
-                                            <th colspan="2"
-                                                class="border-top border-top-dashed text-end fs-4 text-nowrap">
-                                                <span id="grand-total">$0.00</span>
-                                            </th>
-                                        </tr>
-                                        <tr class="align-top fw-bold text-gray-700">
-                                            <th></th>
-                                            <th colspan="2" class="fs-4 ps-0"></th>
-                                            <th colspan="2" class="text-end fs-4 text-nowrap">
-                                                <span id="total_converted"></span>
-                                            </th>
                                         </tr>
                                         </tfoot>
                                         <!--end::Table foot-->
@@ -370,82 +334,151 @@
                                 </table>
                                 <!--begin::No Items-->
                                 <!--begin::Other inputs-->
-                                <div class="row">
-                                    <!--begin::Input group-->
-                                    <!--begin::Label-->
-                                    <label
-                                        class="col-lg-4 col-form-label fw-semibold fs-6">Send Reminders:</label>
-                                    <!--end::Label-->
-                                    <!--begin::Label-->
-                                    <div class="col-lg-8 d-flex align-items-center">
-                                        <div class="form-check form-check-custom form-check-solid fv-row">
+                                <div class="row mb-8">
+                                    <div class="col-md-6 card shadow p-4 mb-4">
+                                        <div class="row">
+                                            <!--begin::Input group-->
+                                            <!--begin::Label-->
                                             <label
-                                                class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20 mx-6">
-                                                <input class="form-check-input h-20px w-20px" type="checkbox"
-                                                       name="email_reminder" value="1" id="sendEmail">
-                                                <input name="email_reminder" value="0" type="hidden"
-                                                       id="sendEmailCopy">
-                                                <span
-                                                    class="form-check-label">Email</span>
-                                            </label>
+                                                class="col-lg-4 col-form-label fw-semibold fs-7">Send Reminders:</label>
+                                            <!--end::Label-->
+                                            <!--begin::Label-->
+                                            <div class="col-lg-8 d-flex align-items-center">
+                                                <div class="form-check form-check-custom form-check-solid fv-row">
+                                                    <label
+                                                        class="form-check form-check-sm form-check-custom form-check-solid me-5 mx-6">
+                                                        <input class="form-check-input h-20px w-20px" type="checkbox"
+                                                               name="email_reminder" value="1" id="sendEmail">
+                                                        <input name="email_reminder" value="0" type="hidden"
+                                                               id="sendEmailCopy">
+                                                        <span
+                                                            class="form-check-label fs-8">Email</span>
+                                                    </label>
 
+                                                    <label
+                                                        class="form-check form-check-sm form-check-custom form-check-solid me-5 mx-6">
+                                                        <input class="form-check-input h-20px w-20px" type="checkbox"
+                                                               name="sms_reminder" value="1" id="sendSMS">
+                                                        <input name="sms_reminder" value="0" type="hidden"
+                                                               id="sendSMSCopy">
+                                                        <span
+                                                            class="form-check-label fs-8">SMS</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <!--end::Input group-->
+                                        </div>
+                                        <div class="row">
+                                            <!--begin::Input group-->
+                                            <!--begin::Label-->
                                             <label
-                                                class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20 mx-6">
-                                                <input class="form-check-input h-20px w-20px" type="checkbox"
-                                                       name="sms_reminder" value="1" id="sendSMS">
-                                                <input name="sms_reminder" value="0" type="hidden" id="sendSMSCopy">
-                                                <span
-                                                    class="form-check-label">SMS</span>
-                                            </label>
+                                                class="col-lg-4 col-form-label fw-semibold fs-7">Send Later:</label>
+                                            <!--end::Label-->
+                                            <!--begin::Label-->
+                                            <div class="col-lg-8 d-flex align-items-center">
+                                                <div class="form-check form-check-custom form-check-solid fv-row">
+                                                    <label
+                                                        class="form-check form-check-sm form-check-custom form-check-solid me-5 mx-6">
+                                                        <input class="form-check-input h-20px w-20px" type="checkbox"
+                                                               id="sendLaterCheck">
+                                                        <span
+                                                            class="form-check-label fs-8">Yes</span>
+                                                    </label>
+                                                    <div class="fv-row" id="send_later_area">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--end::Input group-->
+                                        </div>
+                                        <div class="row">
+                                            <!--begin::Input group-->
+                                            <!--begin::Label-->
+                                            <label
+                                                class="col-lg-4 col-form-label fw-semibold fs-7">Late
+                                                Penalty(%):</label>
+                                            <!--end::Label-->
+                                            <!--begin::Label-->
+                                            <div class="col-lg-8 d-flex align-items-center">
+                                                <div class="form-check form-check-custom form-check-solid fv-row">
+                                                    <label
+                                                        class="form-check form-check-sm form-check-custom form-check-solid me-5 mx-6">
+                                                        <input class="form-check-input h-20px w-20px" type="checkbox"
+                                                               id="latePenaltyCheck">
+                                                        <span
+                                                            class="form-check-label fs-8">Yes</span>
+                                                    </label>
+                                                    <div class="fv-row" id="late_penalty_area"></div>
+                                                </div>
+                                            </div>
+                                            <!--end::Input group-->
                                         </div>
                                     </div>
-                                    <!--end::Input group-->
-                                </div>
-                                <div class="row">
-                                    <!--begin::Input group-->
-                                    <!--begin::Label-->
-                                    <label
-                                        class="col-lg-4 col-form-label fw-semibold fs-6">Send Later:</label>
-                                    <!--end::Label-->
-                                    <!--begin::Label-->
-                                    <div class="col-lg-8 d-flex align-items-center">
-                                        <div class="form-check form-check-custom form-check-solid fv-row">
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-5 card shadow p-4 mb-4">
+                                        <div class="row">
+                                            <!--begin::Input group-->
+                                            <!--begin::Label-->
                                             <label
-                                                class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20 mx-6">
-                                                <input class="form-check-input h-20px w-20px" type="checkbox"
-                                                       id="sendLaterCheck">
-                                                <span
-                                                    class="form-check-label">Yes</span>
-                                            </label>
-                                            <div class="fv-row" id="send_later_area">
-
+                                                class="col-lg-6 col-md-6 col-sm-6 col-form-label fw-semibold fs-6">SubTotal:</label>
+                                            <!--end::Label-->
+                                            <!--begin::Label-->
+                                            <div class="col-lg-6 col-md-6 col-sm-6 d-flex align-items-center justify-content-end">
+                                                <span id="sub-total">$0.00</span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <!--begin::Input group-->
+                                            <!--begin::Label-->
+                                            <div class="col-lg-6 col-form-label fw-semibold fs-6" id="tax_table_head">
+                                            </div>
+                                            <!--end::Label-->
+                                            <!--begin::Label-->
+                                            <div class="col-lg-6 d-flex align-items-center justify-content-end">
+                                                <div class="py-1" id="tax_table_tax"></div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <!--begin::Input group-->
+                                            <!--begin::Label-->
+                                            <div class="col-lg-12 col-form-label fw-semibold fs-6" id="tax_table_head">
+                                                <button type="button" class="btn btn-primary py-1" id="add_discount"
+                                                        data-bs-toggle="tooltip"
+                                                        data-bs-trigger="hover" title="Click to add discount"
+                                                        data-kt-discount="{{json_encode(DISCOUNTS)}}"><i class="fa fa-plus"></i> Add
+                                                    discount
+                                                </button>
+                                                <div id="discount_area"></div>
+                                            </div>
+                                            <!--end::Label-->
+                                            <!--begin::Label-->
+                                            <div class="col-lg-6 d-flex align-items-center justify-content-end">
+                                                <div class="py-1" id="tax_table_tax"></div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <!--begin::Input group-->
+                                            <!--begin::Label-->
+                                            <label
+                                                class="col-lg-6 col-form-label fw-semibold fs-6">Total:</label>
+                                            <!--end::Label-->
+                                            <!--begin::Label-->
+                                            <div class="col-lg-6 d-flex align-items-center justify-content-end">
+                                                <span id="grand-total">$0.00</span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <!--begin::Input group-->
+                                            <!--begin::Label-->
+                                            <label
+                                                class="col-lg-6 col-form-label fw-semibold fs-6"></label>
+                                            <!--end::Label-->
+                                            <!--begin::Label-->
+                                            <div class="col-lg-6 d-flex align-items-center justify-content-end">
+                                                <span id="total_converted"></span>
                                             </div>
                                         </div>
                                     </div>
-                                    <!--end::Input group-->
-                                </div>
-                                <div class="mb-5 row">
-                                    <!--begin::Input group-->
-                                    <!--begin::Label-->
-                                    <label
-                                        class="col-lg-4 col-form-label fw-semibold fs-6">Late Penalty(%):</label>
-                                    <!--end::Label-->
-                                    <!--begin::Label-->
-                                    <div class="col-lg-8 d-flex align-items-center">
-                                        <div class="form-check form-check-custom form-check-solid fv-row">
-                                            <label
-                                                class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20 mx-6">
-                                                <input class="form-check-input h-20px w-20px" type="checkbox"
-                                                       id="latePenaltyCheck">
-                                                <span
-                                                    class="form-check-label">Yes</span>
-                                            </label>
-                                            <div class="fv-row" id="late_penalty_area">
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!--end::Input group-->
                                 </div>
                                 <div class="mb-5">
                                     <button class="btn btn-sm btn-light-primary" type="button" id="add_attachment">

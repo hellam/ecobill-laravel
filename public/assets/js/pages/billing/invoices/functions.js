@@ -544,28 +544,26 @@ function handleAddRemoveDiscount() {
 
         let add_dis_btn = $(this).hide()
         $('#discount_area').html(
-            '<th></th>\n' +
-            '<th colspan="2" class="fs-4 ps-0">\n' +
-            '    <!--begin::Input-->\n' +
+            '<div class="row">' +
+            '<div class="col-md-5 mb-2">' +
             '    <select name="discount_type"\n' +
             '            aria-label="Select Discount"\n' +
             '            data-placeholder="Select Discount"\n' +
             '            class="form-select form-select-sm form-select-solid fw-bolder select_discount">\n' +
             '        <option></option>\n' +
             '    </select>\n' +
-            '    <!--end::Input-->\n' +
-            '</th>\n' +
-            '<th colspan="" class="text-end fs-4 text-nowrap">\n' +
+            '</div>' +
+            '<div class="col-md-5 mb-2">' +
             '    <input type="text"\n' +
-            '           class="form-control form-control-solid text-end" id="discount_input" \n' +
+            '           class="form-control form-control-solid form-control-sm text-end" id="discount_input" \n' +
             '           name="discount" placeholder="0.00" value="0.00"/>\n' +
-            '</th>' +
-            '<th class="text-end">' +
+            '</div>' +
+            '<div class="col-md-2">' +
             '<button type="button" id="delete_discount" \n' +
             '        class="btn btn-sm btn-icon btn-light-danger"><i\n' +
-            '        class="fa fa-times"></i>\n' +
-            '</button>' +
-            '</th>\n'
+            '        class="fa fa-times"></i></button>' +
+            '</div>' +
+            '</div>'
         )
 
 
@@ -594,6 +592,7 @@ function handleAddRemoveDiscount() {
         $('#discount_input').on('keyup change', function () {
             discount = $(this).val()
             handleTotal()
+            handleTaxTotal()
         })
 
     })
@@ -835,7 +834,7 @@ function handleShowScheduleSendDateTime() {
     send_later_check.addEventListener('click', function () {
         if (this.checked) {
             $('#send_later_area').html(
-                '<input name="schedule_send_date" placeholder="Select schedule time" id="schedule_send_date" class="form-control form-control-sm form-control-solid w-200px">'
+                '<input name="schedule_send_date" placeholder="Select schedule time" id="schedule_send_date" class="form-control form-control-sm form-control-solid">'
             )
 
             $('#schedule_send_date').daterangepicker({
@@ -865,7 +864,7 @@ function handleShowLatePenaltyFee() {
     late_penalty_check.addEventListener('click', function () {
         if (this.checked) {
             $('#late_penalty_area').html(
-                '<input name="late_penalty" placeholder="Penalty in percentage" id="late_penalty" class="form-control form-control-sm form-control-solid w-200px">'
+                '<input name="late_penalty" placeholder="Penalty in percentage" id="late_penalty" class="form-control form-control-sm form-control-solid">'
             )
         } else {
             $('#late_penalty_area').html('')

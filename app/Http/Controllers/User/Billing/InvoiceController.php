@@ -14,6 +14,7 @@ use App\Models\Product;
 use App\Models\SalesTrx;
 use App\Models\SalesTrxDetail;
 use App\Models\Tax;
+use App\Models\TaxTrx;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -59,8 +60,8 @@ class InvoiceController extends Controller
 
             $post_data = [
                 'trans_no' => $trans_no,
-                'trx_type' => ST_ACCOUNT_DEPOSIT,
-                'trx_date' => $request->date,
+                'trx_type' => ST_INVOICE,
+                'trx_date' => $request->invoice_date,
                 'branch_id' => get_active_branch(),
                 'client_ref' => get_user_ref(),
             ];
@@ -79,7 +80,8 @@ class InvoiceController extends Controller
                 $product = Product::where('barcode', $bar_code)->first();
                 $total += ($price * $qty);
                 $total_tax += calculate_tax(($price * $qty), $tax->rate);
-                $total_cost += $product->cost;
+                $unit_cost = convert_currency_to_first_currency($product->cost,$fx_rate);
+                $total_cost += $unit_cost;
                 $taxes_with_totals[$tax_id] = $taxes_with_totals[$tax_id] ?? +calculate_tax(($price * $qty), $tax->rate);
 
                 CustomerTrxDetail::create([
@@ -92,7 +94,7 @@ class InvoiceController extends Controller
                     'unit_price' => $price,
                     'unit_tax' => $tax->rate,
                     'qty' => $qty,
-                    'cost' => $product->cost,
+                    'cost' => $unit_cost,
                     'qty_done' => $qty,
                     'branch_id' => get_active_branch(),
                     'client_ref' => get_user_ref(),
@@ -158,33 +160,50 @@ class InvoiceController extends Controller
             ]));
 
             //Tax trx
-
+            var_dump($taxes_with_totals);
+//            TaxTrx::create([
+//                'trx_type' => ST_INVOICE,
+//                'trx_no' => $trans_no,
+//                'trx_date' => $request->invoice_date,
+//                'included_in_price' => get_company_setting('tax_inclusive'),
+//                'net_amount' => $total,
+//                'customer_branch_id' => $customer_branch->id,
+//                'due_date' => $request->due_date,
+//                'reference' => $trans_no,
+//                'comments' => $request->notes,
+//                'delivery_address' => $request->address,
+//                'contact_phone' => $request->phone,
+//                'contact_email' => $request->email,
+//                'delivery_to' => $request->address,
+//                'payment_terms' => $request->pay_terms,
+//                'amount' => $total_sale,
+//                'branch_id' => get_active_branch(),
+//                'client_ref' => get_user_ref(),
+//            ]);
             //GL trx
-            #Receivable
-            $total_sale_exclusive = $total_sale - $total_tax;
+            #Receivable  | Debit
             GlTrx::create(array_merge($post_data, [
                 'chart_code' => $customer_branch->sales_account ?? 4010,
                 'narration' => '',
-                'amount' => convert_currency_to_second_currency($total, $fx_rate),
+                'amount' => convert_currency_to_second_currency($total_sale, $fx_rate),
             ]));
-
-            #Sale
-            $total_sale_exclusive = $total_sale - $total_tax;
-            GlTrx::create(array_merge($post_data, [
-                'chart_code' => $customer_branch->sales_account ?? 4010,
-                'narration' => '',
-                'amount' => -convert_currency_to_second_currency($total, $fx_rate),
-            ]));
-
-            #Sales Discount if > 0
+            #Sales Discount if > 0 | Debit
             if ($discount > 0)
                 GlTrx::create(array_merge($post_data, [
                     'chart_code' => $customer_branch->sales_discount_account ?? 4510,
                     'narration' => '',
-                    'amount' => -convert_currency_to_second_currency($discount, $fx_rate),
+                    'amount' => convert_currency_to_second_currency($discount, $fx_rate),
                 ]));
 
-            #Sales Tax
+            #Sale  | Credit
+            $total_sale_exclusive = $total_sale - $total_tax;
+            GlTrx::create(array_merge($post_data, [
+                'chart_code' => $customer_branch->sales_account ?? 4010,
+                'narration' => '',
+                'amount' => -convert_currency_to_second_currency($total_sale_exclusive, $fx_rate),
+            ]));
+
+            #Sales Tax | Credit
             if ($total_tax > 0)
                 GlTrx::create(array_merge($post_data, [
                     'chart_code' => get_all_company_settings()['sales_tax'] ?? 2150,

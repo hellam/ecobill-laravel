@@ -606,6 +606,10 @@ function convert_currency_to_second_currency($amount, $fx_rate = null)
 {
     return $amount * ($fx_rate ?? 1);
 }
+function convert_currency_to_first_currency($amount, $fx_rate = null)
+{
+    return $amount / ($fx_rate ?? 1);
+}
 
 function generate_reff_no($type, $save = false, int $reference = null)
 {

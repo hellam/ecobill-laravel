@@ -13,6 +13,18 @@ let
     });
 
 /**
+ * format row total, subtotal and total to home currency by default
+ */
+$('#grand-total, .total').html(
+    new Intl.NumberFormat('ja-JP', {
+        style: 'currency',
+        maximumFractionDigits: form.attr('data-kt-decimals'),
+        minimumFractionDigits: form.attr('data-kt-decimals'),
+        currency: default_currency
+    }).format(0)
+)
+
+/**
  * add fx select
  */
 function addFxField() {

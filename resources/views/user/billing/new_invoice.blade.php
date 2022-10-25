@@ -159,23 +159,6 @@
                                     <!--end::Col-->
                                     <!--begin::Col-->
                                     <div class="col-lg-6">
-                                        {{--                                        <label class="form-label fs-6 fw-bold text-gray-700 mb-3">Bill From</label>--}}
-                                        {{--                                        <!--begin::Input group-->--}}
-                                        {{--                                        <div class="mb-5">--}}
-                                        {{--                                            <input type="text" class="form-control form-control-solid"--}}
-                                        {{--                                                   placeholder="Name" value="{{get_company_setting('company_name')}}"/>--}}
-                                        {{--                                        </div>--}}
-                                        {{--                                        <!--end::Input group-->--}}
-                                        {{--                                        <!--begin::Input group-->--}}
-                                        {{--                                        <div class="mb-5">--}}
-                                        {{--                                            @php--}}
-                                        {{--                                                $company = unserialize(session('branch_obj'))--}}
-                                        {{--                                            @endphp--}}
-                                        {{--                                            <textarea name="notes" class="form-control form-control-solid" rows="3"--}}
-                                        {{--                                                      placeholder="Company details">{{ $company->email.",\n". $company->phone.",\n". $company->address}}</textarea>--}}
-                                        {{--                                        </div>--}}
-                                        {{--                                        <!--end::Input group-->--}}
-                                        <!--begin::Input-->
                                         <div class="mb-5">
                                             <div class="fs-6 fw-bold text-gray-700 text-nowrap me-2 mb-2">Payment
                                                 Terms:

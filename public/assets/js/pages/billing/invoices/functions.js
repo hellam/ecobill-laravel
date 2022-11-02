@@ -632,9 +632,9 @@ function handleSubmit() {
  * @param serialized_form
  */
 function submitInvoice(submitButton, form, serialized_form) {
-    if (attachments.length > 0)
+    if (attachments?.length > 0)
         serialized_form.push({name: 'attachments', value: attachments});
-    if (signature.length > 0)
+    if (signature?.length > 0)
         serialized_form.push({name: 'signature', value: signature});
     $.ajax({
         headers: {

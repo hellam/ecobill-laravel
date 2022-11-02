@@ -965,3 +965,28 @@ function handleAddRemoveAttachment() {
         })
     })
 }
+
+/**
+ * handle show hide notes
+ */
+function handleAddRemoveNotes() {
+    $('#add_notes').on('click', function (e) {
+        e.preventDefault()
+
+        let btn = $(this).hide()
+        let notes_area = $('#notes_area').html(
+            '<label class="form-label fs-6 fw-bold text-gray-700">Notes</label>' +
+            '<textarea name="notes" class="form-control form-control-solid" rows="3"' +
+            ' placeholder="Thanks for your business"></textarea>' +
+            '<!--end::Dropzone-->' +
+            '<button class="btn btn-sm btn-primary mt-5" type="button" id="remove_notes">\n' +
+            '    Remove Notes\n' +
+            '</button>'
+        )
+
+        $('#remove_notes').on('click', function () {
+            notes_area.html('')
+            btn.show()
+        })
+    })
+}

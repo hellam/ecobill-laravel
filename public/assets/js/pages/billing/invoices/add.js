@@ -173,6 +173,7 @@ const KTInvoiceAdd = function () {
             handleShowScheduleSendDateTime()
             handleShowLatePenaltyFee()
             handleAddRemoveAttachment()
+            handleAddRemoveNotes()
         }
     }
 }();

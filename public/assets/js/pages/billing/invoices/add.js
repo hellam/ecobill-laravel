@@ -174,6 +174,7 @@ const KTInvoiceAdd = function () {
             handleShowLatePenaltyFee()
             handleAddRemoveAttachment()
             handleAddRemoveNotes()
+            handleAddRemoveSignature()
         }
     }
 }();

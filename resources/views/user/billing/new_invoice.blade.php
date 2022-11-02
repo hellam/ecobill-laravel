@@ -419,9 +419,15 @@
                                                 </div>
                                                 <!--end::Input group-->
                                             </div>
+                                            <div class="mt-4">
+                                                <button class="btn btn-sm btn-light-primary" type="button"
+                                                        id="add_notes">
+                                                    <i class="la la-plus"></i> Add Notes
+                                                </button>
+                                            </div>
+                                            <div id="notes_area"></div>
                                         </div>
                                     </div>
-                                    {{--                                    <div class="col-md-1"></div>--}}
                                     <div class="col-md-6">
                                         <div class="card border border-1 p-4 mb-4 h-100">
                                             <div class="row">
@@ -490,6 +496,13 @@
                                                     <span id="total_converted"></span>
                                                 </div>
                                             </div>
+                                            <div class="mt-4">
+                                                <button class="btn btn-sm btn-light-primary" type="button"
+                                                        id="add_signature">
+                                                    <i class="la la-plus"></i> Add Signature
+                                                </button>
+                                            </div>
+                                            <div id="signature_area"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -500,14 +513,6 @@
                                     <div id="attachment_area"></div>
                                 </div>
                                 <!--end::Other inputs-->
-                                <!--begin::Notes-->
-                                <div class="mb-5">
-                                    <button class="btn btn-sm btn-light-primary" type="button" id="add_notes">
-                                        <i class="la la-plus"></i> Add Notes
-                                    </button>
-                                    <div id="notes_area"></div>
-                                </div>
-                                <!--end::Notes-->
                             </div>
                             <!--end::Wrapper-->
 

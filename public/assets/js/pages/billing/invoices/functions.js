@@ -7,7 +7,7 @@ let
     default_currency = current_currency = parent_data_src.attr('data-kt-default-currency'), fx_rate = 1,
     form = $('#kt_invoice_form'), customer_tax_rate, customer_tax_name, customer_discount, customer_tax_id = null,
     discount = null, total_discount, discount_type, sb_total = 0, tax_type = form.attr('data-kt-tax-type'),
-    loader_image = parent_data_src.attr('data-kt-loader'), attachments = [],
+    loader_image = parent_data_src.attr('data-kt-loader'), attachments = [], signature,
     blockUI = new KTBlockUI(document.querySelector('#kt_block_ui_1_target'), {
         message: '<div class="blockui-message"><img src="' + loader_image + '" width="30" height="30" alt=""></div>',
     });
@@ -634,6 +634,8 @@ function handleSubmit() {
 function submitInvoice(submitButton, form, serialized_form) {
     if (attachments.length > 0)
         serialized_form.push({name: 'attachments', value: attachments});
+    if (signature.length > 0)
+        serialized_form.push({name: 'signature', value: signature});
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -986,6 +988,108 @@ function handleAddRemoveNotes() {
 
         $('#remove_notes').on('click', function () {
             notes_area.html('')
+            btn.show()
+        })
+    })
+}
+
+/**
+ * handle show hide signature
+ */
+function handleAddRemoveSignature() {
+    $('#add_signature').on('click', function (e) {
+        e.preventDefault()
+
+        let btn = $(this).hide()
+        let signature_area = $('#signature_area').html(
+            '<!--begin::Dropzone-->\n' +
+            '<div class="dropzone" id="kt_signature_zone">\n' +
+            '    <!--begin::Message-->\n' +
+            '    <div class="dz-message needsclick">\n' +
+            '        <!--begin::Icon-->\n' +
+            '        <i class="bi bi-file-earmark-arrow-up text-primary fs-3x"></i>\n' +
+            '        <!--end::Icon-->\n' +
+            '        <!--begin::Info-->\n' +
+            '        <div class="ms-4">\n' +
+            '            <h3 class="fs-5 fw-bold text-gray-900 mb-1">Drop or upload your signature here</h3>\n' +
+            '        </div>\n' +
+            '        <!--end::Info-->\n' +
+            '    </div>\n' +
+            '</div>\n' +
+            '<input name="sign_name" class="form-control form-control-solid mt-3"' +
+            ' placeholder="Name of the signatory">' +
+            '<!--end::Dropzone-->' +
+            '<button class="btn btn-sm btn-primary mt-5" type="button" id="remove_signature">\n' +
+            '    Remove Signature\n' +
+            '</button>'
+        )
+
+        let attachment_zone = new Dropzone("#kt_signature_zone", {
+            url: "#", // Set the url for your upload script location
+            paramName: "file", // The name that will be used to transfer the file
+            autoProcessQueue: false,
+            acceptedFiles: "image/*",
+            maxFiles: 1,
+            maxFilesize: 10, // MB
+            addRemoveLinks: true,
+            accept: function (file, done) {
+            },
+            init: function () {
+                this.on("addedfile", file => {
+                    let dropzone = this
+                    let files = this.files
+                    signature = []
+                    files.map(single_file => {
+                        $(".dz-progress").remove();
+                        const reader = new FileReader()
+                        reader.readAsDataURL(single_file)
+                        reader.onload = function (event) {
+                            if (single_file.type.includes('image/')) {
+                                if (signature.length == 0) {
+                                    if (!signature.includes(event.target.result))
+                                        signature.push('' + event.target.result + '')
+                                    else {
+                                        Snackbar.show({
+                                            text: 'File already in queue!',
+                                            pos: 'bottom-center'
+                                        });
+                                        dropzone.removeFile(file);
+                                    }
+                                }else{
+                                    Snackbar.show({
+                                        text: 'Only one signature can be uploaded',
+                                        pos: 'bottom-center'
+                                    });
+                                    dropzone.removeFile(file);
+                                }
+                            } else {
+                                Snackbar.show({
+                                    text: 'Failed!! Only image type files accepted.',
+                                    pos: 'bottom-center'
+                                });
+                                dropzone.removeFile(file);
+                            }
+                        };
+                    })
+                });
+
+                this.on("removedfile", file => {
+                    let files = this.files
+                    signature = []
+                    files.map(single_file => {
+                        const reader = new FileReader()
+                        reader.readAsDataURL(single_file)
+                        reader.onload = function (event) {
+                            if (single_file.type.includes('image/'))
+                                signature.push('' + event.target.result + '')
+                        };
+                    })
+                });
+            }
+        });
+
+        $('#remove_signature').on('click', function () {
+            signature_area.html('')
             btn.show()
         })
     })

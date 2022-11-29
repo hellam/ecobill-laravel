@@ -68,6 +68,9 @@ Route::group(['as' => 'user.'], function () {
                 Route::get('/', 'index')->middleware('permission:201');
                 Route::post('/', 'create')->middleware('permission:201,' . ST_INVOICE);
             });
+            Route::controller(User\Billing\PaymentController::class)->prefix('payment')->as('payment')->group(function () {
+                Route::get('/', 'index')->middleware('permission:201');
+            });
         });
 
         Route::group(['prefix' => 'products', 'as' => 'products.'], function () {

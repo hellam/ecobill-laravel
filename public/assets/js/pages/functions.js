@@ -791,3 +791,52 @@ function roundFloat(num, dec) {
     }
     return Math.round(num * d) / d;
 }
+
+function handleBankAccountAPISelect(currency = null, preselect = null) {
+    $('.select_bank').html("").trigger('change');
+    const element = document.querySelector('.select_bank');
+
+    if (preselect) {
+        const option = new Option(preselect?.account_name + " - " + preselect?.currency, preselect?.id, true, true);
+        option.setAttribute("data-kt-currency", preselect?.currency);
+        $('.select_bank').append(option).trigger('change');
+    }
+
+    $('.select_bank').select2({
+        minimumInputLength: 0,
+        escapeMarkup: function (markup) {
+            return markup;
+        },
+        ajax: {
+            url: element.getAttribute("data-kt-src"),
+            dataType: 'json',
+            type: 'GET',
+            contentType: 'application/json',
+            delay: 50,
+            data: function (params) {
+                return {
+                    search: params.term,
+                    currency: currency
+                };
+            },
+            processResults: function (data) {
+                return {
+                    results: $.map(data, function (item) {
+                        return {
+                            text: item.account_name + ' - ' + item.currency,
+                            id: item.id,
+                            'currency': item.currency
+                        }
+                    })
+                }
+            }
+        }
+    }).on('select2:select', function (e) {
+        let data = e.params.data;
+        $(this).children('[value="' + data['id'] + '"]').attr(
+            {
+                'data-kt-currency': data["currency"],
+            }
+        );
+    })
+}

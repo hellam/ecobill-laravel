@@ -987,29 +987,6 @@
                                     <div class="col-md-6 fv-row">
                                         <!--begin::Label-->
                                         <label
-                                            class="required fs-6 fw-bold mb-2">{{__('messages.language')}}</label>
-                                        <!--end::Label-->
-                                        <!--begin::Input-->
-                                        <select name="language" aria-label="{{__('messages.language')}}"
-                                                data-control="select2"
-                                                data-placeholder="{{__('messages.language')}}..."
-                                                data-dropdown-parent="#kt_modal_add_customer"
-                                                class="form-select form-select-solid fw-bolder">
-                                            @foreach(LANG as $key => $value)
-                                                <option value="{{$key}}" selected>{{$value}}</option>
-                                            @endforeach
-                                        </select>
-                                        <!--end::Input-->
-                                    </div>
-                                    <!--end::Col-->
-                                </div>
-                                <!--end::Input group-->
-                                <!--begin::Input group-->
-                                <div class="row g-9 mb-7">
-                                    <!--begin::Col-->
-                                    <div class="col-md-6 fv-row">
-                                        <!--begin::Label-->
-                                        <label
                                             class="required fs-6 fw-bold mb-2">Sales Account</label>
                                         <!--end::Label-->
                                         <!--begin::Input-->
@@ -1027,6 +1004,10 @@
                                         <!--end::Input-->
                                     </div>
                                     <!--end::Col-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="row g-9 mb-7">
                                     <!--begin::Col-->
                                     <div class="col-md-6 fv-row">
                                         <!--begin::Label-->
@@ -1048,10 +1029,6 @@
                                         <!--end::Input-->
                                     </div>
                                     <!--end::Col-->
-                                </div>
-                                <!--end::Input group-->
-                                <!--begin::Input group-->
-                                <div class="row g-9 mb-7">
                                     <!--begin::Col-->
                                     <div class="col-md-6 fv-row">
                                         <!--begin::Label-->
@@ -1073,6 +1050,10 @@
                                         <!--end::Input-->
                                     </div>
                                     <!--end::Col-->
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="row g-9 mb-7">
                                     <!--begin::Col-->
                                     <div class="col-md-6 fv-row">
                                         <!--begin::Label-->
@@ -1094,14 +1075,18 @@
                                         <!--end::Input-->
                                     </div>
                                     <!--end::Col-->
+                                    <!--begin::Col-->
+                                    <div class="col-md-6 fv-row">
+                                        <!--begin::Input group-->
+                                        <input type="hidden" name="inactive">
+                                        <label class="form-check form-switch form-check-custom form-check-solid">
+                                            <span class="fs-6 fw-bold">Active</span>
+                                            <input class="form-check-input mx-2" type="checkbox" id="inactive">
+                                        </label>
+                                        <!--end::Input group-->
+                                    </div>
+                                    <!--end::Col-->
                                 </div>
-                                <!--end::Input group-->
-                                <!--begin::Input group-->
-                                <input type="hidden" name="inactive">
-                                <label class="form-check form-switch form-check-custom form-check-solid">
-                                    <span class="fs-6 fw-bold">Active</span>
-                                    <input class="form-check-input mx-2" type="checkbox" id="inactive">
-                                </label>
                                 <!--end::Input group-->
                             </div>
                             <!--end::Scroll-->

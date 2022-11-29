@@ -236,6 +236,7 @@ return [
     'phone_number' => 'Phone Number',
     'rule' => 'Rule',
     'remarks' => 'Remarks',
+    'receipt_no' => 'Receipt No',
     'sales_type' => 'Sales Type',
     'search' => 'Search',
     'select' => 'Select',

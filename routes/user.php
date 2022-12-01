@@ -69,7 +69,8 @@ Route::group(['as' => 'user.'], function () {
                 Route::post('/', 'create')->middleware('permission:201,' . ST_INVOICE);
             });
             Route::controller(User\Billing\PaymentController::class)->prefix('payment')->as('payment')->group(function () {
-                Route::get('/', 'index')->middleware('permission:201');
+                Route::get('/', 'index')->middleware('permission:202');
+                Route::get('/get-unpaid-invoices', 'customerUnpaidInvoices')->middleware('permission:202');
             });
         });
 

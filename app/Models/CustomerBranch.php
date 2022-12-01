@@ -41,66 +41,68 @@ use Illuminate\Support\Facades\Auth;
  */
 class CustomerBranch extends Model
 {
-	protected $table = 'customer_branch';
+    protected $table = 'customer_branch';
 
-	protected $casts = [
-		'sales_account' => 'int',
-		'receivable_account' => 'int',
-		'payment_discount_account' => 'int',
-		'sales_discount_account' => 'int',
-		'inactive' => 'int',
-		'credit_limit' => 'float'
-	];
+    protected $casts = [
+        'sales_account' => 'int',
+        'receivable_account' => 'int',
+        'payment_discount_account' => 'int',
+        'sales_discount_account' => 'int',
+        'inactive' => 'int',
+        'credit_limit' => 'float'
+    ];
 
-	protected $dates = [
-		'supervised_at'
-	];
+    protected $dates = [
+        'supervised_at'
+    ];
 
-	protected $fillable = [
-		'customer_id',
-		'f_name',
-		'l_name',
-		'short_name',
-		'branch',
-		'country',
-		'phone',
-		'email',
-		'sales_account',
-		'receivable_account',
-		'payment_discount_account',
-		'sales_discount_account',
-		'address',
-		'client_ref',
-		'created_by',
-		'updated_by',
-		'supervised_by',
-		'supervised_at',
-		'inactive',
-		'currency',
-		'credit_limit'
-	];
+    protected $fillable = [
+        'customer_id',
+        'f_name',
+        'l_name',
+        'short_name',
+        'branch',
+        'country',
+        'phone',
+        'email',
+        'sales_account',
+        'receivable_account',
+        'payment_discount_account',
+        'sales_discount_account',
+        'address',
+        'client_ref',
+        'created_by',
+        'updated_by',
+        'supervised_by',
+        'supervised_at',
+        'inactive',
+        'currency',
+        'credit_limit'
+    ];
 
     public function customer(): BelongsTo
     {
         return $this->belongsTo(Customer::class, 'customer_id');
     }
 
-    public function customer_balances(){
+    public function customer_balances()
+    {
         return CustomerTrx::withoutGlobalScope(BranchScope::class)
             ->where('customer_branch_id', $this->id)
             ->sum('amount');
     }
 
-    public function getUnpaidInvoices(){
-        return CustomerTrx::where('customer_branch_id',$this->id)
-            ->where('alloc','<','amount')
+    public function getUnpaidInvoices()
+    {
+        return CustomerTrx::where('customer_branch_id', $this->id)
+            ->where('amount', '>', 'alloc')
             ->limit(100)
             ->get();
     }
 
     public static function booted()
     {
-        if (Auth::guard('user')->check()){
+        if (Auth::guard('user')->check()) {
             static::addGlobalScope(new ClientRefScope());
         }
     }

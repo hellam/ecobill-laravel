@@ -11,9 +11,9 @@ let parent_data_src = $('#kt_aside'),
 function handleCustomerSelect() {
     $('.select_customer').on('select2:select', function () {
         current_currency = $(this).find(':selected').attr('data-kt-currency')
-
         handleBankAccountAPISelect(current_currency)
         handleFxField(current_currency)
+        getClientInvoices()
         $('.select_bank').val('').trigger('change')
     })
     handleBankAccountAPISelect(current_currency)
@@ -24,16 +24,6 @@ function handleCustomerSelect() {
  * add fx select
  */
 function handleFxField(current_currency) {
-    let client_invoices_url = $('.select_customer').attr('data-kt-invoices-url')
-    client_invoices_url = client_invoices_url.replace(':id', $('.select_customer').val())
-
-    $.ajax({
-        url: client_invoices_url,
-        type: 'GET',
-        success: function (response) {
-            console.log(response)
-        },
-    })
     /**
      * if default currency is not equal to current currency for the selected user
      */
@@ -119,7 +109,6 @@ function handleFxField(current_currency) {
         if ($('#fx_parent').length) {
             $('#fx_area').removeClass('order-first')
             $('#fx_parent').remove()
-            handleConvertWithFX()
         }
         /**
          * order class order-first to bank area
@@ -128,4 +117,20 @@ function handleFxField(current_currency) {
             $('#bank_area').addClass('order-first')
         }
     }
+}
+
+/**
+ * handle get single client invoices
+ */
+function getClientInvoices() {
+    let client_invoices_url = $('.select_customer').attr('data-kt-invoices-url')
+    client_invoices_url = client_invoices_url.replace(':id', $('.select_customer').val())
+
+    $.ajax({
+        url: client_invoices_url,
+        type: 'GET',
+        success: function (response) {
+            console.log(response)
+        },
+    })
 }

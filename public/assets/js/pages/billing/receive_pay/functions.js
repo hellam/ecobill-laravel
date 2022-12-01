@@ -3,7 +3,8 @@ let parent_data_src = $('#kt_aside'),
     loader_image = parent_data_src.attr('data-kt-loader'),
     blockUI = new KTBlockUI(document.querySelector('#kt_block_ui_1_target'), {
         message: '<div class="blockui-message"><img src="' + loader_image + '" width="30" height="30" alt=""></div>',
-    });
+    }),
+    form = $('#kt_receive_pay_form')
 
 /**
  * customer select
@@ -28,7 +29,8 @@ function handleFxField(current_currency) {
      * if default currency is not equal to current currency for the selected user
      */
     if (default_currency !== current_currency) {
-        blockUI.block()
+        if (!blockUI.isBlocked())
+            blockUI.block()
         /**
          * get fx rate
          */
@@ -54,8 +56,10 @@ function handleFxField(current_currency) {
                         }
                     });
                 } else {
-                    blockUI.release()
-                    blockUI.destroy()
+                    if (blockUI.isBlocked()) {
+                        blockUI.release()
+                        blockUI.destroy()
+                    }
                     if ($('#fx_input').length) {
                     } else {
                         if (!$('#bank_parent').length) {
@@ -125,12 +129,62 @@ function handleFxField(current_currency) {
 function getClientInvoices() {
     let client_invoices_url = $('.select_customer').attr('data-kt-invoices-url')
     client_invoices_url = client_invoices_url.replace(':id', $('.select_customer').val())
+    if (!blockUI.isBlocked())
+        blockUI.block()
 
     $.ajax({
         url: client_invoices_url,
         type: 'GET',
         success: function (response) {
-            console.log(response)
+            if (blockUI.isBlocked()) {
+                blockUI.release()
+                blockUI.destroy()
+            }
+
+            let table = $('#invoices_table')
+            let invoices = response.data
+
+            if (invoices.length > 0) {
+                $('.no_items').addClass('d-none')
+                $('#notifications_area, #kt_add_invoice_submit').removeClass('d-none')
+                invoices.map((item) => {
+                    table.find('tbody').append(
+                        "<tr data-kt-amount=" + item.amount + " data-kt-alloc=" + item.alloc + ">" +
+                        "<td>" + item.trans_no + "</td>" +
+                        "<td>" + new Intl.NumberFormat('ja-JP', {
+                            maximumFractionDigits: form.attr('data-kt-decimals'),
+                            minimumFractionDigits: form.attr('data-kt-decimals'),
+                        }).format(item.amount) + "</td>" +
+                        "<td>" + new Intl.NumberFormat('ja-JP', {
+                            maximumFractionDigits: form.attr('data-kt-decimals'),
+                            minimumFractionDigits: form.attr('data-kt-decimals'),
+                        }).format(item.alloc) + "</td>" +
+                        "<td><input class='form-control form-control-sm form-control-solid fw-bold w-auto' disabled value='0'></td>" +
+                        "<td>"+new Intl.NumberFormat('ja-JP', {
+                            maximumFractionDigits: form.attr('data-kt-decimals'),
+                            minimumFractionDigits: form.attr('data-kt-decimals'),
+                        }).format((parseFloat(item.amount) - parseFloat(item.alloc)))+"</td>" +
+                        "</tr>"
+                    );
+                })
+            } else {
+                $('.no_items').removeClass('d-none')
+                $('#notifications_area, #kt_add_invoice_submit').addClass('d-none')
+                $('#empty').text('No pending invoices found for selected customer')
+            }
         },
     })
+}
+
+
+/**
+ * handle submit
+ */
+function submit() {
+    if (document.getElementById("sendEmail").checked) {
+        document.getElementById('sendEmailCopy').disabled = true;
+    }
+    if (document.getElementById("sendSMS").checked) {
+        document.getElementById('sendSMSCopy').disabled = true;
+    }
 }

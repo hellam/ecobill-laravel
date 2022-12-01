@@ -97,13 +97,6 @@ class Customer extends Model
         return $this->belongsTo(Tax::class, 'tax_id');
     }
 
-    public function getUnpaidInvoices(){
-        return CustomerTrx::where('customer_id',$this->id)
-            ->where('alloc','<','amount')
-            ->limit(100)
-            ->get();
-    }
-
     public static function booted()
     {
         if (Auth::guard('user')->check()) {

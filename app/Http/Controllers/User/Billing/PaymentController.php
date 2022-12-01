@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User\Billing;
 
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
+use App\Models\CustomerBranch;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -17,7 +18,7 @@ class PaymentController extends Controller
         return view('user.billing.receive_payment');
     }
 
-    public function customerUnpaidInvoices(Customer $customer): JsonResponse
+    public function customerUnpaidInvoices(CustomerBranch $customer): JsonResponse
     {
         $invoices = $customer->getUnpaidInvoices();
         return success_web_processor($invoices, 'Success');

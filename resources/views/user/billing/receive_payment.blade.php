@@ -124,6 +124,7 @@
                                                         data-control="select2"
                                                         data-placeholder="Select Customer"
                                                         data-kt-fx-url="{{route('user.banking_gl.fx.rate')}}"
+                                                        data-kt-invoices-url="{{route('user.billing.payment.unpaid_invoices_api', ':id')}}"
                                                         class="form-select form-select-sm form-select-solid fw-bolder select_customer">
                                                 </select>
                                                 <!--end::Input-->

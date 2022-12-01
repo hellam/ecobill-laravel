@@ -24,6 +24,16 @@ function handleCustomerSelect() {
  * add fx select
  */
 function handleFxField(current_currency) {
+    let client_invoices_url = $('.select_customer').attr('data-kt-invoices-url')
+    client_invoices_url = client_invoices_url.replace(':id', $('.select_customer').val())
+
+    $.ajax({
+        url: client_invoices_url,
+        type: 'GET',
+        success: function (response) {
+            console.log(response)
+        },
+    })
     /**
      * if default currency is not equal to current currency for the selected user
      */
@@ -87,7 +97,6 @@ function handleFxField(current_currency) {
                     fx_rate = response.data.fx_rate
                     $('[name="fx_rate"]').val(fx_rate)
                     $('#label_fx').html(default_currency + " = 1 " + current_currency)
-                    handleConvertWithFX()
                 }
             },
             error: function () {

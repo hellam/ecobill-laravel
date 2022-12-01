@@ -72,8 +72,8 @@
                     <!--begin:Menu item-->
                     <div class="menu-item">
                         <!--begin:Menu link-->
-                        <a class="menu-link @if(Route::is('user.billing.payment'))active @endif"
-                           href="{{route('user.billing.payment')}}">
+                        <a class="menu-link @if(Route::is('user.billing.payment.'))active @endif"
+                           href="{{route('user.billing.payment.')}}">
                             <span class="menu-bullet">
                                 <span class="bullet bullet-dot"></span>
                             </span>

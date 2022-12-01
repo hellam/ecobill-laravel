@@ -92,7 +92,7 @@ class CustomerBranch extends Model
     }
 
     public function getUnpaidInvoices(){
-        return CustomerTrx::where('customer_id',$this->id)
+        return CustomerTrx::where('customer_branch_id',$this->id)
             ->where('alloc','<','amount')
             ->limit(100)
             ->get();

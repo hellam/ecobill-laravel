@@ -70,7 +70,7 @@ Route::group(['as' => 'user.'], function () {
             });
             Route::controller(User\Billing\PaymentController::class)->prefix('payment')->as('payment')->group(function () {
                 Route::get('/', 'index')->middleware('permission:202');
-                Route::get('/get-unpaid-invoices', 'customerUnpaidInvoices')->middleware('permission:202');
+                Route::get('/get-unpaid-invoices', 'customerUnpaidInvoices')->name('unpaid_invoices_api')->middleware('permission:202');
             });
         });
 

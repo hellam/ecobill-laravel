@@ -12,6 +12,7 @@ const KTReceivePayment = function () {
             refGen($('[name="reference"]').attr('data-kt-src'))
             handleCustomerAPISelect('#kt_receive_pay_form', null)
             handleCustomerSelect()
+            handleShareAmount()
         }
     }
 }();

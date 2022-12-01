@@ -92,7 +92,7 @@
                                         <input class="form-control form-control-sm form-control-solid fw-bold w-auto"
                                                placeholder="Select date" name="invoice_date"
                                                data-bs-toggle="tooltip" data-bs-trigger="hover"
-                                               title="Specify invoice date"/>
+                                               title="Specify payment date"/>
                                         <!--end::Datepicker-->
                                         <!--end::Input-->
                                     </div>
@@ -159,16 +159,15 @@
                                 <!--begin::Separator-->
                                 <div class="separator separator-dashed my-5"></div>
                                 <div class="row">
-                                    <div class="col-md-8">
-                                        <div class="row">
-                                            <div class="col-md-6 fv-row" id="fx_area"></div>
-                                            <div class="col-md-6 fv-row" id="bank_area"></div>
+                                    <div class="col-md-6">
+                                        <div class="fs-6 fw-bold text-gray-700 text-nowrap me-2 mb-2">
+                                            {{__('messages.enter').' '.__('messages.amount')}}
                                         </div>
+                                        <input type="number"
+                                               class="form-control form-control-sm form-control-solid"
+                                               placeholder="Enter Amount" name="amount" id="amount">
                                     </div>
-                                    <div class="col-md-2">
-                                    </div>
-                                    <div class="col-md-2">
-                                    </div>
+                                    <div class="col-md-6 fv-row" id="fx_area"></div>
                                 </div>
                                 <div class="separator separator-dashed mt-5 mb-10"></div>
                                 <!--end::Separator-->
@@ -199,7 +198,8 @@
                                 <!--begin::No Items-->
                                 <table class="table no_items">
                                     <tr data-kt-element="empty">
-                                        <th colspan="5" class="text-muted text-center py-10" id="empty">Select Customer to check
+                                        <th colspan="5" class="text-muted text-center py-10" id="empty">Select Customer
+                                            to check
                                             pending invoices
                                         </th>
                                     </tr>

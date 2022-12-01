@@ -12,6 +12,7 @@ let parent_data_src = $('#kt_aside'),
 function handleCustomerSelect() {
     $('.select_customer').on('select2:select', function () {
         current_currency = $(this).find(':selected').attr('data-kt-currency')
+        $('#invoices_table').find('tbody').empty()
         handleBankAccountAPISelect(current_currency)
         handleFxField(current_currency)
         getClientInvoices()
@@ -111,14 +112,7 @@ function handleFxField(current_currency) {
          * current then remove fx rate field
          */
         if ($('#fx_parent').length) {
-            $('#fx_area').removeClass('order-first')
             $('#fx_parent').remove()
-        }
-        /**
-         * order class order-first to bank area
-         */
-        if ($('#bank_parent').length) {
-            $('#bank_area').addClass('order-first')
         }
     }
 }
@@ -149,7 +143,7 @@ function getClientInvoices() {
                 $('#notifications_area, #kt_add_invoice_submit').removeClass('d-none')
                 invoices.map((item) => {
                     table.find('tbody').append(
-                        "<tr data-kt-amount=" + item.amount + " data-kt-alloc=" + item.alloc + ">" +
+                        "<tr data-kt-amount=" + item.amount + " data-kt-balance=" + (parseFloat(item.amount) - parseFloat(item.alloc)) + ">" +
                         "<td>" + item.trans_no + "</td>" +
                         "<td>" + new Intl.NumberFormat('ja-JP', {
                             maximumFractionDigits: form.attr('data-kt-decimals'),
@@ -160,10 +154,10 @@ function getClientInvoices() {
                             minimumFractionDigits: form.attr('data-kt-decimals'),
                         }).format(item.alloc) + "</td>" +
                         "<td><input class='form-control form-control-sm form-control-solid fw-bold w-auto' disabled value='0'></td>" +
-                        "<td>"+new Intl.NumberFormat('ja-JP', {
+                        "<td>" + new Intl.NumberFormat('ja-JP', {
                             maximumFractionDigits: form.attr('data-kt-decimals'),
                             minimumFractionDigits: form.attr('data-kt-decimals'),
-                        }).format((parseFloat(item.amount) - parseFloat(item.alloc)))+"</td>" +
+                        }).format((parseFloat(item.amount) - parseFloat(item.alloc))) + "</td>" +
                         "</tr>"
                     );
                 })
@@ -176,6 +170,18 @@ function getClientInvoices() {
     })
 }
 
+/**
+ * handle share amount to multiple invoices
+ */
+function handleShareAmount() {
+    $('#amount').on('keyup change', function () {
+        let amount = $(this).val()
+        $('#invoices_table').find('tbody tr').each(function (index, element) {
+            let this_balance = $(element).attr('data-kt-balance')
+            $(element).find("td:eq(-2)").find('input').val(amount ?? 0)
+        })
+    })
+}
 
 /**
  * handle submit

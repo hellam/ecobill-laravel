@@ -161,6 +161,7 @@ function getClientInvoices() {
                         "</tr>"
                     );
                 })
+                shareAllocation()
             } else {
                 $('.no_items').removeClass('d-none')
                 $('#notifications_area, #kt_add_invoice_submit').addClass('d-none')
@@ -175,11 +176,43 @@ function getClientInvoices() {
  */
 function handleShareAmount() {
     $('#amount').on('keyup change', function () {
-        let amount = $(this).val()
-        $('#invoices_table').find('tbody tr').each(function (index, element) {
-            let this_balance = $(element).attr('data-kt-balance')
-            $(element).find("td:eq(-2)").find('input').val(amount ?? 0)
-        })
+        shareAllocation()
+    })
+}
+
+/**
+ * function that holds sharing of allocation
+ */
+function shareAllocation() {
+    let amount = $('#amount').val()
+    $('#invoices_table').find('tbody tr').each(function (index, element) {
+        let this_balance = $(element).attr('data-kt-balance')
+        if (parseFloat(this_balance) > parseFloat(amount) || parseFloat(this_balance) == parseFloat(amount)) {
+            $(element).find("td:eq(-2)").find('input').val(new Intl.NumberFormat('ja-JP', {
+                maximumFractionDigits: form.attr('data-kt-decimals'),
+                minimumFractionDigits: form.attr('data-kt-decimals'),
+            }).format(amount))
+
+            $(element).find("td:eq(-1)").text(new Intl.NumberFormat('ja-JP', {
+                maximumFractionDigits: form.attr('data-kt-decimals'),
+                minimumFractionDigits: form.attr('data-kt-decimals'),
+            }).format(parseFloat(this_balance) - parseFloat(amount)))
+            amount = 0
+        } else if (parseFloat(amount) > parseFloat(this_balance)) {
+            $(element).find("td:eq(-2)").find('input').val(new Intl.NumberFormat('ja-JP', {
+                maximumFractionDigits: form.attr('data-kt-decimals'),
+                minimumFractionDigits: form.attr('data-kt-decimals'),
+            }).format(this_balance))
+
+            $(element).find("td:eq(-1)").text(new Intl.NumberFormat('ja-JP', {
+                maximumFractionDigits: form.attr('data-kt-decimals'),
+                minimumFractionDigits: form.attr('data-kt-decimals'),
+            }).format(0))
+            amount = amount - this_balance
+        } else {
+            $(element).find("td:eq(-2)").find('input').val(0)
+            amount = 0
+        }
     })
 }
 

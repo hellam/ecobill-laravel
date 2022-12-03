@@ -115,7 +115,6 @@ class InvoiceController extends Controller
                     'branch_id' => $active_branch,
                     'client_ref' => $client_ref,
                 ]);
-
             }
 
             //if customer has tax, use that

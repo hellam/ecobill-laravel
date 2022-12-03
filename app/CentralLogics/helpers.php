@@ -277,7 +277,7 @@ function get_file_url($folder, $filename = '')
     }
 }
 
-function store_base64_image($requestImage, $fileName, $folderName)
+function store_base64_image($requestImage, $fileName, $folderName, $is_logo = false)
 {
     $old_fileName = $fileName; //store old file name so that we can try to delete it
     $image = get_base64_image($requestImage)['image'];
@@ -289,10 +289,11 @@ function store_base64_image($requestImage, $fileName, $folderName)
     $img = Image::make(storage_path('app/public/' . $folderName . '/' . $fileName));
 
     // now you are able to resize the instance
-    $img->orientate()
-        ->fit(400, 400, function ($constraint) {
-            $constraint->upsize();
-        })->save(storage_path('app/public/' . $folderName . '/' . $fileName), 60);
+    if (!$is_logo)
+        $img->orientate()
+            ->fit(400, 400, function ($constraint) {
+                $constraint->upsize();
+            })->save(storage_path('app/public/' . $folderName . '/' . $fileName), 60);
 
     delete_file($folderName, $old_fileName);
 
@@ -606,6 +607,7 @@ function convert_currency_to_second_currency($amount, $fx_rate = null)
 {
     return $amount * ($fx_rate ?? 1);
 }
+
 function convert_currency_to_first_currency($amount, $fx_rate = null)
 {
     return $amount / ($fx_rate ?? 1);

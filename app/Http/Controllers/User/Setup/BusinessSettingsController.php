@@ -93,7 +93,7 @@ class BusinessSettingsController extends Controller
                 if ($request->has('logo')) {
                     $requestImage = $request->logo; //your base64 encoded
                     try {
-                        $fileName = store_base64_image($requestImage, $fileName, get_user_ref() . '/company');
+                        $fileName = store_base64_image($requestImage, $fileName, get_user_ref() . '/company', true);
                     } catch (\Exception $exception) {
                         return error_web_processor('Invalid image file',
                             200, ['field' => 'logo', 'error' => 'Invalid Image file']);

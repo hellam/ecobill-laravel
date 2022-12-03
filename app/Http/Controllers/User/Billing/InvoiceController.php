@@ -56,14 +56,15 @@ class InvoiceController extends Controller
             DB::beginTransaction();
 
             $trans_no = generate_reff_no(ST_INVOICE, true, $request->reference);
-
+            $active_branch = get_active_branch();
+            $client_ref = get_user_ref();
 
             $post_data = [
                 'trans_no' => $trans_no,
                 'trx_type' => ST_INVOICE,
                 'trx_date' => $request->invoice_date,
-                'branch_id' => get_active_branch(),
-                'client_ref' => get_user_ref(),
+                'branch_id' => $active_branch,
+                'client_ref' => $client_ref,
             ];
             $post_data = array_merge($post_data, set_create_parameters($created_at, $created_by, $supervised_by, $supervised_at));
 
@@ -79,10 +80,11 @@ class InvoiceController extends Controller
                 $tax = Tax::find($tax_id);
                 $product = Product::where('barcode', $bar_code)->first();
                 $total += ($price * $qty);
-                $total_tax += calculate_tax(($price * $qty), $tax->rate);
-                $unit_cost = convert_currency_to_first_currency($product->cost,$fx_rate);
+                $tax_subtotal = calculate_tax(($price * $qty), $tax->rate);
+                $total_tax += $tax_subtotal;
+                $unit_cost = convert_currency_to_first_currency($product->cost, $fx_rate);
                 $total_cost += $unit_cost;
-                $taxes_with_totals[$tax_id] = $taxes_with_totals[$tax_id] ?? +calculate_tax(($price * $qty), $tax->rate);
+                $taxes_with_totals[$tax_id] = $taxes_with_totals[$tax_id] ?? +$tax_subtotal;
 
                 CustomerTrxDetail::create([
                     'trans_no' => $trans_no,
@@ -96,8 +98,8 @@ class InvoiceController extends Controller
                     'qty' => $qty,
                     'cost' => $unit_cost,
                     'qty_done' => $qty,
-                    'branch_id' => get_active_branch(),
-                    'client_ref' => get_user_ref(),
+                    'branch_id' => $active_branch,
+                    'client_ref' => $client_ref,
                 ]);
 
                 SalesTrxDetail::create([
@@ -110,8 +112,8 @@ class InvoiceController extends Controller
                     'unit_price' => $price,
                     'unit_tax' => $tax->rate,
                     'qty' => $qty,
-                    'branch_id' => get_active_branch(),
-                    'client_ref' => get_user_ref(),
+                    'branch_id' => $active_branch,
+                    'client_ref' => $client_ref,
                 ]);
 
             }
@@ -177,8 +179,8 @@ class InvoiceController extends Controller
 //                'delivery_to' => $request->address,
 //                'payment_terms' => $request->pay_terms,
 //                'amount' => $total_sale,
-//                'branch_id' => get_active_branch(),
-//                'client_ref' => get_user_ref(),
+//                'branch_id' => $active_branch,
+//                'client_ref' => $client_ref,
 //            ]);
             //GL trx
             #Receivable  | Debit
@@ -254,8 +256,8 @@ class InvoiceController extends Controller
 //                    'trx_no' => $trans_no,
 //                    'trx_date' => $request->date,
 //                    'comment' => $request->comments,
-//                    'branch_id' => get_active_branch(),
-//                    'client_ref' => get_user_ref(),
+//                    'branch_id' => $active_branch,
+//                    'client_ref' => $client_ref,
 //                ]);
             DB::commit();
         } catch (\Exception $e) {

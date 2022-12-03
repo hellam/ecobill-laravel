@@ -13,7 +13,8 @@ const KTReceivePayment = function () {
                 format: '' + form.attr('data-kt-date-format') + ''
             },
             autoApply: true,
-            maxYear: parseInt(moment().format('YYYY'), 10)
+            maxYear: parseInt(moment().format('YYYY'), 10),
+            maxDate: new Date()
         }, function (start, end, label) {
         });
     }

@@ -144,11 +144,11 @@ function getClientInvoices() {
                 invoices.map((item) => {
                     table.find('tbody').append(
                         "<tr data-kt-amount=" + item.amount + "  data-kt-allocated=" + item.alloc + " data-kt-balance=" + (parseFloat(item.amount) - parseFloat(item.alloc)) + ">" +
-                        "<td>" + item.trans_no + "</td>" +
-                        "<td>" + formatCurrency(current_currency, form, item.amount) + "</td>" +
-                        "<td>" + formatCurrency(current_currency, form, item.alloc) + "</td>" +
-                        "<td><input class='form-control form-control-sm form-control-solid fw-bold w-auto' disabled value='0'></td>" +
-                        "<td>" + formatCurrency(current_currency, form, (parseFloat(item.amount) - parseFloat(item.alloc))) + "</td>" +
+                        "<td class='fw-normal'>" + item.trans_no + "</td>" +
+                        "<td class='fw-normal'>" + formatCurrency(current_currency, form, item.amount) + "</td>" +
+                        "<td class='fw-normal'>" + formatCurrency(current_currency, form, item.alloc) + "</td>" +
+                        "<td><input class='form-control form-control-sm form-control-solid fw-bold w-auto fw-normal' disabled value='0'></td>" +
+                        "<td class='fw-normal'>" + formatCurrency(current_currency, form, (parseFloat(item.amount) - parseFloat(item.alloc))) + "</td>" +
                         "</tr>"
                     );
                 })

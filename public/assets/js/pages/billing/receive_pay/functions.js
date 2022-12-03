@@ -143,25 +143,26 @@ function getClientInvoices() {
                 $('#notifications_area, #kt_add_invoice_submit').removeClass('d-none')
                 invoices.map((item) => {
                     table.find('tbody').append(
-                        "<tr data-kt-amount=" + item.amount + " data-kt-balance=" + (parseFloat(item.amount) - parseFloat(item.alloc)) + ">" +
+                        "<tr data-kt-amount=" + item.amount + "  data-kt-allocated=" + item.alloc + " data-kt-balance=" + (parseFloat(item.amount) - parseFloat(item.alloc)) + ">" +
                         "<td>" + item.trans_no + "</td>" +
-                        "<td>" + new Intl.NumberFormat('ja-JP', {
-                            maximumFractionDigits: form.attr('data-kt-decimals'),
-                            minimumFractionDigits: form.attr('data-kt-decimals'),
-                        }).format(item.amount) + "</td>" +
-                        "<td>" + new Intl.NumberFormat('ja-JP', {
-                            maximumFractionDigits: form.attr('data-kt-decimals'),
-                            minimumFractionDigits: form.attr('data-kt-decimals'),
-                        }).format(item.alloc) + "</td>" +
+                        "<td>" + formatCurrency(current_currency, form, item.amount) + "</td>" +
+                        "<td>" + formatCurrency(current_currency, form, item.alloc) + "</td>" +
                         "<td><input class='form-control form-control-sm form-control-solid fw-bold w-auto' disabled value='0'></td>" +
-                        "<td>" + new Intl.NumberFormat('ja-JP', {
-                            maximumFractionDigits: form.attr('data-kt-decimals'),
-                            minimumFractionDigits: form.attr('data-kt-decimals'),
-                        }).format((parseFloat(item.amount) - parseFloat(item.alloc))) + "</td>" +
+                        "<td>" + formatCurrency(current_currency, form, (parseFloat(item.amount) - parseFloat(item.alloc))) + "</td>" +
                         "</tr>"
                     );
                 })
+                table.append('<tfoot>' +
+                    '<tr class="border-top">' +
+                    '<th>Total</th>' +
+                    '<th id="amount_totals"></th>' +
+                    '<th id="allocated_totals"></th>' +
+                    '<th id="this_alloc_totals"></th>' +
+                    '<th id="balance_totals"></th>' +
+                    '</tr>' +
+                    '</tfoot>')
                 shareAllocation()
+                handleTableTotals()
             } else {
                 $('.no_items').removeClass('d-none')
                 $('#notifications_area, #kt_add_invoice_submit').addClass('d-none')
@@ -177,6 +178,7 @@ function getClientInvoices() {
 function handleShareAmount() {
     $('#amount').on('keyup change', function () {
         shareAllocation()
+        handleTableTotals()
     })
 }
 
@@ -184,36 +186,45 @@ function handleShareAmount() {
  * function that holds sharing of allocation
  */
 function shareAllocation() {
-    let amount = $('#amount').val()
+    let amount = Math.abs($('#amount').val())
     $('#invoices_table').find('tbody tr').each(function (index, element) {
         let this_balance = $(element).attr('data-kt-balance')
         if (parseFloat(this_balance) > parseFloat(amount) || parseFloat(this_balance) == parseFloat(amount)) {
-            $(element).find("td:eq(-2)").find('input').val(new Intl.NumberFormat('ja-JP', {
-                maximumFractionDigits: form.attr('data-kt-decimals'),
-                minimumFractionDigits: form.attr('data-kt-decimals'),
-            }).format(amount))
+            $(element).find("td:eq(-2)").find('input').val(formatAmountOnly(form, amount))
 
-            $(element).find("td:eq(-1)").text(new Intl.NumberFormat('ja-JP', {
-                maximumFractionDigits: form.attr('data-kt-decimals'),
-                minimumFractionDigits: form.attr('data-kt-decimals'),
-            }).format(parseFloat(this_balance) - parseFloat(amount)))
+            $(element).find("td:eq(-1)").text(formatCurrency(current_currency, form, (parseFloat(this_balance) - parseFloat(amount))))
+            $(element).attr('data-kt-this-balance', (parseFloat(this_balance) - parseFloat(amount)))
             amount = 0
         } else if (parseFloat(amount) > parseFloat(this_balance)) {
-            $(element).find("td:eq(-2)").find('input').val(new Intl.NumberFormat('ja-JP', {
-                maximumFractionDigits: form.attr('data-kt-decimals'),
-                minimumFractionDigits: form.attr('data-kt-decimals'),
-            }).format(this_balance))
+            $(element).find("td:eq(-2)").find('input').val(formatAmountOnly(form, this_balance))
 
-            $(element).find("td:eq(-1)").text(new Intl.NumberFormat('ja-JP', {
-                maximumFractionDigits: form.attr('data-kt-decimals'),
-                minimumFractionDigits: form.attr('data-kt-decimals'),
-            }).format(0))
+            $(element).find("td:eq(-1)").text(formatCurrency(current_currency, form, 0))
+            $(element).attr('data-kt-this-balance', 0)
             amount = amount - this_balance
         } else {
             $(element).find("td:eq(-2)").find('input').val(0)
+            $(element).attr('data-kt-this-balance', this_balance)
             amount = 0
         }
     })
+}
+
+/**
+ * handle show totals for amount, allocated and balance
+ */
+function handleTableTotals() {
+    let amount_totals = 0, allocated_totals = 0, balance_totals = 0;
+    $('#invoices_table').find('tbody tr').each(function (index, element) {
+        let this_total = $(element).attr('data-kt-amount')
+        let allocated_total = $(element).attr('data-kt-allocated')
+        let balance_total = $(element).attr('data-kt-this-balance')
+        amount_totals += parseFloat(this_total);
+        allocated_totals += parseFloat(allocated_total);
+        balance_totals += parseFloat(balance_total);
+    })
+    $('#amount_totals').text(formatCurrency(current_currency, form, amount_totals))
+    $('#allocated_totals').text(formatCurrency(current_currency, form, allocated_totals))
+    $('#balance_totals').text(formatCurrency(current_currency, form, balance_totals))
 }
 
 /**

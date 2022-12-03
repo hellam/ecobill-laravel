@@ -90,7 +90,7 @@
                                         <!--begin::Input-->
                                         <!--begin::Datepicker-->
                                         <input class="form-control form-control-sm form-control-solid fw-bold w-auto"
-                                               placeholder="Select date" name="invoice_date"
+                                               placeholder="Select date" name="date"
                                                data-bs-toggle="tooltip" data-bs-trigger="hover"
                                                title="Specify payment date"/>
                                         <!--end::Datepicker-->
@@ -223,7 +223,7 @@
                                                             class="form-check form-check-sm form-check-custom form-check-solid me-5 mx-6">
                                                             <input class="form-check-input h-20px w-20px"
                                                                    type="checkbox"
-                                                                   name="email_notification" value="1" id="sendEmail">
+                                                                   name="email_notification" value="1" id="sendEmail" checked>
                                                             <input name="email_notification" value="0" type="hidden"
                                                                    id="sendEmailCopy">
                                                             <span
@@ -234,7 +234,7 @@
                                                             class="form-check form-check-sm form-check-custom form-check-solid me-5 mx-6">
                                                             <input class="form-check-input h-20px w-20px"
                                                                    type="checkbox"
-                                                                   name="sms_notification" value="1" id="sendSMS">
+                                                                   name="sms_notification" value="1" id="sendSMS" checked>
                                                             <input name="sms_notification" value="0" type="hidden"
                                                                    id="sendSMSCopy">
                                                             <span

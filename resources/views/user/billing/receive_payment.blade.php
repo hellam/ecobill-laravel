@@ -180,10 +180,10 @@
                                         <thead>
                                         <tr class="border-bottom fs-7 fw-bold text-gray-700 text-uppercase">
                                             <th>#</th>
-                                            <th>Amount</th>
-                                            <th>Paid</th>
-                                            <th>This allocation</th>
-                                            <th>Balance</th>
+                                            <th>{{__('messages.amount')}}</th>
+                                            <th>{{__('messages.allocated')}}</th>
+                                            <th>{{__('messages.this_alloc')}}</th>
+                                            <th>{{__('messages.balance')}}</th>
                                         </tr>
                                         </thead>
                                         <!--end::Table head-->

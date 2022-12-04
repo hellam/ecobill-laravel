@@ -230,7 +230,7 @@
                                                                 class="form-check-label fs-8">Email</span>
                                                         </label>
 
-                                                        <label
+                                                        <label onclick="if(confirm(''))location.href = 'test'"
                                                             class="form-check form-check-sm form-check-custom form-check-solid me-5 mx-6">
                                                             <input class="form-check-input h-20px w-20px"
                                                                    type="checkbox"
@@ -252,7 +252,7 @@
                             <!--end::Wrapper-->
 
                             <!--begin::Button-->
-                            <button type="button" id="kt_add_invoice_submit" class="btn btn-primary float-end d-none">
+                            <button type="button" id="kt_receive_pay_submit" class="btn btn-primary float-end d-none">
                                 <span class="indicator-label">Submit</span>
                                 <span class="indicator-progress">Please wait...
                                 <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>

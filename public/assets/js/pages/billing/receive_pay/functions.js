@@ -140,7 +140,7 @@ function getClientInvoices() {
 
             if (invoices.length > 0) {
                 $('.no_items').addClass('d-none')
-                $('#notifications_area, #kt_add_invoice_submit').removeClass('d-none')
+                $('#notifications_area, #kt_receive_pay_submit').removeClass('d-none')
                 invoices.map((item) => {
                     table.find('tbody').append(
                         "<tr data-kt-amount=" + item.amount + "  data-kt-allocated=" + item.alloc + " data-kt-balance=" + (parseFloat(item.amount) - parseFloat(item.alloc)) + ">" +
@@ -165,7 +165,7 @@ function getClientInvoices() {
                 handleTableTotals()
             } else {
                 $('.no_items').removeClass('d-none')
-                $('#notifications_area, #kt_add_invoice_submit').addClass('d-none')
+                $('#notifications_area, #kt_receive_pay_submit').addClass('d-none')
                 $('#empty').text('No pending invoices found for selected customer')
             }
         },
@@ -211,6 +211,7 @@ function shareAllocation() {
 
 /**
  * handle show totals for amount, allocated and balance
+ * @returns {number}
  */
 function handleTableTotals() {
     let amount_totals = 0, allocated_totals = 0, balance_totals = 0;
@@ -225,16 +226,44 @@ function handleTableTotals() {
     $('#amount_totals').text(formatCurrency(current_currency, form, amount_totals))
     $('#allocated_totals').text(formatCurrency(current_currency, form, allocated_totals))
     $('#balance_totals').text(formatCurrency(current_currency, form, balance_totals))
+
+    return amount_totals;
 }
 
 /**
  * handle submit
  */
-function submit() {
+function formSubmit() {
     if (document.getElementById("sendEmail").checked) {
         document.getElementById('sendEmailCopy').disabled = true;
     }
     if (document.getElementById("sendSMS").checked) {
         document.getElementById('sendSMSCopy').disabled = true;
     }
+
+    let submitButton = document.querySelector('#kt_receive_pay_submit')
+
+    submitButton.addEventListener('click', function (e) {
+        e.preventDefault()
+
+        if(parseFloat($('[name="amount"]').val()) > parseFloat(handleTableTotals())){
+            Swal.fire({
+                text: "Amount entered is greater than total required amount. " +
+                    "Would you like to deposit the remaining balance to customer account?",
+                icon: "info",
+                buttonsStyling: false,
+                showCancelButton: true,
+                confirmButtonText: "Yes",
+                cancelButtonText: "No",
+                customClass: {
+                    confirmButton: "btn btn-primary",
+                    cancelButton: "btn btn-secondary order-first"
+                }
+            }).then(isConfirmed=>{
+
+            });
+        }
+
+        console.log(form.serializeArray())
+    });
 }

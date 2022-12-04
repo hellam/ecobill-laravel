@@ -26,6 +26,7 @@ const KTReceivePayment = function () {
             handleCustomerSelect()
             handleShareAmount()
             handleReceivePayment()
+            formSubmit()
         }
     }
 }();

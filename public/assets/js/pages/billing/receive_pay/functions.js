@@ -234,36 +234,216 @@ function handleTableTotals() {
  * handle submit
  */
 function formSubmit() {
-    if (document.getElementById("sendEmail").checked) {
-        document.getElementById('sendEmailCopy').disabled = true;
-    }
-    if (document.getElementById("sendSMS").checked) {
-        document.getElementById('sendSMSCopy').disabled = true;
-    }
-
     let submitButton = document.querySelector('#kt_receive_pay_submit')
+    let validator = FormValidation.formValidation(
+        document.querySelector('#kt_receive_pay_form'),
+        {
+            fields: {
+                amount: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Amount is required'
+                        }
+                    }
+                },
+                into_bank: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Into Bank is required'
+                        }
+                    }
+                },
+            },
+            plugins: {
+                trigger: new FormValidation.plugins.Trigger(),
+                bootstrap: new FormValidation.plugins.Bootstrap5({
+                    rowSelector: '.fv-row',
+                    eleInvalidClass: '',
+                    eleValidClass: ''
+                }),
+            }
+        }
+    );
+
+    $(`[name="into_bank"]`).on('select2:select', function () {
+        // Revalidate the field when an option is chosen
+        validator.revalidateField(`into_bank`);
+    });
+
 
     submitButton.addEventListener('click', function (e) {
-        e.preventDefault()
+        e.preventDefault();
 
-        if(parseFloat($('[name="amount"]').val()) > parseFloat(handleTableTotals())){
-            Swal.fire({
-                text: "Amount entered is greater than total required amount. " +
-                    "Would you like to deposit the remaining balance to customer account?",
-                icon: "info",
-                buttonsStyling: false,
-                showCancelButton: true,
-                confirmButtonText: "Yes",
-                cancelButtonText: "No",
-                customClass: {
-                    confirmButton: "btn btn-primary",
-                    cancelButton: "btn btn-secondary order-first"
+        if (validator) {
+            validator.validate().then(function (status) {
+                if (status === 'Valid') {
+                    if (document.getElementById("sendEmail").checked) {
+                        document.getElementById('sendEmailCopy').disabled = true;
+                    }
+                    if (document.getElementById("sendSMS").checked) {
+                        document.getElementById('sendSMSCopy').disabled = true;
+                    }
+
+                    let serialized_form = form.serializeArray();
+
+                    if (parseFloat($('[name="amount"]').val()) > parseFloat(handleTableTotals())) {
+                        Swal.fire({
+                            text: "Amount entered is greater than total required amount. " +
+                                "Would you like to deposit the remaining balance to customer account?",
+                            icon: "info",
+                            buttonsStyling: false,
+                            showCancelButton: true,
+                            confirmButtonText: "Yes",
+                            cancelButtonText: "No",
+                            customClass: {
+                                confirmButton: "btn btn-primary",
+                                cancelButton: "btn btn-secondary order-first"
+                            }
+                        }).then(isConfirmed => {
+                            if (isConfirmed) {
+                                serialized_form.push({name: 'deposit_rest', value: true});
+                            }
+                        });
+                    }
+
+                    ajaxSubmit(submitButton, serialized_form);
+
+
+                } else {
+                    Swal.fire({
+                        text: "Sorry, looks like there are some errors detected, please try again.",
+                        icon: "error",
+                        buttonsStyling: false,
+                        confirmButtonText: "Ok!",
+                        customClass: {
+                            confirmButton: "btn btn-primary"
+                        }
+                    });
                 }
-            }).then(isConfirmed=>{
-
-            });
+            })
         }
+    })
+}
 
-        console.log(form.serializeArray())
+function ajaxSubmit(submitButton, serialized_form) {
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        type: "POST",
+        url: form.attr("data-kt-action"),
+        data: serialized_form,
+        success: function (json) {
+            var response = JSON.parse(JSON.stringify(json));
+            if (response.status !== true) {
+                var errors = response.data;
+                blockUI.release()
+                blockUI.destroy()
+                for (const [key, value] of Object.entries(errors)) {
+                    $('#err_' + value.field).remove();
+                    let input = $("input[name='" + value.field + "']"),
+                        select = $("select[name='" + value.field + "']")
+                    input.closest('.fv-row')
+                        .after('<small style="color: red;" id="err_' + value.field + '">' + value.error + '</small>')
+                        .on('keyup change', function (e) {
+                            $('#err_' + value.field).remove();
+                        })
+                    select.closest('.fv-row')
+                        .after('<small style="color: red;" id="err_' + value.field + '">' + value.error + '</small>')
+                        .on('change', function (e) {
+                            $('#err_' + value.field).remove();
+                        })
+
+                }
+                Swal.fire({
+                    text: response.message,
+                    icon: "error",
+                    buttonsStyling: false,
+                    confirmButtonText: "Ok!",
+                    customClass: {
+                        confirmButton: "btn btn-primary"
+                    }
+                });
+
+            } else {
+                blockUI.release()
+                blockUI.destroy()
+                Swal.fire({
+                    text: response.message,
+                    icon: "success",
+                    buttonsStyling: false,
+                    confirmButtonText: "Ok!",
+                    customClass: {
+                        confirmButton: "btn btn-primary"
+                    }
+                }).then(function (result) {
+                    if (result.isConfirmed) {
+                        // Enable submit button after loading
+                        submitButton.disabled = false;
+                        handleResetForm()
+                    }
+                });
+            }
+            submitButton.removeAttribute('data-kt-indicator');
+
+            // Enable submit button after loading
+            submitButton.disabled = false;
+
+        },
+        statusCode: {
+            203: function () {
+                Swal.fire({
+                    text: "Please provide remarks",
+                    icon: "info",
+                    input: 'textarea',
+                    inputAttributes: {
+                        autocapitalize: 'off'
+                    },
+                    allowOutsideClick: false,
+                    showCancelButton: true,
+                    buttonsStyling: false,
+                    confirmButtonText: "Submit",
+                    cancelButtonText: "Cancel",
+                    // showLoaderOnConfirm: true,
+                    customClass: {
+                        confirmButton: "btn fw-bold btn-danger",
+                        cancelButton: "btn fw-bold btn-active-light-primary"
+                    }
+                }).then(function (result) {
+                    // delete row data from server and re-draw datatable
+                    if (result.isConfirmed) {
+                        serialized_form.push({name: 'remarks', value: result.value});
+                        ajaxSubmit(submitButton, serialized_form);
+                    } else {
+                        blockUI.release()
+                        blockUI.destroy()
+                        handleResetForm()
+                    }
+                });
+            }
+        },
+        error: function () {
+            blockUI.release()
+            blockUI.destroy()
+            Swal.fire({
+                text: 'A network error occurred. Please consult your network administrator.',
+                icon: "error",
+                buttonsStyling: false,
+                confirmButtonText: "Ok!",
+                customClass: {
+                    confirmButton: "btn btn-primary"
+                }
+            });
+
+            submitButton.removeAttribute('data-kt-indicator');
+
+            // Enable submit button after loading
+            submitButton.disabled = false;
+
+        }
     });
+}
+
+function handleResetForm() {
+
 }

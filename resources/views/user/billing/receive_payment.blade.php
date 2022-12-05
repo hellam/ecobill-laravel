@@ -112,7 +112,7 @@
                                     <!--begin::Col-->
                                     <div class="col-lg-6">
                                         <label
-                                            class="form-label fs-6 fw-bold text-gray-700 mb-3">{{__('messages.customer')}}</label>
+                                            class="form-label fs-6 fw-bold text-gray-700 mb-3 required">{{__('messages.customer')}}</label>
                                         <!--begin::Input group-->
                                         <div class="mb-5">
                                             <div class=" fv-row">
@@ -136,7 +136,7 @@
                                     <!--begin::Col-->
                                     <div class="col-lg-6">
                                         <div class="mb-5">
-                                            <div class="fs-6 fw-bold text-gray-700 text-nowrap me-2 mb-2">
+                                            <div class="fs-6 fw-bold text-gray-700 text-nowrap me-2 mb-2 required">
                                                 {{__('messages.into').' '.__('messages.bank')}}
                                             </div>
                                             <div class="fv-row">
@@ -159,8 +159,8 @@
                                 <!--begin::Separator-->
                                 <div class="separator separator-dashed my-5"></div>
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="fs-6 fw-bold text-gray-700 text-nowrap me-2 mb-2">
+                                    <div class="col-md-6 fv-row">
+                                        <div class="fs-6 fw-bold text-gray-700 text-nowrap me-2 mb-2 required">
                                             {{__('messages.enter').' '.__('messages.amount')}}
                                         </div>
                                         <input type="number"

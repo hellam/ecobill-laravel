@@ -844,7 +844,7 @@ function handleBankAccountAPISelect(currency = null, preselect = null) {
 /**
  * format currency
  */
-function formatCurrency(currency, form, amount){
+function formatCurrency(currency, form, amount) {
     return new Intl.NumberFormat('ja-JP', {
         style: 'currency',
         maximumFractionDigits: form.attr('data-kt-decimals'),
@@ -856,7 +856,7 @@ function formatCurrency(currency, form, amount){
 /**
  * format amount only
  */
-function formatAmountOnly(form, amount){
+function formatAmountOnly(form, amount) {
     return new Intl.NumberFormat('ja-JP', {
         maximumFractionDigits: form.attr('data-kt-decimals'),
         minimumFractionDigits: form.attr('data-kt-decimals'),
